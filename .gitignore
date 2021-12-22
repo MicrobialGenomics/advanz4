@@ -37,3 +37,6 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+# mre object (it's too big to be pulling/pushing around)
+data/mre.rds
