@@ -1,27 +1,27 @@
 get_metabolomic_table<-function(metabolome, lvl ){
   metabolome<-as.data.frame(t(metabolome))
-  
+
   firstMetabolite<-min(which(!nchar(metabolome[1,])==0))
   metadataHeader<-min(which(!nchar(metabolome[,1])==0))
-  
+
   # Get the upper half of the table, which contains the different names for the compound
-  
-  myMetaboliteNames<-metabolome[1:metadataHeader,c(firstMetabolite:ncol(metabolome))] %>% remove_rownames() %>% 
+
+  myMetaboliteNames<-metabolome[1:metadataHeader,c(firstMetabolite:ncol(metabolome))] %>% remove_rownames() %>%
     column_to_rownames(.,colnames(metabolome)[firstMetabolite])
-  
+
   # Get the table of values and sample data, column order should remain the same as the metabolic names data frame
   columnsToKeep<- c(1:firstMetabolite-1, (firstMetabolite+1):ncol(metabolome))
-  mySampleDataValues<-metabolome[metadataHeader:nrow(metabolome),columnsToKeep] 
+  mySampleDataValues<-metabolome[metadataHeader:nrow(metabolome),columnsToKeep]
   # mySampleDataValues
-  
+
   colnames(mySampleDataValues)<-mySampleDataValues[1,]
-  
+
   colnames(mySampleDataValues)[firstMetabolite:ncol(mySampleDataValues)]<-as.character(myMetaboliteNames[lvl,])
-  
+
   colnames(mySampleDataValues)<-sapply(colnames(mySampleDataValues), FUN = as.character, simplify = T)
-  
+
   mySampleDataValues<-mySampleDataValues[2:nrow(mySampleDataValues),]
-  
+
   mySampleDataValues[,firstMetabolite:ncol(mySampleDataValues)]<-apply(mySampleDataValues[,firstMetabolite:ncol(mySampleDataValues)], 2 ,function(x){as.numeric(gsub(",",".",x))})
   return(list(mySampleDataValues, colnames(mySampleDataValues)[firstMetabolite], myMetaboliteNames))
 }
@@ -69,24 +69,24 @@ myPlotPCAmixOmics<-function(mixOmicsPCAResult,variable,myPalette="Darjeeling1",p
   #   myColors<-sample(myColors,2)
   #   mypal<-colorRampPalette(c(mycolors),length(variableVector))
   # }
- 
+
   set.seed(paletteSeed)
-  
+
   print("Plotting PCA 1&2 on device")
-  p1<-plotIndiv(mixOmicsPCAResult, comp = c(1, 2), ind.names = F, 
-                group = variableVector, 
+  p1<-plotIndiv(mixOmicsPCAResult, comp = c(1, 2), ind.names = F,
+                group = variableVector,
                 legend = F, ellipse=T,title=paste(title,"- PC 1&2"),col.per.group = myColors)
   # p1$graph<-p1$graph+theme_few()
   p1$graph<-p1$graph+theme(legend.position="none")
   print("Plotting PCA 1&3 on device")
-  p2<-plotIndiv(mixOmicsPCAResult, comp = c(1, 3), ind.names = F, 
-                group = variableVector, 
+  p2<-plotIndiv(mixOmicsPCAResult, comp = c(1, 3), ind.names = F,
+                group = variableVector,
                 legend = F, ellipse=T,title=paste(title, "- PC 1&3"),col.per.group = myColors)
   # p2$graph<-p2$graph+theme_few()
   p2$graph<-p2$graph+theme(legend.position="none")
   print("Plotting PCA 2&3 on device")
-  p3<-plotIndiv(mixOmicsPCAResult, comp = c(2, 3), ind.names = F, 
-                group = variableVector, 
+  p3<-plotIndiv(mixOmicsPCAResult, comp = c(2, 3), ind.names = F,
+                group = variableVector,
                 legend = F, ellipse=T,title=paste(title, "- PC 2&3"),col.per.group = myColors)
   # p3$graph<-p3$graph+theme_few()
   p3$graph<-p3$graph+theme(legend.position="none")
@@ -95,7 +95,7 @@ myPlotPCAmixOmics<-function(mixOmicsPCAResult,variable,myPalette="Darjeeling1",p
   mixOmicsPCAResult.b<-mixOmicsPCAResult.b[,-1]
   colnames(mixOmicsPCAResult.b)<-c("PC1","PC2","PC3","variable")
   print("Plotting PCA comp 1,2,3 boxplots")
-  
+
   if(fillColor==T & lineColor==F){
     p4<-ggplot(mixOmicsPCAResult.b,aes(variable,PC1,col=variable))+geom_boxplot()+theme_few()+theme(legend.position="none")+scale_color_manual(values=myColors)+stat_compare_means(label.x=1.3)+ theme(axis.text.x = element_text(angle = 45, size=8))
     p5<-ggplot(mixOmicsPCAResult.b,aes(variable,PC2,col=variable))+geom_boxplot()+theme_few()+theme(legend.position="none")+scale_color_manual(values=myColors)+stat_compare_means(label.x=1.3)+ theme(axis.text.x = element_text(angle = 45, size=8))
@@ -106,13 +106,13 @@ myPlotPCAmixOmics<-function(mixOmicsPCAResult,variable,myPalette="Darjeeling1",p
     p6<-ggplot(mixOmicsPCAResult.b,aes(variable,PC3,col=variable))+geom_boxplot()+theme_few()+theme(legend.position="none")+scale_color_manual(values=myColors)+scale_color_manual(values=myColors)+stat_compare_means(label.x=1.3)+theme(axis.text.x = element_text(angle = 45, size=8))
   }
   print("Arranging plots")
-  pT<-ggarrange(p1$graph, p2$graph, p3$graph, ggarrange(p4, p5, p6 )+ rremove("x.text"), 
+  pT<-ggarrange(p1$graph, p2$graph, p3$graph, ggarrange(p4, p5, p6 )+ rremove("x.text"),
                 labels = c("A", "B", "C"),
                 ncol = 2, nrow = 2)
   print(paste("Saving image to ",file,sep=""))
   ggsave(file=file,height = 210, width = 297,dpi=1200, units="mm", pT,)
-  
-  
+
+
   return(pT)
 }
 
@@ -134,30 +134,30 @@ myPlotiPCAmixOmics<-function(mixOmicsiPCAResult,variable,myPalette="Darjeeling1"
   }
   set.seed(paletteSeed)
   myColors<-sample(myColors,nlevels(variable))
-  p1<-plotIndiv(mixOmicsiPCAResult, comp = c(1, 2), ind.names = F, 
-                group = variable, 
+  p1<-plotIndiv(mixOmicsiPCAResult, comp = c(1, 2), ind.names = F,
+                group = variable,
                 legend = F, ellipse=T,title=paste(title,"- PC 1&2"),col=myColors)
   p1$graph<-p1$graph+theme_few()
   p1$graph<-p1$graph+theme(legend.position="none")
-  
-  p2<-plotIndiv(mixOmicsiPCAResult, comp = c(1, 3), ind.names = F, 
-                group = variable, 
+
+  p2<-plotIndiv(mixOmicsiPCAResult, comp = c(1, 3), ind.names = F,
+                group = variable,
                 legend = F, ellipse=T,title=paste(title, "/PC 2&3"),col=myColors)
   p2$graph<-p2$graph+theme_few()
   p2$graph<-p2$graph+theme(legend.position="none")
-  
-  p3<-plotIndiv(mixOmicsiPCAResult, comp = c(2, 3), ind.names = F, 
-                group = variable, 
+
+  p3<-plotIndiv(mixOmicsiPCAResult, comp = c(2, 3), ind.names = F,
+                group = variable,
                 legend = F, ellipse=T,title=paste(title, "/PC 1&3"),col=myColors)
   p3$graph<-p3$graph+theme_few()
   p3$graph<-p3$graph+theme(legend.position="none")
-  
+
   mixOmicsiPCAResult.b<-merge(mixOmicsiPCAResult$x,Y,by="row.names")
   p4<-ggplot(mixOmicsiPCAResult.b,aes(variable,IPC1,col=variable))+geom_boxplot()+theme_few()+theme(legend.position="none")+scale_fill_manual(values=myColors)+scale_color_manual(values=myColors)
   p5<-ggplot(mixOmicsiPCAResult.b,aes(variable,IPC2,col=variable))+geom_boxplot()+theme_few()+theme(legend.position="none")+scale_fill_manual(values=myColors)+scale_color_manual(values=myColors)
   p6<-ggplot(mixOmicsiPCAResult.b,aes(variable,IPC3,col=variable))+geom_boxplot()+theme_few()+theme(legend.position="none")+scale_fill_manual(values=myColors)+scale_color_manual(values=myColors)
-  
-  pT<-ggarrange(p1$graph, p2$graph, p3$graph, ggarrange(p4, p5, p6 )+ rremove("x.text"), 
+
+  pT<-ggarrange(p1$graph, p2$graph, p3$graph, ggarrange(p4, p5, p6 )+ rremove("x.text"),
                 labels = c("A", "B", "C"),
                 ncol = 2, nrow = 2)
   ggsave(file=file,height = 210, width = 297,dpi=1200, units="mm", pT,)
@@ -183,30 +183,30 @@ myPlotsiPCAmixOmics<-function(mixOmicssiPCAResult,variable,myPalette="Darjeeling
   }
   set.seed(paletteSeed)
   myColors<-sample(myColors,nlevels(variable))
-  p1<-plotIndiv(mixOmicssiPCAResult, comp = c(1, 2), ind.names = F, 
-                group = variable, 
+  p1<-plotIndiv(mixOmicssiPCAResult, comp = c(1, 2), ind.names = F,
+                group = variable,
                 legend = F, ellipse=T,title=paste(title,"- PC 1&2"),col=myColors)
   p1$graph<-p1$graph+theme_few()
   p1$graph<-p1$graph+theme(legend.position="none")
-  
-  p2<-plotIndiv(mixOmicssiPCAResult, comp = c(1, 3), ind.names = F, 
-                group = variable, 
+
+  p2<-plotIndiv(mixOmicssiPCAResult, comp = c(1, 3), ind.names = F,
+                group = variable,
                 legend = F, ellipse=T,title=paste(title, "/PC 2&3"),col=myColors)
   p2$graph<-p2$graph+theme_few()
   p2$graph<-p2$graph+theme(legend.position="none")
-  
-  p3<-plotIndiv(mixOmicssiPCAResult, comp = c(2, 3), ind.names = F, 
-                group = variable, 
+
+  p3<-plotIndiv(mixOmicssiPCAResult, comp = c(2, 3), ind.names = F,
+                group = variable,
                 legend = F, ellipse=T,title=paste(title, "/PC 1&3"),col=myColors)
   p3$graph<-p3$graph+theme_few()
   p3$graph<-p3$graph+theme(legend.position="none")
-  
+
   mixOmicssiPCAResult.b<-merge(mixOmicssiPCAResult$x,Y,by="row.names")
   p4<-ggplot(mixOmicssiPCAResult.b,aes(variable,sIPC1,col=variable))+geom_boxplot()+theme_few()+theme(legend.position="none")+scale_fill_manual(values=myColors)+scale_color_manual(values=myColors)
   p5<-ggplot(mixOmicssiPCAResult.b,aes(variable,sIPC2,col=variable))+geom_boxplot()+theme_few()+theme(legend.position="none")+scale_fill_manual(values=myColors)+scale_color_manual(values=myColors)
   p6<-ggplot(mixOmicssiPCAResult.b,aes(variable,sIPC3,col=variable))+geom_boxplot()+theme_few()+theme(legend.position="none")+scale_fill_manual(values=myColors)+scale_color_manual(values=myColors)
-  
-  pT<-ggarrange(p1$graph, p2$graph, p3$graph, ggarrange(p4, p5, p6 )+ rremove("x.text"), 
+
+  pT<-ggarrange(p1$graph, p2$graph, p3$graph, ggarrange(p4, p5, p6 )+ rremove("x.text"),
                 labels = c("A", "B", "C"),
                 ncol = 2, nrow = 2)
   ggsave(file=file,height = 210, width = 297,dpi=1200, units="mm", pT,)
@@ -232,7 +232,7 @@ myBoxCoxTransform<-function(matrix, standardize=F){
 myRunPLSDAmixOmics<-function(DataMatrix,variable,variableName="Variable",myPalette="Darjeeling1",dirForStats=NULL,
                              paletteSeed=1234,title="Lorem Ipsum...",file=paste (Sys.time(), ".pdf", sep=""),
                              fillColor=T,lineColor=F,performance=T,transformMethod=NULL,plot=F,varPlot=T,threshold=0.9,scale=T){
-  require(mixOmics) 
+  require(mixOmics)
   require(phyloseq)
   require(AID)
   require(gdata)
@@ -274,15 +274,15 @@ myRunPLSDAmixOmics<-function(DataMatrix,variable,variableName="Variable",myPalet
     rownames(variable)<-rownames(DataMatrix)
   }
   variableVector<-factor(variable$variable,levels=levels(variable$variable),ordered=T)
-  
-  ##### Start PLS-DA Analysis 
+
+  ##### Start PLS-DA Analysis
   myResult <- plsda( myData, variableVector, ncomp = 15)
   # plotContrib(result)
   # plotVar(myResult)
   set.seed(paletteSeed) # for reproducibility here, only when the `cpus' argument is not used
   print(paste("Running PLS-DA Tuning using MFold Validation, 10 folds, 10 repeats"))
-  perf.plsda <- perf(myResult, validation = "Mfold", folds = 10, 
-                     progressBar = T, auc = TRUE, nrepeat = 10,scale=scale) 
+  perf.plsda <- perf(myResult, validation = "Mfold", folds = 10,
+                     progressBar = T, auc = TRUE, nrepeat = 10,scale=scale)
   # myPlot<-plot(perf.plsda)
   print(paste("Saving Performance Plot in PLSDAPerformance_",transformMethod,"_",variableName,".pdf",sep=""))
   ### Keerp Performance
@@ -303,7 +303,7 @@ myRunPLSDAmixOmics<-function(DataMatrix,variable,variableName="Variable",myPalet
   myPlotPLSDAmixOmicsWithPerformance(myResult,variableVector,title=title,file=file,
                                     myPalette=myPalette,paletteSeed=paletteSeed,fillColor=T,lineColor=F)
   }
-  
+
   if(isTRUE(varPlot)){
     myLoadings<-data.frame(myResult$loadings$X)
     colnames(myLoadings)<-c("x","y","z")
@@ -325,7 +325,7 @@ myRunsPLSDAmixOmics<-function(DataMatrix,variable,variableName="Variable",myPale
                              paletteSeed=1234,title="Lorem Ipsum...",file=paste (Sys.time(), ".pdf", sep=""),
                              fillColor=T,lineColor=F,performance=T,transformMethod=NULL,plot=F,varPlot=T,threshold=0.9,
                              list.keepX=NULL,ncomp=NULL,ncompTest=5,plsMethod="classic",scale=T){
-  require(mixOmics) 
+  require(mixOmics)
   require(phyloseq)
   require(AID)
   require(gdata)
@@ -368,13 +368,13 @@ myRunsPLSDAmixOmics<-function(DataMatrix,variable,variableName="Variable",myPale
   if(is.null(list.keepX)){
     # list.keepX <- c(1:5, seq(10, 18, 2), seq(20,50,5))
     list.keepX<-c(1:20)
-  } 
+  }
   if(ncompTest <= 2){
     print(paste("Ncomp to test is 2 or less, using a minimum of 3 components for tuning sPLS-DA model"))
     ncompTest<-3
   }
   print(paste("Running sPLS-DA Tuning using MFold Validation, 5 folds, 10 repeats, on ",ncompTest,"components",sep=""))
-  tune.splsda.srbct <- tune.splsda(myData, variableVector, ncomp = ncompTest, validation = 'Mfold', folds = 10, 
+  tune.splsda.srbct <- tune.splsda(myData, variableVector, ncomp = ncompTest, validation = 'Mfold', folds = 10,
                                    progressBar = T, dist = 'mahalanobis', auc=T, measure="BER",
                                    test.keepX = list.keepX, nrepeat = 10,scale = scale) #nrepeat 50-100
   print(paste("Saving Performance Plot in sPLSDATuning_",transformMethod,"_",variableName,".pdf",sep=""))
@@ -385,11 +385,11 @@ myRunsPLSDAmixOmics<-function(DataMatrix,variable,variableName="Variable",myPale
     ncomp<-max(3,tune.splsda.srbct$choice.ncomp$ncomp)
   }
   print(paste("Using",ncomp,"and",tune.splsda.srbct$choice.keepX,"variables"))
- 
+
   myResult <- splsda( myData, variableVector, ncomp = ncomp ,mode=plsMethod,
                       keepX=tune.splsda.srbct$choice.keepX,scale=scale)
-  perf.splsda<-perf(myResult, validation = "Mfold", folds = 10, 
-       progressBar = F, auc = TRUE, nrepeat = 10,scale=scale) 
+  perf.splsda<-perf(myResult, validation = "Mfold", folds = 10,
+       progressBar = F, auc = TRUE, nrepeat = 10,scale=scale)
   write.csv(file=paste(variableName,"/sPLSDAPerformance_",transformMethod,"_",variableName,".csv",sep=""),data.frame(perf.splsda$choice.ncomp))
   write.csv(file=paste(variableName,"/sPLSDAErrorRate_",transformMethod,"_",variableName,".csv",sep=""),data.frame(perf.splsda$error.rate))
   write.csv(file=paste(variableName,"/sPLSDAErrorRateAll_",transformMethod,"_",variableName,".csv",sep=""),data.frame(perf.splsda$error.rate.all))
@@ -444,20 +444,20 @@ myPlotPLSDAmixOmics<-function(mixOmicsPLSDAResult,variable,myPalette="Darjeeling
   }
   set.seed(paletteSeed)
   myColors<-sample(myColors,nlevels(variable))
-  p1<-plotIndiv(mixOmicsPLSDAResult, comp = c(1, 2), ind.names = F, 
-                group = variableVector, 
+  p1<-plotIndiv(mixOmicsPLSDAResult, comp = c(1, 2), ind.names = F,
+                group = variableVector,
                 legend = F, ellipse=T,title=paste(title,"- PC 1&2"),col=myColors,plot=F)
   # p1$graph<-p1$graph+theme_few()
   p1$graph<-p1$graph+theme(legend.position="none")
   if ( mixOmicsPLSDAResult$ncomp>2){
-    p2<-plotIndiv(mixOmicsPLSDAResult, comp = c(1, 3), ind.names = F, 
-                  group = variableVector, 
+    p2<-plotIndiv(mixOmicsPLSDAResult, comp = c(1, 3), ind.names = F,
+                  group = variableVector,
                   legend = F, ellipse=T,title=paste(title, "- PC 1&3"),col=myColors,plot=F)
     # p2$graph<-p2$graph+theme_few()
     p2$graph<-p2$graph+theme(legend.position="none")
-    
-    p3<-plotIndiv(mixOmicsPLSDAResult, comp = c(2, 3), ind.names = F, 
-                  group = variableVector, 
+
+    p3<-plotIndiv(mixOmicsPLSDAResult, comp = c(2, 3), ind.names = F,
+                  group = variableVector,
                   legend = F, ellipse=T,title=paste(title, "- PC 2&3"),col=myColors,plot=F)
     # p3$graph<-p3$graph+theme_few()
     p3$graph<-p3$graph+theme(legend.position="none")
@@ -483,7 +483,7 @@ myPlotPLSDAmixOmics<-function(mixOmicsPLSDAResult,variable,myPalette="Darjeeling
     p5<-ggplot(mixOmicsPLSDAResult.b,aes(variable,Comp2,col=variable))+geom_boxplot()+theme_few()+theme(legend.position="none")+scale_color_manual(values=myColors)+stat_compare_means(label.x=1.3)+ theme(axis.text.x = element_text(angle = 45, size=8))
     if( mixOmicsPLSDAResult$ncomp==2){
       p6<-ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
-      p6$graph<-p6$graph+theme(legend.position="none")    
+      p6$graph<-p6$graph+theme(legend.position="none")
     }else{
       p6<-ggplot(mixOmicsPLSDAResult.b,aes(variable,Comp3,col=variable))+geom_boxplot()+theme_few()+theme(legend.position="none")+scale_color_manual(values=myColors)+stat_compare_means(label.x=1.3)+ theme(axis.text.x = element_text(angle = 45, size=8))
     }
@@ -492,7 +492,7 @@ myPlotPLSDAmixOmics<-function(mixOmicsPLSDAResult,variable,myPalette="Darjeeling
     p5<-ggplot(mixOmicsPLSDAResult.b,aes(variable,Comp2,col=variable))+geom_boxplot()+theme_few()+theme(legend.position="none")+scale_color_manual(values=myColors)+scale_color_manual(values=myColors)+stat_compare_means(label.x=1.3)+ theme(axis.text.x = element_text(angle = 45, size=8))
     if( mixOmicsPLSDAResult$ncomp==2){
       p6<-ggplot(df) + geom_point() + xlim(0, 10) + ylim(0, 100)
-      p6$graph<-p6$graph+theme(legend.position="none")   
+      p6$graph<-p6$graph+theme(legend.position="none")
       p6$graph<-p6$graph+theme(legend.position="none")
     }else{
       p6<-ggplot(mixOmicsPLSDAResult.b,aes(variable,Comp3,col=variable))+geom_boxplot()+theme_few()+theme(legend.position="none")+scale_color_manual(values=myColors)+scale_color_manual(values=myColors)+stat_compare_means(label.x=1.3)+ theme(axis.text.x = element_text(angle = 45, size=8))
@@ -504,7 +504,7 @@ myPlotPLSDAmixOmics<-function(mixOmicsPLSDAResult,variable,myPalette="Darjeeling
   #   p6<-ggplot(mixOmicsPLSDAResult.b,aes(variable,Comp3,col=variable))+geom_boxplot()+theme_few()+theme(legend.position="none")+scale_fill_manual(values=myColors)+scale_color_manual(values=myColors)
   # }
   if ( nlevels(variableVector)>=2){
-    pT<-ggarrange(p1$graph, p3$graph, p2$graph, ggarrange(p4, p5, p6 ), 
+    pT<-ggarrange(p1$graph, p3$graph, p2$graph, ggarrange(p4, p5, p6 ),
                   labels = c("A", "B", "C"),
                   ncol = 2, nrow = 2)
     ggsave(file=file,height = 210, width = 297,dpi=1200, units="mm", pT)
@@ -514,7 +514,7 @@ myPlotPLSDAmixOmics<-function(mixOmicsPLSDAResult,variable,myPalette="Darjeeling
                   ncol = 2, nrow = 2)
     ggsave(file=file,height = 210, width = 297,dpi=1200, units="mm", pT)
   }
-  
+
   return(pT)
 }
 
@@ -534,7 +534,7 @@ myPlotPLSDAmixOmicsWithPerformance<-function(mixOmicsPLSDAResult,variable,myPale
     rownames(variable)<-mixOmicsPLSDAResult$names$sample
   }
   variableVector<-factor(variable$variable,levels=levels(variable$variable),ordered=T)
-  
+
   if(myPalette %in% names(wes_palettes)){
     availableColors<-length(wes_palette(name=myPalette))
     if(nlevels(variableVector) > availableColors){
@@ -548,20 +548,20 @@ myPlotPLSDAmixOmicsWithPerformance<-function(mixOmicsPLSDAResult,variable,myPale
   set.seed(paletteSeed)
   myColors<-sample(myColors,nlevels(variableVector))
   print(myColors)
-  p1<-plotIndiv(mixOmicsPLSDAResult, comp = c(1, 2), ind.names = F, 
-                group = variableVector, 
+  p1<-plotIndiv(mixOmicsPLSDAResult, comp = c(1, 2), ind.names = F,
+                group = variableVector,
                 legend = F, ellipse=T,title=paste(title,"- PC 1&2"),col=myColors)
   # p1$graph<-p1$graph+theme_few()
   p1$graph<-p1$graph+theme(legend.position="none")
   if ( nlevels(variableVector)>=2){
-    p2<-plotIndiv(mixOmicsPLSDAResult, comp = c(1, 3), ind.names = F, 
-                  group = variableVector, 
+    p2<-plotIndiv(mixOmicsPLSDAResult, comp = c(1, 3), ind.names = F,
+                  group = variableVector,
                   legend = F, ellipse=T,title=paste(title, "- PC 1&3"),col=myColors)
     # p2$graph<-p2$graph+theme_few()
     p2$graph<-p2$graph+theme(legend.position="none")
-    
-    p3<-plotIndiv(mixOmicsPLSDAResult, comp = c(2, 3), ind.names = F, 
-                  group = variableVector, 
+
+    p3<-plotIndiv(mixOmicsPLSDAResult, comp = c(2, 3), ind.names = F,
+                  group = variableVector,
                   legend = F, ellipse=T,title=paste(title, "- PC 2&3"),col=myColors)
     # p3$graph<-p3$graph+theme_few()
     p3$graph<-p3$graph+theme(legend.position="none")
@@ -590,7 +590,7 @@ myPlotPLSDAmixOmicsWithPerformance<-function(mixOmicsPLSDAResult,variable,myPale
   #   p6<-ggplot(mixOmicsPLSDAResult.b,aes(variable,Comp3,col=variable))+geom_boxplot()+theme_few()+theme(legend.position="none")+scale_fill_manual(values=myColors)+scale_color_manual(values=myColors)
   # }
   if ( nlevels(variableVector)>=2){
-    pT<-ggarrange(p1$graph, p2$graph, p3$graph, ggarrange(p4, p5, p6 ), 
+    pT<-ggarrange(p1$graph, p2$graph, p3$graph, ggarrange(p4, p5, p6 ),
                   labels = c("A", "B", "C"),
                   ncol = 2, nrow = 2)
     ggsave(file=file,height = 210, width = 297,dpi=1200, units="mm", pT)
@@ -605,14 +605,14 @@ myPlotPLSDAmixOmicsWithPerformance<-function(mixOmicsPLSDAResult,variable,myPale
   Comp2Loadings<-as.data.frame(loadings(mixOmicsPLSDAResult)$X[,"comp2"][as.vector(loadings(mixOmicsPLSDAResult)$X[,"comp2"]!=0)])
   Comp3Loadings<-as.data.frame(loadings(mixOmicsPLSDAResult)$X[,"comp3"][as.vector(loadings(mixOmicsPLSDAResult)$X[,"comp3"]!=0)])
   perfFile<-paste(gsub("\\..*","",file),"_Perf.pdf",sep="")
-  
+
   p10<-(auroc(mixOmicsPLSDAResult,roc.comp=1))
   # ggsave(file="prova_p10.pdf",height=210,width=297,dpi=1200,units="mm")
   p11<-(auroc(mixOmicsPLSDAResult,roc.comp=2))
   # ggsave(file="prova_p11.pdf",height=210,width=297,dpi=1200,units="mm")
   p12<-(auroc(mixOmicsPLSDAResult,roc.comp=3))
   # ggsave(file="prova_p12.pdf",height=210,width=297,dpi=1200,units="mm")
-  
+
   # print(p10)
   pT2<-ggarrange(p10$graph.Comp1,p11$graph.Comp2,p12$graph.Comp3,ncol=2,nrow=2, labels=c("Comp1","Comp2","Comp3"))
   ggsave(file=perfFile,height=210,width=297,dpi=1200,units="mm",pT2)
@@ -668,10 +668,10 @@ myCollapseCorrelatingMetabolites<-function(df,threshold=0.99){
   myRow<-myIndex[1,"row"]
   myCol<-myIndex[1,"col"]
   myModel<-lm(df[,myRow]~df[,myCol])
-  
+
   plot(df[,myRow],df[,myCol])
   newVector<-df[,myRow]+df[,myCol]
-  summary(myModel) 
+  summary(myModel)
   myNames<-colnames(df)
   df<-cbind(df,newVector)
   print(paste(myNames[myRow],myNames[myCol]))
@@ -680,7 +680,7 @@ myCollapseCorrelatingMetabolites<-function(df,threshold=0.99){
   df<-df[,-min(myRow,myCol)]
   newDF<-myCollapseCorrelatingMetabolites(df,threshold)
   return(newDF)
-  
+
 }
 
 myCollapseCorrelatingMetabolitesWithAnnot<-function(df,threshold=0.99,annot){
@@ -708,19 +708,19 @@ myCollapseCorrelatingMetabolitesWithAnnot<-function(df,threshold=0.99,annot){
   myNames<-colnames(df)
   rowName<-annot[annot$AlignID==sub("X","",myNames[myRow]),"myCompoundName"]
   colName<-annot[annot$AlignID==sub("X","",myNames[myCol]),"myCompoundName"]
-  
+
   myModel<-lm(df[,myRow]~df[,myCol])
   plot(df[,myRow],df[,myCol],main=paste(rowName,"vs.",colName),xlab=paste(rowName),ylab=paste(colName))
   abline(coef(myModel)[1:2])
-  cf <- round(coef(myModel), 2) 
+  cf <- round(coef(myModel), 2)
   eq <- paste0("mpg = ", cf[1],
                ifelse(sign(cf[2])==1, " + ", " - "), abs(cf[2]), rowName,
                ifelse(sign(cf[3])==1, " + ", " - "), abs(cf[3]), colName)
   mtext(eq, 3, line=-2)
-  
+
   newVector<-df[,myRow]+df[,myCol]
-  summary(myModel) 
- 
+  summary(myModel)
+
   df<-cbind(df,newVector)
     print(paste(rowName,colName))
   colnames(df)<-c(myNames,paste(myNames[myRow],myNames[myCol],sep="_"))
@@ -728,7 +728,7 @@ myCollapseCorrelatingMetabolitesWithAnnot<-function(df,threshold=0.99,annot){
   df<-df[,-min(myRow,myCol)]
   newDF<-myCollapseCorrelatingMetabolitesWithAnnot(df,threshold,annot)
   return(newDF)
-  
+
 }
 
 #### Will extract metabolites from a mixOmics plsda result according to weight in PLS components and some criteria
@@ -758,7 +758,7 @@ myExtractHighestLoadingsFromPLSDAMixOmics<-function(myResult,Module=T,percentile
      myPmetabolites<-c(higherMetabolites,lowerMetabolites)
      myPmetabolites<-unique(myPmetabolites)
   }
-  #Returns a matrix containing the metabolite values as used for PLSDA after the same transform 
+  #Returns a matrix containing the metabolite values as used for PLSDA after the same transform
   return((myResult$X[,myPmetabolites]))
 }
 
@@ -789,19 +789,19 @@ myPlotHeatmap2WithLabel<-function(df,variable, variableName, paletteName, palett
             hclustfun=function(x) hclust(x, method=hclustMethod),
             distfun = function(x) dist(x,method=distMethod),
             key=T,RowSideColors=c(clustcol.height[variable]),margins=c(15,12))
-  legend("topright",      
+  legend("topright",
          legend = unique(variable),
-         col = unique(clustcol.height[variable]), 
-         lty= 1,             
-         lwd = 5,           
+         col = unique(clustcol.height[variable]),
+         lty= 1,
+         lwd = 5,
          cex=.7
   )
   dev.off()
 }
 
-myMixOmicsCIMwithLabel<-function(myResult,variableVector=NULL, variableName, paletteName, paletteSeed, 
+myMixOmicsCIMwithLabel<-function(myResult,variableVector=NULL, variableName, paletteName, paletteSeed,
                                  title,file=NULL, legend=T,hclustMethod="ward.D2",distMethod="euclidean",scale=T){
-   
+
    variableVector<-factor(myResult$Y,levels=(levels(myResult$Y)),ordered=T)
    n<-nlevels(variableVector)
    require(wesanderson)
@@ -831,11 +831,11 @@ myMixOmicsCIMwithLabel<-function(myResult,variableVector=NULL, variableName, pal
              clust.method=c(hclustMethod,hclustMethod),
               dist.method = c(distMethod,distMethod),
              row.sideColors=c(clustcol.height[variableVector]),margins=c(15,12))
-   legend("topright",      
+   legend("topright",
           legend = unique(variableVector),
-          col = unique(clustcol.height[variableVector]), 
-          lty= 1,             
-          lwd = 5,           
+          col = unique(clustcol.height[variableVector]),
+          lty= 1,
+          lwd = 5,
           cex=.7
    )
    dev.off()
@@ -844,7 +844,7 @@ myMixOmicsCIMwithLabel<-function(myResult,variableVector=NULL, variableName, pal
 #### Computes correlation between two matrices, both r2, p-values, corrected p-values, and optionally
 #### Keeps a csv, a network file and/or plots a heatmap or igraph. Can return igraph object.
 myTwoMatrixCorrelation<-function(){
-  
+
 }
 
 ### Plot biplot from a prcomp object.
@@ -870,8 +870,8 @@ PCbiplot <- function(PC, x="PC1", y="PC2") {
 myGgplotRegression <- function (fit) {
   ### From https://susanejohnston.wordpress.com/2012/08/09/a-quick-and-easy-function-to-plot-lm-results-in-r/
   require(ggplot2)
-  
-  myPlot<-ggplot(fit$model, aes_string(x = names(fit$model)[2], y = names(fit$model)[1])) + 
+
+  myPlot<-ggplot(fit$model, aes_string(x = names(fit$model)[2], y = names(fit$model)[1])) +
     geom_point() +
     stat_smooth(method = "lm", col = "red") +
     labs(title = paste("Adj R2 = ",signif(summary(fit)$adj.r.squared, 5),
@@ -916,14 +916,14 @@ myFindUnivariateCorrelation<-function(mixOmicsPCAResult,variables,threshold=0.05
       if(myLmp(myModel) <= threshold){
         myPlotList[[variable]][[component]]<-myGgplotRegression(myModel)
       }
-    } 
+    }
   }
   return(myPlotList)
 }
 
 ### Will delete non-connected nodes from an igraph class object
 delete.isolates <- function(graph, mode = 'all') {
-  isolates <- which(degree(graph, mode = mode) == 0) 
+  isolates <- which(degree(graph, mode = mode) == 0)
   print(isolates)
   delete.vertices(graph, isolates)
 }
@@ -933,7 +933,7 @@ delete.isolates <- function(graph, mode = 'all') {
 #  - Remove outliers from continuous variables
 #  - Refactor factor variables to filter out unused levels.
 myCleanDataframe<-function(my.df){
-  
+
 }
 # mat : is a matrix of data
 # ... : further arguments to pass to the native R cor.test function
@@ -988,7 +988,7 @@ outlierKD<-function(dt, var,remove="yes",coef=1.5) {
 }
 # #### Meant for igraph objects
 # delete.isolates <- function(graph, mode = 'all') {
-#   isolates <- which(degree(graph) == 0) 
+#   isolates <- which(degree(graph) == 0)
 #   delete.vertices(graph, isolates)
 # }
 
@@ -1043,14 +1043,14 @@ classifyAge<-function(age){
 #' data(dietswap)
 #' pseq <- dietswap
 #' # By default writes all info at once (ie OTU/TAXONOMY/METADATA)
-#' write_phyloseq(pseq) 
+#' write_phyloseq(pseq)
 #' write_phyloseq(pseq, 'OTU')
 #' write_phyloseq(pseq, 'TAXONOMY')
 #' write_phyloseq(pseq, 'METADATA')
 #' }
 #' @keywords utilities
 write_phyloseq <- function(x, type="all", path=getwd()) {
-  
+
   # TODO make read_phyloseq as well
   if (type == "OTU" || type == "all") {
     f <- paste(path, "otu_table.csv", sep="/")
@@ -1084,9 +1084,9 @@ write_phyloseq <- function(x, type="all", path=getwd()) {
     y <- meta(x)
     write.csv(y, file=f, fileEncoding="UTF-16LE")
   }
-  
+
   return(path)
-  
+
 }
 
 #' @title Abundance Matrix from Phyloseq
@@ -1095,7 +1095,7 @@ write_phyloseq <- function(x, type="all", path=getwd()) {
 #' taxa x samples matrix.
 #' @inheritParams transform
 #' @return Abundance matrix (OTU x samples).
-#' @references See citation('microbiome') 
+#' @references See citation('microbiome')
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @export
 #' @aliases ab, otu
@@ -1105,49 +1105,49 @@ write_phyloseq <- function(x, type="all", path=getwd()) {
 #' # b <- abundances(dietswap, transform='compositional')
 #' @keywords utilities
 abundances <- function(x, transform="identity") {
-  
+
   # Pick the OTU data
   if (class(x) == "phyloseq") {
-    
+
     # Pick OTU matrix
     otu <- as(otu_table(x), "matrix") # get_taxa(x)
-    
+
     # Ensure that taxa are on the rows
     if (!taxa_are_rows(x) && ntaxa(x) > 1 && nsamples(x) > 1) {
       otu <- t(otu)
     }
-    
+
     if (ntaxa(x) == 1) {
       otu <- matrix(otu, nrow=1)
       rownames(otu) <- taxa(x)
       colnames(otu) <- sample_names(x)
     }
-    
+
     if (nsamples(x) == 1) {
       otu <- matrix(otu, ncol=1)
       rownames(otu) <- taxa(x)
       colnames(otu) <- sample_names(x)
     }
-    
+
   } else if (is.vector(x)) {
-    
+
     otu <- as.matrix(x, ncol=1)
-    
+
   } else {
-    
+
     # If x is not vector or phyloseq object then let us assume it is a
     # taxa x samples
     # count matrix
     otu <- x
-    
+
   }
-  
+
   # Apply the indicated transformation
   if (!transform == "identity") {
     otu <- transform(otu, transform)
   }
   otu
-  
+
 }
 
 myPhyloseqToCsv<-function(psObject,filename){
@@ -1215,7 +1215,7 @@ myPhyloseqToLefse<-function(psObject,lowestTaxonomicalLevel="Genus"){
 }
 
 
-### 
+###
 # Returns colors RGB codes using wes anderson palettes
 # uses n( number of colors) to either sum up colors from different palettes
 # or just only ones. Palettes to be used are in paletteNames
@@ -1223,15 +1223,15 @@ myPhyloseqToLefse<-function(psObject,lowestTaxonomicalLevel="Genus"){
 myCreateWesAndersonPalette<-function(n=1,paletteNames="Darjeeling1"){
   require(wesanderson)
   if(! (paletteNames %in% names(wes_palettes) )){
-    return(get_palette(paletteNames,n))      
+    return(get_palette(paletteNames,n))
   }
-  
+
   if(n<=8){possiblePalettes=names(wes_palettes[lapply(wes_palettes,length)>=n])} ### Wes Anderson palettes maximum length is limited to 7
-  if(length(unlist(wes_palettes[paletteNames])) < n){ 
+  if(length(unlist(wes_palettes[paletteNames])) < n){
     print("Not enought color in palettes")
   }
   return(as.vector(unlist(wes_palettes[paletteNames]))[1:n])
-  
+
 }
 
 myVeganOTUFromPhyloseq <- function(physeq) {
@@ -1270,7 +1270,7 @@ myBoxPlotSingleVariable<-function(myDF,Xlabel=NULL,Ylabel=NULL,title=NULL,filena
   require(ggpubr)
   require(icesTAF)
   colnames(myDF)<-c("Group","value")
-  # print(colnames(myDF)) 
+  # print(colnames(myDF))
   n<-nlevels(myDF[,"Group"])
   # print(class(n))
   myPlot<-ggplot(myDF,aes(x=Group,y=value,fill=Group))+geom_violin()+geom_boxplot(fill="white",width=0.3)+
@@ -1282,7 +1282,7 @@ myBoxPlotSingleVariable<-function(myDF,Xlabel=NULL,Ylabel=NULL,title=NULL,filena
     ##Directory for output is defined
     if (is.null(filename)){
       ### CreateFile Name
-      filename=paste(Xlabel,"_vs_",Ylabel,"_",format(Sys.Date(),"%d%m%y"),"_",format(Sys.time(),"%H%M%OS"))      
+      filename=paste(Xlabel,"_vs_",Ylabel,"_",format(Sys.Date(),"%d%m%y"),"_",format(Sys.time(),"%H%M%OS"))
     }
     print(filename)
     if(myTest$p<0.05){
@@ -1302,7 +1302,7 @@ myBoxPlotSingleVariable<-function(myDF,Xlabel=NULL,Ylabel=NULL,title=NULL,filena
   }else{
     ggsave(myPlot,filename = outputFile)
   }
-  
+
   if(WhatToReturn=="stats"){
     return(myTest)
   }else if(WhatToReturn=="plots"){
@@ -1374,7 +1374,7 @@ myCompareTwoGroups<-function(mydata=NULL,variable=NULL,category1=NULL,category2=
   #   x = sort(x, TRUE)
   #   sigtabgen$Phylum = factor(as.character(sigtabgen$Phylum), levels=names(x))
   #   sigtabgen$Phylum = factor(as.character(sigtabgen$Phylum), levels=sort(as.character(sigtabgen$Phylum)))
-  
+
   # Genus order
   if(as.character(LastRank)== "Genus"){
     sigtabgen$LastRank<-sigtabgen[,"Genus"]
@@ -1383,7 +1383,7 @@ myCompareTwoGroups<-function(mydata=NULL,variable=NULL,category1=NULL,category2=
   }
   x = tapply(sigtabgen$log2FoldChange, sigtabgen$LastRank, function(x) min(x))
   x = sort(x, TRUE)
-  
+
   sigtabgen$LastRank = factor(as.character(sigtabgen$LastRank), levels=names(x))
   sigtabgen$log2Counts<-sigtabgen$baseMean
   sigtabgen$alpha<- 1 - sigtabgen$padj
@@ -1395,7 +1395,7 @@ myCompareTwoGroups<-function(mydata=NULL,variable=NULL,category1=NULL,category2=
   #+geom_point(aes(size=sigtabgen$log2Counts))+scale_size_area()
   p<-p+theme(axis.text.x=element_text(angle=-90,hjust=0,vjust=0.5,size=10))
   #p<-p+theme(legend.key.size=unit(1,"cm"))
-  p<-p+ ggtitle(paste(stringForTitle," Data:",as.character(deparse(substitute(mydata))))) + 
+  p<-p+ ggtitle(paste(stringForTitle," Data:",as.character(deparse(substitute(mydata))))) +
     theme(plot.title = element_text(lineheight=.7, face="bold"))+coord_flip()+
     theme(axis.text.y = element_text( size=fontSizeY)) + geom_vline(xintercept=0,colour="darkred", linetype = "longdash")
   print(p)
@@ -1481,7 +1481,7 @@ myBoxplotNumericByGroup<-function(mydata,category,variable,nbvariable,test,Rank=
 # Expects a data.frame class object, Where exploratory variables are the first to last-1 columns, and all of them are numeric
 # Expect Response variable in the last column to be categoric
 myBoxplotManyVariablesUnivariate<-function(myDF,VariableName=NULL,facet=F,wrap=F,stats=T,resultsDir=NULL, paletteNames="Darjeeling1"){
-  
+
 }
 
 
@@ -1498,11 +1498,11 @@ myBoxplotManyVariablesUnivariate<-function(myDF,VariableName=NULL,facet=F,wrap=F
 #           breakpoints for LMM
 #-----------------------------------------------------------------------------#
 myLMM_t.piecewise<-function(Data,Variable,t){
-  
+
   # Data:     data where Variable is contained
   # Variable: TimePoint variable
   # t:        vector with break-points for the TimePoint variable
-  
+
   # Variable of interest
   V<-Data[,Variable]
   # Length of breakpoints
@@ -1527,11 +1527,11 @@ myLMM_t.piecewise<-function(Data,Variable,t){
 }
 
 myLMM_t.piecewise2<-function(Data,Variable,t){
-  
+
   # Data:     data where Variable is contained
   # Variable: TimePoint variable
   # t:        vector with only one breakpoint
-  
+
   # Variable of interest
   V<-Data[,Variable]
   # Length of breakpoints
@@ -1563,29 +1563,29 @@ myLMM_t.piecewise2<-function(Data,Variable,t){
 #-----------------------------------------------------------------------------#
 
 myLMM_two.piece.GLMM<-function(Datos,Y,Time,t=NULL,Factor=NULL,ID){
-  
+
   # Datos    : data.frame containing the variables
   # Y        : response variable
   # Time     : variable type numeric (referring to Time)
   # t        : vector with break-points for the TimePoint variable
   # Factor   : variable type factor, a plot for each level
   # ID       : variable for patient identification (PatientID)
-  
+
   if (is.null(Factor)){Datos[,"Factor"]<-as.factor(1);Factor<-"Factor"}
-  
+
   # Proof that Factor is a factor class object and t is a numeric one
   stopifnot(class(Datos[,Factor])=="factor")
-  
+
   # Number of breakpoints
-  n<-length(t)     
+  n<-length(t)
   # Sort t values
   if(n) t<-sort(t)
   # Load library
   library(nlme)
-  
+
   # Colour palette
   Col<-c("deepskyblue4","darkolivegreen3","darkorchid2","gold3")
-  
+
   # ncol Datos
   colDatos<-ncol(Datos)
   # New data with T1, . . . , Tn variables (breakpoints)
@@ -1605,7 +1605,7 @@ myLMM_two.piece.GLMM<-function(Datos,Y,Time,t=NULL,Factor=NULL,ID){
   nt<-length(T.Plot)
   # Vector of increments (for plots)
   stopifnot(m!=t[1]); stopifnot(M!=t[n])
-  
+
   # Build formula ()
   # Form: formula for fixed effects
   if (n==0){ Form<-formula(paste(Y," ~ ",Time))
@@ -1618,11 +1618,11 @@ myLMM_two.piece.GLMM<-function(Datos,Y,Time,t=NULL,Factor=NULL,ID){
   Form2<-formula(paste("~ 1|",ID))
   # Form3: formula for the second slope (new parametrization)
   Form3<-formula(paste(Y,"~ newt + T1",sep=" "))
-  
+
   # List with the LMM results
   A<-list()
   B<-list()
-  
+
   # For each factor level, . . .
   for (i in 1:f){
     # Model
@@ -1631,14 +1631,14 @@ myLMM_two.piece.GLMM<-function(Datos,Y,Time,t=NULL,Factor=NULL,ID){
     if(n!=0){
       model2<-lme(Form3, random = Form2, D2[D2[,Factor]==lev[i],], method = "REML")
       S2 <- summary(model2)}
-    
+
     # Table with coefficients and p-values
     A[[i]]<-S["tTable"][[1]]
     if (n!=0){
       B[[i]]<-S2["tTable"][[1]]
     }
   }
-  
+
   # Elements to build a data.frame for the plot
   # Global elements (independent from n)
   # Factor
@@ -1648,7 +1648,7 @@ myLMM_two.piece.GLMM<-function(Datos,Y,Time,t=NULL,Factor=NULL,ID){
   # xend (ending x positions)
   x.end<-rep(T.Plot[-1],f)
   #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
-  
+
   if (n==0){
     y.ini<-vector();y.end<-vector()
     for(j in 1:f){y.ini<-c(y.ini,A[[j]][1,1] + m*A[[j]][2,1])
@@ -1662,7 +1662,7 @@ myLMM_two.piece.GLMM<-function(Datos,Y,Time,t=NULL,Factor=NULL,ID){
                A[[j]][1,1] + M*A[[j]][2,1] + (M-t)*A[[j]][3,1])
     }
   } else{ # If n>=2
-    
+
     # y (initial points) Deleting t_min
     Mat<-rbind(rep(1,length(T.Plot)-1),matrix(rep(T.Plot[-1],n+1),
                                               nrow=n+1,byrow=T))
@@ -1680,17 +1680,17 @@ myLMM_two.piece.GLMM<-function(Datos,Y,Time,t=NULL,Factor=NULL,ID){
     for (j in 1:f){y.ini<-c(y.ini,Val.ini[j],
                             Val[((nt-1)*(j-1) + 1): ((nt-1)*(j-1) + n)])
     }
-    
+
     # yend (ending x positions)
     y.end<-Val
   }
-  
+
   # Geom.Data: a data.frame used for plot by Factor
   geom.data <- data.frame(x = x.ini,xend = x.end, y=y.ini,yend = y.end,
                           Factor=Gen)
   # To have different lines for Factor
   colnames(geom.data)[5]<-Factor
-  
+
   # Save plot
   P<-ggplot(data=D,aes_string(x=Time,y=Y, color=Factor, group=ID)) +
     geom_line(size=1, alpha=0.4)+theme_bw()+
@@ -1700,15 +1700,15 @@ myLMM_two.piece.GLMM<-function(Datos,Y,Time,t=NULL,Factor=NULL,ID){
     scale_x_continuous(breaks=unique(D[,Time])) +
     theme(legend.position="none",strip.background=element_blank())+
     geom_point(alpha=0.4)+
-    geom_vline(xintercept=6, linetype="dotted", color="black", size=2, inherit.aes=F)+
+    geom_vline(xintercept=t, linetype="dotted", color="black", size=2, inherit.aes=F)+
     geom_segment(data=geom.data,aes(x=x,y=y,xend=xend,yend=yend),inherit.aes=FALSE,size=1, color="black") +
     theme(axis.text=element_text(size=12), axis.title.x=element_blank(),
           axis.title.y=element_blank())+
     theme(panel.border=element_rect(linetype="solid", color="black", size=0.5))+
-    ggtitle(Y) 
+    ggtitle(Y)
 
-    
-  
+
+
   # List with results
   # Names for A object (Factor levels value)
   names(A)<-lev
@@ -1716,21 +1716,21 @@ myLMM_two.piece.GLMM<-function(Datos,Y,Time,t=NULL,Factor=NULL,ID){
   if(n==0){B<-A}
   # Retunred object
   Ret<-list(A,P,B)
-  # Return it    
+  # Return it
   return(Ret)
 }
 ################################################################################
 # Example To Run previous LMM Functions /// Not to be executed
 ################################################################################
 # MyData <- read.csv("C:/Users/user/Downloads/javi.csv")
-# row.names(MyData) <- MyData$X  
+# row.names(MyData) <- MyData$X
 # MyData$X <- NULL
 # LL <- two.piece.GLMM(Datos=MyData, Y = "Observed",
 #                      Time = "TimePoint",
 #                      t = 6,
 #                      Factor = NULL,
 #                      ID = "Patient")
-# 
+#
 # LL <- two.piece.GLMM(Datos=MyData, Y = "Observed",
 #                      Time = "TimePoint",
 #                      t = NULL,
@@ -1745,19 +1745,19 @@ myLMM_two.piece.GLMM<-function(Datos,Y,Time,t=NULL,Factor=NULL,ID){
 #' No testing is performed by this function. The phyloseq data is converted
 #' to the relevant \code{\link[metagenomeSeq]{MRexperiment-class}} object, which can then be
 #' tested in the zero-inflated mixture model framework
-#' (e.g. \code{\link[metagenomeSeq]{fitZig}}) 
+#' (e.g. \code{\link[metagenomeSeq]{fitZig}})
 #' in the metagenomeSeq package.
 #' See the
 #' \href{http://joey711.github.io/phyloseq-extensions}{phyloseq-extensions}
 #' tutorials for more details.
 #'
 #' @param physeq (Required). \code{\link{phyloseq-class}}.
-#' @param ... (Optional). Additional named arguments passed 
+#' @param ... (Optional). Additional named arguments passed
 #'  to \code{\link[metagenomeSeq]{newMRexperiment}}.
 #'  Most users will not need to pass any additional arguments here.
-#'  
+#'
 #' @return A \code{\link[metagenomeSeq]{MRexperiment-class}} object.
-#' 
+#'
 #' @seealso
 #'
 #'  \code{\link[metagenomeSeq]{fitTimeSeries}}
@@ -1768,7 +1768,7 @@ myLMM_two.piece.GLMM<-function(Datos,Y,Time,t=NULL,Factor=NULL,ID){
 #'
 #' @export
 #' @importFrom Biobase AnnotatedDataFrame
-#'  
+#'
 #' @examples
 #'  # Check out the vignette metagenomeSeq for more details.
 #'  # vignette("metagenomeSeq")
@@ -1781,9 +1781,9 @@ phyloseq_to_metagenomeSeq = function(physeq, ...){
   countData = round(as(otu_table(physeq), "matrix"), digits=0)
   # Create sample annotation if possible
   if(!is.null(sample_data(physeq,FALSE))){
-    ADF = AnnotatedDataFrame(data.frame(sample_data(physeq)))  
-  } else { 
-    ADF = NULL 
+    ADF = AnnotatedDataFrame(data.frame(sample_data(physeq)))
+  } else {
+    ADF = NULL
   }
   # Create taxa annotation if possible
   if(!is.null(tax_table(physeq,FALSE))){
@@ -1833,10 +1833,10 @@ phyloseq_to_metagenomeSeq = function(physeq, ...){
 # A list with :
 #                 x: the imput variable.
 #                 y: the imput variable.
-#         CV.groups: samples identification for CV-groups. 
+#         CV.groups: samples identification for CV-groups.
 #            n.fold: number of folds.
 #            n.iter: number of iterations (n.fold * n.iter = nrow(CV.groups)).
-#             Opt.C: vector of length n.iter with optimal REGULARIZATION STRENGTH value 
+#             Opt.C: vector of length n.iter with optimal REGULARIZATION STRENGTH value
 #                    for each FOLD or CV.group.
 #             Max.Q: maximum values obtained for quality meassure for each fold.
 #       min.nonzero: the input parameter.
@@ -1847,22 +1847,22 @@ phyloseq_to_metagenomeSeq = function(physeq, ...){
 
 myLassoPredictor<-function(x,y,n.fold,n.iter,C.vec=10^seq(-2,2,length=17),
                           min.nonzero = 1,eval.crit="auroc",seed){
-  
+
   #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
-  
+
   #------------------------------------------------#
   # Step 0: load required packages and modify data
-  #------------------------------------------------#    
+  #------------------------------------------------#
   # Starting time
   start.time = proc.time()[1]
-  
+
   # Required packages:
   suppressMessages(require("LiblineaR")) # For LASSO logistic regression
   suppressMessages(library("LiblineaR"))
   suppressMessages(require("CMA"))       # For CV groups
   suppressMessages(library("CMA"))
-  
-  
+
+
   #-------------------------------------#
   # Modifications for response vector y
   #-------------------------------------#
@@ -1873,7 +1873,7 @@ myLassoPredictor<-function(x,y,n.fold,n.iter,C.vec=10^seq(-2,2,length=17),
     newy<-as.character(y)
     newy2<-as.factor(y)
     lev<-levels(newy2)
-    
+
     # Redefine y with "0" or "1" levels
     newy[newy==lev[1]]<-0; newy[newy==lev[2]]<-1
     # Give factor format to y
@@ -1885,79 +1885,79 @@ myLassoPredictor<-function(x,y,n.fold,n.iter,C.vec=10^seq(-2,2,length=17),
   lev<-levels(y)
   # Stop if there are no 2 levels
   stopifnot(length(lev)==2)
-  
-  
+
+
   #-------------------------------------#
   # Some parameters that will be needed
   #-------------------------------------#
-  
+
   liblinear.type = 6      # LASSO
   class.weights = c(5, 1) # Class.weights
   eps = 1e-8              # Value for convergence
-  
-  
-  
-  #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#   
-  
+
+
+
+  #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
+
   #---------------------------------------------------#
   # Step 1: build different groups and folds for CV
   #---------------------------------------------------#
-  
+
   # Fix a seed
   set.seed(seed)
   # Matrix where rows represent the individuals taking part for the learningsets
   CV.groups<-GenerateLearningsets(y=y,fold=n.fold,niter=n.iter,method="CV",strat=T)@learnmatrix
-  
+
   # Vector for saving C.opt value for each n.iter
   Opt.C<-vector("numeric",length=n.iter)
   # Vector for saving the quality higher values
   Max.Q<-vector("numeric",length=n.iter)
-  
-  
+
+
   #----------------------------------------------------#
   # Step 2. for each learningset, get the Opt.C value
   #----------------------------------------------------#
-  
+
   # For each global FOLD (as many as n.iter)
   for (k in 1:n.iter){
-    
+
     #-------------------------------------#
     # Necessary matrices for the function
     #-------------------------------------#
-    
+
     # Define c.vec as C.vec
     c.vec<-C.vec
-    
+
     # folds associated to a "complete FOLD"
     CV.group<-CV.groups[((k-1)*n.fold + 1):(k*n.fold),]
-    
+
     # Quality matrix
     Qual<-matrix(0,nrow=n.iter,ncol=length(C.vec))
-    
+
     # Non-zero coefficients for model (used for a certain c.vec value and without the
     # corresponding fold)
     nonzero.coeff<-matrix(0,nrow=n.fold,ncol=length(C.vec))
-    
-    
-    
+
+
+
     # For each c.vec value
     for (j in 1:length(c.vec)){
-      
-      # Load library  
+
+      # Load library
       suppressMessages(require("CMA"))       # For CV groups
       suppressMessages(library("CMA"))
-      
+
       # Print the model which the computer is working with
       cat(paste(" Computing results for TRAIN.DATASET number ",k,"\n . . . and ",j,
                 "-th C.vec value\n"))
-      
+
       # For each TRAIN dataset
-      
+
       # Define a pred vector to save the predictions
       pred<-vector("numeric",length(y))
       for (i in 1:nrow(CV.group)){
-        
-        
+
+
         # Define training data.set and test data.set
         # Define training and test index
         train.idx<-CV.group[i,]; test.idx <- setdiff(1:nrow(x),train.idx)
@@ -1965,14 +1965,14 @@ myLassoPredictor<-function(x,y,n.fold,n.iter,C.vec=10^seq(-2,2,length=17),
         x.train<-x[train.idx,]; y.train<-y[train.idx]
         # Test dataset (x and y)
         x.test<-x[test.idx,]; y.test<-y[test.idx]
-        
+
         # If c.vec[j]==0
         if (c.vec[j]==0){
-          # Model  
+          # Model
           model = glm(y.train~x.train, family=binomial(link="logit"))
           # Number of non-zero coefficients for the model
           nonzero.coeff[i,j]<-sum(model$coefficients!=0)-1
-          
+
           # If accuracy required, . . . (working with predictions)
           if (eval.crit=='acc') {
             # Predictions for testx
@@ -1983,12 +1983,12 @@ myLassoPredictor<-function(x,y,n.fold,n.iter,C.vec=10^seq(-2,2,length=17),
             # If not accuracy required, . . .  (working with probabilities)
             # Predictions for testx
             p = predict(model, data.frame(x.test), type="response")
-            # Assign predictions probabilities   
+            # Assign predictions probabilities
             pred[test.idx] = as.vector(p)
             # Check the lengths of results
             stopifnot(length(test.idx) == length(p))
-          }  
-          
+          }
+
         }else{
           class.weights = c(5, 1)
           # Model build from training dataset
@@ -1996,7 +1996,7 @@ myLassoPredictor<-function(x,y,n.fold,n.iter,C.vec=10^seq(-2,2,length=17),
                             bias=TRUE, epsilon=eps)
           # Number of non-zero coefficients for the model
           nonzero.coeff[i,j] = sum(model$W[1:(ncol(x.train)-1)] != 0)
-          
+
           # If accuracy required, . . . (working with predictions)
           if (eval.crit=='acc') {
             # Predictions for testx
@@ -2007,27 +2007,27 @@ myLassoPredictor<-function(x,y,n.fold,n.iter,C.vec=10^seq(-2,2,length=17),
             # If not accuracy required, . . .  (working with probabilities)
             # Predictions for testx
             p = predict(model, x.test, proba=TRUE)
-            # Assign predictions probabilities   
+            # Assign predictions probabilities
             pred[test.idx] = as.vector(p$probabilities[,2])
             # Check the lengths of results
             stopifnot(length(test.idx) == length(p$probabilities[,2]))
           }
         }
-        
+
       } # i
-      
-      # After working with all folds of a FOLD, compute "accuracy", "auroc", . . . with 
+
+      # After working with all folds of a FOLD, compute "accuracy", "auroc", . . . with
       # using pred infromation (prediction) and y (known real value)
-      
+
       # If accuracy is required, . . .
       if (eval.crit=='acc') {
-        # Percentage of good predictions 
+        # Percentage of good predictions
         acc = mean(pred == y)
         # Write the result in Quality matrix
         Qual[k,j] = acc
-        
-        # If accuracy is not required, . . .    
-        # if aupcr , . . .    
+
+        # If accuracy is not required, . . .
+        # if aupcr , . . .
       } else if (eval.crit != 'acc') {
         # Load library
         # Detach CMA package
@@ -2048,7 +2048,7 @@ myLassoPredictor<-function(x,y,n.fold,n.iter,C.vec=10^seq(-2,2,length=17),
         # Values to compute the area
         x.val<-perf@x.values[[1]]
         y.val<-perf@y.values[[1]]
-        
+
         # If there is any NA, . . .
         if (sum(is.na(union(x.val,y.val)))>0){
           # Delete NAs
@@ -2056,24 +2056,24 @@ myLassoPredictor<-function(x,y,n.fold,n.iter,C.vec=10^seq(-2,2,length=17),
           # Redefine x.values and y.values
           x.val<-perf@x.values[[1]][-U]; y.val<-perf@y.values[[1]][-U]
         }
-        
+
         # Quality
         Qual[k,j]<-trapz(x.val,y.val)
-        
+
       } # Quality indices
-      
+
     } # j
-    
+
     # Once nonzero.coeff and Quality matrix (for a specific k) are filled, Opt.C has to be chosen
     # for each iteration
-    
-    # Check whether these models have sufficiently many nonzero coefficients 
+
+    # Check whether these models have sufficiently many nonzero coefficients
     # Minimum of non-zero values for a certain c.vec (between all possible folds)
     suff.nonzero = apply(nonzero.coeff, 2, min) > min.nonzero
-    
+
     # Stop if all coefficients are 0 for porposed c.vec
-    stopifnot(sum(suff.nonzero) > 0) 
-    
+    stopifnot(sum(suff.nonzero) > 0)
+
     # Select the models (and the corresponding coefficients or values) with at least more nonzero
     # coefficients than min.nonzero
     # Select only coefficients of C.var values which supose non-zero values
@@ -2092,7 +2092,7 @@ myLassoPredictor<-function(x,y,n.fold,n.iter,C.vec=10^seq(-2,2,length=17),
     # max(Q) values
     Max.Q[k]<-max(Q)
   } # k
-  
+
   # How many seconds have been needed to run the code?
   cat('\nSuccessfully built ', n.iter*n.fold, ' LASSO models in ', proc.time()[1] - start.time,
       ' seconds\n', sep='')
@@ -2100,7 +2100,7 @@ myLassoPredictor<-function(x,y,n.fold,n.iter,C.vec=10^seq(-2,2,length=17),
   A<-list(x = x, y = y, CV.groups = CV.groups, n.fold = n.fold, n.iter = n.iter, Opt.C = Opt.C,
           Max.Q = Max.Q, min.nonzero = min.nonzero,eval.crit=eval.crit)
   return(A)
-  
+
 }
 
 #-------------------------------------------------------------------------------------------------#
@@ -2109,7 +2109,7 @@ myLassoPredictor<-function(x,y,n.fold,n.iter,C.vec=10^seq(-2,2,length=17),
 #---------------------------------------#
 # INPUT PARAMETERS:
 #         lp: object from lasso_predictor function with, . . .:
-#                         * x: matrix with explanatory variables (columns) for each 
+#                         * x: matrix with explanatory variables (columns) for each
 #                              individual (rows).
 #                         * y: vector with the corresponding values referring to the assigned group.
 #                   *  n.fold: number of fold for each Cross - Validation group.
@@ -2125,12 +2125,12 @@ myLassoPredictor<-function(x,y,n.fold,n.iter,C.vec=10^seq(-2,2,length=17),
 # OUTPUT OBJECTS:
 #------------------------------------------------------------------------------------------------#
 myLASSOModelPlot<-function(lp,zero.frac,cols=c("salmon4","white","seagreen"), file="Plot.pdf",sep=F){
-  
+
   #----------------------------#
   # Step 0: extract parameters
   #----------------------------#
-  
-  # Parameters from lp object  
+
+  # Parameters from lp object
   x<-lp$x
   y<-lp$y
   lev<-levels(y)
@@ -2147,37 +2147,37 @@ myLASSOModelPlot<-function(lp,zero.frac,cols=c("salmon4","white","seagreen"), fi
   # Liblinear.type
   liblinear.type = 6       # LASSO
   eps = 1e-8               # Value for convergence
-  
-  
-  
+
+
+
   #----------------------#
   # Step 1: predictions
-  #----------------------#    
-  
+  #----------------------#
+
   # Define some variables
   # Quality vector (one value for each n.iter)
-  Qual<-rep(0,n.iter); 
+  Qual<-rep(0,n.iter);
   # pred.M (Matrix for saving the predictions for each FOLD)
   pred.M<-matrix(0,nrow=n,ncol=n.iter)
   # Non-zero coefficients for model (used for a certain C.vec value and without the
   # corresponding fold)
   Coeff<-matrix(0,nrow=n.fold*n.iter,ncol=ncol(x)); colnames(Coeff)<-colnames(x)
-  
+
   # For each CV-group
   for (k in 1:n.iter){
     # Select information
     # folds associated to a "complete FOLD"
     CV.group<-CV.groups[((k-1)*n.fold + 1):(k*n.fold),]
-    
+
     # Optimum C
     C<-Opt.C[k]
     # Prediction vector
     pred<-rep(0,length(y))
-    
-    
-    
-    # For each fold (TRAIN i)  
-    for (i in 1:nrow(CV.group)){          
+
+
+
+    # For each fold (TRAIN i)
+    for (i in 1:nrow(CV.group)){
       # Define training data.set and test data.set
       # Define training and test index
       train.idx<-CV.group[i,]; test.idx <- setdiff(1:nrow(x),train.idx)
@@ -2185,17 +2185,17 @@ myLASSOModelPlot<-function(lp,zero.frac,cols=c("salmon4","white","seagreen"), fi
       x.train<-x[train.idx,]; y.train<-y[train.idx]
       # Test dataset (x and y)
       x.test<-x[test.idx,]; y.test<-y[test.idx]
-      
+
       class.weights = c(5, 1)
-      names(class.weights) = as.character(lev)   
-      
+      names(class.weights) = as.character(lev)
+
       # Model build from training dataset
       model = LiblineaR(x.train, y.train, type=liblinear.type, cost=C,
                         bias=TRUE, epsilon=eps)
-      
+
       # Number of non-zero coefficients for the model
       Coeff[((k-1)*n.fold + i),] = as.vector(model$W[1:(ncol(x))])
-      
+
       # If accuracy required, . . . (working with predictions)
       if (eval.crit=='acc') {
         # Predictions for testx
@@ -2206,26 +2206,26 @@ myLASSOModelPlot<-function(lp,zero.frac,cols=c("salmon4","white","seagreen"), fi
         # If not accuracy required, . . .  (working with probabilities)
         # Predictions for testx
         p = predict(model, x.test, proba=TRUE)
-        # Assign predictions probabilities   
+        # Assign predictions probabilities
         pred[test.idx] = as.vector(p$probabilities[,2])
         # Check the lengths of results
         stopifnot(length(test.idx) == length(p$probabilities[,2]))
       }
-      
+
     } # i
-    
+
     # Add predictions values for k-th CV-group (FOLD) to pred matrix
     pred.M[,k]<-pred
-    
+
     # If accuracy is required, . . .
     if (eval.crit=='acc') {
-      # Percentage of good predictions 
+      # Percentage of good predictions
       acc = mean(pred == y)
       # Write the result in Quality matrix
       Qual[k] = acc
-      
-      # If accuracy is not required, . . .    
-      # if aupcr , . . .    
+
+      # If accuracy is not required, . . .
+      # if aupcr , . . .
     } else if (eval.crit != 'acc') {
       # Load library
       # Load ROCR package
@@ -2244,7 +2244,7 @@ myLASSOModelPlot<-function(lp,zero.frac,cols=c("salmon4","white","seagreen"), fi
       # Values to compute the area
       x.val<-perf@x.values[[1]]
       y.val<-perf@y.values[[1]]
-      
+
       # If there is any NA, . . .
       if (sum(is.na(union(x.val,y.val)))>0){
         # Delete NAs
@@ -2252,80 +2252,80 @@ myLASSOModelPlot<-function(lp,zero.frac,cols=c("salmon4","white","seagreen"), fi
         # Redefine x.values and y.values
         x.val<-perf@x.values[[1]][-U]; y.val<-perf@y.values[[1]][-U]
       }
-      
+
       # Quality
       Qual[k]<-trapz(x.val,y.val)
-      
-      
+
+
     }
-    
+
   } # k
-  
-  
+
+
   #------------------------------#
   # Step 2: Variables importance
   #------------------------------#
   #-----------#
-  # 1) Filter:  Delete variables whose coefficients are 0 more than a "zero.frac" proportions  
+  # 1) Filter:  Delete variables whose coefficients are 0 more than a "zero.frac" proportions
   #-----------#
-  
+
   a<-Coeff
-  
+
   # Selectec varaibles
   sel.var<-which(apply(Coeff==0,2,mean)<zero.frac)
   cat(paste("Variables passing the filter:", length(sel.var)))
   # Redefine Coeff matrix
   Coeff<-Coeff[,sel.var]
-  
+
   #---------------#
   # 2) Importance:  Compute the importance of each variable (column) in each model (rows)
   #---------------#
-  
+
   # Sum of absolute values of coefficients for each model (rows)
   Abs.sum<-apply(abs(Coeff),1,sum)
   # Weights
   Weights<-t(t(Coeff)/(Abs.sum))
-  # Median of Weights for each variable  
+  # Median of Weights for each variable
   Imp<-apply(Weights,2,mean)
   Imp.med<-apply(Weights,2,median)
-  
+
   cat(paste("\n Valores de Imp\n :",Imp))
-  
+
   # Order variables by its mean importance
   Ord.w<-order(Imp,decreasing = T)
   # Order Imp values
   Imp<-Imp[Ord.w]
   Imp.med<-Imp.med[Ord.w]
-  
+
   cat(paste("\n Valores de Imp",Imp))
   # Reorder sel.var
   sel.var<-colnames(Coeff)[Ord.w]
   # Number of selected variables
   num.sel.f<-length(sel.var)
-  
+
   cat(paste("\n Selected variables",sel.var))
   cat(paste("\n Selected variables",names(Imp)))
-  
-  
+
+
   #------------------------------------------------------------------#
   # Step 3: Ordenation of individuals according to their prediction
   #------------------------------------------------------------------#
-  
+
   # Matrix with mean prediction value (mean by individual)
   Mean.pred<-apply(pred.M,1,mean)
   # Sort individuals by the sum of the real label (y) and the mean predictor (Mean.pred)
   if (sep==F){predicti<- Mean.pred}
   else {predicti<- Mean.pred + as.numeric(y)}
-  
+
   srt.idx = sort(predicti, index.return=TRUE)$ix
-  
-  
-  
+
+
+
   # Order Mean.pred, predicti and y by srt.idx
   ord.Mean.pred<-Mean.pred[srt.idx]
   ord.predicti<-predicti[srt.idx]
   ord.y<-y[srt.idx]
-  
+
   # To plot the heatmap
   # Select from x, "sel.var" variables and "srt.idx" ordered individuals
   heat.x<-x[srt.idx,sel.var]; cat(paste("\n \n Dimensi??n heat.x:",dim(heat.x)))
@@ -2334,36 +2334,36 @@ myLASSOModelPlot<-function(lp,zero.frac,cols=c("salmon4","white","seagreen"), fi
   sd<-apply(heat.x,2,sd); cat(paste("\n \n Longitud desviaciones: ",length(sd)))
   # For each individual
   for (i in 1:nrow(heat.x)){heat.x[i,]<-(heat.x[i,]-m)/sd}
-  
+
   # Redefine heat.x not to exceed the z.score.limits
   heat.x[heat.x<z.score.lim[1]]<-z.score.lim[1]
   heat.x[heat.x>z.score.lim[2]]<-z.score.lim[2]
-  
+
   # Load library
-  suppressMessages(require(graphics))      
+  suppressMessages(require(graphics))
   suppressMessages(library(graphics))
-  suppressMessages(require(RColorBrewer))      
+  suppressMessages(require(RColorBrewer))
   suppressMessages(library(RColorBrewer))
-  
+
   # Color palette for heatmap
   color.scheme = colorRampPalette(cols)(100)
   # Names of what it supooses to be OTUs
   names<-colnames(x)
-  
+
   # Load required libraries
   suppressMessages(require(ggplot2)); suppressMessages(library(ggplot2))
   suppressMessages(require(reshape)); suppressMessages(library(reshape))
   suppressMessages(require(gridExtra)); suppressMessages(library(gridExtra))
   suppressMessages(require(gtable)); suppressMessages(library(gtable))
-  
-  
+
+
   # PDF where save the plot
   pdf(file,height = 10, width = 12.5)
-  
+
   #--------------------------#
   # Plotting options
   #--------------------------#
-  
+
   # Maximum of 0.3 and 0.8 - 0.01*(# Selected variables)
   sel.f.cex = max(0.3, 0.8 - 0.01*num.sel.f)
   # Plot windows format
@@ -2371,62 +2371,62 @@ myLASSOModelPlot<-function(lp,zero.frac,cols=c("salmon4","white","seagreen"), fi
   h_t = 0.9 - 0.03*2 # dim(meta.data)[2])
   h_m = 0.1 + 0.03*2 # dim(meta.data)[2])
   h_b = 0.7 - 0.01*2 # dim(meta.data)[2])
-  
+
   # Layout
   layout(lmat, widths=c(0.1, 0.65, 0.25), heights=c(0.1, h_t, h_m, h_b))
-  # Margins for the plot (bottom, left, top, right)  
+  # Margins for the plot (bottom, left, top, right)
   par(oma=c(3, 4, 3, 4))
-  
-  
+
+
   #-----------------------#
   # Place 1: model header
   #-----------------------#
-  
+
   # Plotting options
   par(mar=c(0, 8.1, 3.1, 1.1))
   # Plot (Empty plot)
-  plot(NULL, type='n', xlim=c(-0.1,0.1), xaxt='n', xlab='',ylim=c(-0.1,0.1), yaxt='n', 
+  plot(NULL, type='n', xlim=c(-0.1,0.1), xaxt='n', xlab='',ylim=c(-0.1,0.1), yaxt='n',
        ylab='', bty='n')
   # Text
   mtext('Linear model', side=3, line=2, at=0.04, cex=1, adj=0.5)
   mtext(paste('(Taxas = ', num.sel.f, ')', sep=''), side=3, line=1, at=0.04, cex=0.7, adj=0.5)
-  
-  
-  #---------------------------------------------------------------------------------------#  
+
+
+  #---------------------------------------------------------------------------------------#
   # Place 2: boxplot displaying the poportion of weight per model that is actually shown
   #---------------------------------------------------------------------------------------#
-  
+
   # Plotting options
   par(mar=c(0.1, 1.1, 0, 1.1))
   # Boxplot for weights proportion (proportion of total weights relative to selected ones ??
   # against all)
   boxplot(rowSums(abs(Coeff)) / rowSums(abs(a)), ylim=c(0,1))
-  
-  # Write text under the boxplot    
+
+  # Write text under the boxplot
   mtext('Proportion of', side=1, line=1, at=1, adj=0.5, cex=0.7)
   mtext('weight shown', side=1, line=2, at=1, adj=0.5, cex=0.7)
-  
+
   cat('  Finished plotting proportion of model weight shown.\n')
-  
-  
+
+
   #------------------------------------------------------------#
   # Place 3: feature heatmap with feature names to the right
-  #------------------------------------------------------------#  
-  
-  # Plotting options  
+  #------------------------------------------------------------#
+
+  # Plotting options
   par(mar=c(0.1, 1.1, 0, 5.1))
   # Matrix to plot: heat.x
-  
+
   # Load library
-  suppressMessages(require(graphics))      
+  suppressMessages(require(graphics))
   suppressMessages(library(graphics))
-  suppressMessages(require(RColorBrewer))      
+  suppressMessages(require(RColorBrewer))
   suppressMessages(library(RColorBrewer))
-  
-  
+
+
   # Heat.x as matrix
   heat.x<-as.matrix(heat.x)
-  
+
   # Heatmap
   image(heat.x, zlim=c(z.score.lim[1],z.score.lim[2]), col=color.scheme, xaxt='n',
         yaxt='n', xlab='', ylab='')
@@ -2437,28 +2437,28 @@ myLASSOModelPlot<-function(lp,zero.frac,cols=c("salmon4","white","seagreen"), fi
   }
   # Message
   cat('  finished plotting feature heatmap.\n')
-  
-  
-  
-  #------------------------------------------------------------------------------------------------#  
+
+
+
+  #------------------------------------------------------------------------------------------------#
   # Place 4: additonally add to header row a corresponding color bar
   #------------------------------------------------------------------------------------------------#
-  
-  # Plotting options  
+
+  # Plotting options
   par(mar=c(3.1, 1.1, 1.1, 1.1))
-  
+
   # Barplot
   barplot(as.matrix(rep(1,100)), col=color.scheme, horiz=TRUE, border=0, ylab='', axes=FALSE)
   # Axis
   axis(side=1, at=seq(0,100,length.out=7), labels=seq(z.score.lim[1],z.score.lim[2],length.out=7))
   # Text
   mtext('Feature z-score', side=3, line=0.5, at=50, cex=0.7, adj=0.5)
-  
-  
+
+
   #------------------------------------------------------------------------------------------------#
   # Place 5: barplot of effect size associated with each feature
   #------------------------------------------------------------------------------------------------#
-  
+
   # Plotting options
   par(mar=c(0.1, 12.1, 0, 1.1))
   # Minimum and maximum
@@ -2470,54 +2470,54 @@ myLASSOModelPlot<-function(lp,zero.frac,cols=c("salmon4","white","seagreen"), fi
           border=ifelse(-Imp>0,"firebrick","blue"))
   # Text
   mtext('Log-odds ratio', side=1, line=2, at=0, cex=0.7, adj=0.5)
-  
-  # Robustness indicated as percentage of models including a given feature 
+
+  # Robustness indicated as percentage of models including a given feature
   # For each selected feature
   for (f in 1:num.sel.f) {
     # Percentage of models inclulding this feature
     t = paste(format(100*mean(Coeff[,f] != 0), digits=1, scientific=F),
               '%', sep='')
-    # Add as text into the plot  
+    # Add as text into the plot
     mtext(t, side=4, line=1.5, at=(f-0.5), cex=sel.f.cex, las=2, adj=1)
   }
-  
+
   # Text (title)
   mtext('Effect size', side=3, line=1, at=0, cex=0.7, adj=1)
   mtext('Robustness', side=3, line=1, at=mx, cex=0.7, adj=0)
-  
+
   # Message
   cat('  Finished plotting feature weights.\n')
-  
-  
-  #-----------------------------------------------------------------------------------------------#  
+
+
+  #-----------------------------------------------------------------------------------------------#
   # Place 6 (middle): "heatmap" showing predictions and metadata (if given)
-  #-----------------------------------------------------------------------------------------------# 
-  
+  #-----------------------------------------------------------------------------------------------#
+
   # Plotting options
   par(mar=c(1.1, 1.1, 0.3, 5.1))
   # Define matrix
   img.data = as.matrix(cbind(ord.predicti,as.numeric(as.character(ord.y)))); colnames(img.data)<-c("Predictions","Group")
-  
-  
-  
-  # Define grays colours  
+
+
+
+  # Define grays colours
   #  grays = rev(gray(seq(0, 1, length.out=length(color.scheme))))
   Colores<-colorRampPalette(c("white", "black"))(100)
-  
-  
-  
-  # Plot the information (heatmap?)  
+
+
+
+  # Plot the information (heatmap?)
   image(as.matrix(img.data), col=Colores, xaxt='n', yaxt='n', xlab='', ylab='')
-  # Define cex  
+  # Define cex
   meta.data.cex = max(0.3, 0.7 - 0.01*dim(img.data)[2])
-  
-  # Column names  
+
+  # Column names
   for (m in 1:dim(img.data)[1]) {
     t = colnames(img.data)[m]
     t = gsub('\\.|_', ' ', t)
     mtext(t, side=4, line=1, at=(m-1)/(dim(img.data)[2]-1), cex=meta.data.cex, las=2)
   }
-  
+
   # Mark missing values
   for (m in 1:dim(img.data)[1]) {
     idx = which(is.na(img.data[m,]))
@@ -2527,46 +2527,46 @@ myLASSOModelPlot<-function(lp,zero.frac,cols=c("salmon4","white","seagreen"), fi
       text(x, y, 'NA', col='red', cex=0.4)
     }
   }
-  
-  
-  
-  
-  
-  #-----------------------------------------------------------------------------------------------#  
+
+
+
+
+
+  #-----------------------------------------------------------------------------------------------#
   # Place 7 (right): AUC, roc curve and confidence intervals
-  #-----------------------------------------------------------------------------------------------# 
-  
+  #-----------------------------------------------------------------------------------------------#
+
   # Default graphical parameters
   par(mfrow=c(1,1))
-  
+
   # Load library
   suppressMessages(library(pROC))
-  
+
   # Start a ROC plot
   rocobj <- plot.roc(as.numeric(y),predicti,legacy.axes=T,xlim=c(1,0),
                      main="Cross-validation ROC for Cluster classification",
                      xlab="False positive rate",ylab="True positive rate")
-  
+
   # CI
   ci.se.obj <- ci(rocobj, of="se", boot.n=5000,legacy.axes=F)
   plot(ci.se.obj,type="shape",col="grey87",border="white")
   text(x = 0.35,y=0.05,paste("Mean prediction AUC = ",round(rocobj$auc,2)))
   abline(1,-1)
-  
-  
-  # Message  
+
+
+  # Message
   cat('  Finished plotting classification result and additional metadata.\n')
-  
+
   # Close PDF file
   dev.off()
-  
+
   # Print message:
   cat(paste("\n Results saved as 'Plot.pdf' in ",getwd()))
-  
-  
-  
+
+
+
   return(list(a,ord.y,ord.predicti))
-  
+
 }
 
 
@@ -2624,7 +2624,7 @@ myLefse <- function(phy,class,subclass=NA,subject=NA,
   # note that lefse taxa names cannot have spaces, will replace ; and = with _
   # gsub("[;=]","_",xx$otu)
   if (by_otus) { #perform by otu only
-    
+
     otu <- get.otu.melt(phy,sample_data=FALSE)
     otu.levels <- otu %>% mutate(taxon=otu) %>%
       group_by(sample,taxon) %>% summarize(pctseqs=sum(pctseqs)) %>%
@@ -2643,7 +2643,7 @@ myLefse <- function(phy,class,subclass=NA,subject=NA,
     otu.levels <- bind_rows(otu.list) %>%
       mutate(taxon=gsub(" ","_",taxon))
   }
-  
+
   otu.tbl <- otu.levels %>%
     dcast(sample~taxon,value.var="pctseqs",fill=0) %>%
     left_join(samp,by="sample") %>%
@@ -2653,7 +2653,7 @@ myLefse <- function(phy,class,subclass=NA,subject=NA,
   }
   tbl <- otu.tbl %>% t()
   write.table(tbl,"lefse.txt",quote=FALSE,sep="\t",col.names=FALSE)
-  
+
   opt.class <- paste("-c",which(keepvars %in% class))
   opt.subclass <- ifelse(is.na(subclass),"",paste("-s",which(keepvars %in% subclass)))
   opt.subject <-ifelse(is.na(subject),"",paste("-u",which(keepvars %in% subject)))
@@ -2666,7 +2666,7 @@ myLefse <- function(phy,class,subclass=NA,subject=NA,
   #   (subclasses with low cardinalities will be grouped
   #   together, if the cardinality is still low, no pairwise
   #   comparison will be performed with them)
-  
+
   lefse.command <- paste("run_lefse.py lefse.in lefse.res",
                          "-a",anova.alpha,
                          "-w",wilcoxon.alpha,
@@ -2704,7 +2704,7 @@ myLefse <- function(phy,class,subclass=NA,subject=NA,
   #   -y {0,1}        (for multiclass tasks) set whether the test is performed in
   #                   a one-against-one ( 1 - more strict!) or in a one-against-
   #                   all setting ( 0 - less strict) (default 0)
-  
+
   if (make.lefse.plots) {
     system("plot_res.py lefse.res lefse_lda.png")
     print("Wrote lefse_lda.png")
@@ -2732,7 +2732,7 @@ myLefse <- function(phy,class,subclass=NA,subject=NA,
 #' @export
 get.samp <- function(phy,stats=FALSE,measures=c("Observed","InvSimpson","Shannon")) {
   requireNamespace(c("phyloseq","tibble"))
-  
+
   if (is.null(sample_data(phy,FALSE))) {
     #if no sample_data, return single data frame with sample column
     sdata <- data.frame(sample=sample_names(phy),stringsAsFactors=FALSE)
@@ -2765,12 +2765,12 @@ get.samp <- function(phy,stats=FALSE,measures=c("Observed","InvSimpson","Shannon
 #
 myMultiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
   library(grid)
-  
+
   # Make a list from the ... arguments and plotlist
   plots <- c(list(...), plotlist)
-  
+
   numPlots = length(plots)
-  
+
   # If layout is NULL, then use 'cols' to determine layout
   if (is.null(layout)) {
     # Make the panel
@@ -2779,20 +2779,20 @@ myMultiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
     layout <- matrix(seq(1, cols * ceiling(numPlots/cols)),
                      ncol = cols, nrow = ceiling(numPlots/cols))
   }
-  
+
   if (numPlots==1) {
     print(plots[[1]])
-    
+
   } else {
     # Set up the page
     grid.newpage()
     pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
-    
+
     # Make each plot, in the correct location
     for (i in 1:numPlots) {
       # Get the i,j matrix positions of the regions that contain this subplot
       matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
-      
+
       print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
                                       layout.pos.col = matchidx$col))
     }
@@ -2826,16 +2826,16 @@ SparCC.count <- function(x, imax = 20, kmax = 10, alpha = 0.1, Vmin = 1e-4) {
   covs <- cors <- matrix(0, p * (p + 1) / 2, imax);
   for(i in 1:imax) {
     # Generate fractions from posterior distribution
-    y <- t(apply(x, 1, function(x) 
+    y <- t(apply(x, 1, function(x)
       gtools::rdirichlet(n = 1, alpha = x)));
     # Estimate covariance/correlation
     cov_cor <- SparCC.frac(x = y, kmax = kmax, alpha = alpha, Vmin = Vmin);
-    # Store variance/correlation only low triangle 
+    # Store variance/correlation only low triangle
     covs[, i] <- cov_cor$cov.w[indLow];
     cors[, i] <- cov_cor$cor.w[indLow];
   }
   # Calculate median for several posterior samples
-  cov.w[indLow] <- apply(covs, 1, median); 
+  cov.w[indLow] <- apply(covs, 1, median);
   cor.w[indLow] <- apply(cors, 1, median);
   #
   cov.w <- cov.w + t(cov.w);
@@ -2862,32 +2862,32 @@ SparCC.count <- function(x, imax = 20, kmax = 10, alpha = 0.1, Vmin = 1e-4) {
 SparCC.frac <- function(x, kmax = 10, alpha = 0.1, Vmin = 1e-4) {
   # Log transformation
   x <- log(x);
-  # Number of variables  
+  # Number of variables
   p <- ncol(x);
   # Variation matrix ( T0 = var(log(xi/xj)) ) function from stats library
   TT <- stats::var(x);
   T0 <- diag(TT) + rep(diag(TT), each = p) - 2 * TT;
-  # Variance and correlation coefficients for Basic SparCC  
+  # Variance and correlation coefficients for Basic SparCC
   rowT0 <- rowSums(T0);
   var.w <- (rowT0 - sum(rowT0) / (2 * p - 2))/(p - 2);
   var.w[var.w < Vmin] <- Vmin;
-  
-  #cor.w <- (outer(var.w, var.w, "+") - T0 ) / 
+
+  #cor.w <- (outer(var.w, var.w, "+") - T0 ) /
   #  sqrt(outer(var.w, var.w, "*")) / 2;
-  
+
   Is <- sqrt(1/var.w);
   cor.w <- (var.w + rep(var.w, each = p) - T0) * Is * rep(Is, each = p) * 0.5;
   # Truncated correlation in [-1, 1]
-  cor.w[cor.w <= - 1] <- - 1; 
+  cor.w[cor.w <= - 1] <- - 1;
   cor.w[cor.w >= 1] <- 1;
   # Left matrix of estimation equation
-  Lmat <- diag(rep(p - 2, p)) + 1; 
+  Lmat <- diag(rep(p - 2, p)) + 1;
   # Remove pairs
   rp <- NULL;
   # Left components
   cp <- rep(TRUE, p);
   # Do loops until max iteration or only 3 components left
-  k <- 0;  
+  k <- 0;
   while(k < kmax && sum(cp) > 3) {
     # Left T0 = var(log(xi/xj)) after removing pairs
     T02 <- T0;
@@ -2917,10 +2917,10 @@ SparCC.frac <- function(x, kmax = 10, alpha = 0.1, Vmin = 1e-4) {
       var.w[cp] <- solve(Lmat[cp, cp], rowSums(T02[cp, cp]));
       var.w[var.w <= Vmin] <- Vmin;
       # Update correlation matrix and truncated by [-1, 1]
-      #cor.w <- (outer(var.w, var.w, "+") - T0 ) / 
-      #  sqrt(outer(var.w, var.w, "*")) / 2;    
+      #cor.w <- (outer(var.w, var.w, "+") - T0 ) /
+      #  sqrt(outer(var.w, var.w, "*")) / 2;
       Is <- sqrt(1/var.w);
-      cor.w <- (var.w + rep(var.w, each = p) - T0) * 
+      cor.w <- (var.w + rep(var.w, each = p) - T0) *
         Is * rep(Is, each = p) * 0.5;
       # Truncated correlation in [-1, 1]
       cor.w[cor.w <= - 1] <- - 1;
@@ -2929,7 +2929,7 @@ SparCC.frac <- function(x, kmax = 10, alpha = 0.1, Vmin = 1e-4) {
     else {
       break;
     }
-    # 
+    #
     k <- k + 1;
   }
   # Covariance
@@ -2945,7 +2945,7 @@ SparCC.frac <- function(x, kmax = 10, alpha = 0.1, Vmin = 1e-4) {
 
 
 taxa_barplot<-function(Abundance_table,Taxonomy_table=NULL, metadata, tax_level=NULL, Nspecies,idvar, facet_vars = NULL){
-  
+
   #' Creates a facetted composition barplot from abundance data, at the specified level.
   #' @Abundance_table Numerical matrix. For taxonomy abundance, relative abundance is recommended, although it teorically work anyway
   #' @Taxonomy_table Taxonomic assignment matrix just as the ones from Phyloseq. It can be set as NULL to just get the names from Abundance-table
@@ -2954,74 +2954,74 @@ taxa_barplot<-function(Abundance_table,Taxonomy_table=NULL, metadata, tax_level=
   #' @Nspecies The top N species to include in the plot
   #' @idvar Name of the variable which identifies the individuals (not the samples, but the patient itself)
   #' @facet_vars name of the variables from which the facetting formula will be constructed. If NULL, no facetting will be done. Otherwise it will facet following the variable levels. It can take up to two variables
-  
-  
+
+
   set.seed(1234)
   # Merge id and faceting variables to include in the plot
   VarsToChoose<-c(idvar,facet_vars)
-  
-  # Get number of species 
-  
+
+  # Get number of species
+
   TopNspecies<-as.vector(rownames(data.frame(sort(colSums(Abundance_table),decreasing=T)[0:Nspecies])))
-  
+
   # Construct the inner data frame, cureate and melt
-  
+
   if (!is.null(Taxonomy_table)){
     myInnerDataFrame<- merge( metadata[,VarsToChoose, drop=F],Abundance_table[,TopNspecies], by = "row.names",all = T) %>%
-      
+
       transform(.,row.names=Row.names, Row.names=NULL) %>%
-      
-      rename_at(TopNspecies, ~ Taxonomy_table[TopNspecies,tax_level]) %>% 
-      
+
+      rename_at(TopNspecies, ~ Taxonomy_table[TopNspecies,tax_level]) %>%
+
       melt(id.vars = c(VarsToChoose)) %>%
-      
-      dplyr::rename(Species = variable, 
+
+      dplyr::rename(Species = variable,
                     Abundance = value,
                     id_var = paste(idvar)) %>%
-      
+
       mutate(id_var = as.factor(id_var))
   } else{
     myInnerDataFrame<- merge( metadata[,VarsToChoose, drop=F],Abundance_table[,TopNspecies], by = "row.names",all = T) %>%
-      
+
       transform(.,row.names=Row.names, Row.names=NULL) %>%
-      
+
       melt(id.vars = c(VarsToChoose)) %>%
-      
-      dplyr::rename(Species = variable, 
+
+      dplyr::rename(Species = variable,
                     Abundance = value,
                     id_var = paste(idvar)) %>%
-      
+
       mutate(id_var = as.factor(id_var))
-  } 
-  
+  }
+
   # # Taxa Level stands for taxonomical number (1 = Kingdom to 7 = Species)
   # tax_name<- tax_level
-  
-  
+
+
   # Extract and mix palettes from ColorBrewer
-  
+
   qpalettes<- brewer.pal.info[which(brewer.pal.info$category=="qual"),]
   color_vector <- unlist(mapply(brewer.pal, qpalettes$maxcolors, rownames(qpalettes)))
-  
+
   # Create palette according to the number of species
   n<-length(unique(TopNspecies))
-  
+
   if (n<length(color_vector)){
     palette<-sample(color_vector, n, replace = F)
   }else{
     palette<-sample(color_vector, n, replace = T)
   }
-  
-  
-  
+
+
+
   # Build the faceting formula in case it was inputted
   if (!is.null(facet_vars)){
     facet_formula<-formula(paste(facet_vars[2],"~",facet_vars[1]))
-    
+
   }else{facet_formula<-NULL}
-  
-  
-  barplot<- ggplot(myInnerDataFrame, aes(x=id_var,y=Abundance, fill=Species)) + 
+
+
+  barplot<- ggplot(myInnerDataFrame, aes(x=id_var,y=Abundance, fill=Species)) +
     geom_bar(aes(color=Species, fill=Species), stat="identity", position="stack")+
     facet_grid(facets =  facet_formula, scales="free_x", space= "free",drop = TRUE)+
     theme_bw()+
@@ -3030,11 +3030,11 @@ taxa_barplot<-function(Abundance_table,Taxonomy_table=NULL, metadata, tax_level=
           legend.text = element_text(size=10),
           legend.key.size = unit(0.7,"line"),
           axis.text.x = element_text(size=8,angle = 90 )) +
-    scale_discrete_manual(aesthetics=c("color","fill"),values=palette) + 
-    guides(fill=guide_legend(nrow=80, byrow=TRUE), col=guide_legend(nrow=40,byrow=TRUE)) + 
+    scale_discrete_manual(aesthetics=c("color","fill"),values=palette) +
+    guides(fill=guide_legend(nrow=80, byrow=TRUE), col=guide_legend(nrow=40,byrow=TRUE)) +
     labs(title = paste ("Abundance plot for top", Nspecies,tax_level, sep=" "), x= paste(idvar))
-  
-  
+
+
   return(barplot)
 }
 
@@ -3043,47 +3043,47 @@ taxa_barplot<-function(Abundance_table,Taxonomy_table=NULL, metadata, tax_level=
 DA_wilcoxon<-function(AbundanceDF, TaxonomyDF, metadata, LinkVariable, SubsetVariable, TestVariable, VarSubset, TestSubset, threshold  = 1, is.longitudinal = F){
   # SubsetVariable<-CategoricalVariable
   # TestVariable<-LongitudinalVariable
-  
+
   if (!is.null(TestSubset)){
-    
+
     myVarDF<-metadata[c(LinkVariable,SubsetVariable, TestVariable)] %>%
-      
+
       rename_all(., ~ c("LinkVariable","SubsetVariable","TestVariable")) %>%
-      
+
       subset(TestVariable %in% TestSubset) %>%
-      
+
       subset(SubsetVariable %in% VarSubset)
-    
+
   } else {
-    
-    myVarDF<-metadata[c(LinkVariable,SubsetVariable, TestVariable)] %>% 
-      
+
+    myVarDF<-metadata[c(LinkVariable,SubsetVariable, TestVariable)] %>%
+
       rename_all(., ~ c("LinkVariable","SubsetVariable","TestVariable")) %>%
-      
+
       subset(SubsetVariable %in% VarSubset)
-    
+
   }
-  
-  
+
+
   # Remove samples without both TPs
-  
+
   if (is.longitudinal == T){
     print(paste("is.longitudinal set as ", is.longitudinal,". This function will perform paired tests. Please, check if this is what you wanted", sep=))
-    
+
     SelectedIDs<-c()
     for (id in levels(as.factor(myVarDF$LinkVariable))){
       if(nrow(myVarDF[which(myVarDF$LinkVariable==id),]) == 2){
-        
+
         SelectedIDs<-c(SelectedIDs,id)
       }
       else{ print(paste("Individual with ID:",id, "didn't have all timepoints, discarded"))}
-    } 
-    
+    }
+
   } else{
     print(paste("is.longitudinal set as ", is.longitudinal,". This function will perform unpaired tests. Please, check if this is what you wanted", sep=))
     SelectedIDs<-myVarDF$LinkVariable
   }
-  
+
   if (!is.null(TaxonomyDF)){
     myInnerDataFrame<-as.data.frame(myAbundanceDF) %>% rename_all(., ~ myTaxonomyDF$Species) %>%
       merge(., myVarDF,  by="row.names") %>%
@@ -3095,40 +3095,40 @@ DA_wilcoxon<-function(AbundanceDF, TaxonomyDF, metadata, LinkVariable, SubsetVar
       column_to_rownames("Row.names") %>%
       subset(LinkVariable %in% SelectedIDs)
   }
-  
-  
-  
-  
+
+
+
+
   resultsDF<-data.frame()
   for (i in colnames(myInnerDataFrame)[1:ncol(myAbundanceDF)]){
-    
-    
+
+
     if (is.longitudinal ==T){
-      
+
       testDF <- myInnerDataFrame[,c(i, "TestVariable", "LinkVariable")] %>% dplyr::rename("Abundance"=i) %>% mutate(TestVariable = as.factor(TestVariable)) %>% arrange(LinkVariable)
       myWilcox<- pairwise.wilcox.test( testDF$Abundance, g=testDF$TestVariable,p.adjust.method = "none", paired=T)
-      
+
     } else{
       testDF <- myInnerDataFrame[,c(i, "TestVariable", "LinkVariable")] %>% dplyr::rename("Abundance"=i) %>% mutate(TestVariable = as.factor(TestVariable)) %>% arrange(LinkVariable)
       myWilcox<- pairwise.wilcox.test( testDF$Abundance, g=testDF$TestVariable,p.adjust.method = "none", paired=F)
-      
+
     }
-    
+
     resultsDF<-rbind(resultsDF,   melt(myWilcox$p.value) %>% mutate(name=i))
     # print(i)
     # print(myWilcox)
-    
+
   }
-  
+
   resultsDF<-resultsDF[,c(4,1,2,3)] %>% rename_all(., ~ c("Species","Group1","Group2","p.val")) %>%
     subset(.,p.val != "NaN") %>%
     mutate(p.val = as.numeric(p.val))%>%
     mutate(p.adj = p.adjust(p.val, method="fdr")) %>%
     # mutate(p.adj.method = myWilcox$p.adjust.method) %>%
     subset(., p.val <= threshold)
-  
+
   return(resultsDF)
-  
+
 }
 
 

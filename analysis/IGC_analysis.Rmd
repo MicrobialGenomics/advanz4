@@ -6,7 +6,6 @@ output:
   html_document: default
 editor_options:
   chunk_output_type: console
-
 ---
 
 
@@ -18,7 +17,7 @@ library(ggplot2)
 library(RColorBrewer)
 library(ggpubr)
 library(rstatix)
-source(file = "RAnalysis/myFunctions.R")
+source(file = "code/myFunctions.R")
 
 ```
 
@@ -28,14 +27,14 @@ source(file = "RAnalysis/myFunctions.R")
 ```{r load_metadata_vars, eval=T, include=F}
 myPath<-here::here()
 setwd(myPath)
-mymre<-readRDS("DataPackages/mre.rds")
+mymre<-readRDS("data/mre.rds")
 
-metadata <- metar::get_metadata(mymre)
+metadata <- metar::get_metadata(mymre)@metadata_df
 
 
-CategoricalVariablesDF <- metadata@categorical_vals
-NumericalVariablesDF <- metadata@numeric_vals
-LongitudinalVariablesDF <- metadata@longitudinal_vals
+CategoricalVariablesDF <- get_metadata(mymre)@categorical_vals
+NumericalVariablesDF <- get_metadata(mymre)@numeric_vals
+LongitudinalVariablesDF <- get_metadata(mymre)@longitudinal_vals
 
 
 
@@ -72,16 +71,16 @@ ThresholdTable<-igc@dataTable %>%
 
 
 ```{r create_LMM_Function, echo=FALSE}
-cat_var<-CategoricalVariablesDF[1,1]
+cat_var<-CategoricalVariablesDF$CategoricalVariable
 long_var <- LongitudinalVariablesDF$LongitudinalVariable[1]
 link_var<-LongitudinalVariablesDF$LinkVariable[1]
 id_var<-"SampleID"
 t<-LongitudinalVariablesDF$Breakpoints[1]
 
 
-create_LMM <- function(metadata, num_var, cat_var, long_var, link_var){
+create_LMM <- function(metadata, num_var, cat_var, long_var, link_var,breakpoints){
   
-  myLMM <- metadata@metadata_df %>%
+  myLMM <-metadata %>%
     as.data.frame() %>%
     dplyr::select(link_var = !!sym(link_var),
                   num_var = !!sym(num_var),
@@ -90,12 +89,13 @@ create_LMM <- function(metadata, num_var, cat_var, long_var, link_var){
     dplyr::mutate(cat_var = as.factor(cat_var)) %>%
     myLMM_two.piece.GLMM(Datos = .,
                          Y = "num_var",
-                         t = 96,
                          Time = "long_var",
                          Factor = "cat_var",
+                         t = breakpoints,
                          ID = "link_var")
+
   
-  myLMM$
+  myLMM
 }
 
 
@@ -106,14 +106,17 @@ create_LMM <- function(metadata, num_var, cat_var, long_var, link_var){
   dplyr::pull(NumericalVariable) %>%
   purrr::set_names() %>%
   purrr::map( ~ {
-    metadata@metadata_df %>%
-    create_LMM(., num_var = .x, 
+    create_LMM(metadata, 
+               num_var = .x, 
                cat_var = cat_var,
-               long_var = long_var)
+               long_var = long_var,
+               link_var = link_var,
+               breakpoints = t)
   }
 )
 
 
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
