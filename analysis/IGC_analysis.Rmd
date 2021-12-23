@@ -71,11 +71,6 @@ ThresholdTable<-igc@dataTable %>%
 
 
 ```{r create_LMM_Function, echo=FALSE}
-cat_var<-CategoricalVariablesDF$CategoricalVariable
-long_var <- LongitudinalVariablesDF$LongitudinalVariable[1]
-link_var<-LongitudinalVariablesDF$LinkVariable[1]
-id_var<-"SampleID"
-t<-LongitudinalVariablesDF$Breakpoints[1]
 
 
 create_LMM <- function(metadata, num_var, cat_var, long_var, link_var,breakpoints){
@@ -100,8 +95,20 @@ create_LMM <- function(metadata, num_var, cat_var, long_var, link_var,breakpoint
 
 
 
-# plot_list[[cat_var]][[[num_var]]] <-
-  NumericalVariablesDF %>%
+
+```
+
+
+```{r plot_LMMs}
+
+cat_var<-CategoricalVariablesDF$CategoricalVariable
+long_var <- LongitudinalVariablesDF$LongitudinalVariable[1]
+link_var<-LongitudinalVariablesDF$LinkVariable[1]
+t<-LongitudinalVariablesDF$Breakpoints[1]
+
+
+
+plot_list <-  NumericalVariablesDF %>%
   
   dplyr::pull(NumericalVariable) %>%
   purrr::set_names() %>%
@@ -111,12 +118,26 @@ create_LMM <- function(metadata, num_var, cat_var, long_var, link_var,breakpoint
                cat_var = cat_var,
                long_var = long_var,
                link_var = link_var,
-               breakpoints = t)
+               breakpoints = t)[[2]] + 
+      labs(title=.x)
+  }
+)
+
+ggarrange(plotlist = plot_list)
+
+pval_list<-plot_list <-  NumericalVariablesDF %>%
+  
+  dplyr::pull(NumericalVariable) %>%
+  purrr::set_names() %>%
+  purrr::map( ~ {
+    create_LMM(metadata, 
+               num_var = .x, 
+               cat_var = cat_var,
+               long_var = long_var,
+               link_var = link_var,
+               breakpoints = t)[[1]]
   }
 )
 
 
 ```
-
-
-
