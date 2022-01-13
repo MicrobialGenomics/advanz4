@@ -2,11 +2,12 @@
 title: "Diversity_GeneRichness"
 date: "`r Sys.Date()`"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 editor_options:
   chunk_output_type: console
 ---
+
 
 
 ```{r setup, include=FALSE}
@@ -17,6 +18,8 @@ library(ggplot2)
 library(RColorBrewer)
 library(ggpubr)
 library(rstatix)
+library(lme4)
+library(lmerTest)
 source(file = "code/myFunctions.R")
 
 ```
@@ -59,7 +62,12 @@ ThresholdTable<-igc@dataTable %>%
   group_by(SampleID) %>%
   summarise(across(everything(), min)) %>%
   ungroup() %>%
-  left_join(., metadata@metadata_df, by="SampleID")
+  left_join(., metadata, by="SampleID") %>%
+  rename(richness = GeneNumber,
+         link_var=record_id,
+         cat_var = Group,
+         long_var = TimePoint)
+  
 
 
 ```
@@ -68,9 +76,8 @@ ThresholdTable<-igc@dataTable %>%
 
 
 
-
-
 ```{r create_LMM_Function, echo=FALSE}
+
 
 
 create_LMM <- function(metadata, num_var, cat_var, long_var, link_var,breakpoints){
@@ -94,50 +101,181 @@ create_LMM <- function(metadata, num_var, cat_var, long_var, link_var,breakpoint
 }
 
 
+get_LMM_GraphParams <- function(Table){
+  
+    myList <- Table %>%
+    pull(cat_var) %>%
+    levels() %>%
+    set_names() %>%
+    map_dfr( ~ {
+      
+    model<-Table %>%
+        dplyr::select(num_var, long_var, cat_var, link_var) %>%
+        dplyr::filter(cat_var == .x) %>%
+        lmerTest::lmer(formula = "num_var ~ long_var + (1|link_var)") %>%
+        summary() %>%
+        magrittr::extract2("coefficients") 
+    
+    graphparams<- ThresholdTable %>%
+      summarise(xmin=min(long_var),
+                xmax=max(long_var),
+                ymin = model[1,1] + xmin*model[2,1],
+                ymax = model[1,1] + xmax*model[2,1]) %>%
+      mutate(cat_var = .x) %>%
+      relocate(cat_var)
+  }) %>% 
+      as.data.frame() 
+  
+    
+    return(myList)
+}
 
 
 ```
 
 
-```{r plot_LMMs}
+
+
+```{r plot_LMMs, message = F, warning = F}
 
 cat_var<-CategoricalVariablesDF$CategoricalVariable
 long_var <- LongitudinalVariablesDF$LongitudinalVariable[1]
 link_var<-LongitudinalVariablesDF$LinkVariable[1]
-t<-LongitudinalVariablesDF$Breakpoints[1]
+num_var <- "richness"
+t<-NULL
+# 
+plot_ist<-create_LMM(metadata = ThresholdTable,
+           num_var = "richness", 
+           cat_var = "cat_var",
+           long_var = "long_var",
+           link_var = "link_var",
+           breakpoints = NULL)
+
+plot_list <-  c(num_var) %>%
+  purrr::set_names() %>%
+  purrr::map( ~ {
+    LMM<- create_LMM(ThresholdTable, 
+               num_var = .x, 
+               cat_var = "cat_var",
+               long_var = "long_var",
+               link_var = "link_var",
+               breakpoints = t)
+    
+    pvals<-names(LMM[[1]]) %>%
+      set_names() %>%
+      
+      map_dfr(~ {
+        LMM[[1]][[.x]] %>%
+          as.data.frame() %>%
+          slice(2) %>%
+          select("p-value", "Value") %>%
+          as.numeric() %>%
+          round(digits=3)
+        }) %>% 
+      
+      t() %>%
+      as.data.frame() %>%
+      setNames(., nm= c("pval", "slope")) %>%
+      rownames_to_column(var="cat_var")
+    
+    
+      LMM[[2]] +
+      geom_label(data=pvals, 
+                 aes(alpha=NULL,label=paste("p=",pval, ", slope = ", slope, sep=""), 
+                     x=-Inf, y=Inf), color="black", hjust=0.01, vjust=1 ) +
+      labs(title=.x, color = cat_var)
+
+  }
+)
 
 
+ggarrange(plotlist = plot_list, common.legend = T)
+```
+
+There is a pretty clear evolution in every one of the treatment groups. However the evolution rate seems pretty similar between both treatment groups. The models fail to find a great difference in gene richness evolution, althougha slight yet significant increasing trend (slope value = 0.027), can be found in the DGT group (Group 1).
+
+However, creating a single LMM with treatment group as a random effect whe can meassure the actual difference in the effect of timepoint over gene richness between two groups. 
+
+
+```{r compare_group_effect}
+
+
+myUnifiedModel<- ThresholdTable %>%
+  dplyr::rename(num_var = richness) %>%
+  lmerTest::lmer(formula = "num_var ~ long_var * cat_var + (1|link_var)",data = .)
+
+myGraphParams<-ThresholdTable %>%
+  dplyr::rename(num_var = richness) %>%
+  get_LMM_GraphParams() %>%
+  mutate(across(contains("x"), ~ as.numeric(.x)))
+
+myPval<-summary(myUnifiedModel) %>%
+  magrittr::extract2("coefficients") %>%
+  as.data.frame()%>%
+  slice(4L) %>%
+  set_names(c("Estimate", "Std.Err", "df", "t.val","pval")) %>%
+  mutate(pval = round(pval,3))
+
+ThresholdTable %>%
+  dplyr::rename(num_var = richness) %>%
+  ggplot(., aes(x =long_var, y=num_var, group=link_var, color=cat_var)) +
+  geom_point(alpha=0.4) + 
+  geom_line(alpha=0.4) + 
+  scale_x_continuous(breaks = unique(ThresholdTable$long_var),
+                     limits = c(min(ThresholdTable$long_var),
+                                max(ThresholdTable$long_var))) +
+
+  geom_segment(data=myGraphParams,aes(x=xmin,y=ymin,xend=xmax,yend=ymax, color=cat_var),inherit.aes=T,size=3) +
+  scale_color_brewer(palette="Set1") +
+  labs(color="Treatment", x="weeks") +
+  geom_label(data=myPval, 
+             aes(alpha=NULL,label=paste("ANOVA p=",pval, sep=""),
+                 x=-Inf, y=Inf), color="black", hjust=0.01, vjust=1 ) +
+  theme_bw() 
+  
+summary(myUnifiedModel) %>%
+  magrittr::extract2("coefficients") %>%
+  as.data.frame() %>% kableExtra::kable(., format="markdown")
+
+
+```
+
+
+This shows a slight effect of treatment, where the effect of time over richness in group group2 is 0.025 (St.err = 0.025) times lower than the same for group 1 (ANOVA p=0.31)
+
+
+```{r boxplots, eval=F, echo=F, message=F}
+
+
+### This was a first test to learn how to perform multiple comparisons in a true tidyverse fashion
 
 plot_list <-  NumericalVariablesDF %>%
   
   dplyr::pull(NumericalVariable) %>%
   purrr::set_names() %>%
   purrr::map( ~ {
-    create_LMM(metadata, 
-               num_var = .x, 
-               cat_var = cat_var,
-               long_var = long_var,
-               link_var = link_var,
-               breakpoints = t)[[2]] + 
-      labs(title=.x)
+    metadata %>%
+      dplyr::select(cat_var = !!sym(cat_var),
+                    long_var = !!sym(long_var),
+                    num_var = .x,
+                    link_var = !!sym(link_var)) %>%
+      ggplot(., aes(x = as.factor(long_var), y = num_var, fill = cat_var)) +
+      geom_boxplot() +
+      stat_compare_means(method="wilcox.test", 
+                         label = "p.signif", 
+                         hide.ns = T, bracket.size = .6, 
+                         label.y.npc ="center") +
+      labs(title = .x,
+          x = "Week",
+          y="counts",
+          fill=cat_var) +
+      theme_bw() + 
+      scale_fill_brewer(palette = CategoricalVariablesDF$PaletteName[1])
   }
 )
 
-ggarrange(plotlist = plot_list)
+ggarrange(plotlist = plot_list, common.legend = T)
 
-pval_list<-plot_list <-  NumericalVariablesDF %>%
-  
-  dplyr::pull(NumericalVariable) %>%
-  purrr::set_names() %>%
-  purrr::map( ~ {
-    create_LMM(metadata, 
-               num_var = .x, 
-               cat_var = cat_var,
-               long_var = long_var,
-               link_var = link_var,
-               breakpoints = t)[[1]]
-  }
-)
 
 
 ```
