@@ -99,7 +99,14 @@ ggarrange(myRarefaction, DepthViolin, common.legend = T)
 
 
 ```{r taxa_functions, echo = F, warning=F, message = F}
-taxa_barplot<-function(Phyloseq,Abundance_table=NULL,Taxonomy_table=NULL, sample_var,metadata, tax_level, Nspecies,idvar, facet_vars = NULL){
+taxa_barplot<-function(Phyloseq, 
+                       Abundance_table=NULL,
+                       Taxonomy_table=NULL, 
+                       sample_var,metadata, 
+                       tax_level, 
+                       Nspecies,
+                       idvar, 
+                       facet_vars = NULL){
   require(phyloseq)
   require(reshape2)
   set.seed(1234)
