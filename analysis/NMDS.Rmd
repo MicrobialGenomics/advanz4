@@ -1,8 +1,8 @@
 ---
 title: "Beta Diversity and NMDS"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 editor_options:
   chunk_output_type: console
 ---
@@ -22,6 +22,8 @@ library(metar)
 library(phyloseq)
 library(tidyverse)
 library(vegan)
+library(ggrepel)
+library(cluster)
 ```
 
 ## Including Plots
@@ -42,7 +44,7 @@ LongitudinalVariablesDF <- get_metadata(mymre)@longitudinal_vals
 
 ```
 
-```{r Get_DistMats, eval=T, include=F}
+```{r Get_DistMats, eval=T, include=T}
 
 getAbundances<-function(phyloseq, level){
   
@@ -69,19 +71,18 @@ Top50<- myAbundanceDF %>%
 
 
 myNMDS <- myAbundanceDF %>%
-    dplyr::filter(row.names(.) %in% Top50) %>%
+    # dplyr::filter(row.names(.) %in% Top50) %>%
     t() %>%
     as.data.frame() %>%
  
     metaMDS(.,distance="bray",trymax=100, 
             k = nrow(unique(metadata[,CategoricalVariablesDF$CategoricalVariable[1]]))) %>%
     pluck("points") %>%
-    as.data.frame() %>%
-  right_join(., metadata)
+    as.data.frame() 
 
   # NMDS = data.frame(NMDS1 = dim_NMDS$points[,1], NMDS2 = dim_NMDS$points[,2])
 
-BiPlotCoords<- envfit(myNMDS, myAbundanceDF, perm=999) 
+BiPlotCoords<- envfit(myNMDS, t(myAbundanceDF), perm=999) 
 
 BiPlotCoordsDF <- c("MDS1","MDS2","r","pvals") %>%
   set_names() %>%
@@ -106,14 +107,16 @@ BiPlotCoordsDF <- c("MDS1","MDS2","r","pvals") %>%
   dplyr::filter(species %in% Top50)
   
 
+myBrayDistMat <-vegdist(wisconsin(sqrt(t(myAbundanceDF))))
 
+pam
 
 ```
 
 ## NMDS by Treatment group
 
 
-```{r NMDS}
+```{r NMDS_Group, warning= F, message= F}
 
 long_var<-LongitudinalVariablesDF$LongitudinalVariable[1]
 cat_var <- CategoricalVariablesDF$CategoricalVariable[1]
@@ -122,6 +125,10 @@ id_var <- "SampleID"
 
 myPal<-RColorBrewer::brewer.pal(name =  CategoricalVariablesDF$PaletteName[1],
                                 n=length(unique(metadata[,cat_var])))
+BiPlotCoordsDF<-BiPlotCoordsDF %>%
+  mutate(Dim1s = Dim1*3,
+         Dim2s = Dim2*3)
+
 
 myNMDS_DF <- myNMDS %>%
   rownames_to_column(var = id_var) %>%
@@ -139,7 +146,7 @@ myNMDS_DF <- myNMDS %>%
   myYmin<-max(myNMDS$MDS2)-(max(myNMDS$MDS1)-min(myNMDS$MDS1))
 
 
-myBrayDistMat <-vegdist(wisconsin(sqrt(t(myAbundanceDF))))
+
   
 myAdonis<- adonis(myBrayDistMat~ catVar, data = myNMDS_DF) %>%
   pluck("aov.tab") %>%
@@ -148,10 +155,34 @@ myAdonis<- adonis(myBrayDistMat~ catVar, data = myNMDS_DF) %>%
   magrittr::set_rownames(cat_var)
   
   
-  library(ggrepel)
+myNMDSplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) + 
+    geom_point() +
+    theme_bw()+
+    theme(panel.border=element_blank(),
+          panel.grid.major=element_blank(),
+          panel.grid.minor=element_blank(),
+          
+          axis.line=element_line(colour="black"),
+          axis.text.x=element_text(size=11),
+          axis.text.y=element_text(size=11),
+          axis.title.x=element_text(size=11),
+          axis.title.y=element_text(size=11),
+          
+          legend.text=element_text(size=11,face="italic"),
+          legend.title=element_text(size=11))+
+    
+    ggtitle(expression(atop("Species composition",atop(italic("all samples"))))) +
+    theme(plot.title=element_text(lineheight=1,face="bold",size=13))+
+    coord_fixed()+
+    labs(fill = cat_var, color=cat_var, shape = long_var) 
+
+
+
+
 myNMDSBiplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) + 
-    geom_point(aes(colour=catVar, shape = as.character(LongVar)))+
-    scale_colour_manual(values = myPal)+
+    geom_point(aes(colour=catVar, shape = as.character(LongVar))) +
+    scale_colour_manual(values = myPal, labels = c("DGT", "DRV+RLT")) +
+    scale_fill_manual(values=myPal, labels = c("DGT", "DRV+RLT"))+
     theme_bw()+
     theme(panel.border=element_blank(),
           panel.grid.major=element_blank(),
@@ -171,16 +202,63 @@ myNMDSBiplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
     stat_ellipse(geom="polygon",
                  alpha=0.15,color="black",
                  aes(fill=catVar),level=0.95)+
-    scale_fill_manual(values=myPal)+
     # scale_size_manual(values = c(1:length(unique(myNMDS_DF[,"LongVar"])))/1.5) +
-    geom_segment(data=BiPlotCoordsDF,aes(x=0,xend=Dim1,y=0,yend=Dim2),
+    geom_segment(data=BiPlotCoordsDF,aes(x=0,xend=Dim1s,y=0,yend=Dim2s),
                  arrow = arrow(length = unit(0.2,"cm")),colour="darkgrey")+
-    geom_text_repel(data=BiPlotCoordsDF,aes(Dim1,Dim2,label=species),
+    geom_text_repel(data=BiPlotCoordsDF,aes(Dim1s,Dim2s,label=species),
                     size=2.5, box.padding = unit(0.25, "lines"),
                     segment.colour="black",
                     segment.alpha=0.5,
                     segment.size=0.10)+
     coord_fixed()+
-    labs(fill = cat_var, color=cat_var)
+    labs(fill = cat_var, color=cat_var, shape = long_var) +
+  annotation_custom(gridExtra::tableGrob(round(myAdonis,3), theme = ttheme_default(base_size = 8)),ymin = 3.5, xmin=2.4)
+
 
 ```
+
+
+When we look at the most simple ordination before colouring by categorical variables, we see no clear separated clusters between samples. They all appear to be mostly concentrated in one big cluster that randomly spreads in the positive direction for both NMDS components.
+
+```{r plot_basic_NMDS, warning = F, include = F, message=F, warning=F}
+myNMDSplot
+```
+
+
+In a more formal analysis, the silhouette coefficient was tested for different number of clusters. This analysis found the biggest coefficient was found for n=1 clustrs, with massive drops between 2-3 and 5-6.
+
+```{r silhouette_analysis, warning=F, message=F}
+
+c(1:11) %>%
+  set_names() %>%
+  map_df(., ~{
+    pam(myBrayDistMat, k = .x) %>%
+      pluck("silinfo") %>%
+      pluck("avg.width")
+  }) %>%
+  t() %>%
+  as_data_frame() %>%
+  rownames_to_column(var="clusters") %>%
+  set_names(c("clusters", "coefficient")) %>%
+  ggplot(., aes(x=as.numeric(clusters), y=coefficient, group=1)) +
+  geom_point() + 
+  geom_line() + 
+  scale_x_continuous(breaks=c(1:10)) +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank()) + 
+  labs(title = "Silhouette coefficient by number of clusters", 
+       x="nº Clusters", y = "Silhouette coefficient")
+  
+
+```
+
+
+In the same fashion, when we start identifying samples by group and Timepoint, we see no clear separation, although samples from group 1 (+DGT) group appear to be more clustered together than group 2 (DRV+RLT), which show a more diffuse "central" cluster and are more dispersed. When looking at weight of the variables, the concentric spread of the arrows can be split in two sides, one more enriched in Prevotella and another in bacteroides, which spread mostly around the 2nd component of the NMDS.
+
+```{r plot_biplot, include=F, message=F, warning=F}
+myNMDS
+```
+
+
+
+
