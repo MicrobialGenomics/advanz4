@@ -255,8 +255,10 @@ c(1:11) %>%
 
 In the same fashion, when we start identifying samples by group and Timepoint, we see no clear separation, although samples from group 1 (+DGT) group appear to be more clustered together than group 2 (DRV+RLT), which show a more diffuse "central" cluster and are more dispersed. When looking at weight of the variables, the concentric spread of the arrows can be split in two sides, one more enriched in Prevotella and another in bacteroides, which spread mostly around the 2nd component of the NMDS.
 
+However, the Adonis test found the variable group to have a significant effect over sample distances (p<0.001), although it only accounted for a small portion of the variance
+
 ```{r plot_biplot, include=F, message=F, warning=F}
-myNMDS
+myNMDSBiplot
 ```
 
 
