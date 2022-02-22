@@ -14,6 +14,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Carlos, en aquest document vaig especificant els análisis targeted a aquest estudi que hauries d'anar treballant. L'estructura de workflowr i com l'has fet servir sta molt bé. Et recomano que facis servir el paquet metar quan puguis.
 
+```{r DeltaCD4}
+```
+
+Using Delta-CD4 grouping, check if baseline and week 96 microbiome is different
+```{r Delta-CD4 group vs baseline}
+```
+
 Compare, both through timepoint-specific boxplots and LMM how bray-curtis distance vs baselins has changes in each treatment-group and in each Delta-CD4 group as defined in analysis plan
 ```{r Bray-Curtis Distance vs baseline}
 
@@ -24,9 +31,7 @@ perform PAM analysis using baseline samples only and describe differences
 ```{r baseling PAM-clustering analysis}
 ```
 
-Using Delta-CD4 grouping, check if baseline and week 96 microbiome is different
-```{r Delta-CD4 group vs baseline}
-```
+
 
 Using Delta-CD4 grouping and baseling clinical data only, check from clinical differences between group. Use, compareGroups.
 
