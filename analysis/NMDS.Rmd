@@ -24,6 +24,7 @@ library(tidyverse)
 library(vegan)
 library(ggrepel)
 library(cluster)
+require(gridExtra)
 ```
 
 ## Including Plots
@@ -212,7 +213,7 @@ myNMDSBiplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
                     segment.size=0.10)+
     coord_fixed()+
     labs(fill = cat_var, color=cat_var, shape = long_var) +
-  annotation_custom(gridExtra::tableGrob(round(myAdonis,3), theme = ttheme_default(base_size = 8)),ymin = 3.5, xmin=2.4)
+  annotation_custom(gridExtra::tableGrob(round(myAdonis,3), theme = theme_default(base_size = 8)),ymin = 3.5, xmin=2.4)
 
 
 ```
@@ -260,7 +261,4 @@ However, the Adonis test found the variable group to have a significant effect o
 ```{r plot_biplot, include=F, message=F, warning=F}
 myNMDSBiplot
 ```
-
-
-
 
