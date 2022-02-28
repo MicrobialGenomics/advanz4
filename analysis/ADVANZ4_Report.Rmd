@@ -21,9 +21,10 @@ library(ggpubr)
 
 
 ```{r load_u_data_cars, eval=T, include=F}
-myPath<-here::here()
-setwd(myPath)
-mymre<-readRDS("DataPackages/mre.rds")
+here<-here::here()
+# setwd(myPath)
+mymre<-here::here(here, "data", "mre.rds") %>%
+  readRDS()
 metadata <- metar::get_metadata(mymre)
 library(rstatix)
 

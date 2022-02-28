@@ -9,10 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Carlos Blázquez Bondia" />
 
-<meta name="date" content="2022-02-22" />
 
-<title>Diversity_GeneRichness</title>
+<title>ADVANZ4 initial report</title>
 
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -256,12 +256,6 @@ $(document).ready(function () {
 <li>
   <a href="license.html">License</a>
 </li>
-<li>
-  <a href="IGC_analysis.html">Gene richness</a>
-</li>
-<li>
-  <a href="NMDS.html">NMDS</a>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -274,8 +268,8 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Diversity_GeneRichness</h1>
-<h4 class="date">2022-02-22</h4>
+<h1 class="title toc-ignore">ADVANZ4 initial report</h1>
+<h4 class="author">Carlos Blázquez Bondia</h4>
 
 </div>
 
@@ -416,7 +410,6 @@ Unstaged changes:
     Modified:   advanz4.Rproj
     Modified:   analysis/ADVANZ4_Report.Rmd
     Modified:   analysis/IGC_analysis.Rmd
-    Modified:   analysis/_site.yml
 
 </code></pre>
 <p>
@@ -431,7 +424,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/IGC_analysis.Rmd</code>) and HTML (<code>docs/IGC_analysis.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/ADVANZ4_Report.Rmd</code>) and HTML (<code>docs/ADVANZ4_Report.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -460,33 +453,16 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/3ed1abadcd6013fc7930d6a134ccd7f16f95bc0b/analysis/IGC_analysis.Rmd" target="_blank">3ed1aba</a>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/3643e0437b8e5013f59c804b42fd053e763b694f/analysis/ADVANZ4_Report.Rmd" target="_blank">3643e04</a>
 </td>
 <td>
 cblazquez-irsi
 </td>
 <td>
-2022-01-13
+2022-01-19
 </td>
 <td>
-Added split and universal LMM for cross comparisons
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/3ed1abadcd6013fc7930d6a134ccd7f16f95bc0b/docs/IGC_analysis.html" target="_blank">3ed1aba</a>
-</td>
-<td>
-cblazquez-irsi
-</td>
-<td>
-2022-01-13
-</td>
-<td>
-Added split and universal LMM for cross comparisons
+Rewrote Biplot generation in a tidyverse manner
 </td>
 </tr>
 <tr>
@@ -494,41 +470,7 @@ Added split and universal LMM for cross comparisons
 Rmd
 </td>
 <td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/45db0423f6a023e26126a55a43145cfe7ddda4f0/analysis/IGC_analysis.Rmd" target="_blank">45db042</a>
-</td>
-<td>
-cblazquez-irsi
-</td>
-<td>
-2021-12-23
-</td>
-<td>
-split LMM funtion definition from plotting chunks
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/49a55a78b0e144d44b834876fe1c1d85984156f8/analysis/IGC_analysis.Rmd" target="_blank">49a55a7</a>
-</td>
-<td>
-cblazquez-irsi
-</td>
-<td>
-2021-12-23
-</td>
-<td>
-First application of LMM
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/569fdb7712fd2e1a80f1a6188e81349a684b6055/analysis/IGC_analysis.Rmd" target="_blank">569fdb7</a>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/569fdb7712fd2e1a80f1a6188e81349a684b6055/analysis/ADVANZ4_Report.Rmd" target="_blank">569fdb7</a>
 </td>
 <td>
 cblazquez-irsi
@@ -547,67 +489,13 @@ First commit. Started working on LMMs
 </div>
 </div>
 </div>
-<div id="rarefaction-and-sequencing-depth" class="section level2">
-<h2>Rarefaction and sequencing depth</h2>
-<p>We’ll control first for the effect of sequencing depth over Gene richness and try to stablish a proper rarefaction threshold.</p>
-<p><img src="figure/IGC_analysis.Rmd/Plot_Rarefaction-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Data shows there is no bias created by sequencing depth between groups, and a threshold over the 2nd percentile is appropiate.</p>
-</div>
-<div id="longitudinal-evolution-lmms" class="section level2">
-<h2>Longitudinal evolution: LMMs</h2>
-<p>We’ll start studying the longitudinal effect of treatment group over gene richness. For such purpose, we’ll use Linear mixed models using patients as random effect and an interaction of treatment group and time as fixed effects with the following lme4 formula:</p>
-<p><code>richness ~ group*time_point + (1|ID)</code></p>
-<p><img src="figure/IGC_analysis.Rmd/plot_LMMs-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>There is a pretty clear evolution in every one of the treatment groups. However the evolution rate seems pretty similar between both treatment groups. The models fail to find a great difference in gene richness evolution, althougha slight yet significant increasing trend (slope value = 0.027), can be found in the DGT group (Group 1).</p>
-<p>However, creating a single LMM with treatment group as a random effect we can measure the actual difference in the effect of timepoint over gene richness between two groups.</p>
-<p><img src="figure/IGC_analysis.Rmd/compare_group_effect-1.png" width="672" style="display: block; margin: auto;" /></p>
-<table>
-<thead>
-<tr class="header">
-<th align="left"></th>
-<th align="right">Estimate</th>
-<th align="right">Std. Error</th>
-<th align="right">df</th>
-<th align="right">t value</th>
-<th align="right">Pr(&gt;|t|)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">988.8695916</td>
-<td align="right">1.1274910</td>
-<td align="right">197.8885</td>
-<td align="right">877.0531670</td>
-<td align="right">0.0000000</td>
-</tr>
-<tr class="even">
-<td align="left">long_var</td>
-<td align="right">0.0269940</td>
-<td align="right">0.0170043</td>
-<td align="right">201.5997</td>
-<td align="right">1.5874797</td>
-<td align="right">0.1139712</td>
-</tr>
-<tr class="odd">
-<td align="left">cat_var2</td>
-<td align="right">-0.8538164</td>
-<td align="right">1.6204602</td>
-<td align="right">196.9098</td>
-<td align="right">-0.5268975</td>
-<td align="right">0.5988579</td>
-</tr>
-<tr class="even">
-<td align="left">long_var:cat_var2</td>
-<td align="right">-0.0248186</td>
-<td align="right">0.0246167</td>
-<td align="right">200.4380</td>
-<td align="right">-1.0082016</td>
-<td align="right">0.3145732</td>
-</tr>
-</tbody>
-</table>
-<p>This shows a slight effect of treatment, where the effect of time over richness in group group2 is 0.025 (St.err = 0.025) times lower than the same for group 1 (ANOVA p=0.31)</p>
+<div id="advanz-4-initial-report" class="section level2">
+<h2>ADVANZ-4 Initial report</h2>
+<p>The ADVANZ-4 study consisted on 95 patients, giving a total of 271 samples sequenced. Due to sequencing depth diferences, all samples were rarefied to the 2nd percentile, consisting on a minimum read count of 10.000.000. This resulted in 5 samples being dropped due to low read counts, leaving a total of 261 samples.</p>
+<p><img src="figure/ADVANZ4_Report.Rmd/Plot_Rarefaction-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>At the phylum level, no apparent trend of change could be observed, bar a probable slight decrease in proteobacteria over time in both groups, although any conclusion drawn from these figures should be met with caution. No aparent change trends can be seen either between groups or longitudinally when looking at the genus and species level.</p>
+<p><img src="figure/ADVANZ4_Report.Rmd/Taxa_Boxplots_Phyl-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/ADVANZ4_Report.Rmd/Taxa_Boxplots_Gen-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/ADVANZ4_Report.Rmd/Taxa_Boxplots_Gen-2.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -631,20 +519,19 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] nlme_3.1-148       lmerTest_3.1-3     lme4_1.1-27.1      Matrix_1.2-18     
- [5] rstatix_0.7.0      ggpubr_0.4.0       RColorBrewer_1.1-2 forcats_0.5.1     
- [9] stringr_1.4.0      dplyr_1.0.7        purrr_0.3.4        readr_2.0.1       
-[13] tidyr_1.1.4        tibble_3.1.6       ggplot2_3.3.5      tidyverse_1.3.1   
-[17] metar_0.1.4       
+ [1] reshape2_1.4.4     phyloseq_1.34.0    rstatix_0.7.0      ggpubr_0.4.0      
+ [5] RColorBrewer_1.1-2 forcats_0.5.1      stringr_1.4.0      dplyr_1.0.7       
+ [9] purrr_0.3.4        readr_2.0.1        tidyr_1.1.4        tibble_3.1.6      
+[13] ggplot2_3.3.5      tidyverse_1.3.1    metar_0.1.4       
 
 loaded via a namespace (and not attached):
   [1] utf8_1.2.2                tidyselect_1.1.1         
-  [3] htmlwidgets_1.5.4         grid_4.0.2               
-  [5] gmp_0.6-2                 pROC_1.18.0              
-  [7] munsell_0.5.0             effectsize_0.4.5         
-  [9] codetools_0.2-16          withr_2.4.3              
- [11] colorspace_2.0-2          Biobase_2.50.0           
- [13] phyloseq_1.34.0           highr_0.9                
+  [3] lme4_1.1-27.1             htmlwidgets_1.5.4        
+  [5] grid_4.0.2                gmp_0.6-2                
+  [7] pROC_1.18.0               munsell_0.5.0            
+  [9] codetools_0.2-16          effectsize_0.4.5         
+ [11] withr_2.4.3               colorspace_2.0-2         
+ [13] Biobase_2.50.0            highr_0.9                
  [15] logger_0.2.2              knitr_1.36               
  [17] rstudioapi_0.13           stats4_4.0.2             
  [19] ipmisc_6.0.2              ggsignif_0.6.3           
@@ -664,68 +551,65 @@ loaded via a namespace (and not attached):
  [47] Cairo_1.5-12.2            multcompView_0.1-8       
  [49] workflowr_1.6.2           rlang_0.4.11             
  [51] MatrixModels_0.5-0        zeallot_0.1.0            
- [53] systemfonts_1.0.2         GlobalOptions_0.1.2      
- [55] PMCMRplus_1.9.0           splines_4.0.2            
- [57] broom_0.7.10              yaml_2.2.1               
- [59] reshape2_1.4.4            abind_1.4-5              
- [61] modelr_0.1.8              backports_1.4.1          
- [63] httpuv_1.6.3              tools_4.0.2              
- [65] kableExtra_1.3.4          ellipsis_0.3.2           
- [67] jquerylib_0.1.4           biomformat_1.18.0        
- [69] selbal_0.1.0              BiocGenerics_0.36.1      
- [71] WRS2_1.1-3                Rcpp_1.0.7               
- [73] plyr_1.8.6                zlibbioc_1.36.0          
- [75] GetoptLong_1.0.5          pbapply_1.5-0            
- [77] cowplot_1.1.1             correlation_0.7.0        
- [79] S4Vectors_0.28.1          haven_2.3.1              
- [81] ggrepel_0.9.1             cluster_2.1.0            
- [83] fs_1.5.0                  here_1.0.1               
- [85] DataExplorer_0.8.2        magrittr_2.0.1           
- [87] data.table_1.14.2         circlize_0.4.13          
- [89] reprex_2.0.1              mvtnorm_1.1-2            
- [91] whisker_0.4               matrixStats_0.61.0       
- [93] hms_1.1.1                 patchwork_1.1.1          
- [95] mime_0.11                 evaluate_0.14            
- [97] xtable_1.8-4              pairwiseComparisons_3.1.6
- [99] broom.mixed_0.2.7         readxl_1.3.1             
-[101] shape_1.4.6               IRanges_2.24.1           
-[103] gridExtra_2.3             compiler_4.0.2           
-[105] ggstatsplot_0.8.0         crayon_1.4.2             
-[107] minqa_1.2.4               htmltools_0.5.2          
-[109] mgcv_1.8-31               mc2d_0.1-21              
-[111] later_1.3.0               tzdb_0.2.0               
-[113] lubridate_1.8.0           DBI_1.1.1                
-[115] SuppDists_1.1-9.5         kSamples_1.2-9           
-[117] tweenr_1.0.2              ComplexHeatmap_2.6.2     
-[119] dbplyr_2.1.1              MASS_7.3-51.6            
-[121] boot_1.3-25               ade4_1.7-18              
-[123] car_3.0-12                permute_0.9-5            
-[125] cli_3.0.1                 parallel_4.0.2           
-[127] insight_0.14.4            igraph_1.2.9             
-[129] pkgconfig_2.0.3           statsExpressions_1.1.0   
-[131] numDeriv_2016.8-1.1       xml2_1.3.2               
-[133] paletteer_1.4.0           foreach_1.5.1            
-[135] svglite_2.0.0             bslib_0.3.1              
-[137] blme_1.0-5                webshot_0.5.2            
-[139] multtest_2.46.0           XVector_0.30.0           
-[141] estimability_1.3          rvest_1.0.1              
-[143] digest_0.6.29             parameters_0.14.0        
-[145] vegan_2.5-7               Biostrings_2.58.0        
-[147] rmarkdown_2.11            cellranger_1.1.0         
-[149] shiny_1.7.1               gtools_3.9.2             
-[151] rjson_0.2.20              nloptr_1.2.2.3           
-[153] lifecycle_1.0.1           jsonlite_1.7.2           
-[155] Rhdf5lib_1.12.1           carData_3.0-4            
-[157] viridisLite_0.4.0         fansi_0.5.0              
-[159] pillar_1.6.4              lattice_0.20-41          
-[161] fastmap_1.1.0             httr_1.4.2               
-[163] survival_3.1-12           glue_1.5.1               
-[165] bayestestR_0.11.0         png_0.1-7                
-[167] iterators_1.0.13          ggforce_0.3.3            
-[169] stringi_1.7.6             sass_0.4.0               
-[171] performance_0.7.3         rematch2_2.1.2           
-[173] memoise_2.0.0             Rmpfr_0.8-4              
-[175] ape_5.5                  </code></pre>
+ [53] GlobalOptions_0.1.2       PMCMRplus_1.9.0          
+ [55] splines_4.0.2             broom_0.7.10             
+ [57] yaml_2.2.1                abind_1.4-5              
+ [59] modelr_0.1.8              backports_1.4.1          
+ [61] httpuv_1.6.3              tools_4.0.2              
+ [63] ellipsis_0.3.2            jquerylib_0.1.4          
+ [65] biomformat_1.18.0         selbal_0.1.0             
+ [67] BiocGenerics_0.36.1       WRS2_1.1-3               
+ [69] Rcpp_1.0.7                plyr_1.8.6               
+ [71] zlibbioc_1.36.0           GetoptLong_1.0.5         
+ [73] pbapply_1.5-0             cowplot_1.1.1            
+ [75] correlation_0.7.0         S4Vectors_0.28.1         
+ [77] haven_2.3.1               ggrepel_0.9.1            
+ [79] cluster_2.1.0             fs_1.5.0                 
+ [81] here_1.0.1                DataExplorer_0.8.2       
+ [83] magrittr_2.0.1            data.table_1.14.2        
+ [85] circlize_0.4.13           reprex_2.0.1             
+ [87] mvtnorm_1.1-2             whisker_0.4              
+ [89] matrixStats_0.61.0        hms_1.1.1                
+ [91] patchwork_1.1.1           mime_0.11                
+ [93] evaluate_0.14             xtable_1.8-4             
+ [95] pairwiseComparisons_3.1.6 broom.mixed_0.2.7        
+ [97] readxl_1.3.1              shape_1.4.6              
+ [99] IRanges_2.24.1            gridExtra_2.3            
+[101] compiler_4.0.2            ggstatsplot_0.8.0        
+[103] crayon_1.4.2              minqa_1.2.4              
+[105] htmltools_0.5.2           mgcv_1.8-31              
+[107] mc2d_0.1-21               later_1.3.0              
+[109] tzdb_0.2.0                lubridate_1.8.0          
+[111] DBI_1.1.1                 SuppDists_1.1-9.5        
+[113] kSamples_1.2-9            tweenr_1.0.2             
+[115] ComplexHeatmap_2.6.2      dbplyr_2.1.1             
+[117] MASS_7.3-51.6             boot_1.3-25              
+[119] Matrix_1.2-18             ade4_1.7-18              
+[121] car_3.0-12                permute_0.9-5            
+[123] cli_3.0.1                 parallel_4.0.2           
+[125] insight_0.14.4            igraph_1.2.9             
+[127] pkgconfig_2.0.3           statsExpressions_1.1.0   
+[129] xml2_1.3.2                paletteer_1.4.0          
+[131] foreach_1.5.1             bslib_0.3.1              
+[133] blme_1.0-5                multtest_2.46.0          
+[135] XVector_0.30.0            estimability_1.3         
+[137] rvest_1.0.1               digest_0.6.29            
+[139] parameters_0.14.0         vegan_2.5-7              
+[141] Biostrings_2.58.0         rmarkdown_2.11           
+[143] cellranger_1.1.0          shiny_1.7.1              
+[145] gtools_3.9.2              rjson_0.2.20             
+[147] nloptr_1.2.2.3            lifecycle_1.0.1          
+[149] nlme_3.1-148              jsonlite_1.7.2           
+[151] Rhdf5lib_1.12.1           carData_3.0-4            
+[153] fansi_0.5.0               pillar_1.6.4             
+[155] lattice_0.20-41           fastmap_1.1.0            
+[157] httr_1.4.2                survival_3.1-12          
+[159] glue_1.5.1                bayestestR_0.11.0        
+[161] png_0.1-7                 iterators_1.0.13         
+[163] ggforce_0.3.3             stringi_1.7.6            
+[165] sass_0.4.0                performance_0.7.3        
+[167] rematch2_2.1.2            memoise_2.0.0            
+[169] Rmpfr_0.8-4               ape_5.5                  </code></pre>
 </div>
 </div>
 

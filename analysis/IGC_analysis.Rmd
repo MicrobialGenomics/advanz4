@@ -2,8 +2,9 @@
 title: "Diversity_GeneRichness"
 date: "`r Sys.Date()`"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
+
 editor_options:
   chunk_output_type: console
 ---
@@ -20,7 +21,7 @@ library(ggpubr)
 library(rstatix)
 library(lme4)
 library(lmerTest)
-source(file = "code/myFunctions.R")
+source(file = here::here("code","myFunctions.R"))
 
 ```
 
@@ -72,8 +73,59 @@ ThresholdTable<-igc@dataTable %>%
 
 ```
 
+
+## Rarefaction and sequencing depth
+
+We'll control first for the effect of sequencing depth over Gene richness and try to stablish a proper rarefaction threshold.
+
+``` {r Plot_Rarefaction, echo=F, message=F, warning=F}
+myRarefaction<-mymre@diversity@igc@rarefaction$categorical$Group$rarefaction +
+  scale_color_manual(values = brewer.pal(n=2, name =  "Set1"), labels = c("ABC+3TC+DGT","ABC+3TC+DRV+RTV")) +
+
+  geom_vline(xintercept = Threshold, color="black", inherit.aes = F) + 
+  labs(subtitle = paste("Rarefaction Threshold: 2nd percentile (", as.numeric(Threshold),")",sep=""),
+       color = "Group") +
+  theme(plot.subtitle = element_text(size = 8),
+        plot.title =  element_text(size=9, face="bold"))
+
+
+DepthViolin<-igc@dataTable %>%
+  left_join(., metadata[,c("SampleID","Treat", "TimePoint")]) %>%
+  rename(CategoricalVariable = Treat,
+         LongitudinalVariable = TimePoint) %>%
+  group_by(SampleID) %>% 
+  filter(ReadCountReal == max(ReadCountReal)) %>%
+  
+  
+  ggplot(., aes(x=CategoricalVariable, y=ReadCountReal, Group = CategoricalVariable)) +
+  geom_violin() +
+  geom_boxplot(aes(fill=CategoricalVariable), width=0.4) + 
+  ggpubr::stat_compare_means( method = "wilcox",label = "p.signif", label.x.npc = 0.5) +
+  theme_bw() + 
+  geom_hline(yintercept = Threshold) +
+  scale_fill_brewer(palette = "Set1") +
+  labs(title = "Sequencing depth distribution by Group", subtitle = "Wilcoxon Test",
+       x= "Group",
+       fill="Group",
+       y="Max sequencing depth") +
+  theme(plot.subtitle = element_text(size = 8),
+        plot.title =  element_text(size=9, face="bold"))
+
+  
+
+ggarrange(myRarefaction, DepthViolin, common.legend = T)
+
+
+```
+
+Data shows there is no bias created by sequencing depth between groups, and a threshold over the 2nd percentile is appropiate.
+
+
 ## Longitudinal evolution: LMMs
 
+We'll start studying the longitudinal effect of treatment group over gene richness. For such purpose, we'll use Linear mixed models using patients as random effect and an interaction of treatment group and time as fixed effects with the following lme4 formula:
+
+`richness ~ group*time_point + (1|ID)`
 
 
 ```{r create_LMM_Function, echo=FALSE}
@@ -136,7 +188,7 @@ get_LMM_GraphParams <- function(Table){
 
 
 
-```{r plot_LMMs, message = F, warning = F}
+```{r plot_LMMs, message = F, warning = F, echo=F}
 
 cat_var<-CategoricalVariablesDF$CategoricalVariable
 long_var <- LongitudinalVariablesDF$LongitudinalVariable[1]
@@ -144,7 +196,7 @@ link_var<-LongitudinalVariablesDF$LinkVariable[1]
 num_var <- "richness"
 t<-NULL
 # 
-plot_ist<-create_LMM(metadata = ThresholdTable,
+plot_list<-create_LMM(metadata = ThresholdTable,
            num_var = "richness", 
            cat_var = "cat_var",
            long_var = "long_var",
@@ -194,10 +246,10 @@ ggarrange(plotlist = plot_list, common.legend = T)
 
 There is a pretty clear evolution in every one of the treatment groups. However the evolution rate seems pretty similar between both treatment groups. The models fail to find a great difference in gene richness evolution, althougha slight yet significant increasing trend (slope value = 0.027), can be found in the DGT group (Group 1).
 
-However, creating a single LMM with treatment group as a random effect whe can meassure the actual difference in the effect of timepoint over gene richness between two groups. 
+However, creating a single LMM with treatment group as a random effect we can measure the actual difference in the effect of timepoint over gene richness between two groups. 
 
 
-```{r compare_group_effect}
+```{r compare_group_effect, warning = F, message= F, echo = F}
 
 
 myUnifiedModel<- ThresholdTable %>%
@@ -279,3 +331,5 @@ ggarrange(plotlist = plot_list, common.legend = T)
 
 
 ```
+
+
