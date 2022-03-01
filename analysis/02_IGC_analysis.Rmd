@@ -2,9 +2,8 @@
 title: "Diversity_GeneRichness"
 date: "`r Sys.Date()`"
 output:
-  pdf_document: default
   html_document: default
-
+  pdf_document: default
 editor_options:
   chunk_output_type: console
 ---
@@ -196,12 +195,12 @@ link_var<-LongitudinalVariablesDF$LinkVariable[1]
 num_var <- "richness"
 t<-NULL
 # 
-plot_list<-create_LMM(metadata = ThresholdTable,
-           num_var = "richness", 
-           cat_var = "cat_var",
-           long_var = "long_var",
-           link_var = "link_var",
-           breakpoints = NULL)
+# plot_list<-create_LMM(metadata = ThresholdTable,
+#            num_var = "richness", 
+#            cat_var = "cat_var",
+#            long_var = "long_var",
+#            link_var = "link_var",
+#            breakpoints = NULL)
 
 plot_list <-  c(num_var) %>%
   purrr::set_names() %>%

@@ -1,0 +1,818 @@
+PatNo,PatCode,Centro,RND,ITT,Safety,mITT,PP,Treat,RndDt,"Fecha
+HLA
+B5701","Fecha 1ª
+determinación
+CD4","Fecha 2ª
+determinación
+CD4",Sexo,DoB,Edad,FechaFirmaCI,FechaInclusion,DiagSIDA,DiagSIDAFecha,CD4_0,modo_infeccion,OrigenEtnico,PaisOrigen,AntecEnfHepatica,EnfermHepatica_memo,EnfermHepatica_FechaDiagn,EnfermHepatica_activa,AntecEnfRenal,EnfermRenal_memo,EnfermRenal_FechaDiagnost,EnfermRenal_activa,OtrasEnfer,NumOtrasEnferm,EventoDefiSIDA,"Candidiasis
+traqueal,
+bronquial o
+pulmonar","Candidiasis
+esofágica","Coccidioidomicosis
+generalizada","Criptococosis
+extrapulmonar","Criptosporidiasis
+con diarrea de
+más de mes","Infección por
+citomegalovirus de un
+órgano diferente al
+hígado, bazo o ganglios
+linfáticos","Retinitis por
+citomegalovirus","Encefalopatía
+por VIH","Infección por el virus del herpes
+simple que cause úlcera
+mucocutánea de más de 1 mes de
+evolución o bronquitis, neumonitis
+o esafogitis","Histoplasmosis
+diseminada","Isosporidiasis
+crónica","Sarcoma
+de
+Kaposi","Linfoma de
+Burkitt o
+equivalente","Linfoma
+inmunoblástico
+o equivalente","Linfoma
+cerebral
+primario","Infección por MAI
+o M kansasii
+diseminada o
+extrapulmonar","Tuberculosis
+extrapulmonar
+o diseminada","Infección por otras
+microbacterias,
+diseminada o
+extrapulmonar","Neumonía
+por P.
+carinni","Leucoencefalopatía
+multifocal
+progresiva","Sepsis recurrente
+por especies de
+Salmonella que no
+sean S. typhi","Toxoplasmosis
+cerebral","Wasting
+syndrome","Carcinoma
+de cérvix
+invasivo","Tuberculosis
+pulmonar","Neumonía
+bacteriana
+recurrente",SidaCalculada,"¿Tiene el
+resultado
+del
+estudi","Fecha test
+Resistencia
+inicial",OnProtocolLastDbrDt,WeeksOnProtocolDbr,ExcmITT,ExcPP,MaxWeek,MaxWeekOnProtocol,Reason,OnProtocolLastMonitorDt,Comment,PrematureFinalisation,Motivo,WeeksOnProtocolDbr_,Reason_,PrematureFinalisation_,IRIS,IrisDt,NewAidsEvent,NewAidsEventDt,"CMV
+Event
+Any",CmvEventAnyDt,"CMV
+Event
+Evol",CmvEventEvolDt,"IRIS
+(weeks)","NewAidsEvent
+(weeks)",IRIS_,NewAidsEvent_,"IRIS_
+(weeks)","NewAidsEvent_
+(weeks)",CmvEventAnyTm,CmvEventEvolTm,CmvEventAny_,CmvEventEvol_,CmvEventAnyTm_,CmvEventEvolTm_,"CMV
+Negative",AA_MaxDt,C1_MaxDt,DisA_MaxDt,DisB_MaxDt,Lab_MaxDt,PE_MaxDt,VS_MaxDt,Uni_MaxDt,MaxDt,ResistenceTime,SidaTime,"max
+FollowUp
+(weeks)","Time
+On
+Study
+(weeks)",FollowUpTime_,OnStudyTime_,"m
+u
+l
+t
+i
+p
+l
+e"
+00676,A-001,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,31Mar2015,26Feb2015,26Feb2015,31Mar2015,Hombre,01Aug1961,54,31Mar2015,31Mar2015,Si,05Nov2014,20,HTSX-No UDVP,Hispano,UNKNOWN,No,,.,.,No,,.,.,Si,3,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,No,No,No,No,No,No,No,Yes,Si,26Feb2015,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,20Jun2016,.,20Mar2017,.,08Mar2016,21Mar2016,21Mar2016,31Mar2015,20Mar2017,33,146,48,48,102.85714,48,1
+00683,A-002,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,29Apr2015,14Apr2015,14Apr2015,24Apr2015,Mujer,01Jan1961,54,29Apr2014,29Apr2015,Si,13Apr2015,7,HTSX-No UDVP,Blanco,ESPAÑA,No,,.,.,No,,.,.,Si,4,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,No,No,No,No,Yes,Si,14Apr2015,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,21Mar2019,.,.,16Nov2015,23May2016,23May2016,23May2016,29Apr2015,21Mar2019,15,16,48,48,203.14286,48,0
+00687,A-003,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,04May2015,23Apr2015,23Apr2015,29Apr2015,Hombre,01Jun1986,29,04May2015,04May2015,No,.,63,Not Qualified,Hispano,VENEZUELA,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,23Apr2015,06Jun2016,48,.,.,48,48,"No
+Premature
+Finalisation",06Jun2016,"Finalización por fracaso virológico SM48 (06/06/16).
+Tampoco acude más a las visitas. 
+Durante el
+seguimiento dejo de tomar medicación en dos
+ocasiones por quedarse sin.",No,Fracaso virológico,48,"Virological
+Failure",1,No,.,Yes,03Mar2016,No,.,No,.,.,43.428571,0,1,.,43.428571,.,.,0,0,.,.,Yes,06Jun2016,07Sep2015,.,07Sep2015,06Jun2016,06Jun2016,06Jun2016,06Jun2016,06Jun2016,11,.,48,48,57,57,1
+00689,A-004,"Hospital
+Clínic",Yes,Yes,Yes,Yes,No,ABC+3TC+DRV+RTV,11May2015,30Apr2015,30Apr2015,08May2015,Hombre,01Apr1989,26,11May2015,11May2015,No,.,6,HMSX-No UDVP,Hispano,BRASIL,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,30Apr2015,11Apr2016,36,.,1,96,36,"Virological
+Failure",11Apr2016,"Finalización por fracaso virológico el 11/04/16 (a
+determinación entre SM24 y SM36). Continúa por
+ITT. En la SM24 refiere que dejó la medicación 15
+días porque estaba trabajando fuera de España.",Yes,Fracaso virológico,36,"Virological
+Failure",1,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,17Aug2016,11Jan2016,.,11Jan2016,25Jul2016,25Jul2016,25Jul2016,11Apr2016,17Aug2016,11,.,48,48,66.285714,48,0
+00691,C-001,"Hospital de
+Sant Pau,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,25May2015,11May2015,11May2015,25May2015,Hombre,01May1960,55,25May2015,25May2015,Si,07May2015,88,"HMSX-HTSX-No
+UDVP",Blanco,ESPAÑA,No,,.,.,Si,Insuficiencia renal,11May2015,Si,Si,6,Si,No,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,Si,11May2015,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,24Dec2015,.,04Apr2017,.,04May2016,02May2016,02May2016,25May2015,04Apr2017,14,18,48,48,97.142857,48,1
+00710,C-002,"Hospital de
+Sant Pau,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,26May2015,04May2015,04May2015,26May2015,Hombre,01Oct1978,37,20May2015,26May2015,Si,20Mar2015,35,HTSX-No UDVP,Blanco,ESPAÑA,No,,.,.,No,,.,.,Si,2,Si,No,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,Si,04May2015,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,.,.,.,11Jan2017,04May2016,03May2016,03May2016,26May2015,11Jan2017,22,67,48,48,85.142857,48,0
+00712,C-003,"Hospital de
+Sant Pau,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,26May2015,12May2015,12May2015,26May2015,Mujer,01Jun1965,50,26May2015,26May2015,No,.,81,UDVP,Blanco,ESPAÑA,Si,Infección crónica por VHC,01Jan2000,Si,No,,.,.,Si,3,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,14May2015,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,13Mar2017,.,13Mar2017,.,26Apr2016,26Apr2016,26Apr2016,26May2015,13Mar2017,12,.,48,48,93.857143,48,1
+00741,F-001,"Hospital de
+Mataro,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,11Jun2015,11Jun2015,11Jun2015,16Jun2015,Mujer,01Jan1977,38,16Jun2015,29Jun2015,Si,16Jun2015,40,HTSX-No UDVP,Negro,GANA,No,,.,.,No,,.,.,No,.,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,No,No,No,Yes,Si,25Jun2015,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,22Aug2017,.,.,02May2017,29Jul2016,31May2016,31May2016,29Jun2015,22Aug2017,-14,-5,48,48,114.71429,48,0
+00744,A-005,"Hospital
+Clínic",Yes,Yes,Yes,Yes,No,ABC+3TC+DGT,29Jun2015,18Jun2015,16Jun2015,22Jun2015,Hombre,01Jun1968,47,29Jun2015,29Jun2015,No,.,37,HMSX-No UDVP,Blanco,ESPAÑA,No,,.,.,No,,.,.,Si,1,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,16Jun2015,19Sep2015,12,0,1,96,12,"Clinical
+Progression",19Sep2015,"Finalización el 19/09/15 por SAE (Linfoma célula
+ß_SAE), entre la SM 12 y 24. Continúa por ITT.",Yes,Decisión del médico--> Linfoma B (SAE),11.714286,"Clinical
+Progression",1,No,.,Yes,15Jul2015,No,.,No,.,.,2.2857143,0,1,.,2.2857143,.,.,0,0,.,.,Yes,02May2017,19Sep2015,29Jun2015,.,12Jul2016,02May2016,02May2016,19Sep2015,02May2017,13,.,48,11.714286,96.142857,11.714286,1
+00765,A-006,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,06Jul2015,18Jun2015,18Jun2015,29Jun2015,Hombre,01Jul1989,26,06Jul2015,06Jul2015,No,.,60,HMSX-No UDVP,Hispano,ECUADOR,Si,"HEPATITIS VIRAL B SIN COMA
+HEPATICO, CRONICA SIN H.
+DELTA",15Jun2012,Si,No,,.,.,Si,1,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,.,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,12Nov2018,.,04Jul2016,.,20Jun2016,20Jun2016,20Jun2016,06Jul2015,12Nov2018,.,.,48,48,175,48,0
+00767,C-004,"Hospital de
+Sant Pau,
+Barcelona",Yes,Yes,Yes,No,No,ABC+3TC+DRV+RTV,14Jul2015,07Jul2015,01Jul2015,07Jul2015,Hombre,01May1973,42,14Jul2015,14Jul2015,Si,01Jul2015,82,"HMSX-HTSX-No
+UDVP",Blanco,ESPAÑA,No,,.,.,No,,.,.,No,.,Si,No,No,No,No,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,Si,07Jul2015,22Jul2015,1,1,1,0,0,"Selection
+Criteria",22Jul2015,"FINALIZACIÓN EL 22/07/2015 POR DECISIÓN DEL
+MEDICO POR NO CUMPLIR CRITERIOS
+(CD4>100)								",Yes,"Decisión del médico: finalmente no cumple criterios
+por CD4 >100",1.1428571,"Selection
+Criteria",1,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,.,.,.,14Jul2015,15Jul2015,14Jul2015,14Jul2015,22Jul2015,22Jul2015,7,13,1.1428571,1.1428571,1.1428571,1.1428571,1
+00786,C-005,"Hospital de
+Sant Pau,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,28Jul2015,14Jul2015,14Jul2015,28Jul2015,Hombre,01May1973,42,28Jul2015,28Jul2015,No,.,16,"HMSX-HTSX-No
+UDVP",Blanco,ESPAÑA,No,,.,.,No,,.,.,Si,3,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,20Jul2015,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,20Jul2016,.,.,26Jun2017,04Jul2016,04Jul2016,04Jul2016,28Jul2015,26Jun2017,8,.,48,48,99.857143,48,0
+00797,A-007,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,04Aug2015,16Jul2015,16Jul2015,30Jul2015,Hombre,01Jul1979,36,27Jul2015,29Jul2015,Si,01Feb2001,97,Not Qualified,Blanco,ESPAÑA,No,,.,.,No,,.,.,No,.,Si,No,No,No,No,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,No,No,No,No,No,No,No,Yes,No,.,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,25Mar2019,.,01Feb2016,.,25Jul2016,25Jul2016,25Jul2016,04Aug2015,25Mar2019,.,5297,48,48,189.85714,48,1
+00802,B-001,"Hospital
+Germnas
+Trias i Pujol,
+Barcelona",Yes,Yes,Yes,Yes,No,ABC+3TC+DRV+RTV,11Aug2015,07Aug2015,07Aug2015,11Aug2015,Hombre,01Oct1971,44,07Aug2015,07Aug2015,No,.,54,"HMSX-HTSX-No
+UDVP",Blanco,ESPAÑA,No,,.,.,No,,.,.,Si,1,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,14Sep2015,31Aug2015,3,.,1,0,0,"Clinical
+Progression",31Aug2015,"FINALITZACIÓN POR TOXICIDAD el 31/08/2015
+(IRIS por CMV desenmascarado a los 18 días de
+iniciar TAR_SAE)",Yes,Decisión del médico:IRIS por CMV desenmascarado,2.8571429,"Clinical
+Progression",1,Yes,19Aug2015,Yes,19Aug2015,Yes,19Aug2015,Yes,19Aug2015,1.1428571,1.1428571,1,1,1.1428571,1.1428571,1.1428571,1.1428571,1,1,1.1428571,1.1428571,No,05Sep2018,31Aug2015,.,11Aug2015,12Aug2015,11Aug2015,11Aug2015,14Sep2015,05Sep2018,-34,.,48,2.8571429,160.14286,2.8571429,0
+00881,A-008,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,31Aug2015,13Aug2015,13Aug2015,31Aug2015,Hombre,01Dec1981,34,31Aug2015,31Aug2015,No,.,14,HMSX-No UDVP,Hispano,PERÚ,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,.,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,05Oct2017,.,28Sep2015,.,22Aug2016,22Aug2016,22Aug2016,31Aug2015,05Oct2017,.,.,48,48,109.42857,48,1
+00883,D-001,"Hospital de
+Bellvitge,
+L'Hospitalet",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,31Aug2015,11Aug2015,11Aug2015,.,Hombre,01Sep1968,47,31Aug2015,31Aug2015,No,.,57,HTSX-No UDVP,Hispano,COLOMBIA,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,11Aug2015,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,27Nov2018,.,.,11Apr2017,06Sep2016,06Sep2016,06Sep2016,31Aug2015,27Nov2018,20,.,48,48,169.14286,48,0
+00911,E-001,"Hospital Val
+d'Hebron,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,21Sep2015,03Sep2015,03Sep2015,21Sep2015,Hombre,01Jul1969,46,21Sep2015,21Sep2015,Si,31Aug2015,70,HTSX,Blanco,ESPAÑA,No,,.,.,No,,.,.,Si,3,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,.,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,02May2016,.,.,05Sep2016,05Sep2016,05Sep2016,05Sep2016,21Sep2015,05Sep2016,.,21,48,48,50,48,1
+00919,C-006,"Hospital de
+Sant Pau,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,28Sep2015,14Sep2015,14Sep2015,28Sep2015,Hombre,01Jul1980,35,28Sep2015,28Sep2015,Si,16Sep2015,13,"HMSX-HTSX-No
+UDVP",Blanco,ESPAÑA,No,,.,.,No,,.,.,No,.,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,No,No,No,No,No,No,No,Yes,Si,18Sep2015,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,.,.,.,01Jun2017,20Sep2016,20Sep2016,20Sep2016,28Sep2015,01Jun2017,10,12,48,48,87.428571,48,0
+00927,D-002,"Hospital de
+Bellvitge,
+L'Hospitalet",Yes,Yes,Yes,Yes,No,ABC+3TC+DRV+RTV,29Sep2015,31Aug2015,31Aug2015,29Sep2015,Hombre,01Jul1980,35,28Sep2015,28Sep2015,No,.,5,HTSX-No UDVP,Blanco,RUSIA,No,,.,.,No,,.,.,Si,3,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,31Aug2015,26Nov2015,8,.,1,4,4,Safety,26Nov2015,"FINALIZACIÓN POR TOXICIDAD (evento de rash
+eritematoso cara, cuello, abdomen, tórax el
+26/11/15, AE)",Yes,Toxicidad,8.2857143,Safety,1,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,30Nov2017,25Nov2015,.,28Oct2015,28Oct2015,02Nov2015,02Nov2015,26Nov2015,30Nov2017,29,.,48,8.2857143,113.28571,8.2857143,1
+00938,E-002,"Hospital Val
+d'Hebron,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,05Oct2015,23Sep2015,23Sep2015,05Oct2015,Hombre,01Dec1983,32,05Oct2015,05Oct2015,Si,20Jul2015,30,HMSX-HTSX,Hispano,HONDURAS,No,,.,.,No,,.,.,Si,2,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,.,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,"Completa el estudio. 
+En SM96 (07/08/2017) hay
+fracaso virológico confirmado por una segunda
+determinación (09/10/17).",No,"COMPLETA ESTUDIO (no finalización prematura).
+El paciente completa el estudio, aunque en la SM96
+presenta fracaso virológico. En finalización,
+¿ponemos que ha finalizado correctamente el
+estudio o indicamos fracaso virológico?",48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,13Feb2017,.,.,06Jun2019,05Sep2016,05Sep2016,05Sep2016,05Oct2015,06Jun2019,.,77,48,48,191.42857,48,0
+00952,E-003,"Hospital Val
+d'Hebron,
+Barcelona",Yes,Yes,Yes,Yes,No,ABC+3TC+DGT,19Oct2015,14Oct2015,30Sep2015,19Oct2015,Hombre,01Nov1985,30,19Oct2015,19Oct2015,Si,30Sep2015,0,HMSX-HTSX,Hispano,VENEZUELA,No,,.,.,No,,.,.,Si,2,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,.,11Jul2016,38,.,1,36,36,"Virological
+Failure",11Jul2016,"Finalización por fracaso virológico el 11/07/16
+(SM36). 
+El 04/AGO/16 reflejan en la HHCC la
+necesidad de modificar TAR por VHB+. (no se
+refleja en el CRD, posterior a fracaso virológico)",Yes,Fracaso virológico,38,"Virological
+Failure",1,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,18Jul2019,.,11Jul2016,.,11Jul2016,11Jul2016,11Jul2016,11Jul2016,18Jul2019,.,19,48,38,195.42857,38,1
+00977,E-004,"Hospital Val
+d'Hebron,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,20Oct2015,09Oct2015,09Oct2015,20Oct2015,Hombre,01May1988,27,20Oct2015,20Oct2015,Si,07Oct2015,20,HMSX,Hispano,PARAGUAY,No,,.,.,No,,.,.,Si,4,Si,No,No,No,No,No,No,No,No,No,No,No,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,No,.,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,14Sep2018,.,21Aug2017,.,19Sep2016,19Sep2016,19Sep2016,20Oct2015,14Sep2018,.,13,48,48,151.42857,48,0
+01001,A-009,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,02Nov2015,15Oct2015,15Oct2015,02Nov2015,Hombre,01May1961,54,02Nov2015,02Nov2015,No,.,12,HMSX-No UDVP,Blanco,ESPAÑA,No,,.,.,No,,.,.,Si,2,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,No,No,No,Yes,Si,15Oct2015,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,30Nov2015,.,30Nov2015,.,18Oct2016,17Oct2016,17Oct2016,02Nov2015,18Oct2016,18,.,48,48,50.142857,48,1
+01040,A-010,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,16Nov2015,05Nov2015,05Nov2015,16Nov2015,Hombre,01Dec1994,21,09Nov2015,09Nov2015,Si,29Oct2015,35,HMSX-No UDVP,Blanco,VENEZUELA,No,,.,.,No,,.,.,No,.,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,No,No,No,Yes,Si,05Nov2015,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,14Dec2015,.,16Nov2015,.,21Nov2016,21Nov2016,21Nov2016,16Nov2015,21Nov2016,11,18,48,48,53,48,0
+01071,A-011,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,11Dec2015,01Dec2015,25Nov2015,11Dec2015,Hombre,01Nov1971,44,02Dec2015,09Dec2015,Si,23Nov2015,40,HMSX-No UDVP,Hispano,ESPAÑA,No,,.,.,No,,.,.,Si,1,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,No,No,No,No,No,No,No,Yes,No,.,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,15Dec2017,.,.,11Dec2015,13Dec2016,12Dec2016,12Dec2016,11Dec2015,15Dec2017,.,18,48,48,105,48,1
+01073,E-005,"Hospital Val
+d'Hebron,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,14Dec2015,27Nov2015,27Nov2015,14Dec2015,Hombre,01Nov1986,29,14Dec2015,14Dec2015,No,.,60,HTSX,Negro,ÁFRICA,No,,.,.,No,,.,.,Si,1,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,.,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,18Jul2019,.,06Nov2017,.,14Nov2016,14Nov2016,14Nov2016,14Dec2015,18Jul2019,.,.,48,48,187.42857,48,0
+01075,E-006,"Hospital Val
+d'Hebron,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,14Dec2015,10Dec2015,04Dec2015,14Dec2015,Hombre,01Jul1990,25,14Dec2015,14Dec2015,Si,02Dec2015,0,HMSX,Hispano,MÉJICO,No,,.,.,No,,.,.,No,.,Si,No,Si,No,No,No,Si,No,No,Si,No,No,No,No,No,No,No,No,Si,No,No,Si,Si,No,No,No,No,Yes,No,.,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,"SM24 (30/05/16) CV=402copias/ml (no segunda
+determinación)
+SM36 (22/08/16) CV=216
+copias/ml, segunda determinación (19/09/2016)
+CV=50copias/ml --> se considera un blip",No,,48,"No
+Premature
+Finalisation",0,Yes,20Jan2016,No,.,No,.,No,.,5.2857143,.,1,0,5.2857143,.,.,.,0,0,.,.,No,18Jul2019,.,.,03May2017,14Nov2016,14Nov2016,14Nov2016,20Jan2016,18Jul2019,.,12,48,48,187.42857,48,1
+01120,A-012,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,11Jan2016,15Dec2015,15Dec2015,11Jan2016,Hombre,01Dec1964,52,11Jan2016,11Jan2016,No,.,61,HTSX-No UDVP,Negro,SENEGAL,No,,.,.,No,,.,.,Si,3,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,.,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,08Feb2016,.,.,11Jan2016,02Jan2017,02Jan2017,02Jan2017,11Jan2016,02Jan2017,.,.,48,48,51,48,0
+01130,E-007,"Hospital Val
+d'Hebron,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,18Jan2016,31Dec2015,31Dec2015,18Jan2016,Mujer,01Sep1959,57,18Jan2016,18Jan2016,No,.,40,HTSX,Hispano,COLOMBIA,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,.,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,12May2016,.,20Nov2017,.,19Dec2016,19Dec2016,19Dec2016,18Jan2016,20Nov2017,.,.,48,48,96,48,1
+01132,A-013,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,18Jan2016,07Jan2016,07Jan2016,18Jan2016,Hombre,01Nov1951,65,18Jan2016,18Jan2016,No,.,38,HMSX-No UDVP,Blanco,ESPAÑA,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,07Jan2016,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,27Jun2016,.,18Jan2016,.,19Dec2016,19Dec2016,19Dec2016,18Jan2016,19Dec2016,11,.,48,48,48,48,0
+01134,A-014,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,18Jan2016,07Jan2016,07Jan2016,18Jan2016,Hombre,01Jan1973,43,18Jan2016,18Jan2016,No,.,19,BISX-No UDVP,Blanco,ESPAÑA,No,,.,.,No,,.,.,Si,1,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,07Jan2016,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,23Mar2018,.,.,18Jan2016,06Mar2017,06Mar2017,06Mar2017,18Jan2016,23Mar2018,11,.,48,48,113.57143,48,1
+01136,C-007,"Hospital de
+Sant Pau,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,19Jan2016,30Dec2015,28Dec2015,12Jan2016,Hombre,01Feb1975,41,19Jan2016,19Jan2016,Si,28Dec2015,65,HTSX-No UDVP,Blanco,MARRUECOS,No,,.,.,No,,.,.,Si,2,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,No,No,Si,No,No,No,No,Yes,Si,28Dec2015,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,Yes,25Jan2016,Yes,25Jan2016,Yes,25Jan2016,No,.,0.8571429,0.8571429,1,1,0.8571429,0.8571429,0.8571429,.,1,0,0.8571429,.,No,21Dec2016,.,07Nov2017,.,19Dec2016,19Dec2016,19Dec2016,25Jan2016,07Nov2017,22,22,48,48,94,48,0
+01138,D-003,"Hospital de
+Bellvitge,
+L'Hospitalet",Yes,Yes,Yes,Yes,No,ABC+3TC+DRV+RTV,19Jan2016,04Jan2016,23Dec2015,19Jan2016,Hombre,01Dec1963,53,14Jan2016,19Jan2016,Si,22Dec2015,11,HTSX-No UDVP,Negro,CAMERÚN,No,,.,.,No,,.,.,No,.,Si,No,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,No,Si,No,Yes,Si,23Dec2015,18Jul2016,26,.,1,24,24,"Virological
+Failure",18Jul2016,"FINALIZACIÓN POR FRACASO VIROLÓGICO (CV
+SM24 (05/07/16)= 15.273 , 2a det (12/07/16)=
+25.485). 18/07/16--> fin, es cuando se le comunica
+al paciente 12/07/2016-->se detecta fracaso",Yes,Fracaso virológico,25.857143,"Virological
+Failure",1,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,18Jul2016,.,.,05Jul2016,05Jul2016,05Jul2016,05Jul2016,18Jul2016,18Jul2016,27,28,25.857143,25.857143,25.857143,25.857143,1
+01161,A-015,"Hospital
+Clínic",Yes,Yes,Yes,Yes,No,ABC+3TC+DRV+RTV,25Jan2016,14Jan2016,14Jan2016,25Jan2016,Hombre,01Oct1985,31,25Jan2016,25Jan2016,No,.,38,HMSX-No UDVP,Hispano,COLOMBIA,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,14Jan2016,05Sep2016,32,.,1,36,36,"Lost to
+Follow-up",05Sep2016,Finalización por no acudir a las visitas el 05/09/2016,Yes,No acude a las visitas,32,"Lost to
+Follow-up",1,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,05Sep2016,.,.,25Jan2016,05Sep2016,05Sep2016,05Sep2016,05Sep2016,05Sep2016,11,.,32,32,32,32,0
+01198,A-016,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,15Feb2016,02Feb2016,02Feb2016,15Feb2016,Hombre,01Feb1986,30,15Feb2016,15Feb2016,Si,23Jan2016,28,HMSX-No UDVP,Blanco,ESPAÑA,No,,.,.,No,,.,.,Si,1,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,02Feb2016,10Jul2017,48,.,.,72,72,"No
+Premature
+Finalisation",10Jul2017,Finalización por no acudir a las visitas el 10/07/2017,No,No acude a las visitas,48,"Lost to
+Follow-up",1,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,16Jan2017,.,15Feb2016,.,16Jan2017,16Jan2017,16Jan2017,10Jul2017,10Jul2017,13,23,48,48,73,73,1
+01245,C-008,"Hospital de
+Sant Pau,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,23Feb2016,15Feb2016,15Feb2016,23Feb2016,Hombre,01Feb1974,42,23Feb2016,23Feb2016,Si,04Feb2016,33,"HMSX-HTSX-No
+UDVP",Blanco,ESPAÑA,Si,Esteatosis hepática,03Feb2016,Si,No,,.,.,Si,1,Si,No,Si,No,No,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,Si,15Feb2016,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,17Jul2018,.,.,23Oct2017,20Feb2017,20Feb2017,20Feb2017,23Feb2016,17Jul2018,8,19,48,48,125,48,0
+01266,B-002,"Hospital
+Germnas
+Trias i Pujol,
+Barcelona",Yes,Yes,Yes,Yes,No,ABC+3TC+DGT,08Mar2016,29Feb2016,23Feb2016,08Mar2016,Hombre,01Aug1992,24,08Mar2016,08Mar2016,No,.,55,"HMSX-HTSX-No
+UDVP",Blanco,ESPAÑA,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,23Feb2016,15Nov2016,36,.,1,36,36,"Lost to
+Follow-up",15Nov2016,"FINALIZACIÓN EL 15/11/2016 POR NO ACUDIR A
+LAS VISITAS",Yes,No acude a las visitas,36,"Lost to
+Follow-up",1,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,23Aug2016,.,15Nov2016,.,15Nov2016,15Nov2016,15Nov2016,15Nov2016,15Nov2016,14,.,36,36,36,36,1
+01281,A-017,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,14Mar2016,09Feb2016,09Feb2016,08Mar2016,Hombre,01Mar1969,47,14Mar2016,14Mar2016,No,.,82,HTSX-No UDVP,Blanco,ESPAÑA,No,,.,.,No,,.,.,Si,4,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,09Feb2016,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,22Feb2018,.,14Mar2016,.,06Mar2017,06Mar2017,06Mar2017,14Mar2016,22Feb2018,34,.,48,48,101.42857,48,0
+01287,C-009,"Hospital de
+Sant Pau,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,15Mar2016,08Mar2016,08Mar2016,15Mar2016,Mujer,01Mar1968,48,15Mar2016,15Mar2016,Si,05Feb2016,37,HTSX-No UDVP,Blanco,ESPAÑA,No,,.,.,No,,.,.,Si,5,Si,No,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,Si,15Mar2016,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,21Mar2018,.,21Mar2018,.,13Mar2017,13Mar2017,13Mar2017,15Mar2016,21Mar2018,0,39,48,48,105.14286,48,1
+01308,F-002,"Hospital de
+Mataro,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,21Mar2016,07Mar2016,07Mar2016,18Mar2016,Hombre,01Feb1977,39,18Mar2016,21Mar2016,Si,04Mar2016,45,"HMSX-HTSX-No
+UDVP",Blanco,UNKNOWN,No,,.,.,No,,.,.,No,.,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,No,No,No,No,No,No,No,Yes,Si,07Mar2016,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,30Jan2018,.,.,07Nov2017,20Feb2017,20Feb2017,20Feb2017,21Mar2016,30Jan2018,14,17,48,48,97.142857,48,0
+01345,A-018,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,04Apr2016,22Mar2016,11Mar2016,04Apr2016,Hombre,01Jun1987,29,04Apr2016,04Apr2016,Si,11Mar2016,13,HTSX-No UDVP,Hispano,PERÚ,No,,.,.,No,,.,.,Si,2,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,No,No,No,No,No,No,No,Yes,Si,14Mar2016,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,23Mar2018,.,04Apr2016,.,10Apr2017,10Apr2017,10Apr2017,04Apr2016,23Mar2018,21,24,48,48,102.57143,48,1
+01491,D-004,"Hospital de
+Bellvitge,
+L'Hospitalet",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,26Apr2016,15Apr2016,08Apr2016,26Apr2016,Hombre,01Dec1990,26,20Apr2016,26Apr2016,Si,11Apr2016,7,HTSX-No UDVP,Blanco,ESPAÑA,No,,.,.,No,,.,.,No,.,Si,No,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,No,No,No,Si,No,No,No,Yes,Si,12Apr2016,22Sep2017,48,.,.,72,72,"No
+Premature
+Finalisation",22Sep2017,"FINALIZACIÓN, NO ACUDE A LAS VISITAS	",No,No acude a las visitas,48,"Lost to
+Follow-up",1,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,21Nov2017,.,22Sep2017,.,29Mar2017,28Mar2017,28Mar2017,22Sep2017,21Nov2017,14,15,48,48,82,73.428571,0
+01542,F-003,"Hospital de
+Mataro,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,09May2016,02May2016,21Apr2016,02May2016,Hombre,01Dec1977,39,06May2016,06May2016,Si,15Apr2016,58,UDVP,Blanco,ESPAÑA,Si,"Hepatitis crónica VHC genotipo
+1b",01Mar2012,Si,No,,.,.,Si,1,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,No,No,No,No,No,No,No,Yes,Si,26Apr2016,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,19Aug2017,.,.,05Dec2017,06Apr2017,04Apr2017,04Apr2017,09May2016,05Dec2017,13,24,48,48,82.142857,48,1
+01615,E-008,"Hospital Val
+d'Hebron,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,23May2016,10May2016,10May2016,23May2016,Mujer,01Dec1963,53,19May2016,19May2016,No,.,10,HTSX,Blanco,ESPAÑA,No,,.,.,Si,LITIASIS,.,No,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,.,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,Yes,04May2017,Yes,04May2017,No,.,No,.,49.428571,49.428571,1,1,49.428571,49.428571,.,.,0,0,.,.,No,18Jul2019,.,.,20Dec2017,19Apr2017,19Apr2017,19Apr2017,04May2017,18Jul2019,.,.,48,48,164.42857,48,0
+01624,E-009,"Hospital Val
+d'Hebron,
+Barcelona",Yes,Yes,Yes,No,No,ABC+3TC+DRV+RTV,30May2016,13May2016,09May2016,30May2016,Hombre,01May1951,65,30May2016,30May2016,Si,07May2016,60,HTSX,Blanco,ESPAÑA,.,,.,.,.,,.,.,Si,1,Si,No,Si,No,No,No,No,No,No,No,No,No,Si,No,No,No,No,No,No,Si,No,No,No,No,No,No,Si,Yes,No,.,01Jun2016,0,1,1,0,0,"Selection
+Criteria",01Jun2016,Finalización  por CD4>100 (01/06/2016),Yes,Decisiñon del médico: CD4>100,0.2857143,"Selection
+Criteria",1,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,.,.,.,30May2016,30May2016,30May2016,30May2016,01Jun2016,01Jun2016,.,23,0.2857143,0.2857143,0.2857143,0.2857143,1
+01625,A-019,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,30May2016,10May2016,10May2016,30May2016,Hombre,01Mar1991,25,30May2016,30May2016,No,.,95,HTSX-No UDVP,Hispano,PERÚ,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,10May2016,19Jan2018,48,.,.,84,84,"No
+Premature
+Finalisation",19Jan2018,"Finalización por no acudir a las visitas el 19/01/2018
+(SM84). En la última visita el paciente tiene CV alta
+debido a que el paciente decidió dejar la medicación
+por efectos secundarios durante 2 meses y medio,
+en la visita de la SM84 se retomó.",No,No acude a las visitas,48,"Lost to
+Follow-up",1,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,.,19Jan2018,.,30May2016,06Mar2017,06Mar2017,06Mar2017,19Jan2018,19Jan2018,20,.,48,48,85.571429,85.571429,0
+01644,E-010,"Hospital Val
+d'Hebron,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,06Jun2016,25May2016,25May2016,06Jun2016,Mujer,01Jan1976,40,06Jun2016,06Jun2016,No,.,90,HTSX,Hispano,COLOMBIA,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,.,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,18Jul2019,.,26Feb2018,.,04May2017,03May2017,03May2017,06Jun2016,18Jul2019,.,.,48,48,162.42857,48,1
+01650,D-005,"Hospital de
+Bellvitge,
+L'Hospitalet",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,14Jun2016,30May2016,30May2016,14Jun2016,Hombre,01Sep1974,42,08Jun2016,14Jun2016,Si,28May2016,6,HMSX-No UDVP,Blanco,ESPAÑA,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,30May2016,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,13Apr2018,.,06Apr2018,.,16May2017,16May2017,16May2017,14Jun2016,13Apr2018,15,17,48,48,95.428571,48,0
+01652,D-006,"Hospital de
+Bellvitge,
+L'Hospitalet",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,14Jun2016,02Jun2016,02Jun2016,14Jun2016,Hombre,01Jan1944,72,09Jun2016,14Jun2016,Si,14Jun2016,97,HTSX-No UDVP,Otro,MARRUECOS,No,,.,.,No,,.,.,Si,5,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,02Jun2016,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,23Jul2018,.,22Jan2018,.,16May2017,16May2017,16May2017,14Jun2016,23Jul2018,12,0,48,48,109.85714,48,1
+01664,E-011,"Hospital Val
+d'Hebron,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,20Jun2016,30May2016,30May2016,20Jun2016,Mujer,01Jan1973,43,17Jun2016,17Jun2016,No,.,30,HTSX,Blanco,ESPAÑA,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,.,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,06Nov2017,.,23Apr2018,.,23May2017,22May2017,22May2017,20Jun2016,23Apr2018,.,.,48,48,96,48,0
+01769,D-007,"Hospital de
+Bellvitge,
+L'Hospitalet",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,19Jul2016,28Jun2016,28Jun2016,19Jul2016,Hombre,01Sep1969,47,12Jul2016,19Jul2016,No,.,69,HTSX-No UDVP,Hispano,ESPAÑA,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,28Jun2016,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,22May2018,.,.,02Mar2018,21Jun2017,20Jun2017,20Jun2017,19Jul2016,22May2018,21,.,48,48,96,48,1
+01876,D-008,"Hospital de
+Bellvitge,
+L'Hospitalet",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,23Aug2016,10Aug2016,10Aug2016,23Aug2016,Hombre,01Aug1962,54,19Aug2016,23Aug2016,Si,14Jul2016,14,HTSX-No UDVP,Hispano,UNKNOWN,Si,VHC,14Aug2016,Si,No,,.,.,Si,8,Si,No,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,Si,10Aug2016,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,25Jun2018,.,.,26Mar2018,24Jul2017,24Jul2017,24Jul2017,23Aug2016,25Jun2018,13,40,48,48,95.857143,48,0
+02103,A-020,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,03Oct2016,03Oct2016,03Oct2016,.,Hombre,01Apr1986,30,03Oct2016,03Oct2016,No,.,70,HMSX-No UDVP,Hispano,ESPAÑA,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,03Oct2016,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,.,.,10Oct2016,.,02Oct2017,29Sep2017,29Sep2017,03Oct2016,02Oct2017,0,.,48,48,52,48,1
+02127,C-010,"Hospital de
+Sant Pau,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,11Oct2016,28Sep2016,28Sep2016,28Sep2016,Hombre,01Oct1975,41,11Oct2016,11Oct2016,Si,26Sep2016,15,"HMSX-HTSX-No
+UDVP",Americano,CHILE,No,,.,.,No,,.,.,No,.,Si,No,Si,No,No,No,No,No,Si,No,No,No,No,No,No,No,No,No,No,Si,No,No,No,Si,No,No,No,Yes,Si,28Sep2016,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,06Aug2018,.,06Aug2018,.,31Aug2017,31Aug2017,31Aug2017,11Oct2016,06Aug2018,13,15,48,48,94.857143,48,0
+02141,A-021,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,17Oct2016,06Oct2016,06Oct2016,17Oct2016,Hombre,01Dec1956,60,17Oct2016,17Oct2016,No,.,54,BISX-No UDVP,Blanco,ESPAÑA,No,,.,.,No,,.,.,Si,2,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,No,No,No,Yes,Si,06Oct2016,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,.,.,17Oct2016,.,06Nov2017,03Nov2017,03Nov2017,17Oct2016,06Nov2017,11,.,48,48,55,48,1
+02143,E-012,"Hospital Val
+d'Hebron,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,18Oct2016,05Oct2016,05Oct2016,18Oct2016,Hombre,01Mar1960,56,18Oct2016,18Oct2016,Si,01Oct2016,60,HMSX-HTSX,Hispano,CUBA,No,,.,.,No,,.,.,No,.,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,No,No,No,Si,No,No,No,Yes,No,.,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,06Apr2017,.,.,20Aug2018,18Sep2017,18Sep2017,18Sep2017,18Oct2016,20Aug2018,.,17,48,48,95.857143,48,0
+02184,A-022,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,07Nov2016,25Oct2016,25Oct2016,07Nov2016,Hombre,01Sep1962,54,07Nov2016,07Nov2016,No,.,5,HMSX-No UDVP,Hispano,ARGENTINO,No,,.,.,No,,.,.,Si,1,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,25Oct2016,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,.,.,.,07Nov2016,02Oct2017,29Sep2017,29Sep2017,07Nov2016,02Oct2017,13,.,47,48,47,48,1
+02207,H-001,"Hospital del
+Mar,
+Barcelona",Yes,Yes,No,No,No,ABC+3TC+DRV+RTV,15Nov2016,05Oct2016,05Oct2016,15Nov2016,Hombre,01Feb1969,47,15Nov2016,15Nov2016,No,.,23,HTSX-No UDVP,Blanco,FRANCIA,No,,.,.,No,,.,.,Si,1,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,.,.,15Nov2016,0,1,1,0,0,"Selection
+Criteria",15Nov2016,"FINALIZACIÓN POR DECISIÓN DEL MÉDICO,
+INTERACCIÓN FARMACOLÓGICA
+POTENCIAL",Yes,"Decisión del médico: Interacción farmacológica
+potencial",0,"Selection
+Criteria",1,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,.,.,.,.,.,.,.,.,15Nov2016,15Nov2016,.,.,0,0,0,0,0
+02262,A-023,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,28Nov2016,15Nov2016,15Nov2016,28Nov2016,Hombre,01Jul1982,34,28Nov2016,28Nov2016,No,.,3,HTSX-No UDVP,Blanco,ESPAÑA,No,,.,.,No,,.,.,Si,6,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,15Nov2016,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,17Feb2019,No,.,No,.,.,.,0,1,.,115.85714,.,.,0,0,.,.,Yes,.,.,.,28Nov2016,01Dec2017,15Dec2017,15Dec2017,17Feb2019,17Feb2019,13,.,48,48,115.85714,48,1
+02315,C-011,"Hospital de
+Sant Pau,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,07Dec2016,30Nov2016,30Nov2016,07Dec2016,Hombre,01Jun1984,32,07Dec2016,07Dec2016,No,.,38,"HMSX-HTSX-No
+UDVP",Blanco,ESPAÑA,No,,.,.,No,,.,.,Si,1,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,20Dec2016,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,16Jan2018,.,25Sep2018,.,24Oct2017,24Oct2017,24Oct2017,20Dec2016,25Sep2018,-13,.,48,48,93.857143,48,0
+02328,A-024,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,12Dec2016,29Nov2016,29Nov2016,12Dec2016,Hombre,01May1993,23,12Dec2016,12Dec2016,No,.,42,HMSX-No UDVP,Desconocido,COLOMBIA,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,29Nov2016,28Mar2018,48,.,.,96,60,"No
+Premature
+Finalisation",28Mar2018,"El paciente finaliza el 28/03/18 (SM60) por fracaso
+virológico, continua en el estudio por población ITT.
+En la SM60 indica en la HC buena adherencia, sin
+embargo en la SM72 dice que tras insistir con la
+adherencia la CV se vuelve indetectable.",No,Fracaso virológico,48,"Virological
+Failure",1,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,.,.,.,12Dec2016,12Dec2017,22Dec2017,22Dec2017,28Mar2018,28Mar2018,13,.,48,48,67.285714,67.285714,1
+02485,A-025,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,10Jan2017,03Jan2017,03Jan2017,10Jan2017,Hombre,01Nov1974,43,10Jan2017,10Jan2017,Si,22Dec2016,22,BISX-No UDVP,Hispano,ESPAÑA,No,,.,.,No,,.,.,No,.,Si,No,No,No,No,No,No,No,No,No,No,No,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,Si,03Jan2017,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,12Apr2019,.,.,10Jan2017,16Feb2018,23Feb2018,23Feb2018,10Jan2017,12Apr2019,7,19,48,48,117.42857,48,0
+02491,E-013,"Hospital Val
+d'Hebron,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,16Jan2017,02Jan2017,02Jan2017,11Jan2017,Hombre,01Dec1961,56,11Jan2017,11Jan2017,No,.,50,HTSX,Hispano,ECUADOR,No,,.,.,No,,.,.,Si,4,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,.,09Jan2018,48,.,.,96,48,"No
+Premature
+Finalisation",09Jan2018,"Fracaso virológico la SM48(20/12/17)
+CV=226copias/ml, segunda determinación
+(09/01/18) CV=346copias/ml",No,Fracaso virológico,48,"Virological
+Failure",1,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,18Jul2019,.,23Aug2018,.,20Dec2017,20Dec2017,20Dec2017,09Jan2018,18Jul2019,.,.,48,48,130.42857,51.142857,1
+02520,D-009,"Hospital de
+Bellvitge,
+L'Hospitalet",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,24Jan2017,11Jan2017,28Dec2016,24Jan2017,Mujer,01Aug1980,37,19Jan2017,24Jan2017,Si,24Dec2016,32,HTSX-No UDVP,Otro,BRASIL,No,,.,.,No,,.,.,No,.,Si,No,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,No,No,No,No,Yes,Si,11Jan2017,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,27Nov2018,02Mar2017,27Nov2018,.,21Dec2017,21Dec2017,21Dec2017,24Jan2017,27Nov2018,13,31,48,48,96,48,0
+02522,D-010,"Hospital de
+Bellvitge,
+L'Hospitalet",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,24Jan2017,23Dec2016,22Dec2016,24Jan2017,Hombre,01Mar1980,37,20Jan2017,24Jan2017,Si,21Dec2016,5,HMSX-No UDVP,Hispano,BRASIL,No,,.,.,No,,.,.,No,.,Si,No,No,No,No,No,No,No,No,No,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,Si,23Dec2016,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,Yes,12Mar2017,No,.,No,.,No,.,6.7142857,.,1,0,6.7142857,.,.,.,0,0,.,.,No,12Jun2017,.,14Sep2018,.,02Jan2018,03Jan2018,03Jan2018,12Mar2017,14Sep2018,32,34,48,48,85.428571,48,1
+02524,E-014,"Hospital Val
+d'Hebron,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,24Jan2017,09Jan2017,05Jan2017,25Jan2017,Hombre,01May1960,57,24Jan2017,24Jan2017,Si,04Jan2017,0,HMSX,Blanco,ESPAÑA,No,,.,.,No,,.,.,No,.,Si,No,Si,No,No,No,Si,No,No,No,No,No,Si,No,No,No,No,No,No,Si,No,No,No,Si,No,No,No,Yes,No,.,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,Yes,08Feb2017,No,.,No,.,No,.,2.1428571,.,1,0,2.1428571,.,.,.,0,0,.,.,No,15Jul2019,.,05Dec2018,.,22Jan2018,22Jan2018,22Jan2018,08Feb2017,15Jul2019,.,20,48,48,128.85714,48,0
+02534,A-026,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,25Jan2017,18Jan2017,18Jan2017,20Jan2017,Hombre,01Sep1983,34,25Jan2017,25Jan2017,Si,18Jan2017,60,HTSX-No UDVP,Hispano,ESPAÑA,No,,.,.,No,,.,.,No,.,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,No,No,No,No,No,No,No,Yes,Si,20Jan2017,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,12Apr2019,.,.,26Jan2017,11Jan2018,26Jan2018,26Jan2018,25Jan2017,12Apr2019,5,7,48,48,115.28571,48,1
+02536,A-027,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,26Jan2017,16Feb2017,11Jan2017,26Jan2017,Hombre,01May1980,37,26Jan2017,26Jan2017,Si,11Jan2017,5,HMSX-No UDVP,Otro,BRASIL,No,,.,.,No,,.,.,No,.,Si,No,No,No,No,No,No,No,No,No,No,No,Si,No,No,No,No,No,No,No,No,No,No,Si,No,No,No,Yes,Si,13Jan2017,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,.,.,.,26Jan2017,13Sep2017,22Sep2017,22Sep2017,16Feb2017,22Sep2017,13,15,34.142857,48,34.142857,48,0
+02685,A-028,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,23Feb2017,16Feb2017,16Feb2017,21Feb2017,Hombre,01Mar1986,31,23Feb2017,23Feb2017,No,.,83,HMSX-No UDVP,Hispano,ESPAÑA,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,16Feb2017,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,.,.,23Feb2017,.,02Feb2018,02Feb2018,02Feb2018,23Feb2017,02Feb2018,7,.,48,48,49.142857,48,1
+02716,B-003,"Hospital
+Germnas
+Trias i Pujol,
+Barcelona",Yes,Yes,Yes,Yes,No,ABC+3TC+DGT,15Mar2017,13Mar2017,13Mar2017,14Mar2017,Mujer,01Feb1976,41,14Mar2017,14Mar2017,Si,14Mar2017,13,HTSX-No UDVP,Hispano,COLOMBIA,No,,.,.,No,,.,.,No,.,Si,No,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,No,No,No,No,No,No,No,Yes,Si,13Mar2017,30Mar2017,2,.,1,0,0,"Clinical
+Progression",30Mar2017,"""FINALITZACIÓN POR DECISIÓN DEL MEDICO el
+30/03/2017 
+(Tubulopatia por cotrimoxazol,
+MAC-IRIS desenmascarado, CMV-IRIS
+desenmascarado_SAE)""",Yes,"""Decisión del médico: MAC IRIS
+desenmascarado
+Toxicidad (tubulopatia por
+cotrimoxazol)""",2.1428571,"Clinical
+Progression",1,Yes,29Mar2017,Yes,29Mar2017,Yes,29Mar2017,Yes,29Mar2017,2,2,1,1,2,2,2,2,1,1,2,2,No,21Apr2017,30Mar2017,15Mar2017,.,14Mar2017,15Mar2017,15Mar2017,30Mar2017,21Apr2017,2,1,5.2857143,2.1428571,5.2857143,2.1428571,0
+02812,B-004,"Hospital
+Germnas
+Trias i Pujol,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,10Apr2017,24Mar2017,24Mar2017,07Apr2017,Mujer,01Feb1990,27,07Apr2017,10Apr2017,Si,24Mar2017,6,HTSX-No UDVP,Negro,"GUINEA
+ECUATORIAL
+(BATA)",No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,05Apr2017,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,08Jun2018,.,.,23Nov2018,16Mar2018,16Mar2018,16Mar2018,10Apr2017,23Nov2018,5,17,48,48,84.571429,48,1
+02814,A-029,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,12Apr2017,04Apr2017,04Apr2017,12Apr2017,Hombre,01Jul1981,36,10Apr2017,10Apr2017,No,.,61,HMSX-No UDVP,Otro,RUMANIA,No,,.,.,No,,.,.,No,.,Si,No,No,No,No,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,Si,04Apr2017,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,12Apr2019,.,12Apr2017,.,14Mar2018,23Mar2018,23Mar2018,12Apr2017,12Apr2019,8,.,48,48,104.28571,48,0
+02816,A-030,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,12Apr2017,06Apr2017,01Apr2017,06Apr2017,Hombre,01Feb1991,26,12Apr2017,12Apr2017,No,.,31,HMSX-No UDVP,Otro,VENEZOLANO,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,06Apr2017,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,05Jul2019,.,.,12Apr2017,08Jun2018,08Jun2018,08Jun2018,12Apr2017,05Jul2019,6,.,48,48,116.28571,48,1
+02823,D-011,"Hospital de
+Bellvitge,
+L'Hospitalet",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,18Apr2017,12Apr2017,05Apr2017,18Apr2017,Hombre,01Dec1979,38,10Apr2017,18Apr2017,Si,02Mar2017,96,HMSX-No UDVP,Hispano,VENEZUELA,Si,hepatitis aguda VHA,.,No,No,,.,.,No,.,Si,No,Si,No,No,No,No,No,No,No,No,No,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,Si,05Apr2017,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,19Feb2019,.,19Feb2019,.,21Mar2018,20Mar2018,20Mar2018,18Apr2017,19Feb2019,13,47,48,48,96,48,0
+02886,D-012,"Hospital de
+Bellvitge,
+L'Hospitalet",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,02May2017,12Apr2017,12Apr2017,25Apr2017,Hombre,01Jun1961,56,25Apr2017,02May2017,Si,12Apr2017,68,HMSX-No UDVP,Blanco,ESPAÑA,Si,Hepatitis aguda VHB,01Jan1987,No,No,,.,.,No,.,Si,No,No,No,No,No,No,No,No,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,Si,12Apr2017,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,30Jun2018,.,.,11Dec2018,03Apr2018,03Apr2018,03Apr2018,02May2017,11Dec2018,20,20,48,48,84,48,1
+02964,B-005,"Hospital
+Germnas
+Trias i Pujol,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,15May2017,10May2017,10May2017,15May2017,Hombre,01Aug1988,29,10May2017,15May2017,No,.,4,"HMSX-HTSX-No
+UDVP",Blanco,ESPAÑA,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,10May2017,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,27Mar2019,.,.,18Dec2018,17Apr2018,17Apr2018,17Apr2018,15May2017,27Mar2019,5,.,48,48,97.285714,48,0
+03034,E-015,"Hospital Val
+d'Hebron,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,29May2017,24May2017,08May2017,24May2017,Hombre,01Apr1986,31,24May2017,29May2017,No,.,90,HMSX,Blanco,PARAGUAY,No,,.,.,No,,.,.,Si,1,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,.,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,15Jul2019,.,24Jan2019,.,07May2018,07May2018,07May2018,29May2017,15Jul2019,.,.,48,48,111,48,1
+03074,A-031,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,02Jun2017,25May2017,25May2017,02Jun2017,Hombre,01Nov1965,52,02Jun2017,02Jun2017,No,.,8,HTSX-No UDVP,Blanco,ESPAÑA,No,,.,.,No,,.,.,No,.,Si,No,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,Si,25May2017,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,.,.,02Jun2017,.,01Jun2018,15Jun2018,15Jun2018,02Jun2017,15Jun2018,8,.,48,48,54,48,0
+03079,C-012,"Hospital de
+Sant Pau,
+Barcelona",Yes,Yes,Yes,Yes,No,ABC+3TC+DRV+RTV,06Jun2017,22May2017,22May2017,06Jun2017,Hombre,01Mar1978,39,06Jun2017,06Jun2017,No,.,60,"HMSX-HTSX-No
+UDVP",Hispano,PANAMÁ,No,,.,.,No,,.,.,Si,1,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,26May2017,24Jun2017,3,.,1,0,0,Safety,24Jun2017,"FINALIZACIÓN EL 24/06/2017 POR DECISIÓN DEL
+MÉDICO, TOXICIDAD (Miliary
+tuberculosis_SAE)									",Yes,"""Toxicidad (renal)
+Decisión del médico: IRIS TB +
+Interacciones""",2.5714286,Safety,1,Yes,18Jun2017,Yes,18Jun2017,No,.,No,.,1.7142857,1.7142857,1,1,1.7142857,1.7142857,.,.,0,0,.,.,No,26Jun2018,.,.,.,23Jun2017,06Jun2017,06Jun2017,24Jun2017,26Jun2018,11,.,48,2.5714286,55,2.5714286,1
+03108,C-013,"Hospital de
+Sant Pau,
+Barcelona",Yes,Yes,Yes,Yes,No,ABC+3TC+DRV+RTV,14Jun2017,02Jun2017,02Jun2017,14Jun2017,Hombre,01Oct1972,45,14Jun2017,14Jun2017,No,.,11,HTSX-No UDVP,Hispano,ESPAÑA,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,15Jun2017,06Dec2017,25,.,1,24,24,Exitus,06Dec2017,"FINLIZACIÓN EL 06/12/2017 POR EXITUS (muerte
+inesperada_SAE)",Yes,Decisión del médico: exitus,25,Exitus,1,Yes,21Aug2017,Yes,21Aug2017,Yes,21Aug2017,Yes,21Aug2017,9.7142857,9.7142857,1,1,9.7142857,9.7142857,9.7142857,9.7142857,1,1,9.7142857,9.7142857,No,23Jul2018,.,.,20Nov2017,20Nov2017,20Nov2017,20Nov2017,06Dec2017,23Jul2018,-1,.,48,25,57.714286,25,0
+03178,E-016,"Hospital Val
+d'Hebron,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,03Jul2017,27Jun2017,27Jun2017,03Jul2017,Hombre,01Sep1981,36,30Jun2017,03Jul2017,No,.,30,HMSX,Hispano,BRASIL,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,.,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,06May2019,.,.,11Feb2019,04Jun2018,04Jun2018,04Jun2018,03Jul2017,06May2019,.,.,48,48,96,48,1
+03241,C-014,"Hospital de
+Sant Pau,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,17Jul2017,29Jun2017,29Jun2017,17Jul2017,Hombre,01Jun1976,41,17Jul2017,17Jul2017,No,.,50,HTSX-No UDVP,Hispano,ESPAÑA,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,05Jul2017,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,29May2019,.,.,05Mar2019,18Jun2018,18Jun2018,18Jun2018,17Jul2017,29May2019,12,.,48,48,97.285714,48,0
+03243,C-015,"Hospital de
+Sant Pau,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,17Jul2017,06Jul2017,06Jul2017,17Jul2017,Hombre,01Nov1989,28,17Jul2017,17Jul2017,No,.,61,"HMSX-HTSX-No
+UDVP",Hispano,ARGENTINA,No,,.,.,No,,.,.,No,.,Si,No,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,Si,18Jul2017,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,25Jun2019,.,03Apr2019,.,17Jul2018,17Jul2018,17Jul2018,18Jul2017,25Jun2019,-1,.,48,48,101.14286,48,1
+03279,A-032,"Hospital
+Clínic",Yes,Yes,Yes,Yes,No,ABC+3TC+DRV+RTV,25Jul2017,18Jul2017,15Jul2017,18Jul2017,Hombre,01Dec1964,103,24Jul2017,25Jul2017,Si,15Jun2017,15,HMSX-No UDVP,Otro,PERÚ,No,,.,.,No,,.,.,No,.,Si,No,No,No,No,No,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,Si,18Jul2017,20Oct2017,12,.,1,84,4,Safety,20Oct2017,"Finaliza por toxicidad el 20/10/17, entre la SM4 y
+SM12. Por picores el medico decide cambiar el
+tratamiento ARV (AE). 
+Continúa por ITT.",Yes,Toxicidad,12.428571,Safety,1,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,27Jun2019,20Oct2017,.,25Jul2017,25Sep2018,21Sep2018,21Sep2018,20Oct2017,27Jun2019,7,40,48,12.428571,100.28571,12.428571,0
+03440,D-013,"Hospital de
+Bellvitge,
+L'Hospitalet",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,21Aug2017,02Aug2017,02Aug2017,17Aug2017,Hombre,01Dec1983,34,17Aug2017,21Aug2017,Si,02Aug2017,23,HMSX-No UDVP,Blanco,ESPAÑA,No,,.,.,No,,.,.,Si,2,Si,No,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,Si,02Aug2017,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,22May2019,.,08Jul2019,.,23Jul2018,23Jul2018,23Jul2018,21Aug2017,08Jul2019,19,19,48,48,98,48,1
+03448,E-017,"Hospital Val
+d'Hebron,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,21Aug2017,14Aug2017,14Aug2017,21Aug2017,Hombre,01Oct1988,29,21Aug2017,21Aug2017,No,.,80,HTSX,Negro,CAMERUN,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,.,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,24Aug2018,.,25Apr2019,.,10Jul2018,09Jul2018,09Jul2018,21Aug2017,25Apr2019,.,.,48,48,87.428571,48,0
+03494,A-033,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,05Sep2017,30Aug2017,28Aug2017,05Sep2017,Hombre,01Dec1981,103,05Sep2017,05Sep2017,No,.,16,HTSX-No UDVP,Otro,ARGENTINA,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,30Aug2017,.,48,.,.,84,84,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,.,.,.,05Sep2017,26Jul2018,07Sep2018,07Sep2018,05Sep2017,07Sep2018,6,.,48,48,52.428571,48,1
+03525,A-034,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,28Sep2017,21Sep2017,21Sep2017,28Sep2017,Hombre,01Jan1976,41,28Sep2017,28Sep2017,No,.,63,HMSX-No UDVP,Otro,MARRUECOS,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,21Sep2017,.,48,.,.,72,72,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,.,.,.,28Sep2017,04Oct2018,28Sep2018,28Sep2018,28Sep2017,04Oct2018,7,.,48,48,53,48,0
+04555,D-014,"Hospital de
+Bellvitge,
+L'Hospitalet",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,17Oct2017,20Sep2017,20Sep2017,17Oct2017,Hombre,01Feb1960,57,09Oct2017,17Oct2017,No,.,64,Not Qualified,Asiático,CHINA,No,,.,.,No,,.,.,Si,2,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,20Sep2017,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,18Sep2018,.,20Aug2019,.,18Sep2018,18Sep2018,18Sep2018,17Oct2017,20Aug2019,27,.,48,48,96,48,1
+04679,D-015,"Hospital de
+Bellvitge,
+L'Hospitalet",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,21Nov2017,26Oct2017,26Oct2017,14Nov2017,Mujer,01Feb1973,44,21Nov2017,21Nov2017,No,.,44,HTSX-No UDVP,Hispano,ESPAÑA,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,26Oct2017,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,28Mar2019,.,27Sep2019,.,23Oct2018,23Oct2018,23Oct2018,21Nov2017,27Sep2019,26,.,48,48,96.428571,48,0
+04695,B-006,"Hospital
+Germnas
+Trias i Pujol,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,27Nov2017,20Nov2017,20Nov2017,27Nov2017,Hombre,01Feb1977,40,27Nov2017,27Nov2017,Si,20Nov2017,17,"HMSX-HTSX-No
+UDVP",Blanco,ESPAÑA,No,,.,.,No,,.,.,No,.,Si,No,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,No,No,No,No,No,No,No,Yes,Si,20Nov2017,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,29Jan2019,.,30Sep2019,.,22Oct2018,22Oct2018,22Oct2018,27Nov2017,30Sep2019,7,7,48,48,96,48,1
+04741,A-035,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,27Dec2017,18Dec2017,24Nov2017,18Dec2017,Hombre,01Jun1975,42,27Dec2017,27Dec2017,No,.,23,HMSX-No UDVP,Otro,COLOMBIA,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,24Nov2017,.,48,.,.,60,60,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,.,.,.,27Dec2017,11Jan2019,25Jan2019,25Jan2019,27Dec2017,25Jan2019,33,.,48,48,56.285714,48,0
+04785,B-007,"Hospital
+Germnas
+Trias i Pujol,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,15Jan2018,08Jan2018,04Jan2018,08Jan2018,Hombre,01Nov1969,49,15Jan2018,15Jan2018,No,.,42,"HMSX-HTSX-No
+UDVP",Blanco,ESPAÑA,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,08Jan2018,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,05Sep2018,.,03Jun2019,.,17Dec2018,17Dec2018,17Dec2018,15Jan2018,03Jun2019,7,.,48,48,72,48,1
+04791,D-016,"Hospital de
+Bellvitge,
+L'Hospitalet",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,15Jan2018,04Dec2017,04Dec2017,04Jan2018,Hombre,01Aug1988,30,15Jan2018,15Jan2018,No,.,85,HMSX-No UDVP,Hispano,COLOMBIA,No,,.,.,No,,.,.,Si,4,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,04Dec2017,11Mar2019,48,.,.,60,60,"No
+Premature
+Finalisation",11Mar2019,"FINALIZACIÓN POR NO ACUDIR A LAS
+VISITAS",No,No acude a las visitas,48,"Lost to
+Follow-up",1,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,18Dec2018,12Dec2018,11Mar2019,.,17Dec2018,17Dec2018,17Dec2018,11Mar2019,11Mar2019,42,.,48,48,60,60,0
+05144,E-018,"Hospital Val
+d'Hebron,
+Barcelona",Yes,Yes,Yes,Yes,No,ABC+3TC+DRV+RTV,07Feb2018,31Jan2018,31Jan2018,07Feb2018,Mujer,01Oct1986,32,07Feb2018,07Feb2018,No,.,40,HTSX,Hispano,"REPÚBLICA
+DOMINICANA",No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,.,29Oct2018,38,.,1,36,36,"Lost to
+Follow-up",29Oct2018,"El paciente se va a su país por probemas familiares
+y deja de tomar el TAR --> Finalización por no acudir
+a las visitas",Yes,No acude a las visitas,37.714286,"Lost to
+Follow-up",1,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,27Aug2018,.,.,29Oct2018,29Oct2018,29Oct2018,29Oct2018,29Oct2018,29Oct2018,.,.,37.714286,37.714286,37.714286,37.714286,1
+05557,A-036,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DRV+RTV,26Feb2018,15Feb2018,15Feb2018,26Feb2018,Hombre,01Oct1983,35,26Feb2018,26Feb2018,No,.,2,Not Qualified,Otro,VENEZUELA,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,15Feb2018,.,48,.,.,48,48,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,.,.,.,26Feb2018,18Mar2019,18Mar2019,18Mar2019,26Feb2018,18Mar2019,11,.,48,48,55,48,0
+05609,A-037,"Hospital
+Clínic",Yes,Yes,Yes,Yes,No,ABC+3TC+DRV+RTV,16Mar2018,01Mar2018,26Feb2018,01Mar2018,Hombre,01Mar1973,45,16Mar2018,16Mar2018,Si,26Feb2018,8,HTSX-No UDVP,Hispano,ESPAÑA,No,,.,.,No,,.,.,Si,1,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,No,No,No,No,No,No,No,Yes,Si,02Mar2018,23Nov2018,36,.,1,48,36,"Virological
+Failure",11Mar2019,"Finaliza el 11/03/19 por fracaso virológico (SM36).
+Refleja a HC problemas de tomas los días
+anteriores. Continúa por ITT.",Yes,Fracaso virológico,36,"Virological
+Failure",1,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,.,.,.,16Mar2018,17Jun2019,11Mar2019,11Mar2019,11Mar2019,17Jun2019,14,18,48,48,65.428571,51.428571,1
+05815,A-038,"Hospital
+Clínic",Yes,Yes,Yes,Yes,No,ABC+3TC+DRV+RTV,18May2018,09May2018,09May2018,22May2018,Hombre,01Dec1972,46,18May2018,18May2018,Si,09May2018,13,HTSX-No UDVP,Hispano,PERÚ,Si,esteatosis hepática,.,Si,No,,.,.,No,.,Si,No,No,No,No,No,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,No,No,No,Yes,Si,09May2018,04Jun2018,2,.,1,48,0,Safety,04Jun2018,"Retirada el 04/06/18 por SAE (Fiebre y Rash), entre
+la visita Basal y la SM4. Continua por ITT.",Yes,Toxicidad,2.4285714,Safety,1,Yes,27May2018,No,.,No,.,No,.,1.2857143,.,1,0,1.2857143,.,.,.,0,0,.,.,No,15Jun2018,04Jun2018,.,25May2018,06May2019,20May2019,20May2019,04Jun2018,20May2019,9,9,48,2.4285714,52.428571,2.4285714,0
+05842,B-008,"Hospital
+Germnas
+Trias i Pujol,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,19Jun2018,05Jun2018,05Jun2018,19Jun2018,Hombre,01Jul1971,47,19Jun2018,19Jun2018,No,.,55,"HMSX-HTSX-No
+UDVP",Blanco,ESPAÑA,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,19Jun2018,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,12Jun2019,.,13Aug2019,.,21May2019,21May2019,21May2019,19Jun2018,13Aug2019,0,.,48,48,60,48,1
+05844,C-016,"Hospital de
+Sant Pau,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,19Jun2018,06Jun2018,06Jun2018,19Jun2018,Hombre,01May1973,45,19Jun2018,19Jun2018,No,.,30,"HMSX-HTSX-No
+UDVP",Hispano,UNKNOWN,Si,hepatitis C,01Jan1998,Si,No,,.,.,Si,2,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,06Jun2018,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,No,26Jun2019,.,18Sep2019,.,27Jun2019,26Jun2019,26Jun2019,19Jun2018,18Sep2019,13,.,48,48,65.142857,48,0
+05897,D-017,"Hospital de
+Bellvitge,
+L'Hospitalet",Yes,Yes,Yes,Yes,No,ABC+3TC+DRV+RTV,10Jul2018,20Jun2018,20Jun2018,02Jul2018,Mujer,01Apr1975,43,10Jul2018,10Jul2018,No,.,22,HTSX-No UDVP,Hispano,COLOMBIA,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,20Jun2018,01Aug2018,3,.,1,0,0,Safety,01Aug2018,"FINALIZACIÓN POR DECISIÓN DEL MÉDICO
+(ALTERACIÓN CONDUCTUAL SIN CAUSA
+JUSTIFICADA, SAE)",Yes,"Toxicidad. Decisión del médico: alteracion
+conductual sin causa justificada",3.1428571,Safety,1,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,04Sep2018,01Aug2018,.,10Jul2018,10Jul2018,10Jul2018,10Jul2018,01Aug2018,04Sep2018,20,.,8,3.1428571,8,3.1428571,1
+05920,C-017,"Hospital de
+Sant Pau,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,17Jul2018,29Jun2018,29Jun2018,17Jul2018,Hombre,01May1990,28,17Jul2018,17Jul2018,No,.,96,"HMSX-HTSX-No
+UDVP",Hispano,VENEZUELA,No,,.,.,No,,.,.,No,.,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,05Jul2018,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,12Apr2019,.,02Sep2019,.,04Jun2019,04Jun2019,04Jun2019,17Jul2018,02Sep2019,12,.,48,48,58.857143,48,0
+06004,A-039,"Hospital
+Clínic",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,27Jul2018,18Jul2018,18Jul2018,30Jul2018,Hombre,01Jun1987,31,27Jul2018,27Jul2018,Si,05Jul2018,1,HMSX-No UDVP,Hispano,VENEZUELA,No,,.,.,No,,.,.,No,.,Si,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,No,No,No,No,No,No,Yes,Si,18Jul2018,.,48,.,.,48,48,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,No,.,No,.,No,.,No,.,.,.,0,0,.,.,.,.,0,0,.,.,Yes,.,.,13Sep2018,.,15Jul2019,15Jul2019,15Jul2019,30Jul2018,15Jul2019,9,22,48,48,50.428571,48,1
+06006,C-018,"Hospital de
+Sant Pau,
+Barcelona",Yes,Yes,Yes,Yes,Yes,ABC+3TC+DGT,31Jul2018,23Jul2018,23Jul2018,31Jul2018,Hombre,01Oct1977,41,31Jul2018,31Jul2018,No,.,44,HTSX-No UDVP,Hispano,ESPAÑA,No,,.,.,No,,.,.,Si,5,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Si,25Jul2018,.,48,.,.,96,96,"No
+Premature
+Finalisation",.,,No,,48,"No
+Premature
+Finalisation",0,Yes,18Aug2018,Yes,18Aug2018,Yes,18Aug2018,Yes,18Aug2018,2.5714286,2.5714286,1,1,2.5714286,2.5714286,2.5714286,2.5714286,1,1,2.5714286,2.5714286,No,25Sep2019,27Oct2018,25Sep2019,.,01Jul2019,01Jul2019,01Jul2019,18Aug2018,25Sep2019,6,.,48,48,60.142857,48,0

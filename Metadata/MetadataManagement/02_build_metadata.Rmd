@@ -1,0 +1,247 @@
+---
+title: "ADVANZ_Metadata"
+author: "Carlos Blázquez Bondia"
+date: "`r Sys.Date()`"
+output:
+  html_document: default
+  pdf_document: default
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  out.width = "100%"
+)
+
+```
+
+## Load and merge metadata files. 
+
+Metadata consists on two tables. ne with sample information, coming a merge between two tables, the one with the samples collected in HC and the other ones from IrsiCaixa. The other table contains all the relevant clinical and demographic information along with group data
+
+```{r read_tables}
+variables_selected <- read.csv(here::here("Metadata","MetadataManagement","Var_names.csv"), header=T) %>%
+  dplyr::filter(selected == "YES") %>%
+  pull(NewName, name = VarName)
+
+ 
+
+mySampleData<-here::here("Metadata","MetadataManagement","metadata.csv")%>%
+  read.csv(.) %>%
+  relocate(CODE,Week,ExtractionDate,PatCode) %>%
+  mutate(ExtractionDate = as.character(format(as.Date(ExtractionDate), "%d%b%Y"))) %>%
+  select(-c(DateDiff))
+
+myClinicalData<-here::here("Metadata","MetadataManagement","Clinical_Table.csv") %>%
+  read.csv() %>%
+  select(names(variables_selected)) %>%
+  mutate(PatCode = gsub("-","",PatCode)) %>%
+  mutate(Group=ifelse(Treat == "ABC+3TC+DGT", 1, 2)) %>%
+  setNames(nm=c(variables_selected,"Group"))
+
+myMergedMetadata <- myClinicalData %>%
+  right_join(mySampleData, ., by="PatCode") %>%
+  # filter(Selected_For_Sequencing == "Yes")  %>%
+  relocate(PatCode, Week,  Group) %>%
+  arrange(PatCode, Week) %>%
+  dplyr::rename(record_id = PatCode,
+         TimePoint = Week)
+      
+# glimpse(myMergedMetadata)
+```
+
+
+
+# Adding Lab and Demographic results (Lymphocytes and inflammation markers)
+Raw extracted data had a "melted" structure, so we may need to change it to wide format
+
+```{r read_and_process_Lab_Results}
+
+vars=c("CD4 value","CD8 value", "8+38+DR+", "PCR", "IL-6", "TNF-a", "sCD14")
+names(vars) <- c("CD4","CD8", "CD8_CD38_DR", "CRP", "IL6", "TNFa", "sCD14")
+
+
+MetadataLab<-here::here("Metadata", "MetadataManagement", "LabData.xlsx") %>%
+  readxl::read_excel() %>%
+  filter(ParamName %in% vars & PatCode != "TMP??-000") %>% 
+  pivot_wider(id_cols = c("PatCode", "Week"),names_from="ParamName", values_from = "Result") %>%
+  dplyr::select(record_id = PatCode,
+                TimePoint = Week,
+                CD4 = `CD4 value`,
+                CD8 = `CD8 value`,
+                CD8_CD38_DR = `8+38+DR+`,
+                CRP = PCR,
+                IL6 = `IL-6`,
+                TNFa = `TNF-a`,
+                sCD14 = sCD14
+                ) %>%
+  mutate(TimePoint = as.numeric(TimePoint)) %>%
+  mutate(record_id = gsub("-","",record_id)) %>%
+  left_join(myMergedMetadata, ., by=c("record_id","TimePoint"), all=T) 
+
+
+MetadataLabDem<- here::here("Metadata","MetadataManagement","Vital.xlsx") %>%
+  readxl::read_excel() %>%
+  filter(PatCode != "TMP??-000") %>%
+  pivot_wider(id_cols = c("PatCode", "Week"),names_from="ParamName", values_from = "Result") %>%
+  dplyr::rename(record_id = PatCode,
+         TimePoint = Week) %>%
+  mutate(TimePoint = as.numeric(TimePoint),
+         record_id = gsub("-","",record_id)) %>%
+  left_join(MetadataLab,. ,by=c("record_id","TimePoint"), all.x = T) %>%
+  relocate(record_id, TimePoint, Group, names(vars),Weight, Height, BMI, SBP, DBP)
+ 
+dim(MetadataLabDem) 
+
+```
+
+Now the metadata is almost complete. We need now to identify each sample so it can be quickly referenced in LIMS. \ 
+\ 
+1/3/2022: 
+\ 
+We'll add the variables suggested in the study design, separating the patients in thresholds of T-cell increase and absolute number at weeks 48 and 96. A total of 8 variables were added: \ 
+
+*   **(CD4/CD8)diff(48/96)** - Increase of CD4/CD8 between weeks 48/96 and 0. Factor of two levels searating **patients** who had an increase higher or lower than 50 cells/ul. Patients with an increase equal or higher than 50 cells/ul were coded as ">50", while the ones lower than 50 were coded as "<50"
+
+* **(CD4/CD8)after(48/96)** - Number of either CD4 or CD8 at week 48/96, **per patient**. S^eparated in three categories:
+  *     **low** - <200 cells/ul at week 48/96
+  *     **medium** - T-cell counts at week 48/96 equal to or between 200 and 500 cells/ul
+  *       **high** - T-cell counts higher than 500 cell/ul
+
+
+```{r LIMS_IDs}
+metadata_final <-
+  here::here("Metadata", "MetadataManagement","Informacio_LIMS.xlsx") %>%
+  readxl::read_excel(sheet = "DNA") %>%
+  select(SampleID = `Gemirsi DNA`, CODE = `Sample Name`) %>%
+  mutate(CODE = str_remove_all(CODE, "_.*")) %>%
+  left_join(MetadataLabDem, ., by = "CODE") %>%
+  select(-CODE) %>%
+  mutate(
+    across(everything(), ~ str_replace_all(.x, "\\n", " ")),
+    across(everything(), ~ str_replace_all(.x, "^[[.]]$|^$", NA_character_)), 
+    across(contains("date"), ~ as.Date(.x, "%d%b%Y"))
+  ) %>%
+  
+  filter(!is.na(SampleID) & SampleID != "TMP??-000") %>%
+  type_convert(col_types = cols()) 
+
+metadata_final <- c(48) %>%
+  set_names() %>%
+  map_dfr( ~ {
+    ids<- metadata_final %>%
+      filter(TimePoint %in% c(0,.x)) %>%
+      group_by(record_id) %>%
+      summarise(n=n()) %>%
+      filter(n == 2) %>%
+      pull(record_id)  
+    
+    metadata_final %>% 
+      filter(record_id %in% ids) %>%
+      group_by(record_id) %>%
+      arrange(TimePoint) %>%
+      mutate(CD4diff = case_when(
+        CD4[TimePoint == .x] - CD4[TimePoint == 0] >= 50 ~ ">50",
+        CD4[TimePoint == .x] - CD4[TimePoint == 0] < 50 ~ "<50"),
+      CD8diff = case_when(
+        CD8[TimePoint == .x] - CD8[TimePoint == 0] >= 50 ~ ">50",
+        CD8[TimePoint == .x] - CD8[TimePoint == 0] < 50 ~ "<50"),
+      CD4after = case_when(
+        CD4[TimePoint == .x]  < 200 ~ "low",
+        CD4[TimePoint == .x]  >= 200 & CD4[TimePoint == .x] <= 500 ~ "mid",
+        CD4[TimePoint == .x]  > 500 ~ "high"),
+      CD8after = case_when(
+        CD8[TimePoint == .x]  < 200 ~ "low",
+        CD8[TimePoint == .x]  >= 200 & CD8[TimePoint == .x] <= 500 ~ "mid",
+        CD8[TimePoint == .x]  > 500 ~ "high")) %>%
+
+      setNames(str_replace_all(colnames(.), "diff", paste("diff_",.x,sep=""))) %>%
+      setNames(str_replace_all(colnames(.), "after", paste("after_",.x,sep=""))) 
+  }) %>%
+  select(record_id, contains("diff"), contains("after")) %>%
+  left_join(.,metadata_final, by="record_id") %>%
+  relocate(SampleID, record_id, TimePoint, Group, names(vars), contains("diff"), contains("after"))
+
+
+  
+
+metadata_final %>%  
+  readr::write_delim(
+        file = here::here("Metadata",
+            
+            str_c(Sys.Date() %>% str_replace_all("-", "_"), "_clean_metadata_LIMS.csv")
+        ), 
+        delim = ",", quote = "all"
+    )
+  
+# 
+# write.csv(colnames(metadata_final),file="Var_names.csv", quote=T)
+
+```
+
+
+## Basic Analytics
+
+Let's see how many patients were dropped and how it affects straification and group symmetry. We'll perform some analysis here to check the quality of the metadata, stratification and Followup
+
+```{r pressure, warning=FALSE, message=FALSE}
+
+library(ggplot2)
+library(compareGroups)
+source(here::here("code","Followup_plot.R"))
+
+totalCounts<-myMergedMetadata %>% 
+  select(record_id, Group, Selected_For_Sequencing) %>% unique() %>%
+  group_by(Group) %>% 
+  # unique() %>%
+  summarise(n0=n())
+  
+SelectedCounts <- myMergedMetadata %>% 
+  filter(Selected_For_Sequencing == "Yes") %>% 
+  select(record_id, Group) %>% 
+  unique() %>% count(Group) %>%
+  left_join(totalCounts,.)
+SelectedCounts
+
+
+myCompTable<-compareGroups(Group ~ Gender + Age + EthnicGroup, myClinicalData, simplify = F) %>% createTable()
+
+compareGroups::export2md(myCompTable, format="markdown") 
+sampleData<-here::here("Metadata","MetadataManagement","Informacio_LIMS.xlsx") %>%
+  readxl::read_excel(sheet = 1) %>%
+  select(record_id = CODIGO,
+         TimePoint = Week,
+         Date = `Extracción`) %>%
+  mutate(record_id = sapply(strsplit(gsub("^4*","",record_id), "-"), "[[",1),
+         Date = lubridate::as_date(Date, format="%d/%m/%Y"),
+         TimePoint = ifelse(TimePoint == "Basal", 0,
+                            gsub("^w*", "", TimePoint))) %>% 
+  unique() 
+  
+p=Plot_FollowUp(data = sampleData, 
+              patientColumn = "record_id",
+              Dates = "Date",
+              TimePoints = "TimePoint") 
+p + scale_size_manual(values = c(size=2))
+
+
+
+```
+
+```{r create_backup_DONT_TOUCH, echo=F, eval=F}
+# bakDF<-data.frame(VarName = names(variables_selected), NewName = as.character(variables_selected))
+# variables_redone<-here::here("Metadata","Clinical_Table.csv") %>%
+#   read.csv() %>%
+#   colnames() %>%
+#   data.frame(VarName = .) %>%
+#   left_join(.,bakDF, by="VarName") %>%
+#   mutate(selected = ifelse(is.na(NewName),"NO","YES")) %>%
+#   arrange(match(NewName, colnames(metadata_final)))
+# write.csv(variables_redone, file=here::here("Metadata","variables_bak.csv"), row.names = F)
+
+```

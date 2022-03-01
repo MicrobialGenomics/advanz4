@@ -1,0 +1,1 @@
+TimePoint	record_id	Group	96
