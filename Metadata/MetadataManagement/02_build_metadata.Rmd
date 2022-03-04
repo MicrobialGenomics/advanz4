@@ -26,8 +26,7 @@ Metadata consists on two tables. ne with sample information, coming a merge betw
 
 ```{r read_tables}
 variables_selected <- read.csv(here::here("Metadata","MetadataManagement","Var_names.csv"), header=T) %>%
-  dplyr::filter(selected == "YES") %>%
-  pull(NewName, name = VarName)
+  dplyr::filter(selected == "YES") 
 
  
 
@@ -39,18 +38,22 @@ mySampleData<-here::here("Metadata","MetadataManagement","metadata.csv")%>%
 
 myClinicalData<-here::here("Metadata","MetadataManagement","Clinical_Table.csv") %>%
   read.csv() %>%
-  select(names(variables_selected)) %>%
+  select(variables_selected$VarName) %>%
   mutate(PatCode = gsub("-","",PatCode)) %>%
-  mutate(Group=ifelse(Treat == "ABC+3TC+DGT", 1, 2)) %>%
-  setNames(nm=c(variables_selected,"Group"))
+  mutate(group = case_when(Treat == "ABC+3TC+DGT" ~ "DGT",
+                           Treat == "ABC+3TC+DRV+RTV" ~ "RTV/r")) 
 
 myMergedMetadata <- myClinicalData %>%
   right_join(mySampleData, ., by="PatCode") %>%
   # filter(Selected_For_Sequencing == "Yes")  %>%
-  relocate(PatCode, Week,  Group) %>%
+
+  relocate(PatCode, Week,  group) %>%
   arrange(PatCode, Week) %>%
-  dplyr::rename(record_id = PatCode,
-         TimePoint = Week)
+  dplyr::rename(!!set_names(variables_selected$VarName, variables_selected$NewName)) %>%
+  dplyr::rename(
+                record_id = pat_code, 
+                time_point = Week
+         ) 
       
 # glimpse(myMergedMetadata)
 ```
@@ -71,7 +74,7 @@ MetadataLab<-here::here("Metadata", "MetadataManagement", "LabData.xlsx") %>%
   filter(ParamName %in% vars & PatCode != "TMP??-000") %>% 
   pivot_wider(id_cols = c("PatCode", "Week"),names_from="ParamName", values_from = "Result") %>%
   dplyr::select(record_id = PatCode,
-                TimePoint = Week,
+                time_point = Week,
                 CD4 = `CD4 value`,
                 CD8 = `CD8 value`,
                 CD8_CD38_DR = `8+38+DR+`,
@@ -80,9 +83,9 @@ MetadataLab<-here::here("Metadata", "MetadataManagement", "LabData.xlsx") %>%
                 TNFa = `TNF-a`,
                 sCD14 = sCD14
                 ) %>%
-  mutate(TimePoint = as.numeric(TimePoint)) %>%
+  mutate(time_point = as.numeric(time_point)) %>%
   mutate(record_id = gsub("-","",record_id)) %>%
-  left_join(myMergedMetadata, ., by=c("record_id","TimePoint"), all=T) 
+  left_join(myMergedMetadata, ., by=c("record_id","time_point"), all=T) 
 
 
 MetadataLabDem<- here::here("Metadata","MetadataManagement","Vital.xlsx") %>%
@@ -90,11 +93,11 @@ MetadataLabDem<- here::here("Metadata","MetadataManagement","Vital.xlsx") %>%
   filter(PatCode != "TMP??-000") %>%
   pivot_wider(id_cols = c("PatCode", "Week"),names_from="ParamName", values_from = "Result") %>%
   dplyr::rename(record_id = PatCode,
-         TimePoint = Week) %>%
-  mutate(TimePoint = as.numeric(TimePoint),
+         time_point = Week) %>%
+  mutate(time_point = as.numeric(time_point),
          record_id = gsub("-","",record_id)) %>%
-  left_join(MetadataLab,. ,by=c("record_id","TimePoint"), all.x = T) %>%
-  relocate(record_id, TimePoint, Group, names(vars),Weight, Height, BMI, SBP, DBP)
+  left_join(MetadataLab,. ,by=c("record_id","time_point"), all.x = T) %>%
+  relocate(record_id, time_point, group, names(vars),Weight, Height, BMI, SBP, DBP)
  
 dim(MetadataLabDem) 
 
@@ -135,7 +138,7 @@ metadata_final <- c(48) %>%
   set_names() %>%
   map_dfr( ~ {
     ids<- metadata_final %>%
-      filter(TimePoint %in% c(0,.x)) %>%
+      filter(time_point %in% c(0,.x)) %>%
       group_by(record_id) %>%
       summarise(n=n()) %>%
       filter(n == 2) %>%
@@ -144,31 +147,119 @@ metadata_final <- c(48) %>%
     metadata_final %>% 
       filter(record_id %in% ids) %>%
       group_by(record_id) %>%
-      arrange(TimePoint) %>%
+      arrange(time_point) %>%
       mutate(CD4diff = case_when(
-        CD4[TimePoint == .x] - CD4[TimePoint == 0] >= 50 ~ ">50",
-        CD4[TimePoint == .x] - CD4[TimePoint == 0] < 50 ~ "<50"),
+        CD4[time_point == .x] - CD4[time_point == 0] >= 50 ~ ">50",
+        CD4[time_point == .x] - CD4[time_point == 0] < 50 ~ "<50"),
       CD8diff = case_when(
-        CD8[TimePoint == .x] - CD8[TimePoint == 0] >= 50 ~ ">50",
-        CD8[TimePoint == .x] - CD8[TimePoint == 0] < 50 ~ "<50"),
+        CD8[time_point == .x] - CD8[time_point == 0] >= 50 ~ ">50",
+        CD8[time_point == .x] - CD8[time_point == 0] < 50 ~ "<50"),
       CD4after = case_when(
-        CD4[TimePoint == .x]  < 200 ~ "low",
-        CD4[TimePoint == .x]  >= 200 & CD4[TimePoint == .x] <= 500 ~ "mid",
-        CD4[TimePoint == .x]  > 500 ~ "high"),
+        CD4[time_point == .x]  < 200 ~ "low",
+        CD4[time_point == .x]  >= 200 & CD4[time_point == .x] <= 500 ~ "mid",
+        CD4[time_point == .x]  > 500 ~ "high"),
       CD8after = case_when(
-        CD8[TimePoint == .x]  < 200 ~ "low",
-        CD8[TimePoint == .x]  >= 200 & CD8[TimePoint == .x] <= 500 ~ "mid",
-        CD8[TimePoint == .x]  > 500 ~ "high")) %>%
+        CD8[time_point == .x]  < 200 ~ "low",
+        CD8[time_point == .x]  >= 200 & CD8[time_point == .x] <= 500 ~ "mid",
+        CD8[time_point == .x]  > 500 ~ "high")) %>%
 
       setNames(str_replace_all(colnames(.), "diff", paste("diff_",.x,sep=""))) %>%
       setNames(str_replace_all(colnames(.), "after", paste("after_",.x,sep=""))) 
   }) %>%
   select(record_id, contains("diff"), contains("after")) %>%
   left_join(.,metadata_final, by="record_id") %>%
-  relocate(SampleID, record_id, TimePoint, Group, names(vars), contains("diff"), contains("after"))
-
+  unique() %>%
+  relocate(SampleID, record_id, time_point, group, names(vars), contains("diff"), contains("after")) %>%
+    type_convert(col_types = cols())
 
   
+
+```
+
+
+# Reformat metadata
+
+```{r reformat_metadata, warning = F, message = F}
+
+metadata_final <- 
+  metadata_final %>% 
+  dplyr::mutate( ethnic_group = recode(
+    ethnic_group,
+    Hispano = "hispanic",
+    Blanco = "caucassian",
+    Negro = "black",
+    Asiático = "asian",
+    Desconocido = "unknown",
+    Otro = "other"
+  ),
+  country = recode(
+    country,
+    UNKNOWN = "unknown",
+    `ESPAÑA` = "Spain",
+    `PERÚ` = "Peru",
+    SENEGAL = "Senegal",
+    ARGENTINO = "Argentina",
+    ECUADOR = "Ecuador",
+    COLOMBIA = "Colombia",
+    RUMANIA = "Romania",
+    VENEZOLANO = "Venezuela",
+    MARRUECOS = "Moroco",
+    VENEZUELA = "Venezuela",
+    `GUINEA ECUATORIAL (BATA)` = "Equatorial Guinea",
+    BRASIL = "Brazil",
+    CHINA = "china",
+    PARAGUAY = "Paraguay",
+    `ÁFRICA` = "Africa",
+    `MÉJICO` = "Mexico",
+    CAMERUN = "Cameroon2",
+    GANA = "Ghana"
+  ),
+  gender = recode(
+    gender,
+    Hombre = "male",
+    Mujer = "female"
+  ),
+  risk_group = recode(
+    risk_group,
+    `HTSX-No UDVP` = "hts",
+    HTSX = "hts",
+    `HMSX-No UDVP` = "msm",
+    `BISX-No UDVP` = "msm",
+    HMSX = "msm", 
+    `HMSX-HTSX-No UDVP` = "msm",
+    `Not Qualified` = "unknown",
+    UDVP = "pwid"
+  ),
+  previous_liver_disease = recode(
+    previous_liver_disease,
+    `HEPATITIS VIRAL B SIN COMA HEPATICO, CRONICA SIN H. DELTA` = "HBV_chronic",
+    `esteatosis hepática` = "fatty_liver",
+    VHC = "VHC",
+    `hepatitis aguda VHA` = "VHA_acute",
+    `Hepatitis aguda VHB` = "VHB_acute",
+    `Hepatitis crónica VHC genotipo 1b` = "VHC"
+  ), 
+  center = recode(
+    center,
+    `Hospital Clínic` = "clinic",
+    `Hospital Germnas Trias i Pujol, Barcelona` = "hgtp",
+    `Hospital de Sant Pau, Barcelona` = "sant_pau",
+    `Hospital de Bellvitge, L'Hospitalet` = "bellvitge",
+    `Hospital Val d'Hebron, Barcelona` = "vall d'hebron",
+    `Hospital de Mataro, Barcelona` = "mataro"
+  ),
+  followup_dropout_reason = recode(
+    followup_dropout_reason,
+    `No Premature Finalisation` = "followup_complete",
+    `Lost to Follow-up` = "fail_to_follow_up",
+    `Virological Failure` = "virological_failure",
+    Safety = "safety_concerns"
+  )
+  
+  )
+
+
+
 
 metadata_final %>%  
   readr::write_delim(
@@ -181,6 +272,8 @@ metadata_final %>%
   
 # 
 # write.csv(colnames(metadata_final),file="Var_names.csv", quote=T)
+
+
 
 ```
 
@@ -196,37 +289,37 @@ library(compareGroups)
 source(here::here("code","Followup_plot.R"))
 
 totalCounts<-myMergedMetadata %>% 
-  select(record_id, Group, Selected_For_Sequencing) %>% unique() %>%
-  group_by(Group) %>% 
+  select(record_id, group, Selected_For_Sequencing) %>% unique() %>%
+  group_by(group) %>% 
   # unique() %>%
   summarise(n0=n())
   
 SelectedCounts <- myMergedMetadata %>% 
   filter(Selected_For_Sequencing == "Yes") %>% 
-  select(record_id, Group) %>% 
-  unique() %>% count(Group) %>%
+  select(record_id, group) %>% 
+  unique() %>% count(group) %>%
   left_join(totalCounts,.)
 SelectedCounts
 
 
-myCompTable<-compareGroups(Group ~ Gender + Age + EthnicGroup, myClinicalData, simplify = F) %>% createTable()
+myCompTable<-compareGroups(group ~ gender + age + ethnic_group, myMergedMetadata, simplify = F) %>% createTable()
 
 compareGroups::export2md(myCompTable, format="markdown") 
 sampleData<-here::here("Metadata","MetadataManagement","Informacio_LIMS.xlsx") %>%
   readxl::read_excel(sheet = 1) %>%
   select(record_id = CODIGO,
-         TimePoint = Week,
+         time_point = Week,
          Date = `Extracción`) %>%
   mutate(record_id = sapply(strsplit(gsub("^4*","",record_id), "-"), "[[",1),
          Date = lubridate::as_date(Date, format="%d/%m/%Y"),
-         TimePoint = ifelse(TimePoint == "Basal", 0,
-                            gsub("^w*", "", TimePoint))) %>% 
+         time_point = ifelse(time_point == "Basal", 0,
+                            gsub("^w*", "", time_point))) %>% 
   unique() 
   
 p=Plot_FollowUp(data = sampleData, 
               patientColumn = "record_id",
               Dates = "Date",
-              TimePoints = "TimePoint") 
+              TimePoints = "time_point") 
 p + scale_size_manual(values = c(size=2))
 
 

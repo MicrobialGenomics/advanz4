@@ -1,1 +1,8 @@
-Group	Set1
+group	Set1
+CD4diff_48	Set1
+CD8diff_48	Set1
+CD4after_48	Set1
+CD8after_48	Set1
+risk_group	Set1
+gender	Set1
+ethnic_group	Set1
