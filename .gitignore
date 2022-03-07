@@ -40,3 +40,4 @@ vignettes/*.pdf
 
 # mre object (it's too big to be pulling/pushing around)
 *rds
+

@@ -1,0 +1,111 @@
+---
+title: "Populate MRE Object"
+author: "Marc Noguera"
+date: "2/16/2022"
+output: html_document
+---
+```{r setup, include=FALSE,eval=F}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = here::here())
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r embedded populate slots, echo=F, include=F, message=F}
+require(phyloseq)
+require(ggstatsplot)
+require(ggplot2)
+require(here)
+# Load package from local copy
+devtools::load_all("~/Documents/Work/Development/WMGSPipeline/")### Change to require/library/load local package
+myMREObject<-readRDS("data/processed/mreObject.rds")
+
+
+samplesToKeep <- myMREObject@diversity@igc@dataTable %>% dplyr::filter(InitialReads>100000) %>% dplyr::select(SampleID) %>% unique()
+myMREObject<- metar::filter_samples(samplesToKeep$SampleID,mre=myMREObject)
+
+### BARPLOTS
+myMREObject<-myMREObject %>%
+   metaphlan_barplots(top_n = 70) %>%
+   metaphlan_barplots(tax_level="Genus",top_n = 50)
+# myMREObject<-myMREObject %>%
+#    motus_barplots(top_n = 70)
+# myMREObject<-myMREObject %>%
+#    motus_barplots(tax_level="Genus",top_n = 50)
+### Heatmap
+myMREObject<-myMREObject %>%
+  metaphlan_heatmap() %>%
+  metaphlan_heatmap(tax_level = "Genus")
+### NMDS
+myMREObject<-myMREObject %>%
+    metaphlan_nmds()  %>%
+    metaphlan_nmds(tax_level="Genus")
+### SELBAL
+myMREObject<-myMREObject %>%
+    metaphlan_selbal()%>%
+  metaphlan_selbal(tax_level="Genus")
+### ancom
+myMREObject<-myMREObject %>%
+    metaphlan_ancom()  %>%
+    metaphlan_ancom(tax_level = "Genus")
+### lefse
+myMREObject<-myMREObject %>%
+    metaphlan_lefse() 
+### siamcat
+myMREObject<-myMREObject %>%
+    metaphlan_siamcat()%>%
+    metaphlan_siamcat(tax_level="Genus")
+### plsda
+myMREObject<-myMREObject %>%
+  metaphlan_plsda() %>%
+  metaphlan_plsda(tax_level="Genus")
+### deseq
+myMREObject <- myMREObject %>%
+  metaphlan_deseq()
+### maaslin
+myMREObject <- myMREObject %>%
+  metaphlan_maaslin()
+### aldex2
+myMREObject <- myMREObject %>%
+  metaphlan_aldex()
+### metagenomeSeq
+myMREObject <- myMREObject %>%
+  metaphlan_metagenomeSeq() %>% 
+  metaphlan_metagenomeSeq(tax_level="Genus")
+# myMREObject <- myMREObject %>%
+#   metaphlan_corncob()
+
+saveRDS(myMREObject,paste0(here::here(),"/data/processed/mreObject.rds"))
+
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r Gene Richness Analysis,echo=F,include=F,message=F}
+require(phyloseq)
+require(DataExplorer)
+require(compareGroups)
+require(ggstatsplot)
+require(ggplot2)
+require(here)
+# Load package from local copy
+devtools::load_all("~/Documents/Work/Development/WMGSPipeline/")
+myMREObject<-readRDS("data/processed/mreObject.rds")
+
+myMREObject %>% 
+   igc_rarefaction() ### Not keeping rarefaction result slot, too big.
+
+myMREObject %>% 
+    igc_lmm()
+saveRDS(myMREObject,paste0(here::here(),"/data/processed/mreObject.rds"))
+   
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
