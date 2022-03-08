@@ -167,12 +167,13 @@ metadata_final <- c(48) %>%
       setNames(str_replace_all(colnames(.), "after", paste("after_",.x,sep=""))) 
   }) %>%
   select(record_id, contains("diff"), contains("after")) %>%
-  left_join(.,metadata_final, by="record_id") %>%
+  full_join(.,metadata_final, by="record_id") %>%
   unique() %>%
   relocate(SampleID, record_id, time_point, group, names(vars), contains("diff"), contains("after")) %>%
     type_convert(col_types = cols())
 
   
+
 
 ```
 
