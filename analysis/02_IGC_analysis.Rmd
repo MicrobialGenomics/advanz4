@@ -25,12 +25,15 @@ source(file = here::here("code","myFunctions.R"))
 ```
 
 
+# Sequencing throupghput analysis
+
+First we'll check how well the sequencing went by looking at the read count distribution among all samples and how many of them will be dropped once we rarefy the samples
 
 
 ```{r load_metadata_vars, eval=T, include=F}
 myPath<-here::here()
 setwd(myPath)
-mymre<-readRDS("data/mre.rds")
+mymre<-readRDS(here::here(myPath,"data","mre.rds"))
 
 metadata <- metar::get_metadata(mymre)@metadata_df
 
@@ -39,9 +42,11 @@ CategoricalVariablesDF <- get_metadata(mymre)@categorical_vals
 NumericalVariablesDF <- get_metadata(mymre)@numeric_vals
 LongitudinalVariablesDF <- get_metadata(mymre)@longitudinal_vals
 
-
-
-
+cat_vector <- CategoricalVariablesDF$CategoricalVariable
+CategoricalVariablesDF$PaletteName<-"Set1"
+long_var<-LongitudinalVariablesDF$LongitudinalVariable
+link_var<-LongitudinalVariablesDF$LinkVariable
+t<-LongitudinalVariablesDF$Breakpoints
 
 ```
 
@@ -53,21 +58,125 @@ LongitudinalVariablesDF <- get_metadata(mymre)@longitudinal_vals
 igc<-metar::get_diversity(mymre)@igc
 
 # We'll save this number to report the minimum read threshold.
+
+
+
+
+
 Threshold = igc@dataTable %>%
   summarise(Q = quantile(NumberMappedReads,0.02)) %>%
   as.numeric()
 
-ThresholdTable<-igc@dataTable %>%
-  filter(NumberMappedReads >= Threshold) %>%
-  group_by(SampleID) %>%
-  summarise(across(everything(), min)) %>%
-  ungroup() %>%
-  left_join(., metadata, by="SampleID") %>%
-  rename(richness = GeneNumber,
-         link_var=record_id,
-         cat_var = Group,
-         long_var = TimePoint)
+
+readCountDistribution<-igc@dataTable %>%
+    select(SampleID, NumberMappedReads) %>%
+    unique() %>%
+
+    ggplot(aes(x=NumberMappedReads)) +
+    geom_density(fill="grey") + 
+    theme_bw() +
+    geom_vline(xintercept = Threshold)
+
+
+
+ThresholdTable <- igc@dataTable %>%
+          filter(NumberMappedReads >= Threshold) %>%
+          group_by(SampleID) %>%
+          summarise(across(everything(), min)) %>%
+          ungroup()
+
+
+
+
+TableList <- cat_vector %>%
+    set_names() %>%
+    map( ~{
+
+        
+        ThresholdTable<-igc@dataTable %>%
+          filter(NumberMappedReads >= Threshold) %>%
+          group_by(SampleID) %>%
+          summarise(across(everything(), min)) %>%
+          ungroup() %>%
+          left_join(., metadata, by="SampleID") %>%
+          rename(richness = GeneNumber,
+                 link_var=link_var,
+                 cat_var = .x,
+                 long_var = long_var)
   
+
+        
+    })
+
+readCountDistribution
+
+igc@dataTable %>%
+          filter(!SampleID %in% ThresholdTable$SampleID) %>%
+    group_by(SampleID) %>%
+    summarize(maxReads = NumberMappedReads) %>%
+    unique()
+
+igc@dataTable %>%
+    pull(NumberMappedReads) %>%
+    summary()
+
+
+```
+
+only 6 samples have been discarded by low read count. The threshold used for filtering was the 2nd percentile, which equals 12428123 reads.
+
+
+
+## Rarefaction and sequencing depth
+
+We'll control first for the effect of sequencing depth over Gene richness and try to stablish a proper rarefaction threshold.
+
+``` {r Plot_Rarefaction, echo=F, message=F, warning=F}
+
+
+seq_depth_plots <- 
+    cat_vector %>%
+    set_names() %>%
+    map(., ~ {
+        
+                
+        myPal <- 
+            CategoricalVariablesDF %>%
+            filter(CategoricalVariable == .x) %>%
+            pull(PaletteName)
+        
+        rarefaction <- 
+            mymre@diversity@igc@dataTable %>%
+            full_join(metadata[,c("SampleID",.x)], by="SampleID") %>%
+            ggplot(., 
+                   aes(x= ReadCountReal, y= GeneNumber, 
+                       group = SampleID, color= !!sym(.x))) +
+            geom_point() + 
+            geom_line() + 
+            theme_bw() + 
+            geom_vline(xintercept = Threshold) +
+            scale_color_brewer( palette = myPal)
+        
+        violin <- 
+            TableList[[.x]] %>%
+            ggplot(., aes(x= cat_var,y= NumberMappedReads, fill= cat_var)) +
+            geom_violin(draw_quantiles = T) + 
+            geom_boxplot(fill="lightgrey", width=0.2, alpha=0.4) + 
+            theme_bw() + 
+             ggpubr::stat_compare_means( 
+                 method = "wilcox",
+                 label = "p.signif", 
+                 label.x.npc = 0.5) +
+            scale_fill_brewer( palette = myPal) +
+            geom_hline(yintercept = Threshold)
+
+        return(list(rarefaction = rarefaction, violin = violin))
+    })
+
+
+ggarrange(plotlist = seq_depth_plots$group, common.legend = T)
+
+# ggarrange(plotlist=seq_depth_plots$ARM, common.legend = T, ncol = 1, nrow = 2)
 
 
 ```
@@ -77,45 +186,6 @@ ThresholdTable<-igc@dataTable %>%
 
 We'll control first for the effect of sequencing depth over Gene richness and try to stablish a proper rarefaction threshold.
 
-``` {r Plot_Rarefaction, echo=F, message=F, warning=F}
-myRarefaction<-mymre@diversity@igc@rarefaction$categorical$Group$rarefaction +
-  scale_color_manual(values = brewer.pal(n=2, name =  "Set1"), labels = c("ABC+3TC+DGT","ABC+3TC+DRV+RTV")) +
-
-  geom_vline(xintercept = Threshold, color="black", inherit.aes = F) + 
-  labs(subtitle = paste("Rarefaction Threshold: 2nd percentile (", as.numeric(Threshold),")",sep=""),
-       color = "Group") +
-  theme(plot.subtitle = element_text(size = 8),
-        plot.title =  element_text(size=9, face="bold"))
-
-
-DepthViolin<-igc@dataTable %>%
-  left_join(., metadata[,c("SampleID","Treat", "TimePoint")]) %>%
-  rename(CategoricalVariable = Treat,
-         LongitudinalVariable = TimePoint) %>%
-  group_by(SampleID) %>% 
-  filter(ReadCountReal == max(ReadCountReal)) %>%
-  
-  
-  ggplot(., aes(x=CategoricalVariable, y=ReadCountReal, Group = CategoricalVariable)) +
-  geom_violin() +
-  geom_boxplot(aes(fill=CategoricalVariable), width=0.4) + 
-  ggpubr::stat_compare_means( method = "wilcox",label = "p.signif", label.x.npc = 0.5) +
-  theme_bw() + 
-  geom_hline(yintercept = Threshold) +
-  scale_fill_brewer(palette = "Set1") +
-  labs(title = "Sequencing depth distribution by Group", subtitle = "Wilcoxon Test",
-       x= "Group",
-       fill="Group",
-       y="Max sequencing depth") +
-  theme(plot.subtitle = element_text(size = 8),
-        plot.title =  element_text(size=9, face="bold"))
-
-  
-
-ggarrange(myRarefaction, DepthViolin, common.legend = T)
-
-
-```
 
 Data shows there is no bias created by sequencing depth between groups, and a threshold over the 2nd percentile is appropiate.
 
@@ -167,7 +237,7 @@ get_LMM_GraphParams <- function(Table){
         summary() %>%
         magrittr::extract2("coefficients") 
     
-    graphparams<- ThresholdTable %>%
+    graphparams<- Table %>%
       summarise(xmin=min(long_var),
                 xmax=max(long_var),
                 ymin = model[1,1] + xmin*model[2,1],
@@ -189,7 +259,7 @@ get_LMM_GraphParams <- function(Table){
 
 ```{r plot_LMMs, message = F, warning = F, echo=F}
 
-cat_var<-CategoricalVariablesDF$CategoricalVariable
+cat_var<-"group"
 long_var <- LongitudinalVariablesDF$LongitudinalVariable[1]
 link_var<-LongitudinalVariablesDF$LinkVariable[1]
 num_var <- "richness"
@@ -205,7 +275,10 @@ t<-NULL
 plot_list <-  c(num_var) %>%
   purrr::set_names() %>%
   purrr::map( ~ {
-    LMM<- create_LMM(ThresholdTable, 
+    
+    LMM <- TableList %>%
+      pluck(cat_var) %>%
+      create_LMM(., 
                num_var = .x, 
                cat_var = "cat_var",
                long_var = "long_var",
@@ -240,7 +313,7 @@ plot_list <-  c(num_var) %>%
 )
 
 
-ggarrange(plotlist = plot_list, common.legend = T)
+plot_list$richness
 ```
 
 There is a pretty clear evolution in every one of the treatment groups. However the evolution rate seems pretty similar between both treatment groups. The models fail to find a great difference in gene richness evolution, althougha slight yet significant increasing trend (slope value = 0.027), can be found in the DGT group (Group 1).
@@ -251,11 +324,13 @@ However, creating a single LMM with treatment group as a random effect we can me
 ```{r compare_group_effect, warning = F, message= F, echo = F}
 
 
-myUnifiedModel<- ThresholdTable %>%
+myUnifiedModel<- TableList %>%
+  pluck(cat_var) %>%
   dplyr::rename(num_var = richness) %>%
   lmerTest::lmer(formula = "num_var ~ long_var * cat_var + (1|link_var)",data = .)
 
-myGraphParams<-ThresholdTable %>%
+myGraphParams<- TableList %>%
+  pluck(cat_var) %>%
   dplyr::rename(num_var = richness) %>%
   get_LMM_GraphParams() %>%
   mutate(across(contains("x"), ~ as.numeric(.x)))
@@ -267,14 +342,15 @@ myPval<-summary(myUnifiedModel) %>%
   set_names(c("Estimate", "Std.Err", "df", "t.val","pval")) %>%
   mutate(pval = round(pval,3))
 
-ThresholdTable %>%
+TableList %>%
+  pluck(cat_var) %>%
   dplyr::rename(num_var = richness) %>%
   ggplot(., aes(x =long_var, y=num_var, group=link_var, color=cat_var)) +
   geom_point(alpha=0.4) + 
   geom_line(alpha=0.4) + 
-  scale_x_continuous(breaks = unique(ThresholdTable$long_var),
-                     limits = c(min(ThresholdTable$long_var),
-                                max(ThresholdTable$long_var))) +
+  scale_x_continuous(breaks = unique(TableList[[cat_var]]$long_var),
+                     limits = c(min(TableList[[cat_var]]$long_var),
+                                max(TableList[[cat_var]]$long_var))) +
 
   geom_segment(data=myGraphParams,aes(x=xmin,y=ymin,xend=xmax,yend=ymax, color=cat_var),inherit.aes=T,size=3) +
   scale_color_brewer(palette="Set1") +
