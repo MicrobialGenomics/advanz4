@@ -40,7 +40,7 @@ myClinicalData<-here::here("Metadata","MetadataManagement","Clinical_Table.csv")
   read.csv() %>%
   select(variables_selected$VarName) %>%
   mutate(PatCode = gsub("-","",PatCode)) %>%
-  mutate(group = case_when(Treat == "ABC+3TC+DGT" ~ "DGT",
+  mutate(group = case_when(Treat == "ABC+3TC+DGT" ~ "DTG",
                            Treat == "ABC+3TC+DRV+RTV" ~ "RTV/r")) 
 
 myMergedMetadata <- myClinicalData %>%
@@ -128,6 +128,10 @@ metadata_final <-
   mutate(
     across(everything(), ~ str_replace_all(.x, "\\n", " ")),
     across(everything(), ~ str_replace_all(.x, "^[[.]]$|^$", NA_character_)), 
+    across(everything(), ~ recode(.x,
+                                  Si = "yes",
+                                  No = "no",
+                                  Yes = "yes")),
     across(contains("date"), ~ as.Date(.x, "%d%b%Y"))
   ) %>%
   
@@ -193,6 +197,10 @@ metadata_final <-
     Desconocido = "unknown",
     Otro = "other"
   ),
+  treatment = recode(
+    treatment,
+    `ABC+3TC+DGT` = "ABC+3TC+DTG"
+  ),
   country = recode(
     country,
     UNKNOWN = "unknown",
@@ -200,20 +208,25 @@ metadata_final <-
     `PERÚ` = "Peru",
     SENEGAL = "Senegal",
     ARGENTINO = "Argentina",
+    ARGENTINA = "Argentina",
     ECUADOR = "Ecuador",
     COLOMBIA = "Colombia",
     RUMANIA = "Romania",
     VENEZOLANO = "Venezuela",
-    MARRUECOS = "Moroco",
+    MARRUECOS = "Morocco",
     VENEZUELA = "Venezuela",
-    `GUINEA ECUATORIAL (BATA)` = "Equatorial Guinea",
+    `GUINEA ECUATORIAL (BATA)` = "Equatorial_Guinea",
     BRASIL = "Brazil",
-    CHINA = "china",
+    CHINA = "China",
     PARAGUAY = "Paraguay",
     `ÁFRICA` = "Africa",
     `MÉJICO` = "Mexico",
-    CAMERUN = "Cameroon2",
-    GANA = "Ghana"
+    CAMERUN = "Cameroon",
+    `CAMERÚN` = "Cameroon",
+    HONDURAS = "Honduras",
+    GANA = "Ghana",
+    CUBA = "Cuba",
+    `REPÚBLICA DOMINICANA` = "Dominican_Republic"
   ),
   gender = recode(
     gender,
@@ -229,8 +242,10 @@ metadata_final <-
     HMSX = "msm", 
     `HMSX-HTSX-No UDVP` = "msm",
     `Not Qualified` = "unknown",
+    `HMSX-HTSX` = "msm",
     UDVP = "pwid"
   ),
+
   previous_liver_disease = recode(
     previous_liver_disease,
     `HEPATITIS VIRAL B SIN COMA HEPATICO, CRONICA SIN H. DELTA` = "HBV_chronic",
@@ -238,26 +253,45 @@ metadata_final <-
     VHC = "VHC",
     `hepatitis aguda VHA` = "VHA_acute",
     `Hepatitis aguda VHB` = "VHB_acute",
-    `Hepatitis crónica VHC genotipo 1b` = "VHC"
+    `Hepatitis crónica VHC genotipo 1b` = "VHC",
+    `Infección crónica por VHC` = "VHC"
   ), 
+  previous_kidney_disease = recode(
+    previous_kidney_disease,
+    `Insuficiencia renal` = "renal_insufficiency",
+    LITIASIS = "lithiasis"
+  ),
   center = recode(
     center,
     `Hospital Clínic` = "clinic",
     `Hospital Germnas Trias i Pujol, Barcelona` = "hgtp",
     `Hospital de Sant Pau, Barcelona` = "sant_pau",
     `Hospital de Bellvitge, L'Hospitalet` = "bellvitge",
-    `Hospital Val d'Hebron, Barcelona` = "vall d'hebron",
+    `Hospital Val d'Hebron, Barcelona` = "vall_hebron",
     `Hospital de Mataro, Barcelona` = "mataro"
   ),
-  followup_dropout_reason = recode(
-    followup_dropout_reason,
+  end_reason_48 = recode(
+    end_reason_48,
     `No Premature Finalisation` = "followup_complete",
     `Lost to Follow-up` = "fail_to_follow_up",
     `Virological Failure` = "virological_failure",
-    Safety = "safety_concerns"
+    Safety = "safety_concerns",
+    `Clinical Progression` = "clinical_progression",
+    `Selection Criteria` = "Selection Criteria"
+  ),
+  end_reason_96 = recode(
+    end_reason_96,
+    `No Premature Finalisation` = "followup_complete",
+    `Lost to Follow-up` = "fail_to_follow_up",
+    `Virological Failure` = "virological_failure",
+    Safety = "safety_concerns",
+    `Clinical Progression` = "clinical_progression",
+    `Selection Criteria` = "Selection Criteria"
   )
   
-  )
+
+  ) %>%
+  mutate(across(where(is.character), ~ na_if(.,"unknown")))
 
 
 
