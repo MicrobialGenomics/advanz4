@@ -1,0 +1,117 @@
+---
+title: "Data Preprocessing"
+author: "Marc Noguera"
+date: "2/25/2022"
+output: html_document
+---
+
+```{r setup, include=T,eval=F}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = here::here())
+```
+
+## Explanation
+
+This code obtains different data from different sources:
+
+* Taxonomical Compisition data derived from Metaphlan3/motus2/kraken2/dada2 analysis. This data is obtained the the AWS/Batch/WMGS pipelind as standard R::phyloseq objects
+* Gene Function Data. Derived from FMAP/HUMANN3/IGC/VIRGO catalogs or tools. This data is obtained the the AWS/Batch/WMGS pipelind as standard R::phyloseq objects
+* Gene Richness or diversity, obtained fro either IGC/VIRGO catalogs or dada2.
+* Metadata. Obtained from the study data source. Metadata is probably formatted and curated beforehand and linke td taxonomical and function data during the construction of the two previous data soruces.
+* Other: In this code, it is the moment to alter the original data sources in any way: modfication, removeal, addition of variables.
+
+Data is obtained, merged and provided a consistent starting point for statistical analysis. Metadata is also described separately to produce a metadata-only report.
+
+Finally a MRE object is created that is used downstream as the starting point for all analysis and (automatic) reporting.
+
+## Read Data and Create metar object
+```{r readMetadata ,echo=F,include=F,message=F}
+suppressMessages(require(DataExplorer))
+suppressMessages(require(phyloseq))
+suppressMessages(require(ggstatsplot))
+suppressMessages(require(ggplot2))
+suppressMessages(require(here))
+suppressMessages(require(knitr))
+# Load package from local copy
+
+
+### Project variables
+bucket<-"s3://mistral-wp6-advanz4/"
+bucketDir<-"metagenome/WMGS"
+
+
+### Load data and create MRE Object
+devtools::load_all("~/Documents/Work/Development/WMGSPipeline/")### Change to require/library/load local package
+#### Create MRE object, needs environment-defined AWS credentials, see aws.s3
+myMREObject<-metar::metarExperiment_aws(paste0(bucket,bucketDir))
+
+### Ensure Metadata Correctness and coherence among phyloseq objects and metadata slots before proceeding.
+
+if ( ! identical(myMREObject@metadata@metadata_df,myMREObject@taxa@metaphlan@phyloseq@sam_data)){
+  rlog::log_warn("Sample Data from mre and phyloseq do not overlap...correcting")
+  myDF<-as.data.frame(myMREObject@metadata@metadata_df)
+  rownames(myDF)<-myDF$SampleID
+  sample_data(myMREObject@taxa@metaphlan@phyloseq)<-myDF
+  sample_data(myMREObject@taxa@metaphlan@phyloseq_sec)<-myDF
+}else{
+  rlog::log_info("Phyloseq metadata and mre metadata are consistent. Moving on.")
+}
+
+if ( ! identical(myMREObject@metadata@metadata_df,myMREObject@taxa@motus@phyloseq@sam_data)){
+  rlog::log_warn("Sample Data from mre and phyloseq do not overlap...correcting")
+  myDF<-as.data.frame(myMREObject@metadata@metadata_df)
+  rownames(myDF)<-myDF$SampleID
+  sample_data(myMREObject@taxa@motus@phyloseq)<-myDF
+  # sample_data(myMREObject@taxa@motus@phyloseq_sec)<-myDF #Set whenever we have counts for motusV2
+}else{
+  rlog::log_info("Phyloseq metadata and mre metadata are consistent. Moving on.")
+}
+
+myMREObject@wd<-"output/mre_data/"
+dir.create("data/processed/")
+
+myMREObject<-metar::filter_phy_default(myMREObject)
+
+### Filter low-reads samples
+samplesToKeep <- myMREObject@diversity@igc@dataTable %>% 
+  dplyr::filter(InitialReads>100000) %>% 
+  dplyr::select(SampleID) %>%
+  unique()
+myMREObject<- metar::filter_samples(samplesToKeep$SampleID,mre=myMREObject)
+
+saveRDS(myMREObject,paste0(here::here(),"/data/processed/mreObject.rds"))
+aws.s3::s3saveRDS(myMREObject,bucket=bucket,object = paste0(bucketDir,"/MREObject.rds"))
+
+```
+A metar(MRE) object contains different slots, each one containing different types of data for the study bein analysed. A brief description of the available data for this project is:
+
+```{r metar object characteristics}
+myMREObject
+```
+
+### Create and store MRE object for subsets of data
+
+We also create subsets of data that can be handy and that respond to the project-specific design.
+
+```{r create subsets,echo=F,include=F,message=F, eval=F}
+### This is an example on how to filter samples to form a consisten subset.
+set.seed(1234)
+require(genefilter)
+
+# Samples within UDL - Create a new metar object, define wd accordingly
+dir.create("data/internal/subset_UDL/",recursive=T,showWarnings = F)
+auxMREObject<-myMREObject@metadata@metadata_df %>% 
+  dplyr::filter(Cohort=="UDL") %>%
+  dplyr::pull(SampleID) %>%
+  metar::filter_samples(.,myMREObject)
+auxMREObject@wd<-"output/mre_data/subset_UDL/"
+
+# Avoid all-0 taxa -metar::filter_phy_default(myMREObject) can also be used
+flist<-genefilter::filterfun(genefilter::kOverA(1,0))
+ent.logi<-filter_taxa(get_phyloseq(auxMREObject,type="metaphlan"), flist)
+auxMREObject@taxa@metaphlan@phyloseq <- filter_taxa(get_phyloseq(auxMREObject,type="metaphlan"), flist, TRUE)
+auxMREObject@metadata@categorical_vals<-auxMREObject@metadata@categorical_vals[c(2,3),]
+
+saveRDS(auxMREObject,"data/internal/subset_UDL/mreObject.rds")
+
+```

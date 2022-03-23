@@ -1,0 +1,234 @@
+---
+title: "Populate MRE Object"
+author: "Marc Noguera"
+date: "2/16/2022"
+output: html_document
+---
+```{r setup, include=T,eval=F}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = here::here())
+
+```
+
+## Initial Analysis
+
+Using the initial MRE object which has all results slots empty, we then populate these slots through pre-programmed functions that use project-specifci categorical and numerical variables to run statistical testing of different nature:
+
+* Ordination:
+* Differential Abundance:
+* Correlation:
+* Gene Richness:
+* Biomarker Discovery:
+* Gene Function:
+* Other: Project specific analysis may be programmed from scratch or can take advantage from pre-run statistical testing. 
+
+All analysis generate by default a set of result files that are stored into disk, generally pdf or csv that allow result exploration.
+Once all te tests have been run, the MRE is populated with the correspoonding results and saved into disk/AWS.
+
+```{r embedded populate slots, echo=T, include=T, message=T}
+require(phyloseq)
+require(ggstatsplot)
+require(ggplot2)
+require(here)
+
+bucket<-"s3://mistral-wp6-advanz4/"
+bucketDir<-"metagenome/WMGS"
+
+# Load package from local copy
+devtools::load_all("~/Documents/Work/Development/WMGSPipeline/")### Change to require/library/load local package
+
+# myMREObject<-readRDS("data/processed/mreObject.rds")
+myMREObject<-aws.s3::s3readRDS(bucket=bucket,object = paste0(bucketDir,"/MREObject.rds"))
+
+### BARPLOTS
+myMREObject<-myMREObject %>%
+   metaphlan_barplots(top_n = 70) %>%
+   metaphlan_barplots(tax_level="Genus",top_n = 50)
+# myMREObject<-myMREObject %>%
+#    motus_barplots(top_n = 70)
+# myMREObject<-myMREObject %>%
+#    motus_barplots(tax_level="Genus",top_n = 50)
+### Heatmap
+myMREObject<-myMREObject %>%
+  metaphlan_heatmap() %>%
+  metaphlan_heatmap(tax_level = "Genus")
+### NMDS
+myMREObject<-myMREObject %>%
+    metaphlan_nmds()  %>%
+    metaphlan_nmds(tax_level="Genus")
+### SELBAL
+myMREObject<-myMREObject %>%
+  metaphlan_selbal(use_counts=T)%>%
+  metaphlan_selbal(use_counts=T,tax_level="Genus")
+### ancom
+myMREObject<-myMREObject %>%
+    metaphlan_ancom()  %>%
+    metaphlan_ancom(tax_level = "Genus")
+### lefse
+myMREObject<-myMREObject %>%
+    metaphlan_lefse() 
+### siamcat 
+myMREObject<-myMREObject %>%
+    metaphlan_siamcat()%>%
+    metaphlan_siamcat(tax_level="Genus")
+### plsda
+myMREObject<-myMREObject %>%
+  metaphlan_plsda() %>%
+  metaphlan_plsda(tax_level="Genus")
+### deseq
+myMREObject <- myMREObject %>%
+  metaphlan_deseq()
+### maaslin
+myMREObject <- myMREObject %>%
+  metaphlan_maaslin()
+myMREObject <- myMREObject %>% 
+  metaphlan_maaslin(tax_level = "Genus")
+
+### aldex2
+myMREObject <- myMREObject %>%
+  metaphlan_aldex()
+myMREObject <- myMREObject %>% 
+  metaphlan_aldex(tax_level="Phylum")
+
+# ### metagenomeSeq
+myMREObject <- myMREObject %>%
+  metaphlan_metagenomeSeq() %>%
+  metaphlan_metagenomeSeq(tax_level="Genus")
+  
+myMREObject <- myMREObject %>%
+  metaphlan_corncob()
+
+myMREObject <- myMREObject %>%
+  metaphlan_corncob(tax_level="Genus")
+
+saveRDS(myMREObject,paste0(here::here(),"/data/processed/mreObject.rds"))
+aws.s3::s3saveRDS(myMREObject,bucket=bucket,object = paste0(bucketDir,"/MREObject.rds"))
+
+```
+## Gene Catalog Mapping 
+
+### IGC Richness
+
+```{r Gene Richness Analysis,echo=F,include=F,message=F}
+require(phyloseq)
+require(DataExplorer)
+require(compareGroups)
+require(ggstatsplot)
+require(ggplot2)
+require(here)
+# Load package from local copy
+devtools::load_all("~/Documents/Work/Development/WMGSPipeline/")
+myMREObject<-aws.s3::s3readRDS(bucket=bucket,object = paste0(bucketDir,"/MREObject.rds"))
+
+myMREObject %>% 
+   igc_rarefaction() ### Not keeping rarefaction result slot, too big.
+
+myMREObject<-myMREObject %>% 
+    igc_lmm()
+saveRDS(myMREObject,paste0(here::here(),"/data/processed/mreObject.rds"))
+aws.s3::s3saveRDS(myMREObject,bucket=bucket,object = paste0(bucketDir,"/MREObject.rds"))
+   
+```
+
+### VIRGO Richness
+```{r Gene Richness Analysis,echo=F,include=F,message=F,eval=F}
+require(phyloseq)
+require(DataExplorer)
+require(compareGroups)
+require(ggstatsplot)
+require(ggplot2)
+require(here)
+# Load package from local copy
+devtools::load_all("~/Documents/Work/Development/WMGSPipeline/")
+myMREObject<-aws.s3::s3readRDS(bucket=bucket,object = paste0(bucketDir,"/MREObject.rds"))
+
+myMREObject %>% 
+   virgo_rarefaction() ### Not keeping rarefaction result slot, too big.
+
+myMREObject<-myMREObject %>% 
+    virgo_lmm()
+saveRDS(myMREObject,paste0(here::here(),"/data/processed/mreObject.rds"))
+aws.s3::s3saveRDS(myMREObject,bucket=bucket,object = paste0(bucketDir,"/MREObject.rds"))
+   
+```
+
+## Populate subsets
+
+A similar process is run for data subsets, in order to be able to explore them if needed.
+
+```{r embeddedpopulate slots,echo=F,include=F,message=F,eval=F}
+require(phyloseq)
+require(ggstatsplot)
+require(ggplot2)
+require(here)
+require(genefilter)
+# Load package from local copy
+devtools::load_all("~/Documents/Work/Development/WMGSPipeline/")
+myMREObject<-readRDS("data/internal/subset_AD_Control/mreObject.rds")
+
+### BARPLOTS
+myMREObject<-myMREObject %>%
+   metaphlan_barplots(top_n = 70) %>%
+   metaphlan_barplots(tax_level="Genus",top_n = 50)
+
+# myMREObject<-myMREObject 4%>%
+#    motus_barplots(top_n = 70)
+# myMREObject<-myMREObject %>%
+#    motus_barplots(tax_level="Genus",top_n = 50)
+
+### Heatmap
+myMREObject<-myMREObject %>%
+  metaphlan_heatmap() %>%
+  metaphlan_heatmap(tax_level = "Genus")
+ 
+
+### NMDS
+myMREObject<-myMREObject %>%
+    metaphlan_nmds() 
+myMREObject<-myMREObject%>%
+    metaphlan_nmds(tax_level="Genus")
+
+myMREObject<-myMREObject %>%
+    metaphlan_selbal()
+myMREObject<-myMREObject %>%
+    metaphlan_selbal(tax_level="Genus")
+
+myMREObject<-myMREObject %>%
+    metaphlan_ancom() 
+myMREObject<-myMREObject %>%
+    metaphlan_ancom(tax_level = "Genus")
+
+myMREObject<-myMREObject %>%
+    metaphlan_lefse() 
+
+myMREObject<-myMREObject %>%
+    metaphlan_siamcat()
+myMREObject<-myMREObject %>%
+    metaphlan_siamcat(tax_level="Genus")
+
+myMREObject<-myMREObject %>%
+  metaphlan_plsda()
+myMREObject<-myMREObject %>%
+  metaphlan_plsda(tax_level="Genus")
+
+myMREObject <- myMREObject %>%
+  metaphlan_deseq()
+
+myMREObject <- myMREObject %>%
+  metaphlan_maaslin()
+
+myMREObject <- myMREObject %>%
+  metaphlan_aldex()
+
+# myMREObject <- myMREObject %>%
+#   metaphlan_corncob()
+# 
+# myMREObject <- myMREObject %>%
+#   metaphlan_metagenomeSeq()
+
+saveRDS(myMREObject,paste0(here::here(),"/data/internal/subset_AD_Control/mreObject.rds"))
+
+```
+
+
+
