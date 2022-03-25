@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 
 Metadata consists on two tables. ne with sample information, coming a merge between two tables, the one with the samples collected in HC and the other ones from IrsiCaixa. The other table contains all the relevant clinical and demographic information along with group data
 
-```{r read_tables}
+```{r read_tables, warning=F, message=F}
 variables_selected <- read.csv(here::here("Metadata","MetadataManagement","Var_names.csv"), header=T) %>%
   dplyr::filter(selected == "YES") 
 
@@ -63,13 +63,13 @@ myMergedMetadata <- myClinicalData %>%
 # Adding Lab and Demographic results (Lymphocytes and inflammation markers)
 Raw extracted data had a "melted" structure, so we may need to change it to wide format
 
-```{r read_and_process_Lab_Results}
+```{r read_and_process_Lab_Results, warning=F, message=F}
 
 vars=c("CD4 value","CD8 value", "8+38+DR+", "PCR", "IL-6", "TNF-a", "sCD14")
 names(vars) <- c("CD4","CD8", "CD8_CD38_DR", "CRP", "IL6", "TNFa", "sCD14")
 
 
-MetadataLab<-here::here("Metadata", "MetadataManagement", "LabData.xlsx") %>%
+MetadataLab<-here::here("Metadata", "MetadataManagement", "LabData.xls") %>%
   readxl::read_excel() %>%
   filter(ParamName %in% vars & PatCode != "TMP??-000") %>% 
   pivot_wider(id_cols = c("PatCode", "Week"),names_from="ParamName", values_from = "Result") %>%
@@ -138,9 +138,9 @@ metadata_final <-
   filter(!is.na(SampleID) & SampleID != "TMP??-000") %>%
   type_convert(col_types = cols()) 
 
-metadata_final <- c(48) %>%
+metadata_final <- c(48,96) %>%
   set_names() %>%
-  map_dfr( ~ {
+  map( ~ {
     ids<- metadata_final %>%
       filter(time_point %in% c(0,.x)) %>%
       group_by(record_id) %>%
@@ -152,26 +152,35 @@ metadata_final <- c(48) %>%
       filter(record_id %in% ids) %>%
       group_by(record_id) %>%
       arrange(time_point) %>%
-      mutate(CD4diff = case_when(
+      mutate(
+      
+      CD4diff = case_when(
         CD4[time_point == .x] - CD4[time_point == 0] >= 50 ~ ">50",
         CD4[time_point == .x] - CD4[time_point == 0] < 50 ~ "<50"),
+      
       CD8diff = case_when(
         CD8[time_point == .x] - CD8[time_point == 0] >= 50 ~ ">50",
         CD8[time_point == .x] - CD8[time_point == 0] < 50 ~ "<50"),
+      
       CD4after = case_when(
         CD4[time_point == .x]  < 200 ~ "low",
         CD4[time_point == .x]  >= 200 & CD4[time_point == .x] <= 500 ~ "mid",
         CD4[time_point == .x]  > 500 ~ "high"),
+      
       CD8after = case_when(
         CD8[time_point == .x]  < 200 ~ "low",
         CD8[time_point == .x]  >= 200 & CD8[time_point == .x] <= 500 ~ "mid",
         CD8[time_point == .x]  > 500 ~ "high")) %>%
-
+      
+      select(record_id, CD4diff, CD8diff, CD4after,CD8after) %>%
       setNames(str_replace_all(colnames(.), "diff", paste("diff_",.x,sep=""))) %>%
-      setNames(str_replace_all(colnames(.), "after", paste("after_",.x,sep=""))) 
+      setNames(str_replace_all(colnames(.), "after", paste("after_",.x,sep=""))) %>%
+      unique()
+
   }) %>%
-  select(record_id, contains("diff"), contains("after")) %>%
-  full_join(.,metadata_final, by="record_id") %>%
+  reduce(full_join, by="record_id") %>%
+  full_join(metadata_final, bby="record_id") %>%
+  # select(record_id,contains("diff"), contains("after")) %>%
   unique() %>%
   relocate(SampleID, record_id, time_point, group, names(vars), contains("diff"), contains("after")) %>%
     type_convert(col_types = cols())
@@ -291,7 +300,8 @@ metadata_final <-
   
 
   ) %>%
-  mutate(across(where(is.character), ~ na_if(.,"unknown")))
+  mutate(across(where(is.character), ~ na_if(.,"unknown"))) %>%
+  arrange(record_id, time_point)
 
 
 

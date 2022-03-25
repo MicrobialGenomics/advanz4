@@ -1,0 +1,40 @@
+---
+title: "Taxonomy exploration"
+author: "Carlos Blázquez Bondia"
+date: "3/25/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Setup
+
+This section will have comments of the step of data entry and anything that may happen here
+
+```{r cars}
+mymre <- here::here("data","mre.rds") %>%
+  readRDS()
+```
+
+
+```{r utility_functions}
+
+## Any utility function that we do will go here
+
+```
+
+
+
+# Taxonomic composition
+
+Here go the taxonomy stacked barplots at different taxonomic levels.
+
+```{r taxa_barplots, echo=FALSE}
+plot(pressure)
+```
+
+# Additional analysis
+
+here will go any other exploratory analysis on taxonomy that may be needed
