@@ -4,6 +4,7 @@ Main directives:
 - avoid exposing data openly in public using github.
 - Use own branch for code development
 - Do not modify master branch output
+- Put data sources (including rds, csv metadata and related files in /data directory). data/* should be in .gitignore
 
 General Recommendations
 
