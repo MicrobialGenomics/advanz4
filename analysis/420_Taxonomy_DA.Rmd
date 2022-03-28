@@ -7,13 +7,14 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
 ```
 
 ## Data import and exploration
 
 This section should explain anyithing that may have happened during the first fase of importing and formatting data, such as any modification or additional filtering step.
 
-```{r read_data}
+```{r read_data, eval=F}
 bucket <- "s3://mistral-wp6-advanz4/"
 bucket_dir <- "metagenome/WMGS/"
 

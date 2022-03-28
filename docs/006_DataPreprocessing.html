@@ -12,7 +12,7 @@
 <meta name="author" content="Marc Noguera" />
 
 
-<title>MetaExplorer Report Generation</title>
+<title>Data Preprocessing</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -260,7 +260,7 @@ $(document).ready(function () {
   <a href="license.html">License</a>
 </li>
 <li>
-  <a href="310_IGC_analysis.html">Gene richness</a>
+  <a href="IGC_analysis.html">Gene richness</a>
 </li>
 <li>
   <a href="320_Beta_Diversity.Rmd">Beta Diversity</a>
@@ -283,9 +283,9 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">MetaExplorer Report Generation</h1>
+<h1 class="title toc-ignore">Data Preprocessing</h1>
 <h4 class="author">Marc Noguera</h4>
-<h4 class="date">3/23/2022</h4>
+<h4 class="date">2/25/2022</h4>
 
 </div>
 
@@ -419,7 +419,6 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    analysis/.Rhistory
     Ignored:    data/mre.rds
 
 Untracked files:
@@ -449,7 +448,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/020_MetaExplorer_Report.Rmd</code>) and HTML (<code>docs/020_MetaExplorer_Report.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/006_DataPreprocessing.Rmd</code>) and HTML (<code>docs/006_DataPreprocessing.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -478,41 +477,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/440936112631b3ae0f4f3911ce3a45b9ae62d1bb/analysis/020_MetaExplorer_Report.Rmd" target="_blank">4409361</a>
-</td>
-<td>
-Marc Noguera-Julian
-</td>
-<td>
-2022-03-25
-</td>
-<td>
-initi mre
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/440936112631b3ae0f4f3911ce3a45b9ae62d1bb/docs/020_MetaExplorer_Report.html" target="_blank">4409361</a>
-</td>
-<td>
-Marc Noguera-Julian
-</td>
-<td>
-2022-03-25
-</td>
-<td>
-initi mre
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/3cccd896f26607b09427747a7fc680f507d4f783/analysis/020_MetaExplorer_Report.Rmd" target="_blank">3cccd89</a>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/3cccd896f26607b09427747a7fc680f507d4f783/analysis/006_DataPreprocessing.Rmd" target="_blank">3cccd89</a>
 </td>
 <td>
 Marc Noguera-Julian
@@ -531,34 +496,28 @@ initial mre
 </div>
 </div>
 </div>
-<div id="metar-explorer-report" class="section level2">
-<h2>MetaR Explorer Report</h2>
-<p>This Rmd is intended to read MRE object (no writing) and produce local report for exploratory and analysis plan meeting</p>
-<pre class="r"><code>require(phyloseq)
-require(ggstatsplot)
-require(ggplot2)
-require(here)
-
-bucket&lt;-&quot;s3://mistral-wp6-advanz4/&quot;
-bucketDir&lt;-&quot;metagenome/WMGS&quot;
-
-# Load package from local copy, needs to handle some of the dependencies manually.
-devtools::load_all(&quot;~/Documents/Work/Development/WMGSPipeline/&quot;)### Change to require/library/load local package
-devtools::load_all(&quot;~/Documents/Work/Development/metaExplorer/&quot;)### Change to require/library/load local package
-# myMREObject&lt;-readRDS(&quot;data/processed/mreObject.rds&quot;)
-mre&lt;-aws.s3::s3readRDS(bucket=bucket,object = paste0(bucketDir,&quot;/MREObject.rds&quot;))
-
-### Execute on the fly until memory space for rarefaction issue is solved
-mre&lt;-mre %&gt;% metar::igc_lmm() %&gt;% igc_rarefaction()
-
-metaExplorer::export_report(
-mre,
-diversity_slot = &quot;igc&quot;,
-taxa_slot = &quot;metaphlan&quot;,
-metadata_vars = get_metadata_vars(mre),
-report_title = &quot;ADVANZ4 Exploratory Report&quot;,
-output_file = paste0(here::here(),&quot;/docs/mistral_advanz4_report.pdf&quot;)
-)</code></pre>
+<pre class="r"><code>knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = here::here())</code></pre>
+<div id="explanation" class="section level2">
+<h2>Explanation</h2>
+<p>This code obtains different data from different sources:</p>
+<ul>
+<li>Taxonomical Compisition data derived from Metaphlan3/motus2/kraken2/dada2 analysis. This data is obtained the the AWS/Batch/WMGS pipelind as standard R::phyloseq objects</li>
+<li>Gene Function Data. Derived from FMAP/HUMANN3/IGC/VIRGO catalogs or tools. This data is obtained the the AWS/Batch/WMGS pipelind as standard R::phyloseq objects</li>
+<li>Gene Richness or diversity, obtained fro either IGC/VIRGO catalogs or dada2.</li>
+<li>Metadata. Obtained from the study data source. Metadata is probably formatted and curated beforehand and linke td taxonomical and function data during the construction of the two previous data soruces.</li>
+<li>Other: In this code, it is the moment to alter the original data sources in any way: modfication, removeal, addition of variables.</li>
+</ul>
+<p>Data is obtained, merged and provided a consistent starting point for statistical analysis. Metadata is also described separately to produce a metadata-only report.</p>
+<p>Finally a MRE object is created that is used downstream as the starting point for all analysis and (automatic) reporting.</p>
+</div>
+<div id="read-data-and-create-metar-object" class="section level2">
+<h2>Read Data and Create metar object</h2>
+<p>A metar(MRE) object contains different slots, each one containing different types of data for the study bein analysed. A brief description of the available data for this project is:</p>
+<pre class="r"><code>myMREObject</code></pre>
+<div id="create-and-store-mre-object-for-subsets-of-data" class="section level3">
+<h3>Create and store MRE object for subsets of data</h3>
+<p>We also create subsets of data that can be handy and that respond to the project-specific design.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -585,25 +544,18 @@ locale:
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
-other attached packages:
-[1] devtools_2.4.2  usethis_2.1.3   workflowr_1.7.0
-
 loaded via a namespace (and not attached):
- [1] xfun_0.30         bslib_0.3.1       remotes_2.4.1     purrr_0.3.4      
- [5] vctrs_0.3.8       testthat_3.1.2    htmltools_0.5.2   yaml_2.3.5       
- [9] utf8_1.2.2        rlang_1.0.2       pkgbuild_1.2.0    later_1.3.0      
-[13] pillar_1.7.0      jquerylib_0.1.4   glue_1.6.2        withr_2.5.0      
-[17] sessioninfo_1.2.1 lifecycle_1.0.1   stringr_1.4.0     evaluate_0.15    
-[21] memoise_2.0.0     knitr_1.37        callr_3.7.0       fastmap_1.1.0    
-[25] httpuv_1.6.3      ps_1.6.0          fansi_1.0.2       Rcpp_1.0.8       
-[29] promises_1.2.0.1  cachem_1.0.6      desc_1.4.1        pkgload_1.2.4    
-[33] jsonlite_1.8.0    fs_1.5.0          brio_1.1.3        digest_0.6.29    
-[37] stringi_1.7.6     processx_3.5.2    getPass_0.2-2     rprojroot_2.0.2  
-[41] here_1.0.1        cli_3.2.0         tools_4.0.5       sass_0.4.0       
-[45] magrittr_2.0.2    tibble_3.1.6      crayon_1.5.0      whisker_0.4      
-[49] pkgconfig_2.0.3   ellipsis_0.3.2    prettyunits_1.1.1 rmarkdown_2.11   
-[53] httr_1.4.2        rstudioapi_0.13   R6_2.5.1          git2r_0.29.0     
-[57] compiler_4.0.5   </code></pre>
+ [1] Rcpp_1.0.8       rstudioapi_0.13  whisker_0.4      knitr_1.37      
+ [5] magrittr_2.0.2   workflowr_1.7.0  R6_2.5.1         rlang_1.0.2     
+ [9] fastmap_1.1.0    fansi_1.0.2      stringr_1.4.0    tools_4.0.5     
+[13] xfun_0.30        utf8_1.2.2       cli_3.2.0        git2r_0.29.0    
+[17] jquerylib_0.1.4  htmltools_0.5.2  ellipsis_0.3.2   rprojroot_2.0.2 
+[21] yaml_2.3.5       digest_0.6.29    tibble_3.1.6     lifecycle_1.0.1 
+[25] crayon_1.5.0     later_1.3.0      sass_0.4.0       vctrs_0.3.8     
+[29] fs_1.5.0         promises_1.2.0.1 glue_1.6.2       evaluate_0.15   
+[33] rmarkdown_2.11   stringi_1.7.6    bslib_0.3.1      compiler_4.0.5  
+[37] pillar_1.7.0     jsonlite_1.8.0   httpuv_1.6.3     pkgconfig_2.0.3 </code></pre>
+</div>
 </div>
 </div>
 

@@ -9,10 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Carlos Blázquez Bondia" />
+<meta name="author" content="Marc Noguera" />
 
 
-<title>Taxonomy: Differential Abundance</title>
+<title>Analysis Plan</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -260,10 +260,16 @@ $(document).ready(function () {
   <a href="license.html">License</a>
 </li>
 <li>
-  <a href="IGC_analysis.html">Gene richness</a>
+  <a href="310_IGC_analysis.html">Gene richness</a>
 </li>
 <li>
-  <a href="NMDS.html">NMDS</a>
+  <a href="320_Beta_Diversity.Rmd">Beta Diversity</a>
+</li>
+<li>
+  <a href="410_Taxonomy_Exploration.Rmd">Taxonomy</a>
+</li>
+<li>
+  <a href="420_Taxonomy_DA.Rmd">Differential Abundance</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -277,8 +283,8 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Taxonomy: Differential Abundance</h1>
-<h4 class="author">Carlos Blázquez Bondia</h4>
+<h1 class="title toc-ignore">Analysis Plan</h1>
+<h4 class="author">Marc Noguera</h4>
 <h4 class="date">3/23/2022</h4>
 
 </div>
@@ -304,7 +310,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-03-24
+<strong>Last updated:</strong> 2022-03-28
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -328,7 +334,7 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 </div>
 <div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -395,16 +401,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree3478bdb37ac0942839380cfe3db33d922db8033ctargetblank3478bdba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/3478bdb37ac0942839380cfe3db33d922db8033c" target="_blank">3478bdb</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree68ef5b36b734e7ad7444690b6aee98e6029cbfc9targetblank68ef5b3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/68ef5b36b734e7ad7444690b6aee98e6029cbfc9" target="_blank">68ef5b3</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree3478bdb37ac0942839380cfe3db33d922db8033ctargetblank3478bdba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree68ef5b36b734e7ad7444690b6aee98e6029cbfc9targetblank68ef5b3a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/3478bdb37ac0942839380cfe3db33d922db8033c" target="_blank">3478bdb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/68ef5b36b734e7ad7444690b6aee98e6029cbfc9" target="_blank">68ef5b3</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -413,19 +419,22 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/.Rhistory
     Ignored:    data/mre.rds
 
 Untracked files:
-    Untracked:  Metadata/2022_03_23_clean_metadata_LIMS.csv
-    Untracked:  Metadata/MetadataManagement/.~lock.Informacio_LIMS.xlsx#
-    Untracked:  Metadata/MetadataManagement/.~lock.LabData.xls#
-    Untracked:  Metadata/MetadataManagement/LabData.xls
-    Untracked:  Metadata/MetadataManagement/missingVars.txt
-    Untracked:  analysis/304_Taxonomy_DA.Rmd
+    Untracked:  analysis/410_Taxonomy_Exploration.Rmd
 
 Unstaged changes:
-    Modified:   Metadata/MetadataManagement/Export.xlsx
-    Modified:   Metadata/MetadataManagement/Vital.xlsx
+    Modified:   analysis/002_datatransfer.Rmd
+    Modified:   analysis/006_DataPreprocessing.Rmd
+    Modified:   analysis/008_PopulateMRE.Rmd
+    Modified:   analysis/020_MetaExplorer_Report.Rmd
+    Modified:   analysis/030_AnalysisPlan.Rmd
+    Modified:   analysis/310_IGC_analysis.Rmd
+    Deleted:    analysis/310_Taxonomy_Exploration.Rmd
+    Modified:   analysis/_site.yml
+    Modified:   output/mre_data/CatalogMapping/IGC/lmm/lmm_time_point_by_group.pdf
 
 </code></pre>
 <p>
@@ -438,34 +447,65 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/030_AnalysisPlan.Rmd</code>) and HTML (<code>docs/030_AnalysisPlan.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/3cccd896f26607b09427747a7fc680f507d4f783/analysis/030_AnalysisPlan.Rmd" target="_blank">3cccd89</a>
+</td>
+<td>
+Marc Noguera-Julian
+</td>
+<td>
+2022-03-23
+</td>
+<td>
+initial mre
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
 </div>
-<div id="data-import-and-exploration" class="section level2">
-<h2>Data import and exploration</h2>
-<p>This section should explain anyithing that may have happened during the first fase of importing and formatting data, such as any modification or additional filtering step.</p>
-<pre class="r"><code>bucket &lt;- &quot;s3://mistral-wp6-advanz4/&quot;
-bucket_dir &lt;- &quot;metagenome/WMGS/&quot;
-
-mymre &lt;- aws.s3::s3readRDS(bucket = bucket, object = paste0(bucket_dir,&quot;MREObject.rds&quot;))</code></pre>
-<pre><code>Registered S3 method overwritten by &#39;ggside&#39;:
-  method from   
-  +.gg   ggplot2</code></pre>
-<pre class="r"><code># Any homebrew support function that may be written will be placed here</code></pre>
+<div id="r-markdown" class="section level2">
+<h2>R Markdown</h2>
+<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
+<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
+<pre class="r"><code>summary(cars)</code></pre>
 </div>
-<div id="differential-abundance-results" class="section level1">
-<h1>Differential abundance results</h1>
-<p>Here we will leave all results regarding DA. In case we analyze it by more than one approach (e.g, wilcoxon, ANCOM, etc), each will have it’s own subsection)</p>
-<div id="method-1-e.g-wilcoxon-on-count-data" class="section level2">
-<h2>Method 1 (e.g: Wilcoxon on count data)</h2>
-</div>
-<div id="method-2-e.g-compositional-approach" class="section level2">
-<h2>Method 2 (e.g compositional approach)</h2>
-<p><img src="figure/304_Taxonomy_DA.Rmd/pressure-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="including-plots" class="section level2">
+<h2>Including Plots</h2>
+<p>You can also embed plots, for example:</p>
 <p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
 <br>
 <p>
@@ -493,100 +533,24 @@ locale:
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
+other attached packages:
+[1] devtools_2.4.2  usethis_2.1.3   workflowr_1.7.0
+
 loaded via a namespace (and not attached):
-  [1] utf8_1.2.2                  tidyselect_1.1.2           
-  [3] grid_4.0.5                  BiocParallel_1.24.1        
-  [5] gmp_0.6-2.1                 pROC_1.18.0                
-  [7] aws.signature_0.6.0         munsell_0.5.0              
-  [9] codetools_0.2-18            future_1.23.0              
- [11] colorspace_2.0-3            Biobase_2.50.0             
- [13] phyloseq_1.34.0             highr_0.9                  
- [15] knitr_1.37                  rstudioapi_0.13            
- [17] stats4_4.0.5                robustbase_0.93-9          
- [19] bayesm_3.1-4                ggsignif_0.6.3             
- [21] ggside_0.1.3                listenv_0.8.0              
- [23] MatrixGenerics_1.2.1        emmeans_1.7.0              
- [25] git2r_0.29.0                GenomeInfoDbData_1.2.4     
- [27] polyclip_1.10-0             farver_2.1.0               
- [29] datawizard_0.2.1.9000       rhdf5_2.34.0               
- [31] rprojroot_2.0.2             coda_0.19-4                
- [33] parallelly_1.28.1           vctrs_0.3.8                
- [35] generics_0.1.2              TH.data_1.1-0              
- [37] xfun_0.30                   BWStest_0.2.2              
- [39] R6_2.5.1                    GenomeInfoDb_1.26.7        
- [41] clue_0.3-60                 bitops_1.0-7               
- [43] rhdf5filters_1.2.1          cachem_1.0.6               
- [45] reshape_0.8.8               DelayedArray_0.16.3        
- [47] assertthat_0.2.1            promises_1.2.0.1           
- [49] scales_1.1.1                multcomp_1.4-17            
- [51] gtable_0.3.0                Cairo_1.5-12.2             
- [53] multcompView_0.1-8          globals_0.14.0             
- [55] sandwich_3.0-1              workflowr_1.7.0            
- [57] rlang_1.0.2                 zeallot_0.1.0              
- [59] GlobalOptions_0.1.2         PMCMRplus_1.9.3            
- [61] splines_4.0.5               rstatix_0.7.0              
- [63] broom_0.7.12                abind_1.4-5                
- [65] yaml_2.3.5                  reshape2_1.4.4             
- [67] backports_1.4.1             httpuv_1.6.3               
- [69] tensorA_0.36.2              tools_4.0.5                
- [71] ggplot2_3.3.5               ellipsis_0.3.2             
- [73] selbal_0.1.0                jquerylib_0.1.4            
- [75] biomformat_1.18.0           RColorBrewer_1.1-2         
- [77] BiocGenerics_0.36.1         WRS2_1.1-3                 
- [79] Rcpp_1.0.8                  plyr_1.8.6                 
- [81] base64enc_0.1-3             zlibbioc_1.36.0            
- [83] purrr_0.3.4                 RCurl_1.98-1.5             
- [85] ggpubr_0.4.0                GetoptLong_1.0.5           
- [87] correlation_0.7.1.1         S4Vectors_0.28.1           
- [89] zoo_1.8-9                   SummarizedExperiment_1.20.0
- [91] ggrepel_0.9.1               cluster_2.1.2              
- [93] fs_1.5.0                    magrittr_2.0.2             
- [95] RSpectra_0.16-0             data.table_1.14.2          
- [97] circlize_0.4.13             mvtnorm_1.1-3              
- [99] matrixStats_0.61.0          patchwork_1.1.1            
-[101] evaluate_0.15               xtable_1.8-4               
-[103] gridExtra_2.3               IRanges_2.24.1             
-[105] shape_1.4.6                 compiler_4.0.5             
-[107] ellipse_0.4.2               tibble_3.1.6               
-[109] ggstatsplot_0.9.0           crayon_1.5.0               
-[111] htmltools_0.5.2             mgcv_1.8-38                
-[113] corpcor_1.6.10              mc2d_0.1-21                
-[115] later_1.3.0                 tidyr_1.2.0                
-[117] libcoin_1.0-9               aws.s3_0.3.21              
-[119] DBI_1.1.1                   SuppDists_1.1-9.5          
-[121] kSamples_1.2-9              tweenr_1.0.2               
-[123] ComplexHeatmap_2.6.2        MASS_7.3-54                
-[125] compositions_2.0-2          car_3.0-12                 
-[127] Matrix_1.3-4                ade4_1.7-18                
-[129] permute_0.9-7               cli_3.2.0                  
-[131] parallel_4.0.5              insight_0.14.5.1           
-[133] igraph_1.2.11               GenomicRanges_1.42.0       
-[135] pkgconfig_2.0.3             metar_0.1.4                
-[137] statsExpressions_1.2.0      coin_1.4-2                 
-[139] xml2_1.3.2                  paletteer_1.4.0            
-[141] foreach_1.5.2               rARPACK_0.11-0             
-[143] bslib_0.3.1                 multtest_2.46.0            
-[145] XVector_0.30.0              estimability_1.3           
-[147] stringr_1.4.0               digest_0.6.29              
-[149] parameters_0.15.0.1         vegan_2.5-7                
-[151] Biostrings_2.58.0           rmarkdown_2.11             
-[153] curl_4.3.2                  modeltools_0.2-23          
-[155] rjson_0.2.20                lifecycle_1.0.1            
-[157] nlme_3.1-153                jsonlite_1.8.0             
-[159] modules_0.10.0              Rhdf5lib_1.12.1            
-[161] carData_3.0-5               mixOmics_6.14.1            
-[163] fansi_1.0.2                 pillar_1.7.0               
-[165] lattice_0.20-45             fastmap_1.1.0              
-[167] httr_1.4.2                  DEoptimR_1.0-9             
-[169] survival_3.2-13             glue_1.6.2                 
-[171] bayestestR_0.11.5.1         png_0.1-7                  
-[173] iterators_1.0.14            ggforce_0.3.3              
-[175] stringi_1.7.6               sass_0.4.0                 
-[177] performance_0.8.0.1         rematch2_2.1.2             
-[179] lefser_1.0.0                memoise_2.0.0              
-[181] Rmpfr_0.8-7                 dplyr_1.0.8                
-[183] ape_5.6-2                  </code></pre>
-</div>
+ [1] xfun_0.30         bslib_0.3.1       remotes_2.4.1     purrr_0.3.4      
+ [5] vctrs_0.3.8       testthat_3.1.2    htmltools_0.5.2   yaml_2.3.5       
+ [9] utf8_1.2.2        rlang_1.0.2       pkgbuild_1.2.0    later_1.3.0      
+[13] pillar_1.7.0      jquerylib_0.1.4   glue_1.6.2        withr_2.5.0      
+[17] sessioninfo_1.2.1 lifecycle_1.0.1   stringr_1.4.0     evaluate_0.15    
+[21] memoise_2.0.0     knitr_1.37        callr_3.7.0       fastmap_1.1.0    
+[25] httpuv_1.6.3      ps_1.6.0          fansi_1.0.2       Rcpp_1.0.8       
+[29] promises_1.2.0.1  cachem_1.0.6      desc_1.4.1        pkgload_1.2.4    
+[33] jsonlite_1.8.0    fs_1.5.0          brio_1.1.3        digest_0.6.29    
+[37] stringi_1.7.6     processx_3.5.2    getPass_0.2-2     rprojroot_2.0.2  
+[41] cli_3.2.0         tools_4.0.5       sass_0.4.0        magrittr_2.0.2   
+[45] tibble_3.1.6      crayon_1.5.0      whisker_0.4       pkgconfig_2.0.3  
+[49] ellipsis_0.3.2    prettyunits_1.1.1 rmarkdown_2.11    httr_1.4.2       
+[53] rstudioapi_0.13   R6_2.5.1          git2r_0.29.0      compiler_4.0.5   </code></pre>
 </div>
 </div>
 

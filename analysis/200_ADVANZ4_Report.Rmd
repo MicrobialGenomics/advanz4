@@ -20,7 +20,7 @@ library(ggpubr)
 
 
 
-```{r load_u_data_cars, eval=T, include=F}
+```{r load_u_data_cars, eval=T, include=F, eval=F}
 here<-here::here()
 # setwd(myPath)
 mymre<-here::here(here, "data", "mre.rds") %>%
@@ -36,7 +36,7 @@ library(rstatix)
 
 
 
-```{r get_GeneRichness_Data, echo=FALSE, message=F, warning=F}
+```{r get_GeneRichness_Data, echo=FALSE, message=F, warning=F, eval=F}
 igc<-metar::get_diversity(mymre)@igc
 Threshold = igc@dataTable %>%
   summarise(Thershold = quantile(NumberMappedReads,0.02)) %>%
@@ -58,7 +58,7 @@ nDroppedSamples<-length(unique(igc@dataTable$SampleID)) - length(ThresholdTable$
 The ADVANZ-4 study consisted on 95 patients, giving a total of 271 samples sequenced. Due to sequencing depth diferences, all samples were rarefied to the 2nd percentile, consisting on a minimum read count of 10.000.000. This resulted in 5 samples being dropped due to low read counts, leaving a total of 261 samples.
 
 
-``` {r Plot_Rarefaction, echo=F, message=F, warning=F}
+``` {r Plot_Rarefaction, echo=F, message=F, warning=F, eval=F}
 myRarefaction<-mymre@diversity@igc@rarefaction$categorical$Group$rarefaction +
   scale_color_manual(values = brewer.pal(n=2, name =  "Set1"), labels = c("ABC+3TC+DGT","ABC+3TC+DRV+RTV")) +
 
@@ -99,7 +99,7 @@ ggarrange(myRarefaction, DepthViolin, common.legend = T)
 ```
 
 
-```{r taxa_functions, echo = F, warning=F, message = F}
+```{r taxa_functions, echo = F, warning=F, message = F, eval=F}
 taxa_barplot<-function(Phyloseq, 
                        Abundance_table=NULL,
                        Taxonomy_table=NULL, 
@@ -196,7 +196,7 @@ myPhyloseq<-mymre@taxa@metaphlan@phyloseq
 At the phylum level, no apparent trend of change could be observed, bar a probable slight decrease in proteobacteria over time in both groups, although any conclusion drawn from these figures should be met with caution. No aparent change trends can be seen either between groups or longitudinally when looking at the genus and species level.
 
 
-```{r Taxa_Boxplots_Phyl, echo = F, warning=F, message=F}
+```{r Taxa_Boxplots_Phyl, echo = F, warning=F, message=F, eval=F}
 
 myTaxaBarplotPhyl<-taxa_barplot(myPhyloseq, metadata = metadata@metadata_df, 
              tax_level = "Phylum",
@@ -211,7 +211,7 @@ myTaxaBarplotPhyl<-taxa_barplot(myPhyloseq, metadata = metadata@metadata_df,
 myTaxaBarplotPhyl
 ```
 
-```{r Taxa_Boxplots_Gen, echo = F, warning=F, message=F}
+```{r Taxa_Boxplots_Gen, echo = F, warning=F, message=F, eval=F}
 
 myTaxaBarplotGen<-taxa_barplot(myPhyloseq, metadata = metadata@metadata_df, 
              tax_level = "Genus",

@@ -7,7 +7,7 @@ editor_options:
 ## ADVANZ4 WMGS fastq from datatransfer to project bucket
 ****
 
-```{r}
+```{r, eval=F}
 if (!requireNamespace("MISTRALDM", quietly = TRUE)) {
   remotes::install_github("MicrobialGenomics/MISTRALDM@dev")
 }
@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 
 ### Variable definition
 
-```{r}
+```{r, eval=F}
 # Input data path
 inp_bucket <- "s3://gemirsi-datatransfer"
 prefix <- "RawData" 
@@ -41,7 +41,7 @@ pattern <- "ADZ.*fastq.gz"
 
 ### Listing files to transfer, renaming and new path definition
 
-```{r preprocess}
+```{r preprocess, eval=F}
 dat <- 
     aws.s3::get_bucket_df(bucket = inp_bucket, prefix = prefix, max = Inf) %>% 
     tibble::as_tibble() %>% 
@@ -61,7 +61,7 @@ dat <-
 dat 
 ```
 
-```{r transfer}
+```{r transfer, eval=F}
 ## Transfer
 MISTRALDM::copy_s3Objects(
   df = dat, 

@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Beta Diversity and NMDS</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">advanz4</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+<li>
+  <a href="310_IGC_analysis.html">Gene richness</a>
+</li>
+<li>
+  <a href="320_Beta_Diversity.Rmd">Beta Diversity</a>
+</li>
+<li>
+  <a href="410_Taxonomy_Exploration.Rmd">Taxonomy</a>
+</li>
+<li>
+  <a href="420_Taxonomy_DA.Rmd">Differential Abundance</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Beta Diversity and NMDS</h1>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2022-03-28
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>advanz4/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211203code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20211203)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20211203code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20211203)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree68ef5b36b734e7ad7444690b6aee98e6029cbfc9targetblank68ef5b3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/68ef5b36b734e7ad7444690b6aee98e6029cbfc9" target="_blank">68ef5b3</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree68ef5b36b734e7ad7444690b6aee98e6029cbfc9targetblank68ef5b3a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/68ef5b36b734e7ad7444690b6aee98e6029cbfc9" target="_blank">68ef5b3</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    analysis/.Rhistory
+    Ignored:    data/mre.rds
+
+Untracked files:
+    Untracked:  analysis/410_Taxonomy_Exploration.Rmd
+
+Unstaged changes:
+    Modified:   analysis/002_datatransfer.Rmd
+    Modified:   analysis/006_DataPreprocessing.Rmd
+    Modified:   analysis/008_PopulateMRE.Rmd
+    Modified:   analysis/020_MetaExplorer_Report.Rmd
+    Modified:   analysis/030_AnalysisPlan.Rmd
+    Modified:   analysis/200_ADVANZ4_Report.Rmd
+    Modified:   analysis/310_IGC_analysis.Rmd
+    Deleted:    analysis/310_Taxonomy_Exploration.Rmd
+    Modified:   analysis/320_Beta_Diversity.Rmd
+    Modified:   analysis/_site.yml
+    Modified:   output/mre_data/CatalogMapping/IGC/lmm/lmm_time_point_by_group.pdf
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/320_Beta_Diversity.Rmd</code>) and HTML (<code>docs/320_Beta_Diversity.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/11c1e7d2e4c2b76ccb9e08a96305fa7f34ee48de/analysis/320_Beta_Diversity.Rmd" target="_blank">11c1e7d</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-28
+</td>
+<td>
+Code reorganized towards new structure
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="r-markdown" class="section level2">
+<h2>R Markdown</h2>
+<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
+<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
+<pre><code>suggested package selbal ✓suggested package DataExplorer ✓suggested package lme4 ✓suggested package merTools ✓</code></pre>
+</div>
+<div id="including-plots" class="section level2">
+<h2>Including Plots</h2>
+<p>You can also embed plots, for example:</p>
+<pre class="r"><code>myPath&lt;-here::here()
+setwd(myPath)
+mymre&lt;-readRDS(&quot;data/mre.rds&quot;)
+
+metadata &lt;- metar::get_metadata(mymre)@metadata_df
+
+myphyloseq&lt;-mymre@taxa@metaphlan@phyloseq
+CategoricalVariablesDF &lt;- get_metadata(mymre)@categorical_vals
+NumericalVariablesDF &lt;- get_metadata(mymre)@numeric_vals
+LongitudinalVariablesDF &lt;- get_metadata(mymre)@longitudinal_vals</code></pre>
+<pre class="r"><code>getAbundances&lt;-function(phyloseq, level){
+  
+  collapsedPhyloseq&lt;- phyloseq::tax_glom(phyloseq, level)
+  
+  OtuTable&lt;- phyloseq::otu_table(collapsedPhyloseq) %&gt;%
+    magrittr::set_rownames(as.character(phyloseq::tax_table(collapsedPhyloseq)[,level])) %&gt;%
+    as.data.frame()
+  return(OtuTable)
+  
+}
+
+
+
+
+myAbundanceDF&lt;- getAbundances(myphyloseq, &quot;Species&quot;)
+
+Top50&lt;- myAbundanceDF %&gt;%
+    mutate(sum=rowSums(.)) %&gt;%
+    arrange(desc(sum)) %&gt;%
+    dplyr::slice(1:50) %&gt;%
+    rownames()
+
+
+
+myNMDS &lt;- myAbundanceDF %&gt;%
+    # dplyr::filter(row.names(.) %in% Top50) %&gt;%
+    t() %&gt;%
+    as.data.frame() %&gt;%
+ 
+    metaMDS(.,distance=&quot;bray&quot;,trymax=100, 
+            k = nrow(unique(metadata[,CategoricalVariablesDF$CategoricalVariable[1]]))) %&gt;%
+    pluck(&quot;points&quot;) %&gt;%
+    as.data.frame() </code></pre>
+<pre><code>Square root transformation
+Wisconsin double standardization
+Run 0 stress 0.1697623 
+Run 1 stress 0.1720587 
+Run 2 stress 0.1772153 
+Run 3 stress 0.1756223 
+Run 4 stress 0.1702943 
+Run 5 stress 0.1702857 
+Run 6 stress 0.1757679 
+Run 7 stress 0.1713642 
+Run 8 stress 0.1731744 
+Run 9 stress 0.1776203 
+Run 10 stress 0.171627 
+Run 11 stress 0.177294 
+Run 12 stress 0.1693571 
+... New best solution
+... Procrustes: rmse 0.01199975  max resid 0.1067578 
+Run 13 stress 0.1704121 
+Run 14 stress 0.1696382 
+... Procrustes: rmse 0.01990066  max resid 0.2900486 
+Run 15 stress 0.1734919 
+Run 16 stress 0.170325 
+Run 17 stress 0.1764676 
+Run 18 stress 0.1754417 
+Run 19 stress 0.1749623 
+Run 20 stress 0.1712234 
+Run 21 stress 0.1767592 
+Run 22 stress 0.1742051 
+Run 23 stress 0.1798622 
+Run 24 stress 0.1717861 
+Run 25 stress 0.1747514 
+Run 26 stress 0.1721268 
+Run 27 stress 0.1746827 
+Run 28 stress 0.1742416 
+Run 29 stress 0.1987398 
+Run 30 stress 0.1908419 
+Run 31 stress 0.1718071 
+Run 32 stress 0.1785731 
+Run 33 stress 0.1692765 
+... New best solution
+... Procrustes: rmse 0.01931671  max resid 0.2904854 
+Run 34 stress 0.1728741 
+Run 35 stress 0.1751939 
+Run 36 stress 0.1776898 
+Run 37 stress 0.1703043 
+Run 38 stress 0.1761178 
+Run 39 stress 0.1734617 
+Run 40 stress 0.1706605 
+Run 41 stress 0.1936105 
+Run 42 stress 0.176317 
+Run 43 stress 0.1729472 
+Run 44 stress 0.1757888 
+Run 45 stress 0.1722784 
+Run 46 stress 0.1710867 
+Run 47 stress 0.1691974 
+... New best solution
+... Procrustes: rmse 0.01887292  max resid 0.2908943 
+Run 48 stress 0.1754488 
+Run 49 stress 0.1717895 
+Run 50 stress 0.1770076 
+Run 51 stress 0.1712274 
+Run 52 stress 0.1723811 
+Run 53 stress 0.1693612 
+... Procrustes: rmse 0.01050155  max resid 0.1060428 
+Run 54 stress 0.1718945 
+Run 55 stress 0.1729089 
+Run 56 stress 0.1778685 
+Run 57 stress 0.1753687 
+Run 58 stress 0.1693787 
+... Procrustes: rmse 0.005361247  max resid 0.07405777 
+Run 59 stress 0.168044 
+... New best solution
+... Procrustes: rmse 0.007275876  max resid 0.08047265 
+Run 60 stress 0.1717698 
+Run 61 stress 0.1741351 
+Run 62 stress 0.1760595 
+Run 63 stress 0.1732732 
+Run 64 stress 0.1785915 
+Run 65 stress 0.1685037 
+... Procrustes: rmse 0.008588173  max resid 0.07404974 
+Run 66 stress 0.1743048 
+Run 67 stress 0.1757412 
+Run 68 stress 0.1712457 
+Run 69 stress 0.1717422 
+Run 70 stress 0.1714691 
+Run 71 stress 0.1716204 
+Run 72 stress 0.1703337 
+Run 73 stress 0.1830163 
+Run 74 stress 0.1718598 
+Run 75 stress 0.1719736 
+Run 76 stress 0.1713407 
+Run 77 stress 0.1706419 
+Run 78 stress 0.1756059 
+Run 79 stress 0.1897543 
+Run 80 stress 0.1799509 
+Run 81 stress 0.1839305 
+Run 82 stress 0.1725234 
+Run 83 stress 0.1685041 
+... Procrustes: rmse 0.008593823  max resid 0.07405297 
+Run 84 stress 0.1752942 
+Run 85 stress 0.1809976 
+Run 86 stress 0.1867859 
+Run 87 stress 0.1731294 
+Run 88 stress 0.1743941 
+Run 89 stress 0.1698981 
+Run 90 stress 0.1734691 
+Run 91 stress 0.1759141 
+Run 92 stress 0.1719073 
+Run 93 stress 0.1799768 
+Run 94 stress 0.1755599 
+Run 95 stress 0.1765695 
+Run 96 stress 0.1737827 
+Run 97 stress 0.1902616 
+Run 98 stress 0.1695849 
+Run 99 stress 0.1704029 
+Run 100 stress 0.1724329 
+*** No convergence -- monoMDS stopping criteria:
+    41: no. of iterations &gt;= maxit
+    59: stress ratio &gt; sratmax</code></pre>
+<pre class="r"><code>  # NMDS = data.frame(NMDS1 = dim_NMDS$points[,1], NMDS2 = dim_NMDS$points[,2])
+
+BiPlotCoords&lt;- envfit(myNMDS, t(myAbundanceDF), perm=999) 
+
+BiPlotCoordsDF &lt;- c(&quot;MDS1&quot;,&quot;MDS2&quot;,&quot;r&quot;,&quot;pvals&quot;) %&gt;%
+  set_names() %&gt;%
+  
+  map_dfr(., ~ {
+    
+    if(.x %in% c(&quot;MDS1&quot;,&quot;MDS2&quot;)){
+      BiPlotCoords$vectors$arrows[,.x] %&gt;%
+        as.numeric()
+    } else{
+      BiPlotCoords$vectors %&gt;%
+        pluck(.x) %&gt;%
+        as.numeric()
+    } 
+      
+  }) %&gt;%
+  as.data.frame() %&gt;%
+  set_names(nm=c(&quot;NMDS1&quot;,&quot;NMDS2&quot;,&quot;r&quot;,&quot;p&quot;)) %&gt;%
+  dplyr::mutate(Dim1 = NMDS1*sqrt(r),
+                Dim2 = NMDS2*sqrt(r),
+                species = rownames(myAbundanceDF)) %&gt;%
+  dplyr::filter(species %in% Top50)
+  
+
+myBrayDistMat &lt;-vegdist(wisconsin(sqrt(t(myAbundanceDF))))
+
+pam</code></pre>
+<pre><code>function (x, k, diss = inherits(x, &quot;dist&quot;), metric = c(&quot;euclidean&quot;, 
+    &quot;manhattan&quot;), medoids = if (is.numeric(nstart)) &quot;random&quot;, 
+    nstart = if (variant == &quot;faster&quot;) 1L else NA, stand = FALSE, 
+    cluster.only = FALSE, do.swap = TRUE, keep.diss = !diss &amp;&amp; 
+        !cluster.only &amp;&amp; n &lt; 100, keep.data = !diss &amp;&amp; !cluster.only, 
+    variant = c(&quot;original&quot;, &quot;o_1&quot;, &quot;o_2&quot;, &quot;f_3&quot;, &quot;f_4&quot;, &quot;f_5&quot;, 
+        &quot;faster&quot;), pamonce = FALSE, trace.lev = 0) 
+{
+    stopifnot(length(cluster.only) == 1, length(trace.lev) == 
+        1)
+    nMax &lt;- 65536
+    if ((diss &lt;- as.logical(diss))) {
+        if (anyNA(x)) 
+            stop(&quot;NA values in the dissimilarity matrix not allowed.&quot;)
+        if (data.class(x) != &quot;dissimilarity&quot;) {
+            if (!is.null(dim(x))) {
+                x &lt;- as.dist(x)
+            }
+            else {
+                if (!is.numeric(x) || is.na(n &lt;- sizeDiss(x))) 
+                  stop(&quot;&#39;x&#39; is not and cannot be converted to class \&quot;dissimilarity\&quot;&quot;)
+                attr(x, &quot;Size&quot;) &lt;- n
+            }
+            class(x) &lt;- dissiCl
+            if (is.null(attr(x, &quot;Metric&quot;))) 
+                attr(x, &quot;Metric&quot;) &lt;- &quot;unspecified&quot;
+        }
+        if (keep.data) 
+            stop(&quot;Cannot keep data when &#39;x&#39; is a dissimilarity!&quot;)
+        n &lt;- attr(x, &quot;Size&quot;)
+        if (n &gt; nMax) 
+            stop(gettextf(&quot;have %d observations, but not more than %d are allowed&quot;, 
+                n, nMax))
+        dv &lt;- x[lower.to.upper.tri.inds(n)]
+        dv &lt;- c(0, dv)
+        storage.mode(dv) &lt;- &quot;double&quot;
+        jp &lt;- 1
+        mdata &lt;- FALSE
+        ndyst &lt;- 0
+    }
+    else {
+        x &lt;- data.matrix(x)
+        if (!is.numeric(x)) 
+            stop(&quot;x is not a numeric dataframe or matrix.&quot;)
+        x2 &lt;- x
+        dimnames(x2) &lt;- NULL
+        n &lt;- nrow(x2)
+        if (n &gt; nMax) 
+            stop(gettextf(&quot;have %d observations, but not more than %d are allowed&quot;, 
+                n, nMax))
+        if (stand) 
+            x2 &lt;- scale(x2, scale = apply(x2, 2, meanabsdev))
+        metric &lt;- match.arg(metric)
+        ndyst &lt;- c(euclidean = 1L, manhattan = 2L)[[metric]]
+        jp &lt;- ncol(x2)
+        if ((mdata &lt;- any(inax &lt;- is.na(x2)))) {
+            jtmd &lt;- integer(jp)
+            jtmd[apply(inax, 2L, any)] &lt;- -1L
+            valmisdat &lt;- 1.1 * max(abs(range(x2, na.rm = TRUE)))
+            x2[inax] &lt;- valmisdat
+        }
+        storage.mode(x2) &lt;- &quot;double&quot;
+    }
+    if ((k &lt;- as.integer(k)) &lt; 1 || k &gt;= n) 
+        stop(&quot;Number of clusters &#39;k&#39; must be in {1,2, .., n-1}; hence n &gt;= 2&quot;)
+    missVari &lt;- missing(variant)
+    variant &lt;- match.arg(variant)
+    if (!missVari) {
+        if (!missing(pamonce)) 
+            stop(&quot;Set either &#39;variant&#39; or &#39;pamonce&#39;, but not both&quot;)
+        pamonce &lt;- -1L + match(variant, c(&quot;original&quot;, &quot;o_1&quot;, 
+            &quot;o_2&quot;, &quot;f_3&quot;, &quot;f_4&quot;, &quot;f_5&quot;, &quot;faster&quot;))
+        if (missing(medoids) &amp;&amp; variant == &quot;faster&quot;) 
+            medoids &lt;- &quot;random&quot;
+    }
+    if (randIni &lt;- identical(&quot;random&quot;, medoids)) 
+        medoids &lt;- sample.int(n, k)
+    else if (!is.null(medoids)) {
+        if (!is.integer(medoids)) 
+            medoids &lt;- as.integer(medoids)
+        if (length(medoids) != k || any(medoids &lt; 1L) || any(medoids &gt; 
+            n) || any(duplicated(medoids))) 
+            stop(gettextf(&quot;&#39;medoids&#39; must be NULL or vector of %d distinct indices in {1,2, .., n}, n=%d&quot;, 
+                k, n))
+    }
+    nisol &lt;- integer(if (cluster.only) 
+        1
+    else k)
+    if (do.swap) 
+        nisol[1] &lt;- 1L
+    pamDo &lt;- function(medoids) {
+        .Call(cl_Pam, k, n, !diss, if (diss) dv else x2, !cluster.only, 
+            medoids, do.swap, trace.lev, keep.diss, pamonce, 
+            if (mdata) rep(valmisdat, jp) else double(1), if (mdata) jtmd else integer(jp), 
+            ndyst)
+    }
+    if (randIni &amp;&amp; nstart &gt;= 2) {
+        it &lt;- 0L
+        res &lt;- pamDo(medoids)
+        if (!diss &amp;&amp; is.integer(res)) 
+            stop(&quot;No clustering performed, NAs in the computed dissimilarity matrix.&quot;)
+        for (it in 2:nstart) {
+            r &lt;- pamDo(medoids = sample.int(n, k))
+            if (r$obj[2] &lt; res$obj[2]) {
+                if (trace.lev) 
+                  cat(sprintf(&quot;Found better objective, %g &lt; %g (it=%d)\n&quot;, 
+                    r$obj[2], res$obj[2], it))
+                res &lt;- r
+            }
+        }
+    }
+    else {
+        res &lt;- pamDo(medoids)
+        if (!diss &amp;&amp; is.integer(res)) 
+            stop(&quot;No clustering performed, NAs in the computed dissimilarity matrix.&quot;)
+    }
+    xLab &lt;- if (diss) 
+        attr(x, &quot;Labels&quot;)
+    else dimnames(x)[[1]]
+    r.clu &lt;- res$clu
+    if (length(xLab) &gt; 0) 
+        names(r.clu) &lt;- xLab
+    if (cluster.only) 
+        return(r.clu)
+    medID &lt;- res$med
+    if (any(medID &lt;= 0)) 
+        stop(&quot;error from .C(cl_pam, *): invalid medID&#39;s&quot;)
+    sildim &lt;- res$silinf[, 4]
+    if (diss) {
+        r.med &lt;- if (length(xLab) &gt; 0) {
+            sildim &lt;- xLab[sildim]
+            xLab[medID]
+        }
+        else medID
+    }
+    else {
+        if (keep.diss) {
+            disv &lt;- res$dys[-1]
+            disv[disv == -1] &lt;- NA
+            disv &lt;- disv[upper.to.lower.tri.inds(n)]
+            class(disv) &lt;- dissiCl
+            attr(disv, &quot;Size&quot;) &lt;- nrow(x)
+            attr(disv, &quot;Metric&quot;) &lt;- metric
+            attr(disv, &quot;Labels&quot;) &lt;- dimnames(x)[[1]]
+        }
+        r.med &lt;- x[medID, , drop = FALSE]
+        if (length(xLab) &gt; 0) 
+            sildim &lt;- xLab[sildim]
+    }
+    r.obj &lt;- structure(res$obj, .Names = c(&quot;build&quot;, &quot;swap&quot;))
+    r.isol &lt;- factor(res$isol, levels = 0:2, labels = c(&quot;no&quot;, 
+        &quot;L&quot;, &quot;L*&quot;))
+    names(r.isol) &lt;- 1:k
+    r.clusinf &lt;- res$clusinf
+    dimnames(r.clusinf) &lt;- list(NULL, c(&quot;size&quot;, &quot;max_diss&quot;, &quot;av_diss&quot;, 
+        &quot;diameter&quot;, &quot;separation&quot;))
+    r &lt;- list(medoids = r.med, id.med = medID, clustering = r.clu, 
+        objective = r.obj, isolation = r.isol, clusinfo = r.clusinf, 
+        silinfo = if (k != 1) {
+            silinf &lt;- res$silinf[, -4, drop = FALSE]
+            dimnames(silinf) &lt;- list(sildim, c(&quot;cluster&quot;, &quot;neighbor&quot;, 
+                &quot;sil_width&quot;))
+            list(widths = silinf, clus.avg.widths = res$avsil[1:k], 
+                avg.width = res$ttsil)
+        }, diss = if (keep.diss) {
+            if (diss) x else disv
+        }, call = match.call())
+    if (keep.data) {
+        if (mdata) 
+            x2[x2 == valmisdat] &lt;- NA
+        r$data &lt;- structure(x2, dimnames = dimnames(x))
+    }
+    class(r) &lt;- c(&quot;pam&quot;, &quot;partition&quot;)
+    r
+}
+&lt;bytecode: 0x556b26992c88&gt;
+&lt;environment: namespace:cluster&gt;</code></pre>
+</div>
+<div id="nmds-by-treatment-group" class="section level2">
+<h2>NMDS by Treatment group</h2>
+<pre class="r"><code>long_var&lt;-LongitudinalVariablesDF$LongitudinalVariable[1]
+cat_var &lt;- CategoricalVariablesDF$CategoricalVariable[1]
+link_var &lt;- LongitudinalVariablesDF$LinkVariable[1]
+id_var &lt;- &quot;SampleID&quot;
+
+myPal&lt;-RColorBrewer::brewer.pal(name =  CategoricalVariablesDF$PaletteName[1],
+                                n=length(unique(metadata[,cat_var])))
+BiPlotCoordsDF&lt;-BiPlotCoordsDF %&gt;%
+  mutate(Dim1s = Dim1*3,
+         Dim2s = Dim2*3)
+
+
+myNMDS_DF &lt;- myNMDS %&gt;%
+  rownames_to_column(var = id_var) %&gt;%
+  dplyr::full_join(., metadata, by =id_var) %&gt;%
+  dplyr::select(SampleID = id_var,
+                NMDS1 = MDS1,
+                NMDS2 = MDS2,
+                linkVar = !!sym(link_var),
+                catVar = !!sym(cat_var),
+                LongVar = long_var)
+
+
+  myXmin&lt;-min(myNMDS$MDS1)
+  # +(max(dim_NMDS$points[,1])-min(dim_NMDS$points[,1]))/20
+  myYmin&lt;-max(myNMDS$MDS2)-(max(myNMDS$MDS1)-min(myNMDS$MDS1))
+
+
+
+  
+myAdonis&lt;- adonis(myBrayDistMat~ catVar, data = myNMDS_DF) %&gt;%
+  pluck(&quot;aov.tab&quot;) %&gt;%
+  as.data.frame() %&gt;%
+  slice(1L) %&gt;%
+  magrittr::set_rownames(cat_var)
+  
+  
+myNMDSplot&lt;-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) + 
+    geom_point() +
+    theme_bw()+
+    theme(panel.border=element_blank(),
+          panel.grid.major=element_blank(),
+          panel.grid.minor=element_blank(),
+          
+          axis.line=element_line(colour=&quot;black&quot;),
+          axis.text.x=element_text(size=11),
+          axis.text.y=element_text(size=11),
+          axis.title.x=element_text(size=11),
+          axis.title.y=element_text(size=11),
+          
+          legend.text=element_text(size=11,face=&quot;italic&quot;),
+          legend.title=element_text(size=11))+
+    
+    ggtitle(expression(atop(&quot;Species composition&quot;,atop(italic(&quot;all samples&quot;))))) +
+    theme(plot.title=element_text(lineheight=1,face=&quot;bold&quot;,size=13))+
+    coord_fixed()+
+    labs(fill = cat_var, color=cat_var, shape = long_var) 
+
+
+
+
+myNMDSBiplot&lt;-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) + 
+    geom_point(aes(colour=catVar, shape = as.character(LongVar))) +
+    scale_colour_manual(values = myPal, labels = c(&quot;DGT&quot;, &quot;DRV+RLT&quot;)) +
+    scale_fill_manual(values=myPal, labels = c(&quot;DGT&quot;, &quot;DRV+RLT&quot;))+
+    theme_bw()+
+    theme(panel.border=element_blank(),
+          panel.grid.major=element_blank(),
+          panel.grid.minor=element_blank(),
+          
+          axis.line=element_line(colour=&quot;black&quot;),
+          axis.text.x=element_text(size=11),
+          axis.text.y=element_text(size=11),
+          axis.title.x=element_text(size=11),
+          axis.title.y=element_text(size=11),
+          
+          legend.text=element_text(size=11,face=&quot;italic&quot;),
+          legend.title=element_text(size=11))+
+    
+    ggtitle(expression(atop(&quot;Species composition&quot;,atop(italic(&quot;all samples&quot;))))) +
+    theme(plot.title=element_text(lineheight=1,face=&quot;bold&quot;,size=13))+
+    stat_ellipse(geom=&quot;polygon&quot;,
+                 alpha=0.15,color=&quot;black&quot;,
+                 aes(fill=catVar),level=0.95)+
+    # scale_size_manual(values = c(1:length(unique(myNMDS_DF[,&quot;LongVar&quot;])))/1.5) +
+    geom_segment(data=BiPlotCoordsDF,aes(x=0,xend=Dim1s,y=0,yend=Dim2s),
+                 arrow = arrow(length = unit(0.2,&quot;cm&quot;)),colour=&quot;darkgrey&quot;)+
+    geom_text_repel(data=BiPlotCoordsDF,aes(Dim1s,Dim2s,label=species),
+                    size=2.5, box.padding = unit(0.25, &quot;lines&quot;),
+                    segment.colour=&quot;black&quot;,
+                    segment.alpha=0.5,
+                    segment.size=0.10)+
+    coord_fixed()+
+    labs(fill = cat_var, color=cat_var, shape = long_var) +
+  annotation_custom(gridExtra::tableGrob(round(myAdonis,3), 
+                                         theme = ttheme_default(base_size = 8)),ymin = 3.5, xmin=2.4)</code></pre>
+<p>When we look at the most simple ordination before colouring by categorical variables, we see no clear separated clusters between samples. They all appear to be mostly concentrated in one big cluster that randomly spreads in the positive direction for both NMDS components.</p>
+<p>In a more formal analysis, the silhouette coefficient was tested for different number of clusters. This analysis found the biggest coefficient was found for n=1 clustrs, with massive drops between 2-3 and 5-6.</p>
+<pre class="r"><code>c(1:11) %&gt;%
+  set_names() %&gt;%
+  map_df(., ~{
+    pam(myBrayDistMat, k = .x) %&gt;%
+      pluck(&quot;silinfo&quot;) %&gt;%
+      pluck(&quot;avg.width&quot;)
+  }) %&gt;%
+  t() %&gt;%
+  as_data_frame() %&gt;%
+  rownames_to_column(var=&quot;clusters&quot;) %&gt;%
+  set_names(c(&quot;clusters&quot;, &quot;coefficient&quot;)) %&gt;%
+  ggplot(., aes(x=as.numeric(clusters), y=coefficient, group=1)) +
+  geom_point() + 
+  geom_line() + 
+  scale_x_continuous(breaks=c(1:10)) +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank()) + 
+  labs(title = &quot;Silhouette coefficient by number of clusters&quot;, 
+       x=&quot;nº Clusters&quot;, y = &quot;Silhouette coefficient&quot;)</code></pre>
+<p><img src="figure/320_Beta_Diversity.Rmd/silhouette_analysis-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>In the same fashion, when we start identifying samples by group and Timepoint, we see no clear separation, although samples from group 1 (+DGT) group appear to be more clustered together than group 2 (DRV+RLT), which show a more diffuse “central” cluster and are more dispersed. When looking at weight of the variables, the concentric spread of the arrows can be split in two sides, one more enriched in Prevotella and another in bacteroides, which spread mostly around the 2nd component of the NMDS.</p>
+<p>However, the Adonis test found the variable group to have a significant effect over sample distances (p&lt;0.001), although it only accounted for a small portion of the variance</p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.5 (2021-03-31)
+Platform: x86_64-redhat-linux-gnu (64-bit)
+Running under: Fedora 34 (Workstation Edition)
+
+Matrix products: default
+BLAS/LAPACK: /usr/lib64/libflexiblas.so.3.1
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] gridExtra_2.3   cluster_2.1.2   ggrepel_0.9.1   vegan_2.5-7    
+ [5] lattice_0.20-45 permute_0.9-7   forcats_0.5.1   stringr_1.4.0  
+ [9] dplyr_1.0.8     purrr_0.3.4     readr_2.1.0     tidyr_1.2.0    
+[13] tibble_3.1.6    ggplot2_3.3.5   tidyverse_1.3.1 phyloseq_1.34.0
+[17] metar_0.1.4     devtools_2.4.2  usethis_2.1.3   workflowr_1.7.0
+
+loaded via a namespace (and not attached):
+  [1] estimability_1.3            coda_0.19-4                
+  [3] knitr_1.37                  multcomp_1.4-17            
+  [5] DelayedArray_0.16.3         data.table_1.14.2          
+  [7] DataExplorer_0.8.2          RCurl_1.98-1.5             
+  [9] generics_0.1.2              BiocGenerics_0.36.1        
+ [11] callr_3.7.0                 TH.data_1.1-0              
+ [13] mixOmics_6.14.1             future_1.23.0              
+ [15] correlation_0.7.1.1         tzdb_0.2.0                 
+ [17] bayesm_3.1-4                xml2_1.3.2                 
+ [19] lubridate_1.8.0             httpuv_1.6.3               
+ [21] SummarizedExperiment_1.20.0 assertthat_0.2.1           
+ [23] WRS2_1.1-3                  xfun_0.30                  
+ [25] hms_1.1.1                   jquerylib_0.1.4            
+ [27] evaluate_0.15               promises_1.2.0.1           
+ [29] DEoptimR_1.0-9              fansi_1.0.2                
+ [31] dbplyr_2.1.1                readxl_1.3.1               
+ [33] igraph_1.2.11               DBI_1.1.1                  
+ [35] htmlwidgets_1.5.4           reshape_0.8.8              
+ [37] tensorA_0.36.2              rARPACK_0.11-0             
+ [39] kSamples_1.2-9              stats4_4.0.5               
+ [41] paletteer_1.4.0             Rmpfr_0.8-7                
+ [43] ellipsis_0.3.2              RSpectra_0.16-0            
+ [45] ggpubr_0.4.0                backports_1.4.1            
+ [47] insight_0.14.5.1            compositions_2.0-2         
+ [49] libcoin_1.0-9               MatrixGenerics_1.2.1       
+ [51] vctrs_0.3.8                 Biobase_2.50.0             
+ [53] remotes_2.4.1               here_1.0.1                 
+ [55] Cairo_1.5-12.2              abind_1.4-5                
+ [57] cachem_1.0.6                withr_2.5.0                
+ [59] ggforce_0.3.3               robustbase_0.93-9          
+ [61] emmeans_1.7.0               prettyunits_1.1.1          
+ [63] ape_5.6-2                   crayon_1.5.0               
+ [65] ellipse_0.4.2               labeling_0.4.2             
+ [67] pkgconfig_2.0.3             SuppDists_1.1-9.5          
+ [69] tweenr_1.0.2                GenomeInfoDb_1.26.7        
+ [71] nlme_3.1-153                statsExpressions_1.2.0     
+ [73] pkgload_1.2.4               blme_1.0-5                 
+ [75] rlang_1.0.2                 globals_0.14.0             
+ [77] lifecycle_1.0.1             sandwich_3.0-1             
+ [79] selbal_0.1.0                modelr_0.1.8               
+ [81] cellranger_1.1.0            rprojroot_2.0.2            
+ [83] polyclip_1.10-0             matrixStats_0.61.0         
+ [85] datawizard_0.2.1.9000       Matrix_1.3-4               
+ [87] mc2d_0.1-21                 carData_3.0-5              
+ [89] Rhdf5lib_1.12.1             boot_1.3-28                
+ [91] zoo_1.8-9                   reprex_2.0.1               
+ [93] whisker_0.4                 GlobalOptions_0.1.2        
+ [95] processx_3.5.2              png_0.1-7                  
+ [97] rjson_0.2.20                PMCMRplus_1.9.3            
+ [99] parameters_0.15.0.1         bitops_1.0-7               
+[101] getPass_0.2-2               pROC_1.18.0                
+[103] rhdf5filters_1.2.1          Biostrings_2.58.0          
+[105] shape_1.4.6                 multcompView_0.1-8         
+[107] coin_1.4-2                  arm_1.12-2                 
+[109] parallelly_1.28.1           lefser_1.0.0               
+[111] rstatix_0.7.0               S4Vectors_0.28.1           
+[113] ggsignif_0.6.3              scales_1.1.1               
+[115] memoise_2.0.0               magrittr_2.0.2             
+[117] plyr_1.8.6                  zlibbioc_1.36.0            
+[119] compiler_4.0.5              RColorBrewer_1.1-2         
+[121] clue_0.3-60                 lme4_1.1-28                
+[123] cli_3.2.0                   ade4_1.7-18                
+[125] XVector_0.30.0              listenv_0.8.0              
+[127] patchwork_1.1.1             ps_1.6.0                   
+[129] ggside_0.1.3                MASS_7.3-54                
+[131] mgcv_1.8-38                 tidyselect_1.1.2           
+[133] stringi_1.7.6               highr_0.9                  
+[135] yaml_2.3.5                  grid_4.0.5                 
+[137] sass_0.4.0                  tools_4.0.5                
+[139] parallel_4.0.5              circlize_0.4.13            
+[141] rstudioapi_0.13             modules_0.10.0             
+[143] foreach_1.5.2               git2r_0.29.0               
+[145] farver_2.1.0                digest_0.6.29              
+[147] shiny_1.7.1                 networkD3_0.4              
+[149] BWStest_0.2.2               Rcpp_1.0.8                 
+[151] car_3.0-12                  GenomicRanges_1.42.0       
+[153] broom_0.7.12                performance_0.8.0.1        
+[155] later_1.3.0                 httr_1.4.2                 
+[157] ComplexHeatmap_2.6.2        colorspace_2.0-3           
+[159] rvest_1.0.2                 brio_1.1.3                 
+[161] fs_1.5.0                    IRanges_2.24.1             
+[163] splines_4.0.5               rematch2_2.1.2             
+[165] multtest_2.46.0             sessioninfo_1.2.1          
+[167] xtable_1.8-4                gmp_0.6-2.1                
+[169] jsonlite_1.8.0              nloptr_1.2.2.3             
+[171] corpcor_1.6.10              zeallot_0.1.0              
+[173] modeltools_0.2-23           testthat_3.1.2             
+[175] R6_2.5.1                    broom.mixed_0.2.7          
+[177] pillar_1.7.0                htmltools_0.5.2            
+[179] mime_0.12                   BiocParallel_1.24.1        
+[181] glue_1.6.2                  fastmap_1.1.0              
+[183] minqa_1.2.4                 codetools_0.2-18           
+[185] pkgbuild_1.2.0              mvtnorm_1.1-3              
+[187] utf8_1.2.2                  bslib_0.3.1                
+[189] logger_0.2.2                survival_3.2-13            
+[191] rmarkdown_2.11              desc_1.4.1                 
+[193] biomformat_1.18.0           merTools_0.5.2             
+[195] munsell_0.5.0               GetoptLong_1.0.5           
+[197] rhdf5_2.34.0                GenomeInfoDbData_1.2.4     
+[199] iterators_1.0.14            ggstatsplot_0.9.0          
+[201] haven_2.4.3                 reshape2_1.4.4             
+[203] gtable_0.3.0                bayestestR_0.11.5.1        </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

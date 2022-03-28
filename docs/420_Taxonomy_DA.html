@@ -9,10 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Carlos Blázquez Bondia" />
 
-<meta name="date" content="2022-03-08" />
 
-<title>Diversity_GeneRichness</title>
+<title>Taxonomy: Differential Abundance</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -260,10 +260,16 @@ $(document).ready(function () {
   <a href="license.html">License</a>
 </li>
 <li>
-  <a href="IGC_analysis.html">Gene richness</a>
+  <a href="310_IGC_analysis.html">Gene richness</a>
 </li>
 <li>
-  <a href="NMDS.html">NMDS</a>
+  <a href="320_Beta_Diversity.Rmd">Beta Diversity</a>
+</li>
+<li>
+  <a href="410_Taxonomy_Exploration.Rmd">Taxonomy</a>
+</li>
+<li>
+  <a href="420_Taxonomy_DA.Rmd">Differential Abundance</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -277,8 +283,9 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Diversity_GeneRichness</h1>
-<h4 class="date">2022-03-08</h4>
+<h1 class="title toc-ignore">Taxonomy: Differential Abundance</h1>
+<h4 class="author">Carlos Blázquez Bondia</h4>
+<h4 class="date">3/23/2022</h4>
 
 </div>
 
@@ -303,7 +310,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-03-08
+<strong>Last updated:</strong> 2022-03-28
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -394,16 +401,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree24c81c2962476b4d55147b7854189aec836d8293targetblank24c81c2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/24c81c2962476b4d55147b7854189aec836d8293" target="_blank">24c81c2</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree68ef5b36b734e7ad7444690b6aee98e6029cbfc9targetblank68ef5b3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/68ef5b36b734e7ad7444690b6aee98e6029cbfc9" target="_blank">68ef5b3</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree24c81c2962476b4d55147b7854189aec836d8293targetblank24c81c2a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree68ef5b36b734e7ad7444690b6aee98e6029cbfc9targetblank68ef5b3a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/24c81c2962476b4d55147b7854189aec836d8293" target="_blank">24c81c2</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/68ef5b36b734e7ad7444690b6aee98e6029cbfc9" target="_blank">68ef5b3</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -412,14 +419,25 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/.Rhistory
     Ignored:    data/mre.rds
 
 Untracked files:
-    Untracked:  Metadata/2022_03_07_clean_metadata_LIMS.csv
+    Untracked:  analysis/410_Taxonomy_Exploration.Rmd
 
 Unstaged changes:
-    Modified:   Metadata/MetadataManagement/02_build_metadata.html
-    Modified:   analysis/02_IGC_analysis.Rmd
+    Modified:   analysis/002_datatransfer.Rmd
+    Modified:   analysis/006_DataPreprocessing.Rmd
+    Modified:   analysis/008_PopulateMRE.Rmd
+    Modified:   analysis/020_MetaExplorer_Report.Rmd
+    Modified:   analysis/030_AnalysisPlan.Rmd
+    Modified:   analysis/200_ADVANZ4_Report.Rmd
+    Modified:   analysis/310_IGC_analysis.Rmd
+    Deleted:    analysis/310_Taxonomy_Exploration.Rmd
+    Modified:   analysis/320_Beta_Diversity.Rmd
+    Modified:   analysis/420_Taxonomy_DA.Rmd
+    Modified:   analysis/_site.yml
+    Modified:   output/mre_data/CatalogMapping/IGC/lmm/lmm_time_point_by_group.pdf
 
 </code></pre>
 <p>
@@ -434,7 +452,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/02_IGC_analysis.Rmd</code>) and HTML (<code>docs/02_IGC_analysis.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/420_Taxonomy_DA.Rmd</code>) and HTML (<code>docs/420_Taxonomy_DA.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -463,50 +481,16 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/1fefe1d4514a75b3b7536f6ab7dd33cfd9fcfc4a/analysis/02_IGC_analysis.Rmd" target="_blank">1fefe1d</a>
-</td>
-<td>
-cblazquez-irsi
-</td>
-<td>
-2022-03-08
-</td>
-<td>
-Updated IGC to include sequencing depth analysis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/1fefe1d4514a75b3b7536f6ab7dd33cfd9fcfc4a/docs/02_IGC_analysis.html" target="_blank">1fefe1d</a>
-</td>
-<td>
-cblazquez-irsi
-</td>
-<td>
-2022-03-08
-</td>
-<td>
-Updated IGC to include sequencing depth analysis
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/f3ea9a7fc0c784a14914b8fd23bdd8dcbdd054b1/analysis/02_IGC_analysis.Rmd" target="_blank">f3ea9a7</a>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/11c1e7d2e4c2b76ccb9e08a96305fa7f34ee48de/analysis/420_Taxonomy_DA.Rmd" target="_blank">11c1e7d</a>
 </td>
 <td>
 cblazquez
 </td>
 <td>
-2022-03-01
+2022-03-28
 </td>
 <td>
-Added new variables to Metadata
+Code reorganized towards new structure
 </td>
 </tr>
 </tbody>
@@ -516,190 +500,26 @@ Added new variables to Metadata
 </div>
 </div>
 </div>
-<div id="sequencing-throupghput-analysis" class="section level1">
-<h1>Sequencing throupghput analysis</h1>
-<p>First we’ll check how well the sequencing went by looking at the read count distribution among all samples and how many of them will be dropped once we rarefy the samples</p>
-<p><img src="figure/02_IGC_analysis.Rmd/get_GeneRichness_Data-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-get_GeneRichness_Data-1">
-Past versions of get_GeneRichness_Data-1.png
-</button>
-</p>
-<div id="fig-get_GeneRichness_Data-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/1fefe1d4514a75b3b7536f6ab7dd33cfd9fcfc4a/docs/figure/02_IGC_analysis.Rmd/get_GeneRichness_Data-1.png" target="_blank">1fefe1d</a>
-</td>
-<td>
-cblazquez-irsi
-</td>
-<td>
-2022-03-08
-</td>
-</tr>
-</tbody>
-</table>
+<div id="data-import-and-exploration" class="section level2">
+<h2>Data import and exploration</h2>
+<p>This section should explain anyithing that may have happened during the first fase of importing and formatting data, such as any modification or additional filtering step.</p>
+<pre class="r"><code>bucket &lt;- &quot;s3://mistral-wp6-advanz4/&quot;
+bucket_dir &lt;- &quot;metagenome/WMGS/&quot;
+
+# mymre &lt;- aws.s3::s3readRDS(bucket = bucket, object = paste0(bucket_dir,&quot;MREObject.rds&quot;))
+mymre &lt;- here::here(&quot;data&quot;,&quot;mre.rds&quot;) %&gt;%
+  readRDS() </code></pre>
+<pre class="r"><code># Any homebrew support function that may be written will be placed here</code></pre>
 </div>
+<div id="differential-abundance-results" class="section level1">
+<h1>Differential abundance results</h1>
+<p>Here we will leave all results regarding DA. In case we analyze it by more than one approach (e.g, wilcoxon, ANCOM, etc), each will have it’s own subsection)</p>
+<div id="method-1-e.g-wilcoxon-on-count-data" class="section level2">
+<h2>Method 1 (e.g: Wilcoxon on count data)</h2>
 </div>
-<pre><code># A tibble: 6 × 2
-# Groups:   SampleID [6]
-  SampleID maxReads
-  &lt;chr&gt;       &lt;int&gt;
-1 ADZ4_10   7776704
-2 ADZ4_13   2898640
-3 ADZ4_156  8026491
-4 ADZ4_159 11529099
-5 ADZ4_226  6650277
-6 ADZ4_3    1091122</code></pre>
-<pre><code>    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
- 1091122 17861766 20789049 20683233 23454591 33484742 </code></pre>
-<p>only 6 samples have been discarded by low read count. The threshold used for filtering was the 2nd percentile, which equals 12428123 reads.</p>
-<div id="rarefaction-and-sequencing-depth" class="section level2">
-<h2>Rarefaction and sequencing depth</h2>
-<p>We’ll control first for the effect of sequencing depth over Gene richness and try to stablish a proper rarefaction threshold.</p>
-<p><img src="figure/02_IGC_analysis.Rmd/Plot_Rarefaction-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-Plot_Rarefaction-1">
-Past versions of Plot_Rarefaction-1.png
-</button>
-</p>
-<div id="fig-Plot_Rarefaction-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/1fefe1d4514a75b3b7536f6ab7dd33cfd9fcfc4a/docs/figure/02_IGC_analysis.Rmd/Plot_Rarefaction-1.png" target="_blank">1fefe1d</a>
-</td>
-<td>
-cblazquez-irsi
-</td>
-<td>
-2022-03-08
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="rarefaction-and-sequencing-depth-1" class="section level2">
-<h2>Rarefaction and sequencing depth</h2>
-<p>We’ll control first for the effect of sequencing depth over Gene richness and try to stablish a proper rarefaction threshold.</p>
-<p>Data shows there is no bias created by sequencing depth between groups, and a threshold over the 2nd percentile is appropiate.</p>
-</div>
-<div id="longitudinal-evolution-lmms" class="section level2">
-<h2>Longitudinal evolution: LMMs</h2>
-<p>We’ll start studying the longitudinal effect of treatment group over gene richness. For such purpose, we’ll use Linear mixed models using patients as random effect and an interaction of treatment group and time as fixed effects with the following lme4 formula:</p>
-<p><code>richness ~ group*time_point + (1|ID)</code></p>
-<p>We found trouble fiting the LMMs for ethnic groups due to patient A024 being the only one with the category “unknown”. As the model can’t estimate variance from only one observation, the code breaks.</p>
-<p><img src="figure/02_IGC_analysis.Rmd/plot_LMMs-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_LMMs-1">
-Past versions of plot_LMMs-1.png
-</button>
-</p>
-<div id="fig-plot_LMMs-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/1fefe1d4514a75b3b7536f6ab7dd33cfd9fcfc4a/docs/figure/02_IGC_analysis.Rmd/plot_LMMs-1.png" target="_blank">1fefe1d</a>
-</td>
-<td>
-cblazquez-irsi
-</td>
-<td>
-2022-03-08
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>There is a pretty clear evolution in every one of the treatment groups. However the evolution rate seems pretty similar between both treatment groups. The models fail to find a great difference in gene richness evolution, althougha slight yet significant increasing trend (slope value = 0.027), can be found in the DGT group (Group 1).</p>
-<p>However, creating a single LMM with treatment group as a random effect we can measure the actual difference in the effect of timepoint over gene richness between two groups.</p>
-<pre><code>[1] &quot;group&quot;        &quot;risk_group&quot;   &quot;center&quot;       &quot;gender&quot;       &quot;ethnic_group&quot;
-[6] &quot;CD4diff_48&quot;   &quot;CD8diff_48&quot;   &quot;CD4after_48&quot;  &quot;CD8after_48&quot; </code></pre>
-<pre><code>[1] &quot;group&quot;
-[1] &quot;risk_group&quot;
-[1] &quot;center&quot;
-[1] &quot;gender&quot;
-[1] &quot;ethnic_group&quot;
-[1] &quot;CD4diff_48&quot;
-[1] &quot;CD8diff_48&quot;
-[1] &quot;CD4after_48&quot;
-[1] &quot;CD8after_48&quot;</code></pre>
-<p>This shows a slight effect of treatment, where the effect of time over richness in group group2 is 0.025 (St.err = 0.025) times lower than the same for group 1 (ANOVA p=0.31)</p>
-<pre><code>$group</code></pre>
-<p><img src="figure/02_IGC_analysis.Rmd/Show_plot_list-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>
-$risk_group</code></pre>
-<p><img src="figure/02_IGC_analysis.Rmd/Show_plot_list-2.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>
-$center</code></pre>
-<p><img src="figure/02_IGC_analysis.Rmd/Show_plot_list-3.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>
-$gender</code></pre>
-<p><img src="figure/02_IGC_analysis.Rmd/Show_plot_list-4.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>
-$ethnic_group</code></pre>
-<p><img src="figure/02_IGC_analysis.Rmd/Show_plot_list-5.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>
-$CD4diff_48</code></pre>
-<p><img src="figure/02_IGC_analysis.Rmd/Show_plot_list-6.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>
-$CD8diff_48</code></pre>
-<p><img src="figure/02_IGC_analysis.Rmd/Show_plot_list-7.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>
-$CD4after_48</code></pre>
-<p><img src="figure/02_IGC_analysis.Rmd/Show_plot_list-8.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>
-$CD8after_48</code></pre>
-<p><img src="figure/02_IGC_analysis.Rmd/Show_plot_list-9.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="method-2-e.g-compositional-approach" class="section level2">
+<h2>Method 2 (e.g compositional approach)</h2>
+<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -727,62 +547,30 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] nlme_3.1-153       lmerTest_3.1-3     lme4_1.1-27.1      Matrix_1.3-4      
- [5] rstatix_0.7.0      ggpubr_0.4.0       RColorBrewer_1.1-2 forcats_0.5.1     
- [9] stringr_1.4.0      dplyr_1.0.7        purrr_0.3.4        readr_2.1.0       
-[13] tidyr_1.1.4        tibble_3.1.6       ggplot2_3.3.5      tidyverse_1.3.1   
-[17] metar_0.1.4       
+ [1] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.8     purrr_0.3.4    
+ [5] readr_2.1.0     tidyr_1.2.0     tibble_3.1.6    ggplot2_3.3.5  
+ [9] tidyverse_1.3.1 devtools_2.4.2  usethis_2.1.3   workflowr_1.7.0
 
 loaded via a namespace (and not attached):
-  [1] readxl_1.3.1         backports_1.3.0      circlize_0.4.13     
-  [4] blme_1.0-5           workflowr_1.7.0      systemfonts_1.0.3   
-  [7] plyr_1.8.6           igraph_1.2.9         modules_0.10.0      
- [10] splines_4.0.5        listenv_0.8.0        digest_0.6.28       
- [13] foreach_1.5.1        htmltools_0.5.2      fansi_0.5.0         
- [16] magrittr_2.0.1       cluster_2.1.2        tzdb_0.2.0          
- [19] ComplexHeatmap_2.6.2 globals_0.14.0       Biostrings_2.58.0   
- [22] modelr_0.1.8         bayesm_3.1-4         matrixStats_0.61.0  
- [25] svglite_2.0.0        colorspace_2.0-2     rvest_1.0.2         
- [28] haven_2.4.3          xfun_0.28            crayon_1.4.2        
- [31] jsonlite_1.7.2       survival_3.2-13      iterators_1.0.13    
- [34] ape_5.5              glue_1.5.0           kableExtra_1.3.4    
- [37] gtable_0.3.0         zlibbioc_1.36.0      XVector_0.30.0      
- [40] webshot_0.5.2        compositions_2.0-2   GetoptLong_1.0.5    
- [43] phyloseq_1.34.0      car_3.0-12           Rhdf5lib_1.12.1     
- [46] shape_1.4.6          BiocGenerics_0.36.1  DEoptimR_1.0-9      
- [49] abind_1.4-5          scales_1.1.1         mvtnorm_1.1-3       
- [52] DBI_1.1.1            Rcpp_1.0.7           viridisLite_0.4.0   
- [55] xtable_1.8-4         merTools_0.5.2       clue_0.3-60         
- [58] stats4_4.0.5         httr_1.4.2           htmlwidgets_1.5.4   
- [61] ellipsis_0.3.2       farver_2.1.0         DataExplorer_0.8.2  
- [64] pkgconfig_2.0.3      dbplyr_2.1.1         sass_0.4.0          
- [67] here_1.0.1           utf8_1.2.2           labeling_0.4.2      
- [70] tidyselect_1.1.1     rlang_0.4.12         reshape2_1.4.4      
- [73] later_1.3.0          cellranger_1.1.0     munsell_0.5.0       
- [76] tools_4.0.5          cli_3.1.0            generics_0.1.1      
- [79] selbal_0.1.0         ade4_1.7-18          broom_0.7.10        
- [82] evaluate_0.14        biomformat_1.18.0    fastmap_1.1.0       
- [85] arm_1.12-2           yaml_2.2.1           knitr_1.36          
- [88] fs_1.5.0             robustbase_0.93-9    future_1.23.0       
- [91] whisker_0.4          mime_0.12            xml2_1.3.2          
- [94] compiler_4.0.5       rstudioapi_0.13      png_0.1-7           
- [97] ggsignif_0.6.3       reprex_2.0.1         bslib_0.3.1         
-[100] stringi_1.7.6        highr_0.9            logger_0.2.2        
-[103] lattice_0.20-45      nloptr_1.2.2.3       vegan_2.5-7         
-[106] permute_0.9-5        tensorA_0.36.2       multtest_2.46.0     
-[109] vctrs_0.3.8          pillar_1.6.4         lifecycle_1.0.1     
-[112] networkD3_0.4        rhdf5filters_1.2.1   jquerylib_0.1.4     
-[115] GlobalOptions_0.1.2  cowplot_1.1.1        data.table_1.14.2   
-[118] httpuv_1.6.3         R6_2.5.1             promises_1.2.0.1    
-[121] gridExtra_2.3        IRanges_2.24.1       parallelly_1.28.1   
-[124] codetools_0.2-18     boot_1.3-28          MASS_7.3-54         
-[127] assertthat_0.2.1     rhdf5_2.34.0         rprojroot_2.0.2     
-[130] rjson_0.2.20         withr_2.4.2          S4Vectors_0.28.1    
-[133] broom.mixed_0.2.7    hms_1.1.1            mgcv_1.8-38         
-[136] parallel_4.0.5       grid_4.0.5           coda_0.19-4         
-[139] minqa_1.2.4          rmarkdown_2.11       carData_3.0-4       
-[142] Cairo_1.5-12.2       git2r_0.29.0         numDeriv_2016.8-1.1 
-[145] lubridate_1.8.0      Biobase_2.50.0       shiny_1.7.1         </code></pre>
+ [1] httr_1.4.2        sass_0.4.0        pkgload_1.2.4     jsonlite_1.8.0   
+ [5] modelr_0.1.8      bslib_0.3.1       brio_1.1.3        assertthat_0.2.1 
+ [9] getPass_0.2-2     cellranger_1.1.0  yaml_2.3.5        remotes_2.4.1    
+[13] sessioninfo_1.2.1 pillar_1.7.0      backports_1.4.1   glue_1.6.2       
+[17] digest_0.6.29     promises_1.2.0.1  rvest_1.0.2       colorspace_2.0-3 
+[21] htmltools_0.5.2   httpuv_1.6.3      pkgconfig_2.0.3   broom_0.7.12     
+[25] haven_2.4.3       scales_1.1.1      processx_3.5.2    whisker_0.4      
+[29] later_1.3.0       tzdb_0.2.0        git2r_0.29.0      generics_0.1.2   
+[33] ellipsis_0.3.2    cachem_1.0.6      withr_2.5.0       cli_3.2.0        
+[37] readxl_1.3.1      magrittr_2.0.2    crayon_1.5.0      memoise_2.0.0    
+[41] evaluate_0.15     ps_1.6.0          fs_1.5.0          fansi_1.0.2      
+[45] xml2_1.3.2        pkgbuild_1.2.0    tools_4.0.5       prettyunits_1.1.1
+[49] hms_1.1.1         lifecycle_1.0.1   reprex_2.0.1      munsell_0.5.0    
+[53] callr_3.7.0       compiler_4.0.5    jquerylib_0.1.4   rlang_1.0.2      
+[57] grid_4.0.5        rstudioapi_0.13   rmarkdown_2.11    testthat_3.1.2   
+[61] gtable_0.3.0      DBI_1.1.1         R6_2.5.1          lubridate_1.8.0  
+[65] knitr_1.37        fastmap_1.1.0     utf8_1.2.2        rprojroot_2.0.2  
+[69] desc_1.4.1        stringi_1.7.6     Rcpp_1.0.8        vctrs_0.3.8      
+[73] dbplyr_2.1.1      tidyselect_1.1.2  xfun_0.30        </code></pre>
 </div>
 </div>
 </div>

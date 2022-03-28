@@ -7,13 +7,14 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
 ```
 
 # Setup
 
 This section will have comments of the step of data entry and anything that may happen here
 
-```{r cars}
+```{r cars, eval=F}
 mymre <- here::here("data","mre.rds") %>%
   readRDS()
 ```

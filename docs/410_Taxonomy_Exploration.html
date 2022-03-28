@@ -9,10 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Marc Noguera" />
+<meta name="author" content="Carlos Blázquez Bondia" />
 
 
-<title>MetaExplorer Report Generation</title>
+<title>Taxonomy exploration</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -283,9 +283,9 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">MetaExplorer Report Generation</h1>
-<h4 class="author">Marc Noguera</h4>
-<h4 class="date">3/23/2022</h4>
+<h1 class="title toc-ignore">Taxonomy exploration</h1>
+<h4 class="author">Carlos Blázquez Bondia</h4>
+<h4 class="date">3/25/2022</h4>
 
 </div>
 
@@ -334,7 +334,7 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 </div>
 <div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -431,8 +431,11 @@ Unstaged changes:
     Modified:   analysis/008_PopulateMRE.Rmd
     Modified:   analysis/020_MetaExplorer_Report.Rmd
     Modified:   analysis/030_AnalysisPlan.Rmd
+    Modified:   analysis/200_ADVANZ4_Report.Rmd
     Modified:   analysis/310_IGC_analysis.Rmd
     Deleted:    analysis/310_Taxonomy_Exploration.Rmd
+    Modified:   analysis/320_Beta_Diversity.Rmd
+    Modified:   analysis/420_Taxonomy_DA.Rmd
     Modified:   analysis/_site.yml
     Modified:   output/mre_data/CatalogMapping/IGC/lmm/lmm_time_point_by_group.pdf
 
@@ -447,118 +450,28 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
-
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/020_MetaExplorer_Report.Rmd</code>) and HTML (<code>docs/020_MetaExplorer_Report.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
 </p>
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-File
-</th>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-<th>
-Message
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/440936112631b3ae0f4f3911ce3a45b9ae62d1bb/analysis/020_MetaExplorer_Report.Rmd" target="_blank">4409361</a>
-</td>
-<td>
-Marc Noguera-Julian
-</td>
-<td>
-2022-03-25
-</td>
-<td>
-initi mre
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/440936112631b3ae0f4f3911ce3a45b9ae62d1bb/docs/020_MetaExplorer_Report.html" target="_blank">4409361</a>
-</td>
-<td>
-Marc Noguera-Julian
-</td>
-<td>
-2022-03-25
-</td>
-<td>
-initi mre
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/3cccd896f26607b09427747a7fc680f507d4f783/analysis/020_MetaExplorer_Report.Rmd" target="_blank">3cccd89</a>
-</td>
-<td>
-Marc Noguera-Julian
-</td>
-<td>
-2022-03-23
-</td>
-<td>
-initial mre
-</td>
-</tr>
-</tbody>
-</table>
-</div>
 <hr>
 </div>
 </div>
 </div>
-<div id="metar-explorer-report" class="section level2">
-<h2>MetaR Explorer Report</h2>
-<p>This Rmd is intended to read MRE object (no writing) and produce local report for exploratory and analysis plan meeting</p>
-<pre class="r"><code>require(phyloseq)
-require(ggstatsplot)
-require(ggplot2)
-require(here)
-
-bucket&lt;-&quot;s3://mistral-wp6-advanz4/&quot;
-bucketDir&lt;-&quot;metagenome/WMGS&quot;
-
-# Load package from local copy, needs to handle some of the dependencies manually.
-devtools::load_all(&quot;~/Documents/Work/Development/WMGSPipeline/&quot;)### Change to require/library/load local package
-devtools::load_all(&quot;~/Documents/Work/Development/metaExplorer/&quot;)### Change to require/library/load local package
-# myMREObject&lt;-readRDS(&quot;data/processed/mreObject.rds&quot;)
-mre&lt;-aws.s3::s3readRDS(bucket=bucket,object = paste0(bucketDir,&quot;/MREObject.rds&quot;))
-
-### Execute on the fly until memory space for rarefaction issue is solved
-mre&lt;-mre %&gt;% metar::igc_lmm() %&gt;% igc_rarefaction()
-
-metaExplorer::export_report(
-mre,
-diversity_slot = &quot;igc&quot;,
-taxa_slot = &quot;metaphlan&quot;,
-metadata_vars = get_metadata_vars(mre),
-report_title = &quot;ADVANZ4 Exploratory Report&quot;,
-output_file = paste0(here::here(),&quot;/docs/mistral_advanz4_report.pdf&quot;)
-)</code></pre>
+<div id="setup" class="section level1">
+<h1>Setup</h1>
+<p>This section will have comments of the step of data entry and anything that may happen here</p>
+<pre class="r"><code>mymre &lt;- here::here(&quot;data&quot;,&quot;mre.rds&quot;) %&gt;%
+  readRDS()</code></pre>
+<pre class="r"><code>## Any utility function that we do will go here</code></pre>
+</div>
+<div id="taxonomic-composition" class="section level1">
+<h1>Taxonomic composition</h1>
+<p>Here go the taxonomy stacked barplots at different taxonomic levels.</p>
+<p><img src="figure/410_Taxonomy_Exploration.Rmd/taxa_barplots-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="additional-analysis" class="section level1">
+<h1>Additional analysis</h1>
+<p>here will go any other exploratory analysis on taxonomy that may be needed</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -586,24 +499,30 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] devtools_2.4.2  usethis_2.1.3   workflowr_1.7.0
+ [1] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.8     purrr_0.3.4    
+ [5] readr_2.1.0     tidyr_1.2.0     tibble_3.1.6    ggplot2_3.3.5  
+ [9] tidyverse_1.3.1 devtools_2.4.2  usethis_2.1.3   workflowr_1.7.0
 
 loaded via a namespace (and not attached):
- [1] xfun_0.30         bslib_0.3.1       remotes_2.4.1     purrr_0.3.4      
- [5] vctrs_0.3.8       testthat_3.1.2    htmltools_0.5.2   yaml_2.3.5       
- [9] utf8_1.2.2        rlang_1.0.2       pkgbuild_1.2.0    later_1.3.0      
-[13] pillar_1.7.0      jquerylib_0.1.4   glue_1.6.2        withr_2.5.0      
-[17] sessioninfo_1.2.1 lifecycle_1.0.1   stringr_1.4.0     evaluate_0.15    
-[21] memoise_2.0.0     knitr_1.37        callr_3.7.0       fastmap_1.1.0    
-[25] httpuv_1.6.3      ps_1.6.0          fansi_1.0.2       Rcpp_1.0.8       
-[29] promises_1.2.0.1  cachem_1.0.6      desc_1.4.1        pkgload_1.2.4    
-[33] jsonlite_1.8.0    fs_1.5.0          brio_1.1.3        digest_0.6.29    
-[37] stringi_1.7.6     processx_3.5.2    getPass_0.2-2     rprojroot_2.0.2  
-[41] here_1.0.1        cli_3.2.0         tools_4.0.5       sass_0.4.0       
-[45] magrittr_2.0.2    tibble_3.1.6      crayon_1.5.0      whisker_0.4      
-[49] pkgconfig_2.0.3   ellipsis_0.3.2    prettyunits_1.1.1 rmarkdown_2.11   
-[53] httr_1.4.2        rstudioapi_0.13   R6_2.5.1          git2r_0.29.0     
-[57] compiler_4.0.5   </code></pre>
+ [1] httr_1.4.2        sass_0.4.0        pkgload_1.2.4     jsonlite_1.8.0   
+ [5] modelr_0.1.8      bslib_0.3.1       brio_1.1.3        assertthat_0.2.1 
+ [9] getPass_0.2-2     highr_0.9         cellranger_1.1.0  yaml_2.3.5       
+[13] remotes_2.4.1     sessioninfo_1.2.1 pillar_1.7.0      backports_1.4.1  
+[17] glue_1.6.2        digest_0.6.29     promises_1.2.0.1  rvest_1.0.2      
+[21] colorspace_2.0-3  htmltools_0.5.2   httpuv_1.6.3      pkgconfig_2.0.3  
+[25] broom_0.7.12      haven_2.4.3       scales_1.1.1      processx_3.5.2   
+[29] whisker_0.4       later_1.3.0       tzdb_0.2.0        git2r_0.29.0     
+[33] generics_0.1.2    ellipsis_0.3.2    cachem_1.0.6      withr_2.5.0      
+[37] cli_3.2.0         readxl_1.3.1      magrittr_2.0.2    crayon_1.5.0     
+[41] memoise_2.0.0     evaluate_0.15     ps_1.6.0          fs_1.5.0         
+[45] fansi_1.0.2       xml2_1.3.2        pkgbuild_1.2.0    tools_4.0.5      
+[49] prettyunits_1.1.1 hms_1.1.1         lifecycle_1.0.1   reprex_2.0.1     
+[53] munsell_0.5.0     callr_3.7.0       compiler_4.0.5    jquerylib_0.1.4  
+[57] rlang_1.0.2       grid_4.0.5        rstudioapi_0.13   rmarkdown_2.11   
+[61] testthat_3.1.2    gtable_0.3.0      DBI_1.1.1         R6_2.5.1         
+[65] lubridate_1.8.0   knitr_1.37        fastmap_1.1.0     utf8_1.2.2       
+[69] rprojroot_2.0.2   desc_1.4.1        stringi_1.7.6     Rcpp_1.0.8       
+[73] vctrs_0.3.8       dbplyr_2.1.1      tidyselect_1.1.2  xfun_0.30        </code></pre>
 </div>
 </div>
 

@@ -25,7 +25,7 @@ Using the initial MRE object which has all results slots empty, we then populate
 All analysis generate by default a set of result files that are stored into disk, generally pdf or csv that allow result exploration.
 Once all te tests have been run, the MRE is populated with the correspoonding results and saved into disk/AWS.
 
-```{r embedded populate slots, echo=T, include=T, message=T}
+```{r embedded populate slots, echo=T, include=T, message=T, eval=F}
 require(phyloseq)
 require(ggstatsplot)
 require(ggplot2)
@@ -109,7 +109,7 @@ aws.s3::s3saveRDS(myMREObject,bucket=bucket,object = paste0(bucketDir,"/MREObjec
 
 ### IGC Richness
 
-```{r Gene Richness Analysis,echo=F,include=F,message=F}
+```{r IGC_Richness Analysis,echo=F,include=F,message=F, eval=F}
 require(phyloseq)
 require(DataExplorer)
 require(compareGroups)
@@ -131,7 +131,7 @@ aws.s3::s3saveRDS(myMREObject,bucket=bucket,object = paste0(bucketDir,"/MREObjec
 ```
 
 ### VIRGO Richness
-```{r Gene Richness Analysis,echo=F,include=F,message=F,eval=F}
+```{r Virgo_Richness Analysis,echo=F,include=F,message=F,eval=F}
 require(phyloseq)
 require(DataExplorer)
 require(compareGroups)

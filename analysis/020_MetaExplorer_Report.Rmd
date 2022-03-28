@@ -14,7 +14,7 @@ knitr::opts_knit$set(root.dir = here::here())
 
 This Rmd is intended to read MRE object (no writing) and produce local report for exploratory and analysis plan meeting
 
-```{r read MRE and export report, eval =T}
+```{r read MRE and export report, eval =F}
 require(phyloseq)
 require(ggstatsplot)
 require(ggplot2)

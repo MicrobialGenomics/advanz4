@@ -25,7 +25,7 @@ Data is obtained, merged and provided a consistent starting point for statistica
 Finally a MRE object is created that is used downstream as the starting point for all analysis and (automatic) reporting.
 
 ## Read Data and Create metar object
-```{r readMetadata ,echo=F,include=F,message=F}
+```{r readMetadata ,echo=F,include=F,message=F, eval=F}
 suppressMessages(require(DataExplorer))
 suppressMessages(require(phyloseq))
 suppressMessages(require(ggstatsplot))
@@ -85,7 +85,7 @@ aws.s3::s3saveRDS(myMREObject,bucket=bucket,object = paste0(bucketDir,"/MREObjec
 ```
 A metar(MRE) object contains different slots, each one containing different types of data for the study bein analysed. A brief description of the available data for this project is:
 
-```{r metar object characteristics}
+```{r metar_object_characteristics, eval=F}
 myMREObject
 ```
 
