@@ -1,0 +1,63 @@
+---
+title: "LMM for taxa"
+author: "Marc Noguera"
+date: "3/29/2022"
+output: html_document
+---
+
+```{r setup, include=T,eval=F}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = here::here())
+
+```
+
+##  Taxa level LMM
+
+The main purpose of this script is to extract signla from Linear-Mixed-Models(LMM) from longitudinal designs of data. For each Taxa, at a tax_level, we'll run a LMM through the longitudinal dimension and either, rank taxa according to their longitudinal increase/decreas or to the highest differences between a group variable in cat_var.
+
+Try different data transformation approaches:
+
+* Relative abudnaces(RA)
+* raw counts, with previous rarefaction at a certain number of reads, using metaphlan_counts object
+* clr transformed data for counts, using microbiome::transform()
+
+```{r extract data, echo=T, include=T, message=T, eval=T}
+require(phyloseq)
+require(ggstatsplot)
+require(ggplot2)
+require(here)
+
+bucket<-"s3://mistral-wp6-advanz4/"
+bucketDir<-"metagenome/WMGS"
+
+# Load package from local copy
+devtools::load_all("~/Documents/Work/Development/WMGSPipeline/")### Change to require/library/load local package
+
+# myMREObject<-readRDS("data/processed/mreObject.rds")
+myMREObject<-aws.s3::s3readRDS(bucket=bucket,object = paste0(bucketDir,"/MREObject.rds")) ## Change as needed
+
+
+
+my_otu_df<-myMREObject %>% metar::get_phyloseq(.,type="metaphlan") %>% phyloseq::otu_table()
+rownames(my_otu_df)
+
+my_counts_df<-myMREObject %>% metar::get_phyloseq(.,type="metaphlan_counts") %>% phyloseq::otu_table()
+
+my_tax_df<-myMREObject %>% metar::get_phyloseq(.,type="metaphlan") %>% phyloseq::tax_table()
+rownames(my_tax_df)
+
+metadata_df<-metar::get_meta(myMREObject)
+
+
+  
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
