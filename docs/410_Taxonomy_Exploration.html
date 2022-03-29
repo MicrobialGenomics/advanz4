@@ -398,16 +398,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree7d67e12d5f11c669abfa93c04ddc09ad23be5713targetblank7d67e12a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/7d67e12d5f11c669abfa93c04ddc09ad23be5713" target="_blank">7d67e12</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree4ded18920e2d560074227478b8412cca0d7a3562targetblank4ded189a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/4ded18920e2d560074227478b8412cca0d7a3562" target="_blank">4ded189</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree7d67e12d5f11c669abfa93c04ddc09ad23be5713targetblank7d67e12a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree4ded18920e2d560074227478b8412cca0d7a3562targetblank4ded189a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/7d67e12d5f11c669abfa93c04ddc09ad23be5713" target="_blank">7d67e12</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/4ded18920e2d560074227478b8412cca0d7a3562" target="_blank">4ded189</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -418,9 +418,6 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    data/mre.rds
-
-Untracked files:
-    Untracked:  analysis/output/
 
 Unstaged changes:
     Modified:   analysis/410_Taxonomy_Exploration.Rmd
@@ -462,6 +459,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/4ded18920e2d560074227478b8412cca0d7a3562/analysis/410_Taxonomy_Exploration.Rmd" target="_blank">4ded189</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-03-29
+</td>
+<td>
+Started Taxonomy barplots
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/4ded18920e2d560074227478b8412cca0d7a3562/docs/410_Taxonomy_Exploration.html" target="_blank">4ded189</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-03-29
+</td>
+<td>
+Started Taxonomy barplots
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -563,13 +594,52 @@ myBarplots &lt;- CategoricalVariablesDF$CategoricalVariable %&gt;%
       ggplot(dat, aes(x=record_id, y = value, fill = taxa)) +
       facet_grid( time_point ~ cat_var,scales=&quot;free_x&quot; ) +
       geom_bar(position = &quot;stack&quot;, stat = &quot;identity&quot;) +
-      theme_bw() 
+      theme_bw() +
+      theme(strip.text = element_text(size=8, face=&quot;bold&quot;),
+            strip.background = element_rect(colour = &quot;white&quot;))
     
   })
 
 
-myBarplots$group</code></pre>
+myBarplots</code></pre>
+<pre><code>$group</code></pre>
 <p><img src="figure/410_Taxonomy_Exploration.Rmd/Species_level-1.png" width="768" style="display: block; margin: auto;" /></p>
+<pre><code>
+$risk_group</code></pre>
+<p><img src="figure/410_Taxonomy_Exploration.Rmd/Species_level-2.png" width="768" style="display: block; margin: auto;" /></p>
+<pre><code>
+$center</code></pre>
+<p><img src="figure/410_Taxonomy_Exploration.Rmd/Species_level-3.png" width="768" style="display: block; margin: auto;" /></p>
+<pre><code>
+$gender</code></pre>
+<p><img src="figure/410_Taxonomy_Exploration.Rmd/Species_level-4.png" width="768" style="display: block; margin: auto;" /></p>
+<pre><code>
+$ethnic_group</code></pre>
+<p><img src="figure/410_Taxonomy_Exploration.Rmd/Species_level-5.png" width="768" style="display: block; margin: auto;" /></p>
+<pre><code>
+$CD4diff_48</code></pre>
+<p><img src="figure/410_Taxonomy_Exploration.Rmd/Species_level-6.png" width="768" style="display: block; margin: auto;" /></p>
+<pre><code>
+$CD8diff_48</code></pre>
+<p><img src="figure/410_Taxonomy_Exploration.Rmd/Species_level-7.png" width="768" style="display: block; margin: auto;" /></p>
+<pre><code>
+$CD4after_48</code></pre>
+<p><img src="figure/410_Taxonomy_Exploration.Rmd/Species_level-8.png" width="768" style="display: block; margin: auto;" /></p>
+<pre><code>
+$CD8after_48</code></pre>
+<p><img src="figure/410_Taxonomy_Exploration.Rmd/Species_level-9.png" width="768" style="display: block; margin: auto;" /></p>
+<pre><code>
+$CD4diff_96</code></pre>
+<p><img src="figure/410_Taxonomy_Exploration.Rmd/Species_level-10.png" width="768" style="display: block; margin: auto;" /></p>
+<pre><code>
+$CD8diff_96</code></pre>
+<p><img src="figure/410_Taxonomy_Exploration.Rmd/Species_level-11.png" width="768" style="display: block; margin: auto;" /></p>
+<pre><code>
+$CD4after_96</code></pre>
+<p><img src="figure/410_Taxonomy_Exploration.Rmd/Species_level-12.png" width="768" style="display: block; margin: auto;" /></p>
+<pre><code>
+$CD8after_96</code></pre>
+<p><img src="figure/410_Taxonomy_Exploration.Rmd/Species_level-13.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="additional-analysis" class="section level1">
 <h1>Additional analysis</h1>

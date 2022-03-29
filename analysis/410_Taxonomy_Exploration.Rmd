@@ -35,7 +35,7 @@ CategoricalVariablesDF <- get_cat(mymre)
 
 
 
-# Species level
+# Phylum Level
 
 
 
@@ -70,12 +70,14 @@ myBarplots <- CategoricalVariablesDF$CategoricalVariable %>%
       ggplot(dat, aes(x=record_id, y = value, fill = taxa)) +
       facet_grid( time_point ~ cat_var,scales="free_x" ) +
       geom_bar(position = "stack", stat = "identity") +
-      theme_bw() 
+      theme_bw() +
+      theme(strip.text = element_text(size=8, face="bold"),
+            strip.background = element_rect(colour = "white"))
     
   })
 
 
-myBarplots$group
+myBarplots
 
 ```
 
