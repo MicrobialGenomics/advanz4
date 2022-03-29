@@ -60,7 +60,7 @@ The ADVANZ-4 study consisted on 95 patients, giving a total of 271 samples seque
 
 ``` {r Plot_Rarefaction, echo=F, message=F, warning=F, eval=F}
 myRarefaction<-mymre@diversity@igc@rarefaction$categorical$Group$rarefaction +
-  scale_color_manual(values = brewer.pal(n=2, name =  "Set1"), labels = c("ABC+3TC+DGT","ABC+3TC+DRV+RTV")) + ### Keep labels consistent throughout. It is DTG, not DGT. Better to use DTG and DRV/r as labels (but DRVr in metadata)
+  scale_color_manual(values = brewer.pal(n=2, name =  "Set1"), labels = c("DTG","RTV/r")) + ### Keep labels consistent throughout. It is DTG, not DGT. Better to use DTG and DRV/r as labels (but DRVr in metadata)
 
   geom_vline(xintercept = Threshold, color="black", inherit.aes = F) + 
   labs(subtitle = paste("Rarefaction Threshold: 2nd percentile (", as.numeric(Threshold),")",sep=""),

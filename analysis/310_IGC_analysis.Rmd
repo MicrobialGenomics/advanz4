@@ -33,11 +33,11 @@ First we'll check how well the sequencing went by looking at the read count dist
 ```{r load_metadata_vars, eval=T, include=F}
 myPath<-here::here()
 setwd(myPath)
-# mymre<-readRDS(here::here(myPath,"data","mre.rds"))
+mymre<-readRDS(here::here(myPath,"data","mre.rds"))
 
 
-mymre <- aws.s3::s3readRDS("s3://mistral-wp6-advanz4/metagenome/WMGS/MREObject.rds") ### Check consistency between mre.rds(local and S3). You are reading s3 file, here, but in 200_ you are using local
-metadata <- metar::get_metadata(mymre)@metadata_df
+# mymre <- aws.s3::s3readRDS("s3://mistral-wp6-advanz4/metagenome/WMGS/MREObject.rds") ### Check consistency between mre.rds(local and S3). You are reading s3 file, here, but in 200_ you are using local
+# metadata <- metar::get_metadata(mymre)@metadata_df
 
 
 
@@ -81,6 +81,8 @@ myigc <- igc_lmm(mymre)
 
 
 Threshold = igc@dataTable %>%
+  dplyr::select(SampleID, NumberMappedReads) %>%
+  unique() %>%
   summarise(Q = quantile(NumberMappedReads,0.02)) %>% ### Again, you are using the full data table to calculate percentiles. This is wrong.
   as.numeric()
 

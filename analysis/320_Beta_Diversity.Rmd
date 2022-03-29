@@ -35,11 +35,10 @@ You can also embed plots, for example:
 myPath<-here::here()
 setwd(myPath)
 mymre<-readRDS("data/mre.rds")
+metadata <- metar::get_meta(mymre) %>% as.data.frame()
 
-metadata <- metar::get_metadata(mymre)@metadata_df
+myphyloseq <- get_phyloseq(mymre, type = "metaphlan")
 
-myphyloseq<-mymre@taxa@metaphlan@phyloseq
-sample_data(myphyloseq) <-as.data.frame(metadata) 
 
 
 CategoricalVariablesDF <- get_metadata(mymre)@categorical_vals
@@ -48,7 +47,7 @@ LongitudinalVariablesDF <- get_metadata(mymre)@longitudinal_vals
 
 ```
 
-```{r Get_DistMats, eval=T, include=T}
+```{r Get_DistMats, eval=F, include=T}
 
 getAbundances<-function(phyloseq, level){
   
@@ -137,102 +136,108 @@ metadata %>%
 ```{r NMDS_Group, warning= F, message= F}
 
 long_var<-LongitudinalVariablesDF$LongitudinalVariable[1]
-cat_var <- CategoricalVariablesDF$CategoricalVariable[1]
-link_var <- LongitudinalVariablesDF$LinkVariable[1]
-id_var <- "SampleID"
-
-myPal<-RColorBrewer::brewer.pal(name =  CategoricalVariablesDF$PaletteName[1],
-                                n=length(unique(metadata[,cat_var])))
-BiPlotCoordsDF<-BiPlotCoordsDF %>%
-  mutate(Dim1s = Dim1*3,
-         Dim2s = Dim2*3)
-
-
-myNMDS_DF <- myNMDS %>%
-  rownames_to_column(var = id_var) %>%
-  dplyr::full_join(., metadata, by =id_var) %>%
-  dplyr::select(SampleID = id_var,
-                NMDS1 = MDS1,
-                NMDS2 = MDS2,
-                linkVar = !!sym(link_var),
-                catVar = !!sym(cat_var),
-                LongVar = long_var)
-
-
-  myXmin<-min(myNMDS$MDS1)
-  # +(max(dim_NMDS$points[,1])-min(dim_NMDS$points[,1]))/20
-  myYmin<-max(myNMDS$MDS2)-(max(myNMDS$MDS1)-min(myNMDS$MDS1))
+CategoricalVariablesDF <- CategoricalVariablesDF %>%
+  filter(!CategoricalVariable == "CD4diff_96")
+cat_var <- CategoricalVariablesDF$CategoricalVariable
+mymre@metadata@categorical_vals <- as_tibble(CategoricalVariablesDF)
 
 
 
-  
-myAdonis<- adonis(myBrayDistMat~ catVar, data = myNMDS_DF) %>%
-  pluck("aov.tab") %>%
-  as.data.frame() %>%
-  slice(1L) %>%
-  magrittr::set_rownames(cat_var)
-  
-  
-myNMDSplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) + 
-    geom_point() +
-    theme_bw()+
-    theme(panel.border=element_blank(),
-          panel.grid.major=element_blank(),
-          panel.grid.minor=element_blank(),
-          
-          axis.line=element_line(colour="black"),
-          axis.text.x=element_text(size=11),
-          axis.text.y=element_text(size=11),
-          axis.title.x=element_text(size=11),
-          axis.title.y=element_text(size=11),
-          
-          legend.text=element_text(size=11,face="italic"),
-          legend.title=element_text(size=11))+
-    
-    ggtitle(expression(atop("Species composition",atop(italic("all samples"))))) +
-    theme(plot.title=element_text(lineheight=1,face="bold",size=13))+
-    coord_fixed()+
-    labs(fill = cat_var, color=cat_var, shape = long_var) 
+# link_var <- LongitudinalVariablesDF$LinkVariable[1]
+# id_var <- "SampleID"
 
-
-
-
-myNMDSBiplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) + 
-    geom_point(aes(colour=catVar, shape = as.character(LongVar))) +
-    scale_colour_manual(values = myPal, labels = c("DGT", "DRV/r")) +
-    scale_fill_manual(values=myPal, labels = c("DGT", "DRV/r"))+
-    theme_bw()+
-    theme(panel.border=element_blank(),
-          panel.grid.major=element_blank(),
-          panel.grid.minor=element_blank(),
-          
-          axis.line=element_line(colour="black"),
-          axis.text.x=element_text(size=11),
-          axis.text.y=element_text(size=11),
-          axis.title.x=element_text(size=11),
-          axis.title.y=element_text(size=11),
-          
-          legend.text=element_text(size=11,face="italic"),
-          legend.title=element_text(size=11))+
-    
-    ggtitle(expression(atop("Species composition",atop(italic("all samples"))))) +
-    theme(plot.title=element_text(lineheight=1,face="bold",size=13))+
-    stat_ellipse(geom="polygon",
-                 alpha=0.15,color="black",
-                 aes(fill=catVar),level=0.95)+
-    # scale_size_manual(values = c(1:length(unique(myNMDS_DF[,"LongVar"])))/1.5) +
-    geom_segment(data=BiPlotCoordsDF,aes(x=0,xend=Dim1s,y=0,yend=Dim2s),
-                 arrow = arrow(length = unit(0.2,"cm")),colour="darkgrey")+
-    geom_text_repel(data=BiPlotCoordsDF,aes(Dim1s,Dim2s,label=species),
-                    size=2.5, box.padding = unit(0.25, "lines"),
-                    segment.colour="black",
-                    segment.alpha=0.5,
-                    segment.size=0.10)+
-    coord_fixed()+
-    labs(fill = cat_var, color=cat_var, shape = long_var) +
-  annotation_custom(gridExtra::tableGrob(round(myAdonis,3), 
-                                         theme = ttheme_default(base_size = 8)),ymin = 3.5, xmin=2.4)
-
+# myPal<-RColorBrewer::brewer.pal(name =  CategoricalVariablesDF$PaletteName[1],
+#                                 n=length(unique(metadata[,cat_var])))
+# BiPlotCoordsDF<-BiPlotCoordsDF %>%
+#   mutate(Dim1s = Dim1*3,
+#          Dim2s = Dim2*3)
+# 
+# 
+# myNMDS_DF <- myNMDS %>%
+#   rownames_to_column(var = id_var) %>%
+#   dplyr::full_join(., metadata, by =id_var) %>%
+#   dplyr::select(SampleID = id_var,
+#                 NMDS1 = MDS1,
+#                 NMDS2 = MDS2,
+#                 linkVar = !!sym(link_var),
+#                 catVar = !!sym(cat_var),
+#                 LongVar = long_var)
+# 
+# 
+#   myXmin<-min(myNMDS$MDS1)
+#   # +(max(dim_NMDS$points[,1])-min(dim_NMDS$points[,1]))/20
+#   myYmin<-max(myNMDS$MDS2)-(max(myNMDS$MDS1)-min(myNMDS$MDS1))
+# 
+# 
+# 
+#   
+# myAdonis<- adonis(myBrayDistMat~ catVar, data = myNMDS_DF) %>%
+#   pluck("aov.tab") %>%
+#   as.data.frame() %>%
+#   slice(1L) %>%
+#   magrittr::set_rownames(cat_var)
+#   
+#   
+# myNMDSplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) + 
+#     geom_point() +
+#     theme_bw()+
+#     theme(panel.border=element_blank(),
+#           panel.grid.major=element_blank(),
+#           panel.grid.minor=element_blank(),
+#           
+#           axis.line=element_line(colour="black"),
+#           axis.text.x=element_text(size=11),
+#           axis.text.y=element_text(size=11),
+#           axis.title.x=element_text(size=11),
+#           axis.title.y=element_text(size=11),
+#           
+#           legend.text=element_text(size=11,face="italic"),
+#           legend.title=element_text(size=11))+
+#     
+#     ggtitle(expression(atop("Species composition",atop(italic("all samples"))))) +
+#     theme(plot.title=element_text(lineheight=1,face="bold",size=13))+
+#     coord_fixed()+
+#     labs(fill = cat_var, color=cat_var, shape = long_var) 
+# 
+# 
+# 
+# 
+# myNMDSBiplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) + 
+#     geom_point(aes(colour=catVar, shape = as.character(LongVar))) +
+#     scale_colour_manual(values = myPal, labels = c("DGT", "DRV/r")) +
+#     scale_fill_manual(values=myPal, labels = c("DGT", "DRV/r"))+
+#     theme_bw()+
+#     theme(panel.border=element_blank(),
+#           panel.grid.major=element_blank(),
+#           panel.grid.minor=element_blank(),
+#           
+#           axis.line=element_line(colour="black"),
+#           axis.text.x=element_text(size=11),
+#           axis.text.y=element_text(size=11),
+#           axis.title.x=element_text(size=11),
+#           axis.title.y=element_text(size=11),
+#           
+#           legend.text=element_text(size=11,face="italic"),
+#           legend.title=element_text(size=11))+
+#     
+#     ggtitle(expression(atop("Species composition",atop(italic("all samples"))))) +
+#     theme(plot.title=element_text(lineheight=1,face="bold",size=13))+
+#     stat_ellipse(geom="polygon",
+#                  alpha=0.15,color="black",
+#                  aes(fill=catVar),level=0.95)+
+#     # scale_size_manual(values = c(1:length(unique(myNMDS_DF[,"LongVar"])))/1.5) +
+#     geom_segment(data=BiPlotCoordsDF,aes(x=0,xend=Dim1s,y=0,yend=Dim2s),
+#                  arrow = arrow(length = unit(0.2,"cm")),colour="darkgrey")+
+#     geom_text_repel(data=BiPlotCoordsDF,aes(Dim1s,Dim2s,label=species),
+#                     size=2.5, box.padding = unit(0.25, "lines"),
+#                     segment.colour="black",
+#                     segment.alpha=0.5,
+#                     segment.size=0.10)+
+#     coord_fixed()+
+#     labs(fill = cat_var, color=cat_var, shape = long_var) +
+#   annotation_custom(gridExtra::tableGrob(round(myAdonis,3), 
+#                                          theme = ttheme_default(base_size = 8)),ymin = 3.5, xmin=2.4)
+# 
 
 ```
 
@@ -240,9 +245,12 @@ myNMDSBiplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
 When we look at the most simple ordination before colouring by categorical variables, we see no clear separated clusters between samples. They all appear to be mostly concentrated in one big cluster that randomly spreads in the positive direction for both NMDS components.
 
 ```{r plot_basic_NMDS, warning = F, include = T, message=F, warning=F}
-mymre@taxa@metaphlan@nmds$Species$top_50$categorical$cluster
-saveRDS(mymre, here::here("data/mre.rds"))
-metar::metaphlan_nmds(mymre, tax_level = "Species",top_n = 50)
+mymre <- metar::metaphlan_nmds(mymre, tax_level = "Species",top_n = 50, save_files = F)
+
+mymre@taxa@metaphlan@nmds$Species$top_50$categorical %>%
+  discard(., names(.) == "record_id")
+
+
 ```
 
 
@@ -250,10 +258,21 @@ In a more formal analysis, the silhouette coefficient was tested for different n
 
 ```{r silhouette_analysis, warning=F, message=F}
 
+
+
+
+myBrayDistMat <- phyloseq::otu_table(myphyloseq) %>%
+  t() %>%
+  sqrt() %>%
+  vegan::wisconsin() %>%
+  vegan::vegdist()
+
+
+
 c(1:11) %>%
   set_names() %>%
   map_df(., ~{
-    pam(myBrayDistMat, k = .x) %>%
+    cluster::pam(myBrayDistMat, k = .x) %>%
       pluck("silinfo") %>%
       pluck("avg.width")
   }) %>%
@@ -278,7 +297,9 @@ In the same fashion, when we start identifying samples by group and Timepoint, w
 
 However, the Adonis test found the variable group to have a significant effect over sample distances (p<0.001), although it only accounted for a small portion of the variance
 
-```{r plot_biplot, include=T, message=F, warning=F}
+```{r plot_biplot, eval=F,include=T, message=F, warning=F}
+
+
 myNMDSBiplot
 ```
 
