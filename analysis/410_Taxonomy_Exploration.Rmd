@@ -8,19 +8,26 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
+library(metar)
+library(phyloseq)
 ```
 
 # Setup
 
 This section will have comments of the step of data entry and anything that may happen here
 
-```{r cars, eval=F}
+```{r cars, eval=T, message=F, warning=F}
 mymre <- here::here("data","mre.rds") %>%
   readRDS()
+
+metadata <- get_meta(mymre)
+
+CategoricalVariablesDF <- get_cat(mymre)
+
 ```
 
 
-```{r utility_functions}
+```{r utility_functions, eval=F}
 
 ## Any utility function that we do will go here
 
@@ -28,13 +35,52 @@ mymre <- here::here("data","mre.rds") %>%
 
 
 
-# Taxonomic composition
+# Species level
 
-Here go the taxonomy stacked barplots at different taxonomic levels.
 
-```{r taxa_barplots, echo=FALSE}
-plot(pressure)
+
+```{r Species_level, message=F, warning=F, fig.height=8,fig.width = 8}
+# mymre <- metar::metaphlan_barplots(mymre, top_n = 30, tax_level = "Species", save_files = F)
+
+myphyloseq <- get_phyloseq(mymre, type="metaphlan")
+
+abundance <- myphyloseq %>%
+  tax_glom(.,"Phylum") %>%
+  otu_table(.) %>%
+  t() %>%
+  as.data.frame()  %>%
+  setNames(tax_table(tax_glom(myphyloseq, "Phylum"))[,"Phylum"])
+
+
+
+
+myBarplots <- CategoricalVariablesDF$CategoricalVariable %>%
+  set_names() %>%
+  map(~ {
+    
+    dat <- abundance %>%
+      rownames_to_column("SampleID") %>%
+      full_join(., metadata[,c("SampleID","record_id","time_point", .x)], by="SampleID") %>%
+      pivot_longer(., cols=names(abundance)) %>%
+      dplyr::rename(taxa = name) %>%
+      dplyr::mutate(facet = paste(!!sym(.x), time_point, sep="_")) %>%
+      dplyr::rename(cat_var = !!sym(.x))
+    
+    plt <- 
+      ggplot(dat, aes(x=record_id, y = value, fill = taxa)) +
+      facet_grid( time_point ~ cat_var,scales="free_x" ) +
+      geom_bar(position = "stack", stat = "identity") +
+      theme_bw() 
+    
+  })
+
+
+myBarplots$group
+
 ```
+
+
+
 
 # Additional analysis
 
