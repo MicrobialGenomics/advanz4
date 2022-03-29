@@ -199,8 +199,8 @@ myNMDSplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
 
 myNMDSBiplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) + 
     geom_point(aes(colour=catVar, shape = as.character(LongVar))) +
-    scale_colour_manual(values = myPal, labels = c("DGT", "DRV+RLT")) +
-    scale_fill_manual(values=myPal, labels = c("DGT", "DRV+RLT"))+
+    scale_colour_manual(values = myPal, labels = c("DGT", "DRV/r")) +
+    scale_fill_manual(values=myPal, labels = c("DGT", "DRV/r"))+
     theme_bw()+
     theme(panel.border=element_blank(),
           panel.grid.major=element_blank(),
