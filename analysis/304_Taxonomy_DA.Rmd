@@ -1,0 +1,52 @@
+---
+title: "Taxonomy: Differential Abundance"
+author: "Carlos Blázquez Bondia"
+date: "3/23/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## Data import and exploration
+
+This section should explain anyithing that may have happened during the first fase of importing and formatting data, such as any modification or additional filtering step.
+
+```{r read_data}
+bucket <- "s3://mistral-wp6-advanz4/"
+bucket_dir <- "metagenome/WMGS/"
+
+# mymre <- aws.s3::s3readRDS(bucket = bucket, object = paste0(bucket_dir,"MREObject.rds"))
+mymre <- readRDS(here::here("data","mre.rds"))
+
+metadata <- here::here("Metadata", "metadata.csv") %>%
+  read.csv()
+metadata %>% 
+  dplyr::select(record_id, TimePoint, CD4 )
+
+```
+
+
+```{r declare_support_functions}
+# Any homebrew support function that may be written will be placed here
+
+```
+
+
+# Differential abundance results
+
+Here we will leave all results regarding DA. In case we analyze it by more than one approach (e.g, wilcoxon, ANCOM, etc), each will have it's own subsection)
+
+## Method 1 (e.g: Wilcoxon on count data)
+
+## Method 2 (e.g compositional approach)
+
+
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

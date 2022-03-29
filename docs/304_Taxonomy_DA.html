@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Carlos Blázquez Bondia" />
+
+
+<title>Taxonomy: Differential Abundance</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">advanz4</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+<li>
+  <a href="310_IGC_analysis.html">Gene richness</a>
+</li>
+<li>
+  <a href="320_Beta_Diversity.html">Beta Diversity</a>
+</li>
+<li>
+  <a href="410_Taxonomy_Exploration.html">Taxonomy</a>
+</li>
+<li>
+  <a href="420_Taxonomy_DA.html">Differential Abundance</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Taxonomy: Differential Abundance</h1>
+<h4 class="author">Carlos Blázquez Bondia</h4>
+<h4 class="date">3/23/2022</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2022-03-28
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>advanz4/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211203code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20211203)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20211203code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20211203)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treec51687a773a5cb2f278af76950c55a802ed234cdtargetblankc51687aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/c51687a773a5cb2f278af76950c55a802ed234cd" target="_blank">c51687a</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treec51687a773a5cb2f278af76950c55a802ed234cdtargetblankc51687aa" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/c51687a773a5cb2f278af76950c55a802ed234cd" target="_blank">c51687a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    analysis/.Rhistory
+    Ignored:    data/mre.rds
+
+Untracked files:
+    Untracked:  analysis/304_Taxonomy_DA.Rmd
+
+Unstaged changes:
+    Deleted:    Metadata/.~lock.2022_03_25_clean_metadata_LIMS.csv#
+    Deleted:    Metadata/MetadataManagement/.~lock.Informacio_LIMS.xlsx#
+    Deleted:    Metadata/MetadataManagement/.~lock.LabData.xls#
+    Modified:   analysis/_site.yml
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/304_Taxonomy_DA.Rmd</code>) and HTML (<code>docs/304_Taxonomy_DA.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/c51687a773a5cb2f278af76950c55a802ed234cd/docs/304_Taxonomy_DA.html" target="_blank">c51687a</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-28
+</td>
+<td>
+fixed workflowrs and gene richness issues
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/2040367d569519135daab2a8ad37ec09f0596c92/docs/304_Taxonomy_DA.html" target="_blank">2040367</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-25
+</td>
+<td>
+Added structure plan for code and added TP96 of CD4 and CD8
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="data-import-and-exploration" class="section level2">
+<h2>Data import and exploration</h2>
+<p>This section should explain anyithing that may have happened during the first fase of importing and formatting data, such as any modification or additional filtering step.</p>
+<pre class="r"><code>bucket &lt;- &quot;s3://mistral-wp6-advanz4/&quot;
+bucket_dir &lt;- &quot;metagenome/WMGS/&quot;
+
+# mymre &lt;- aws.s3::s3readRDS(bucket = bucket, object = paste0(bucket_dir,&quot;MREObject.rds&quot;))
+mymre &lt;- readRDS(here::here(&quot;data&quot;,&quot;mre.rds&quot;))</code></pre>
+<pre><code>Registered S3 method overwritten by &#39;ggside&#39;:
+  method from   
+  +.gg   ggplot2</code></pre>
+<pre class="r"><code>metadata &lt;- here::here(&quot;Metadata&quot;, &quot;metadata.csv&quot;) %&gt;%
+  read.csv()
+metadata %&gt;% 
+  dplyr::select(record_id, TimePoint, CD4 )</code></pre>
+<pre><code>    record_id TimePoint   CD4
+1        A001         0  68.0
+2        A001        24 262.0
+3        A001        48 282.0
+4        A001        96    NA
+5        A002         0   3.0
+6        A002        24 148.0
+7        A002        48 185.0
+8        A002        96    NA
+9        A006         0  54.0
+10       A006        24 240.0
+11       A006        48 237.0
+12       A008         0  10.0
+13       A008        24 173.0
+14       A008        48 182.0
+15       A008        96    NA
+16       A009         0  13.0
+17       A009        24 162.0
+18       A009        48 196.0
+19       A009        96    NA
+20       A011         0  23.0
+21       A011        24 229.0
+22       A011        48 333.0
+23       A011        96    NA
+24       A012         0  67.0
+25       A012        24 234.0
+26       A012        48 266.0
+27       A012        96    NA
+28       A013         0  39.0
+29       A013        24 151.0
+30       A013        48 138.0
+31       A013        96    NA
+32       A016         0  82.0
+33       A016        24 204.0
+34       A016        48 262.0
+35       A017         0  81.0
+36       A017        24 393.0
+37       A017        48 416.0
+38       A018         0  12.0
+39       A018        48 240.0
+40       A018        96    NA
+41       A020         0  52.0
+42       A020        24 182.0
+43       A020        48 203.0
+44       A020        96    NA
+45       A021         0 113.0
+46       A021        24 314.0
+47       A021        48 302.0
+48       A021        96    NA
+49       A022         0   7.0
+50       A022        24 100.0
+51       A022        48 165.0
+52       A022        96    NA
+53       A023         0   3.0
+54       A023        24  25.0
+55       A023        48  20.0
+56       A023        96    NA
+57       A024         0  42.0
+58       A024        24 321.0
+59       A024        48 370.0
+60       A024        96    NA
+61       A028         0  77.0
+62       A028        24 347.0
+63       A028        48 295.0
+64       A028        96    NA
+65       A029         0  35.0
+66       A029        24 260.0
+67       A029        48    NA
+68       A029        96    NA
+69       A030         0  31.0
+70       A030        48 714.0
+71       A030        96    NA
+72       A031         0  17.0
+73       A031        24 116.0
+74       A031        48 178.0
+75       A031        96    NA
+76       A032         0   8.0
+77       A032        24 107.0
+78       A032        48 165.0
+79       A033         0  18.0
+80       A033        24 106.0
+81       A033        48 168.0
+82       A033        96    NA
+83       A034         0 100.0
+84       A034        24 311.0
+85       A034        48 342.0
+86       A034        96    NA
+87       A036         0   2.0
+88       A036        24  89.0
+89       A036        48 192.0
+90       A036        96    NA
+91       A037         0   8.0
+92       A037        24  74.0
+93       A037        48 107.0
+94       A037        96    NA
+95       A038         0   8.0
+96       A038        48 218.0
+97       A038        96    NA
+98       B004         0   8.0
+99       B004        48 316.0
+100      B004        96    NA
+101      B005         0   4.0
+102      B005        24  45.0
+103      B005        48  72.0
+104      B005        96    NA
+105      B007         0  42.0
+106      B007        24 310.0
+107      B007        48 365.0
+108      B007        96    NA
+109      C002         0  17.4
+110      C002        48 510.0
+111      C005         0  15.0
+112      C005        48 132.0
+113      C006         0  28.0
+114      C006        48 256.0
+115      C011         0  33.0
+116      C011        48 377.0
+117      C011        96    NA
+118      C014         0  37.0
+119      C014        48 337.0
+120      D001         0  57.0
+121      D001        48  89.4
+122      D001        96    NA
+123      D004         0  17.4
+124      D004        48 152.6
+125      D005         0   3.5
+126      D005        24 141.0
+127      D005        48 159.6
+128      D005        96    NA
+129      D007         0  74.1
+130      D007        24 213.5
+131      D007        48 292.8
+132      D007        96    NA
+133      D008         0   0.0
+134      D008        48  78.6
+135      D008        96    NA
+136      D009         0  17.6
+137      D009        24 156.0
+138      D009        48 435.6
+139      D009        96    NA
+140      D010         0  57.0
+141      D010        24 173.6
+142      D010        48 246.1
+143      D010        96    NA
+144      D011         0  88.2
+145      D011        24 283.2
+146      D011        48 300.0
+147      D011        96    NA
+148      D012         0  78.4
+149      D012        24 167.4
+150      D012        48 195.0
+151      D012        96    NA
+152      D013         0  24.2
+153      D013        24 132.0
+154      D013        48 156.1
+155      D013        96    NA
+156      D014         0 228.8
+157      D014        24 385.0
+158      D014        48 385.2
+159      D014        96    NA
+160      D015         0  19.5
+161      D015        24 110.4
+162      D015        48 100.8
+163      D015        96    NA
+164      E001         0  60.0
+165      E001        48 160.0
+166      E001        96    NA
+167      E004         0  10.0
+168      E004        48 210.0
+169      E004        96    NA
+170      E005         0  50.0
+171      E005        48 420.0
+172      E005        96    NA
+173      E006         0  10.0
+174      E006        48 310.0
+175      E006        96    NA
+176      E008         0  10.0
+177      E008        48 650.0
+178      E008        96    NA
+179      E010         0 100.0
+180      E010        48 200.0
+181      E010        96    NA
+182      E011         0  40.0
+183      E011        48 180.0
+184      E011        96    NA
+185      E013         0  70.0
+186      E013        24 240.0
+187      E013        48 370.0
+188      E013        96    NA
+189      E015         0 100.0
+190      E015        24 360.0
+191      E015        48 530.0
+192      E015        96    NA
+193      E016         0  70.0
+194      E016        24 140.0
+195      E016        48 140.0
+196      E016        96    NA
+197      E017         0 110.0
+198      E017        24 200.0
+199      E017        48 190.0
+200      E017        96    NA
+201      F001         0  40.0
+202      F001        48  97.0
+203      F001        96    NA
+204      F002         0  30.0
+205      F002        48 318.0
+206      F002        96    NA
+207      F003         0  67.0
+208      F003        48 622.0
+209      F003        96    NA
+210      A001         0  68.0
+211      A001        24 262.0
+212      A001        48 282.0
+213      A001        96    NA
+214      A002         0   3.0
+215      A002        24 148.0
+216      A002        48 185.0
+217      A002        96    NA
+218      A006         0  54.0
+219      A006        24 240.0
+220      A006        48 237.0
+221      A008         0  10.0
+222      A008        24 173.0
+223      A008        48 182.0
+224      A008        96    NA
+225      A009         0  13.0
+226      A009        24 162.0
+227      A009        48 196.0
+228      A009        96    NA
+229      A011         0  23.0
+230      A011        24 229.0
+231      A011        48 333.0
+232      A011        96    NA
+233      A012         0  67.0
+234      A012        24 234.0
+235      A012        48 266.0
+236      A012        96    NA
+237      A013         0  39.0
+238      A013        24 151.0
+239      A013        48 138.0
+240      A013        96    NA
+241      A016         0  82.0
+242      A016        24 204.0
+243      A016        48 262.0
+244      A017         0  81.0
+245      A017        24 393.0
+246      A017        48 416.0
+247      A020         0  52.0
+248      A020        24 182.0
+249      A020        48 203.0
+250      A020        96    NA
+251      A021         0 113.0
+252      A021        24 314.0
+253      A021        48 302.0
+254      A021        96    NA
+255      A022         0   7.0
+256      A022        24 100.0
+257      A022        48 165.0
+258      A022        96    NA
+259      A023         0   3.0
+260      A023        24  25.0
+261      A023        48  20.0
+262      A023        96    NA
+263      A024         0  42.0
+264      A024        24 321.0
+265      A024        48 370.0
+266      A024        96    NA
+267      A028         0  77.0
+268      A028        24 347.0
+269      A028        48 295.0
+270      A028        96    NA
+271      A029         0  35.0
+272      A029        24 260.0
+273      A029        48    NA
+274      A029        96    NA
+275      A031         0  17.0
+276      A031        24 116.0
+277      A031        48 178.0
+278      A031        96    NA
+279      A032         0   8.0
+280      A032        24 107.0
+281      A032        48 165.0
+282      A033         0  18.0
+283      A033        24 106.0
+284      A033        48 168.0
+285      A033        96    NA
+286      A034         0 100.0
+287      A034        24 311.0
+288      A034        48 342.0
+289      A034        96    NA
+290      A036         0   2.0
+291      A036        24  89.0
+292      A036        48 192.0
+293      A036        96    NA
+294      A037         0   8.0
+295      A037        24  74.0
+296      A037        48 107.0
+297      A037        96    NA
+298      B005         0   4.0
+299      B005        24  45.0
+300      B005        48  72.0
+301      B005        96    NA
+302      B007         0  42.0
+303      B007        24 310.0
+304      B007        48 365.0
+305      B007        96    NA
+306      D005         0   3.5
+307      D005        24 141.0
+308      D005        48 159.6
+309      D005        96    NA
+310      D007         0  74.1
+311      D007        24 213.5
+312      D007        48 292.8
+313      D007        96    NA
+314      D009         0  17.6
+315      D009        24 156.0
+316      D009        48 435.6
+317      D009        96    NA
+318      D010         0  57.0
+319      D010        24 173.6
+320      D010        48 246.1
+321      D010        96    NA
+322      D011         0  88.2
+323      D011        24 283.2
+324      D011        48 300.0
+325      D011        96    NA
+326      D012         0  78.4
+327      D012        24 167.4
+328      D012        48 195.0
+329      D012        96    NA
+330      D013         0  24.2
+331      D013        24 132.0
+332      D013        48 156.1
+333      D013        96    NA
+334      D014         0 228.8
+335      D014        24 385.0
+336      D014        48 385.2
+337      D014        96    NA
+338      D015         0  19.5
+339      D015        24 110.4
+340      D015        48 100.8
+341      D015        96    NA
+342      E013         0  70.0
+343      E013        24 240.0
+344      E013        48 370.0
+345      E013        96    NA
+346      E015         0 100.0
+347      E015        24 360.0
+348      E015        48 530.0
+349      E015        96    NA
+350      E016         0  70.0
+351      E016        24 140.0
+352      E016        48 140.0
+353      E016        96    NA
+354      E017         0 110.0
+355      E017        24 200.0
+356      E017        48 190.0
+357      E017        96    NA
+358      A001         0  68.0
+359      A001        24 262.0
+360      A001        48 282.0
+361      A001        96    NA
+362      A002         0   3.0
+363      A002        24 148.0
+364      A002        48 185.0
+365      A002        96    NA
+366      A006         0  54.0
+367      A006        24 240.0
+368      A006        48 237.0
+369      A008         0  10.0
+370      A008        24 173.0
+371      A008        48 182.0
+372      A008        96    NA
+373      A009         0  13.0
+374      A009        24 162.0
+375      A009        48 196.0
+376      A009        96    NA
+377      A011         0  23.0
+378      A011        24 229.0
+379      A011        48 333.0
+380      A011        96    NA
+381      A012         0  67.0
+382      A012        24 234.0
+383      A012        48 266.0
+384      A012        96    NA
+385      A013         0  39.0
+386      A013        24 151.0
+387      A013        48 138.0
+388      A013        96    NA
+389      A016         0  82.0
+390      A016        24 204.0
+391      A016        48 262.0
+392      A017         0  81.0
+393      A017        24 393.0
+394      A017        48 416.0
+395      A018         0  12.0
+396      A018        48 240.0
+397      A018        96    NA
+398      A020         0  52.0
+399      A020        24 182.0
+400      A020        48 203.0
+401      A020        96    NA
+402      A021         0 113.0
+403      A021        24 314.0
+404      A021        48 302.0
+405      A021        96    NA
+406      A022         0   7.0
+407      A022        24 100.0
+408      A022        48 165.0
+409      A022        96    NA
+410      A023         0   3.0
+411      A023        24  25.0
+412      A023        48  20.0
+413      A023        96    NA
+414      A024         0  42.0
+415      A024        24 321.0
+416      A024        48 370.0
+417      A024        96    NA
+418      A028         0  77.0
+419      A028        24 347.0
+420      A028        48 295.0
+421      A028        96    NA
+422      A029         0  35.0
+423      A029        24 260.0
+424      A029        48    NA
+425      A029        96    NA
+426      A030         0  31.0
+427      A030        48 714.0
+428      A030        96    NA
+429      A031         0  17.0
+430      A031        24 116.0
+431      A031        48 178.0
+432      A031        96    NA
+433      A032         0   8.0
+434      A032        24 107.0
+435      A032        48 165.0
+436      A033         0  18.0
+437      A033        24 106.0
+438      A033        48 168.0
+439      A033        96    NA
+440      A034         0 100.0
+441      A034        24 311.0
+442      A034        48 342.0
+443      A034        96    NA
+444      A036         0   2.0
+445      A036        24  89.0
+446      A036        48 192.0
+447      A036        96    NA
+448      A037         0   8.0
+449      A037        24  74.0
+450      A037        48 107.0
+451      A037        96    NA
+452      A038         0   8.0
+453      A038        48 218.0
+454      A038        96    NA
+455      B004         0   8.0
+456      B004        48 316.0
+457      B004        96    NA
+458      B005         0   4.0
+459      B005        24  45.0
+460      B005        48  72.0
+461      B005        96    NA
+462      B007         0  42.0
+463      B007        24 310.0
+464      B007        48 365.0
+465      B007        96    NA
+466      C002         0  17.4
+467      C002        48 510.0
+468      C005         0  15.0
+469      C005        48 132.0
+470      C006         0  28.0
+471      C006        48 256.0
+472      C011         0  33.0
+473      C011        48 377.0
+474      C011        96    NA
+475      C014         0  37.0
+476      C014        48 337.0
+477      D001         0  57.0
+478      D001        48  89.4
+479      D001        96    NA
+480      D004         0  17.4
+481      D004        48 152.6
+482      D005         0   3.5
+483      D005        24 141.0
+484      D005        48 159.6
+485      D005        96    NA
+486      D007         0  74.1
+487      D007        24 213.5
+488      D007        48 292.8
+489      D007        96    NA
+490      D008         0   0.0
+491      D008        48  78.6
+492      D008        96    NA
+493      D009         0  17.6
+494      D009        24 156.0
+495      D009        48 435.6
+496      D009        96    NA
+497      D010         0  57.0
+498      D010        24 173.6
+499      D010        48 246.1
+500      D010        96    NA
+501      D011         0  88.2
+502      D011        24 283.2
+503      D011        48 300.0
+504      D011        96    NA
+505      D012         0  78.4
+506      D012        24 167.4
+507      D012        48 195.0
+508      D012        96    NA
+509      D013         0  24.2
+510      D013        24 132.0
+511      D013        48 156.1
+512      D013        96    NA
+513      D014         0 228.8
+514      D014        24 385.0
+515      D014        48 385.2
+516      D014        96    NA
+517      D015         0  19.5
+518      D015        24 110.4
+519      D015        48 100.8
+520      D015        96    NA
+521      E001         0  60.0
+522      E001        48 160.0
+523      E001        96    NA
+524      E004         0  10.0
+525      E004        48 210.0
+526      E004        96    NA
+527      E005         0  50.0
+528      E005        48 420.0
+529      E005        96    NA
+530      E006         0  10.0
+531      E006        48 310.0
+532      E006        96    NA
+533      E008         0  10.0
+534      E008        48 650.0
+535      E008        96    NA
+536      E010         0 100.0
+537      E010        48 200.0
+538      E010        96    NA
+539      E011         0  40.0
+540      E011        48 180.0
+541      E011        96    NA
+542      E013         0  70.0
+543      E013        24 240.0
+544      E013        48 370.0
+545      E013        96    NA
+546      E015         0 100.0
+547      E015        24 360.0
+548      E015        48 530.0
+549      E015        96    NA
+550      E016         0  70.0
+551      E016        24 140.0
+552      E016        48 140.0
+553      E016        96    NA
+554      E017         0 110.0
+555      E017        24 200.0
+556      E017        48 190.0
+557      E017        96    NA
+558      F001         0  40.0
+559      F001        48  97.0
+560      F001        96    NA
+561      F002         0  30.0
+562      F002        48 318.0
+563      F002        96    NA
+564      F003         0  67.0
+565      F003        48 622.0
+566      F003        96    NA
+567      A001         0  68.0
+568      A001        24 262.0
+569      A001        48 282.0
+570      A001        96    NA
+571      A002         0   3.0
+572      A002        24 148.0
+573      A002        48 185.0
+574      A002        96    NA
+575      A008         0  10.0
+576      A008        24 173.0
+577      A008        48 182.0
+578      A008        96    NA
+579      A009         0  13.0
+580      A009        24 162.0
+581      A009        48 196.0
+582      A009        96    NA
+583      A011         0  23.0
+584      A011        24 229.0
+585      A011        48 333.0
+586      A011        96    NA
+587      A012         0  67.0
+588      A012        24 234.0
+589      A012        48 266.0
+590      A012        96    NA
+591      A013         0  39.0
+592      A013        24 151.0
+593      A013        48 138.0
+594      A013        96    NA
+595      A018         0  12.0
+596      A018        48 240.0
+597      A018        96    NA
+598      A020         0  52.0
+599      A020        24 182.0
+600      A020        48 203.0
+601      A020        96    NA
+602      A021         0 113.0
+603      A021        24 314.0
+604      A021        48 302.0
+605      A021        96    NA
+606      A022         0   7.0
+607      A022        24 100.0
+608      A022        48 165.0
+609      A022        96    NA
+610      A023         0   3.0
+611      A023        24  25.0
+612      A023        48  20.0
+613      A023        96    NA
+614      A024         0  42.0
+615      A024        24 321.0
+616      A024        48 370.0
+617      A024        96    NA
+618      A028         0  77.0
+619      A028        24 347.0
+620      A028        48 295.0
+621      A028        96    NA
+622      A029         0  35.0
+623      A029        24 260.0
+624      A029        48    NA
+625      A029        96    NA
+626      A030         0  31.0
+627      A030        48 714.0
+628      A030        96    NA
+629      A031         0  17.0
+630      A031        24 116.0
+631      A031        48 178.0
+632      A031        96    NA
+633      A033         0  18.0
+634      A033        24 106.0
+635      A033        48 168.0
+636      A033        96    NA
+637      A034         0 100.0
+638      A034        24 311.0
+639      A034        48 342.0
+640      A034        96    NA
+641      A036         0   2.0
+642      A036        24  89.0
+643      A036        48 192.0
+644      A036        96    NA
+645      A037         0   8.0
+646      A037        24  74.0
+647      A037        48 107.0
+648      A037        96    NA
+649      A038         0   8.0
+650      A038        48 218.0
+651      A038        96    NA
+652      B004         0   8.0
+653      B004        48 316.0
+654      B004        96    NA
+655      B005         0   4.0
+656      B005        24  45.0
+657      B005        48  72.0
+658      B005        96    NA
+659      B007         0  42.0
+660      B007        24 310.0
+661      B007        48 365.0
+662      B007        96    NA
+663      C011         0  33.0
+664      C011        48 377.0
+665      C011        96    NA
+666      D001         0  57.0
+667      D001        48  89.4
+668      D001        96    NA
+669      D005         0   3.5
+670      D005        24 141.0
+671      D005        48 159.6
+672      D005        96    NA
+673      D007         0  74.1
+674      D007        24 213.5
+675      D007        48 292.8
+676      D007        96    NA
+677      D008         0   0.0
+678      D008        48  78.6
+679      D008        96    NA
+680      D009         0  17.6
+681      D009        24 156.0
+682      D009        48 435.6
+683      D009        96    NA
+684      D010         0  57.0
+685      D010        24 173.6
+686      D010        48 246.1
+687      D010        96    NA
+688      D011         0  88.2
+689      D011        24 283.2
+690      D011        48 300.0
+691      D011        96    NA
+692      D012         0  78.4
+693      D012        24 167.4
+694      D012        48 195.0
+695      D012        96    NA
+696      D013         0  24.2
+697      D013        24 132.0
+698      D013        48 156.1
+699      D013        96    NA
+700      D014         0 228.8
+701      D014        24 385.0
+702      D014        48 385.2
+703      D014        96    NA
+704      D015         0  19.5
+705      D015        24 110.4
+706      D015        48 100.8
+707      D015        96    NA
+708      E001         0  60.0
+709      E001        48 160.0
+710      E001        96    NA
+711      E004         0  10.0
+712      E004        48 210.0
+713      E004        96    NA
+714      E005         0  50.0
+715      E005        48 420.0
+716      E005        96    NA
+717      E006         0  10.0
+718      E006        48 310.0
+719      E006        96    NA
+720      E008         0  10.0
+721      E008        48 650.0
+722      E008        96    NA
+723      E010         0 100.0
+724      E010        48 200.0
+725      E010        96    NA
+726      E011         0  40.0
+727      E011        48 180.0
+728      E011        96    NA
+729      E013         0  70.0
+730      E013        24 240.0
+731      E013        48 370.0
+732      E013        96    NA
+733      E015         0 100.0
+734      E015        24 360.0
+735      E015        48 530.0
+736      E015        96    NA
+737      E016         0  70.0
+738      E016        24 140.0
+739      E016        48 140.0
+740      E016        96    NA
+741      E017         0 110.0
+742      E017        24 200.0
+743      E017        48 190.0
+744      E017        96    NA
+745      F001         0  40.0
+746      F001        48  97.0
+747      F001        96    NA
+748      F002         0  30.0
+749      F002        48 318.0
+750      F002        96    NA
+751      F003         0  67.0
+752      F003        48 622.0
+753      F003        96    NA</code></pre>
+<pre class="r"><code># Any homebrew support function that may be written will be placed here</code></pre>
+</div>
+<div id="differential-abundance-results" class="section level1">
+<h1>Differential abundance results</h1>
+<p>Here we will leave all results regarding DA. In case we analyze it by more than one approach (e.g, wilcoxon, ANCOM, etc), each will have it’s own subsection)</p>
+<div id="method-1-e.g-wilcoxon-on-count-data" class="section level2">
+<h2>Method 1 (e.g: Wilcoxon on count data)</h2>
+</div>
+<div id="method-2-e.g-compositional-approach" class="section level2">
+<h2>Method 2 (e.g compositional approach)</h2>
+<p><img src="figure/304_Taxonomy_DA.Rmd/pressure-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pressure-1">
+Past versions of pressure-1.png
+</button>
+</p>
+<div id="fig-pressure-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/2040367d569519135daab2a8ad37ec09f0596c92/docs/figure/304_Taxonomy_DA.Rmd/pressure-1.png" target="_blank">2040367</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.5 (2021-03-31)
+Platform: x86_64-redhat-linux-gnu (64-bit)
+Running under: Fedora 34 (Workstation Edition)
+
+Matrix products: default
+BLAS/LAPACK: /usr/lib64/libflexiblas.so.3.1
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.8     purrr_0.3.4    
+ [5] readr_2.1.0     tidyr_1.2.0     tibble_3.1.6    ggplot2_3.3.5  
+ [9] tidyverse_1.3.1 devtools_2.4.2  usethis_2.1.3   workflowr_1.7.0
+
+loaded via a namespace (and not attached):
+  [1] estimability_1.3            coda_0.19-4                
+  [3] knitr_1.37                  multcomp_1.4-17            
+  [5] DelayedArray_0.16.3         data.table_1.14.2          
+  [7] RCurl_1.98-1.5              generics_0.1.2             
+  [9] BiocGenerics_0.36.1         callr_3.7.0                
+ [11] TH.data_1.1-0               metar_0.1.4                
+ [13] mixOmics_6.14.1             future_1.23.0              
+ [15] correlation_0.7.1.1         tzdb_0.2.0                 
+ [17] bayesm_3.1-4                xml2_1.3.2                 
+ [19] lubridate_1.8.0             httpuv_1.6.3               
+ [21] SummarizedExperiment_1.20.0 assertthat_0.2.1           
+ [23] WRS2_1.1-3                  xfun_0.30                  
+ [25] hms_1.1.1                   jquerylib_0.1.4            
+ [27] evaluate_0.15               promises_1.2.0.1           
+ [29] DEoptimR_1.0-9              fansi_1.0.2                
+ [31] dbplyr_2.1.1                readxl_1.3.1               
+ [33] igraph_1.2.11               DBI_1.1.1                  
+ [35] reshape_0.8.8               tensorA_0.36.2             
+ [37] rARPACK_0.11-0              kSamples_1.2-9             
+ [39] stats4_4.0.5                Rmpfr_0.8-7                
+ [41] paletteer_1.4.0             ellipsis_0.3.2             
+ [43] RSpectra_0.16-0             ggpubr_0.4.0               
+ [45] backports_1.4.1             insight_0.14.5.1           
+ [47] permute_0.9-7               compositions_2.0-2         
+ [49] libcoin_1.0-9               MatrixGenerics_1.2.1       
+ [51] vctrs_0.3.8                 Biobase_2.50.0             
+ [53] remotes_2.4.1               here_1.0.1                 
+ [55] Cairo_1.5-12.2              abind_1.4-5                
+ [57] cachem_1.0.6                withr_2.5.0                
+ [59] ggforce_0.3.3               robustbase_0.93-9          
+ [61] emmeans_1.7.0               vegan_2.5-7                
+ [63] prettyunits_1.1.1           cluster_2.1.2              
+ [65] ape_5.6-2                   crayon_1.5.0               
+ [67] ellipse_0.4.2               pkgconfig_2.0.3            
+ [69] SuppDists_1.1-9.5           tweenr_1.0.2               
+ [71] GenomeInfoDb_1.26.7         nlme_3.1-153               
+ [73] statsExpressions_1.2.0      pkgload_1.2.4              
+ [75] rlang_1.0.2                 globals_0.14.0             
+ [77] lifecycle_1.0.1             sandwich_3.0-1             
+ [79] selbal_0.1.0                phyloseq_1.34.0            
+ [81] modelr_0.1.8                cellranger_1.1.0           
+ [83] rprojroot_2.0.2             polyclip_1.10-0            
+ [85] matrixStats_0.61.0          datawizard_0.2.1.9000      
+ [87] Matrix_1.3-4                mc2d_0.1-21                
+ [89] carData_3.0-5               Rhdf5lib_1.12.1            
+ [91] zoo_1.8-9                   reprex_2.0.1               
+ [93] whisker_0.4                 GlobalOptions_0.1.2        
+ [95] processx_3.5.2              png_0.1-7                  
+ [97] rjson_0.2.20                PMCMRplus_1.9.3            
+ [99] parameters_0.15.0.1         bitops_1.0-7               
+[101] getPass_0.2-2               pROC_1.18.0                
+[103] rhdf5filters_1.2.1          Biostrings_2.58.0          
+[105] shape_1.4.6                 multcompView_0.1-8         
+[107] coin_1.4-2                  parallelly_1.28.1          
+[109] lefser_1.0.0                rstatix_0.7.0              
+[111] S4Vectors_0.28.1            ggsignif_0.6.3             
+[113] scales_1.1.1                memoise_2.0.0              
+[115] magrittr_2.0.2              plyr_1.8.6                 
+[117] zlibbioc_1.36.0             compiler_4.0.5             
+[119] RColorBrewer_1.1-2          clue_0.3-60                
+[121] cli_3.2.0                   ade4_1.7-18                
+[123] XVector_0.30.0              listenv_0.8.0              
+[125] patchwork_1.1.1             ps_1.6.0                   
+[127] MASS_7.3-54                 mgcv_1.8-38                
+[129] ggside_0.1.3                tidyselect_1.1.2           
+[131] stringi_1.7.6               highr_0.9                  
+[133] yaml_2.3.5                  ggrepel_0.9.1              
+[135] grid_4.0.5                  sass_0.4.0                 
+[137] tools_4.0.5                 parallel_4.0.5             
+[139] circlize_0.4.13             rstudioapi_0.13            
+[141] modules_0.10.0              foreach_1.5.2              
+[143] git2r_0.29.0                gridExtra_2.3              
+[145] farver_2.1.0                digest_0.6.29              
+[147] BWStest_0.2.2               Rcpp_1.0.8                 
+[149] car_3.0-12                  GenomicRanges_1.42.0       
+[151] broom_0.7.12                performance_0.8.0.1        
+[153] later_1.3.0                 httr_1.4.2                 
+[155] ComplexHeatmap_2.6.2        colorspace_2.0-3           
+[157] rvest_1.0.2                 brio_1.1.3                 
+[159] fs_1.5.0                    IRanges_2.24.1             
+[161] splines_4.0.5               rematch2_2.1.2             
+[163] multtest_2.46.0             sessioninfo_1.2.1          
+[165] xtable_1.8-4                gmp_0.6-2.1                
+[167] jsonlite_1.8.0              corpcor_1.6.10             
+[169] zeallot_0.1.0               modeltools_0.2-23          
+[171] testthat_3.1.2              R6_2.5.1                   
+[173] pillar_1.7.0                htmltools_0.5.2            
+[175] glue_1.6.2                  fastmap_1.1.0              
+[177] BiocParallel_1.24.1         codetools_0.2-18           
+[179] pkgbuild_1.2.0              mvtnorm_1.1-3              
+[181] utf8_1.2.2                  lattice_0.20-45            
+[183] bslib_0.3.1                 survival_3.2-13            
+[185] rmarkdown_2.11              desc_1.4.1                 
+[187] biomformat_1.18.0           munsell_0.5.0              
+[189] GetoptLong_1.0.5            rhdf5_2.34.0               
+[191] GenomeInfoDbData_1.2.4      iterators_1.0.14           
+[193] ggstatsplot_0.9.0           haven_2.4.3                
+[195] reshape2_1.4.4              gtable_0.3.0               
+[197] bayestestR_0.11.5.1        </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

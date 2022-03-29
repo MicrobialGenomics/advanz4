@@ -262,13 +262,13 @@ $(document).ready(function () {
   <a href="310_IGC_analysis.html">Gene richness</a>
 </li>
 <li>
-  <a href="320_Beta_Diversity.Rmd">Beta Diversity</a>
+  <a href="320_Beta_Diversity.html">Beta Diversity</a>
 </li>
 <li>
-  <a href="410_Taxonomy_Exploration.Rmd">Taxonomy</a>
+  <a href="410_Taxonomy_Exploration.html">Taxonomy</a>
 </li>
 <li>
-  <a href="420_Taxonomy_DA.Rmd">Differential Abundance</a>
+  <a href="420_Taxonomy_DA.html">Differential Abundance</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -398,16 +398,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree68ef5b36b734e7ad7444690b6aee98e6029cbfc9targetblank68ef5b3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/68ef5b36b734e7ad7444690b6aee98e6029cbfc9" target="_blank">68ef5b3</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treec51687a773a5cb2f278af76950c55a802ed234cdtargetblankc51687aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/c51687a773a5cb2f278af76950c55a802ed234cd" target="_blank">c51687a</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree68ef5b36b734e7ad7444690b6aee98e6029cbfc9targetblank68ef5b3a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treec51687a773a5cb2f278af76950c55a802ed234cdtargetblankc51687aa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/68ef5b36b734e7ad7444690b6aee98e6029cbfc9" target="_blank">68ef5b3</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/c51687a773a5cb2f278af76950c55a802ed234cd" target="_blank">c51687a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -420,17 +420,12 @@ Ignored files:
     Ignored:    data/mre.rds
 
 Untracked files:
-    Untracked:  analysis/410_Taxonomy_Exploration.Rmd
+    Untracked:  analysis/304_Taxonomy_DA.Rmd
 
 Unstaged changes:
-    Modified:   analysis/002_datatransfer.Rmd
-    Modified:   analysis/006_DataPreprocessing.Rmd
-    Modified:   analysis/008_PopulateMRE.Rmd
-    Modified:   analysis/020_MetaExplorer_Report.Rmd
-    Modified:   analysis/030_AnalysisPlan.Rmd
-    Modified:   analysis/200_ADVANZ4_Report.Rmd
-    Modified:   analysis/310_IGC_analysis.Rmd
-    Deleted:    analysis/310_Taxonomy_Exploration.Rmd
+    Deleted:    Metadata/.~lock.2022_03_25_clean_metadata_LIMS.csv#
+    Deleted:    Metadata/MetadataManagement/.~lock.Informacio_LIMS.xlsx#
+    Deleted:    Metadata/MetadataManagement/.~lock.LabData.xls#
     Modified:   analysis/320_Beta_Diversity.Rmd
     Modified:   analysis/_site.yml
     Modified:   output/mre_data/CatalogMapping/IGC/lmm/lmm_time_point_by_group.pdf
@@ -472,6 +467,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/c51687a773a5cb2f278af76950c55a802ed234cd/analysis/320_Beta_Diversity.Rmd" target="_blank">c51687a</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-28
+</td>
+<td>
+fixed workflowrs and gene richness issues
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/c51687a773a5cb2f278af76950c55a802ed234cd/docs/320_Beta_Diversity.html" target="_blank">c51687a</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-28
+</td>
+<td>
+fixed workflowrs and gene richness issues
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -694,186 +723,7 @@ BiPlotCoordsDF &lt;- c(&quot;MDS1&quot;,&quot;MDS2&quot;,&quot;r&quot;,&quot;pva
   dplyr::filter(species %in% Top50)
   
 
-myBrayDistMat &lt;-vegdist(wisconsin(sqrt(t(myAbundanceDF))))
-
-pam</code></pre>
-<pre><code>function (x, k, diss = inherits(x, &quot;dist&quot;), metric = c(&quot;euclidean&quot;, 
-    &quot;manhattan&quot;), medoids = if (is.numeric(nstart)) &quot;random&quot;, 
-    nstart = if (variant == &quot;faster&quot;) 1L else NA, stand = FALSE, 
-    cluster.only = FALSE, do.swap = TRUE, keep.diss = !diss &amp;&amp; 
-        !cluster.only &amp;&amp; n &lt; 100, keep.data = !diss &amp;&amp; !cluster.only, 
-    variant = c(&quot;original&quot;, &quot;o_1&quot;, &quot;o_2&quot;, &quot;f_3&quot;, &quot;f_4&quot;, &quot;f_5&quot;, 
-        &quot;faster&quot;), pamonce = FALSE, trace.lev = 0) 
-{
-    stopifnot(length(cluster.only) == 1, length(trace.lev) == 
-        1)
-    nMax &lt;- 65536
-    if ((diss &lt;- as.logical(diss))) {
-        if (anyNA(x)) 
-            stop(&quot;NA values in the dissimilarity matrix not allowed.&quot;)
-        if (data.class(x) != &quot;dissimilarity&quot;) {
-            if (!is.null(dim(x))) {
-                x &lt;- as.dist(x)
-            }
-            else {
-                if (!is.numeric(x) || is.na(n &lt;- sizeDiss(x))) 
-                  stop(&quot;&#39;x&#39; is not and cannot be converted to class \&quot;dissimilarity\&quot;&quot;)
-                attr(x, &quot;Size&quot;) &lt;- n
-            }
-            class(x) &lt;- dissiCl
-            if (is.null(attr(x, &quot;Metric&quot;))) 
-                attr(x, &quot;Metric&quot;) &lt;- &quot;unspecified&quot;
-        }
-        if (keep.data) 
-            stop(&quot;Cannot keep data when &#39;x&#39; is a dissimilarity!&quot;)
-        n &lt;- attr(x, &quot;Size&quot;)
-        if (n &gt; nMax) 
-            stop(gettextf(&quot;have %d observations, but not more than %d are allowed&quot;, 
-                n, nMax))
-        dv &lt;- x[lower.to.upper.tri.inds(n)]
-        dv &lt;- c(0, dv)
-        storage.mode(dv) &lt;- &quot;double&quot;
-        jp &lt;- 1
-        mdata &lt;- FALSE
-        ndyst &lt;- 0
-    }
-    else {
-        x &lt;- data.matrix(x)
-        if (!is.numeric(x)) 
-            stop(&quot;x is not a numeric dataframe or matrix.&quot;)
-        x2 &lt;- x
-        dimnames(x2) &lt;- NULL
-        n &lt;- nrow(x2)
-        if (n &gt; nMax) 
-            stop(gettextf(&quot;have %d observations, but not more than %d are allowed&quot;, 
-                n, nMax))
-        if (stand) 
-            x2 &lt;- scale(x2, scale = apply(x2, 2, meanabsdev))
-        metric &lt;- match.arg(metric)
-        ndyst &lt;- c(euclidean = 1L, manhattan = 2L)[[metric]]
-        jp &lt;- ncol(x2)
-        if ((mdata &lt;- any(inax &lt;- is.na(x2)))) {
-            jtmd &lt;- integer(jp)
-            jtmd[apply(inax, 2L, any)] &lt;- -1L
-            valmisdat &lt;- 1.1 * max(abs(range(x2, na.rm = TRUE)))
-            x2[inax] &lt;- valmisdat
-        }
-        storage.mode(x2) &lt;- &quot;double&quot;
-    }
-    if ((k &lt;- as.integer(k)) &lt; 1 || k &gt;= n) 
-        stop(&quot;Number of clusters &#39;k&#39; must be in {1,2, .., n-1}; hence n &gt;= 2&quot;)
-    missVari &lt;- missing(variant)
-    variant &lt;- match.arg(variant)
-    if (!missVari) {
-        if (!missing(pamonce)) 
-            stop(&quot;Set either &#39;variant&#39; or &#39;pamonce&#39;, but not both&quot;)
-        pamonce &lt;- -1L + match(variant, c(&quot;original&quot;, &quot;o_1&quot;, 
-            &quot;o_2&quot;, &quot;f_3&quot;, &quot;f_4&quot;, &quot;f_5&quot;, &quot;faster&quot;))
-        if (missing(medoids) &amp;&amp; variant == &quot;faster&quot;) 
-            medoids &lt;- &quot;random&quot;
-    }
-    if (randIni &lt;- identical(&quot;random&quot;, medoids)) 
-        medoids &lt;- sample.int(n, k)
-    else if (!is.null(medoids)) {
-        if (!is.integer(medoids)) 
-            medoids &lt;- as.integer(medoids)
-        if (length(medoids) != k || any(medoids &lt; 1L) || any(medoids &gt; 
-            n) || any(duplicated(medoids))) 
-            stop(gettextf(&quot;&#39;medoids&#39; must be NULL or vector of %d distinct indices in {1,2, .., n}, n=%d&quot;, 
-                k, n))
-    }
-    nisol &lt;- integer(if (cluster.only) 
-        1
-    else k)
-    if (do.swap) 
-        nisol[1] &lt;- 1L
-    pamDo &lt;- function(medoids) {
-        .Call(cl_Pam, k, n, !diss, if (diss) dv else x2, !cluster.only, 
-            medoids, do.swap, trace.lev, keep.diss, pamonce, 
-            if (mdata) rep(valmisdat, jp) else double(1), if (mdata) jtmd else integer(jp), 
-            ndyst)
-    }
-    if (randIni &amp;&amp; nstart &gt;= 2) {
-        it &lt;- 0L
-        res &lt;- pamDo(medoids)
-        if (!diss &amp;&amp; is.integer(res)) 
-            stop(&quot;No clustering performed, NAs in the computed dissimilarity matrix.&quot;)
-        for (it in 2:nstart) {
-            r &lt;- pamDo(medoids = sample.int(n, k))
-            if (r$obj[2] &lt; res$obj[2]) {
-                if (trace.lev) 
-                  cat(sprintf(&quot;Found better objective, %g &lt; %g (it=%d)\n&quot;, 
-                    r$obj[2], res$obj[2], it))
-                res &lt;- r
-            }
-        }
-    }
-    else {
-        res &lt;- pamDo(medoids)
-        if (!diss &amp;&amp; is.integer(res)) 
-            stop(&quot;No clustering performed, NAs in the computed dissimilarity matrix.&quot;)
-    }
-    xLab &lt;- if (diss) 
-        attr(x, &quot;Labels&quot;)
-    else dimnames(x)[[1]]
-    r.clu &lt;- res$clu
-    if (length(xLab) &gt; 0) 
-        names(r.clu) &lt;- xLab
-    if (cluster.only) 
-        return(r.clu)
-    medID &lt;- res$med
-    if (any(medID &lt;= 0)) 
-        stop(&quot;error from .C(cl_pam, *): invalid medID&#39;s&quot;)
-    sildim &lt;- res$silinf[, 4]
-    if (diss) {
-        r.med &lt;- if (length(xLab) &gt; 0) {
-            sildim &lt;- xLab[sildim]
-            xLab[medID]
-        }
-        else medID
-    }
-    else {
-        if (keep.diss) {
-            disv &lt;- res$dys[-1]
-            disv[disv == -1] &lt;- NA
-            disv &lt;- disv[upper.to.lower.tri.inds(n)]
-            class(disv) &lt;- dissiCl
-            attr(disv, &quot;Size&quot;) &lt;- nrow(x)
-            attr(disv, &quot;Metric&quot;) &lt;- metric
-            attr(disv, &quot;Labels&quot;) &lt;- dimnames(x)[[1]]
-        }
-        r.med &lt;- x[medID, , drop = FALSE]
-        if (length(xLab) &gt; 0) 
-            sildim &lt;- xLab[sildim]
-    }
-    r.obj &lt;- structure(res$obj, .Names = c(&quot;build&quot;, &quot;swap&quot;))
-    r.isol &lt;- factor(res$isol, levels = 0:2, labels = c(&quot;no&quot;, 
-        &quot;L&quot;, &quot;L*&quot;))
-    names(r.isol) &lt;- 1:k
-    r.clusinf &lt;- res$clusinf
-    dimnames(r.clusinf) &lt;- list(NULL, c(&quot;size&quot;, &quot;max_diss&quot;, &quot;av_diss&quot;, 
-        &quot;diameter&quot;, &quot;separation&quot;))
-    r &lt;- list(medoids = r.med, id.med = medID, clustering = r.clu, 
-        objective = r.obj, isolation = r.isol, clusinfo = r.clusinf, 
-        silinfo = if (k != 1) {
-            silinf &lt;- res$silinf[, -4, drop = FALSE]
-            dimnames(silinf) &lt;- list(sildim, c(&quot;cluster&quot;, &quot;neighbor&quot;, 
-                &quot;sil_width&quot;))
-            list(widths = silinf, clus.avg.widths = res$avsil[1:k], 
-                avg.width = res$ttsil)
-        }, diss = if (keep.diss) {
-            if (diss) x else disv
-        }, call = match.call())
-    if (keep.data) {
-        if (mdata) 
-            x2[x2 == valmisdat] &lt;- NA
-        r$data &lt;- structure(x2, dimnames = dimnames(x))
-    }
-    class(r) &lt;- c(&quot;pam&quot;, &quot;partition&quot;)
-    r
-}
-&lt;bytecode: 0x556b26992c88&gt;
-&lt;environment: namespace:cluster&gt;</code></pre>
+myBrayDistMat &lt;-vegdist(wisconsin(sqrt(t(myAbundanceDF))))</code></pre>
 </div>
 <div id="nmds-by-treatment-group" class="section level2">
 <h2>NMDS by Treatment group</h2>
@@ -974,6 +824,45 @@ myNMDSBiplot&lt;-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
   annotation_custom(gridExtra::tableGrob(round(myAdonis,3), 
                                          theme = ttheme_default(base_size = 8)),ymin = 3.5, xmin=2.4)</code></pre>
 <p>When we look at the most simple ordination before colouring by categorical variables, we see no clear separated clusters between samples. They all appear to be mostly concentrated in one big cluster that randomly spreads in the positive direction for both NMDS components.</p>
+<pre class="r"><code>myNMDSplot</code></pre>
+<p><img src="figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_basic_NMDS-1">
+Past versions of plot_basic_NMDS-1.png
+</button>
+</p>
+<div id="fig-plot_basic_NMDS-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/c51687a773a5cb2f278af76950c55a802ed234cd/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-1.png" target="_blank">c51687a</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>In a more formal analysis, the silhouette coefficient was tested for different number of clusters. This analysis found the biggest coefficient was found for n=1 clustrs, with massive drops between 2-3 and 5-6.</p>
 <pre class="r"><code>c(1:11) %&gt;%
   set_names() %&gt;%
@@ -995,8 +884,84 @@ myNMDSBiplot&lt;-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
   labs(title = &quot;Silhouette coefficient by number of clusters&quot;, 
        x=&quot;nº Clusters&quot;, y = &quot;Silhouette coefficient&quot;)</code></pre>
 <p><img src="figure/320_Beta_Diversity.Rmd/silhouette_analysis-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-silhouette_analysis-1">
+Past versions of silhouette_analysis-1.png
+</button>
+</p>
+<div id="fig-silhouette_analysis-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/c51687a773a5cb2f278af76950c55a802ed234cd/docs/figure/320_Beta_Diversity.Rmd/silhouette_analysis-1.png" target="_blank">c51687a</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>In the same fashion, when we start identifying samples by group and Timepoint, we see no clear separation, although samples from group 1 (+DGT) group appear to be more clustered together than group 2 (DRV+RLT), which show a more diffuse “central” cluster and are more dispersed. When looking at weight of the variables, the concentric spread of the arrows can be split in two sides, one more enriched in Prevotella and another in bacteroides, which spread mostly around the 2nd component of the NMDS.</p>
 <p>However, the Adonis test found the variable group to have a significant effect over sample distances (p&lt;0.001), although it only accounted for a small portion of the variance</p>
+<pre class="r"><code>myNMDSBiplot</code></pre>
+<p><img src="figure/320_Beta_Diversity.Rmd/plot_biplot-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_biplot-1">
+Past versions of plot_biplot-1.png
+</button>
+</p>
+<div id="fig-plot_biplot-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/c51687a773a5cb2f278af76950c55a802ed234cd/docs/figure/320_Beta_Diversity.Rmd/plot_biplot-1.png" target="_blank">c51687a</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1028,7 +993,7 @@ other attached packages:
  [5] lattice_0.20-45 permute_0.9-7   forcats_0.5.1   stringr_1.4.0  
  [9] dplyr_1.0.8     purrr_0.3.4     readr_2.1.0     tidyr_1.2.0    
 [13] tibble_3.1.6    ggplot2_3.3.5   tidyverse_1.3.1 phyloseq_1.34.0
-[17] metar_0.1.4     devtools_2.4.2  usethis_2.1.3   workflowr_1.7.0
+[17] metar_0.1.4    
 
 loaded via a namespace (and not attached):
   [1] estimability_1.3            coda_0.19-4                
@@ -1036,103 +1001,98 @@ loaded via a namespace (and not attached):
   [5] DelayedArray_0.16.3         data.table_1.14.2          
   [7] DataExplorer_0.8.2          RCurl_1.98-1.5             
   [9] generics_0.1.2              BiocGenerics_0.36.1        
- [11] callr_3.7.0                 TH.data_1.1-0              
- [13] mixOmics_6.14.1             future_1.23.0              
- [15] correlation_0.7.1.1         tzdb_0.2.0                 
- [17] bayesm_3.1-4                xml2_1.3.2                 
- [19] lubridate_1.8.0             httpuv_1.6.3               
- [21] SummarizedExperiment_1.20.0 assertthat_0.2.1           
- [23] WRS2_1.1-3                  xfun_0.30                  
- [25] hms_1.1.1                   jquerylib_0.1.4            
- [27] evaluate_0.15               promises_1.2.0.1           
- [29] DEoptimR_1.0-9              fansi_1.0.2                
- [31] dbplyr_2.1.1                readxl_1.3.1               
- [33] igraph_1.2.11               DBI_1.1.1                  
- [35] htmlwidgets_1.5.4           reshape_0.8.8              
- [37] tensorA_0.36.2              rARPACK_0.11-0             
- [39] kSamples_1.2-9              stats4_4.0.5               
- [41] paletteer_1.4.0             Rmpfr_0.8-7                
- [43] ellipsis_0.3.2              RSpectra_0.16-0            
- [45] ggpubr_0.4.0                backports_1.4.1            
- [47] insight_0.14.5.1            compositions_2.0-2         
- [49] libcoin_1.0-9               MatrixGenerics_1.2.1       
- [51] vctrs_0.3.8                 Biobase_2.50.0             
- [53] remotes_2.4.1               here_1.0.1                 
- [55] Cairo_1.5-12.2              abind_1.4-5                
- [57] cachem_1.0.6                withr_2.5.0                
- [59] ggforce_0.3.3               robustbase_0.93-9          
- [61] emmeans_1.7.0               prettyunits_1.1.1          
- [63] ape_5.6-2                   crayon_1.5.0               
- [65] ellipse_0.4.2               labeling_0.4.2             
- [67] pkgconfig_2.0.3             SuppDists_1.1-9.5          
- [69] tweenr_1.0.2                GenomeInfoDb_1.26.7        
- [71] nlme_3.1-153                statsExpressions_1.2.0     
- [73] pkgload_1.2.4               blme_1.0-5                 
- [75] rlang_1.0.2                 globals_0.14.0             
- [77] lifecycle_1.0.1             sandwich_3.0-1             
- [79] selbal_0.1.0                modelr_0.1.8               
- [81] cellranger_1.1.0            rprojroot_2.0.2            
- [83] polyclip_1.10-0             matrixStats_0.61.0         
- [85] datawizard_0.2.1.9000       Matrix_1.3-4               
- [87] mc2d_0.1-21                 carData_3.0-5              
- [89] Rhdf5lib_1.12.1             boot_1.3-28                
- [91] zoo_1.8-9                   reprex_2.0.1               
- [93] whisker_0.4                 GlobalOptions_0.1.2        
- [95] processx_3.5.2              png_0.1-7                  
- [97] rjson_0.2.20                PMCMRplus_1.9.3            
- [99] parameters_0.15.0.1         bitops_1.0-7               
-[101] getPass_0.2-2               pROC_1.18.0                
-[103] rhdf5filters_1.2.1          Biostrings_2.58.0          
-[105] shape_1.4.6                 multcompView_0.1-8         
-[107] coin_1.4-2                  arm_1.12-2                 
-[109] parallelly_1.28.1           lefser_1.0.0               
-[111] rstatix_0.7.0               S4Vectors_0.28.1           
-[113] ggsignif_0.6.3              scales_1.1.1               
-[115] memoise_2.0.0               magrittr_2.0.2             
-[117] plyr_1.8.6                  zlibbioc_1.36.0            
-[119] compiler_4.0.5              RColorBrewer_1.1-2         
-[121] clue_0.3-60                 lme4_1.1-28                
-[123] cli_3.2.0                   ade4_1.7-18                
-[125] XVector_0.30.0              listenv_0.8.0              
-[127] patchwork_1.1.1             ps_1.6.0                   
-[129] ggside_0.1.3                MASS_7.3-54                
-[131] mgcv_1.8-38                 tidyselect_1.1.2           
-[133] stringi_1.7.6               highr_0.9                  
-[135] yaml_2.3.5                  grid_4.0.5                 
-[137] sass_0.4.0                  tools_4.0.5                
-[139] parallel_4.0.5              circlize_0.4.13            
-[141] rstudioapi_0.13             modules_0.10.0             
-[143] foreach_1.5.2               git2r_0.29.0               
-[145] farver_2.1.0                digest_0.6.29              
-[147] shiny_1.7.1                 networkD3_0.4              
-[149] BWStest_0.2.2               Rcpp_1.0.8                 
-[151] car_3.0-12                  GenomicRanges_1.42.0       
-[153] broom_0.7.12                performance_0.8.0.1        
-[155] later_1.3.0                 httr_1.4.2                 
-[157] ComplexHeatmap_2.6.2        colorspace_2.0-3           
-[159] rvest_1.0.2                 brio_1.1.3                 
-[161] fs_1.5.0                    IRanges_2.24.1             
-[163] splines_4.0.5               rematch2_2.1.2             
-[165] multtest_2.46.0             sessioninfo_1.2.1          
-[167] xtable_1.8-4                gmp_0.6-2.1                
-[169] jsonlite_1.8.0              nloptr_1.2.2.3             
-[171] corpcor_1.6.10              zeallot_0.1.0              
-[173] modeltools_0.2-23           testthat_3.1.2             
-[175] R6_2.5.1                    broom.mixed_0.2.7          
-[177] pillar_1.7.0                htmltools_0.5.2            
-[179] mime_0.12                   BiocParallel_1.24.1        
-[181] glue_1.6.2                  fastmap_1.1.0              
-[183] minqa_1.2.4                 codetools_0.2-18           
-[185] pkgbuild_1.2.0              mvtnorm_1.1-3              
-[187] utf8_1.2.2                  bslib_0.3.1                
-[189] logger_0.2.2                survival_3.2-13            
-[191] rmarkdown_2.11              desc_1.4.1                 
-[193] biomformat_1.18.0           merTools_0.5.2             
-[195] munsell_0.5.0               GetoptLong_1.0.5           
-[197] rhdf5_2.34.0                GenomeInfoDbData_1.2.4     
-[199] iterators_1.0.14            ggstatsplot_0.9.0          
-[201] haven_2.4.3                 reshape2_1.4.4             
-[203] gtable_0.3.0                bayestestR_0.11.5.1        </code></pre>
+ [11] TH.data_1.1-0               mixOmics_6.14.1            
+ [13] future_1.23.0               correlation_0.7.1.1        
+ [15] tzdb_0.2.0                  bayesm_3.1-4               
+ [17] xml2_1.3.2                  lubridate_1.8.0            
+ [19] httpuv_1.6.3                SummarizedExperiment_1.20.0
+ [21] assertthat_0.2.1            WRS2_1.1-3                 
+ [23] xfun_0.30                   hms_1.1.1                  
+ [25] jquerylib_0.1.4             evaluate_0.15              
+ [27] promises_1.2.0.1            DEoptimR_1.0-9             
+ [29] fansi_1.0.2                 dbplyr_2.1.1               
+ [31] readxl_1.3.1                igraph_1.2.11              
+ [33] DBI_1.1.1                   htmlwidgets_1.5.4          
+ [35] reshape_0.8.8               tensorA_0.36.2             
+ [37] rARPACK_0.11-0              kSamples_1.2-9             
+ [39] stats4_4.0.5                Rmpfr_0.8-7                
+ [41] paletteer_1.4.0             ellipsis_0.3.2             
+ [43] RSpectra_0.16-0             ggpubr_0.4.0               
+ [45] backports_1.4.1             insight_0.14.5.1           
+ [47] compositions_2.0-2          libcoin_1.0-9              
+ [49] MatrixGenerics_1.2.1        vctrs_0.3.8                
+ [51] Biobase_2.50.0              here_1.0.1                 
+ [53] Cairo_1.5-12.2              abind_1.4-5                
+ [55] cachem_1.0.6                withr_2.5.0                
+ [57] ggforce_0.3.3               robustbase_0.93-9          
+ [59] emmeans_1.7.0               ape_5.6-2                  
+ [61] crayon_1.5.0                ellipse_0.4.2              
+ [63] labeling_0.4.2              pkgconfig_2.0.3            
+ [65] SuppDists_1.1-9.5           tweenr_1.0.2               
+ [67] GenomeInfoDb_1.26.7         nlme_3.1-153               
+ [69] statsExpressions_1.2.0      blme_1.0-5                 
+ [71] rlang_1.0.2                 globals_0.14.0             
+ [73] lifecycle_1.0.1             sandwich_3.0-1             
+ [75] selbal_0.1.0                modelr_0.1.8               
+ [77] cellranger_1.1.0            rprojroot_2.0.2            
+ [79] polyclip_1.10-0             matrixStats_0.61.0         
+ [81] datawizard_0.2.1.9000       Matrix_1.3-4               
+ [83] mc2d_0.1-21                 carData_3.0-5              
+ [85] Rhdf5lib_1.12.1             boot_1.3-28                
+ [87] zoo_1.8-9                   reprex_2.0.1               
+ [89] whisker_0.4                 GlobalOptions_0.1.2        
+ [91] png_0.1-7                   rjson_0.2.20               
+ [93] PMCMRplus_1.9.3             parameters_0.15.0.1        
+ [95] bitops_1.0-7                pROC_1.18.0                
+ [97] rhdf5filters_1.2.1          Biostrings_2.58.0          
+ [99] workflowr_1.7.0             shape_1.4.6                
+[101] multcompView_0.1-8          coin_1.4-2                 
+[103] arm_1.12-2                  parallelly_1.28.1          
+[105] lefser_1.0.0                rstatix_0.7.0              
+[107] S4Vectors_0.28.1            ggsignif_0.6.3             
+[109] scales_1.1.1                memoise_2.0.0              
+[111] magrittr_2.0.2              plyr_1.8.6                 
+[113] zlibbioc_1.36.0             compiler_4.0.5             
+[115] RColorBrewer_1.1-2          clue_0.3-60                
+[117] lme4_1.1-28                 cli_3.2.0                  
+[119] ade4_1.7-18                 XVector_0.30.0             
+[121] listenv_0.8.0               patchwork_1.1.1            
+[123] MASS_7.3-54                 mgcv_1.8-38                
+[125] ggside_0.1.3                tidyselect_1.1.2           
+[127] stringi_1.7.6               highr_0.9                  
+[129] yaml_2.3.5                  grid_4.0.5                 
+[131] sass_0.4.0                  tools_4.0.5                
+[133] parallel_4.0.5              circlize_0.4.13            
+[135] rstudioapi_0.13             modules_0.10.0             
+[137] foreach_1.5.2               git2r_0.29.0               
+[139] farver_2.1.0                digest_0.6.29              
+[141] shiny_1.7.1                 networkD3_0.4              
+[143] BWStest_0.2.2               Rcpp_1.0.8                 
+[145] car_3.0-12                  GenomicRanges_1.42.0       
+[147] broom_0.7.12                performance_0.8.0.1        
+[149] later_1.3.0                 httr_1.4.2                 
+[151] ComplexHeatmap_2.6.2        colorspace_2.0-3           
+[153] rvest_1.0.2                 fs_1.5.0                   
+[155] IRanges_2.24.1              splines_4.0.5              
+[157] rematch2_2.1.2              multtest_2.46.0            
+[159] xtable_1.8-4                gmp_0.6-2.1                
+[161] jsonlite_1.8.0              nloptr_1.2.2.3             
+[163] corpcor_1.6.10              zeallot_0.1.0              
+[165] modeltools_0.2-23           R6_2.5.1                   
+[167] broom.mixed_0.2.7           pillar_1.7.0               
+[169] htmltools_0.5.2             mime_0.12                  
+[171] glue_1.6.2                  fastmap_1.1.0              
+[173] minqa_1.2.4                 BiocParallel_1.24.1        
+[175] codetools_0.2-18            mvtnorm_1.1-3              
+[177] utf8_1.2.2                  bslib_0.3.1                
+[179] logger_0.2.2                survival_3.2-13            
+[181] rmarkdown_2.11              biomformat_1.18.0          
+[183] merTools_0.5.2              munsell_0.5.0              
+[185] GetoptLong_1.0.5            rhdf5_2.34.0               
+[187] GenomeInfoDbData_1.2.4      iterators_1.0.14           
+[189] ggstatsplot_0.9.0           haven_2.4.3                
+[191] reshape2_1.4.4              gtable_0.3.0               
+[193] bayestestR_0.11.5.1        </code></pre>
 </div>
 </div>
 

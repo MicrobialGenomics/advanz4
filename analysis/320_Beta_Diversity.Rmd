@@ -39,6 +39,9 @@ mymre<-readRDS("data/mre.rds")
 metadata <- metar::get_metadata(mymre)@metadata_df
 
 myphyloseq<-mymre@taxa@metaphlan@phyloseq
+sample_data(myphyloseq) <-as.data.frame(metadata) 
+
+
 CategoricalVariablesDF <- get_metadata(mymre)@categorical_vals
 NumericalVariablesDF <- get_metadata(mymre)@numeric_vals
 LongitudinalVariablesDF <- get_metadata(mymre)@longitudinal_vals
@@ -110,11 +113,25 @@ BiPlotCoordsDF <- c("MDS1","MDS2","r","pvals") %>%
 
 myBrayDistMat <-vegdist(wisconsin(sqrt(t(myAbundanceDF))))
 
-pam
 
 ```
 
 ## NMDS by Treatment group
+
+One of the variables: **CD4diff_96** has only one level. That means all patients in the study had an increase of CD4 counts higher than 50 cells/ml between weeks 96 and 0. As this variable only has one level it will cause the following code to break (as it performs conrast analysis). Hence, it will be removed from the following analysis. However, we'll look at the distribution of the CD4 increases as a distribution:
+
+```{r CD4diff_dist}
+metadata %>% 
+  dplyr::filter(time_point %in% c(0,48),
+                !is.na(CD4diff_96)) %>%
+  dplyr::select(record_id, time_point, CD4) %>%
+  dplyr::group_by(record_id) %>%
+  dplyr::summarise(dif = diff(CD4)) %>%
+  ggplot(., aes(x= dif)) +
+  geom_density()
+
+
+```
 
 
 ```{r NMDS_Group, warning= F, message= F}
@@ -222,8 +239,10 @@ myNMDSBiplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
 
 When we look at the most simple ordination before colouring by categorical variables, we see no clear separated clusters between samples. They all appear to be mostly concentrated in one big cluster that randomly spreads in the positive direction for both NMDS components.
 
-```{r plot_basic_NMDS, warning = F, include = F, message=F, warning=F}
-myNMDSplot
+```{r plot_basic_NMDS, warning = F, include = T, message=F, warning=F}
+mymre@taxa@metaphlan@nmds$Species$top_50$categorical$cluster
+saveRDS(mymre, here::here("data/mre.rds"))
+metar::metaphlan_nmds(mymre, tax_level = "Species",top_n = 50)
 ```
 
 
@@ -259,7 +278,7 @@ In the same fashion, when we start identifying samples by group and Timepoint, w
 
 However, the Adonis test found the variable group to have a significant effect over sample distances (p<0.001), although it only accounted for a small portion of the variance
 
-```{r plot_biplot, include=F, message=F, warning=F}
+```{r plot_biplot, include=T, message=F, warning=F}
 myNMDSBiplot
 ```
 

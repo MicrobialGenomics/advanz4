@@ -263,13 +263,13 @@ $(document).ready(function () {
   <a href="310_IGC_analysis.html">Gene richness</a>
 </li>
 <li>
-  <a href="320_Beta_Diversity.Rmd">Beta Diversity</a>
+  <a href="320_Beta_Diversity.html">Beta Diversity</a>
 </li>
 <li>
-  <a href="410_Taxonomy_Exploration.Rmd">Taxonomy</a>
+  <a href="410_Taxonomy_Exploration.html">Taxonomy</a>
 </li>
 <li>
-  <a href="420_Taxonomy_DA.Rmd">Differential Abundance</a>
+  <a href="420_Taxonomy_DA.html">Differential Abundance</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -291,7 +291,7 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -300,7 +300,7 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -312,7 +312,7 @@ $(document).ready(function () {
 <strong>Last updated:</strong> 2022-03-28
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>advanz4/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -328,12 +328,12 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
 </div>
 </div>
 </div>
@@ -400,16 +400,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree68ef5b36b734e7ad7444690b6aee98e6029cbfc9targetblank68ef5b3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/68ef5b36b734e7ad7444690b6aee98e6029cbfc9" target="_blank">68ef5b3</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treec51687a773a5cb2f278af76950c55a802ed234cdtargetblankc51687aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/c51687a773a5cb2f278af76950c55a802ed234cd" target="_blank">c51687a</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree68ef5b36b734e7ad7444690b6aee98e6029cbfc9targetblank68ef5b3a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treec51687a773a5cb2f278af76950c55a802ed234cdtargetblankc51687aa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/68ef5b36b734e7ad7444690b6aee98e6029cbfc9" target="_blank">68ef5b3</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/c51687a773a5cb2f278af76950c55a802ed234cd" target="_blank">c51687a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -422,20 +422,13 @@ Ignored files:
     Ignored:    data/mre.rds
 
 Untracked files:
-    Untracked:  analysis/410_Taxonomy_Exploration.Rmd
-    Untracked:  analysis/figure/
+    Untracked:  analysis/304_Taxonomy_DA.Rmd
 
 Unstaged changes:
-    Modified:   analysis/002_datatransfer.Rmd
-    Modified:   analysis/006_DataPreprocessing.Rmd
-    Modified:   analysis/008_PopulateMRE.Rmd
-    Modified:   analysis/020_MetaExplorer_Report.Rmd
-    Modified:   analysis/030_AnalysisPlan.Rmd
-    Modified:   analysis/200_ADVANZ4_Report.Rmd
-    Modified:   analysis/310_IGC_analysis.Rmd
-    Deleted:    analysis/310_Taxonomy_Exploration.Rmd
+    Deleted:    Metadata/.~lock.2022_03_25_clean_metadata_LIMS.csv#
+    Deleted:    Metadata/MetadataManagement/.~lock.Informacio_LIMS.xlsx#
+    Deleted:    Metadata/MetadataManagement/.~lock.LabData.xls#
     Modified:   analysis/_site.yml
-    Modified:   output/mre_data/CatalogMapping/IGC/lmm/lmm_time_point_by_group.pdf
 
 </code></pre>
 <p>
@@ -479,6 +472,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/c51687a773a5cb2f278af76950c55a802ed234cd/analysis/310_IGC_analysis.Rmd" target="_blank">c51687a</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-28
+</td>
+<td>
+fixed workflowrs and gene richness issues
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/c51687a773a5cb2f278af76950c55a802ed234cd/docs/310_IGC_analysis.html" target="_blank">c51687a</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-28
+</td>
+<td>
+fixed workflowrs and gene richness issues
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/11c1e7d2e4c2b76ccb9e08a96305fa7f34ee48de/analysis/310_IGC_analysis.Rmd" target="_blank">11c1e7d</a>
 </td>
 <td>
@@ -502,11 +529,85 @@ Code reorganized towards new structure
 <h1>Sequencing throupghput analysis</h1>
 <p>First we’ll check how well the sequencing went by looking at the read count distribution among all samples and how many of them will be dropped once we rarefy the samples</p>
 <p><img src="figure/310_IGC_analysis.Rmd/get_GeneRichness_Data-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-get_GeneRichness_Data-1">
+Past versions of get_GeneRichness_Data-1.png
+</button>
+</p>
+<div id="fig-get_GeneRichness_Data-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/c51687a773a5cb2f278af76950c55a802ed234cd/docs/figure/310_IGC_analysis.Rmd/get_GeneRichness_Data-1.png" target="_blank">c51687a</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>only 6 samples have been discarded by low read count. The threshold used for filtering was the 2nd percentile, which equals 12428123 reads.</p>
 <div id="rarefaction-and-sequencing-depth" class="section level2">
 <h2>Rarefaction and sequencing depth</h2>
 <p>We’ll control first for the effect of sequencing depth over Gene richness and try to stablish a proper rarefaction threshold.</p>
 <p><img src="figure/310_IGC_analysis.Rmd/Plot_Rarefaction-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-Plot_Rarefaction-1">
+Past versions of Plot_Rarefaction-1.png
+</button>
+</p>
+<div id="fig-Plot_Rarefaction-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/c51687a773a5cb2f278af76950c55a802ed234cd/docs/figure/310_IGC_analysis.Rmd/Plot_Rarefaction-1.png" target="_blank">c51687a</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="rarefaction-and-sequencing-depth-1" class="section level2">
 <h2>Rarefaction and sequencing depth</h2>
@@ -519,6 +620,43 @@ Code reorganized towards new structure
 <p><code>richness ~ group*time_point + (1|ID)</code></p>
 <p>We found trouble fiting the LMMs for ethnic groups due to patient A024 being the only one with the category “unknown”. As the model can’t estimate variance from only one observation, the code breaks.</p>
 <p><img src="figure/310_IGC_analysis.Rmd/plot_LMMs-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_LMMs-1">
+Past versions of plot_LMMs-1.png
+</button>
+</p>
+<div id="fig-plot_LMMs-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/c51687a773a5cb2f278af76950c55a802ed234cd/docs/figure/310_IGC_analysis.Rmd/plot_LMMs-1.png" target="_blank">c51687a</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>There is a pretty clear evolution in every one of the treatment groups. However the evolution rate seems pretty similar between both treatment groups. The models fail to find a great difference in gene richness evolution, althougha slight yet significant increasing trend (slope value = 0.027), can be found in the DGT group (Group 1).</p>
 <p>However, creating a single LMM with treatment group as a random effect we can measure the actual difference in the effect of timepoint over gene richness between two groups.</p>
 <pre><code> [1] &quot;group&quot;        &quot;risk_group&quot;   &quot;center&quot;       &quot;gender&quot;       &quot;ethnic_group&quot;
@@ -540,42 +678,486 @@ Code reorganized towards new structure
 <p>This shows a slight effect of treatment, where the effect of time over richness in group group2 is 0.025 (St.err = 0.025) times lower than the same for group 1 (ANOVA p=0.31)</p>
 <pre><code>$group</code></pre>
 <p><img src="figure/310_IGC_analysis.Rmd/Show_plot_list-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-Show_plot_list-1">
+Past versions of Show_plot_list-1.png
+</button>
+</p>
+<div id="fig-Show_plot_list-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/c51687a773a5cb2f278af76950c55a802ed234cd/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-1.png" target="_blank">c51687a</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $risk_group</code></pre>
 <p><img src="figure/310_IGC_analysis.Rmd/Show_plot_list-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-Show_plot_list-2">
+Past versions of Show_plot_list-2.png
+</button>
+</p>
+<div id="fig-Show_plot_list-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/c51687a773a5cb2f278af76950c55a802ed234cd/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-2.png" target="_blank">c51687a</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $center</code></pre>
 <p><img src="figure/310_IGC_analysis.Rmd/Show_plot_list-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-Show_plot_list-3">
+Past versions of Show_plot_list-3.png
+</button>
+</p>
+<div id="fig-Show_plot_list-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/c51687a773a5cb2f278af76950c55a802ed234cd/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-3.png" target="_blank">c51687a</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $gender</code></pre>
 <p><img src="figure/310_IGC_analysis.Rmd/Show_plot_list-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-Show_plot_list-4">
+Past versions of Show_plot_list-4.png
+</button>
+</p>
+<div id="fig-Show_plot_list-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/c51687a773a5cb2f278af76950c55a802ed234cd/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-4.png" target="_blank">c51687a</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $ethnic_group</code></pre>
 <p><img src="figure/310_IGC_analysis.Rmd/Show_plot_list-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-Show_plot_list-5">
+Past versions of Show_plot_list-5.png
+</button>
+</p>
+<div id="fig-Show_plot_list-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/c51687a773a5cb2f278af76950c55a802ed234cd/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-5.png" target="_blank">c51687a</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $CD4diff_48</code></pre>
 <p><img src="figure/310_IGC_analysis.Rmd/Show_plot_list-6.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-Show_plot_list-6">
+Past versions of Show_plot_list-6.png
+</button>
+</p>
+<div id="fig-Show_plot_list-6" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/c51687a773a5cb2f278af76950c55a802ed234cd/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-6.png" target="_blank">c51687a</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $CD8diff_48</code></pre>
 <p><img src="figure/310_IGC_analysis.Rmd/Show_plot_list-7.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-Show_plot_list-7">
+Past versions of Show_plot_list-7.png
+</button>
+</p>
+<div id="fig-Show_plot_list-7" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/c51687a773a5cb2f278af76950c55a802ed234cd/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-7.png" target="_blank">c51687a</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $CD4after_48</code></pre>
 <p><img src="figure/310_IGC_analysis.Rmd/Show_plot_list-8.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-Show_plot_list-8">
+Past versions of Show_plot_list-8.png
+</button>
+</p>
+<div id="fig-Show_plot_list-8" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/c51687a773a5cb2f278af76950c55a802ed234cd/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-8.png" target="_blank">c51687a</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $CD8after_48</code></pre>
 <p><img src="figure/310_IGC_analysis.Rmd/Show_plot_list-9.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-Show_plot_list-9">
+Past versions of Show_plot_list-9.png
+</button>
+</p>
+<div id="fig-Show_plot_list-9" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/c51687a773a5cb2f278af76950c55a802ed234cd/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-9.png" target="_blank">c51687a</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $CD4diff_96
 NULL
 
 $CD8diff_96</code></pre>
 <p><img src="figure/310_IGC_analysis.Rmd/Show_plot_list-10.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-Show_plot_list-10">
+Past versions of Show_plot_list-10.png
+</button>
+</p>
+<div id="fig-Show_plot_list-10" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/c51687a773a5cb2f278af76950c55a802ed234cd/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-10.png" target="_blank">c51687a</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $CD4after_96</code></pre>
 <p><img src="figure/310_IGC_analysis.Rmd/Show_plot_list-11.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-Show_plot_list-11">
+Past versions of Show_plot_list-11.png
+</button>
+</p>
+<div id="fig-Show_plot_list-11" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/c51687a773a5cb2f278af76950c55a802ed234cd/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-11.png" target="_blank">c51687a</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $CD8after_96</code></pre>
 <p><img src="figure/310_IGC_analysis.Rmd/Show_plot_list-12.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-Show_plot_list-12">
+Past versions of Show_plot_list-12.png
+</button>
+</p>
+<div id="fig-Show_plot_list-12" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/c51687a773a5cb2f278af76950c55a802ed234cd/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-12.png" target="_blank">c51687a</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
