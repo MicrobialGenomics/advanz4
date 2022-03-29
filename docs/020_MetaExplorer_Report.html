@@ -401,16 +401,27 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
+<<<<<<< Updated upstream
 <a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treec51687a773a5cb2f278af76950c55a802ed234cdtargetblankc51687aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/c51687a773a5cb2f278af76950c55a802ed234cd" target="_blank">c51687a</a> </a>
 </p>
 </div>
 <div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treec51687a773a5cb2f278af76950c55a802ed234cdtargetblankc51687aa" class="panel-collapse collapse">
+=======
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree68ef5b36b734e7ad7444690b6aee98e6029cbfc9targetblank68ef5b3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/68ef5b36b734e7ad7444690b6aee98e6029cbfc9" target="_blank">68ef5b3</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree68ef5b36b734e7ad7444690b6aee98e6029cbfc9targetblank68ef5b3a" class="panel-collapse collapse">
+>>>>>>> Stashed changes
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
+<<<<<<< Updated upstream
 The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/c51687a773a5cb2f278af76950c55a802ed234cd" target="_blank">c51687a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+=======
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/68ef5b36b734e7ad7444690b6aee98e6029cbfc9" target="_blank">68ef5b3</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+>>>>>>> Stashed changes
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -426,10 +437,15 @@ Untracked files:
     Untracked:  analysis/304_Taxonomy_DA.Rmd
 
 Unstaged changes:
+<<<<<<< Updated upstream
     Deleted:    Metadata/.~lock.2022_03_25_clean_metadata_LIMS.csv#
     Deleted:    Metadata/MetadataManagement/.~lock.Informacio_LIMS.xlsx#
     Deleted:    Metadata/MetadataManagement/.~lock.LabData.xls#
     Modified:   analysis/_site.yml
+=======
+    Modified:   .DS_Store
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/Heatmaps/Species/AbundanceHeatmap_50.pdf
+>>>>>>> Stashed changes
 
 </code></pre>
 <p>
@@ -473,6 +489,7 @@ Message
 Rmd
 </td>
 <td>
+<<<<<<< Updated upstream
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/c51687a773a5cb2f278af76950c55a802ed234cd/analysis/020_MetaExplorer_Report.Rmd" target="_blank">c51687a</a>
 </td>
 <td>
@@ -507,6 +524,8 @@ fixed workflowrs and gene richness issues
 Rmd
 </td>
 <td>
+=======
+>>>>>>> Stashed changes
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/440936112631b3ae0f4f3911ce3a45b9ae62d1bb/analysis/020_MetaExplorer_Report.Rmd" target="_blank">4409361</a>
 </td>
 <td>
@@ -563,24 +582,85 @@ initial mre
 <div id="metar-explorer-report" class="section level2">
 <h2>MetaR Explorer Report</h2>
 <p>This Rmd is intended to read MRE object (no writing) and produce local report for exploratory and analysis plan meeting</p>
-<pre class="r"><code>require(phyloseq)
-require(ggstatsplot)
-require(ggplot2)
-require(here)
-
-bucket&lt;-&quot;s3://mistral-wp6-advanz4/&quot;
+<pre class="r"><code>require(phyloseq)</code></pre>
+<pre><code>Loading required package: phyloseq</code></pre>
+<pre class="r"><code>require(ggstatsplot)</code></pre>
+<pre><code>Loading required package: ggstatsplot</code></pre>
+<pre><code>Warning: package &#39;ggstatsplot&#39; was built under R version 4.1.2</code></pre>
+<pre><code>You can cite this package as:
+     Patil, I. (2021). Visualizations with statistical details: The &#39;ggstatsplot&#39; approach.
+     Journal of Open Source Software, 6(61), 3167, doi:10.21105/joss.03167</code></pre>
+<pre class="r"><code>require(ggplot2)</code></pre>
+<pre><code>Loading required package: ggplot2</code></pre>
+<pre class="r"><code>require(here)</code></pre>
+<pre><code>Loading required package: here</code></pre>
+<pre><code>here() starts at /Users/mnoguera/Documents/Work/Development/advanz4</code></pre>
+<pre class="r"><code>bucket&lt;-&quot;s3://mistral-wp6-advanz4/&quot;
 bucketDir&lt;-&quot;metagenome/WMGS&quot;
 
 # Load package from local copy, needs to handle some of the dependencies manually.
-devtools::load_all(&quot;~/Documents/Work/Development/WMGSPipeline/&quot;)### Change to require/library/load local package
-devtools::load_all(&quot;~/Documents/Work/Development/metaExplorer/&quot;)### Change to require/library/load local package
-# myMREObject&lt;-readRDS(&quot;data/processed/mreObject.rds&quot;)
+devtools::load_all(&quot;~/Documents/Work/Development/WMGSPipeline/&quot;)### Change to require/library/load local package</code></pre>
+<pre><code>ℹ Loading metar</code></pre>
+<pre><code>Warning: package &#39;testthat&#39; was built under R version 4.1.2</code></pre>
+<pre><code>── Attaching ──────────────────────────────────────────────── metar v-0.0.0.9 ──</code></pre>
+<pre><code>suggested package selbal ✓</code></pre>
+<pre><code></code></pre>
+<pre><code>suggested package DataExplorer ✓</code></pre>
+<pre><code></code></pre>
+<pre><code>suggested package lme4 ✓</code></pre>
+<pre><code></code></pre>
+<pre><code>suggested package merTools ✓</code></pre>
+<pre><code></code></pre>
+<pre class="r"><code>devtools::load_all(&quot;~/Documents/Work/Development/metaExplorer/&quot;)### Change to require/library/load local package</code></pre>
+<pre><code>ℹ Loading metaExplorer</code></pre>
+<pre><code>Registered S3 method overwritten by &#39;ggside&#39;:
+  method from   
+  +.gg   ggplot2</code></pre>
+<pre class="r"><code># myMREObject&lt;-readRDS(&quot;data/processed/mreObject.rds&quot;)
 mre&lt;-aws.s3::s3readRDS(bucket=bucket,object = paste0(bucketDir,&quot;/MREObject.rds&quot;))
 
 ### Execute on the fly until memory space for rarefaction issue is solved
-mre&lt;-mre %&gt;% metar::igc_lmm() %&gt;% igc_rarefaction()
+mre&lt;-mre %&gt;% metar::igc_lmm() %&gt;% igc_rarefaction()</code></pre>
+<pre><code>Warning: Removed 8 rows containing missing values (geom_point).</code></pre>
+<pre><code>Warning: Removed 8 row(s) containing missing values (geom_path).</code></pre>
+<pre><code>Warning: Removed 4 row(s) containing missing values (geom_path).</code></pre>
+<pre><code>Warning: Removed 4 rows containing missing values (geom_point).</code></pre>
+<pre><code>Warning: Removed 4 row(s) containing missing values (geom_path).
+Removed 4 row(s) containing missing values (geom_path).</code></pre>
+<pre><code>Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+-Inf
 
-metaExplorer::export_report(
+Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+-Inf</code></pre>
+<pre><code>Warning: Removed 27 rows containing missing values (geom_point).</code></pre>
+<pre><code>Warning: Removed 27 row(s) containing missing values (geom_path).</code></pre>
+<pre><code>Warning: Removed 4 row(s) containing missing values (geom_path).</code></pre>
+<pre><code>Warning: Removed 27 rows containing missing values (geom_point).</code></pre>
+<pre><code>Warning: Removed 27 row(s) containing missing values (geom_path).</code></pre>
+<pre><code>Warning: Removed 4 row(s) containing missing values (geom_path).</code></pre>
+<pre><code>Warning: Removed 27 rows containing missing values (geom_point).</code></pre>
+<pre><code>Warning: Removed 27 row(s) containing missing values (geom_path).</code></pre>
+<pre><code>Warning: Removed 4 row(s) containing missing values (geom_path).</code></pre>
+<pre><code>Warning: Removed 27 rows containing missing values (geom_point).</code></pre>
+<pre><code>Warning: Removed 27 row(s) containing missing values (geom_path).</code></pre>
+<pre><code>Warning: Removed 4 row(s) containing missing values (geom_path).</code></pre>
+<pre><code>Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+-Inf</code></pre>
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre class="r"><code>metaExplorer::export_report(
 mre,
 diversity_slot = &quot;igc&quot;,
 taxa_slot = &quot;metaphlan&quot;,
@@ -588,6 +668,46 @@ metadata_vars = get_metadata_vars(mre),
 report_title = &quot;ADVANZ4 Exploratory Report&quot;,
 output_file = paste0(here::here(),&quot;/docs/mistral_advanz4_report.pdf&quot;)
 )</code></pre>
+<pre><code>There was an error in &#39;add_p()/add_difference()&#39; for variable &#39;center&#39;, p-value omitted:
+Error in stats::fisher.test(structure(c(2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, : FEXACT error 7(location). LDSTP=18600 is too small for this problem,
+  (pastp=53.819, ipn_0:=ipoin[itp=60]=419, stp[ipn_0]=56.5565).
+Increase workspace or consider using &#39;simulate.p.value=TRUE&#39;
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -615,6 +735,7 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
+<<<<<<< Updated upstream
 [1] devtools_2.4.2  usethis_2.1.3   workflowr_1.7.0
 
 loaded via a namespace (and not attached):
@@ -633,6 +754,128 @@ loaded via a namespace (and not attached):
 [49] pkgconfig_2.0.3   ellipsis_0.3.2    prettyunits_1.1.1 rmarkdown_2.11   
 [53] httr_1.4.2        rstudioapi_0.13   R6_2.5.1          git2r_0.29.0     
 [57] compiler_4.0.5   </code></pre>
+=======
+[1] patchwork_1.1.1         metaExplorer_0.0.0.9000 metar_0.1.5            
+[4] testthat_3.1.2          here_1.0.1              ggplot2_3.3.5          
+[7] ggstatsplot_0.9.1       phyloseq_1.38.0        
+
+loaded via a namespace (and not attached):
+  [1] coda_0.19-4                 tidyr_1.2.0                
+  [3] gtsummary_1.5.2             bit64_4.0.5                
+  [5] knitr_1.37                  multcomp_1.4-18            
+  [7] DelayedArray_0.18.0         rpart_4.1.16               
+  [9] wesanderson_0.3.6           data.table_1.14.2          
+ [11] DataExplorer_0.8.2          RCurl_1.98-1.6             
+ [13] doParallel_1.0.17           generics_0.1.2             
+ [15] BiocGenerics_0.40.0         TH.data_1.1-0              
+ [17] callr_3.7.0                 usethis_2.1.5              
+ [19] mixOmics_6.16.3             commonmark_1.8.0           
+ [21] correlation_0.8.0           bit_4.0.4                  
+ [23] tzdb_0.2.0                  xml2_1.3.3                 
+ [25] httpuv_1.6.5                SummarizedExperiment_1.22.0
+ [27] assertthat_0.2.1            WRS2_1.1-3                 
+ [29] xfun_0.30                   jquerylib_0.1.4            
+ [31] evaluate_0.15               promises_1.2.0.1           
+ [33] fansi_1.0.2                 igraph_1.2.11              
+ [35] DBI_1.1.2                   htmlwidgets_1.5.4          
+ [37] reshape_0.8.8               kSamples_1.2-9             
+ [39] rARPACK_0.11-0              stats4_4.1.1               
+ [41] Rmpfr_0.8-7                 paletteer_1.4.0            
+ [43] purrr_0.3.4                 ellipsis_0.3.2             
+ [45] RSpectra_0.16-0             dplyr_1.0.8                
+ [47] ggpubr_0.4.0                backports_1.4.1            
+ [49] insight_0.16.0              permute_0.9-7              
+ [51] prismatic_1.1.0             libcoin_1.0-9              
+ [53] MatrixGenerics_1.4.3        vctrs_0.3.8                
+ [55] Biobase_2.54.0              remotes_2.4.2              
+ [57] Cairo_1.5-15                abind_1.4-5                
+ [59] cachem_1.0.6                withr_2.5.0                
+ [61] aws.signature_0.6.0         ggforce_0.3.3              
+ [63] checkmate_2.0.0             vroom_1.5.7                
+ [65] vegan_2.5-7                 prettyunits_1.1.1          
+ [67] cluster_2.1.2               ape_5.6-2                  
+ [69] lazyeval_0.2.2              crayon_1.5.0               
+ [71] ellipse_0.4.2               SuppDists_1.1-9.7          
+ [73] labeling_0.4.2              pkgconfig_2.0.3            
+ [75] tweenr_1.0.2                GenomeInfoDb_1.30.1        
+ [77] nlme_3.1-155                statsExpressions_1.3.0     
+ [79] pkgload_1.2.4               nnet_7.3-17                
+ [81] blme_1.0-5                  devtools_2.4.3             
+ [83] rlang_1.0.2                 lifecycle_1.0.1            
+ [85] sandwich_3.0-1              selbal_0.1.0               
+ [87] rprojroot_2.0.2             polyclip_1.10-0            
+ [89] matrixStats_0.61.0          datawizard_0.3.0           
+ [91] Matrix_1.4-0                mc2d_0.1-21                
+ [93] carData_3.0-5               zoo_1.8-9                  
+ [95] Rhdf5lib_1.16.0             boot_1.3-28                
+ [97] base64enc_0.1-3             whisker_0.4                
+ [99] GlobalOptions_0.1.2         processx_3.5.2             
+[101] png_0.1-7                   viridisLite_0.4.0          
+[103] rjson_0.2.21                PMCMRplus_1.9.3            
+[105] parameters_0.17.0           bitops_1.0-7               
+[107] shinydashboard_0.7.2        pROC_1.18.0                
+[109] rhdf5filters_1.6.0          Biostrings_2.62.0          
+[111] workflowr_1.7.0             shape_1.4.6                
+[113] multcompView_0.1-8          stringr_1.4.0              
+[115] coin_1.4-2                  arm_1.12-2                 
+[117] lefser_1.2.0                jpeg_0.1-9                 
+[119] rstatix_0.7.0               S4Vectors_0.32.3           
+[121] ggsignif_0.6.3              aws.s3_0.3.21              
+[123] scales_1.1.1                memoise_2.0.1              
+[125] magrittr_2.0.2              plyr_1.8.6                 
+[127] zlibbioc_1.40.0             compiler_4.1.1             
+[129] tinytex_0.37                RColorBrewer_1.1-2         
+[131] clue_0.3-60                 lme4_1.1-28                
+[133] cli_3.2.0                   ade4_1.7-18                
+[135] XVector_0.34.0              ps_1.6.0                   
+[137] htmlTable_2.4.0             Formula_1.2-4              
+[139] ggside_0.2.0                MASS_7.3-55                
+[141] mgcv_1.8-39                 tidyselect_1.1.2           
+[143] stringi_1.7.6               forcats_0.5.1              
+[145] yaml_2.3.5                  latticeExtra_0.6-29        
+[147] ggrepel_0.9.1               grid_4.1.1                 
+[149] sass_0.4.0                  tools_4.1.1                
+[151] parallel_4.1.1              circlize_0.4.14            
+[153] rstudioapi_0.13             foreign_0.8-82             
+[155] foreach_1.5.2               logging_0.10-108           
+[157] git2r_0.30.1                gridExtra_2.3              
+[159] farver_2.1.0                digest_0.6.29              
+[161] shiny_1.7.1                 BWStest_0.2.2              
+[163] networkD3_0.4               Rcpp_1.0.8.3               
+[165] GenomicRanges_1.44.0        car_3.0-12                 
+[167] broom_0.7.12                performance_0.8.0          
+[169] later_1.3.0                 shinyWidgets_0.6.4         
+[171] httr_1.4.2                  ComplexHeatmap_2.8.0       
+[173] effectsize_0.6.0.1          colorspace_2.0-3           
+[175] brio_1.1.3                  fs_1.5.2                   
+[177] IRanges_2.28.0              splines_4.1.1              
+[179] rematch2_2.1.2              multtest_2.50.0            
+[181] shinythemes_1.2.0           plotly_4.10.0              
+[183] sessioninfo_1.2.2           gmp_0.6-4                  
+[185] xtable_1.8-4                jsonlite_1.8.0             
+[187] nloptr_2.0.0                corpcor_1.6.10             
+[189] zeallot_0.1.0               modeltools_0.2-23          
+[191] gt_0.4.0                    R6_2.5.1                   
+[193] Hmisc_4.6-0                 broom.mixed_0.2.7          
+[195] pillar_1.7.0                htmltools_0.5.2            
+[197] mime_0.12                   BiocParallel_1.28.3        
+[199] glue_1.6.2                  fastmap_1.1.0              
+[201] minqa_1.2.4                 DT_0.21                    
+[203] codetools_0.2-18            pkgbuild_1.3.1             
+[205] mvtnorm_1.1-3               utf8_1.2.2                 
+[207] lattice_0.20-45             bslib_0.3.1                
+[209] tibble_3.1.6                logger_0.2.2               
+[211] curl_4.3.2                  attempt_0.3.1              
+[213] config_0.3.1                golem_0.3.2                
+[215] survival_3.3-1              roxygen2_7.1.2             
+[217] rmarkdown_2.13              desc_1.4.1                 
+[219] biomformat_1.22.0           merTools_0.5.2             
+[221] munsell_0.5.0               GetoptLong_1.0.5           
+[223] rhdf5_2.38.0                GenomeInfoDbData_1.2.7     
+[225] iterators_1.0.14            broom.helpers_1.6.0        
+[227] reshape2_1.4.4              gtable_0.3.0               
+[229] bayestestR_0.11.5          </code></pre>
+>>>>>>> Stashed changes
 </div>
 </div>
 
