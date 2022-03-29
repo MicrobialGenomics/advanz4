@@ -1,0 +1,26 @@
+---
+title: "Baseline microbiome vs Immune response"
+author: "Marc Noguera"
+date: "3/29/2022"
+output: html_document
+---
+
+```{r Baseline microbiome vs Immune response, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Baseline microbiome vs Immune response
+
+The goal of this analysis is to describe the patients baseline microbiome vs immune response either using:
+
+- Increases in CD4, categorized in a useful way (Delta_week48 for instance)
+- Decreased in CD8, categorized in a useful way
+
+It may be useful to try to classify patients solely on CD4/CD8/immune markers and the contrast this classification with microbiome composition
+
+Also it is relevant to show that the baseline microbiom was NOT different between ARMs (DTG/DRVr)
+
+```{r cars}
+
+```
+
