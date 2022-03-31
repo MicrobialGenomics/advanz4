@@ -40,6 +40,8 @@ Here we will leave all results regarding DA. In case we analyze it by more than 
 ## Method 2 (e.g compositional approach)
 
 
+## Method 3 (Marc Addition), test differential abundance between groups at each timepoint. Create Venn diagram of tiempoint-specific DA taxa.
+
 
 ```{r pressure, echo=FALSE}
 
