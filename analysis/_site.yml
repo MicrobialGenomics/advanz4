@@ -11,6 +11,8 @@ navbar:
     href: 310_IGC_analysis.html
   - text: Beta Diversity
     href: 320_Beta_Diversity.html
+  - text: LMM taxa ranking
+    href: 330_TaxaLevel_LMM.Rmd
   - text: Taxonomy
     href: 410_Taxonomy_Exploration.html
   - text: Differential Abundance

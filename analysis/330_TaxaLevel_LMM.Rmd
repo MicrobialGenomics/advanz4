@@ -77,6 +77,10 @@ get_LMM_GraphParams <- function(Table) {
   return(myList)
 }
 
+
+
+
+
 ```
 
 
@@ -134,8 +138,7 @@ abundance <-
 
 
   
-  
-  
+
 
 
 ```
@@ -215,7 +218,7 @@ get_multiLMM_table <- function(df,num_vector, sam_var, cat_vector, long_var, id_
 }
 
 
-testTable <- get_multiLMM_table(df = abundance,
+taxa_ranks <- get_multiLMM_table(df = abundance,
                                 num_vector = num_vector,
                                 sam_var = "SampleID",
                                 cat_vector = cat_vector, 
@@ -223,10 +226,10 @@ testTable <- get_multiLMM_table(df = abundance,
                                 id_var = id_var)
 
 
-signifDF <- testTable$group %>% 
+signifDF <- taxa_ranks$group %>% 
   arrange(desc(Fval)) %>%
   mutate(padj = p.adjust(pval, method= "fdr")) %>%
-  filter(pval < 0.05)
+  filter(pval < 0.01)
 
 
 ```
@@ -236,13 +239,16 @@ By looking at group test statistic, we see a few species with a significant time
 
 ```{r slopes_and_plots, warning=F, message=F}
 
-plotlist <- 
-  signifDF$Species %>%
+taxaRank_plotlists <- function(rankdf, otus, cat_var){
+  rankdf %>%
+  pull(Species) %>% 
   set_names() %>%
   map(function(sp) {
-    print(sp)
+    
+   sp
+    
     dat <-
-      abundance %>% 
+      otus %>% 
       dplyr::filter(!is.na(!!sym(cat_var))) %>%
       select(num_var = sp,
              cat_var = !!sym(cat_var),
@@ -294,7 +300,7 @@ plotlist <-
       scale_color_brewer(palette = "Set1") +
       labs(color = cat_var,
            x = "weeks",
-           y = num_var) +
+           y = sp) +
       geom_label(
         data = myPval,
         aes(
@@ -312,9 +318,18 @@ plotlist <-
       theme_bw()
     
   })
+}
 
 
+plot_list <- cat_vector %>%
+  set_names() %>%
+  map(function(cat) {  
+    cat_var <- cat
+    taxaRank_plotlists(rankdf = signifDF,otus = abundance, cat_var = cat)
+})
 
+
+plot_list$group
 
 ```
 
