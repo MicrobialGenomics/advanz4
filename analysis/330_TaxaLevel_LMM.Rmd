@@ -11,9 +11,79 @@ knitr::opts_knit$set(root.dir = here::here())
 
 ```
 
+```{r utils, message=F, warning=F}
+get_LMM_GraphParams <- function(Table) {
+  
+  myList <- Table %>%
+    filter(!is.na(cat_var)) %>%
+    pull(cat_var) %>%
+    unique() %>%
+    set_names() %>%
+    map_dfr(~ {
+      
+      innerTable <- Table %>%
+        dplyr::select(num_var, long_var, cat_var, id_var) %>%
+        dplyr::filter(cat_var == .x) 
+      
+      if(sum(innerTable$num_var) == 0){  ## Check num var to not be all 0s, otherwise the lme function will fall apart.
+        
+        graphparams <- Table %>%
+        summarise(
+          xmin = min(long_var),
+          xmax = max(long_var),
+          ymin = 0,
+          ymax = 0
+        ) %>%
+        mutate(cat_var = .x) %>%
+        relocate(cat_var)
+
+
+        
+      } else if(length(unique(innerTable$id_var)) < 2){
+        
+        graphparams <- Table %>%
+        summarise(
+          xmin = min(long_var),
+          xmax = max(long_var),
+          ymin = min(num_var),
+          ymax = max(num_var)
+        ) %>%
+        mutate(cat_var = .x) %>%
+        relocate(cat_var)
+
+      } else {      
+      
+        model <- 
+        lmerTest::lmer(formula = "num_var ~ long_var + (1|id_var)", innerTable) %>%
+        summary() %>%
+        magrittr::extract2("coefficients")
+      
+      graphparams <- Table %>%
+        summarise(
+          xmin = min(long_var),
+          xmax = max(long_var),
+          ymin = model[1, 1] + xmin * model[2, 1],
+          ymax = model[1, 1] + xmax * model[2, 1]
+        ) %>%
+        mutate(cat_var = .x) %>%
+        relocate(cat_var)
+
+      }
+      
+    }) %>%
+    as.data.frame()
+  
+  
+  return(myList)
+}
+
+```
+
+
+
 ##  Taxa level LMM
 
-The main purpose of this script is to extract signla from Linear-Mixed-Models(LMM) from longitudinal designs of data. For each Taxa, at a tax_level, we'll run a LMM through the longitudinal dimension and either, rank taxa according to their longitudinal increase/decreas or to the highest differences between a group variable in cat_var.
+The main purpose of this script is to extract signals from Linear-Mixed-Models(LMM) from longitudinal designs of data. For each Taxa, at a tax_level, we'll run a LMM through the longitudinal dimension and either, rank taxa according to their longitudinal increase/decrease or to the highest differences between a group variable in cat_var.
 
 Try different data transformation approaches:
 
@@ -21,43 +91,230 @@ Try different data transformation approaches:
 * raw counts, with previous rarefaction at a certain number of reads, using metaphlan_counts object
 * clr transformed data for counts, using microbiome::transform()
 
-```{r extract data, echo=T, include=T, message=T, eval=T}
+```{r extract data, echo=T, include=T, warning=F, message=F}
 require(phyloseq)
 require(ggstatsplot)
 require(ggplot2)
 require(here)
+library(metar)
+library(tidyverse)
 
 bucket<-"s3://mistral-wp6-advanz4/"
 bucketDir<-"metagenome/WMGS"
 
 # Load package from local copy
-devtools::load_all("~/Documents/Work/Development/WMGSPipeline/")### Change to require/library/load local package
 
-# myMREObject<-readRDS("data/processed/mreObject.rds")
-myMREObject<-aws.s3::s3readRDS(bucket=bucket,object = paste0(bucketDir,"/MREObject.rds")) ## Change as needed
+devtools::load_all(here::here("..","WMGSPipeline"))### Change to require/library/load local package
 
+mymre <- readRDS(here::here("data", "mre.rds"))
+# mymre<-aws.s3::s3readRDS(bucket=bucket,object = paste0(bucketDir,"/MREObject.rds")) ## Change as needed
+# mymre@metadata@categorical_vals <-
+#   here::here("Metadata","CategoricalVariables.txt") %>%
+#   read.table(sep="\t") %>%
+#   setNames(c("CategoricalVariable","PaletteName")) %>%
+#   as_tibble()
+phy <- metar::get_phyloseq(mymre, type="metaphlan_counts")
+id_var <- "record_id"
+long_var <- "time_point"
+cat_df <- metar::get_cat(mymre) %>%
+  filter(!CategoricalVariable == "CD4diff_96")
+cat_vector <- cat_df$CategoricalVariable
 
+metadata <-
+  metar::get_meta(mymre) %>%
+  mutate(rnames = SampleID) %>%
+  tibble::column_to_rownames("rnames")
 
-my_otu_df<-myMREObject %>% metar::get_phyloseq(.,type="metaphlan") %>% phyloseq::otu_table()
-rownames(my_otu_df)
-
-my_counts_df<-myMREObject %>% metar::get_phyloseq(.,type="metaphlan_counts") %>% phyloseq::otu_table()
-
-my_tax_df<-myMREObject %>% metar::get_phyloseq(.,type="metaphlan") %>% phyloseq::tax_table()
-rownames(my_tax_df)
-
-metadata_df<-metar::get_meta(myMREObject)
+abundance <-   
+  metar:::get_merged_df(phy, tax_level="Species",sample_data_df = F) %>%
+  full_join(
+    metadata[,c("SampleID",id_var,long_var, cat_vector)], by="SampleID") %>%
+  dplyr::rename(id_var = !!sym(id_var),
+                long_var = !!sym(long_var))
 
 
   
+  
+  
+
+
 ```
 
 ## Including Plots
 
-You can also embed plots, for example:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+
+```{r LMM_effect_table, warning=F, message=F}
+
+
+num_vector <- abundance %>% 
+  dplyr::select(-id_var, -cat_vector, -long_var, -SampleID) %>%
+  colnames()
+
+get_multiLMM_table <- function(df,num_vector, sam_var, cat_vector, long_var, id_var){
+  
+  myUnifiedModelList <- cat_vector %>%
+  set_names() %>%
+  
+  map(function(cat_var) {
+    # print(cat_var)
+    num_vector %>%
+      set_names() %>%
+      
+      map_dfr(function(num_var) {
+        
+        dat <-
+          df %>%
+          select(sam_var, id_var, long_var, cat_var, num_var) %>%
+          dplyr::rename(num_var = !!sym(num_var),
+                        cat_var = !!sym(cat_var))
+        
+        
+        cat_levels <- #Count nº of levels in cat_var
+          dat %>% 
+          dplyr::select(id_var, cat_var) %>%
+          unique() %>%
+          dplyr::group_by(cat_var) %>%
+          dplyr::summarize(n=n()) %>%
+          dplyr::filter(n>1,
+                        !is.na(cat_var)) %>%
+          dplyr::pull(cat_var) 
+        
+
+        dat <- # filter NAs and bad entries
+          dat %>%
+          dplyr::filter(cat_var %in% cat_levels,
+                 !is.na(cat_var))
+        
+        
+        if (length(!is.na(cat_levels)) >= 2){ # Check if cat_var has at least 2 levels
+        
+        myUnifiedModel <- 
+          lmerTest::lmer(formula = "num_var ~ long_var * cat_var + (1|id_var)", data = dat)
+        
+        finalTable <-
+          anova(myUnifiedModel) %>%
+
+          # magrittr::extract2("coefficients") %>%
+          as.data.frame() %>%
+          tibble::rownames_to_column(var = "term") %>%
+          dplyr::filter(term == "long_var:cat_var") %>%
+          magrittr::set_names(c("term","SumSq", "MeanSq", "df", "DenDF", "Fval","pval")) %>%
+          dplyr::mutate(pval = round(pval, 3)) %>%
+          mutate(term = num_var) %>%
+          rename(Species = term)
+        
+
+        return(finalTable)
+        
+        } else {return(NA)}
+      })
+    
+  })
+
+}
+
+
+testTable <- get_multiLMM_table(df = abundance,
+                                num_vector = num_vector,
+                                sam_var = "SampleID",
+                                cat_vector = cat_vector, 
+                                long_var = long_var,
+                                id_var = id_var)
+
+
+signifDF <- testTable$group %>% 
+  arrange(desc(Fval)) %>%
+  mutate(padj = p.adjust(pval, method= "fdr")) %>%
+  filter(pval < 0.05)
+
+
+```
+As this was a proper LMM using cat_var as fixed effect, we can't get an overall "slope", as the model computes an estimate for each cat_var level. Hence, as a proxy for effect size we'll ANOVA F-statistic which is calculated as the division betwen inter-group mean variance and intra-group variance. From the significant species we'll be able to greatly reduce the table so we can comfortably estimate slopes for each one.
+
+By looking at group test statistic, we see a few species with a significant time:group interaction, which becomes unsignificant even with a permisive fdr correction. 
+
+```{r slopes_and_plots, warning=F, message=F}
+
+plotlist <- 
+  signifDF$Species %>%
+  set_names() %>%
+  map(function(sp) {
+    print(sp)
+    dat <-
+      abundance %>% 
+      dplyr::filter(!is.na(!!sym(cat_var))) %>%
+      select(num_var = sp,
+             cat_var = !!sym(cat_var),
+             id_var,
+             long_var)
+    
+    model <- dat %>%
+      lmerTest::lmer(formula = "num_var ~ long_var * cat_var + (1|id_var)", data = .)
+    
+    myGraphParams <- dat %>%
+      get_LMM_GraphParams() %>%
+      mutate(across(contains("x"), ~ as.numeric(.x)))
+    
+    myPval <-
+      anova(model) %>%
+      
+      # magrittr::extract2("coefficients") %>%
+      as.data.frame() %>%
+      dplyr::slice(3L) %>%
+      magrittr::set_names(c("SumSq", "MeanSq", "df", "DenDF", "Fval", "pval")) %>%
+      dplyr::mutate(pval = round(pval, 3))
+    
+    myplot <- dat %>%
+      ggplot(.,
+             aes(
+               x = long_var,
+               y = num_var,
+               group = id_var,
+               color = cat_var
+             )) +
+      geom_point(alpha = 0.2) +
+      geom_line(alpha = 0.2) +
+      scale_x_continuous(breaks = unique(dat$long_var),
+                         limits = c(min(dat$long_var),
+                                    max(dat$long_var))) +
+      
+      geom_segment(
+        data = myGraphParams,
+        aes(
+          x = xmin,
+          y = ymin,
+          xend = xmax,
+          yend = ymax,
+          color = cat_var
+        ),
+        inherit.aes = T,
+        size = 2
+      ) +
+      scale_color_brewer(palette = "Set1") +
+      labs(color = cat_var,
+           x = "weeks",
+           y = num_var) +
+      geom_label(
+        data = myPval,
+        aes(
+          alpha = NULL,
+          label = paste("ANOVA p=",
+                        pval,
+                        sep = ""),
+          x = -Inf,
+          y = Inf
+        ),
+        color = "black",
+        hjust = 0.01,
+        vjust = 1
+      ) +
+      theme_bw()
+    
+  })
+
+
+
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
