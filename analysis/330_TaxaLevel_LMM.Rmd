@@ -117,7 +117,7 @@ mymre <- readRDS(here::here("data", "mre.rds"))
 #   read.table(sep="\t") %>%
 #   setNames(c("CategoricalVariable","PaletteName")) %>%
 #   as_tibble()
-phy <- metar::get_phyloseq(mymre, type="metaphlan_counts")
+phy <- metar::get_phyloseq(mymre, type="metaphlan")
 id_var <- "record_id"
 long_var <- "time_point"
 cat_df <- metar::get_cat(mymre) %>%
@@ -129,10 +129,22 @@ metadata <-
   mutate(rnames = SampleID) %>%
   tibble::column_to_rownames("rnames")
 
-abundance <-   
+## Remove patients with <2 samples, this is temporal 
+
+selectedIds <- metadata %>%
+  select(SampleID, record_id) %>%
+  group_by(record_id) %>% 
+  summarise(n = n()) %>% 
+  filter(n >= 2) %>% 
+  pull(record_id)
+
+metadata <- metadata %>%
+  filter(record_id %in% selectedIds)
+
+abundance <- 
   metar:::get_merged_df(phy, tax_level="Species",sample_data_df = F) %>%
   full_join(
-    metadata[,c("SampleID",id_var,long_var, cat_vector)], by="SampleID") %>%
+  metadata[,c("SampleID",id_var,long_var, cat_vector)], by="SampleID") %>%
   dplyr::rename(id_var = !!sym(id_var),
                 long_var = !!sym(long_var))
 
@@ -153,6 +165,9 @@ abundance <-
 num_vector <- abundance %>% 
   dplyr::select(-id_var, -cat_vector, -long_var, -SampleID) %>%
   colnames()
+
+
+
 
 get_multiLMM_table <- function(df,num_vector, sam_var, cat_vector, long_var, id_var){
   
