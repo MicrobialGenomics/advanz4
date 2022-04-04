@@ -36,6 +36,15 @@ mySampleData<-here::here("Metadata","MetadataManagement","metadata.csv")%>%
   mutate(ExtractionDate = as.character(format(as.Date(ExtractionDate), "%d%b%Y"))) %>%
   select(-c(DateDiff))
 
+
+mySampleData %>%
+  filter(Selected_For_Sequencing == "Yes") %>%
+  select(CODE, PatCode) %>%
+  group_by(PatCode) %>%
+  summarise(n=n()) %>%
+  filter(n<2)
+
+
 myClinicalData<-here::here("Metadata","MetadataManagement","Clinical_Table.csv") %>%
   read.csv() %>%
   select(variables_selected$VarName) %>%
@@ -86,6 +95,10 @@ MetadataLab<-here::here("Metadata", "MetadataManagement", "LabData.xls") %>%
   mutate(time_point = as.numeric(time_point)) %>%
   mutate(record_id = gsub("-","",record_id)) %>%
   left_join(myMergedMetadata, ., by=c("record_id","time_point"), all=T) 
+
+
+
+
 
 
 MetadataLabDem<- here::here("Metadata","MetadataManagement","Vital.xlsx") %>%
@@ -304,9 +317,19 @@ metadata_final <-
   arrange(record_id, time_point)
 
 
+## Filter patients with <2 samples
+outpatients <- metadata_final %>%
+  select(SampleID, record_id) %>%
+  group_by(record_id) %>%
+  summarise(n=n()) %>%
+  filter(n<2) %>% 
+  pull(record_id)
 
 
-metadata_final %>%  
+
+
+metadata_final %>%
+  filter(!record_id %in% outpatients) %>%
   readr::write_delim(
         file = here::here("Metadata",
             

@@ -3,11 +3,118 @@ title: "Baseline microbiome vs Immune response"
 author: "Marc Noguera"
 date: "3/29/2022"
 output: html_document
+editor_options:
+  chunk_output_type: console
 ---
 
 ```{r Baseline microbiome vs Immune response, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+
+```{r Setup, warning=F, message=F}
+
+mymre <- here::here("data","mre.rds") %>%
+  readRDS(.) 
+
+metadata <-get_meta(mymre)
+
+cat_vector <- get_cat(mymre) %>% 
+  pull(CategoricalVariable)
+
+long_var <- get_lon(mymre) %>%
+  pull(LongitudinalVariable)
+
+id_var <- get_lon(mymre) %>%
+  pull(LinkVariable)
+
+
+```
+
+# Baseline differences in microbiome
+
+
+## Alpha diversity
+
+```{r baseline_richness, warning = F, message = F}
+
+GR <- get_diversity(mymre, type = "igc", res_slot = "dataTable") 
+
+
+
+Threshold <- GR %>%
+  dplyr::select(SampleID, NumberMappedReads) %>%
+  unique() %>%
+  summarise(Q = quantile(NumberMappedReads,0.02)) %>% ### Again, you are using the full data table to calculate percentiles. This is wrong.
+  as.numeric()
+
+
+richness_df <-
+  GR %>%
+  filter(ReadCountReal >= Threshold) %>% ### Get the Mapped Read count (per-sample) just above the threshold
+  group_by(SampleID) %>%
+  summarise(across(everything(), min)) %>%
+  ungroup() %>%
+  select(SampleID, GeneNumber) %>%
+  left_join(., metadata, by="SampleID") %>%
+  select(id_var = !!sym(id_var),
+         long_var = !!sym(long_var),
+         cat_vector,
+         GeneNumber) %>%
+  filter(long_var == 0) 
+
+
+c("CD4diff_48", "CD8diff_48") %>%
+  set_names() %>% 
+  map(function(cat_var){
+    richness_df %>%
+      dplyr::select(id_var,
+                    cat_var = !!sym(cat_var),
+                    GeneNumber) %>%
+            filter(!is.na(cat_var)) %>%
+      ggplot(., aes(x=cat_var, y=GeneNumber, fill = cat_var))+
+      geom_violin(draw_quantiles = T) +
+      # geom_boxplot(fill="lightgrey", width=0.5, na.rm=T) +
+      geom_point() +
+      scale_fill_brewer(palette="Set1") +
+      ggpubr::stat_compare_means(method="wilcox",label = "p.signif", hide.ns = T) +
+      theme_bw() + 
+      labs(fill = cat_var)
+    
+  })
+
+  
+  
+
+
+
+
+
+
+```
+
+No differences in basal Gene richness were found between patients with an increase of CD4 higher than 50 counts/ul and whose with lower increase. The same could be observed in CD8 counts.
+
+
+
+
+```{r basal_NMDS, warning=FALSE, message=FALSE}
+
+basal_mre <- metadata %>%
+  filter(time_point == 0) %>% 
+  pull(SampleID) %>%
+  metar::filter_samples(mymre,sample_ids = .)
+basal_mre@metadata@categorical_vals <- categoricalVariablesDF %>% 
+  filter(CategoricalVariable %in% "group")
+
+nmds <- metar::metaphlan_nmds(basal_mre, tax_level = "Species",top_n = 50, save_files = F)
+
+
+##Error in utils::combn(., 2) : n < m Error given by too few observations in one of the levels of CD4diff_48
+
+```
+
+
 
 ## Baseline microbiome vs Immune response
 
@@ -20,7 +127,4 @@ It may be useful to try to classify patients solely on CD4/CD8/immune markers an
 
 Also it is relevant to show that the baseline microbiom was NOT different between ARMs (DTG/DRVr)
 
-```{r cars}
-
-```
 
