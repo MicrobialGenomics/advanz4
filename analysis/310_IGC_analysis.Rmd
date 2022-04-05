@@ -80,10 +80,10 @@ myigc <- igc_lmm(mymre)
 
 
 
-Threshold = igc@dataTable %>%
+Threshold <-  igc@dataTable %>%
   dplyr::select(SampleID, NumberMappedReads) %>%
   unique() %>%
-  summarise(Q = quantile(NumberMappedReads,0.02)) %>% ### Again, you are using the full data table to calculate percentiles. This is wrong.
+  summarise(Q = quantile(NumberMappedReads,0.02)) %>% 
   as.numeric()
 
 

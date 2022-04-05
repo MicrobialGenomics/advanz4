@@ -45,6 +45,8 @@ CategoricalVariablesDF <- get_metadata(mymre)@categorical_vals
 NumericalVariablesDF <- get_metadata(mymre)@numeric_vals
 LongitudinalVariablesDF <- get_metadata(mymre)@longitudinal_vals
 
+cat_var <- "group"
+
 ```
 
 ```{r Get_DistMats, eval=F, include=T}
@@ -68,18 +70,18 @@ myAbundanceDF<- getAbundances(myphyloseq, "Species")
 Top50<- myAbundanceDF %>%
     mutate(sum=rowSums(.)) %>%
     arrange(desc(sum)) %>%
-    dplyr::slice(1:50) %>%
-    rownames()
+    dplyr::slice(1:50)
 
 
 
-myNMDS <- myAbundanceDF %>%
+myNMDS <- Top50 %>%
     # dplyr::filter(row.names(.) %in% Top50) %>%
     t() %>%
     as.data.frame() %>%
+    # vegan::vegdist(., method = "bray") %>%
  
-    metaMDS(.,distance="bray",trymax=100, 
-            k = nrow(unique(metadata[,CategoricalVariablesDF$CategoricalVariable[1]]))) %>%
+    metaMDS(.,trymax=1000,  distance = "bray",
+            k = 2) %>%
     pluck("points") %>%
     as.data.frame() 
 
