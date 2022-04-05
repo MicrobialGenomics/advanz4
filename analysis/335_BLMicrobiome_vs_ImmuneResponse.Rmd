@@ -90,45 +90,125 @@ c("CD4diff_48", "CD8diff_48") %>%
   
 
 
+```
+
+No differences in basal Gene richness were found between patients with an increase of CD4 higher than 50 counts/ul and whose with lower increase. The same could be observed in CD8 counts.
+
+
+```{r Immune_delta_Distributions, warning=F, message=F}
+
+
+
 ids <- metadata %>%
-  group_by(record_id) %>%
-  filter(time_point %in% c(0,48)) %>%
-  filter(!is.na(CD4)) %>%
-  filter(!is.na(CD8)) %>% 
-  arrange(time_point) %>%
-  summarise(n=n()) %>%
-  filter(n==2) %>%
-  pull(record_id)
+  dplyr::group_by(record_id) %>%
+  dplyr::filter(time_point %in% c(0,48)) %>%
+  dplyr::filter(!is.na(CD4)) %>%
+  dplyr::filter(!is.na(CD8)) %>% 
+  dplyr::arrange(time_point) %>%
+  dplyr::summarise(n=n()) %>%
+  dplyr::filter(n==2) %>%
+  dplyr::pull(record_id)
 
 
 deltas <- metadata %>% 
-  filter(record_id %in% ids) %>%
-  filter(time_point %in% c(0,48)) %>% 
-  select(record_id, time_point,CD4,CD8) %>%
-  group_by(record_id) %>% 
-  arrange(record_id,time_point) %>%
-  pivot_wider(id_cols = record_id, names_from= time_point, values_from = c(CD4,CD8)) %>%
-  mutate(deltaCD4 = CD4_48 - CD4_0,
-         deltaCD8 = CD8_48 - CD8_0) %>%
-  select(record_id, deltaCD4, deltaCD8)
+  # dplyr::filter(record_id %in% ids) %>%
+  dplyr::filter(time_point %in% c(0,48,96)) %>% 
+  dplyr::select(record_id, time_point,CD4,CD8) %>%
+  dplyr::mutate(ratio = CD4/CD8) %>% 
+  dplyr::group_by(record_id) %>% 
+  dplyr::arrange(record_id,time_point) %>%
+  tidyr::pivot_wider(id_cols = record_id, names_from= time_point, values_from = c(CD4,CD8, ratio)) %>%
+  dplyr::mutate(
+    deltaCD4_48 = CD4_48 - CD4_0, 
+    deltaCD8_48 = CD8_48 - CD8_0,
+    deltaCD4_96 = CD4_96 - CD4_0, 
+    deltaCD8_96 = CD8_96 - CD8_0,
+    deltaratio_48 = ratio_48 - ratio_0,
+    deltaratio_96 = ratio_96 - ratio_0) %>%
+  dplyr::select(record_id, contains("delta"))
+
+
 
 deltas %>%
-  pivot_longer(cols=c(deltaCD4,deltaCD8)) %>% 
-
-  ggplot(., aes(fill=name, color=name)) +
+  pivot_longer(cols=c(deltaCD4_48,deltaCD8_48,deltaCD4_96,deltaCD8_96, deltaratio_48, deltaratio_96)) %>%
+  mutate(term = str_remove_all(name, "delta|_48|_96"),
+         tp = str_remove_all(name, ".*(?<=_)")) %>%
+  ggplot(., aes(color=tp)) +
   geom_density(aes(x=value), alpha=0.4) +
+  facet_wrap(~ term, scales="free", ncol = 2) +
+  # geom_density(data=pivot_longer(cols=c(deltaCD4,deltaCD8)),aes(x=value), alpha=0.4) +
   theme_bw() +
   scale_color_brewer(palette = "Set1")+
-  scale_fill_brewer(palette="Set1") +
-  labs(color="cell type", fill="cell type")
+
+  labs(color="week")
 
 
-
+deltas %>% 
+  select(contains("delta")) %>% 
+  colnames() %>% 
+  set_names() %>% 
+  map(~{
+    summary(deltas[,.x])
+  })
+  
 
 
 ```
 
-No differences in basal Gene richness were found between patients with an increase of CD4 higher than 50 counts/ul and whose with lower increase. The same could be observed in CD8 counts.
+
+The last piece of output (summaries) tell there is a great ammount of missing data. This is due to a combination of many patients missing a sample and a few not having entries for analytical data:
+
+```{r count_missing_samples, warning=F, message=F}
+no0 <- metadata %>% 
+  filter(!record_id %in% metadata[metadata$time_point == 0, ]$record_id) %>%
+  pull(record_id)
+
+##patients without lymphocite data but with microbiome sample
+no48_CD4 <- metadata %>%
+  filter(is.na(CD4) & !is.na(SampleID)) %>%
+  filter(time_point == 48) %>% 
+  pull(record_id)  
+
+no48_CD8 <- metadata %>%
+  filter(is.na(CD8) & !is.na(SampleID)) %>%
+  filter(time_point == 48) %>% 
+  pull(record_id)  
+
+
+no96_CD4 <- metadata %>%
+  filter(is.na(CD4)& !is.na(SampleID)) %>%
+  filter(time_point == 96) %>% 
+  pull(record_id)
+
+no96_CD8 <- metadata %>%
+  filter(is.na(CD8)& !is.na(SampleID)) %>%
+  filter(time_point == 96) %>% 
+  pull(record_id)
+
+
+# patients without sample
+noS48 <- metadata %>%
+  filter(!record_id %in% metadata[metadata$time_point == 48, ]$record_id) %>% 
+  pull(record_id)
+
+noS96 <- metadata %>%
+  filter(!record_id %in% metadata[metadata$time_point == 96, ]$record_id) %>% 
+  pull(record_id)
+
+
+
+totalMissing_CD4_48 <- length(unique(c(no0, no48_CD4, noS48)))
+totalMissing_CD4_96 <- length(unique(c(no0,no96_CD4, noS96)))
+totalMissing_CD8_48 <- length(unique(c(no0, no48_CD8, noS48)))
+totalMissing_CD8_96 <- length(unique(c(no0,no96_CD8, noS96)))
+
+totalMissing_CD4_48
+totalMissing_CD4_96
+totalMissing_CD8_96
+totalMissing_CD8_96
+```
+
+Adding the different kind of missing data checks out with the summaries. The biggest issue came with patients not having no sample whatsoever for such timepoints. Of which: 25 didn't have a basal sample, 22 didnt have sample for week 48 and 30 for week 96.
 
 
 
