@@ -36,6 +36,8 @@ setwd(myPath)
 mymre<-readRDS(here::here(myPath,"data","mre.rds"))
 
 
+
+
 # mymre <- aws.s3::s3readRDS("s3://mistral-wp6-advanz4/metagenome/WMGS/MREObject.rds") ### Check consistency between mre.rds(local and S3). You are reading s3 file, here, but in 200_ you are using local
 # metadata <- metar::get_metadata(mymre)@metadata_df
 
@@ -58,6 +60,19 @@ metadata <- metar::get_metadata(mymre)@metadata_df
 CategoricalVariablesDF <- get_metadata(mymre)@categorical_vals 
 NumericalVariablesDF <- get_metadata(mymre)@numeric_vals
 LongitudinalVariablesDF <- get_metadata(mymre)@longitudinal_vals
+
+
+onesample <- metadata %>% 
+  select(SampleID,record_id) %>% 
+  group_by(record_id) %>%
+  summarise(n=n()) %>%
+  filter(n<2) %>% 
+  pull(record_id)
+
+samples <- metadata %>% filter(record_id %in% onesample) %>% pull(SampleID)
+
+metar::filter_samples(mre = mymre,sample_ids = samples)
+
 
 cat_vector <- CategoricalVariablesDF$CategoricalVariable
 CategoricalVariablesDF$PaletteName<-"Set1"

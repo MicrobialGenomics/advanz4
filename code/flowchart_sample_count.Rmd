@@ -1,0 +1,105 @@
+---
+title: "Patient Followup"
+author: "Carlos Blázquez Bondia"
+date: "6/4/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+
+patient_data <- 
+  here::here("Metadata", "MetadataManagement", "Export.xlsx") %>% 
+  readxl::read_xlsx() %>%
+  mutate(PatCode = str_remove_all(PatCode, "-"))
+  
+
+metadata <- 
+  here::here("Metadata","2022_03_25_clean_metadata_LIMS.csv") %>%
+  read.csv()
+nrow(patient_data)
+  
+
+mITT <- patient_data %>% 
+  filter(mITT == "Yes") %>% 
+  pull(PatCode) %>% 
+  as.character()
+
+droppedpatients <- patient_data %>% 
+  filter(!PatCode %in% metadata$record_id) %>% 
+  pull(PatCode)
+
+
+mITT %>%
+  dplyr::filter(mITT == "Yes") %>% 
+  dplyr::select(PatCode, Reason, mITT)
+
+metmITT <- metadata %>%
+  select(record_id, group) %>%
+  dplyr::filter(record_id %in% mITT$PatCode) %>%
+  unique() %>%
+  pull(record_id) 
+
+patient_data %>%
+  select(PatCode, mITT, Treat) %>%
+  filter(mITT == "Yes") %>% 
+  filter(!PatCode %in% metmITT)
+
+metadata %>%
+  filter(record_id %in% metmITT) %>%
+  filter(record_id %in% mITT)
+
+patient_data %>%
+  filter(!Reason == "No\r\nPremature\r\nFinalisation") %>%
+  filter(Treat == "ABC+3TC+DGT") %>% 
+  select(PatCode,Treat, Reason)
+
+## N sequenced
+metadata %>% 
+  select(record_id, group) %>%
+  unique() %>% 
+  group_by(group) %>% 
+  summarise(n=n())
+
+
+
+
+singlesample <- 
+  metadata %>% 
+  select(SampleID, record_id) %>% 
+  group_by(record_id) %>% 
+  summarise(n=n()) %>% 
+  filter(n<2) %>% 
+  pull(record_id)
+
+
+discarded_ids <- 
+  metadata %>%
+  filter(record_id %in% singlesample) %>%
+
+  select(record_id,group,time_point) %>%
+  filter(time_point == 0) %>%
+  pull(record_id)
+
+new_meta <- metadata %>% 
+  filter(!record_id %in% c("C004", "E009")) %>%
+  filter(!record_id %in% discarded_ids)  
+
+  
+new_meta %>% 
+  select(record_id, group) %>% 
+  unique() %>% 
+  group_by(group) %>% 
+  summarise(n=n())
+
+```

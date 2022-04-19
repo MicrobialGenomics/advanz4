@@ -19,6 +19,12 @@ library(metar)
 
 # mymre <- here::here("data","mre.rds") %>%
 #   readRDS(.) 
+<<<<<<< Updated upstream
+=======
+
+mymre <- aws.s3::s3readRDS(bucket = "s3://mistral-wp6-advanz4", object="metagenome/WMGS/MREObject.rds")
+
+>>>>>>> Stashed changes
 
 mymre <- aws.s3::s3readRDS(bucket = "s3://mistral-wp6-advanz4", object = "metagenome/WMGS/MREObject.rds")
 metadata <-get_meta(mymre)
@@ -166,7 +172,7 @@ no0 <- metadata %>%
 
 ##patients without lymphocite data but with microbiome sample
 no48_CD4 <- metadata %>%
-  filter(is.na(CD4) & !is.na(SampleID)) %>%
+  filter(is.na(CD4) ) %>%
   filter(time_point == 48) %>% 
   pull(record_id)  
 
@@ -212,14 +218,24 @@ totalMissing_CD8_96
 Adding the different kind of missing data checks out with the summaries. The biggest issue came with patients not having no sample whatsoever for such timepoints. Of which: 25 didn't have a basal sample, 22 didnt have sample for week 48 and 30 for week 96.
 
 
+delta CD4 threshold was too low. To keep the study clinically interpretable We'll do a cutoff as a round number around the mean. In this case <150/>150 according to the mITT design results of the parent study.
+
+Basal gene richness vs delta CD4_48 as continuous variables
+
+
 
 
 ```{r basal_NMDS,eval=F ,warning=FALSE, message=FALSE}
 
-basal_mre <- metadata %>%
+basal_samples <- metadata %>%
   filter(time_point == 0) %>% 
-  pull(SampleID) %>%
-  metar::filter_samples(mymre,sample_ids = .)
+  pull(SampleID) %>% 
+  as.character()
+
+filter_samples(mymre, basal_samples)
+
+  
+  
 basal_mre@metadata@categorical_vals <- categoricalVariablesDF %>% 
   filter(CategoricalVariable %in% "group")
 
