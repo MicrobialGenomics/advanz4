@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 Metadata consists on two tables. ne with sample information, coming a merge between two tables, the one with the samples collected in HC and the other ones from IrsiCaixa. The other table contains all the relevant clinical and demographic information along with group data
 
 ```{r read_tables, warning=F, message=F}
-variables_selected <- read.csv(here::here("Metadata","MetadataManagement","Var_names.csv"), header=T) %>%
+variables_selected <- read.csv(here::here("Metadata","MetadataManagement","Var_names.csv"), header=T, encoding = "UTF-8") %>%
   dplyr::filter(selected == "YES") 
 
  
@@ -46,7 +46,7 @@ mySampleData %>%
 
 
 myClinicalData<-here::here("Metadata","MetadataManagement","Clinical_Table.csv") %>%
-  read.csv() %>%
+  read.csv(., encoding = "UTF-8") %>%
   select(variables_selected$VarName) %>%
   mutate(PatCode = gsub("-","",PatCode)) %>%
   mutate(group = case_when(Treat == "ABC+3TC+DGT" ~ "DTG",
@@ -328,16 +328,6 @@ outpatients <- metadata_final %>%
 
 
 
-metadata_final %>%
-  filter(!record_id %in% outpatients) %>%
-  readr::write_delim(
-        file = here::here("Metadata",
-            
-            str_c(Sys.Date() %>% str_replace_all("-", "_"), "_clean_metadata_LIMS.csv")
-        ), 
-        delim = ",", quote = "all"
-    )
-  
 # 
 # write.csv(colnames(metadata_final),file="Var_names.csv", quote=T)
 
@@ -393,6 +383,51 @@ p + scale_size_manual(values = c(size=2))
 
 
 ```
+
+
+
+
+```{r add_PCR_results, message= T, warning= T}
+PCR <- here::here("Metadata", "MetadataManagement", "Resultats_Real_Time.xlsx") %>% 
+  readxl::read_excel(., sheet = 1) %>% 
+  setNames(c("SampleID", "test", "ct", "value", "unit", "kit")) %>% 
+  pivot_wider(names_from = test, values_from = c(value, ct)) %>% 
+  rename(ADV = value_ADV,
+         ct_IC = ct_CI) %>% 
+  select(!value_CI) %>% 
+  mutate(ADV = round(ADV,4),
+         ct_IC = na_if(ct_IC, "Undetermined"),
+         cd_ADV = na_if(ct_ADV, "Undetermined")) %>% 
+  mutate(ADV = as.numeric(ADV)) %>%
+  filter(!is.na(ADV) & !is.na(ct_IC))
+
+
+metadata_final <- 
+  metadata_final %>% 
+  right_join(PCR, by="SampleID") %>% 
+  relocate(ADV, .after="sCD14")
+
+
+
+```
+
+
+```{r Write_metadata}
+
+metadata_final %>%
+  filter(!record_id %in% outpatients) %>%
+  readr::write_delim(
+        file = here::here("Metadata",
+            
+            str_c(Sys.Date() %>% str_replace_all("-", "_"), "_clean_metadata_LIMS.csv")
+        ), 
+        delim = ",", quote = "all"
+    )
+
+
+
+```
+
 
 ```{r create_backup_DONT_TOUCH, echo=F, eval=F}
 # bakDF<-data.frame(VarName = names(variables_selected), NewName = as.character(variables_selected))
