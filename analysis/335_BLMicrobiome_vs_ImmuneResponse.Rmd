@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(RColorBrewer)
 library(metar)
+library(patchwork)
 ```
 
 
@@ -216,29 +217,83 @@ delta CD4 threshold was too low. To keep the study clinically interpretable We'l
 
 Basal gene richness vs delta CD4_48 as continuous variables
 
+# Microbiome structure at basal
 
-
-
-```{r basal_NMDS,eval=F ,warning=FALSE, message=FALSE}
-
+```{r get_basal_mre, warning=F, message= F}
 basal_samples <- metadata %>%
   filter(time_point == 0) %>% 
   pull(SampleID) %>% 
   as.character()
 
-filter_samples(mymre, basal_samples)
+basal_mre <- filter_samples(mymre, basal_samples)
 
   
   
-basal_mre@metadata@categorical_vals <- categoricalVariablesDF %>% 
+basal_mre@metadata@categorical_vals <- get_cat(mymre) %>% 
   filter(CategoricalVariable %in% "group")
 
 
+basal_mre <- metar::metaphlan_nmds(basal_mre, tax_level="Species")
 
-
-##Error in utils::combn(., 2) : n < m Error given by too few observations in one of the levels of CD4diff_48
 
 ```
+
+
+
+```{r basal_NMDS,eval=t ,warning=FALSE, message=FALSE}
+
+
+group <- basal_mre@taxa@metaphlan@nmds$Species$top_50$categorical$group & 
+    scale_color_brewer(palette="Set1") &
+    scale_fill_brewer(palette = "Set1")
+
+
+
+cluster <- basal_mre@taxa@metaphlan@nmds$Species$top_50$categorical$cluster
+
+
+
+
+```
+
+
+NMDS shows no basal significant differences per group for either com,ponent. An unsupervised clustering created 2 well differentiated groups. While ADONIS per cluster was significant, we'll look whether the numerical variables have something to do with them.
+
+```{r adonis _table, echo=F, warning=F, message = F}
+kableExtra::kable(basal_mre@taxa@metaphlan@nmds$Species$top_50$all_adonis, format = "markdown")
+```
+
+
+
+# NMDS correlation with numerical variables
+```{r NMDS_numeric_correlations, warning= F, message= F}
+basal_mre@taxa@metaphlan@nmds$Species$top_50$cluster_numeric
+
+ 
+
+```
+
+# Numerical variables vs unsupervised clustering
+
+
+```{r numerical_vs_cluster}
+
+
+basal_mre@taxa@metaphlan@nmds$Species$top_50$cluster_numeric
+
+```
+
+
+# Categorical variables vs unsupervised clustering
+```{r numerical_vs_cluster}
+
+
+basal_mre@taxa@metaphlan@nmds$Species$top_50$cluster_categorical
+
+```
+
+
+
 
 
 
