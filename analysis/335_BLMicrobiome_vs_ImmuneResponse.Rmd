@@ -17,9 +17,10 @@ library(metar)
 
 ```{r Setup, warning=F, message=F}
 
-mymre <- here::here("data","mre.rds") %>%
-  readRDS(.) 
+# mymre <- here::here("data","mre.rds") %>%
+#   readRDS(.) 
 
+mymre <- aws.s3::s3readRDS(bucket = "s3://mistral-wp6-advanz4", object = "metagenome/WMGS/MREObject.rds")
 metadata <-get_meta(mymre)
 
 cat_vector <- get_cat(mymre) %>% 
