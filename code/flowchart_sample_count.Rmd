@@ -3,6 +3,8 @@ title: "Patient Followup"
 author: "Carlos Blázquez Bondia"
 date: "6/4/2022"
 output: html_document
+editor_options:
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -40,25 +42,26 @@ droppedpatients <- patient_data %>%
   pull(PatCode)
 
 
-mITT %>%
-  dplyr::filter(mITT == "Yes") %>% 
-  dplyr::select(PatCode, Reason, mITT)
 
 metmITT <- metadata %>%
   select(record_id, group) %>%
-  dplyr::filter(record_id %in% mITT$PatCode) %>%
+  dplyr::filter(record_id %in% mITT) %>%
   unique() %>%
   pull(record_id) 
 
+
+
+## Patients dropped at Sequencing Step
 patient_data %>%
   select(PatCode, mITT, Treat) %>%
   filter(mITT == "Yes") %>% 
-  filter(!PatCode %in% metmITT)
+  filter(!PatCode %in% metmITT) %>%
+  select(PatCode,Treat) %>% 
+  group_by(Treat) %>% 
+  summarise(n=n())
 
-metadata %>%
-  filter(record_id %in% metmITT) %>%
-  filter(record_id %in% mITT)
 
+# Patients with reported loss of followup
 patient_data %>%
   filter(!Reason == "No\r\nPremature\r\nFinalisation") %>%
   filter(Treat == "ABC+3TC+DGT") %>% 

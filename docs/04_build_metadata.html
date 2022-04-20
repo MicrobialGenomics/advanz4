@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Carlos Blázquez Bondia" />
+
+<meta name="date" content="2022-04-20" />
+
+<title>ADVANZ_Metadata</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/tabwid-1.0.0/tabwid.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">advanz4</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+<li>
+  <a href="310_IGC_analysis.html">Gene richness</a>
+</li>
+<li>
+  <a href="320_Beta_Diversity.html">Beta Diversity</a>
+</li>
+<li>
+  <a href="335_BLMicrobiome_vs_ImmuneResponse.html">Immune and clinical BL comparisons</a>
+</li>
+<li>
+  <a href="330_TaxaLevel_LMM.html">LMM taxa ranking</a>
+</li>
+<li>
+  <a href="410_Taxonomy_Exploration.html">Taxonomy</a>
+</li>
+<li>
+  <a href="420_Taxonomy_DA.html">Differential Abundance</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">ADVANZ_Metadata</h1>
+<h4 class="author">Carlos Blázquez Bondia</h4>
+<h4 class="date">2022-04-20</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2022-04-20
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>advanz4/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211203code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20211203)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20211203code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20211203)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treee1f702e5d58b41215d4eaad8fd8796f88e0bb616targetblanke1f702ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/e1f702e5d58b41215d4eaad8fd8796f88e0bb616" target="_blank">e1f702e</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treee1f702e5d58b41215d4eaad8fd8796f88e0bb616targetblanke1f702ea" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/e1f702e5d58b41215d4eaad8fd8796f88e0bb616" target="_blank">e1f702e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    analysis/.Rhistory
+    Ignored:    analysis/output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/
+    Ignored:    data/mre.rds
+
+Untracked files:
+    Untracked:  Metadata/.~lock.2022_04_01_clean_metadata_LIMS.csv#
+    Untracked:  Metadata/2022_04_20_clean_metadata_LIMS.csv
+    Untracked:  code/basal_distances.R
+
+Unstaged changes:
+    Modified:   .gitignore
+    Deleted:    Metadata/.~lock.2022_03_25_clean_metadata_LIMS.csv#
+    Deleted:    Metadata/MetadataManagement/.~lock.Export.xlsx#
+    Deleted:    Metadata/MetadataManagement/.~lock.LabData.xls#
+    Modified:   analysis/04_build_metadata.Rmd
+    Modified:   code/flowchart_sample_count.Rmd
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/bray_stressplot.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_cluster.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CD4.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CD8.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CD8_CD38_DR.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CRP.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_IL6.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_TNFa.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_sCD14.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/nmds_adonis_results.csv
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/nmds_coordinates.csv
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CD4.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CD8.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CD8_CD38_DR.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CRP.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_IL6.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_TNFa.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_sCD14.pdf
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/04_build_metadata.Rmd</code>) and HTML (<code>docs/04_build_metadata.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/462bcfcc429cfb1a330dc0ea55615aa61b391274/analysis/04_build_metadata.Rmd" target="_blank">462bcfc</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-04-19
+</td>
+<td>
+fixed file encoding problem
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/0527e8849e3d4382a8cca0c0cf7365901189897f/analysis/04_build_metadata.Rmd" target="_blank">0527e88</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-04-19
+</td>
+<td>
+Added buld_metadata.Rmd to analysis. Added MetadataManagement to .gitignore
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="load-and-merge-metadata-files." class="section level2">
+<h2>Load and merge metadata files.</h2>
+<p>Metadata consists on two tables. ne with sample information, coming a merge between two tables, the one with the samples collected in HC and the other ones from IrsiCaixa. The other table contains all the relevant clinical and demographic information along with group data</p>
+<pre class="r"><code>variables_selected &lt;- read.csv(here::here(&quot;Metadata&quot;,&quot;MetadataManagement&quot;,&quot;Var_names.csv&quot;), header=T, encoding = &quot;UTF-8&quot;) %&gt;%
+  dplyr::filter(selected == &quot;YES&quot;) 
+
+ 
+
+mySampleData&lt;-here::here(&quot;Metadata&quot;,&quot;MetadataManagement&quot;,&quot;metadata.csv&quot;)%&gt;%
+  read.csv(.) %&gt;%
+  relocate(CODE,Week,ExtractionDate,PatCode) %&gt;%
+  mutate(ExtractionDate = as.character(format(as.Date(ExtractionDate), &quot;%d%b%Y&quot;))) %&gt;%
+  select(-c(DateDiff))
+
+
+mySampleData %&gt;%
+  filter(Selected_For_Sequencing == &quot;Yes&quot;) %&gt;%
+  select(CODE, PatCode) %&gt;%
+  group_by(PatCode) %&gt;%
+  summarise(n=n()) %&gt;%
+  filter(n&lt;2)
+#&gt; # A tibble: 0 × 2
+#&gt; # … with 2 variables: PatCode &lt;chr&gt;, n &lt;int&gt;
+
+
+myClinicalData&lt;-here::here(&quot;Metadata&quot;,&quot;MetadataManagement&quot;,&quot;Clinical_Table.csv&quot;) %&gt;%
+  read.csv(., encoding = &quot;UTF-8&quot;) %&gt;%
+  select(variables_selected$VarName) %&gt;%
+  mutate(PatCode = gsub(&quot;-&quot;,&quot;&quot;,PatCode)) %&gt;%
+  mutate(group = case_when(Treat == &quot;ABC+3TC+DGT&quot; ~ &quot;DTG&quot;,
+                           Treat == &quot;ABC+3TC+DRV+RTV&quot; ~ &quot;DRV/r&quot;)) 
+
+myMergedMetadata &lt;- myClinicalData %&gt;%
+  right_join(mySampleData, ., by=&quot;PatCode&quot;) %&gt;%
+  # filter(Selected_For_Sequencing == &quot;Yes&quot;)  %&gt;%
+
+  relocate(PatCode, Week,  group) %&gt;%
+  arrange(PatCode, Week) %&gt;%
+  dplyr::rename(!!set_names(variables_selected$VarName, variables_selected$NewName)) %&gt;%
+  dplyr::rename(
+                record_id = pat_code, 
+                time_point = Week
+         ) 
+      
+# glimpse(myMergedMetadata)</code></pre>
+</div>
+<div id="adding-lab-and-demographic-results-lymphocytes-and-inflammation-markers" class="section level1">
+<h1>Adding Lab and Demographic results (Lymphocytes and inflammation markers)</h1>
+<p>Raw extracted data had a “melted” structure, so we may need to change it to wide format</p>
+<pre class="r"><code>
+vars=c(&quot;CD4 value&quot;,&quot;CD8 value&quot;, &quot;8+38+DR+&quot;, &quot;PCR&quot;, &quot;IL-6&quot;, &quot;TNF-a&quot;, &quot;sCD14&quot;)
+names(vars) &lt;- c(&quot;CD4&quot;,&quot;CD8&quot;, &quot;CD8_CD38_DR&quot;, &quot;CRP&quot;, &quot;IL6&quot;, &quot;TNFa&quot;, &quot;sCD14&quot;)
+
+
+MetadataLab&lt;-here::here(&quot;Metadata&quot;, &quot;MetadataManagement&quot;, &quot;LabData.xls&quot;) %&gt;%
+  readxl::read_excel() %&gt;%
+  filter(ParamName %in% vars &amp; PatCode != &quot;TMP??-000&quot;) %&gt;% 
+  pivot_wider(id_cols = c(&quot;PatCode&quot;, &quot;Week&quot;),names_from=&quot;ParamName&quot;, values_from = &quot;Result&quot;) %&gt;%
+  dplyr::select(record_id = PatCode,
+                time_point = Week,
+                CD4 = `CD4 value`,
+                CD8 = `CD8 value`,
+                CD8_CD38_DR = `8+38+DR+`,
+                CRP = PCR,
+                IL6 = `IL-6`,
+                TNFa = `TNF-a`,
+                sCD14 = sCD14
+                ) %&gt;%
+  mutate(time_point = as.numeric(time_point)) %&gt;%
+  mutate(record_id = gsub(&quot;-&quot;,&quot;&quot;,record_id)) %&gt;%
+  left_join(myMergedMetadata, ., by=c(&quot;record_id&quot;,&quot;time_point&quot;), all=T) 
+
+
+
+
+
+
+MetadataLabDem&lt;- here::here(&quot;Metadata&quot;,&quot;MetadataManagement&quot;,&quot;Vital.xlsx&quot;) %&gt;%
+  readxl::read_excel() %&gt;%
+  filter(PatCode != &quot;TMP??-000&quot;) %&gt;%
+  pivot_wider(id_cols = c(&quot;PatCode&quot;, &quot;Week&quot;),names_from=&quot;ParamName&quot;, values_from = &quot;Result&quot;) %&gt;%
+  dplyr::rename(record_id = PatCode,
+         time_point = Week) %&gt;%
+  mutate(time_point = as.numeric(time_point),
+         record_id = gsub(&quot;-&quot;,&quot;&quot;,record_id)) %&gt;%
+  left_join(MetadataLab,. ,by=c(&quot;record_id&quot;,&quot;time_point&quot;), all.x = T) %&gt;%
+  relocate(record_id, time_point, group, names(vars),Weight, Height, BMI, SBP, DBP)
+ 
+dim(MetadataLabDem) 
+#&gt; [1] 280 108</code></pre>
+<p>Now the metadata is almost complete. We need now to identify each sample so it can be quickly referenced in LIMS.     1/3/2022:   We’ll add the variables suggested in the study design, separating the patients in thresholds of T-cell increase and absolute number at weeks 48 and 96. A total of 8 variables were added:  </p>
+<ul>
+<li><p><strong>(CD4/CD8)diff(48/96)</strong> - Increase of CD4/CD8 between weeks 48/96 and 0. Factor of two levels searating <strong>patients</strong> who had an increase higher or lower than 50 cells/ul. Patients with an increase equal or higher than 50 cells/ul were coded as “&gt;50”, while the ones lower than 50 were coded as “&lt;50”</p></li>
+<li><p><strong>(CD4/CD8)after(48/96)</strong> - Number of either CD4 or CD8 at week 48/96, <strong>per patient</strong>. S^eparated in three categories:</p>
+<ul>
+<li><pre><code>**low** - &lt;200 cells/ul at week 48/96</code></pre></li>
+<li><pre><code>**medium** - T-cell counts at week 48/96 equal to or between 200 and 500 cells/ul</code></pre></li>
+<li><pre><code>  **high** - T-cell counts higher than 500 cell/ul</code></pre></li>
+</ul></li>
+</ul>
+<pre class="r"><code>metadata_final &lt;-
+  here::here(&quot;Metadata&quot;, &quot;MetadataManagement&quot;,&quot;Informacio_LIMS.xlsx&quot;) %&gt;%
+  readxl::read_excel(sheet = &quot;DNA&quot;) %&gt;%
+  select(SampleID = `Gemirsi DNA`, CODE = `Sample Name`) %&gt;%
+  mutate(CODE = str_remove_all(CODE, &quot;_.*&quot;)) %&gt;%
+  left_join(MetadataLabDem, ., by = &quot;CODE&quot;) %&gt;%
+  select(-CODE) %&gt;%
+  mutate(
+    across(everything(), ~ str_replace_all(.x, &quot;\\n&quot;, &quot; &quot;)),
+    across(everything(), ~ str_replace_all(.x, &quot;^[[.]]$|^$&quot;, NA_character_)), 
+    across(everything(), ~ recode(.x,
+                                  Si = &quot;yes&quot;,
+                                  No = &quot;no&quot;,
+                                  Yes = &quot;yes&quot;)),
+    across(contains(&quot;date&quot;), ~ as.Date(.x, &quot;%d%b%Y&quot;))
+  ) %&gt;%
+  
+  filter(!is.na(SampleID) &amp; SampleID != &quot;TMP??-000&quot;) %&gt;%
+  type_convert(col_types = cols()) 
+
+metadata_final &lt;- c(48,96) %&gt;%
+  set_names() %&gt;%
+  map( ~ {
+    ids&lt;- metadata_final %&gt;%
+      filter(time_point %in% c(0,.x)) %&gt;%
+      group_by(record_id) %&gt;%
+      summarise(n=n()) %&gt;%
+      filter(n == 2) %&gt;%
+      pull(record_id)  
+    
+    metadata_final %&gt;% 
+      filter(record_id %in% ids) %&gt;%
+      group_by(record_id) %&gt;%
+      arrange(time_point) %&gt;%
+      mutate(
+      
+      CD4diff = case_when(
+        CD4[time_point == .x] - CD4[time_point == 0] &gt;= 150 ~ &quot;150_H&quot;,
+        CD4[time_point == .x] - CD4[time_point == 0] &lt; 150 ~ &quot;150_L&quot;),
+      
+      CD8diff = case_when(
+        CD8[time_point == .x] - CD8[time_point == 0] &gt;= 50 ~ &quot;50_H&quot;,
+        CD8[time_point == .x] - CD8[time_point == 0] &lt; 50 ~ &quot;50_L&quot;),
+      
+      CD4after = case_when(
+        CD4[time_point == .x]  &lt; 200 ~ &quot;low&quot;,
+        CD4[time_point == .x]  &gt;= 200 &amp; CD4[time_point == .x] &lt;= 500 ~ &quot;mid&quot;,
+        CD4[time_point == .x]  &gt; 500 ~ &quot;high&quot;),
+      
+      CD8after = case_when(
+        CD8[time_point == .x]  &lt; 200 ~ &quot;low&quot;,
+        CD8[time_point == .x]  &gt;= 200 &amp; CD8[time_point == .x] &lt;= 500 ~ &quot;mid&quot;,
+        CD8[time_point == .x]  &gt; 500 ~ &quot;high&quot;)) %&gt;%
+      
+      select(record_id, CD4diff, CD8diff, CD4after,CD8after) %&gt;%
+      setNames(str_replace_all(colnames(.), &quot;diff&quot;, paste(&quot;diff_&quot;,.x,sep=&quot;&quot;))) %&gt;%
+      setNames(str_replace_all(colnames(.), &quot;after&quot;, paste(&quot;after_&quot;,.x,sep=&quot;&quot;))) %&gt;%
+      unique()
+
+  }) %&gt;%
+  reduce(full_join, by=&quot;record_id&quot;) %&gt;%
+  full_join(metadata_final, bby=&quot;record_id&quot;) %&gt;%
+  # select(record_id,contains(&quot;diff&quot;), contains(&quot;after&quot;)) %&gt;%
+  unique() %&gt;%
+  relocate(SampleID, record_id, time_point, group, names(vars), contains(&quot;diff&quot;), contains(&quot;after&quot;)) %&gt;%
+    type_convert(col_types = cols())
+#&gt; Joining, by = &quot;record_id&quot;</code></pre>
+</div>
+<div id="reformat-metadata" class="section level1">
+<h1>Reformat metadata</h1>
+<pre class="r"><code>
+metadata_final &lt;- 
+  metadata_final %&gt;% 
+  dplyr::mutate( ethnic_group = recode(
+    ethnic_group,
+    Hispano = &quot;hispanic&quot;,
+    Blanco = &quot;caucassian&quot;,
+    Negro = &quot;black&quot;,
+    Asiático = &quot;asian&quot;,
+    Desconocido = &quot;unknown&quot;,
+    Otro = &quot;other&quot;
+  ),
+  treatment = recode(
+    treatment,
+    `ABC+3TC+DGT` = &quot;ABC+3TC+DTG&quot;
+  ),
+  country = recode(
+    country,
+    UNKNOWN = &quot;unknown&quot;,
+    `ESPAÑA` = &quot;Spain&quot;,
+    `PERÚ` = &quot;Peru&quot;,
+    SENEGAL = &quot;Senegal&quot;,
+    ARGENTINO = &quot;Argentina&quot;,
+    ARGENTINA = &quot;Argentina&quot;,
+    ECUADOR = &quot;Ecuador&quot;,
+    COLOMBIA = &quot;Colombia&quot;,
+    RUMANIA = &quot;Romania&quot;,
+    VENEZOLANO = &quot;Venezuela&quot;,
+    MARRUECOS = &quot;Morocco&quot;,
+    VENEZUELA = &quot;Venezuela&quot;,
+    `GUINEA ECUATORIAL (BATA)` = &quot;Equatorial_Guinea&quot;,
+    BRASIL = &quot;Brazil&quot;,
+    CHINA = &quot;China&quot;,
+    PARAGUAY = &quot;Paraguay&quot;,
+    `ÁFRICA` = &quot;Africa&quot;,
+    `MÉJICO` = &quot;Mexico&quot;,
+    CAMERUN = &quot;Cameroon&quot;,
+    `CAMERÚN` = &quot;Cameroon&quot;,
+    HONDURAS = &quot;Honduras&quot;,
+    GANA = &quot;Ghana&quot;,
+    CUBA = &quot;Cuba&quot;,
+    `REPÚBLICA DOMINICANA` = &quot;Dominican_Republic&quot;
+  ),
+  gender = recode(
+    gender,
+    Hombre = &quot;male&quot;,
+    Mujer = &quot;female&quot;
+  ),
+  risk_group = recode(
+    risk_group,
+    `HTSX-No UDVP` = &quot;hts&quot;,
+    HTSX = &quot;hts&quot;,
+    `HMSX-No UDVP` = &quot;msm&quot;,
+    `BISX-No UDVP` = &quot;msm&quot;,
+    HMSX = &quot;msm&quot;, 
+    `HMSX-HTSX-No UDVP` = &quot;msm&quot;,
+    `Not Qualified` = &quot;unknown&quot;,
+    `HMSX-HTSX` = &quot;msm&quot;,
+    UDVP = &quot;pwid&quot;
+  ),
+
+  previous_liver_disease = recode(
+    previous_liver_disease,
+    `HEPATITIS VIRAL B SIN COMA HEPATICO, CRONICA SIN H. DELTA` = &quot;HBV_chronic&quot;,
+    `esteatosis hepática` = &quot;fatty_liver&quot;,
+    VHC = &quot;VHC&quot;,
+    `hepatitis aguda VHA` = &quot;VHA_acute&quot;,
+    `Hepatitis aguda VHB` = &quot;VHB_acute&quot;,
+    `Hepatitis crónica VHC genotipo 1b` = &quot;VHC&quot;,
+    `Infección crónica por VHC` = &quot;VHC&quot;
+  ), 
+  previous_kidney_disease = recode(
+    previous_kidney_disease,
+    `Insuficiencia renal` = &quot;renal_insufficiency&quot;,
+    LITIASIS = &quot;lithiasis&quot;
+  ),
+  center = recode(
+    center,
+    `Hospital Clínic` = &quot;clinic&quot;,
+    `Hospital Germnas Trias i Pujol, Barcelona` = &quot;hgtp&quot;,
+    `Hospital de Sant Pau, Barcelona` = &quot;sant_pau&quot;,
+    `Hospital de Bellvitge, L&#39;Hospitalet` = &quot;bellvitge&quot;,
+    `Hospital Val d&#39;Hebron, Barcelona` = &quot;vall_hebron&quot;,
+    `Hospital de Mataro, Barcelona` = &quot;mataro&quot;
+  ),
+  end_reason_48 = recode(
+    end_reason_48,
+    `No Premature Finalisation` = &quot;followup_complete&quot;,
+    `Lost to Follow-up` = &quot;fail_to_follow_up&quot;,
+    `Virological Failure` = &quot;virological_failure&quot;,
+    Safety = &quot;safety_concerns&quot;,
+    `Clinical Progression` = &quot;clinical_progression&quot;,
+    `Selection Criteria` = &quot;Selection Criteria&quot;
+  ),
+  end_reason_96 = recode(
+    end_reason_96,
+    `No Premature Finalisation` = &quot;followup_complete&quot;,
+    `Lost to Follow-up` = &quot;fail_to_follow_up&quot;,
+    `Virological Failure` = &quot;virological_failure&quot;,
+    Safety = &quot;safety_concerns&quot;,
+    `Clinical Progression` = &quot;clinical_progression&quot;,
+    `Selection Criteria` = &quot;Selection Criteria&quot;
+  )
+  
+
+  ) %&gt;%
+  mutate(across(where(is.character), ~ na_if(.,&quot;unknown&quot;))) %&gt;%
+  arrange(record_id, time_point)
+
+
+## Filter patients with &lt;2 samples
+outpatients &lt;- metadata_final %&gt;%
+  select(SampleID, record_id) %&gt;%
+  group_by(record_id) %&gt;%
+  summarise(n=n()) %&gt;%
+  filter(n&lt;2) %&gt;% 
+  pull(record_id)
+
+
+
+
+# 
+# write.csv(colnames(metadata_final),file=&quot;Var_names.csv&quot;, quote=T)
+</code></pre>
+<pre class="r"><code>PCR &lt;- here::here(&quot;Metadata&quot;, &quot;MetadataManagement&quot;, &quot;Resultats_Real_Time.xlsx&quot;) %&gt;% 
+  readxl::read_excel(., sheet = 1) %&gt;% 
+  setNames(c(&quot;SampleID&quot;, &quot;test&quot;, &quot;ct&quot;, &quot;value&quot;, &quot;unit&quot;, &quot;kit&quot;)) %&gt;% 
+  pivot_wider(names_from = test, values_from = c(value, ct)) %&gt;% 
+  rename(ADV = value_ADV,
+         ct_IC = ct_CI) %&gt;% 
+  select(!value_CI) %&gt;% 
+  mutate(ADV = round(ADV,4),
+         ct_IC = na_if(ct_IC, &quot;Undetermined&quot;),
+         cd_ADV = na_if(ct_ADV, &quot;Undetermined&quot;)) %&gt;% 
+  mutate(ADV = as.numeric(ADV)) %&gt;%
+  filter(!is.na(ADV) &amp; !is.na(ct_IC))
+
+
+metadata_final &lt;- 
+  metadata_final %&gt;% 
+  left_join(PCR, by=&quot;SampleID&quot;) %&gt;% 
+  relocate(ADV, .after=&quot;sCD14&quot;)
+</code></pre>
+<p>We’ll perform a final filtering in which we remove patients with 1 sample and it’s not basal. We’ll also take away patients C004 and E009 due to being wrongly selected for sequencing (did not meet exclusion criteria)</p>
+<pre class="r"><code>
+singlesample &lt;- 
+  metadata_final %&gt;% 
+  select(SampleID, record_id) %&gt;% 
+  group_by(record_id) %&gt;% 
+  summarise(n=n()) %&gt;% 
+  filter(n&lt;2) %&gt;% 
+  pull(record_id)
+
+
+
+discarded_ids &lt;- 
+  metadata_final %&gt;%
+  filter(record_id %in% singlesample) %&gt;%
+
+  select(record_id,group,time_point) %&gt;%
+  filter(!time_point == 0) %&gt;%
+  pull(record_id)
+
+metadata_final &lt;- metadata_final %&gt;% 
+  filter(!record_id %in% c(&quot;C004&quot;, &quot;E009&quot;)) %&gt;%
+  filter(!record_id %in% discarded_ids)  
+
+
+metadata_final %&gt;% 
+  select(record_id, group) %&gt;% 
+  unique() %&gt;% 
+  group_by(group) %&gt;% 
+  summarise(n=n())
+#&gt; # A tibble: 2 × 2
+#&gt;   group     n
+#&gt;   &lt;chr&gt; &lt;int&gt;
+#&gt; 1 DRV/r    42
+#&gt; 2 DTG      46</code></pre>
+<div id="basic-analytics" class="section level2">
+<h2>Basic Analytics</h2>
+<p>Let’s see how many patients were dropped and how it affects straification and group symmetry. We’ll perform some analysis here to check the quality of the metadata, stratification and Followup</p>
+<pre class="r"><code>
+library(ggplot2)
+library(compareGroups)
+source(here::here(&quot;code&quot;,&quot;Followup_plot.R&quot;))
+
+
+myCompTable &lt;- metadata_final %&gt;% 
+  select(record_id, 
+         time_point,
+         group,
+         gender,
+         age,
+         ethnic_group,
+         CD4_nadir) %&gt;% 
+  filter(time_point == 0) %&gt;% 
+  compareGroups(group ~ gender + age + ethnic_group + CD4_nadir ,., simplify = F) %&gt;% createTable()
+
+compareGroups::export2md(myCompTable, format=&quot;markdown&quot;,caption = paste(&quot;Group comparisons at basal&quot;,&quot;(group Ns may not match flowchart due to some patients having multiple samples but not at basal)&quot;, sep=&quot;\n&quot;)) </code></pre>
+<template id="eb975832-2439-4f96-a655-3cd0d2ed7e0f"><style>
+.tabwid table{
+  border-spacing:0px !important;
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  display: table;
+  margin-top: 1.275em;
+  margin-bottom: 1.275em;
+  border-color: transparent;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+</style><div class="tabwid"><style>.cl-a9fcf580{}.cl-a9f7b25a{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-a9f7b264{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-a9f7b26e{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-a9f7c254{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-a9f7c255{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-a9f7f5da{width:68.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a9f7f5db{width:85.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a9f7f5dc{width:96.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a9f7f5e4{width:68.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a9f7f5e5{width:85.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a9f7f5e6{width:96.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a9f7f5ee{width:68.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a9f7f5ef{width:85.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a9f7f5f0{width:96.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a9f7f5f8{width:85.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a9f7f5f9{width:68.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a9f7f5fa{width:96.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a9f7f602{width:96.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a9f7f603{width:85.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a9f7f604{width:68.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a9f7f60c{width:68.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a9f7f60d{width:85.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-a9f7f60e{width:96.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-a9fcf580'>
+<caption class="Table Caption">
+<p>Group comparisons at basal (group Ns may not match flowchart due to some patients having multiple samples but not at basal)</p>
+</caption>
+<thead><tr style="overflow-wrap:break-word;"><td class="cl-a9f7f602"><p class="cl-a9f7c254"><span class="cl-a9f7b25a"></span></p></td><td class="cl-a9f7f603"><p class="cl-a9f7c254"><span class="cl-a9f7b25a">   DRV/r   </span></p></td><td class="cl-a9f7f603"><p class="cl-a9f7c254"><span class="cl-a9f7b25a">    DTG    </span></p></td><td class="cl-a9f7f604"><p class="cl-a9f7c254"><span class="cl-a9f7b25a">p.overall</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a9f7f60e"><p class="cl-a9f7c254"><span class="cl-a9f7b264"></span></p></td><td class="cl-a9f7f60d"><p class="cl-a9f7c254"><span class="cl-a9f7b264">   N=39    </span></p></td><td class="cl-a9f7f60d"><p class="cl-a9f7c254"><span class="cl-a9f7b264">   N=40    </span></p></td><td class="cl-a9f7f60c"><p class="cl-a9f7c254"><span class="cl-a9f7b264">         </span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-a9f7f5dc"><p class="cl-a9f7c255"><span class="cl-a9f7b26e">gender:</span></p></td><td class="cl-a9f7f5db"><p class="cl-a9f7c254"><span class="cl-a9f7b26e">           </span></p></td><td class="cl-a9f7f5db"><p class="cl-a9f7c254"><span class="cl-a9f7b26e">           </span></p></td><td class="cl-a9f7f5da"><p class="cl-a9f7c254"><span class="cl-a9f7b26e">  1.000  </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a9f7f5e6"><p class="cl-a9f7c255"><span class="cl-a9f7b26e">    female</span></p></td><td class="cl-a9f7f5e5"><p class="cl-a9f7c254"><span class="cl-a9f7b26e"> 6 (15.4%) </span></p></td><td class="cl-a9f7f5e5"><p class="cl-a9f7c254"><span class="cl-a9f7b26e"> 7 (17.5%) </span></p></td><td class="cl-a9f7f5e4"><p class="cl-a9f7c254"><span class="cl-a9f7b26e">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a9f7f5e6"><p class="cl-a9f7c255"><span class="cl-a9f7b26e">    male</span></p></td><td class="cl-a9f7f5e5"><p class="cl-a9f7c254"><span class="cl-a9f7b26e">33 (84.6%) </span></p></td><td class="cl-a9f7f5e5"><p class="cl-a9f7c254"><span class="cl-a9f7b26e">33 (82.5%) </span></p></td><td class="cl-a9f7f5e4"><p class="cl-a9f7c254"><span class="cl-a9f7b26e">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a9f7f5e6"><p class="cl-a9f7c255"><span class="cl-a9f7b26e">age</span></p></td><td class="cl-a9f7f5e5"><p class="cl-a9f7c254"><span class="cl-a9f7b26e">43.5 (16.6)</span></p></td><td class="cl-a9f7f5e5"><p class="cl-a9f7c254"><span class="cl-a9f7b26e">39.7 (11.2)</span></p></td><td class="cl-a9f7f5e4"><p class="cl-a9f7c254"><span class="cl-a9f7b26e">  0.246  </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a9f7f5fa"><p class="cl-a9f7c255"><span class="cl-a9f7b26e">ethnic_group:</span></p></td><td class="cl-a9f7f5f8"><p class="cl-a9f7c254"><span class="cl-a9f7b26e">           </span></p></td><td class="cl-a9f7f5f8"><p class="cl-a9f7c254"><span class="cl-a9f7b26e">           </span></p></td><td class="cl-a9f7f5f9"><p class="cl-a9f7c254"><span class="cl-a9f7b26e">  0.302  </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a9f7f5e6"><p class="cl-a9f7c255"><span class="cl-a9f7b26e">    asian</span></p></td><td class="cl-a9f7f5e5"><p class="cl-a9f7c254"><span class="cl-a9f7b26e"> 0 (0.00%) </span></p></td><td class="cl-a9f7f5e5"><p class="cl-a9f7c254"><span class="cl-a9f7b26e"> 1 (2.50%) </span></p></td><td class="cl-a9f7f5e4"><p class="cl-a9f7c254"><span class="cl-a9f7b26e">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a9f7f5e6"><p class="cl-a9f7c255"><span class="cl-a9f7b26e">    black</span></p></td><td class="cl-a9f7f5e5"><p class="cl-a9f7c254"><span class="cl-a9f7b26e"> 4 (10.5%) </span></p></td><td class="cl-a9f7f5e5"><p class="cl-a9f7c254"><span class="cl-a9f7b26e"> 2 (5.00%) </span></p></td><td class="cl-a9f7f5e4"><p class="cl-a9f7c254"><span class="cl-a9f7b26e">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a9f7f5e6"><p class="cl-a9f7c255"><span class="cl-a9f7b26e">    caucassian</span></p></td><td class="cl-a9f7f5e5"><p class="cl-a9f7c254"><span class="cl-a9f7b26e">13 (34.2%) </span></p></td><td class="cl-a9f7f5e5"><p class="cl-a9f7c254"><span class="cl-a9f7b26e">19 (47.5%) </span></p></td><td class="cl-a9f7f5e4"><p class="cl-a9f7c254"><span class="cl-a9f7b26e">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a9f7f5dc"><p class="cl-a9f7c255"><span class="cl-a9f7b26e">    hispanic</span></p></td><td class="cl-a9f7f5db"><p class="cl-a9f7c254"><span class="cl-a9f7b26e">15 (39.5%) </span></p></td><td class="cl-a9f7f5db"><p class="cl-a9f7c254"><span class="cl-a9f7b26e">16 (40.0%) </span></p></td><td class="cl-a9f7f5da"><p class="cl-a9f7c254"><span class="cl-a9f7b26e">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a9f7f5e6"><p class="cl-a9f7c255"><span class="cl-a9f7b26e">    other</span></p></td><td class="cl-a9f7f5e5"><p class="cl-a9f7c254"><span class="cl-a9f7b26e"> 6 (15.8%) </span></p></td><td class="cl-a9f7f5e5"><p class="cl-a9f7c254"><span class="cl-a9f7b26e"> 2 (5.00%) </span></p></td><td class="cl-a9f7f5e4"><p class="cl-a9f7c254"><span class="cl-a9f7b26e">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-a9f7f5f0"><p class="cl-a9f7c255"><span class="cl-a9f7b26e">CD4_nadir</span></p></td><td class="cl-a9f7f5ef"><p class="cl-a9f7c254"><span class="cl-a9f7b26e">30.1 (22.5)</span></p></td><td class="cl-a9f7f5ef"><p class="cl-a9f7c254"><span class="cl-a9f7b26e">44.4 (29.1)</span></p></td><td class="cl-a9f7f5ee"><p class="cl-a9f7c254"><span class="cl-a9f7b26e">  0.017  </span></p></td></tr></tbody></table></div></template>
+<div class="flextable-shadow-host" id="c12c428a-cb90-41c2-8f0d-536975c80f4a"></div>
+<script>
+var dest = document.getElementById("c12c428a-cb90-41c2-8f0d-536975c80f4a");
+var template = document.getElementById("eb975832-2439-4f96-a655-3cd0d2ed7e0f");
+var caption = template.content.querySelector("caption");
+if(caption) {
+  caption.style.cssText = "display:block;text-align:center;";
+  var newcapt = document.createElement("p");
+  newcapt.appendChild(caption)
+  dest.parentNode.insertBefore(newcapt, dest.previousSibling);
+}
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+</script>
+
+sampleData<-here::here("Metadata","MetadataManagement","Informacio_LIMS.xlsx") %>%
+  readxl::read_excel(sheet = 1) %>%
+  select(record_id = CODIGO,
+         time_point = Week,
+         Date = `Extracción`) %>%
+  mutate(record_id = sapply(strsplit(gsub("^4*","",record_id), "-"), "[[",1),
+         Date = lubridate::as_date(Date, format="%d/%m/%Y"),
+         time_point = ifelse(time_point == "Basal", 0,
+                            gsub("^w*", "", time_point))) %>% 
+  unique() 
+  
+p=Plot_FollowUp(data = sampleData, 
+              patientColumn = "record_id",
+              Dates = "Date",
+              TimePoints = "time_point") 
+p + scale_size_manual(values = c(size=2))
+<p><img src="figure/04_build_metadata.Rmd/pressure-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>CD4 nadir in the DTG group is significantly higher than DRV (mean 44.4% higher). This may be problematic.</p>
+<pre class="r"><code>
+metadata_final %&gt;%
+  filter(!record_id %in% outpatients) %&gt;%
+  readr::write_delim(
+        file = here::here(&quot;Metadata&quot;,
+            
+            str_c(Sys.Date() %&gt;% str_replace_all(&quot;-&quot;, &quot;_&quot;), &quot;_clean_metadata_LIMS.csv&quot;)
+        ), 
+        delim = &quot;,&quot;, quote = &quot;all&quot;
+    )
+</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()
+#&gt; R version 4.0.5 (2021-03-31)
+#&gt; Platform: x86_64-redhat-linux-gnu (64-bit)
+#&gt; Running under: Fedora 34 (Workstation Edition)
+#&gt; 
+#&gt; Matrix products: default
+#&gt; BLAS/LAPACK: /usr/lib64/libflexiblas.so.3.1
+#&gt; 
+#&gt; locale:
+#&gt;  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+#&gt;  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+#&gt;  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+#&gt;  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+#&gt;  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+#&gt; [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+#&gt; 
+#&gt; attached base packages:
+#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     
+#&gt; 
+#&gt; other attached packages:
+#&gt;  [1] lubridate_1.8.0     gtools_3.9.2        reshape2_1.4.4     
+#&gt;  [4] compareGroups_4.5.1 forcats_0.5.1       stringr_1.4.0      
+#&gt;  [7] dplyr_1.0.8         purrr_0.3.4         readr_2.1.0        
+#&gt; [10] tidyr_1.2.0         tibble_3.1.6        ggplot2_3.3.5      
+#&gt; [13] tidyverse_1.3.1    
+#&gt; 
+#&gt; loaded via a namespace (and not attached):
+#&gt;  [1] fs_1.5.0            bit64_4.0.5         RColorBrewer_1.1-2 
+#&gt;  [4] webshot_0.5.2       httr_1.4.2          rprojroot_2.0.2    
+#&gt;  [7] tools_4.0.5         backports_1.4.1     bslib_0.3.1        
+#&gt; [10] utf8_1.2.2          R6_2.5.1            DBI_1.1.1          
+#&gt; [13] colorspace_2.0-3    withr_2.5.0         tidyselect_1.1.2   
+#&gt; [16] bit_4.0.4           compiler_4.0.5      git2r_0.29.0       
+#&gt; [19] chron_2.3-56        cli_3.2.0           rvest_1.0.2        
+#&gt; [22] HardyWeinberg_1.7.2 flextable_0.6.9     mice_3.13.0        
+#&gt; [25] xml2_1.3.2          officer_0.4.1       sass_0.4.0         
+#&gt; [28] scales_1.1.1        systemfonts_1.0.3   digest_0.6.29      
+#&gt; [31] svglite_2.0.0       rmarkdown_2.11      base64enc_0.1-3    
+#&gt; [34] pkgconfig_2.0.3     htmltools_0.5.2     highr_0.9          
+#&gt; [37] dbplyr_2.1.1        fastmap_1.1.0       rlang_1.0.2        
+#&gt; [40] readxl_1.3.1        rstudioapi_0.13     farver_2.1.0       
+#&gt; [43] jquerylib_0.1.4     generics_0.1.2      jsonlite_1.8.0     
+#&gt; [46] vroom_1.5.7         zip_2.2.0           magrittr_2.0.2     
+#&gt; [49] kableExtra_1.3.4    Matrix_1.3-4        Rcpp_1.0.8         
+#&gt; [52] munsell_0.5.0       fansi_1.0.2         gdtools_0.2.3      
+#&gt; [55] lifecycle_1.0.1     stringi_1.7.6       whisker_0.4        
+#&gt; [58] yaml_2.3.5          plyr_1.8.6          grid_4.0.5         
+#&gt; [61] parallel_4.0.5      promises_1.2.0.1    crayon_1.5.0       
+#&gt; [64] lattice_0.20-45     haven_2.4.3         splines_4.0.5      
+#&gt; [67] hms_1.1.1           knitr_1.37          pillar_1.7.0       
+#&gt; [70] uuid_1.0-3          reprex_2.0.1        glue_1.6.2         
+#&gt; [73] evaluate_0.15       data.table_1.14.2   modelr_0.1.8       
+#&gt; [76] vctrs_0.3.8         tzdb_0.2.0          httpuv_1.6.3       
+#&gt; [79] cellranger_1.1.0    gtable_0.3.0        assertthat_0.2.1   
+#&gt; [82] xfun_0.30           broom_0.7.12        Rsolnp_1.16        
+#&gt; [85] later_1.3.0         viridisLite_0.4.0   survival_3.2-13    
+#&gt; [88] truncnorm_1.0-8     workflowr_1.7.0     writexl_1.4.0      
+#&gt; [91] ellipsis_0.3.2      here_1.0.1</code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

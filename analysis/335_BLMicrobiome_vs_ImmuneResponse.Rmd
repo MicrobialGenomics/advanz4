@@ -18,10 +18,10 @@ library(patchwork)
 
 ```{r Setup, warning=F, message=F}
 
-# mymre <- here::here("data","mre.rds") %>%
-#   readRDS(.) 
+mymre <- here::here("data","mre.rds") %>%
+  readRDS(.)
 
-mymre <- aws.s3::s3readRDS(bucket = "s3://mistral-wp6-advanz4", object = "metagenome/WMGS/MREObject.rds")
+# mymre <- aws.s3::s3readRDS(bucket = "s3://mistral-wp6-advanz4", object = "metagenome/WMGS/MREObject.rds")
 metadata <-get_meta(mymre)
 
 cat_vector <- get_cat(mymre) %>% 
@@ -226,14 +226,30 @@ basal_samples <- metadata %>%
   as.character()
 
 basal_mre <- filter_samples(mymre, basal_samples)
+# basal_mre@metadata@categorical_vals <-remove_cat(basal_mre, "CD4diff_96")
 
-  
-  
+
 basal_mre@metadata@categorical_vals <- get_cat(mymre) %>% 
-  filter(CategoricalVariable %in% "group")
+  filter(!CategoricalVariable %in% c("ethnic_group","CD8after_48","CD4diff_96", "CD4diff_48"))
 
 
 basal_mre <- metar::metaphlan_nmds(basal_mre, tax_level="Species")
+
+
+
+
+get_cat(basal_mre) %>% 
+  pull(CategoricalVariable) %>% 
+  set_names %>% 
+  map(function(cv){
+    get_meta(basal_mre) %>% 
+      pull(!!sym(cv)) %>% 
+      table() 
+  })
+
+
+get_meta(basal_mre) %>% pull(CD8diff_96)
+
 
 
 ```
@@ -269,7 +285,7 @@ kableExtra::kable(basal_mre@taxa@metaphlan@nmds$Species$top_50$all_adonis, forma
 ```{r NMDS_numeric_correlations, warning= F, message= F}
 basal_mre@taxa@metaphlan@nmds$Species$top_50$cluster_numeric
 
- 
+
 
 ```
 
@@ -290,10 +306,11 @@ basal_mre@taxa@metaphlan@nmds$Species$top_50$cluster_numeric
 
 basal_mre@taxa@metaphlan@nmds$Species$top_50$cluster_categorical
 
+
+
 ```
 
-
-
+The variabe correspoinding to the change in CD4 counts after 96 weeks **CD4diff_96** was dropped due to having only one value. This means all patients had an increase of CD4>50, which breaks any comparison we try to make. 
 
 
 

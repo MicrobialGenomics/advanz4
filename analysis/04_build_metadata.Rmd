@@ -50,7 +50,7 @@ myClinicalData<-here::here("Metadata","MetadataManagement","Clinical_Table.csv")
   select(variables_selected$VarName) %>%
   mutate(PatCode = gsub("-","",PatCode)) %>%
   mutate(group = case_when(Treat == "ABC+3TC+DGT" ~ "DTG",
-                           Treat == "ABC+3TC+DRV+RTV" ~ "RTV/r")) 
+                           Treat == "ABC+3TC+DRV+RTV" ~ "DRV/r")) 
 
 myMergedMetadata <- myClinicalData %>%
   right_join(mySampleData, ., by="PatCode") %>%
@@ -168,12 +168,12 @@ metadata_final <- c(48,96) %>%
       mutate(
       
       CD4diff = case_when(
-        CD4[time_point == .x] - CD4[time_point == 0] >= 50 ~ ">50",
-        CD4[time_point == .x] - CD4[time_point == 0] < 50 ~ "<50"),
+        CD4[time_point == .x] - CD4[time_point == 0] >= 150 ~ "150_H",
+        CD4[time_point == .x] - CD4[time_point == 0] < 150 ~ "150_L"),
       
       CD8diff = case_when(
-        CD8[time_point == .x] - CD8[time_point == 0] >= 50 ~ ">50",
-        CD8[time_point == .x] - CD8[time_point == 0] < 50 ~ "<50"),
+        CD8[time_point == .x] - CD8[time_point == 0] >= 50 ~ "50_H",
+        CD8[time_point == .x] - CD8[time_point == 0] < 50 ~ "50_L"),
       
       CD4after = case_when(
         CD4[time_point == .x]  < 200 ~ "low",
@@ -336,6 +336,71 @@ outpatients <- metadata_final %>%
 ```
 
 
+
+```{r add_ADV_results, message= T, warning= T}
+PCR <- here::here("Metadata", "MetadataManagement", "Resultats_Real_Time.xlsx") %>% 
+  readxl::read_excel(., sheet = 1) %>% 
+  setNames(c("SampleID", "test", "ct", "value", "unit", "kit")) %>% 
+  pivot_wider(names_from = test, values_from = c(value, ct)) %>% 
+  rename(ADV = value_ADV,
+         ct_IC = ct_CI) %>% 
+  select(!value_CI) %>% 
+  mutate(ADV = round(ADV,4),
+         ct_IC = na_if(ct_IC, "Undetermined"),
+         cd_ADV = na_if(ct_ADV, "Undetermined")) %>% 
+  mutate(ADV = as.numeric(ADV)) %>%
+  filter(!is.na(ADV) & !is.na(ct_IC))
+
+
+metadata_final <- 
+  metadata_final %>% 
+  left_join(PCR, by="SampleID") %>% 
+  relocate(ADV, .after="sCD14")
+
+
+
+```
+
+
+
+We'll perform a final filtering in which we remove patients with 1 sample and it's not basal. We'll also take away patients C004 and E009 due to being wrongly selected for sequencing (did not meet exclusion criteria)
+
+```{r further_filter, warning=F, message=FALSE}
+
+singlesample <- 
+  metadata_final %>% 
+  select(SampleID, record_id) %>% 
+  group_by(record_id) %>% 
+  summarise(n=n()) %>% 
+  filter(n<2) %>% 
+  pull(record_id)
+
+
+
+discarded_ids <- 
+  metadata_final %>%
+  filter(record_id %in% singlesample) %>%
+
+  select(record_id,group,time_point) %>%
+  filter(!time_point == 0) %>%
+  pull(record_id)
+
+metadata_final <- metadata_final %>% 
+  filter(!record_id %in% c("C004", "E009")) %>%
+  filter(!record_id %in% discarded_ids)  
+
+
+metadata_final %>% 
+  select(record_id, group) %>% 
+  unique() %>% 
+  group_by(group) %>% 
+  summarise(n=n())
+
+
+```
+
+
+
 ## Basic Analytics
 
 Let's see how many patients were dropped and how it affects straification and group symmetry. We'll perform some analysis here to check the quality of the metadata, stratification and Followup
@@ -346,23 +411,19 @@ library(ggplot2)
 library(compareGroups)
 source(here::here("code","Followup_plot.R"))
 
-totalCounts<-myMergedMetadata %>% 
-  select(record_id, group, Selected_For_Sequencing) %>% unique() %>%
-  group_by(group) %>% 
-  # unique() %>%
-  summarise(n0=n())
-  
-SelectedCounts <- myMergedMetadata %>% 
-  filter(Selected_For_Sequencing == "Yes") %>% 
-  select(record_id, group) %>% 
-  unique() %>% count(group) %>%
-  left_join(totalCounts,.)
-SelectedCounts
 
+myCompTable <- metadata_final %>% 
+  select(record_id, 
+         time_point,
+         group,
+         gender,
+         age,
+         ethnic_group,
+         CD4_nadir) %>% 
+  filter(time_point == 0) %>% 
+  compareGroups(group ~ gender + age + ethnic_group + CD4_nadir ,., simplify = F) %>% createTable()
 
-myCompTable<-compareGroups(group ~ gender + age + ethnic_group, myMergedMetadata, simplify = F) %>% createTable()
-
-compareGroups::export2md(myCompTable, format="markdown") 
+compareGroups::export2md(myCompTable, format="markdown",caption = paste("Group comparisons at basal","(group Ns may not match flowchart due to some patients having multiple samples but not at basal)", sep="\n")) 
 sampleData<-here::here("Metadata","MetadataManagement","Informacio_LIMS.xlsx") %>%
   readxl::read_excel(sheet = 1) %>%
   select(record_id = CODIGO,
@@ -384,32 +445,8 @@ p + scale_size_manual(values = c(size=2))
 
 ```
 
+CD4 nadir in the DTG group is significantly higher than DRV (mean 44.4% higher). This may be problematic.
 
-
-
-```{r add_PCR_results, message= T, warning= T}
-PCR <- here::here("Metadata", "MetadataManagement", "Resultats_Real_Time.xlsx") %>% 
-  readxl::read_excel(., sheet = 1) %>% 
-  setNames(c("SampleID", "test", "ct", "value", "unit", "kit")) %>% 
-  pivot_wider(names_from = test, values_from = c(value, ct)) %>% 
-  rename(ADV = value_ADV,
-         ct_IC = ct_CI) %>% 
-  select(!value_CI) %>% 
-  mutate(ADV = round(ADV,4),
-         ct_IC = na_if(ct_IC, "Undetermined"),
-         cd_ADV = na_if(ct_ADV, "Undetermined")) %>% 
-  mutate(ADV = as.numeric(ADV)) %>%
-  filter(!is.na(ADV) & !is.na(ct_IC))
-
-
-metadata_final <- 
-  metadata_final %>% 
-  right_join(PCR, by="SampleID") %>% 
-  relocate(ADV, .after="sCD14")
-
-
-
-```
 
 
 ```{r Write_metadata}
