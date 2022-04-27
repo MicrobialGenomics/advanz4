@@ -318,13 +318,13 @@ metadata_final <-
 
 
 ## Filter patients with <2 samples
-outpatients <- metadata_final %>%
-  select(SampleID, record_id) %>%
-  group_by(record_id) %>%
-  summarise(n=n()) %>%
-  filter(n<2) %>% 
-  pull(record_id)
-
+# outpatients <- metadata_final %>%
+#   select(SampleID, record_id) %>%
+#   group_by(record_id) %>%
+#   summarise(n=n()) %>%
+#   filter(n<2) %>% 
+#   pull(record_id)
+# 
 
 
 
