@@ -347,7 +347,7 @@ PCR <- here::here("Metadata", "MetadataManagement", "Resultats_Real_Time.xlsx") 
   select(!value_CI) %>% 
   mutate(ADV = round(ADV,4),
          ct_IC = na_if(ct_IC, "Undetermined"),
-         cd_ADV = na_if(ct_ADV, "Undetermined")) %>% 
+         ct_ADV = na_if(ct_ADV, "Undetermined")) %>% 
   mutate(ADV = as.numeric(ADV)) %>%
   filter(!is.na(ADV) & !is.na(ct_IC))
 
