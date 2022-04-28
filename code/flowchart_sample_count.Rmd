@@ -64,8 +64,8 @@ patient_data %>%
 # Patients with reported loss of followup
 patient_data %>%
   filter(!Reason == "No\r\nPremature\r\nFinalisation") %>%
-  filter(Treat == "ABC+3TC+DGT") %>% 
-  select(PatCode,Treat, Reason)
+  select(PatCode,Treat, Reason) %>%
+  arrange(Treat)
 
 ## N sequenced
 metadata %>% 
@@ -91,11 +91,11 @@ discarded_ids <-
   filter(record_id %in% singlesample) %>%
 
   select(record_id,group,time_point) %>%
-  filter(time_point == 0) %>%
+  filter(!time_point == 0) %>%
   pull(record_id)
 
 new_meta <- metadata %>% 
-  filter(!record_id %in% c("C004", "E009")) %>%
+  filter(record_id %in% c("C004", "E009")) %>%
   filter(!record_id %in% discarded_ids)  
 
   

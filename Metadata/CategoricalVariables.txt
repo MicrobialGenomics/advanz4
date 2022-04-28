@@ -1,3 +1,4 @@
+CategoricalVariable	PaletteName
 group	Set1
 risk_group	Set3
 center	Accent

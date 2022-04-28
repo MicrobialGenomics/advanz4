@@ -13,28 +13,127 @@ library(tidyverse)
 library(RColorBrewer)
 library(metar)
 library(patchwork)
+
 ```
+
+
+```{r load_all, warning=F, message=F}
+
+# This chunk is only for executing a load_all on the reoot directory of the metar repository.
+# This is a workaround for a bug present in metar::filter_samples in which fails to find an 
+# inherited method for fun_input(), a step in filtering samples in the Gene Function Slot. This 
+# chunk will be removed as soon as this issue is solved.
+
+devtools::load_all(here::here("../","WMGSPipeline"))
+
+# Load all function arguments should be the path to where metar is installed. Change it
+# accordingly.
+
+```
+
 
 
 ```{r Setup, warning=F, message=F}
 
-mymre <- here::here("data","mre.rds") %>%
-  readRDS(.)
+# mymre <- here::here("data","mre.rds") %>%
+#   readRDS(.)
 
-# mymre <- aws.s3::s3readRDS(bucket = "s3://mistral-wp6-advanz4", object = "metagenome/WMGS/MREObject.rds")
-metadata <-get_meta(mymre)
+mymre <- aws.s3::s3readRDS(bucket = "s3://mistral-wp6-advanz4", object = "metagenome/WMGS/MREObject.rds")
+# metadata <-get_meta(mymre)
+metadata <- here::here("Metadata", "2022_04_27_clean_metadata_LIMS.csv") %>% 
+  read.csv() 
 
-cat_vector <- get_cat(mymre) %>% 
+
+
+cat_df <- 
+  here::here("Metadata", "CategoricalVariables.txt") %>% 
+  read.delim(., header = T)
+
+cat_vector <- cat_df %>% 
   pull(CategoricalVariable)
 
-long_var <- get_lon(mymre) %>%
+long_var <- here::here("Metadata", "LongitudinalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
   pull(LongitudinalVariable)
 
-id_var <- get_lon(mymre) %>%
+id_var <- here::here("Metadata", "LongitudinalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
   pull(LinkVariable)
+
+num_var <- here::here("Metadata", "NumericalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(NumericalVariable)
+
 
 
 ```
+
+
+
+```{r update_mre, warning= F, message= F}
+
+#### This chunk is for updating the mre internally as new variables come out. Once the final mre is done this chunk will be removed.
+
+mymre <- filter_samples(mre = mymre, sample_ids = metadata$SampleID)
+
+mymre@metadata@metadata_df <- tibble(metadata)
+mymre@taxa@metaphlan@phyloseq@sam_data <- metadata %>%
+  column_to_rownames("SampleID") %>% 
+  mutate(SampleID = rownames(.), .before=1) %>% 
+  phyloseq::sample_data(.)
+
+mymre@metadata@categorical_vals <- here::here("Metadata", "CategoricalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+mymre@metadata@numeric_vals <- here::here("Metadata", "NumericalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+mymre@metadata@longitudinal_vals <- here::here("Metadata", "LongitudinalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+
+
+```
+
+
+```{r build_basal_mre, message = F, warning = F}
+basal_meta <- metadata %>%
+  filter(time_point == 0) %>% 
+  column_to_rownames("SampleID") %>% 
+  mutate(SampleID = rownames(.), .before=1)
+
+basal_mre <- filter_samples(mre = mymre, sample_ids =  basal_meta$SampleID)
+# basal_mre@metadata@categorical_vals <-remove_cat(basal_mre, "CD4diff_96")
+
+
+basal_mre@metadata@categorical_vals <- get_cat(mymre) %>% 
+  filter(!CategoricalVariable %in% c("ethnic_group"))
+
+
+phyloseq::sample_data(basal_mre@taxa@metaphlan@phyloseq) <- basal_meta
+phyloseq::sample_data(basal_mre@taxa@metaphlan@phyloseq_sec) <- basal_meta
+
+
+
+
+# cat_vector %>% 
+#   set_names() %>% 
+#   map_chr(~{
+#     metadata %>% 
+#       filter(time_point == 0) %>% 
+#       pull(!!sym(.x)) %>% 
+#       unique() %>% 
+#       length()
+#   })
+
+```
+
+
+
+
 
 # Baseline differences in microbiome
 
@@ -68,8 +167,27 @@ richness_df <-
          GeneNumber) %>%
   filter(long_var == 0) 
 
+# cat_vector %>% 
+#   set_names() %>% 
+#   map(function(cat_var){
+#     richness_df %>%
+#       dplyr::select(id_var,
+#                     cat_var = !!sym(cat_var),
+#                     GeneNumber) %>%
+#             filter(!is.na(cat_var)) %>%
+#       ggplot(., aes(x=cat_var, y=GeneNumber, fill = cat_var))+
+#       geom_violin(draw_quantiles = T) +
+#       geom_boxplot(fill="lightgrey", width=0.5, na.rm=T) +
+#       geom_point() +
+#       scale_fill_brewer(palette="Set1") +
+#       ggpubr::stat_compare_means(method="wilcox",label = "p.signif", hide.ns = T) +
+#       theme_bw() + 
+#       labs(fill = cat_var)
+#     
+#   })
 
-c("CD4diff_48", "CD8diff_48") %>%
+  
+plotlist <- cat_vector %>% 
   set_names() %>% 
   map(function(cat_var){
     richness_df %>%
@@ -77,19 +195,19 @@ c("CD4diff_48", "CD8diff_48") %>%
                     cat_var = !!sym(cat_var),
                     GeneNumber) %>%
             filter(!is.na(cat_var)) %>%
-      ggplot(., aes(x=cat_var, y=GeneNumber, fill = cat_var))+
-      geom_violin(draw_quantiles = T) +
-      # geom_boxplot(fill="lightgrey", width=0.5, na.rm=T) +
-      geom_point() +
-      scale_fill_brewer(palette="Set1") +
-      ggpubr::stat_compare_means(method="wilcox",label = "p.signif", hide.ns = T) +
-      theme_bw() + 
-      labs(fill = cat_var)
-    
+            ggstatsplot::ggbetweenstats(
+              data = .,
+              x = cat_var,
+              y = GeneNumber,
+              bf.message = FALSE,
+              type = "nonparametric",
+              pairwise.comparisons = T,
+              xlab = cat_var, 
+              ggtheme = ggplot2::theme_bw()
+              
+            )
   })
 
-  
-  
 
 
 ```
@@ -220,40 +338,21 @@ Basal gene richness vs delta CD4_48 as continuous variables
 # Microbiome structure at basal
 
 ```{r get_basal_mre, warning=F, message= F}
-basal_samples <- metadata %>%
-  filter(time_point == 0) %>% 
-  pull(SampleID) %>% 
-  as.character()
 
-basal_mre <- filter_samples(mymre, basal_samples)
-# basal_mre@metadata@categorical_vals <-remove_cat(basal_mre, "CD4diff_96")
-
-
-basal_mre@metadata@categorical_vals <- get_cat(mymre) %>% 
-  filter(!CategoricalVariable %in% c("ethnic_group","CD8after_48","CD4diff_96", "CD4diff_48"))
 
 
 basal_mre <- metar::metaphlan_nmds(basal_mre, tax_level="Species")
 
 
 
-
-get_cat(basal_mre) %>% 
-  pull(CategoricalVariable) %>% 
-  set_names %>% 
-  map(function(cv){
-    get_meta(basal_mre) %>% 
-      pull(!!sym(cv)) %>% 
-      table() 
-  })
-
-
-get_meta(basal_mre) %>% pull(CD8diff_96)
-
-
-
 ```
 
+```{r numeric_nmds_cors, message=F, warning=F}
+nmdscor <- basal_mre@taxa@metaphlan@nmds$Species$top_50$numeric 
+
+ggpubr::ggarrange(plotlist = nmdscor, ncol=2)
+
+```
 
 
 ```{r basal_NMDS,eval=t ,warning=FALSE, message=FALSE}
@@ -261,21 +360,22 @@ get_meta(basal_mre) %>% pull(CD8diff_96)
 
 group <- basal_mre@taxa@metaphlan@nmds$Species$top_50$categorical$group & 
     scale_color_brewer(palette="Set1") &
-    scale_fill_brewer(palette = "Set1")
+    scale_fill_brewer(palette = "Set1") 
+  
 
 
 
 cluster <- basal_mre@taxa@metaphlan@nmds$Species$top_50$categorical$cluster
 
 
-
+ggpubr::ggarrange(group,cluster, labels = c("group", "cluster"))
 
 ```
 
 
 NMDS shows no basal significant differences per group for either com,ponent. An unsupervised clustering created 2 well differentiated groups. While ADONIS per cluster was significant, we'll look whether the numerical variables have something to do with them.
 
-```{r adonis _table, echo=F, warning=F, message = F}
+```{r adonis_table, echo=F, warning=F, message = F}
 kableExtra::kable(basal_mre@taxa@metaphlan@nmds$Species$top_50$all_adonis, format = "markdown")
 ```
 
@@ -283,28 +383,54 @@ kableExtra::kable(basal_mre@taxa@metaphlan@nmds$Species$top_50$all_adonis, forma
 
 # NMDS correlation with numerical variables
 ```{r NMDS_numeric_correlations, warning= F, message= F}
-basal_mre@taxa@metaphlan@nmds$Species$top_50$cluster_numeric
+basal_mre@taxa@metaphlan@nmds$Species$top_50$cluster_numeric %>% 
+  ggpubr::ggarrange(plotlist=.)
 
 
 
-```
-
-# Numerical variables vs unsupervised clustering
-
-
-```{r numerical_vs_cluster}
-
-
-basal_mre@taxa@metaphlan@nmds$Species$top_50$cluster_numeric
 
 ```
 
 
-# Categorical variables vs unsupervised clustering
-```{r numerical_vs_cluster}
 
+## Categorical variables vs unsupervised clustering
+```{r categorical_vs_cluster, message=F, warning=F, fig.show='hold', out.width="40%"}
 
-basal_mre@taxa@metaphlan@nmds$Species$top_50$cluster_categorical
+basal_mre@taxa@metaphlan@nmds$Species$top_50$cluster_categorical %>% 
+  names() %>% 
+  set_names() %>% 
+  map(~{
+    df <- 
+    basal_mre@taxa@metaphlan@nmds$Species$top_50$cluster_categorical %>% 
+      pluck(.x) %>% 
+      pluck("data") %>%
+      filter(!is.na(!!sym(.x)))
+    
+    pal <- cat_df %>% 
+      filter(CategoricalVariable == .x) %>% 
+      pull(PaletteName)
+    
+    
+    test <- df %>%
+      dplyr::select(!!sym(.x), cluster) %>%
+      table() %>% 
+      as.matrix() %>% 
+      fisher.test(df) %>% 
+      pluck("p.value") %>% 
+      as.numeric() %>% 
+      round(.,2)
+      
+    plt <-   
+      df %>% 
+      ggplot(., aes(x = as.factor(cluster),fill=!!sym(.x)))+
+      geom_bar(stat="count") +
+      theme_bw() +
+      labs(x="cluster",
+           title=.x,
+            subtitle = glue::glue("P.value = {test} (Fisher test)")) +
+      scale_fill_brewer(palette = pal)
+  }) 
+  
 
 
 
@@ -314,15 +440,98 @@ The variabe correspoinding to the change in CD4 counts after 96 weeks **CD4diff_
 
 
 
-## Baseline microbiome vs Immune response
+# DIfferential Abundance
 
-The goal of this analysis is to describe the patients baseline microbiome vs immune response either using:
+We'll look into which genera are more correlated per group at baseline. We'll perform both classic and compositional approaches.
 
-- Increases in CD4, categorized in a useful way (Delta_week48 for instance)
-- Decreased in CD8, categorized in a useful way
+```{r wilcox_da, message= F, warning=F}
 
-It may be useful to try to classify patients solely on CD4/CD8/immune markers and the contrast this classification with microbiome composition
+phy_basal <- get_phyloseq(basal_mre, type = "metaphlan") %>% 
+    phyloseq::filter_taxa(., function(x) sum(x > 0) > (0.3*length(x)), TRUE)
 
-Also it is relevant to show that the baseline microbiom was NOT different between ARMs (DTG/DRVr)
+
+otu_df <- 
+  phyloseq::otu_table(phy_basal) %>% 
+  t() %>% 
+  as.data.frame() %>% 
+  setNames(phyloseq::tax_table(phy_basal)[,"Species"]) %>% 
+  rownames_to_column("SampleID") %>% 
+  setNames(.,str_remove_all(colnames(.), "\\[")) %>% 
+  setNames(.,str_remove_all(colnames(.), "\\]"))
+
+basal_meta <- get_meta(basal_mre)
+
+stat_list <-
+  cat_vector %>%
+  purrr::set_names() %>%
+  purrr::map(function(cv) {
+    otu_df %>%
+      dplyr::select(-SampleID) %>%
+      colnames() %>%
+      purrr::set_names() %>%
+      purrr::map_dfr(function(sp) {
+        df <-
+          otu_df %>%
+          dplyr::select(SampleID, !!sym(sp)) %>%
+          dplyr::left_join(basal_meta[, c("SampleID", cv), drop = F], by = "SampleID")
+        
+        if (length(unique(df[, cv])) == 2) {
+          test <- df %>%
+            rstatix::wilcox_test(., formula(paste(sp, "~", cv)), paired = F) %>%
+            dplyr::mutate(method = "Wilcoxon")
+          
+        } else{
+          test <- df %>%
+            rstatix::kruskal_test(., formula(paste(sp, "~", cv))) %>%
+            dplyr::mutate(method = "Kruskal-Wallis")
+        }
+        
+        
+      }) %>%
+      dplyr::mutate(p.adj = p.adjust(.$p, "BH")) %>%
+      dplyr::filter(p.adj < 0.05)
+  }) %>% 
+  purrr::keep(., ~nrow(.) > 0)
+
+
+
+stat_list %>% 
+  map(~{
+    kableExtra::kable(.x, format = "markdown") 
+  })
+
+
+```
+
+
+The only categoricalvariables with Differential abundance at basal are Gender and Risk group. This is hardly surprising as microbiome differences between gender and sexual orientations have been widely reported. But that also means no significant signal could be detected that is significant to this study. More specifically, there is no bacterial signal that may predict increase of CD4/CD8 after 48-96 weeks of treatment.
+
+
+
+```{r ANCOM}
+phy_c<- basal_mre@taxa@metaphlan@phyloseq_sec %>% 
+    phyloseq::filter_taxa(., function(x) sum(x > 0) > (0.3*length(x)), TRUE)
+
+
+basal_mre@taxa@metaphlan@phyloseq_sec <- phy_c
+
+basal_mre <- metar::metaphlan_ancom(mre = basal_mre, tax_level = "Species", save_files = F)
+
+
+res_list <- basal_mre@taxa@metaphlan@ancom$Species %>% 
+  map(~{
+    .x %>% 
+      pluck("stats") %>% 
+      filter(detected_0.7 == TRUE)
+  }) %>% 
+  purrr::keep(., ~nrow(.) > 0)
+basal_mre@taxa@metaphlan@ancom$Species[[names(res_list)]]$plot
+
+res_list
+
+```
+
+ANCOM was even more astringent and ony found 2 significant species between hts and msm. 
+
 
 

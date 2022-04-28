@@ -14,6 +14,7 @@
 
 <title>Baseline microbiome vs Immune response</title>
 
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -41,6 +42,8 @@ div.section {
 }
 </style>
 
+
+
 <style type="text/css">
   code{white-space: pre-wrap;}
   span.smallcaps{font-variant: small-caps;}
@@ -60,6 +63,7 @@ if (window.hljs) {
   }
 }
 </script>
+
 
 
 
@@ -89,6 +93,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -241,7 +248,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -313,7 +320,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-04-19
+<strong>Last updated:</strong> 2022-04-28
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -404,16 +411,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree9beba4fea9875a042a02bc7b625c64366d94fd2ctargetblank9beba4fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/9beba4fea9875a042a02bc7b625c64366d94fd2c" target="_blank">9beba4f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree1badc06452e7e1c9a1b53a7cfae2350810fa594atargetblank1badc06a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/1badc06452e7e1c9a1b53a7cfae2350810fa594a" target="_blank">1badc06</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree9beba4fea9875a042a02bc7b625c64366d94fd2ctargetblank9beba4fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree1badc06452e7e1c9a1b53a7cfae2350810fa594atargetblank1badc06a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/9beba4fea9875a042a02bc7b625c64366d94fd2c" target="_blank">9beba4f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/1badc06452e7e1c9a1b53a7cfae2350810fa594a" target="_blank">1badc06</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -423,36 +430,65 @@ Ignored files:
     Ignored:    .RData
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/.Rhistory
     Ignored:    data/mre.rds
 
 Untracked files:
-    Untracked:  output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/sample_cluster_labels.csv
-    Untracked:  output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/silhouette_coefs.csv
-    Untracked:  output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/silhouette_plt.pdf
+    Untracked:  Metadata/2022_04_21_clean_metadata_LIMS.csv
+    Untracked:  analysis/figure/
+    Untracked:  output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD4after_96.pdf
+    Untracked:  output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD4diff_96.pdf
+    Untracked:  output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD8after_96.pdf
+    Untracked:  output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD8diff_96.pdf
+    Untracked:  output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD4after_96.pdf
+    Untracked:  output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD4diff_96.pdf
+    Untracked:  output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD8after_96.pdf
+    Untracked:  output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD8diff_96.pdf
+    Untracked:  output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_ADV.pdf
+    Untracked:  output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_ADV.pdf
 
 Unstaged changes:
-    Modified:   advanz4.Rproj
+    Deleted:    Metadata/.~lock.2022_04_01_clean_metadata_LIMS.csv#
+    Modified:   Metadata/CategoricalVariables.txt
+    Modified:   Metadata/LongitudinalVariables.txt
+    Deleted:    Metadata/MetadataManagement/metadata.csv
+    Modified:   Metadata/NumericalVariables.txt
+    Modified:   analysis/04_build_metadata.Rmd
     Modified:   analysis/335_BLMicrobiome_vs_ImmuneResponse.Rmd
+    Modified:   code/flowchart_sample_count.Rmd
     Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/bray_stressplot.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD4after_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD4diff_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD8after_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD8diff_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_center.pdf
     Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_cluster.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_ethnic_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_gender.pdf
     Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_risk_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD4after_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD4diff_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD8after_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD8diff_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_center.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_ethnic_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_gender.pdf
     Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_risk_group.pdf
     Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CD4.pdf
     Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CD8.pdf
     Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CD8_CD38_DR.pdf
     Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CRP.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_IL6.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_TNFa.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_sCD14.pdf
     Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/nmds_adonis_results.csv
     Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/nmds_coordinates.csv
     Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CD4.pdf
     Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CD8.pdf
     Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CD8_CD38_DR.pdf
     Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CRP.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_IL6.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_TNFa.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_sCD14.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/sample_cluster_labels.csv
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/silhouette_coefs.csv
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/silhouette_plt.pdf
 
 </code></pre>
 <p>
@@ -491,6 +527,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/8bc62caa93c57e033ff55d41024cd8dbe0c0957b/analysis/335_BLMicrobiome_vs_ImmuneResponse.Rmd" target="_blank">8bc62ca</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-04-20
+</td>
+<td>
+Fixed problem that arose when incorporating Adenovirus counts to metadata.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/e1f702e5d58b41215d4eaad8fd8796f88e0bb616/analysis/335_BLMicrobiome_vs_ImmuneResponse.Rmd" target="_blank">e1f702e</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-04-19
+</td>
+<td>
+added NMDS section to basal study
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/e1f702e5d58b41215d4eaad8fd8796f88e0bb616/docs/335_BLMicrobiome_vs_ImmuneResponse.html" target="_blank">e1f702e</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-04-19
+</td>
+<td>
+added NMDS section to basal study
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -668,20 +755,92 @@ Create 335_BLMicrobiome_vs_ImmuneResponse.Rmd
 </div>
 </div>
 </div>
+<pre class="r"><code># This chunk is only for executing a load_all on the reoot directory of the metar repository.
+# This is a workaround for a bug present in metar::filter_samples in which fails to find an 
+# inherited method for fun_input(), a step in filtering samples in the Gene Function Slot. This 
+# chunk will be removed as soon as this issue is solved.
+
+devtools::load_all(here::here(&quot;../&quot;,&quot;WMGSPipeline&quot;))</code></pre>
+<pre><code>suggested package selbal ✔suggested package DataExplorer ✔suggested package lme4 ✔suggested package merTools ✔</code></pre>
+<pre class="r"><code># Load all function arguments should be the path to where metar is installed. Change it
+# accordingly.</code></pre>
 <pre class="r"><code># mymre &lt;- here::here(&quot;data&quot;,&quot;mre.rds&quot;) %&gt;%
-#   readRDS(.) 
+#   readRDS(.)
 
 mymre &lt;- aws.s3::s3readRDS(bucket = &quot;s3://mistral-wp6-advanz4&quot;, object = &quot;metagenome/WMGS/MREObject.rds&quot;)
-metadata &lt;-get_meta(mymre)
+# metadata &lt;-get_meta(mymre)
+metadata &lt;- here::here(&quot;Metadata&quot;, &quot;2022_04_27_clean_metadata_LIMS.csv&quot;) %&gt;% 
+  read.csv() 
 
-cat_vector &lt;- get_cat(mymre) %&gt;% 
+
+
+cat_df &lt;- 
+  here::here(&quot;Metadata&quot;, &quot;CategoricalVariables.txt&quot;) %&gt;% 
+  read.delim(., header = T)
+
+cat_vector &lt;- cat_df %&gt;% 
   pull(CategoricalVariable)
 
-long_var &lt;- get_lon(mymre) %&gt;%
+long_var &lt;- here::here(&quot;Metadata&quot;, &quot;LongitudinalVariables.txt&quot;) %&gt;%
+  read.delim(., header = T)  %&gt;% 
   pull(LongitudinalVariable)
 
-id_var &lt;- get_lon(mymre) %&gt;%
-  pull(LinkVariable)</code></pre>
+id_var &lt;- here::here(&quot;Metadata&quot;, &quot;LongitudinalVariables.txt&quot;) %&gt;%
+  read.delim(., header = T)  %&gt;% 
+  pull(LinkVariable)
+
+num_var &lt;- here::here(&quot;Metadata&quot;, &quot;NumericalVariables.txt&quot;) %&gt;%
+  read.delim(., header = T)  %&gt;% 
+  pull(NumericalVariable)</code></pre>
+<pre class="r"><code>#### This chunk is for updating the mre internally as new variables come out. Once the final mre is done this chunk will be removed.
+
+mymre &lt;- filter_samples(mre = mymre, sample_ids = metadata$SampleID)
+
+mymre@metadata@metadata_df &lt;- tibble(metadata)
+mymre@taxa@metaphlan@phyloseq@sam_data &lt;- metadata %&gt;%
+  column_to_rownames(&quot;SampleID&quot;) %&gt;% 
+  mutate(SampleID = rownames(.), .before=1) %&gt;% 
+  phyloseq::sample_data(.)
+
+mymre@metadata@categorical_vals &lt;- here::here(&quot;Metadata&quot;, &quot;CategoricalVariables.txt&quot;) %&gt;% 
+  read.delim(., header = T) %&gt;% 
+  tibble()
+
+mymre@metadata@numeric_vals &lt;- here::here(&quot;Metadata&quot;, &quot;NumericalVariables.txt&quot;) %&gt;% 
+  read.delim(., header = T) %&gt;% 
+  tibble()
+
+mymre@metadata@longitudinal_vals &lt;- here::here(&quot;Metadata&quot;, &quot;LongitudinalVariables.txt&quot;) %&gt;% 
+  read.delim(., header = T) %&gt;% 
+  tibble()</code></pre>
+<pre class="r"><code>basal_meta &lt;- metadata %&gt;%
+  filter(time_point == 0) %&gt;% 
+  column_to_rownames(&quot;SampleID&quot;) %&gt;% 
+  mutate(SampleID = rownames(.), .before=1)
+
+basal_mre &lt;- filter_samples(mre = mymre, sample_ids =  basal_meta$SampleID)
+# basal_mre@metadata@categorical_vals &lt;-remove_cat(basal_mre, &quot;CD4diff_96&quot;)
+
+
+basal_mre@metadata@categorical_vals &lt;- get_cat(mymre) %&gt;% 
+  filter(!CategoricalVariable %in% c(&quot;ethnic_group&quot;))
+
+
+phyloseq::sample_data(basal_mre@taxa@metaphlan@phyloseq) &lt;- basal_meta
+phyloseq::sample_data(basal_mre@taxa@metaphlan@phyloseq_sec) &lt;- basal_meta
+
+
+
+
+# cat_vector %&gt;% 
+#   set_names() %&gt;% 
+#   map_chr(~{
+#     metadata %&gt;% 
+#       filter(time_point == 0) %&gt;% 
+#       pull(!!sym(.x)) %&gt;% 
+#       unique() %&gt;% 
+#       length()
+#   })</code></pre>
 <div id="baseline-differences-in-microbiome" class="section level1">
 <h1>Baseline differences in microbiome</h1>
 <div id="alpha-diversity" class="section level2">
@@ -711,8 +870,27 @@ richness_df &lt;-
          GeneNumber) %&gt;%
   filter(long_var == 0) 
 
+# cat_vector %&gt;% 
+#   set_names() %&gt;% 
+#   map(function(cat_var){
+#     richness_df %&gt;%
+#       dplyr::select(id_var,
+#                     cat_var = !!sym(cat_var),
+#                     GeneNumber) %&gt;%
+#             filter(!is.na(cat_var)) %&gt;%
+#       ggplot(., aes(x=cat_var, y=GeneNumber, fill = cat_var))+
+#       geom_violin(draw_quantiles = T) +
+#       geom_boxplot(fill=&quot;lightgrey&quot;, width=0.5, na.rm=T) +
+#       geom_point() +
+#       scale_fill_brewer(palette=&quot;Set1&quot;) +
+#       ggpubr::stat_compare_means(method=&quot;wilcox&quot;,label = &quot;p.signif&quot;, hide.ns = T) +
+#       theme_bw() + 
+#       labs(fill = cat_var)
+#     
+#   })
 
-c(&quot;CD4diff_48&quot;, &quot;CD8diff_48&quot;) %&gt;%
+  
+plotlist &lt;- cat_vector %&gt;% 
   set_names() %&gt;% 
   map(function(cat_var){
     richness_df %&gt;%
@@ -720,21 +898,18 @@ c(&quot;CD4diff_48&quot;, &quot;CD8diff_48&quot;) %&gt;%
                     cat_var = !!sym(cat_var),
                     GeneNumber) %&gt;%
             filter(!is.na(cat_var)) %&gt;%
-      ggplot(., aes(x=cat_var, y=GeneNumber, fill = cat_var))+
-      geom_violin(draw_quantiles = T) +
-      # geom_boxplot(fill=&quot;lightgrey&quot;, width=0.5, na.rm=T) +
-      geom_point() +
-      scale_fill_brewer(palette=&quot;Set1&quot;) +
-      ggpubr::stat_compare_means(method=&quot;wilcox&quot;,label = &quot;p.signif&quot;, hide.ns = T) +
-      theme_bw() + 
-      labs(fill = cat_var)
-    
+            ggstatsplot::ggbetweenstats(
+              data = .,
+              x = cat_var,
+              y = GeneNumber,
+              bf.message = FALSE,
+              type = &quot;nonparametric&quot;,
+              pairwise.comparisons = T,
+              xlab = cat_var, 
+              ggtheme = ggplot2::theme_bw()
+              
+            )
   })</code></pre>
-<pre><code>$CD4diff_48</code></pre>
-<p><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/baseline_richness-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>
-$CD8diff_48</code></pre>
-<p><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/baseline_richness-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>No differences in basal Gene richness were found between patients with an increase of CD4 higher than 50 counts/ul and whose with lower increase. The same could be observed in CD8 counts.</p>
 <pre class="r"><code>ids &lt;- metadata %&gt;%
   dplyr::group_by(record_id) %&gt;%
@@ -779,6 +954,54 @@ deltas %&gt;%
 
   labs(color=&quot;week&quot;)</code></pre>
 <p><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/Immune_delta_Distributions-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-Immune_delta_Distributions-1">
+Past versions of Immune_delta_Distributions-1.png
+</button>
+</p>
+<div id="fig-Immune_delta_Distributions-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/e1f702e5d58b41215d4eaad8fd8796f88e0bb616/docs/figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/Immune_delta_Distributions-1.png" target="_blank">e1f702e</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-04-19
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/8eaf17d0113a268e4cbf0467f54ce48400f4f3ac/docs/figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/Immune_delta_Distributions-1.png" target="_blank">8eaf17d</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-04-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>deltas %&gt;% 
   select(contains(&quot;delta&quot;)) %&gt;% 
   colnames() %&gt;% 
@@ -788,7 +1011,7 @@ deltas %&gt;%
   })</code></pre>
 <pre><code>$record_id
   record_id        
- Length:93         
+ Length:79         
  Class :character  
  Mode  :character  
 
@@ -800,7 +1023,7 @@ $deltaCD4_48
  Mean   :219.9  
  3rd Qu.:300.0  
  Max.   :683.0  
- NA&#39;s   :34     
+ NA&#39;s   :20     
 
 $deltaCD8_48
   deltaCD8_48    
@@ -810,47 +1033,47 @@ $deltaCD8_48
  Mean   : 282.5  
  3rd Qu.: 521.5  
  Max.   :1975.0  
- NA&#39;s   :34      
+ NA&#39;s   :20      
 
 $deltaCD4_96
-  deltaCD4_96 
- Min.   : NA  
- 1st Qu.: NA  
- Median : NA  
- Mean   :NaN  
- 3rd Qu.: NA  
- Max.   : NA  
- NA&#39;s   :93   
+  deltaCD4_96    
+ Min.   :  90.0  
+ 1st Qu.: 177.5  
+ Median : 250.7  
+ Mean   : 304.7  
+ 3rd Qu.: 340.5  
+ Max.   :1210.0  
+ NA&#39;s   :31      
 
 $deltaCD8_96
-  deltaCD8_96 
- Min.   : NA  
- 1st Qu.: NA  
- Median : NA  
- Mean   :NaN  
- 3rd Qu.: NA  
- Max.   : NA  
- NA&#39;s   :93   
+  deltaCD8_96    
+ Min.   :-748.0  
+ 1st Qu.:-110.0  
+ Median : 203.6  
+ Mean   : 244.3  
+ 3rd Qu.: 484.8  
+ Max.   :2963.0  
+ NA&#39;s   :31      
 
 $deltaratio_48
- deltaratio_48    
- Min.   :0.00066  
- 1st Qu.:0.12393  
- Median :0.18854  
- Mean   :0.38909  
- 3rd Qu.:0.28660  
- Max.   :8.83744  
- NA&#39;s   :34       
+ deltaratio_48     
+ Min.   :0.000655  
+ 1st Qu.:0.123930  
+ Median :0.188536  
+ Mean   :0.389095  
+ 3rd Qu.:0.286597  
+ Max.   :8.837443  
+ NA&#39;s   :20        
 
 $deltaratio_96
- deltaratio_96
- Min.   : NA  
- 1st Qu.: NA  
- Median : NA  
- Mean   :NaN  
- 3rd Qu.: NA  
- Max.   : NA  
- NA&#39;s   :93   </code></pre>
+ deltaratio_96   
+ Min.   :0.0176  
+ 1st Qu.:0.2120  
+ Median :0.2724  
+ Mean   :0.3537  
+ 3rd Qu.:0.4544  
+ Max.   :1.2042  
+ NA&#39;s   :31      </code></pre>
 <p>The last piece of output (summaries) tell there is a great ammount of missing data. This is due to a combination of many patients missing a sample and a few not having entries for analytical data:</p>
 <pre class="r"><code>no0 &lt;- metadata %&gt;% 
   filter(!record_id %in% metadata[metadata$time_point == 0, ]$record_id) %&gt;%
@@ -896,74 +1119,403 @@ totalMissing_CD8_48 &lt;- length(unique(c(no0, no48_CD8, noS48)))
 totalMissing_CD8_96 &lt;- length(unique(c(no0,no96_CD8, noS96)))
 
 totalMissing_CD4_48</code></pre>
-<pre><code>[1] 36</code></pre>
+<pre><code>[1] 20</code></pre>
 <pre class="r"><code>totalMissing_CD4_96</code></pre>
-<pre><code>[1] 95</code></pre>
+<pre><code>[1] 31</code></pre>
 <pre class="r"><code>totalMissing_CD8_96</code></pre>
-<pre><code>[1] 95</code></pre>
+<pre><code>[1] 31</code></pre>
 <pre class="r"><code>totalMissing_CD8_96</code></pre>
-<pre><code>[1] 95</code></pre>
+<pre><code>[1] 31</code></pre>
 <p>Adding the different kind of missing data checks out with the summaries. The biggest issue came with patients not having no sample whatsoever for such timepoints. Of which: 25 didn’t have a basal sample, 22 didnt have sample for week 48 and 30 for week 96.</p>
 <p>delta CD4 threshold was too low. To keep the study clinically interpretable We’ll do a cutoff as a round number around the mean. In this case &lt;150/&gt;150 according to the mITT design results of the parent study.</p>
 <p>Basal gene richness vs delta CD4_48 as continuous variables</p>
-<pre class="r"><code>basal_samples &lt;- metadata %&gt;%
-  filter(time_point == 0) %&gt;% 
-  pull(SampleID) %&gt;% 
-  as.character()
-
-basal_mre &lt;- filter_samples(mymre, basal_samples)
-
-  
-  
-basal_mre@metadata@categorical_vals &lt;- get_cat(mymre) %&gt;% 
-  filter(CategoricalVariable %in% &quot;group&quot;)
-
-
-basal_mre &lt;- metar::metaphlan_nmds(basal_mre, tax_level=&quot;Species&quot;)
-
-mynmds &lt;- basal_mre@taxa@metaphlan@nmds$Species$top_50$categorical$group
-
-library(patchwork)
-
-
-mynmds &amp; 
-    scale_color_brewer(palette=&quot;Set1&quot;) &amp;
-    scale_fill_brewer(palette = &quot;Set1&quot;)</code></pre>
-<p><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/basal_NMDS-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>basal_mre@taxa@metaphlan@nmds$Species$top_50$cluster_numeric</code></pre>
-<pre><code>$CD4</code></pre>
-<p><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/basal_NMDS-2.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>
-$CD8</code></pre>
-<p><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/basal_NMDS-3.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>
-$CD8_CD38_DR</code></pre>
-<p><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/basal_NMDS-4.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>
-$CRP</code></pre>
-<p><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/basal_NMDS-5.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>
-$IL6</code></pre>
-<p><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/basal_NMDS-6.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>
-$TNFa</code></pre>
-<p><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/basal_NMDS-7.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>
-$sCD14</code></pre>
-<p><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/basal_NMDS-8.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>basal_mre@taxa@metaphlan@nmds$Species$top_50$cluster_categorical </code></pre>
-<pre><code>$group</code></pre>
-<p><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/basal_NMDS-9.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="baseline-microbiome-vs-immune-response" class="section level2">
-<h2>Baseline microbiome vs Immune response</h2>
-<p>The goal of this analysis is to describe the patients baseline microbiome vs immune response either using:</p>
-<ul>
-<li>Increases in CD4, categorized in a useful way (Delta_week48 for instance)</li>
-<li>Decreased in CD8, categorized in a useful way</li>
-</ul>
-<p>It may be useful to try to classify patients solely on CD4/CD8/immune markers and the contrast this classification with microbiome composition</p>
-<p>Also it is relevant to show that the baseline microbiom was NOT different between ARMs (DTG/DRVr)</p>
+</div>
+<div id="microbiome-structure-at-basal" class="section level1">
+<h1>Microbiome structure at basal</h1>
+<pre class="r"><code>basal_mre &lt;- metar::metaphlan_nmds(basal_mre, tax_level=&quot;Species&quot;)</code></pre>
+<pre class="r"><code>nmdscor &lt;- basal_mre@taxa@metaphlan@nmds$Species$top_50$numeric 
+
+ggpubr::ggarrange(plotlist = nmdscor, ncol=2)</code></pre>
+<pre><code>$`1`</code></pre>
+<p><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/numeric_nmds_cors-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>
+$`2`</code></pre>
+<p><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/numeric_nmds_cors-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>
+$`3`</code></pre>
+<p><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/numeric_nmds_cors-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>
+attr(,&quot;class&quot;)
+[1] &quot;list&quot;      &quot;ggarrange&quot;</code></pre>
+<pre class="r"><code>group &lt;- basal_mre@taxa@metaphlan@nmds$Species$top_50$categorical$group &amp; 
+    scale_color_brewer(palette=&quot;Set1&quot;) &amp;
+    scale_fill_brewer(palette = &quot;Set1&quot;) 
+  
+
+
+
+cluster &lt;- basal_mre@taxa@metaphlan@nmds$Species$top_50$categorical$cluster
+
+
+ggpubr::ggarrange(group,cluster, labels = c(&quot;group&quot;, &quot;cluster&quot;))</code></pre>
+<p><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/basal_NMDS-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-basal_NMDS-1">
+Past versions of basal_NMDS-1.png
+</button>
+</p>
+<div id="fig-basal_NMDS-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/e1f702e5d58b41215d4eaad8fd8796f88e0bb616/docs/figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/basal_NMDS-1.png" target="_blank">e1f702e</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-04-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>NMDS shows no basal significant differences per group for either com,ponent. An unsupervised clustering created 2 well differentiated groups. While ADONIS per cluster was significant, we’ll look whether the numerical variables have something to do with them.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">id</th>
+<th align="right">Df</th>
+<th align="right">SumsOfSqs</th>
+<th align="right">MeanSqs</th>
+<th align="right">F.Model</th>
+<th align="right">R2</th>
+<th align="right">Pr..F.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">group</td>
+<td align="right">1</td>
+<td align="right">0.2320561</td>
+<td align="right">0.2320561</td>
+<td align="right">0.7569076</td>
+<td align="right">0.0110085</td>
+<td align="right">0.797</td>
+</tr>
+<tr class="even">
+<td align="left">risk_group</td>
+<td align="right">2</td>
+<td align="right">0.8593023</td>
+<td align="right">0.4296512</td>
+<td align="right">1.4219349</td>
+<td align="right">0.0419179</td>
+<td align="right">0.053</td>
+</tr>
+<tr class="odd">
+<td align="left">center</td>
+<td align="right">5</td>
+<td align="right">1.6094885</td>
+<td align="right">0.3218977</td>
+<td align="right">1.0580959</td>
+<td align="right">0.0763522</td>
+<td align="right">0.302</td>
+</tr>
+<tr class="even">
+<td align="left">gender</td>
+<td align="right">1</td>
+<td align="right">0.8309639</td>
+<td align="right">0.8309639</td>
+<td align="right">2.7905580</td>
+<td align="right">0.0394199</td>
+<td align="right">0.002</td>
+</tr>
+<tr class="odd">
+<td align="left">CD4diff_48</td>
+<td align="right">1</td>
+<td align="right">0.3718115</td>
+<td align="right">0.3718115</td>
+<td align="right">1.1770855</td>
+<td align="right">0.0202328</td>
+<td align="right">0.229</td>
+</tr>
+<tr class="even">
+<td align="left">CD8diff_48</td>
+<td align="right">1</td>
+<td align="right">0.3253300</td>
+<td align="right">0.3253300</td>
+<td align="right">1.0272818</td>
+<td align="right">0.0177034</td>
+<td align="right">0.407</td>
+</tr>
+<tr class="odd">
+<td align="left">CD4after_48</td>
+<td align="right">2</td>
+<td align="right">0.8412615</td>
+<td align="right">0.4206307</td>
+<td align="right">1.3433005</td>
+<td align="right">0.0457788</td>
+<td align="right">0.076</td>
+</tr>
+<tr class="even">
+<td align="left">CD8after_48</td>
+<td align="right">2</td>
+<td align="right">0.9081250</td>
+<td align="right">0.4540625</td>
+<td align="right">1.4556165</td>
+<td align="right">0.0494173</td>
+<td align="right">0.076</td>
+</tr>
+<tr class="odd">
+<td align="left">CD4diff_96</td>
+<td align="right">1</td>
+<td align="right">0.3135775</td>
+<td align="right">0.3135775</td>
+<td align="right">0.9763171</td>
+<td align="right">0.0207832</td>
+<td align="right">0.456</td>
+</tr>
+<tr class="even">
+<td align="left">CD8diff_96</td>
+<td align="right">1</td>
+<td align="right">0.1747594</td>
+<td align="right">0.1747594</td>
+<td align="right">0.5390451</td>
+<td align="right">0.0115826</td>
+<td align="right">0.981</td>
+</tr>
+<tr class="odd">
+<td align="left">CD4after_96</td>
+<td align="right">2</td>
+<td align="right">0.7449666</td>
+<td align="right">0.3724833</td>
+<td align="right">1.1686298</td>
+<td align="right">0.0493746</td>
+<td align="right">0.228</td>
+</tr>
+<tr class="even">
+<td align="left">CD8after_96</td>
+<td align="right">1</td>
+<td align="right">0.4311689</td>
+<td align="right">0.4311689</td>
+<td align="right">1.3532056</td>
+<td align="right">0.0285769</td>
+<td align="right">0.138</td>
+</tr>
+<tr class="odd">
+<td align="left">cluster</td>
+<td align="right">1</td>
+<td align="right">2.6024052</td>
+<td align="right">2.6024052</td>
+<td align="right">9.5773020</td>
+<td align="right">0.1234550</td>
+<td align="right">0.001</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="nmds-correlation-with-numerical-variables" class="section level1">
+<h1>NMDS correlation with numerical variables</h1>
+<pre class="r"><code>basal_mre@taxa@metaphlan@nmds$Species$top_50$cluster_numeric %&gt;% 
+  ggpubr::ggarrange(plotlist=.)</code></pre>
+<p><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/NMDS_numeric_correlations-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="categorical-variables-vs-unsupervised-clustering" class="section level2">
+<h2>Categorical variables vs unsupervised clustering</h2>
+<pre class="r"><code>basal_mre@taxa@metaphlan@nmds$Species$top_50$cluster_categorical %&gt;% 
+  names() %&gt;% 
+  set_names() %&gt;% 
+  map(~{
+    df &lt;- 
+    basal_mre@taxa@metaphlan@nmds$Species$top_50$cluster_categorical %&gt;% 
+      pluck(.x) %&gt;% 
+      pluck(&quot;data&quot;) %&gt;%
+      filter(!is.na(!!sym(.x)))
+    
+    pal &lt;- cat_df %&gt;% 
+      filter(CategoricalVariable == .x) %&gt;% 
+      pull(PaletteName)
+    
+    
+    test &lt;- df %&gt;%
+      dplyr::select(!!sym(.x), cluster) %&gt;%
+      table() %&gt;% 
+      as.matrix() %&gt;% 
+      fisher.test(df) %&gt;% 
+      pluck(&quot;p.value&quot;) %&gt;% 
+      as.numeric() %&gt;% 
+      round(.,2)
+      
+    plt &lt;-   
+      df %&gt;% 
+      ggplot(., aes(x = as.factor(cluster),fill=!!sym(.x)))+
+      geom_bar(stat=&quot;count&quot;) +
+      theme_bw() +
+      labs(x=&quot;cluster&quot;,
+           title=.x,
+            subtitle = glue::glue(&quot;P.value = {test} (Fisher test)&quot;)) +
+      scale_fill_brewer(palette = pal)
+  }) </code></pre>
+<pre><code>$group</code></pre>
+<pre><code>
+$risk_group</code></pre>
+<pre><code>
+$center</code></pre>
+<pre><code>
+$gender</code></pre>
+<pre><code>
+$CD4diff_48</code></pre>
+<pre><code>
+$CD8diff_48</code></pre>
+<pre><code>
+$CD4after_48</code></pre>
+<pre><code>
+$CD8after_48</code></pre>
+<pre><code>
+$CD4diff_96</code></pre>
+<pre><code>
+$CD8diff_96</code></pre>
+<pre><code>
+$CD4after_96</code></pre>
+<pre><code>
+$CD8after_96</code></pre>
+<p><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-1.png" width="40%" style="display: block; margin: auto;" /><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-2.png" width="40%" style="display: block; margin: auto;" /><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-3.png" width="40%" style="display: block; margin: auto;" /><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-4.png" width="40%" style="display: block; margin: auto;" /><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-5.png" width="40%" style="display: block; margin: auto;" /><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-6.png" width="40%" style="display: block; margin: auto;" /><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-7.png" width="40%" style="display: block; margin: auto;" /><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-8.png" width="40%" style="display: block; margin: auto;" /><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-9.png" width="40%" style="display: block; margin: auto;" /><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-10.png" width="40%" style="display: block; margin: auto;" /><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-11.png" width="40%" style="display: block; margin: auto;" /><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-12.png" width="40%" style="display: block; margin: auto;" /></p>
+<p>The variabe correspoinding to the change in CD4 counts after 96 weeks <strong>CD4diff_96</strong> was dropped due to having only one value. This means all patients had an increase of CD4&gt;50, which breaks any comparison we try to make.</p>
+</div>
+</div>
+<div id="differential-abundance" class="section level1">
+<h1>DIfferential Abundance</h1>
+<p>We’ll look into which genera are more correlated per group at baseline. We’ll perform both classic and compositional approaches.</p>
+<pre class="r"><code>phy_basal &lt;- get_phyloseq(basal_mre, type = &quot;metaphlan&quot;) %&gt;% 
+    phyloseq::filter_taxa(., function(x) sum(x &gt; 0) &gt; (0.3*length(x)), TRUE)
+
+
+otu_df &lt;- 
+  phyloseq::otu_table(phy_basal) %&gt;% 
+  t() %&gt;% 
+  as.data.frame() %&gt;% 
+  setNames(phyloseq::tax_table(phy_basal)[,&quot;Species&quot;]) %&gt;% 
+  rownames_to_column(&quot;SampleID&quot;) %&gt;% 
+  setNames(.,str_remove_all(colnames(.), &quot;\\[&quot;)) %&gt;% 
+  setNames(.,str_remove_all(colnames(.), &quot;\\]&quot;))
+
+basal_meta &lt;- get_meta(basal_mre)
+
+stat_list &lt;-
+  cat_vector %&gt;%
+  purrr::set_names() %&gt;%
+  purrr::map(function(cv) {
+    otu_df %&gt;%
+      dplyr::select(-SampleID) %&gt;%
+      colnames() %&gt;%
+      purrr::set_names() %&gt;%
+      purrr::map_dfr(function(sp) {
+        df &lt;-
+          otu_df %&gt;%
+          dplyr::select(SampleID, !!sym(sp)) %&gt;%
+          dplyr::left_join(basal_meta[, c(&quot;SampleID&quot;, cv), drop = F], by = &quot;SampleID&quot;)
+        
+        if (length(unique(df[, cv])) == 2) {
+          test &lt;- df %&gt;%
+            rstatix::wilcox_test(., formula(paste(sp, &quot;~&quot;, cv)), paired = F) %&gt;%
+            dplyr::mutate(method = &quot;Wilcoxon&quot;)
+          
+        } else{
+          test &lt;- df %&gt;%
+            rstatix::kruskal_test(., formula(paste(sp, &quot;~&quot;, cv))) %&gt;%
+            dplyr::mutate(method = &quot;Kruskal-Wallis&quot;)
+        }
+        
+        
+      }) %&gt;%
+      dplyr::mutate(p.adj = p.adjust(.$p, &quot;BH&quot;)) %&gt;%
+      dplyr::filter(p.adj &lt; 0.05)
+  }) %&gt;% 
+  purrr::keep(., ~nrow(.) &gt; 0)
+
+
+
+stat_list %&gt;% 
+  map(~{
+    kableExtra::kable(.x, format = &quot;markdown&quot;) 
+  })</code></pre>
+<pre><code>$risk_group
+
+
+|.y.                        |  n| statistic| df|        p|method         |     p.adj|
+|:--------------------------|--:|---------:|--:|--------:|:--------------|---------:|
+|Parabacteroides_distasonis | 70|  15.62025|  2| 0.000406|Kruskal-Wallis | 0.0224280|
+|Roseburia_sp_CAG_471       | 70|  13.01657|  2| 0.001490|Kruskal-Wallis | 0.0331525|
+|Anaerotruncus_colihominis  | 70|  14.37569|  2| 0.000756|Kruskal-Wallis | 0.0224280|
+|Clostridium_innocuum       | 70|  14.59802|  2| 0.000676|Kruskal-Wallis | 0.0224280|
+
+$gender
+
+
+|.y.                                 |group1 |group2 | n1| n2| statistic|        p|method   |     p.adj|
+|:-----------------------------------|:------|:------|--:|--:|---------:|--------:|:--------|---------:|
+|Eggerthella_lenta                   |female |male   | 10| 60|     480.0| 0.001280|Wilcoxon | 0.0150311|
+|Gordonibacter_pamelaeae             |female |male   | 10| 60|     481.5| 0.000919|Wilcoxon | 0.0150311|
+|Slackia_isoflavoniconvertens        |female |male   | 10| 60|     119.5| 0.002040|Wilcoxon | 0.0181560|
+|Prevotella_copri                    |female |male   | 10| 60|     113.5| 0.001520|Wilcoxon | 0.0150311|
+|Prevotella_sp_CAG_279               |female |male   | 10| 60|     154.0| 0.008170|Wilcoxon | 0.0484753|
+|Prevotella_sp_CAG_520               |female |male   | 10| 60|     140.0| 0.003490|Wilcoxon | 0.0282373|
+|Prevotella_stercorea                |female |male   | 10| 60|     120.0| 0.001370|Wilcoxon | 0.0150311|
+|Parabacteroides_distasonis          |female |male   | 10| 60|     466.0| 0.004470|Wilcoxon | 0.0331525|
+|Ruminococcus_gnavus                 |female |male   | 10| 60|     466.5| 0.001310|Wilcoxon | 0.0150311|
+|Dorea_formicigenerans               |female |male   | 10| 60|     135.0| 0.005420|Wilcoxon | 0.0371062|
+|Dorea_longicatena                   |female |male   | 10| 60|     137.5| 0.006230|Wilcoxon | 0.0396050|
+|Anaerotruncus_colihominis           |female |male   | 10| 60|     474.0| 0.000679|Wilcoxon | 0.0150311|
+|Clostridium_innocuum                |female |male   | 10| 60|     504.0| 0.000216|Wilcoxon | 0.0150311|
+|Erysipelatoclostridium_ramosum      |female |male   | 10| 60|     468.0| 0.000638|Wilcoxon | 0.0150311|
+|Phascolarctobacterium_succinatutens |female |male   | 10| 60|     120.0| 0.001370|Wilcoxon | 0.0150311|</code></pre>
+<p>The only categoricalvariables with Differential abundance at basal are Gender and Risk group. This is hardly surprising as microbiome differences between gender and sexual orientations have been widely reported. But that also means no significant signal could be detected that is significant to this study. More specifically, there is no bacterial signal that may predict increase of CD4/CD8 after 48-96 weeks of treatment.</p>
+<pre class="r"><code>phy_c&lt;- basal_mre@taxa@metaphlan@phyloseq_sec %&gt;% 
+    phyloseq::filter_taxa(., function(x) sum(x &gt; 0) &gt; (0.3*length(x)), TRUE)
+
+
+basal_mre@taxa@metaphlan@phyloseq_sec &lt;- phy_c
+
+basal_mre &lt;- metar::metaphlan_ancom(mre = basal_mre, tax_level = &quot;Species&quot;, save_files = F)
+
+
+res_list &lt;- basal_mre@taxa@metaphlan@ancom$Species %&gt;% 
+  map(~{
+    .x %&gt;% 
+      pluck(&quot;stats&quot;) %&gt;% 
+      filter(detected_0.7 == TRUE)
+  }) %&gt;% 
+  purrr::keep(., ~nrow(.) &gt; 0)
+basal_mre@taxa@metaphlan@ancom$Species[[names(res_list)]]$plot</code></pre>
+<p><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/ANCOM-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>res_list</code></pre>
+<pre><code>$risk_group
+                     taxa_id  W detected_0.9 detected_0.8 detected_0.7
+1 Parabacteroides_distasonis 32         TRUE         TRUE         TRUE
+2     Flavonifractor_plautii 24        FALSE        FALSE         TRUE
+  detected_0.6  mean_qval median_qval  fisher_qval clr_mean_diff
+1         TRUE 0.03617902 0.001680889 4.772824e-49    -1.0275269
+2         TRUE 0.08000107 0.023328846 1.363693e-20    -0.3682635
+  structural_zero   x_label y_label comparison    cat_var
+1              No -1.027527    22.4    hts_msm risk_group
+2              No -1.027527    22.4    hts_msm risk_group</code></pre>
+<p>ANCOM was even more astringent and ony found 2 significant species between hts and msm.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -972,114 +1524,101 @@ $sCD14</code></pre>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.0.2 (2020-06-22)
-Platform: x86_64-w64-mingw32/x64 (64-bit)
-Running under: Windows 10 x64 (build 22000)
+<pre><code>R version 4.0.5 (2021-03-31)
+Platform: x86_64-redhat-linux-gnu (64-bit)
+Running under: Fedora 34 (Workstation Edition)
 
 Matrix products: default
+BLAS/LAPACK: /usr/lib64/libflexiblas.so.3.1
 
 locale:
-[1] LC_COLLATE=Spanish_Spain.1252  LC_CTYPE=Spanish_Spain.1252   
-[3] LC_MONETARY=Spanish_Spain.1252 LC_NUMERIC=C                  
-[5] LC_TIME=Spanish_Spain.1252    
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] patchwork_1.1.1    metar_0.1.5        RColorBrewer_1.1-3 forcats_0.5.1     
- [5] stringr_1.4.0      dplyr_1.0.8        purrr_0.3.4        readr_2.0.1       
- [9] tidyr_1.2.0        tibble_3.1.6       ggplot2_3.3.5      tidyverse_1.3.1   
+ [1] metar_0.1.5        testthat_3.1.4     patchwork_1.1.1    RColorBrewer_1.1-3
+ [5] forcats_0.5.1      stringr_1.4.0      dplyr_1.0.8        purrr_0.3.4       
+ [9] readr_2.1.2        tidyr_1.2.0        tibble_3.1.6       ggplot2_3.3.5     
+[13] tidyverse_1.3.1   
 
 loaded via a namespace (and not attached):
-  [1] utf8_1.2.2                tidyselect_1.1.2         
-  [3] lme4_1.1-27.1             htmlwidgets_1.5.4        
-  [5] grid_4.0.2                gmp_0.6-2                
-  [7] aws.signature_0.6.0       munsell_0.5.0            
-  [9] effectsize_0.4.5          codetools_0.2-16         
- [11] miniUI_0.1.1.1            withr_2.5.0              
- [13] colorspace_2.0-2          Biobase_2.50.0           
- [15] phyloseq_1.34.0           logger_0.2.2             
- [17] highr_0.9                 knitr_1.38               
- [19] rstudioapi_0.13           stats4_4.0.2             
- [21] ipmisc_6.0.2              ggsignif_0.6.3           
- [23] labeling_0.4.2            emmeans_1.7.1-1          
- [25] git2r_0.28.0              polyclip_1.10-0          
- [27] bit64_4.0.5               farver_2.1.0             
- [29] datawizard_0.2.0.1        rhdf5_2.34.0             
- [31] rprojroot_2.0.3           coda_0.19-4              
- [33] vctrs_0.3.8               generics_0.1.2           
- [35] xfun_0.30                 BWStest_0.2.2            
- [37] R6_2.5.1                  arm_1.12-2               
- [39] BayesFactor_0.9.12-4.2    rhdf5filters_1.2.1       
- [41] cachem_1.0.1              reshape_0.8.8            
- [43] assertthat_0.2.1          vroom_1.5.7              
- [45] promises_1.2.0.1          networkD3_0.4            
- [47] scales_1.2.0              ggExtra_0.10.0           
- [49] merTools_0.5.2            gtable_0.3.0             
- [51] multcompView_0.1-8        workflowr_1.7.0          
- [53] rlang_1.0.2               MatrixModels_0.5-0       
- [55] zeallot_0.1.0             PMCMRplus_1.9.0          
- [57] splines_4.0.2             rstatix_0.7.0            
- [59] prismatic_1.0.0           broom_0.8.0              
- [61] yaml_2.3.5                reshape2_1.4.4           
- [63] abind_1.4-5               modelr_0.1.8             
- [65] backports_1.4.1           httpuv_1.6.3             
- [67] tools_4.0.2               ellipsis_0.3.2           
- [69] jquerylib_0.1.4           biomformat_1.18.0        
- [71] selbal_0.1.0              BiocGenerics_0.36.1      
- [73] WRS2_1.1-3                Rcpp_1.0.7               
- [75] plyr_1.8.6                base64enc_0.1-3          
- [77] zlibbioc_1.36.0           ggpubr_0.4.0             
- [79] pbapply_1.5-0             correlation_0.7.0        
- [81] S4Vectors_0.28.1          haven_2.3.1              
- [83] ggrepel_0.9.1             cluster_2.1.0            
- [85] fs_1.5.0                  DataExplorer_0.8.2       
- [87] magrittr_2.0.2            data.table_1.14.2        
- [89] reprex_2.0.1              mvtnorm_1.1-2            
- [91] whisker_0.4               hms_1.1.1                
- [93] mime_0.11                 evaluate_0.15            
- [95] xtable_1.8-4              pairwiseComparisons_3.1.6
- [97] broom.mixed_0.2.7         readxl_1.3.1             
- [99] IRanges_2.24.1            gridExtra_2.3            
-[101] compiler_4.0.2            ggstatsplot_0.8.0        
-[103] crayon_1.5.1              minqa_1.2.4              
-[105] htmltools_0.5.2           mgcv_1.8-31              
-[107] mc2d_0.1-21               later_1.3.0              
-[109] tzdb_0.3.0                lubridate_1.8.0          
-[111] aws.s3_0.3.21             DBI_1.1.1                
-[113] SuppDists_1.1-9.5         kSamples_1.2-9           
-[115] tweenr_1.0.2              dbplyr_2.1.1             
-[117] MASS_7.3-51.6             boot_1.3-25              
-[119] wesanderson_0.3.6         Matrix_1.2-18            
-[121] ade4_1.7-18               car_3.0-12               
-[123] permute_0.9-7             cli_3.0.1                
-[125] parallel_4.0.2            insight_0.14.4           
-[127] igraph_1.2.9              pkgconfig_2.0.3          
-[129] statsExpressions_1.1.0    xml2_1.3.2               
-[131] paletteer_1.4.0           foreach_1.5.2            
-[133] bslib_0.3.1               blme_1.0-5               
-[135] multtest_2.46.0           XVector_0.30.0           
-[137] estimability_1.3          rvest_1.0.1              
-[139] snakecase_0.11.0          digest_0.6.29            
-[141] parameters_0.14.0         janitor_2.1.0            
-[143] vegan_2.5-7               Biostrings_2.58.0        
-[145] rmarkdown_2.11            cellranger_1.1.0         
-[147] curl_4.3                  shiny_1.7.1              
-[149] gtools_3.9.2              nloptr_1.2.2.3           
-[151] lifecycle_1.0.1           nlme_3.1-148             
-[153] jsonlite_1.7.2            Rhdf5lib_1.12.1          
-[155] carData_3.0-5             fansi_0.5.0              
-[157] pillar_1.7.0              lattice_0.20-41          
-[159] fastmap_1.1.0             httr_1.4.2               
-[161] survival_3.1-12           glue_1.5.1               
-[163] bayestestR_0.11.0         iterators_1.0.14         
-[165] bit_4.0.4                 ggforce_0.3.3            
-[167] performance_0.7.3         stringi_1.7.6            
-[169] sass_0.4.0                rematch2_2.1.2           
-[171] memoise_2.0.0             Rmpfr_0.8-4              
-[173] ape_5.5                  </code></pre>
-</div>
+  [1] estimability_1.3       coda_0.19-4            bit64_4.0.5           
+  [4] knitr_1.39             multcomp_1.4-19        wesanderson_0.3.6     
+  [7] data.table_1.14.2      DataExplorer_0.8.2     generics_0.1.2        
+ [10] BiocGenerics_0.36.1    cowplot_1.1.1          callr_3.7.0           
+ [13] TH.data_1.1-1          usethis_2.1.5          future_1.25.0         
+ [16] correlation_0.8.0      bit_4.0.4              tzdb_0.3.0            
+ [19] bayesm_3.1-4           webshot_0.5.3          xml2_1.3.2            
+ [22] lubridate_1.8.0        httpuv_1.6.5           assertthat_0.2.1      
+ [25] WRS2_1.1-3             xfun_0.30              hms_1.1.1             
+ [28] jquerylib_0.1.4        evaluate_0.15          promises_1.2.0.1      
+ [31] DEoptimR_1.0-11        fansi_1.0.3            dbplyr_2.1.1          
+ [34] readxl_1.4.0           igraph_1.3.1           DBI_1.1.2             
+ [37] htmlwidgets_1.5.4      reshape_0.8.9          tensorA_0.36.2        
+ [40] kSamples_1.2-9         stats4_4.0.5           Rmpfr_0.8-7           
+ [43] paletteer_1.4.0        ellipsis_0.3.2         survcomp_1.40.0       
+ [46] ggpubr_0.4.0           backports_1.4.1        insight_0.17.0        
+ [49] permute_0.9-7          prismatic_1.1.0        compositions_2.0-4    
+ [52] vctrs_0.4.1            Biobase_2.50.0         remotes_2.4.2         
+ [55] here_1.0.1             abind_1.4-5            cachem_1.0.6          
+ [58] withr_2.5.0            ggforce_0.3.3          aws.signature_0.6.0   
+ [61] robustbase_0.95-0      vroom_1.5.7            emmeans_1.7.3         
+ [64] vegan_2.6-2            prettyunits_1.1.1      svglite_2.1.0         
+ [67] cluster_2.1.3          ape_5.6-2              crayon_1.5.1          
+ [70] pkgconfig_2.0.3        SuppDists_1.1-9.7      labeling_0.4.2        
+ [73] tweenr_1.0.2           nlme_3.1-157           statsExpressions_1.3.1
+ [76] pkgload_1.2.4          blme_1.0-5             devtools_2.4.3        
+ [79] rlang_1.0.2            globals_0.14.0         lifecycle_1.0.1       
+ [82] sandwich_3.0-1         survivalROC_1.0.3      selbal_0.1.0          
+ [85] phyloseq_1.34.0        modelr_0.1.8           cellranger_1.1.0      
+ [88] rprojroot_2.0.3        polyclip_1.10-0        datawizard_0.4.0      
+ [91] Matrix_1.4-1           mc2d_0.1-21            carData_3.0-5         
+ [94] Rhdf5lib_1.12.1        boot_1.3-28            zoo_1.8-10            
+ [97] reprex_2.0.1           base64enc_0.1-3        whisker_0.4           
+[100] processx_3.5.3         viridisLite_0.4.0      PMCMRplus_1.9.4       
+[103] bootstrap_2019.6       parameters_0.17.0      KernSmooth_2.23-20    
+[106] rhdf5filters_1.2.1     Biostrings_2.58.0      workflowr_1.7.0       
+[109] multcompView_0.1-8     arm_1.12-2             parallelly_1.31.1     
+[112] rstatix_0.7.0          S4Vectors_0.28.1       ggsignif_0.6.3.9000   
+[115] rmeta_3.0              aws.s3_0.3.21          scales_1.2.0          
+[118] memoise_2.0.1          magrittr_2.0.3         plyr_1.8.7            
+[121] zlibbioc_1.36.0        compiler_4.0.5         kableExtra_1.3.4      
+[124] lme4_1.1-29            snakecase_0.11.0       cli_3.3.0             
+[127] ade4_1.7-19            XVector_0.30.0         listenv_0.8.0         
+[130] ps_1.7.0               MASS_7.3-57            mgcv_1.8-40           
+[133] ggside_0.2.0           tidyselect_1.1.2       stringi_1.7.6         
+[136] highr_0.9              yaml_2.3.5             ANCOM_2.2             
+[139] ggrepel_0.9.1          grid_4.0.5             sass_0.4.1            
+[142] tools_4.0.5            future.apply_1.9.0     parallel_4.0.5        
+[145] rstudioapi_0.13        foreach_1.5.2          logging_0.10-108      
+[148] git2r_0.30.1           janitor_2.1.0          gridExtra_2.3         
+[151] prodlim_2019.11.13     farver_2.1.0           digest_0.6.29         
+[154] lava_1.6.10            shiny_1.7.1            networkD3_0.4         
+[157] BWStest_0.2.2          Rcpp_1.0.8.3           car_3.0-12            
+[160] broom_0.8.0            performance_0.9.0      later_1.3.0           
+[163] httr_1.4.2             effectsize_0.6.0.1     colorspace_2.0-3      
+[166] rvest_1.0.2            brio_1.1.3             fs_1.5.2              
+[169] IRanges_2.24.1         splines_4.0.5          rematch2_2.1.2        
+[172] multtest_2.46.0        systemfonts_1.0.4      sessioninfo_1.2.2     
+[175] xtable_1.8-4           gmp_0.6-5              jsonlite_1.8.0        
+[178] nloptr_2.0.0           zeallot_0.1.0          R6_2.5.1              
+[181] broom.mixed_0.2.9.4    pillar_1.7.0           htmltools_0.5.2       
+[184] mime_0.12              glue_1.6.2             fastmap_1.1.0         
+[187] minqa_1.2.4            codetools_0.2-18       pkgbuild_1.3.1        
+[190] mvtnorm_1.1-3          furrr_0.2.3            utf8_1.2.2            
+[193] lattice_0.20-45        bslib_0.3.1            logger_0.2.2          
+[196] curl_4.3.2             survival_3.3-1         rmarkdown_2.14        
+[199] desc_1.4.1             biomformat_1.18.0      merTools_0.5.2        
+[202] munsell_0.5.0          rhdf5_2.34.0           iterators_1.0.14      
+[205] ggstatsplot_0.9.1      haven_2.5.0            reshape2_1.4.4        
+[208] gtable_0.3.0           bayestestR_0.11.5.1   </code></pre>
 </div>
 </div>
 
@@ -1095,6 +1634,8 @@ footer is added to webpages before the MathJax javascript. -->
     "HTML-CSS": { availableFonts: ["TeX"] }
   });
 </script>
+
+
 
 
 

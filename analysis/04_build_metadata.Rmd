@@ -30,7 +30,7 @@ variables_selected <- read.csv(here::here("Metadata","MetadataManagement","Var_n
 
  
 
-mySampleData<-here::here("Metadata","MetadataManagement","metadata.csv")%>%
+mySampleData<-here::here("Metadata","MetadataManagement","metadata_select.csv")%>%
   read.csv(.) %>%
   relocate(CODE,Week,ExtractionDate,PatCode) %>%
   mutate(ExtractionDate = as.character(format(as.Date(ExtractionDate), "%d%b%Y"))) %>%
@@ -452,7 +452,6 @@ CD4 nadir in the DTG group is significantly higher than DRV (mean 44.4% higher).
 ```{r Write_metadata}
 
 metadata_final %>%
-  filter(!record_id %in% outpatients) %>%
   readr::write_delim(
         file = here::here("Metadata",
             

@@ -1,1 +1,2 @@
+LongitudinalVariable	LinkVariable	GroupVariable	Breakpoints
 time_point	record_id	group	NA
