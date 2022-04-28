@@ -130,7 +130,7 @@ stat_list <-
   purrr::set_names() %>%
   purrr::map(function(cv) {
     
-    c(0,48,96) %>% 
+    c(0,24,48,96) %>% 
       set_names() %>% 
       map_dfr(function(tp){
         otu_df %>%
@@ -171,15 +171,61 @@ stat_list <-
 DAsp <- stat_list$group %>% 
   pull(Species)
 
-## Most differences are found on w48 and w96.
+## --- init MNJ
+## It is interesting that Bifidobacterium species (adolescentis, longum) are consistently found as DA in all (most) timepoints
 ## Produce a table showing 
 stat_list$group %>% 
   filter(p<0.05) %>% 
   group_by(Species) %>% 
   tally() %>% 
-  filter(n>=1) ## Species being significant (Wilcoxon unadjusted <0.05)
+  filter(n>=2) ## Species being significant (Wilcoxon unadjusted <0.05)
+
+otu_df %>% 
+  select(SampleID,Bifidobacterium_adolescentis) %>% 
+  # select(SampleID, !!sym(DAsp)) %>% 
+  left_join(., metadata[,c("SampleID","group","time_point")], by="SampleID") %>% 
+  group_by(group) %>% 
+  ggstatsplot::grouped_ggbetweenstats(.,
+                              x="group",
+                              y = Bifidobacterium_adolescentis,
+                              pairwise.comparisons = T,
+                              ylab = "Bifidobacterium_adolescentis(%)", 
+                              ggtheme = ggplot2::theme_bw(),
+                              grouping.var = "time_point",plotgrid.args = NULL)
+otu_df %>% 
+  select(SampleID,Bifidobacterium_longum) %>% 
+  # select(SampleID, !!sym(DAsp)) %>% 
+  left_join(., metadata[,c("SampleID","group","time_point")], by="SampleID") %>% 
+  group_by(group) %>% 
+  ggstatsplot::grouped_ggbetweenstats(.,
+                              x="group",
+                              y = Bifidobacterium_longum,
+                              pairwise.comparisons = T,
+                              ylab = "Bifidobacterium_longum(%)", 
+                              ggtheme = ggplot2::theme_bw(),
+                              grouping.var = "time_point",plotgrid.args = NULL)
+
+phyloseq::otu_table(phy %>% phyloseq::tax_glom(.,taxrank="Genus")) %>% 
+  t() %>% 
+  as.data.frame() %>% 
+  stats::setNames(phyloseq::tax_table(phy %>% phyloseq::tax_glom(.,taxrank="Genus"))[,"Genus"]) %>% 
+  tibble::rownames_to_column("SampleID") %>% 
+  stats::setNames(.,stringr::str_remove_all(colnames(.), "\\[")) %>% 
+  stats::setNames(.,stringr::str_remove_all(colnames(.), "\\]")) %>% 
+  select(SampleID,Bifidobacterium) %>% 
+  # select(SampleID, !!sym(DAsp)) %>% 
+  left_join(., metadata[,c("SampleID","group","time_point")], by="SampleID") %>% 
+  group_by(group) %>% 
+  ggstatsplot::grouped_ggbetweenstats(.,
+                              x="group",
+                              y = Bifidobacterium,
+                              pairwise.comparisons = T,
+                              ylab = "Bifidobacterium(%)", 
+                              ggtheme = ggplot2::theme_bw(),
+                              grouping.var = "time_point",plotgrid.args = NULL)
 
 ### Show how many species are differential in at least two of the timepoints in each cat var. Risk_group should result in many species showing that kins of signal. See Venn section below.
+### --- end MNJ
 
 
 
