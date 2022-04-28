@@ -3,24 +3,92 @@ title: "Taxonomy: Differential Abundance"
 author: "Carlos Blázquez Bondia"
 date: "3/23/2022"
 output: html_document
+editor_options:
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
+library(RColorBrewer)
+library(metar)
+
 ```
 
 ## Data import and exploration
 
 This section should explain anyithing that may have happened during the first fase of importing and formatting data, such as any modification or additional filtering step.
 
-```{r read_data, eval=F}
-bucket <- "s3://mistral-wp6-advanz4/"
-bucket_dir <- "metagenome/WMGS/"
+```{r Setup, warning=F, message=F}
 
-# mymre <- aws.s3::s3readRDS(bucket = bucket, object = paste0(bucket_dir,"MREObject.rds"))
-mymre <- here::here("data","mre.rds") %>%
-  readRDS() 
+# mymre <- here::here("data","mre.rds") %>%
+#   readRDS(.)
+
+mymre <- aws.s3::s3readRDS(bucket = "s3://mistral-wp6-advanz4", object = "metagenome/WMGS/MREObject.rds")
+# metadata <-get_meta(mymre)
+metadata <- here::here("Metadata", "2022_04_28_clean_metadata_LIMS.csv") %>% 
+  read.csv() %>% 
+  column_to_rownames("SampleID") %>% 
+  mutate(SampleID = rownames(.))
+
+
+
+cat_df <- 
+  here::here("Metadata", "CategoricalVariables.txt") %>% 
+  read.delim(., header = T)
+
+cat_vector <- cat_df %>% 
+  pull(CategoricalVariable)
+
+long_var <- here::here("Metadata", "LongitudinalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(LongitudinalVariable)
+
+link_var <- here::here("Metadata", "LongitudinalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(LinkVariable)
+
+num_var <- here::here("Metadata", "NumericalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(NumericalVariable)
+
+
+
+```
+
+
+
+```{r update_mre, warning= F, message= F}
+
+#### This chunk is for updating the mre internally as new variables come out. Once the final mre is done this chunk will be removed.
+
+devtools::load_all(here::here("../WMGSPipeline"))
+
+mymre <- filter_samples(mre = mymre, sample_ids = metadata$SampleID)
+
+mymre@metadata@metadata_df <- as.tibble(metadata) 
+mymre@taxa@metaphlan@phyloseq@sam_data <- metadata %>%
+  phyloseq::sample_data(.)
+mymre@taxa@metaphlan@phyloseq_sec@sam_data <- metadata %>%
+  phyloseq::sample_data(.)
+
+
+
+
+mymre@metadata@categorical_vals <- here::here("Metadata", "CategoricalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+mymre@metadata@numeric_vals <- here::here("Metadata", "NumericalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+mymre@metadata@longitudinal_vals <- here::here("Metadata", "LongitudinalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+
 
 ```
 
@@ -31,20 +99,132 @@ mymre <- here::here("data","mre.rds") %>%
 ```
 
 
-# Differential abundance results
-
-Here we will leave all results regarding DA. In case we analyze it by more than one approach (e.g, wilcoxon, ANCOM, etc), each will have it's own subsection)
-
-## Method 1 (e.g: Wilcoxon on count data)
-
-## Method 2 (e.g compositional approach)
+First we'll start with a non-compositional approach which may provide potential candidate taxa for DA to be confirmed with more astringent and specific compositional approaches.
 
 
-## Method 3 (Marc Addition), test differential abundance between groups at each timepoint. Create Venn diagram of tiempoint-specific DA taxa.
+# Non-compositional analysis
+
+In this case, we'll test for group as categorical variables. We may extend the analysis towards other cat_vars, but those were more important for basal comparisons, which already shown no great differences were found among other potential confusor variables. 
+
+## Cross-group Differential Abundance
+
+These comparisons will be between treatment groups at the same time point: one at week 0, week 48 and 96.
+```{r wilcox_across_group, warning=F, message=F}
+
+phy <- get_phyloseq(mymre, type = "metaphlan") %>% 
+      phyloseq::filter_taxa(., function(x) sum(x > 0) > (0.3*length(x)), TRUE)
 
 
-```{r pressure, echo=FALSE}
+otu_df <- 
+  phyloseq::otu_table(phy) %>% 
+  t() %>% 
+  as.data.frame() %>% 
+  stats::setNames(phyloseq::tax_table(phy)[,"Species"]) %>% 
+  tibble::rownames_to_column("SampleID") %>% 
+  stats::setNames(.,stringr::str_remove_all(colnames(.), "\\[")) %>% 
+  stats::setNames(.,stringr::str_remove_all(colnames(.), "\\]"))
+
+
+stat_list <-
+  cat_vector %>%
+  purrr::set_names() %>%
+  purrr::map(function(cv) {
+    
+    c(0,48,96) %>% 
+      set_names() %>% 
+      map_dfr(function(tp){
+        otu_df %>%
+        dplyr::select(-SampleID) %>%
+        colnames() %>%
+        purrr::set_names() %>%
+        purrr::map_dfr(function(sp) {
+          df <-
+            otu_df %>%
+            dplyr::select(SampleID, !!sym(sp)) %>%
+            dplyr::left_join(metadata[, c("SampleID", link_var, cv, long_var), drop = F], 
+                             by = "SampleID") %>% 
+            dplyr::filter(!!sym(long_var) %in% tp) %>% 
+            dplyr::group_by(!!sym(long_var)) 
+
+          
+          if (length(unique(pull(.data = df, !!sym(cv)))) == 2) {
+            test <- df %>%
+              rstatix::wilcox_test(., formula(paste(sp, "~", cv)), paired = F) %>%
+              dplyr::mutate(method = "Wilcoxon")
+            
+          } else{
+            test <- df %>%
+              rstatix::kruskal_test(., formula(paste(sp, "~", cv))) %>%
+              dplyr::mutate(method = "Kruskal-Wallis")
+          }
+          
+        }) %>% 
+      rename(Species = .y.) %>% 
+      group_by(!!sym(long_var)) %>% 
+      mutate(p.adj = p.adjust(p, "BH")) %>% 
+      filter(p.adj < .05 ) %>% 
+      group_by(Species) 
+      }) 
+}) 
+
+
+DAsp <- stat_list$group %>% 
+  pull(Species)
+
+
+otu_df %>% 
+  select(SampleID, !!sym(DAsp)) %>% 
+  left_join(., metadata[,c("SampleID","group","time_point")], by="SampleID") %>% 
+  group_by(group) %>% 
+  ggstatsplot::grouped_ggbetweenstats(.,
+                              x="group",
+                              y = !!sym(DAsp[1]),
+                              pairwise.comparisons = T,
+                              ylab = paste(DAsp[1], "(%)"), 
+                              ggtheme = ggplot2::theme_bw(),
+                              grouping.var = "time_point",plotgrid.args = NULL)
+
 
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Only one spec
+
+
+### Comparison of significant species
+
+Following Venn's diagram to detect group_specific DA taxa (Marc's addition, moved here as I thought it made more sense structurally)
+```{r wilcox_Venn_Group, warning=F, message=F}
+
+```
+
+## Longitudinal, within-group Differential Abundance
+These comparisons test differences between time points within the same group. This is a longitudinal approach so it requires a paired test, which account for dependece between data points.
+```{r wilcox_within_group, message=F, warning=F}
+            # dplyr::filter(!n()<2) %>% 
+            # dplyr::arrange(!!sym(link_var), !!sym(long_var))
+```
+
+
+# Compositional approach (ANCOM)
+
+## Cross-group Differential Abundance
+
+These comparisons will be between treatment groups at the same time point: one at week 0, week 48 and 96.
+```{r ANCOM_across_group, warning=F, message=F}
+
+```
+
+### Comparison of significant species
+
+Following Venn's diagram to detect group_specific DA taxa (Marc's addition, moved here as I thought it made more sense structurally)
+```{r ANCOM_Venn_Group, warning=F, message=F}
+
+```
+
+## Longitudinal, within-group Differential Abundance
+These comparisons test differences between time points within the same group. This is a longitudinal approach so it requires a paired test, which account for dependece between data points.
+
+```{r ANCOM_within_group, warning=F, message= F}
+
+```
+
