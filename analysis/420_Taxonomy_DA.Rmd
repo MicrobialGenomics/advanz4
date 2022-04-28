@@ -162,7 +162,7 @@ stat_list <-
       rename(Species = .y.) %>% 
       group_by(!!sym(long_var)) %>% 
       mutate(p.adj = p.adjust(p, "BH")) %>% 
-      filter(p.adj < .05 ) %>% 
+      # filter(p.adj < .05 ) %>% 
       group_by(Species) 
       }) 
 }) 
@@ -170,6 +170,17 @@ stat_list <-
 
 DAsp <- stat_list$group %>% 
   pull(Species)
+
+## Most differences are found on w48 and w96.
+## Produce a table showing 
+stat_list$group %>% 
+  filter(p<0.05) %>% 
+  group_by(Species) %>% 
+  tally() %>% 
+  filter(n>=1) ## Species being significant (Wilcoxon unadjusted <0.05)
+
+### Show how many species are differential in at least two of the timepoints in each cat var. Risk_group should result in many species showing that kins of signal. See Venn section below.
+
 
 
 otu_df %>% 
@@ -209,7 +220,7 @@ These comparisons test differences between time points within the same group. Th
 
 ## Cross-group Differential Abundance
 
-These comparisons will be between treatment groups at the same time point: one at week 0, week 48 and 96.
+These comparisons will be between treatment groups at the same time point: one at week 0, week 24, week 48 and 96.
 ```{r ANCOM_across_group, warning=F, message=F}
 
 ```
