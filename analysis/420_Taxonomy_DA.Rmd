@@ -230,20 +230,21 @@ phyloseq::otu_table(phy %>% phyloseq::tax_glom(.,taxrank="Genus")) %>%
                               grouping.var = "time_point",plotgrid.args = NULL) %>% 
   ggsave(.,filename = "~/Downloads/plot4Carlos_Bifidobacterium.pdf")
 
-
-### Paired plot
-
-phyloseq::otu_table(phy %>% phyloseq::tax_glom(.,taxrank="Genus")) %>% 
-  t() %>% 
-  as.data.frame() %>% 
-  stats::setNames(phyloseq::tax_table(phy %>% phyloseq::tax_glom(.,taxrank="Genus"))[,"Genus"]) %>% 
-  tibble::rownames_to_column("SampleID") %>% 
-  stats::setNames(.,stringr::str_remove_all(colnames(.), "\\[")) %>% 
-  stats::setNames(.,stringr::str_remove_all(colnames(.), "\\]")) %>% 
-  select(SampleID,Bifidobacterium) %>% 
+otu_df %>% 
+  select(SampleID,Olsenella_scatoligenes) %>% 
   # select(SampleID, !!sym(DAsp)) %>% 
   left_join(., metadata[,c("SampleID","group","time_point")], by="SampleID") %>% 
   group_by(group) %>% 
+  ggstatsplot::grouped_ggbetweenstats(.,
+                              x="group",
+                              y = Olsenella_scatoligenes,
+                              pairwise.comparisons = F,
+                              type="np",bf.message=NULL,
+                              ylab = "Olsenella_scatoligenes(%)", 
+                              ggtheme = ggplot2::theme_bw(),
+                              grouping.var = "time_point",plotgrid.args = NULL)
+
+
   
 ### Show how many species are differential in at least two of the timepoints in each cat var. Risk_group should result in many species showing that kins of signal. See Venn section below.
 ### --- end MNJ
