@@ -31,54 +31,73 @@ First we'll check how well the sequencing went by looking at the read count dist
 
 
 ```{r load_metadata_vars, eval=T, include=F}
-myPath<-here::here()
-setwd(myPath)
-mymre<-readRDS(here::here(myPath,"data","mre.rds"))
+# mymre<-readRDS(here::here(myPath,"data","mre.rds"))
 
 
 
 
-# mymre <- aws.s3::s3readRDS("s3://mistral-wp6-advanz4/metagenome/WMGS/MREObject.rds") ### Check consistency between mre.rds(local and S3). You are reading s3 file, here, but in 200_ you are using local
+mymre <- aws.s3::s3readRDS("s3://mistral-wp6-advanz4/metagenome/WMGS/MREObject.rds") ### Check consistency between mre.rds(local and S3). You are reading s3 file, here, but in 200_ you are using local
 # metadata <- metar::get_metadata(mymre)@metadata_df
 
-
+metadata <- here::here("Metadata", "2022_04_27_clean_metadata_LIMS.csv") %>% 
+  read.csv() %>% 
+  column_to_rownames("SampleID") %>% 
+  mutate(SampleID = rownames(.))
 
 mymre@metadata@categorical_vals <-  
-  here::here(myPath, "Metadata","CategoricalVariables.txt") %>%
+  here::here("Metadata","CategoricalVariables.txt") %>%
   read.table(., sep="\t") %>%
   setNames(c("CategoricalVariable","PaletteName")) %>%
   as_tibble()
 
-mymre@metadata@metadata_df <-  
-  here::here(myPath, "Metadata","2022_03_25_clean_metadata_LIMS.csv") %>%
-  read.csv(.) %>%
-  as_tibble()
+mymre@metadata@metadata_df <-  tibble(metadata)
 
 
-metadata <- metar::get_metadata(mymre)@metadata_df
+cat_df <- 
+  here::here("Metadata", "CategoricalVariables.txt") %>% 
+  read.delim(., header = T)
 
-CategoricalVariablesDF <- get_metadata(mymre)@categorical_vals 
-NumericalVariablesDF <- get_metadata(mymre)@numeric_vals
-LongitudinalVariablesDF <- get_metadata(mymre)@longitudinal_vals
+cat_vector <- cat_df %>% 
+  pull(CategoricalVariable)
+
+long_var <- here::here("Metadata", "LongitudinalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(LongitudinalVariable)
+
+link_var <- here::here("Metadata", "LongitudinalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(LinkVariable)
+
+num_var <- here::here("Metadata", "NumericalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(NumericalVariable)
 
 
-onesample <- metadata %>% 
-  select(SampleID,record_id) %>% 
-  group_by(record_id) %>%
-  summarise(n=n()) %>%
-  filter(n<2) %>% 
-  pull(record_id)
+```
 
-samples <- metadata %>% filter(record_id %in% onesample) %>% pull(SampleID)
+```{r update_mre, warning= F, message= F}
 
-metar::filter_samples(mre = mymre,sample_ids = samples)
+#### This chunk is for updating the mre internally as new variables come out. Once the final mre is done this chunk will be removed.
+devtools::load_all("../WMGSPipeline/")
 
 
-cat_vector <- CategoricalVariablesDF$CategoricalVariable
-CategoricalVariablesDF$PaletteName<-"Set1"
-long_var<-LongitudinalVariablesDF$LongitudinalVariable
-link_var<-LongitudinalVariablesDF$LinkVariable
-t<-LongitudinalVariablesDF$Breakpoints
+mymre <- filter_samples(mre = mymre, sample_ids = metadata$SampleID)
+
+mymre@metadata@metadata_df <- as_tibble(metadata)
+
+mymre@metadata@categorical_vals <- here::here("Metadata", "CategoricalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+mymre@metadata@numeric_vals <- here::here("Metadata", "NumericalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+mymre@metadata@longitudinal_vals <- here::here("Metadata", "LongitudinalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+
 
 ```
 
@@ -163,7 +182,7 @@ seq_depth_plots <-
         
                 
         myPal <- 
-            CategoricalVariablesDF %>%
+            cat_df %>%
             filter(CategoricalVariable == .x) %>%
             pull(PaletteName)
         
@@ -496,7 +515,7 @@ plot_list <-  NumericalVariablesDF %>%
           y="counts",
           fill=cat_var) +
       theme_bw() + 
-      scale_fill_brewer(palette = CategoricalVariablesDF$PaletteName[1])
+      scale_fill_brewer(palette = cat_df$PaletteName[1])
   }
 )
 

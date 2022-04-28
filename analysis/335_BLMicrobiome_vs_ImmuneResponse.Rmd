@@ -41,7 +41,9 @@ devtools::load_all(here::here("../","WMGSPipeline"))
 mymre <- aws.s3::s3readRDS(bucket = "s3://mistral-wp6-advanz4", object = "metagenome/WMGS/MREObject.rds")
 # metadata <-get_meta(mymre)
 metadata <- here::here("Metadata", "2022_04_27_clean_metadata_LIMS.csv") %>% 
-  read.csv() 
+  read.csv() %>% 
+  column_to_rownames("SampleID") %>% 
+  mutate(SampleID = rownames(.))
 
 
 
@@ -76,11 +78,14 @@ num_var <- here::here("Metadata", "NumericalVariables.txt") %>%
 
 mymre <- filter_samples(mre = mymre, sample_ids = metadata$SampleID)
 
-mymre@metadata@metadata_df <- tibble(metadata)
+mymre@metadata@metadata_df <- as.tibble(metadata) 
 mymre@taxa@metaphlan@phyloseq@sam_data <- metadata %>%
-  column_to_rownames("SampleID") %>% 
-  mutate(SampleID = rownames(.), .before=1) %>% 
   phyloseq::sample_data(.)
+mymre@taxa@metaphlan@phyloseq_sec@sam_data <- metadata %>%
+  phyloseq::sample_data(.)
+
+
+
 
 mymre@metadata@categorical_vals <- here::here("Metadata", "CategoricalVariables.txt") %>% 
   read.delim(., header = T) %>% 
@@ -101,21 +106,10 @@ mymre@metadata@longitudinal_vals <- here::here("Metadata", "LongitudinalVariable
 
 ```{r build_basal_mre, message = F, warning = F}
 basal_meta <- metadata %>%
-  filter(time_point == 0) %>% 
-  column_to_rownames("SampleID") %>% 
-  mutate(SampleID = rownames(.), .before=1)
+  filter(time_point == 0) 
 
 basal_mre <- filter_samples(mre = mymre, sample_ids =  basal_meta$SampleID)
 # basal_mre@metadata@categorical_vals <-remove_cat(basal_mre, "CD4diff_96")
-
-
-basal_mre@metadata@categorical_vals <- get_cat(mymre) %>% 
-  filter(!CategoricalVariable %in% c("ethnic_group"))
-
-
-phyloseq::sample_data(basal_mre@taxa@metaphlan@phyloseq) <- basal_meta
-phyloseq::sample_data(basal_mre@taxa@metaphlan@phyloseq_sec) <- basal_meta
-
 
 
 

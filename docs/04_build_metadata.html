@@ -11,10 +11,11 @@
 
 <meta name="author" content="Carlos Blázquez Bondia" />
 
-<meta name="date" content="2022-04-27" />
+<meta name="date" content="2022-04-28" />
 
 <title>ADVANZ_Metadata</title>
 
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -43,6 +44,8 @@ div.section {
 }
 </style>
 
+
+
 <style type="text/css">
   code{white-space: pre-wrap;}
   span.smallcaps{font-variant: small-caps;}
@@ -62,6 +65,7 @@ if (window.hljs) {
   }
 }
 </script>
+
 
 
 
@@ -91,6 +95,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -243,7 +250,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -290,14 +297,14 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">ADVANZ_Metadata</h1>
 <h4 class="author">Carlos Blázquez Bondia</h4>
-<h4 class="date">2022-04-27</h4>
+<h4 class="date">2022-04-28</h4>
 
 </div>
 
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -306,7 +313,7 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -315,10 +322,10 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-04-27
+<strong>Last updated:</strong> 2022-04-28
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>advanz4/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -334,12 +341,12 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
 </div>
 </div>
 </div>
@@ -406,16 +413,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree8bc62caa93c57e033ff55d41024cd8dbe0c0957btargetblank8bc62caa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/8bc62caa93c57e033ff55d41024cd8dbe0c0957b" target="_blank">8bc62ca</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree2d56276b1697067ceaa589cfa4354313d3ffd199targetblank2d56276a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/2d56276b1697067ceaa589cfa4354313d3ffd199" target="_blank">2d56276</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree8bc62caa93c57e033ff55d41024cd8dbe0c0957btargetblank8bc62caa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree2d56276b1697067ceaa589cfa4354313d3ffd199targetblank2d56276a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/8bc62caa93c57e033ff55d41024cd8dbe0c0957b" target="_blank">8bc62ca</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/2d56276b1697067ceaa589cfa4354313d3ffd199" target="_blank">2d56276</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -425,10 +432,57 @@ Ignored files:
     Ignored:    .RData
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/.Rhistory
     Ignored:    data/mre.rds
 
+Untracked files:
+    Untracked:  Metadata/2022_04_28_clean_metadata_LIMS.csv
+
 Unstaged changes:
-    Modified:   analysis/04_build_metadata.Rmd
+    Modified:   analysis/310_IGC_analysis.Rmd
+    Modified:   analysis/320_Beta_Diversity.Rmd
+    Modified:   analysis/335_BLMicrobiome_vs_ImmuneResponse.Rmd
+    Modified:   output/mre_data/CatalogMapping/IGC/lmm/lmm_time_point_by_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/bray_stressplot.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD4after_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD4after_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD4diff_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD4diff_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD8after_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD8after_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD8diff_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD8diff_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_center.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_cluster.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_ethnic_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_gender.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_risk_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD4after_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD4after_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD4diff_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD4diff_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD8after_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD8after_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD8diff_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD8diff_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_center.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_ethnic_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_gender.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_risk_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_ADV.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CD4.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CD8.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CD8_CD38_DR.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CRP.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/nmds_adonis_results.csv
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_ADV.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CD4.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CD8.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CD8_CD38_DR.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CRP.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/silhouette_plt.pdf
 
 </code></pre>
 <p>
@@ -467,6 +521,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/2d56276b1697067ceaa589cfa4354313d3ffd199/analysis/04_build_metadata.Rmd" target="_blank">2d56276</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-04-28
+</td>
+<td>
+Added ANCOM to basal DA
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/1badc06452e7e1c9a1b53a7cfae2350810fa594a/analysis/04_build_metadata.Rmd" target="_blank">1badc06</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-04-27
+</td>
+<td>
+Added non-compositional DA tables at baseline
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/d5d694f57ed67cfd46180ad5049d71ea31dbf5f4/analysis/04_build_metadata.Rmd" target="_blank">d5d694f</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-04-27
+</td>
+<td>
+fixed typo on metadata
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/d5d694f57ed67cfd46180ad5049d71ea31dbf5f4/docs/04_build_metadata.html" target="_blank">d5d694f</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-04-27
+</td>
+<td>
+fixed typo on metadata
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -550,7 +672,7 @@ Added buld_metadata.Rmd to analysis. Added MetadataManagement to .gitignore
 
  
 
-mySampleData&lt;-here::here(&quot;Metadata&quot;,&quot;MetadataManagement&quot;,&quot;metadata.csv&quot;)%&gt;%
+mySampleData&lt;-here::here(&quot;Metadata&quot;,&quot;MetadataManagement&quot;,&quot;metadata_select.csv&quot;)%&gt;%
   read.csv(.) %&gt;%
   relocate(CODE,Week,ExtractionDate,PatCode) %&gt;%
   mutate(ExtractionDate = as.character(format(as.Date(ExtractionDate), &quot;%d%b%Y&quot;))) %&gt;%
@@ -563,8 +685,8 @@ mySampleData %&gt;%
   group_by(PatCode) %&gt;%
   summarise(n=n()) %&gt;%
   filter(n&lt;2)
-#&gt; # A tibble: 0 x 2
-#&gt; # ... with 2 variables: PatCode &lt;chr&gt;, n &lt;int&gt;
+#&gt; # A tibble: 0 × 2
+#&gt; # … with 2 variables: PatCode &lt;chr&gt;, n &lt;int&gt;
 
 
 myClinicalData&lt;-here::here(&quot;Metadata&quot;,&quot;MetadataManagement&quot;,&quot;Clinical_Table.csv&quot;) %&gt;%
@@ -823,13 +945,13 @@ metadata_final &lt;-
 
 
 ## Filter patients with &lt;2 samples
-outpatients &lt;- metadata_final %&gt;%
-  select(SampleID, record_id) %&gt;%
-  group_by(record_id) %&gt;%
-  summarise(n=n()) %&gt;%
-  filter(n&lt;2) %&gt;% 
-  pull(record_id)
-
+# outpatients &lt;- metadata_final %&gt;%
+#   select(SampleID, record_id) %&gt;%
+#   group_by(record_id) %&gt;%
+#   summarise(n=n()) %&gt;%
+#   filter(n&lt;2) %&gt;% 
+#   pull(record_id)
+# 
 
 
 
@@ -885,7 +1007,7 @@ metadata_final %&gt;%
   unique() %&gt;% 
   group_by(group) %&gt;% 
   summarise(n=n())
-#&gt; # A tibble: 2 x 2
+#&gt; # A tibble: 2 × 2
 #&gt;   group     n
 #&gt;   &lt;chr&gt; &lt;int&gt;
 #&gt; 1 DRV/r    42
@@ -911,7 +1033,7 @@ myCompTable &lt;- metadata_final %&gt;%
   compareGroups(group ~ gender + age + ethnic_group + CD4_nadir ,., simplify = F) %&gt;% createTable()
 
 compareGroups::export2md(myCompTable, format=&quot;markdown&quot;,caption = paste(&quot;Group comparisons at basal&quot;,&quot;(group Ns may not match flowchart due to some patients having multiple samples but not at basal)&quot;, sep=&quot;\n&quot;)) </code></pre>
-<template id="34761b96-d250-46eb-b5ce-47822cd677aa"><style>
+<template id="4346c89a-bf27-4596-8dc1-9d85f47b4d2e"><style>
 .tabwid table{
   border-spacing:0px !important;
   border-collapse:collapse;
@@ -945,12 +1067,15 @@ compareGroups::export2md(myCompTable, format=&quot;markdown&quot;,caption = past
 .tabwid table tr {
 background-color: transparent;
 }
-</style><div class="tabwid"><style>.cl-b3b60cc2{}.cl-b3ab1678{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b3ab1679{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b3ab167a{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b3ab3d6a{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-b3ab3d6b{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-b3ab8b4e{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b3ab8b4f{width:77.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b3ab8b50{width:87.8pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b3ab8b51{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b3ab8b52{width:77.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b3ab8b53{width:87.8pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b3ab8b54{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b3ab8b55{width:77.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b3ab8b56{width:87.8pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b3ab8b57{width:87.8pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b3ab8b58{width:77.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b3abb240{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b3abb241{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b3abb242{width:77.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b3abb243{width:87.8pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-b3b60cc2'><caption class="Table Caption">Group comparisons at basal
-(group Ns may not match flowchart due to some patients having multiple samples but not at basal)</caption><thead><tr style="overflow-wrap:break-word;"><td class="cl-b3ab8b57"><p class="cl-b3ab3d6a"><span class="cl-b3ab1678"></span></p></td><td class="cl-b3ab8b58"><p class="cl-b3ab3d6a"><span class="cl-b3ab1678">   DRV/r   </span></p></td><td class="cl-b3ab8b58"><p class="cl-b3ab3d6a"><span class="cl-b3ab1678">    DTG    </span></p></td><td class="cl-b3abb240"><p class="cl-b3ab3d6a"><span class="cl-b3ab1678">p.overall</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b3abb243"><p class="cl-b3ab3d6a"><span class="cl-b3ab1679"></span></p></td><td class="cl-b3abb242"><p class="cl-b3ab3d6a"><span class="cl-b3ab1679">   N=39    </span></p></td><td class="cl-b3abb242"><p class="cl-b3ab3d6a"><span class="cl-b3ab1679">   N=40    </span></p></td><td class="cl-b3abb241"><p class="cl-b3ab3d6a"><span class="cl-b3ab1679">         </span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-b3ab8b50"><p class="cl-b3ab3d6b"><span class="cl-b3ab167a">gender:</span></p></td><td class="cl-b3ab8b4f"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a">           </span></p></td><td class="cl-b3ab8b4f"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a">           </span></p></td><td class="cl-b3ab8b4e"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a">  1.000  </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b3ab8b53"><p class="cl-b3ab3d6b"><span class="cl-b3ab167a">    female</span></p></td><td class="cl-b3ab8b52"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a"> 6 (15.4%) </span></p></td><td class="cl-b3ab8b52"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a"> 7 (17.5%) </span></p></td><td class="cl-b3ab8b51"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b3ab8b53"><p class="cl-b3ab3d6b"><span class="cl-b3ab167a">    male</span></p></td><td class="cl-b3ab8b52"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a">33 (84.6%) </span></p></td><td class="cl-b3ab8b52"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a">33 (82.5%) </span></p></td><td class="cl-b3ab8b51"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b3ab8b53"><p class="cl-b3ab3d6b"><span class="cl-b3ab167a">age</span></p></td><td class="cl-b3ab8b52"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a">43.5 (16.6)</span></p></td><td class="cl-b3ab8b52"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a">39.7 (11.2)</span></p></td><td class="cl-b3ab8b51"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a">  0.246  </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b3ab8b50"><p class="cl-b3ab3d6b"><span class="cl-b3ab167a">ethnic_group:</span></p></td><td class="cl-b3ab8b4f"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a">           </span></p></td><td class="cl-b3ab8b4f"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a">           </span></p></td><td class="cl-b3ab8b4e"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a">  0.302  </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b3ab8b53"><p class="cl-b3ab3d6b"><span class="cl-b3ab167a">    asian</span></p></td><td class="cl-b3ab8b52"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a"> 0 (0.00%) </span></p></td><td class="cl-b3ab8b52"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a"> 1 (2.50%) </span></p></td><td class="cl-b3ab8b51"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b3ab8b53"><p class="cl-b3ab3d6b"><span class="cl-b3ab167a">    black</span></p></td><td class="cl-b3ab8b52"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a"> 4 (10.5%) </span></p></td><td class="cl-b3ab8b52"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a"> 2 (5.00%) </span></p></td><td class="cl-b3ab8b51"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b3ab8b53"><p class="cl-b3ab3d6b"><span class="cl-b3ab167a">    caucassian</span></p></td><td class="cl-b3ab8b52"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a">13 (34.2%) </span></p></td><td class="cl-b3ab8b52"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a">19 (47.5%) </span></p></td><td class="cl-b3ab8b51"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b3ab8b53"><p class="cl-b3ab3d6b"><span class="cl-b3ab167a">    hispanic</span></p></td><td class="cl-b3ab8b52"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a">15 (39.5%) </span></p></td><td class="cl-b3ab8b52"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a">16 (40.0%) </span></p></td><td class="cl-b3ab8b51"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b3ab8b53"><p class="cl-b3ab3d6b"><span class="cl-b3ab167a">    other</span></p></td><td class="cl-b3ab8b52"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a"> 6 (15.8%) </span></p></td><td class="cl-b3ab8b52"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a"> 2 (5.00%) </span></p></td><td class="cl-b3ab8b51"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b3ab8b56"><p class="cl-b3ab3d6b"><span class="cl-b3ab167a">CD4_nadir</span></p></td><td class="cl-b3ab8b55"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a">30.1 (22.5)</span></p></td><td class="cl-b3ab8b55"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a">44.4 (29.1)</span></p></td><td class="cl-b3ab8b54"><p class="cl-b3ab3d6a"><span class="cl-b3ab167a">  0.017  </span></p></td></tr></tbody></table></div></template>
-<div class="flextable-shadow-host" id="5bc58ce8-cdb2-4b1a-827d-85ac989a1337"></div>
+</style><div class="tabwid"><style>.cl-b077266c{}.cl-b07208e4{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b07208ee{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b07208ef{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b0721988{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-b0721989{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-b072501a{width:68.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b0725024{width:85.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b0725025{width:96.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b0725026{width:68.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b0725027{width:85.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b072502e{width:96.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b072502f{width:68.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b0725030{width:85.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b0725031{width:96.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b0725038{width:85.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b0725039{width:68.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b072503a{width:96.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b072503b{width:96.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b0725042{width:85.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b0725043{width:68.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b072504c{width:68.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b072504d{width:85.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b072504e{width:96.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-b077266c'>
+<caption class="Table Caption">
+<p>Group comparisons at basal (group Ns may not match flowchart due to some patients having multiple samples but not at basal)</p>
+</caption>
+<thead><tr style="overflow-wrap:break-word;"><td class="cl-b072503b"><p class="cl-b0721988"><span class="cl-b07208e4"></span></p></td><td class="cl-b0725042"><p class="cl-b0721988"><span class="cl-b07208e4">   DRV/r   </span></p></td><td class="cl-b0725042"><p class="cl-b0721988"><span class="cl-b07208e4">    DTG    </span></p></td><td class="cl-b0725043"><p class="cl-b0721988"><span class="cl-b07208e4">p.overall</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b072504e"><p class="cl-b0721988"><span class="cl-b07208ee"></span></p></td><td class="cl-b072504d"><p class="cl-b0721988"><span class="cl-b07208ee">   N=39    </span></p></td><td class="cl-b072504d"><p class="cl-b0721988"><span class="cl-b07208ee">   N=40    </span></p></td><td class="cl-b072504c"><p class="cl-b0721988"><span class="cl-b07208ee">         </span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-b0725025"><p class="cl-b0721989"><span class="cl-b07208ef">gender:</span></p></td><td class="cl-b0725024"><p class="cl-b0721988"><span class="cl-b07208ef">           </span></p></td><td class="cl-b0725024"><p class="cl-b0721988"><span class="cl-b07208ef">           </span></p></td><td class="cl-b072501a"><p class="cl-b0721988"><span class="cl-b07208ef">  1.000  </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b072502e"><p class="cl-b0721989"><span class="cl-b07208ef">    female</span></p></td><td class="cl-b0725027"><p class="cl-b0721988"><span class="cl-b07208ef"> 6 (15.4%) </span></p></td><td class="cl-b0725027"><p class="cl-b0721988"><span class="cl-b07208ef"> 7 (17.5%) </span></p></td><td class="cl-b0725026"><p class="cl-b0721988"><span class="cl-b07208ef">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b072502e"><p class="cl-b0721989"><span class="cl-b07208ef">    male</span></p></td><td class="cl-b0725027"><p class="cl-b0721988"><span class="cl-b07208ef">33 (84.6%) </span></p></td><td class="cl-b0725027"><p class="cl-b0721988"><span class="cl-b07208ef">33 (82.5%) </span></p></td><td class="cl-b0725026"><p class="cl-b0721988"><span class="cl-b07208ef">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b072502e"><p class="cl-b0721989"><span class="cl-b07208ef">age</span></p></td><td class="cl-b0725027"><p class="cl-b0721988"><span class="cl-b07208ef">43.5 (16.6)</span></p></td><td class="cl-b0725027"><p class="cl-b0721988"><span class="cl-b07208ef">39.7 (11.2)</span></p></td><td class="cl-b0725026"><p class="cl-b0721988"><span class="cl-b07208ef">  0.246  </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b072503a"><p class="cl-b0721989"><span class="cl-b07208ef">ethnic_group:</span></p></td><td class="cl-b0725038"><p class="cl-b0721988"><span class="cl-b07208ef">           </span></p></td><td class="cl-b0725038"><p class="cl-b0721988"><span class="cl-b07208ef">           </span></p></td><td class="cl-b0725039"><p class="cl-b0721988"><span class="cl-b07208ef">  0.302  </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b072502e"><p class="cl-b0721989"><span class="cl-b07208ef">    asian</span></p></td><td class="cl-b0725027"><p class="cl-b0721988"><span class="cl-b07208ef"> 0 (0.00%) </span></p></td><td class="cl-b0725027"><p class="cl-b0721988"><span class="cl-b07208ef"> 1 (2.50%) </span></p></td><td class="cl-b0725026"><p class="cl-b0721988"><span class="cl-b07208ef">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b072502e"><p class="cl-b0721989"><span class="cl-b07208ef">    black</span></p></td><td class="cl-b0725027"><p class="cl-b0721988"><span class="cl-b07208ef"> 4 (10.5%) </span></p></td><td class="cl-b0725027"><p class="cl-b0721988"><span class="cl-b07208ef"> 2 (5.00%) </span></p></td><td class="cl-b0725026"><p class="cl-b0721988"><span class="cl-b07208ef">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b072502e"><p class="cl-b0721989"><span class="cl-b07208ef">    caucassian</span></p></td><td class="cl-b0725027"><p class="cl-b0721988"><span class="cl-b07208ef">13 (34.2%) </span></p></td><td class="cl-b0725027"><p class="cl-b0721988"><span class="cl-b07208ef">19 (47.5%) </span></p></td><td class="cl-b0725026"><p class="cl-b0721988"><span class="cl-b07208ef">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b0725025"><p class="cl-b0721989"><span class="cl-b07208ef">    hispanic</span></p></td><td class="cl-b0725024"><p class="cl-b0721988"><span class="cl-b07208ef">15 (39.5%) </span></p></td><td class="cl-b0725024"><p class="cl-b0721988"><span class="cl-b07208ef">16 (40.0%) </span></p></td><td class="cl-b072501a"><p class="cl-b0721988"><span class="cl-b07208ef">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b072502e"><p class="cl-b0721989"><span class="cl-b07208ef">    other</span></p></td><td class="cl-b0725027"><p class="cl-b0721988"><span class="cl-b07208ef"> 6 (15.8%) </span></p></td><td class="cl-b0725027"><p class="cl-b0721988"><span class="cl-b07208ef"> 2 (5.00%) </span></p></td><td class="cl-b0725026"><p class="cl-b0721988"><span class="cl-b07208ef">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b0725031"><p class="cl-b0721989"><span class="cl-b07208ef">CD4_nadir</span></p></td><td class="cl-b0725030"><p class="cl-b0721988"><span class="cl-b07208ef">30.1 (22.5)</span></p></td><td class="cl-b0725030"><p class="cl-b0721988"><span class="cl-b07208ef">44.4 (29.1)</span></p></td><td class="cl-b072502f"><p class="cl-b0721988"><span class="cl-b07208ef">  0.017  </span></p></td></tr></tbody></table></div></template>
+<div class="flextable-shadow-host" id="ce69aa34-02d5-4fe3-8808-d638f6e4baa2"></div>
 <script>
-var dest = document.getElementById("5bc58ce8-cdb2-4b1a-827d-85ac989a1337");
-var template = document.getElementById("34761b96-d250-46eb-b5ce-47822cd677aa");
+var dest = document.getElementById("ce69aa34-02d5-4fe3-8808-d638f6e4baa2");
+var template = document.getElementById("4346c89a-bf27-4596-8dc1-9d85f47b4d2e");
 var caption = template.content.querySelector("caption");
 if(caption) {
   caption.style.cssText = "display:block;text-align:center;";
@@ -980,10 +1105,57 @@ p=Plot_FollowUp(data = sampleData,
               TimePoints = "time_point") 
 p + scale_size_manual(values = c(size=2))
 <p><img src="figure/04_build_metadata.Rmd/pressure-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pressure-1">
+Past versions of pressure-1.png
+</button>
+</p>
+<div id="fig-pressure-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/d5d694f57ed67cfd46180ad5049d71ea31dbf5f4/docs/figure/04_build_metadata.Rmd/pressure-1.png" target="_blank">d5d694f</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/8bc62caa93c57e033ff55d41024cd8dbe0c0957b/docs/figure/04_build_metadata.Rmd/pressure-1.png" target="_blank">8bc62ca</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-04-20
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>CD4 nadir in the DTG group is significantly higher than DRV (mean 44.4% higher). This may be problematic.</p>
 <pre class="r"><code>
 metadata_final %&gt;%
-  filter(!record_id %in% outpatients) %&gt;%
   readr::write_delim(
         file = here::here(&quot;Metadata&quot;,
             
@@ -1000,16 +1172,20 @@ metadata_final %&gt;%
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()
-#&gt; R version 4.0.2 (2020-06-22)
-#&gt; Platform: x86_64-w64-mingw32/x64 (64-bit)
-#&gt; Running under: Windows 10 x64 (build 22000)
+#&gt; R version 4.0.5 (2021-03-31)
+#&gt; Platform: x86_64-redhat-linux-gnu (64-bit)
+#&gt; Running under: Fedora 34 (Workstation Edition)
 #&gt; 
 #&gt; Matrix products: default
+#&gt; BLAS/LAPACK: /usr/lib64/libflexiblas.so.3.1
 #&gt; 
 #&gt; locale:
-#&gt; [1] LC_COLLATE=Spanish_Spain.1252  LC_CTYPE=Spanish_Spain.1252   
-#&gt; [3] LC_MONETARY=Spanish_Spain.1252 LC_NUMERIC=C                  
-#&gt; [5] LC_TIME=Spanish_Spain.1252    
+#&gt;  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+#&gt;  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+#&gt;  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+#&gt;  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+#&gt;  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+#&gt; [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 #&gt; 
 #&gt; attached base packages:
 #&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     
@@ -1017,42 +1193,48 @@ metadata_final %&gt;%
 #&gt; other attached packages:
 #&gt;  [1] lubridate_1.8.0     gtools_3.9.2        reshape2_1.4.4     
 #&gt;  [4] compareGroups_4.5.1 forcats_0.5.1       stringr_1.4.0      
-#&gt;  [7] dplyr_1.0.8         purrr_0.3.4         readr_2.0.1        
+#&gt;  [7] dplyr_1.0.8         purrr_0.3.4         readr_2.1.2        
 #&gt; [10] tidyr_1.2.0         tibble_3.1.6        ggplot2_3.3.5      
-#&gt; [13] tidyverse_1.3.1    
+#&gt; [13] tidyverse_1.3.1     devtools_2.4.3      usethis_2.1.5      
+#&gt; [16] workflowr_1.7.0    
 #&gt; 
 #&gt; loaded via a namespace (and not attached):
-#&gt;  [1] fs_1.5.0            bit64_4.0.5         RColorBrewer_1.1-3 
-#&gt;  [4] webshot_0.5.2       httr_1.4.2          rprojroot_2.0.3    
-#&gt;  [7] tools_4.0.2         backports_1.4.1     bslib_0.3.1        
-#&gt; [10] utf8_1.2.2          R6_2.5.1            DBI_1.1.1          
-#&gt; [13] colorspace_2.0-2    withr_2.5.0         tidyselect_1.1.2   
-#&gt; [16] bit_4.0.4           compiler_4.0.2      git2r_0.28.0       
-#&gt; [19] chron_2.3-56        cli_3.0.1           rvest_1.0.1        
-#&gt; [22] HardyWeinberg_1.7.2 flextable_0.6.8     mice_3.13.0        
-#&gt; [25] xml2_1.3.2          officer_0.4.0       sass_0.4.0         
-#&gt; [28] scales_1.2.0        systemfonts_1.0.2   digest_0.6.29      
-#&gt; [31] svglite_2.0.0       rmarkdown_2.11      base64enc_0.1-3    
-#&gt; [34] pkgconfig_2.0.3     htmltools_0.5.2     highr_0.9          
-#&gt; [37] dbplyr_2.1.1        fastmap_1.1.0       rlang_1.0.2        
-#&gt; [40] readxl_1.3.1        rstudioapi_0.13     farver_2.1.0       
-#&gt; [43] jquerylib_0.1.4     generics_0.1.2      jsonlite_1.7.2     
-#&gt; [46] vroom_1.5.7         zip_2.1.1           magrittr_2.0.2     
-#&gt; [49] kableExtra_1.3.4    Matrix_1.2-18       Rcpp_1.0.7         
-#&gt; [52] munsell_0.5.0       fansi_0.5.0         gdtools_0.2.3      
-#&gt; [55] lifecycle_1.0.1     stringi_1.7.6       whisker_0.4        
-#&gt; [58] yaml_2.3.5          plyr_1.8.6          grid_4.0.2         
-#&gt; [61] parallel_4.0.2      promises_1.2.0.1    crayon_1.5.1       
-#&gt; [64] lattice_0.20-41     haven_2.3.1         splines_4.0.2      
-#&gt; [67] hms_1.1.1           knitr_1.38          pillar_1.7.0       
-#&gt; [70] uuid_0.1-4          reprex_2.0.1        glue_1.5.1         
-#&gt; [73] evaluate_0.15       data.table_1.14.2   modelr_0.1.8       
-#&gt; [76] vctrs_0.3.8         tzdb_0.3.0          httpuv_1.6.3       
-#&gt; [79] cellranger_1.1.0    gtable_0.3.0        assertthat_0.2.1   
-#&gt; [82] xfun_0.30           broom_0.8.0         Rsolnp_1.16        
-#&gt; [85] later_1.3.0         viridisLite_0.4.0   survival_3.1-12    
-#&gt; [88] truncnorm_1.0-8     workflowr_1.7.0     writexl_1.4.0      
-#&gt; [91] ellipsis_0.3.2      here_1.0.1</code></pre>
+#&gt;   [1] colorspace_2.0-3    ellipsis_0.3.2      rprojroot_2.0.3    
+#&gt;   [4] flextable_0.7.0     base64enc_0.1-3     fs_1.5.2           
+#&gt;   [7] rstudioapi_0.13     mice_3.14.0         farver_2.1.0       
+#&gt;  [10] remotes_2.4.2       bit64_4.0.5         fansi_1.0.3        
+#&gt;  [13] xml2_1.3.2          splines_4.0.5       cachem_1.0.6       
+#&gt;  [16] knitr_1.39          pkgload_1.2.4       jsonlite_1.8.0     
+#&gt;  [19] broom_0.8.0         dbplyr_2.1.1        compiler_4.0.5     
+#&gt;  [22] httr_1.4.2          backports_1.4.1     assertthat_0.2.1   
+#&gt;  [25] Matrix_1.4-1        fastmap_1.1.0       cli_3.3.0          
+#&gt;  [28] later_1.3.0         htmltools_0.5.2     prettyunits_1.1.1  
+#&gt;  [31] tools_4.0.5         gtable_0.3.0        glue_1.6.2         
+#&gt;  [34] Rcpp_1.0.8.3        cellranger_1.1.0    jquerylib_0.1.4    
+#&gt;  [37] vctrs_0.4.1         writexl_1.4.0       svglite_2.1.0      
+#&gt;  [40] xfun_0.30           ps_1.7.0            brio_1.1.3         
+#&gt;  [43] testthat_3.1.4      rvest_1.0.2         lifecycle_1.0.1    
+#&gt;  [46] getPass_0.2-2       scales_1.2.0        vroom_1.5.7        
+#&gt;  [49] hms_1.1.1           promises_1.2.0.1    parallel_4.0.5     
+#&gt;  [52] RColorBrewer_1.1-3  HardyWeinberg_1.7.4 yaml_2.3.5         
+#&gt;  [55] memoise_2.0.1       gdtools_0.2.4       sass_0.4.1         
+#&gt;  [58] stringi_1.7.6       highr_0.9           desc_1.4.1         
+#&gt;  [61] pkgbuild_1.3.1      zip_2.2.0           truncnorm_1.0-8    
+#&gt;  [64] chron_2.3-56        systemfonts_1.0.4   rlang_1.0.2        
+#&gt;  [67] pkgconfig_2.0.3     Rsolnp_1.16         evaluate_0.15      
+#&gt;  [70] lattice_0.20-45     bit_4.0.4           processx_3.5.3     
+#&gt;  [73] tidyselect_1.1.2    here_1.0.1          plyr_1.8.7         
+#&gt;  [76] magrittr_2.0.3      R6_2.5.1            generics_0.1.2     
+#&gt;  [79] DBI_1.1.2           pillar_1.7.0        haven_2.5.0        
+#&gt;  [82] whisker_0.4         withr_2.5.0         survival_3.3-1     
+#&gt;  [85] nnet_7.3-17         modelr_0.1.8        crayon_1.5.1       
+#&gt;  [88] uuid_1.1-0          utf8_1.2.2          tzdb_0.3.0         
+#&gt;  [91] rmarkdown_2.14      officer_0.4.2       grid_4.0.5         
+#&gt;  [94] readxl_1.4.0        data.table_1.14.2   callr_3.7.0        
+#&gt;  [97] git2r_0.30.1        webshot_0.5.3       reprex_2.0.1       
+#&gt; [100] digest_0.6.29       httpuv_1.6.5        munsell_0.5.0      
+#&gt; [103] viridisLite_0.4.0   kableExtra_1.3.4    bslib_0.3.1        
+#&gt; [106] sessioninfo_1.2.2</code></pre>
 </div>
 </div>
 </div>
@@ -1069,6 +1251,8 @@ footer is added to webpages before the MathJax javascript. -->
     "HTML-CSS": { availableFonts: ["TeX"] }
   });
 </script>
+
+
 
 
 

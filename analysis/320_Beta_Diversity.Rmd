@@ -32,22 +32,71 @@ require(gridExtra)
 You can also embed plots, for example:
 
 ```{r load_metadata_vars, eval=T, message = F}
-myPath<-here::here()
-setwd(myPath)
-mymre<-readRDS("data/mre.rds")
-metadata <- metar::get_meta(mymre) %>% as.data.frame()
+mymre <- aws.s3::s3readRDS(bucket = "s3://mistral-wp6-advanz4", object = "metagenome/WMGS/MREObject.rds")
+# metadata <-get_meta(mymre)
+metadata <- here::here("Metadata", "2022_04_27_clean_metadata_LIMS.csv") %>% 
+  read.csv() %>% 
+  column_to_rownames("SampleID") %>% 
+  mutate(SampleID = rownames(.))
 
-myphyloseq <- get_phyloseq(mymre, type = "metaphlan")
 
 
+cat_df <- 
+  here::here("Metadata", "CategoricalVariables.txt") %>% 
+  read.delim(., header = T)
 
-CategoricalVariablesDF <- get_metadata(mymre)@categorical_vals
-NumericalVariablesDF <- get_metadata(mymre)@numeric_vals
-LongitudinalVariablesDF <- get_metadata(mymre)@longitudinal_vals
+cat_vector <- cat_df %>% 
+  pull(CategoricalVariable)
 
-cat_var <- "group"
+long_var <- here::here("Metadata", "LongitudinalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(LongitudinalVariable)
+
+id_var <- here::here("Metadata", "LongitudinalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(LinkVariable)
+
+num_var <- here::here("Metadata", "NumericalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(NumericalVariable)
+
 
 ```
+
+
+```{r update_mre, warning= F, message= F}
+
+#### This chunk is for updating the mre internally as new variables come out. Once the final mre is done this chunk will be removed.
+devtools::load_all("../WMGSPipeline")
+mymre <- filter_samples(mre = mymre, sample_ids = metadata$SampleID)
+
+mymre@metadata@metadata_df <- tibble(metadata)
+
+mymre@taxa@metaphlan@phyloseq@sam_data <- metadata %>%
+  phyloseq::sample_data(.)
+
+mymre@taxa@metaphlan@phyloseq_sec@sam_data <- metadata %>%
+  phyloseq::sample_data(.)
+
+
+mymre@metadata@categorical_vals <- here::here("Metadata", "CategoricalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+mymre@metadata@numeric_vals <- here::here("Metadata", "NumericalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+mymre@metadata@longitudinal_vals <- here::here("Metadata", "LongitudinalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+phy <- get_phyloseq(mymre, type="metaphlan")
+
+```
+
+
+
 
 ```{r Get_DistMats, eval=F, include=T}
 
@@ -65,7 +114,7 @@ getAbundances<-function(phyloseq, level){
 
 
 
-myAbundanceDF<- getAbundances(myphyloseq, "Species")
+myAbundanceDF<- getAbundances(phy, "Species")
 
 Top50<- myAbundanceDF %>%
     mutate(sum=rowSums(.)) %>%
@@ -121,7 +170,7 @@ myBrayDistMat <-vegdist(wisconsin(sqrt(t(myAbundanceDF))))
 
 One of the variables: **CD4diff_96** has only one level. That means all patients in the study had an increase of CD4 counts higher than 50 cells/ml between weeks 96 and 0. As this variable only has one level it will cause the following code to break (as it performs conrast analysis). Hence, it will be removed from the following analysis. However, we'll look at the distribution of the CD4 increases as a distribution:
 
-```{r CD4diff_dist}
+```{r CD4diff_dist, warning=F, message=F}
 metadata %>% 
   dplyr::filter(time_point %in% c(0,48),
                 !is.na(CD4diff_96)) %>%
@@ -137,18 +186,16 @@ metadata %>%
 
 ```{r NMDS_Group, warning= F, message= F}
 
-long_var<-LongitudinalVariablesDF$LongitudinalVariable[1]
-CategoricalVariablesDF <- CategoricalVariablesDF %>%
+cat_df <- cat_df %>%
   filter(!CategoricalVariable == "CD4diff_96")
-cat_var <- CategoricalVariablesDF$CategoricalVariable
-mymre@metadata@categorical_vals <- as_tibble(CategoricalVariablesDF)
+cat_var <- cat_vector
 
 
 
 # link_var <- LongitudinalVariablesDF$LinkVariable[1]
 # id_var <- "SampleID"
 
-# myPal<-RColorBrewer::brewer.pal(name =  CategoricalVariablesDF$PaletteName[1],
+# myPal<-RColorBrewer::brewer.pal(name =  cat_df$PaletteName[1],
 #                                 n=length(unique(metadata[,cat_var])))
 # BiPlotCoordsDF<-BiPlotCoordsDF %>%
 #   mutate(Dim1s = Dim1*3,
@@ -263,7 +310,7 @@ In a more formal analysis, the silhouette coefficient was tested for different n
 
 
 
-myBrayDistMat <- phyloseq::otu_table(myphyloseq) %>%
+myBrayDistMat <- phyloseq::otu_table(phy) %>%
   t() %>%
   sqrt() %>%
   vegan::wisconsin() %>%
