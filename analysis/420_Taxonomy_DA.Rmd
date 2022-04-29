@@ -327,8 +327,38 @@ shared_sp
 ## Longitudinal, within-group Differential Abundance
 These comparisons test differences between time points within the same group. This is a longitudinal approach so it requires a paired test, which account for dependece between data points.
 ```{r wilcox_within_group, message=F, warning=F}
-            # dplyr::filter(!n()<2) %>% 
-            # dplyr::arrange(!!sym(link_var), !!sym(long_var))
+
+## This code may still be clunky and not work
+stat_list_kw <-
+  cat_vector %>%
+  purrr::set_names() %>%
+  purrr::map(function(cv) {
+    otu_df %>%
+      dplyr::select(-SampleID) %>%
+      colnames() %>%
+      set_names() %>%
+      purrr::map_dfr(function(sp) {
+        ## First I'll try a selection of overall significance by Kruskal-wallis. Thos significant will be selected for a pairwise tp-to-tp comparison, to save on computational resources.
+        test <-
+          otu_df %>%
+          dplyr::select(SampleID, !!sym(sp)) %>%
+          dplyr::left_join(metadata[, c("SampleID", link_var, cv, long_var), drop = F],
+                           by = "SampleID") %>%
+          rstatix::kruskal_test(., formula(paste(sp, "~", long_var)))
+      }) %>% 
+      filter(p<0.05) %>%
+      rename(species = .y.)
+    #   dplyr::mutate(long_var = tp) %>%
+    #   group_by(long_var) %>%
+    #   mutate(p.adj = p.adjust(p, "BH")) %>%
+    #   # filter(p.adj < .05 ) %>%
+    #   group_by(species)
+    
+  })
+
+
+## Once we get the filtered species, do another loop doing pairwise wilcox for each one of the species in the "reduced table"
+
 ```
 
 
