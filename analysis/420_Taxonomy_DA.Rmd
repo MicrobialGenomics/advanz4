@@ -132,7 +132,7 @@ stat_list <-
     
     c(0,24,48,96) %>% 
       set_names() %>% 
-      map_dfr(function(tp){
+      purrr::map_dfr(function(tp){
         otu_df %>%
         dplyr::select(-SampleID) %>%
         colnames() %>%
@@ -143,14 +143,13 @@ stat_list <-
             dplyr::select(SampleID, !!sym(sp)) %>%
             dplyr::left_join(metadata[, c("SampleID", link_var, cv, long_var), drop = F], 
                              by = "SampleID") %>% 
-            dplyr::filter(!!sym(long_var) %in% tp) %>% 
-            dplyr::group_by(!!sym(long_var)) 
+            dplyr::filter(!!sym(long_var) %in% tp) 
 
           
-          if (length(unique(pull(.data = df, !!sym(cv)))) == 2) {
+          if (length(unique(dplyr::pull(.data = df, !!sym(cv)))) == 2) {
             test <- df %>%
               rstatix::wilcox_test(., formula(paste(sp, "~", cv)), paired = F) %>%
-              dplyr::mutate(method = "Wilcoxon")
+              dplyr::mutate(method = "Wilcoxon") 
             
           } else{
             test <- df %>%
@@ -159,54 +158,58 @@ stat_list <-
           }
           
         }) %>% 
-      rename(Species = .y.) %>% 
-      group_by(!!sym(long_var)) %>% 
+      rename(species = .y.) %>% 
+      dplyr::mutate(long_var = tp) %>% 
+      group_by(long_var) %>% 
       mutate(p.adj = p.adjust(p, "BH")) %>% 
       # filter(p.adj < .05 ) %>% 
-      group_by(Species) 
+      group_by(species) 
       }) 
 }) 
 
 
 DAsp <- stat_list$group %>% 
-  pull(Species)
+  filter(p<0.05) %>% 
+  group_by(species)
+
 
 ## --- init MNJ
 ## It is interesting that Bifidobacterium species (adolescentis, longum) are consistently found as DA in all (most) timepoints
 ## Produce a table showing 
 stat_list$group %>% 
   filter(p<0.05) %>% 
-  group_by(Species) %>% 
+  group_by(species) %>% 
   tally() %>% 
   filter(n>=2) ## Species being significant (Wilcoxon unadjusted <0.05)
 
-otu_df %>% 
-  select(SampleID,Bifidobacterium_adolescentis) %>% 
-  # select(SampleID, !!sym(DAsp)) %>% 
-  left_join(., metadata[,c("SampleID","group","time_point")], by="SampleID") %>% 
-  group_by(group) %>% 
-  ggstatsplot::grouped_ggbetweenstats(.,
-                              x="group",
-                              y = Bifidobacterium_adolescentis,
-                              pairwise.comparisons = T,
-                              type="np",bf.message=NULL,
-                              ylab = "Bifidobacterium_adolescentis(%)", 
-                              ggtheme = ggplot2::theme_bw(),
-                              grouping.var = "time_point",plotgrid.args = NULL)
-otu_df %>% 
-  select(SampleID,Bifidobacterium_longum) %>% 
-  # select(SampleID, !!sym(DAsp)) %>% 
-  left_join(., metadata[,c("SampleID","group","time_point")], by="SampleID") %>% 
-  group_by(group) %>% 
-  ggstatsplot::grouped_ggbetweenstats(.,
-                              x="group",
-                              y = Bifidobacterium_longum,
-                              pairwise.comparisons = F,
-                              type="np",bf.message=NULL,
-                              ylab = "Bifidobacterium_longum(%)", 
-                              ggtheme = ggplot2::theme_bw(),
-                              grouping.var = "time_point",plotgrid.args = NULL)
-
+# otu_df %>% 
+#   select(SampleID,Bifidobacterium_adolescentis) %>% 
+#   # select(SampleID, !!sym(DAsp)) %>% 
+#   left_join(., metadata[,c("SampleID","group","time_point")], by="SampleID") %>% 
+#   group_by(group) %>% 
+#   ggstatsplot::grouped_ggbetweenstats(.,
+#                               x="group",
+#                               y = Bifidobacterium_adolescentis,
+#                               pairwise.comparisons = T,
+#                               type="np",bf.message=NULL,
+#                               ylab = "Bifidobacterium_adolescentis(%)", 
+#                               ggtheme = ggplot2::theme_bw(),
+#                               grouping.var = "time_point",plotgrid.args = NULL)
+# otu_df %>% 
+#   select(SampleID,Bifidobacterium_longum) %>% 
+#   # select(SampleID, !!sym(DAsp)) %>% 
+#   left_join(., metadata[,c("SampleID","group","time_point")], by="SampleID") %>% 
+#   group_by(group) %>% 
+#   ggstatsplot::grouped_ggbetweenstats(.,
+#                               x="group",
+#                               y = Bifidobacterium_longum,
+#                               pairwise.comparisons = F,
+#                               type="np",bf.message=NULL,
+#                               ylab = "Bifidobacterium_longum(%)", 
+#                               ggtheme = ggplot2::theme_bw(),
+#                               grouping.var = "time_point",
+#                               plotgrid.args = list("ncol" = 4, "nrow" = 1))
+# 
 
  ### There is a nice signal, consistent longitudinally, in Bifidobacterium Genus
 phyloseq::otu_table(phy %>% phyloseq::tax_glom(.,taxrank="Genus")) %>% 
@@ -227,8 +230,9 @@ phyloseq::otu_table(phy %>% phyloseq::tax_glom(.,taxrank="Genus")) %>%
                               type="np", bf.message=NULL,
                               ylab = "Bifidobacterium(%)", 
                               ggtheme = ggplot2::theme_bw(),
-                              grouping.var = "time_point",plotgrid.args = NULL) %>% 
-  ggsave(.,filename = "~/Downloads/plot4Carlos_Bifidobacterium.pdf")
+                              grouping.var = "time_point",plotgrid.args = NULL) 
+# %>% 
+  # ggsave(.,filename = "~/Downloads/plot4Carlos_Bifidobacterium.pdf")
 
 otu_df %>% 
   select(SampleID,Olsenella_scatoligenes) %>% 
@@ -249,21 +253,6 @@ otu_df %>%
 ### Show how many species are differential in at least two of the timepoints in each cat var. Risk_group should result in many species showing that kins of signal. See Venn section below.
 ### --- end MNJ
 
-
-
-otu_df %>% 
-  select(SampleID, !!sym(DAsp)) %>% 
-  left_join(., metadata[,c("SampleID","group","time_point")], by="SampleID") %>% 
-  group_by(group) %>% 
-  ggstatsplot::grouped_ggbetweenstats(.,
-                              x="group",
-                              y = !!sym(DAsp[1]),
-                              pairwise.comparisons = T,
-                              ylab = paste(DAsp[1], "(%)"), 
-                              ggtheme = ggplot2::theme_bw(),
-                              grouping.var = "time_point",plotgrid.args = NULL)
-
-
 ```
 
 Only one spec
@@ -274,7 +263,66 @@ Only one spec
 Following Venn's diagram to detect group_specific DA taxa (Marc's addition, moved here as I thought it made more sense structurally)
 ```{r wilcox_Venn_Group, warning=F, message=F}
 
+maxn <- DAsp %>% 
+  select(species,long_var) %>% 
+  group_by(long_var) %>% 
+  count() %>% 
+  pull(n) %>% 
+  max
+
+
+unique(DAsp$long_var) %>%
+  set_names() %>%
+  map_dfc(function(tp) {
+    vec <- DAsp %>%
+      dplyr::select(species, long_var) %>%
+      dplyr::filter(long_var == tp) %>%
+      dplyr::pull(species)
+    
+    if (length(vec) < maxn) {
+      vec <- vctrs::vec_c(vec, rep(NA, maxn - length(vec)))
+      return(vec)
+    } else{
+      return(vec)
+    }
+    
+  }) %>%
+  ggVennDiagram::ggVennDiagram(., show_intersect = T)
 ```
+
+We can observe there are 3 species which are consistently differentially abundant between treatment groups at every point during treatment, but not at basal. It's interesting to note that of those 3, 2 are from the bifidobacterium genera (*B. adolescentis* and *B.longum*) plus another actinobacteria: *Olsenella scatoligenes*, all of the increasing more in the DTG group although the later has little literature regarding their role on the microbiome. (hover mouse over the figure numbers to display the names of the species)
+
+
+```{r plot_shared species, warning=F, message=FALSE}
+
+shared_sp <- 
+  DAsp %>% 
+  select(species, long_var) %>% 
+  group_by(species) %>% 
+  count() %>% 
+  filter(n==3) %>% 
+  pull(species)
+
+
+shared_sp %>% 
+  set_names() %>% 
+  purrr::map(function(sp){
+    otu_df %>% 
+      select(SampleID, sp) %>% 
+      left_join(metadata[,c("SampleID", "group", long_var)], by="SampleID") %>% 
+      group_by(!!sym(long_var)) %>% 
+      ggstatsplot::grouped_ggbetweenstats(., 
+                                          type = "np",
+                                          y = !!sym(sp), 
+                                          x="group", 
+                                          grouping.var = !!sym(long_var))
+      
+  })
+
+shared_sp
+
+```
+
 
 ## Longitudinal, within-group Differential Abundance
 These comparisons test differences between time points within the same group. This is a longitudinal approach so it requires a paired test, which account for dependece between data points.
