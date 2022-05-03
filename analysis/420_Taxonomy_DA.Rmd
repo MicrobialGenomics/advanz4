@@ -263,6 +263,8 @@ Only one spec
 Following Venn's diagram to detect group_specific DA taxa (Marc's addition, moved here as I thought it made more sense structurally)
 ```{r wilcox_Venn_Group, warning=F, message=F}
 
+### MNJ: Provide a table of species theat appear in the Venn's diagram.
+
 maxn <- DAsp %>% 
   select(species,long_var) %>% 
   group_by(long_var) %>% 
