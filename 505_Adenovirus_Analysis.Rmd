@@ -7,7 +7,7 @@ output: html_document
 
 ## Adenovirus Analisis
 
-First, classify each sample as ADV+/ADV-.
+First, classify each sample as ADV+/ADV-. (Do the same for Enterovirus)
 
 ### Adenovirus detection proportion vs time per treatment group
 
