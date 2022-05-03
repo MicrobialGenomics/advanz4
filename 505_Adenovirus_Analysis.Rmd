@@ -1,0 +1,31 @@
+---
+title: "Adenovirus Analisis"
+author: "Marc Noguera"
+date: "5/3/2022"
+output: html_document
+---
+
+## Adenovirus Analisis
+
+First, classify each sample as ADV+/ADV-.
+
+### Adenovirus detection proportion vs time per treatment group
+
+### Adenovirus detection vs Microbiome composition
+
+Use:
+
+* NMDS coordinates (NMDS1 and NMDS2) vs ADV+/ADV-
+* PERMANOVA to check significance.
+* ADV+/ADV- vs gene richness
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(RColorBrewer)
+library(metar)
+
+```
