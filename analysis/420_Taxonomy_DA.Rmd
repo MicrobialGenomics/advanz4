@@ -334,28 +334,25 @@ These comparisons test differences between time points within the same group. Th
 endpoints <- c(48,96)
 
 
+
 stat_list_long <-
   cat_vector %>%
   purrr::set_names() %>%
   purrr::map(function(cv) {
-    
     print(cv)
     otu_df %>%
       dplyr::select(-SampleID) %>%
       colnames() %>%
       set_names() %>%
       purrr::map_dfr(function(sp) {
-        
         metadata %>%
           dplyr::filter(!is.na(!!sym(cv))) %>%
           dplyr::pull(!!sym(cv)) %>%
           unique() %>%
           set_names() %>%
           purrr::map_dfr(function(lv) {
-            
             endpoints %>%
               purrr::map_dfr(function(ep) {
-                
                 ids <- metadata %>%
                   dplyr::select(link_var, long_var, cv) %>%
                   dplyr::filter(!!sym(long_var) %in% c(0, ep) &
@@ -376,24 +373,26 @@ stat_list_long <-
                                    by = "SampleID") %>%
                   dplyr::filter(!!sym(cv) == lv) %>%
                   dplyr::filter(time_point %in% c(0, ep)) %>%
-                  dplyr::filter(!!sym(link_var) %in% ids) 
+                  dplyr::filter(!!sym(link_var) %in% ids)
                 
                 
-                median_0 <- median(test_df %>% 
-                                          dplyr::filter(!!sym(long_var) == 0) %>% 
-                                          dplyr::pull(!!sym(sp)))
-                median_ep <- median(test_df %>% 
-                                          dplyr::filter(!!sym(long_var) == ep) %>% 
-                                          dplyr::pull(!!sym(sp)))
-
-                  test <- 
-                    rstatix::wilcox_test(test_df , formula(paste(sp, "~", long_var)), paired = T) %>%
-                  mutate(level = lv,
-                         median_0 = median_0,
-                         median_ep = median_ep,
-                         med_fc= log2(median_0/median_ep))
-                  
-                  return(test)
+                mean_0 <- mean(test_df %>%
+                                 dplyr::filter(!!sym(long_var) == 0) %>%
+                                 dplyr::pull(!!sym(sp)))
+                mean_ep <- mean(test_df %>%
+                                  dplyr::filter(!!sym(long_var) == ep) %>%
+                                  dplyr::pull(!!sym(sp)))
+                
+                test <-
+                  rstatix::wilcox_test(test_df , formula(paste(sp, "~", long_var)), paired = T) %>%
+                  mutate(
+                    level = lv,
+                    mean_0 = mean_0,
+                    mean_ep = mean_ep,
+                    mean_fc = mean_ep / mean_0
+                  )
+                
+                return(test)
               })
             
             
@@ -403,7 +402,7 @@ stat_list_long <-
         ## First I'll try a selection of overall significance by Kruskal-wallis. Thos significant will be selected for a pairwise tp-to-tp comparison, to save on computational resources.
       }) %>%
       rename(species = .y.)
-
+    
   })
 
 ## Once we get the filtered species, do another loop doing pairwise wilcox for each one of the species in the "reduced table"
@@ -420,6 +419,38 @@ stat_list_long$group %>%
 
 
 ```
+
+
+
+
+```{r plot_DA_species, warning=F, message=F}
+
+group_plots <- 
+  stat_list_long$group %>% 
+  pull(species) %>% 
+  unique() %>% 
+  set_names() %>% 
+  map(function(sp){
+    otu_df %>% 
+      dplyr::select(SampleID,!!sym(sp)) %>% 
+      dplyr::left_join(metadata[c("SampleID",link_var, long_var, "group")]) %>% 
+      dplyr::filter(time_point %in% c(0,48,96)) %>% 
+      ggstatsplot::grouped_ggbetweenstats(., grouping.var = "group", 
+                                          x="time_point",
+                                          y=!!sym(sp), 
+                                          type = "np",
+                                          pairwise.comparisons = T,
+                                          ggtheme = ggplot2::theme_bw(),
+                                          palette="Set1")
+      
+    
+    
+  })
+
+group_plots
+
+```
+
 
 
 # Compositional approach (ANCOM)
