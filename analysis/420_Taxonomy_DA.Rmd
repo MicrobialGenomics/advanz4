@@ -9,7 +9,6 @@ editor_options:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(RColorBrewer)
 library(metar)
@@ -331,35 +330,94 @@ These comparisons test differences between time points within the same group. Th
 ```{r wilcox_within_group, message=F, warning=F}
 
 ## This code may still be clunky and not work
-stat_list_kw <-
+
+endpoints <- c(48,96)
+
+
+stat_list_long <-
   cat_vector %>%
   purrr::set_names() %>%
   purrr::map(function(cv) {
+    
+    print(cv)
     otu_df %>%
       dplyr::select(-SampleID) %>%
       colnames() %>%
       set_names() %>%
       purrr::map_dfr(function(sp) {
+        
+        metadata %>%
+          dplyr::filter(!is.na(!!sym(cv))) %>%
+          dplyr::pull(!!sym(cv)) %>%
+          unique() %>%
+          set_names() %>%
+          purrr::map_dfr(function(lv) {
+            
+            endpoints %>%
+              purrr::map_dfr(function(ep) {
+                
+                ids <- metadata %>%
+                  dplyr::select(link_var, long_var, cv) %>%
+                  dplyr::filter(!!sym(long_var) %in% c(0, ep) &
+                                  !!sym(cv) == lv) %>%
+                  group_by(!!sym(link_var)) %>%
+                  dplyr::count() %>%
+                  filter(n > 1) %>%
+                  pull(!!sym(link_var))
+                
+                
+                test_df <-
+                  otu_df %>%
+                  dplyr::select(SampleID, !!sym(sp)) %>%
+                  dplyr::left_join(metadata[, c("SampleID",
+                                                link_var,
+                                                cv,
+                                                long_var), drop = F],
+                                   by = "SampleID") %>%
+                  dplyr::filter(!!sym(cv) == lv) %>%
+                  dplyr::filter(time_point %in% c(0, ep)) %>%
+                  dplyr::filter(!!sym(link_var) %in% ids) 
+                
+                
+                median_0 <- median(test_df %>% 
+                                          dplyr::filter(!!sym(long_var) == 0) %>% 
+                                          dplyr::pull(!!sym(sp)))
+                median_ep <- median(test_df %>% 
+                                          dplyr::filter(!!sym(long_var) == ep) %>% 
+                                          dplyr::pull(!!sym(sp)))
+
+                  test <- 
+                    rstatix::wilcox_test(test_df , formula(paste(sp, "~", long_var)), paired = T) %>%
+                  mutate(level = lv,
+                         median_0 = median_0,
+                         median_ep = median_ep,
+                         med_fc= log2(median_0/median_ep))
+                  
+                  return(test)
+              })
+            
+            
+            
+          }) %>%
+          filter(p < 0.05)
         ## First I'll try a selection of overall significance by Kruskal-wallis. Thos significant will be selected for a pairwise tp-to-tp comparison, to save on computational resources.
-        test <-
-          otu_df %>%
-          dplyr::select(SampleID, !!sym(sp)) %>%
-          dplyr::left_join(metadata[, c("SampleID", link_var, cv, long_var), drop = F],
-                           by = "SampleID") %>%
-          rstatix::kruskal_test(., formula(paste(sp, "~", long_var)))
-      }) %>% 
-      filter(p<0.05) %>%
+      }) %>%
       rename(species = .y.)
-    #   dplyr::mutate(long_var = tp) %>%
-    #   group_by(long_var) %>%
-    #   mutate(p.adj = p.adjust(p, "BH")) %>%
-    #   # filter(p.adj < .05 ) %>%
-    #   group_by(species)
-    
+
   })
 
-
 ## Once we get the filtered species, do another loop doing pairwise wilcox for each one of the species in the "reduced table"
+
+stat_list_long$group %>% 
+  dplyr::filter(group2 == 48) %>% 
+  dplyr::arrange(level) %>% 
+  kableExtra::kable(format = "markdown", caption = "DA weeks 0 v 48 by Group")
+
+stat_list_long$group %>% 
+  dplyr::filter(group2 == 96) %>% 
+  dplyr::arrange(level) %>% 
+  kableExtra::kable(format = "markdown", caption = "DA weeks 0 v 48 by Group")
+
 
 ```
 
