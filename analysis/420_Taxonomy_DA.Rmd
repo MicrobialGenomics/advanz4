@@ -278,7 +278,7 @@ unique(DAsp$long_var) %>%
     vec <- DAsp %>%
       dplyr::select(species, long_var) %>%
       dplyr::filter(long_var == tp) %>%
-      dplyr::pull(species)
+      dplyr::pull(species) 
     
     if (length(vec) < maxn) {
       vec <- vctrs::vec_c(vec, rep(NA, maxn - length(vec)))
@@ -339,7 +339,7 @@ stat_list_long <-
   cat_vector %>%
   purrr::set_names() %>%
   purrr::map(function(cv) {
-    print(cv)
+
     otu_df %>%
       dplyr::select(-SampleID) %>%
       colnames() %>%
@@ -373,7 +373,8 @@ stat_list_long <-
                                    by = "SampleID") %>%
                   dplyr::filter(!!sym(cv) == lv) %>%
                   dplyr::filter(time_point %in% c(0, ep)) %>%
-                  dplyr::filter(!!sym(link_var) %in% ids)
+                  dplyr::filter(!!sym(link_var) %in% ids) %>% 
+                  dplyr::arrange(!!sym(link_var), !!sym(long_var))
                 
                 
                 mean_0 <- mean(test_df %>%
@@ -407,47 +408,104 @@ stat_list_long <-
 
 ## Once we get the filtered species, do another loop doing pairwise wilcox for each one of the species in the "reduced table"
 
-stat_list_long$group %>% 
-  dplyr::filter(group2 == 48) %>% 
-  dplyr::arrange(level) %>% 
-  kableExtra::kable(format = "markdown", caption = "DA weeks 0 v 48 by Group")
 
-stat_list_long$group %>% 
-  dplyr::filter(group2 == 96) %>% 
+names(stat_list_long) %>% 
+  set_names() %>% 
+  map(~{ stat_list_long %>% 
+      pluck(.x) %>% 
+      dplyr::filter(group2 == 48) %>% 
   dplyr::arrange(level) %>% 
-  kableExtra::kable(format = "markdown", caption = "DA weeks 0 v 48 by Group")
+  kableExtra::kable(format = "markdown", caption = paste0("DA weeks 0 v 48 by ", .x))})
 
+
+
+names(stat_list_long) %>%
+  set_names() %>%
+  map( ~ {
+    stat_list_long %>% 
+      pluck(.x) %>% 
+      dplyr::filter(group2 == 96) %>%
+      dplyr::arrange(level) %>%
+      kableExtra::kable(format = "markdown", caption = paste0("DA weeks 0 v 96 by delta CD4 at ", .x))
+    
+  })
 
 ```
+
+As we can see, under exploratory conditions there are many DA species across all groups. Plotting them all would be quite computationally expensive and plotting so many longitudinal plots may be even confusing. We'll do additional filtering. Instead of a more astringent p-value, we'll try to select DA species more functionally. First will be Venn diagramns for DA species for each group level and time point, trying to pinpoint those who consistently changed across the study:
+
+```{r venn_long_group, warning=F, message=F}
+
+
+
+
+
+### MNJ: Provide a table of species theat appear in the Venn's diagram.
+
+
+
+stat_list_long$group %>%
+      dplyr::select(species, group2, level) %>%
+      dplyr::mutate(row=row_number()) %>% 
+      tidyr::pivot_wider(., values_from = "species", names_from = c("level", "group2")) %>% 
+      dplyr::select(-row) %>%
+  ggVennDiagram::ggVennDiagram(., show_intersect = T)
+    
+    
+    
+    
+
+stat_list_long$CD4diff_48 %>%
+      dplyr::select(species, group2, level) %>%
+      dplyr::mutate(row=row_number()) %>% 
+      tidyr::pivot_wider(., values_from = "species", names_from = c("level", "group2")) %>% 
+      dplyr::select(-row) %>%
+  ggVennDiagram::ggVennDiagram(., show_intersect = T,title="CD4 difference 48")
+
+
+    
+stat_list_long$CD4diff_96 %>%
+      dplyr::select(species, group2, level) %>%
+      dplyr::mutate(row=row_number()) %>% 
+      tidyr::pivot_wider(., values_from = "species", names_from = c("level", "group2")) %>% 
+      dplyr::select(-row) %>%
+  ggVennDiagram::ggVennDiagram(., show_intersect = T,title="CD4 difference 48")
+   
+```
+
 
 
 
 
 ```{r plot_DA_species, warning=F, message=F}
 
-group_plots <- 
-  stat_list_long$group %>% 
-  pull(species) %>% 
-  unique() %>% 
-  set_names() %>% 
-  map(function(sp){
-    otu_df %>% 
-      dplyr::select(SampleID,!!sym(sp)) %>% 
-      dplyr::left_join(metadata[c("SampleID",link_var, long_var, "group")]) %>% 
-      dplyr::filter(time_point %in% c(0,48,96)) %>% 
-      ggstatsplot::grouped_ggbetweenstats(., grouping.var = "group", 
-                                          x="time_point",
-                                          y=!!sym(sp), 
-                                          type = "np",
-                                          pairwise.comparisons = T,
-                                          ggtheme = ggplot2::theme_bw(),
-                                          palette="Set1")
-      
-    
-    
-  })
-
-group_plots
+# long_plots <-
+#   cat_vector %>%
+#   purrr::set_names() %>%
+#   purrr::map(function(cv) {
+# 
+#     stat_list_long%>%
+#     pluck(cv) %>%
+#     pull(species) %>%
+#     unique() %>%
+#     set_names() %>%
+#     map(function(sp){
+#       otu_df %>%
+#         dplyr::select(SampleID,!!sym(sp)) %>%
+#         dplyr::left_join(metadata[c("SampleID",link_var, long_var, cv)]) %>%
+#         dplyr::filter(time_point %in% c(0,48,96)) %>%
+#         dplyr::select(subject.id = !!sym(link_var), long_var = long_var, cat_var = !!sym(cv), sp = !!sym(sp)) %>%
+#         dplyr::arrange(subject.id) %>%
+#         dplyr::mutate(long_var = as.factor(long_var)) %>% 
+#         ggplot(., aes(x = long_var, y =sp, fill = cat_var)) +
+#         facet_wrap(facets = "cat_var") +
+#         geom_boxplot() +
+#         geom_violin() +
+#         geom_line(aes(group = subject.id), color="grey") +
+#         scale_fill_brewer(palette = "Set1")
+#         
+#     })
+# })
 
 ```
 
@@ -459,6 +517,10 @@ group_plots
 
 These comparisons will be between treatment groups at the same time point: one at week 0, week 24, week 48 and 96.
 ```{r ANCOM_across_group, warning=F, message=F}
+
+
+
+
 
 ```
 
