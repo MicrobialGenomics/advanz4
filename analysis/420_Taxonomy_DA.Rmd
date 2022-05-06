@@ -522,6 +522,9 @@ delta96_diff <- names(comps_delta) %>%
 
 ```{r plot_DA_species, warning=F, message=F, eval=F}
 
+
+#Code is functional bu we still need to filter the input tables.
+
 long_plots <-
   cat_vector %>%
   purrr::set_names() %>%
