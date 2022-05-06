@@ -343,13 +343,13 @@ stat_list_long <-
     otu_df %>%
       dplyr::select(-SampleID) %>%
       colnames() %>%
-      set_names() %>%
+      purrr::set_names() %>%
       purrr::map_dfr(function(sp) {
         metadata %>%
           dplyr::filter(!is.na(!!sym(cv))) %>%
           dplyr::pull(!!sym(cv)) %>%
           unique() %>%
-          set_names() %>%
+          purrr::set_names() %>%
           purrr::map_dfr(function(lv) {
             endpoints %>%
               purrr::map_dfr(function(ep) {
@@ -357,12 +357,12 @@ stat_list_long <-
                   dplyr::select(link_var, long_var, cv) %>%
                   dplyr::filter(!!sym(long_var) %in% c(0, ep) &
                                   !!sym(cv) == lv) %>%
-                  group_by(!!sym(link_var)) %>%
+                  dplyr::group_by(!!sym(link_var)) %>%
                   dplyr::count() %>%
-                  filter(n > 1) %>%
-                  pull(!!sym(link_var))
+                  dplyr::filter(n > 1) %>%
+                  plyr::pull(!!sym(link_var))
                 
-                
+# At the end it sounded better to just go and perform the pairwise comparisons.                
                 test_df <-
                   otu_df %>%
                   dplyr::select(SampleID, !!sym(sp)) %>%
@@ -371,9 +371,9 @@ stat_list_long <-
                                                 cv,
                                                 long_var), drop = F],
                                    by = "SampleID") %>%
-                  dplyr::filter(!!sym(cv) == lv) %>%
-                  dplyr::filter(time_point %in% c(0, ep)) %>%
-                  dplyr::filter(!!sym(link_var) %in% ids) %>% 
+                  dplyr::filter(!!sym(cv) == lv &
+                                  time_point %in% c(0, ep) &
+                                  !!sym(link_var) %in% ids) %>%
                   dplyr::arrange(!!sym(link_var), !!sym(long_var))
                 
                 
@@ -383,6 +383,9 @@ stat_list_long <-
                 mean_ep <- mean(test_df %>%
                                   dplyr::filter(!!sym(long_var) == ep) %>%
                                   dplyr::pull(!!sym(sp)))
+                max <- max(test_df %>%
+                             dplyr::filter(!!sym(long_var) == ep) %>%
+                             dplyr::pull(!!sym(sp)))
                 
                 test <-
                   rstatix::wilcox_test(test_df , formula(paste(sp, "~", long_var)), paired = T) %>%
@@ -390,7 +393,8 @@ stat_list_long <-
                     level = lv,
                     mean_0 = mean_0,
                     mean_ep = mean_ep,
-                    mean_fc = mean_ep / mean_0
+                    mean_fc = mean_ep / mean_0,
+                    max = max
                   )
                 
                 return(test)
@@ -400,13 +404,11 @@ stat_list_long <-
             
           }) %>%
           filter(p < 0.05)
-        ## First I'll try a selection of overall significance by Kruskal-wallis. Thos significant will be selected for a pairwise tp-to-tp comparison, to save on computational resources.
       }) %>%
       rename(species = .y.)
     
   })
 
-## Once we get the filtered species, do another loop doing pairwise wilcox for each one of the species in the "reduced table"
 
 
 names(stat_list_long) %>% 
@@ -434,7 +436,7 @@ names(stat_list_long) %>%
 
 As we can see, under exploratory conditions there are many DA species across all groups. Plotting them all would be quite computationally expensive and plotting so many longitudinal plots may be even confusing. We'll do additional filtering. Instead of a more astringent p-value, we'll try to select DA species more functionally. First will be Venn diagramns for DA species for each group level and time point, trying to pinpoint those who consistently changed across the study:
 
-```{r venn_long_group, warning=F, message=F}
+```{r venn_long_group, warning=F, message=F, eval=F}
 
 
 
@@ -442,34 +444,75 @@ As we can see, under exploratory conditions there are many DA species across all
 
 ### MNJ: Provide a table of species theat appear in the Venn's diagram.
 
+comps_group <- list("DTG"=c("DTG_48","DTG_96"),
+              "DRV/r" = c("DRV/r_48", "DRV/r_96"))  # Those are the group intersections I considered most interesting
 
-
-stat_list_long$group %>%
+Venn_Group <- stat_list_long$group %>% # Construct list for Venn diagram
       dplyr::select(species, group2, level) %>%
       dplyr::mutate(row=row_number()) %>% 
       tidyr::pivot_wider(., values_from = "species", names_from = c("level", "group2")) %>% 
       dplyr::select(-row) %>%
+      map(~{
+        .x[!is.na(.x)]
+      }) 
+
+group_diff <- names(comps) %>% # DA species common between 48 and 96 for each group
+  set_names() %>% 
+  map(~ {
+    Venn_Group %>% 
+      ggVennDiagram::Venn(.) %>% 
+      ggVennDiagram::discern_overlap(., slice = comps[[.x]])
+  }) 
+
+
+
+Venn_Group %>% # Plot Venn
   ggVennDiagram::ggVennDiagram(., show_intersect = T)
     
-    
-    
-    
 
-stat_list_long$CD4diff_48 %>%
+## The following is the same for CD4 deltas at 48 and 96 weeks
+
+comps_delta <- list("150_H"=c("150_H_48","150_H_96"),
+              "150_L" = c("150_L_48", "150_L_96"))
+
+
+Venn_delta48 <- stat_list_long$CD4diff_48 %>%
       dplyr::select(species, group2, level) %>%
       dplyr::mutate(row=row_number()) %>% 
       tidyr::pivot_wider(., values_from = "species", names_from = c("level", "group2")) %>% 
       dplyr::select(-row) %>%
-  ggVennDiagram::ggVennDiagram(., show_intersect = T,title="CD4 difference 48")
 
+      map(~{
+        .x[!is.na(.x)]
+        
+      }) 
+delta48_diff <- names(comps_delta) %>% 
+  set_names() %>% 
+  map(~ {
+    Venn_delta48 %>% 
+      ggVennDiagram::Venn(.) %>% 
+      ggVennDiagram::discern_overlap(., slice = comps_delta[[.x]])
+  }) 
 
     
-stat_list_long$CD4diff_96 %>%
+Venn_delta96 <- stat_list_long$CD4diff_96 %>%
       dplyr::select(species, group2, level) %>%
       dplyr::mutate(row=row_number()) %>% 
       tidyr::pivot_wider(., values_from = "species", names_from = c("level", "group2")) %>% 
       dplyr::select(-row) %>%
-  ggVennDiagram::ggVennDiagram(., show_intersect = T,title="CD4 difference 48")
+
+      map(~{
+        .x[!is.na(.x)]
+        
+      }) 
+delta96_diff <- names(comps_delta) %>% 
+  set_names() %>% 
+  map(~ {
+    Venn_delta96 %>% 
+      ggVennDiagram::Venn(.) %>% 
+      ggVennDiagram::discern_overlap(., slice = comps_delta[[.x]])
+  }) 
+
    
 ```
 
@@ -477,35 +520,58 @@ stat_list_long$CD4diff_96 %>%
 
 
 
-```{r plot_DA_species, warning=F, message=F}
+```{r plot_DA_species, warning=F, message=F, eval=F}
 
-# long_plots <-
-#   cat_vector %>%
-#   purrr::set_names() %>%
-#   purrr::map(function(cv) {
-# 
-#     stat_list_long%>%
-#     pluck(cv) %>%
-#     pull(species) %>%
-#     unique() %>%
-#     set_names() %>%
-#     map(function(sp){
-#       otu_df %>%
-#         dplyr::select(SampleID,!!sym(sp)) %>%
-#         dplyr::left_join(metadata[c("SampleID",link_var, long_var, cv)]) %>%
-#         dplyr::filter(time_point %in% c(0,48,96)) %>%
-#         dplyr::select(subject.id = !!sym(link_var), long_var = long_var, cat_var = !!sym(cv), sp = !!sym(sp)) %>%
-#         dplyr::arrange(subject.id) %>%
-#         dplyr::mutate(long_var = as.factor(long_var)) %>% 
-#         ggplot(., aes(x = long_var, y =sp, fill = cat_var)) +
-#         facet_wrap(facets = "cat_var") +
-#         geom_boxplot() +
-#         geom_violin() +
-#         geom_line(aes(group = subject.id), color="grey") +
-#         scale_fill_brewer(palette = "Set1")
-#         
-#     })
-# })
+long_plots <-
+  cat_vector %>%
+  purrr::set_names() %>%
+  purrr::map(function(cv) {
+
+    stat_list_long%>%
+    pluck(cv) %>%
+    pull(species) %>%
+    unique() %>%
+    set_names() %>%
+    map(function(sp){
+      
+      groupmax <- 
+      stat_params <- 
+        stat_list_long %>% 
+        purrr::pluck(cv) %>% 
+        filter(species == sp) %>% 
+        group_by(!!sym(cv)) %>% 
+        summarise(max = max(!!sym(sp)))
+      
+      stat_params <- 
+        stat_list_long %>% 
+        purrr::pluck(cv) %>% 
+        filter(species == sp) %>% 
+        mutate(group2 = as.factor(group2)) %>% 
+        rstatix::add_xy_position() %>% 
+        rename(cat_var = level) %>% 
+        mutate(xmax=case_when(group2 == 48 ~ 2, group2 == 96 ~ 3),
+               y.position = 1.1*max)
+      
+      otu_df %>%
+        dplyr::select(SampleID,!!sym(sp)) %>%
+        dplyr::left_join(metadata[c("SampleID",link_var, long_var, cv)]) %>%
+        dplyr::filter(time_point %in% c(0,48,96)) %>%
+        dplyr::select(subject.id = !!sym(link_var), long_var = long_var, cat_var = !!sym(cv), sp = !!sym(sp)) %>%
+        dplyr::arrange(subject.id) %>%
+        dplyr::mutate(long_var = as.factor(long_var)) %>%
+        ggplot(., aes(x = long_var, y =sp, fill = cat_var)) +
+        facet_wrap(facets = "cat_var") +
+        geom_violin(width=1.5, trim = T) +
+        geom_boxplot(width = 0.1, fill="white", ) +
+        geom_line(aes(group = subject.id), color="grey") +
+        scale_fill_brewer(palette = "Set1") +
+        ggpubr::stat_pvalue_manual(stat_params, label = "p", xmin = "xmin", xmax="xmax", y ="y.position") + 
+        theme_bw() +
+        labs(x="week", x=sp, fill =cv)
+
+
+    })
+})
 
 ```
 
