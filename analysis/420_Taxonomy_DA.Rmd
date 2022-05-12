@@ -639,8 +639,6 @@ These comparisons will be between treatment groups at the same time point: one a
 
 
 
-ggpubr::ggarrange(plotlist = long_plots$`DRV/r`, ncol=2)
-
 
 ```
 
