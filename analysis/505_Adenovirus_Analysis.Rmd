@@ -1,0 +1,203 @@
+---
+title: "Adenovirus Analisis"
+author: "Marc Noguera"
+date: "5/3/2022"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(RColorBrewer)
+library(metar)
+source(here::here("code","LMM.R"))
+source(here::here("code","myFunctions.R"))
+```
+
+```{r read_data, warning=FALSE, message=FALSE, cache=TRUE}
+
+mymre <- mymre <- aws.s3::s3readRDS(bucket = "s3://mistral-wp6-advanz4", object = "metagenome/WMGS/MREObject.rds")
+# metadata <-get_meta(mymre)
+
+
+cat_df <- 
+  here::here("Metadata", "CategoricalVariables.txt") %>% 
+  read.delim(., header = T)
+
+cat_vector <- cat_df %>% 
+  pull(CategoricalVariable)
+
+long_var <- here::here("Metadata", "LongitudinalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(LongitudinalVariable)
+
+link_var <- here::here("Metadata", "LongitudinalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(LinkVariable)
+
+num_var <- here::here("Metadata", "NumericalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(NumericalVariable)
+
+
+metadata <- 
+  here::here("Metadata", "2022_04_28_clean_metadata_LIMS.csv") %>% 
+  read.csv() %>% 
+  mutate(ADV_p = case_when(
+    is.na(ADV) ~ "no", 
+    !is.na(ADV) ~ "yes"), .after = "ADV")
+
+
+
+```
+
+
+```{r mre_update,}
+devtools::load_all(here::here("../WMGSPipeline"))
+
+mymre <- filter_samples(mre = mymre, sample_ids = metadata$SampleID)
+
+mymre@metadata@metadata_df <- as.tibble(metadata) 
+mymre@taxa@metaphlan@phyloseq@sam_data <- metadata %>%
+  phyloseq::sample_data(.)
+mymre@taxa@metaphlan@phyloseq_sec@sam_data <- metadata %>%
+  phyloseq::sample_data(.)
+
+
+
+
+mymre@metadata@categorical_vals <- here::here("Metadata", "CategoricalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+mymre@metadata@numeric_vals <- here::here("Metadata", "NumericalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+mymre@metadata@longitudinal_vals <- here::here("Metadata", "LongitudinalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+
+
+
+```
+
+
+
+# Import data and variable definition.
+
+Only a few patients had any detecatble ADV presence on their guts, which also had huge variations. Hence we expect a quantitative approach to hold little power. We'll complement with a qualitative approach based on presence/absence of both ADV and EV.
+
+First, classify each sample as ADV+/ADV-. (Do the same for Enterovirus)
+
+
+
+# Adenovirus per treatment
+
+## Quantitative exploration
+
+```{r ADV_quantitative, message= FALSE, warning= FALSE}
+
+create_LMM(metadata = metadata,
+           num_var = "ADV",
+           cat_var = "group",
+           long_var = long_var, 
+           link_var = link_var,
+           breakpoints = NULL)
+
+
+
+
+
+
+metadata %>% 
+  dplyr::select(link_var = !!sym(link_var),
+                long_var = !!sym(long_var),
+                cat_var = "group",
+                ADV) %>% 
+  # mutate(logADV = log10(ADV)) %>% 
+  ggplot2::ggplot(., aes(x=ADV, color=cat_var)) +
+  # facet_wrap(~cat_var)+
+  geom_density(stat="density") +
+  scale_x_log10() +
+  theme_minimal() +
+  labs(title = "Adenovirus", subtitle = "Abundance distribution (log10)", x="log10(ADV)",
+       color = "group") +
+  scale_color_brewer(palette = "Set1")
+
+unique(metadata$group) %>% 
+  purrr::set_names() %>% 
+  purrr::map_dfr(~{
+    metadata %>% 
+  dplyr::select(link_var = !!sym(link_var),
+                long_var = !!sym(long_var),
+                cat_var = "group",
+                ADV) %>% 
+      dplyr::filter(cat_var == .x) %>% 
+      dplyr::pull(ADV) %>% 
+      summary() 
+
+}) %>% 
+  dplyr::mutate(lev=unique(metadata$group)) %>% 
+  tibble::column_to_rownames("lev") %>% 
+  kableExtra::kable(format="markdown")
+
+  
+
+```
+We see here that ADV follows a non-normal heavily skewed toward the left. We'll check how do they behave considering treatment time.
+
+```{r ADV_longitudinal, message=FALSE, warning=FALSE}
+
+
+myLMMs <- get_lmm_effects(data =metadata, cat_vector = c("group"), num_vector = c("ADV"), long_var = long_var) 
+
+myLMMs$group$ADV$plot
+
+
+
+```
+
+It appears clear that both treatments find a significan reduction in ADV levels, slightly harder in the DTG group than in the DRV, but it is not backed the ANOVA test. It has to be taken into account the DTG had a higher average at start, but it is probably a skew in the model caused by one outlier.
+
+# Adenovirus qualitative analysis
+
+We will test for presence/absence and try to test for differences among groups. We'll test for proportions of patients positive per ADV per group and time.
+
+```{r ADV_prevalence, message= FALSE, warning=FALSE}
+cat_var = "group"
+num_var = "ADV"
+metadata %>% 
+  dplyr::select(link_var = link_var, 
+                long_var = long_var, 
+                cat_var = cat_var, 
+                num_var = ADV_p) %>% 
+  dplyr::group_by(cat_var, long_var) %>% 
+  dplyr::count(num_var) %>% 
+  dplyr::mutate(long_var = as.factor(long_var)) %>% 
+  tidyr::pivot_wider(id_cols = c("cat_var","long_var"), names_from = "num_var", values_from = "n") %>%
+  dplyr::mutate(incidence = yes*100 / (no + yes)) %>% 
+  ggplot(., aes(x=long_var, y = incidence, fill = num_var)) +
+  facet_wrap(~cat_var) +
+  geom_histogram(stat="identity", position = "stack") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Set1") +
+  labs(x = "week",y="incidence (%)", fill = "ADV")
+  
+
+
+```
+
+
+### Adenovirus detection vs Microbiome composition
+
+Use:
+
+* NMDS coordinates (NMDS1 and NMDS2) vs ADV+/ADV-
+* PERMANOVA to check significance.
+* ADV+/ADV- vs gene richness
+
+
