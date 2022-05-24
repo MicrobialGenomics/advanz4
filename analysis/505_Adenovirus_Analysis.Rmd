@@ -101,14 +101,18 @@ First, classify each sample as ADV+/ADV-. (Do the same for Enterovirus)
 
 ```{r ADV_quantitative, message= FALSE, warning= FALSE}
 
-create_LMM(metadata = metadata,
-           num_var = "ADV",
+ 
+LMMlist <- metadata %>% 
+  mutate(logADV = log10(ADV)) %>% 
+  create_LMM(data = .,
+           num_var = "logADV",
            cat_var = "group",
            long_var = long_var, 
            link_var = link_var,
            breakpoints = NULL)
 
 
+LMMlist$stats
 
 
 
@@ -119,6 +123,7 @@ metadata %>%
                 cat_var = "group",
                 ADV) %>% 
   # mutate(logADV = log10(ADV)) %>% 
+  
   ggplot2::ggplot(., aes(x=ADV, color=cat_var)) +
   # facet_wrap(~cat_var)+
   geom_density(stat="density") +
@@ -153,7 +158,11 @@ We see here that ADV follows a non-normal heavily skewed toward the left. We'll 
 ```{r ADV_longitudinal, message=FALSE, warning=FALSE}
 
 
-myLMMs <- get_lmm_effects(data =metadata, cat_vector = c("group"), num_vector = c("ADV"), long_var = long_var) 
+myLMMs <- get_lmm_effects(data =metadata, 
+                          cat_vector = c("group"), 
+                          num_vector = c("ADV"), 
+                          long_var = long_var, 
+                          link_var = "record_id") 
 
 myLMMs$group$ADV$plot
 
@@ -165,11 +174,14 @@ It appears clear that both treatments find a significan reduction in ADV levels,
 
 # Adenovirus qualitative analysis
 
-We will test for presence/absence and try to test for differences among groups. We'll test for proportions of patients positive per ADV per group and time.
+We will test for presence/absence and try to test for differences among groups. We'll test for proportions of patients positive per ADV per group and time. We'll first visualize the evolution of the data. Afterwards, an exact Fisher's test will be used between baseline and weeks 48/96 for each group.
 
 ```{r ADV_prevalence, message= FALSE, warning=FALSE}
 cat_var = "group"
 num_var = "ADV"
+link_var = "record_id"
+
+#Exploratory histogram
 metadata %>% 
   dplyr::select(link_var = link_var, 
                 long_var = long_var, 
@@ -180,19 +192,63 @@ metadata %>%
   dplyr::mutate(long_var = as.factor(long_var)) %>% 
   tidyr::pivot_wider(id_cols = c("cat_var","long_var"), names_from = "num_var", values_from = "n") %>%
   dplyr::mutate(incidence = yes*100 / (no + yes)) %>% 
-  ggplot(., aes(x=long_var, y = incidence, fill = num_var)) +
-  facet_wrap(~cat_var) +
-  geom_histogram(stat="identity", position = "stack") +
+  ggplot(., aes(x=long_var, y = incidence, fill = cat_var)) +
+  # facet_wrap(~cat_var) +
+  geom_histogram(stat="identity", position = "dodge") +
   theme_minimal() +
   scale_fill_brewer(palette = "Set1") +
-  labs(x = "week",y="incidence (%)", fill = "ADV")
+  labs(x = "week",y="ADV incidence (%)", fill = "group") 
   
+
+## Fisher's test
+
+
+unique(metadata[,cat_var]) %>%
+  purrr::set_names() %>%
+  purrr::map(function(cv) {
+    a <- 
+    metadata %>%
+      select(cat_var = cat_var,
+             long_var = long_var,
+             ADV_p) %>%
+      dplyr::filter(cat_var == cv) %>%
+      dplyr::group_by(long_var) %>%
+      dplyr::count(ADV_p) %>%
+      dplyr::ungroup() %>%
+      tidyr::pivot_wider(
+        id_cols = c("long_var"),
+        names_from = "ADV_p",
+        values_from = "n"
+      ) %>%
+      tibble::column_to_rownames("long_var") %>%
+      as.matrix() %>%
+      fisher.test()
+    
+  })
+
 
 
 ```
 
 
+Although there is a difference in ADV incidence between baselina and week 96 for both groups, no decreasing trend over tie could be observe, as ADV seems to spike in the following weeks of starting treatment. Interestingly, this spike happens at week 24 for RTV/r and week 48 for DTG.
+
+No differences in presence/absence ratios per time points  were found in either group, according to Fisher's test.
+
+
+
 ### Adenovirus detection vs Microbiome composition
+
+
+```{r gene_richness_corr, message=FALSE, warning=FALSE    }
+
+
+
+```
+
+
+
+
 
 Use:
 
