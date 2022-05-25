@@ -42,7 +42,7 @@ create_LMM <- function(data, num_var, cat_var, long_var, link_var,breakpoints = 
 
     labs(x=cat_var, title=num_var, x=long_var)
 
-  return(list("plot" = plot, "stats" = stats))
+  return(list(plot = plot, stats = stats))
 }
 
 #' Helper function to obtain the graphical parameters to build a beautiful LMM plot.
@@ -64,8 +64,8 @@ get_LMM_GraphParams <- function(data){
         magrittr::extract2("coefficients")
 
       graphparams<- data %>%
-        summarise(xmin=min(long_var),
-                  xmax=max(long_var),
+        summarise(xmin=min(long_var, na.rm = T),
+                  xmax=max(long_var, na.rm = T),
                   ymin = model[1,1] + xmin*model[2,1],
                   ymax = model[1,1] + xmax*model[2,1]) %>%
         mutate(cat_var = .x) %>%
