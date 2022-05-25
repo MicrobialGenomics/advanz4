@@ -169,7 +169,7 @@ Now the data is still heavily skewed but we can see a more reasonable distributi
 
 LMMlist <- metadata_f %>% 
   create_LMM(data = .,
-           num_var = "logADV",
+           num_var = "ADV",
            cat_var = "group",
            long_var = long_var, 
            link_var = link_var,
@@ -317,7 +317,7 @@ metadata_f %>%
                 cat_var = cat_var,
                 ADV) %>% 
   dplyr::right_join(igc, by="SampleID") %>% 
-  # mutate(logADV = log10(ADV)) %>%
+  # mutate(ADV = log10(ADV)) %>%
   get_lmm_effects(., cat_vector = cat_var, num_vector = "ADV", long_var = "GeneNumber",link_var = "link_var") %>% 
   purrr::pluck("group","ADV","plot") +
   scale_x_continuous() +
@@ -390,13 +390,12 @@ Last, we will look for links between overall microbiome structure and Adenovirus
 mymre <- metaphlan_nmds(mymre, tax_level = "Species", top_n = 50, save_files = F)
 
 group_nmds <- get_taxa(mymre, type="metaphlan", result_slot = "nmds") %>% 
-  purrr::pluck("Species", "top_50","categorical","group") %>% 
-  select()
+  purrr::pluck("Species", "top_50","categorical","group")
 ```
 
 
 
-```{r nmds_ADV, warning=F, message = F, cache= T, fig.width= 10, fig.height= 8}
+```{r nmds_ADV, warning=F, message = F, cache= T, fig.width= 10, fig.height= 8, eval=F}
 
 c("group","ADV_p") %>% 
   purrr::set_names() %>% 

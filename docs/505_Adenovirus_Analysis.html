@@ -395,6 +395,9 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 The following chunks had caches available:
 <ul>
 <li>
+construct_nmds
+</li>
+<li>
 nmds_ADV
 </li>
 <li>
@@ -420,16 +423,16 @@ read_data
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree72fc95aed95227116435e2d0bdacdff7dd14e116targetblank72fc95aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/72fc95aed95227116435e2d0bdacdff7dd14e116" target="_blank">72fc95a</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree047524bc9a8f870cf47ac5a98228ece2a3af9441targetblank047524ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/047524bc9a8f870cf47ac5a98228ece2a3af9441" target="_blank">047524b</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree72fc95aed95227116435e2d0bdacdff7dd14e116targetblank72fc95aa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree047524bc9a8f870cf47ac5a98228ece2a3af9441targetblank047524ba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/72fc95aed95227116435e2d0bdacdff7dd14e116" target="_blank">72fc95a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/047524bc9a8f870cf47ac5a98228ece2a3af9441" target="_blank">047524b</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -444,9 +447,11 @@ Ignored files:
     Ignored:    analysis/output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/
     Ignored:    data/mre.rds
 
+Untracked files:
+    Untracked:  analysis/figure/
+
 Unstaged changes:
     Modified:   analysis/505_Adenovirus_Analysis.Rmd
-    Modified:   code/LMM.R
 
 </code></pre>
 <p>
@@ -485,6 +490,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/047524bc9a8f870cf47ac5a98228ece2a3af9441/analysis/505_Adenovirus_Analysis.Rmd" target="_blank">047524b</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-05-25
+</td>
+<td>
+Added ADV corrs with igc and part of NMDS (later still incomplete)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/047524bc9a8f870cf47ac5a98228ece2a3af9441/docs/505_Adenovirus_Analysis.html" target="_blank">047524b</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-05-25
+</td>
+<td>
+Added ADV corrs with igc and part of NMDS (later still incomplete)
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -612,17 +651,51 @@ metadata &lt;-
                 long_var = !!sym(long_var),
                 cat_var = &quot;group&quot;,
                 ADV) %&gt;% 
-  # mutate(logADV = log10(ADV)) %&gt;% 
-  
+
   ggplot2::ggplot(., aes(x=ADV, color=cat_var)) +
-  # facet_wrap(~cat_var)+
   geom_density(stat=&quot;density&quot;) +
-  # scale_x_log10() +
   theme_minimal() +
   labs(title = &quot;Adenovirus&quot;, subtitle = &quot;Abundance distribution (log10)&quot;, x=&quot;log10(ADV)&quot;,
        color = &quot;group&quot;) +
   scale_color_brewer(palette = &quot;Set1&quot;)</code></pre>
 <p><img src="figure/505_Adenovirus_Analysis.Rmd/first_exploration-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-first_exploration-1">
+Past versions of first_exploration-1.png
+</button>
+</p>
+<div id="fig-first_exploration-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/047524bc9a8f870cf47ac5a98228ece2a3af9441/docs/figure/505_Adenovirus_Analysis.Rmd/first_exploration-1.png" target="_blank">047524b</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-05-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>It is clear there are outliers on the data which heavily skew the DTG group. This is due to one specific sample from the DTG group with an outstanding ammount of ADV.</p>
 <table>
 <thead>
@@ -657,24 +730,57 @@ metadata_f %&gt;%
                 long_var = !!sym(long_var),
                 cat_var = &quot;group&quot;,
                 ADV) %&gt;% 
-  # mutate(logADV = log10(ADV)) %&gt;% 
-  
+
   ggplot2::ggplot(., aes(x=ADV, color=cat_var)) +
-  # facet_wrap(~cat_var)+
   geom_density(stat=&quot;density&quot;) +
-  # scale_x_log10() +
   theme_minimal() +
   labs(title = &quot;Adenovirus&quot;, subtitle = &quot;Abundance distribution (log10)&quot;, x=&quot;log10(ADV)&quot;,
        color = &quot;group&quot;) +
   scale_color_brewer(palette = &quot;Set1&quot;)</code></pre>
 <p><img src="figure/505_Adenovirus_Analysis.Rmd/filtered_distribution-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-filtered_distribution-1">
+Past versions of filtered_distribution-1.png
+</button>
+</p>
+<div id="fig-filtered_distribution-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/047524bc9a8f870cf47ac5a98228ece2a3af9441/docs/figure/505_Adenovirus_Analysis.Rmd/filtered_distribution-1.png" target="_blank">047524b</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-05-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Now the data is still heavily skewed but we can see a more reasonable distribution, with majority of 0s but those with actual abundance have more “evenly” distributed values.</p>
 <div id="quantitative-exploration" class="section level2">
 <h2>Quantitative exploration</h2>
 <pre class="r"><code>LMMlist &lt;- metadata_f %&gt;% 
-  mutate(logADV = log10(ADV)) %&gt;% 
   create_LMM(data = .,
-           num_var = &quot;logADV&quot;,
+           num_var = &quot;ADV&quot;,
            cat_var = &quot;group&quot;,
            long_var = long_var, 
            link_var = link_var,
@@ -682,9 +788,9 @@ metadata_f %&gt;%
 
 
 LMMlist$stats</code></pre>
-<pre><code>       slope  pval CategoricalVariable
-DRV/r -0.006 0.590               DRV/r
-DTG   -0.015 0.105                 DTG</code></pre>
+<pre><code>        slope  pval CategoricalVariable
+DRV/r  26.833 0.538               DRV/r
+DTG   -40.395 0.039                 DTG</code></pre>
 <pre class="r"><code>unique(metadata_f$group) %&gt;% 
   purrr::set_names() %&gt;% 
   purrr::map_dfr(~{
@@ -766,6 +872,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/047524bc9a8f870cf47ac5a98228ece2a3af9441/docs/figure/505_Adenovirus_Analysis.Rmd/ADV_longitudinal-1.png" target="_blank">047524b</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-05-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/28f4f36a86ce137e63a5bdce76ff1deb56282797/docs/figure/505_Adenovirus_Analysis.Rmd/ADV_longitudinal-1.png" target="_blank">28f4f36</a>
@@ -928,7 +1045,7 @@ metadata_f %&gt;%
                 cat_var = cat_var,
                 ADV) %&gt;% 
   dplyr::right_join(igc, by=&quot;SampleID&quot;) %&gt;% 
-  # mutate(logADV = log10(ADV)) %&gt;%
+  # mutate(ADV = log10(ADV)) %&gt;%
   get_lmm_effects(., cat_vector = cat_var, num_vector = &quot;ADV&quot;, long_var = &quot;GeneNumber&quot;,link_var = &quot;link_var&quot;) %&gt;% 
   purrr::pluck(&quot;group&quot;,&quot;ADV&quot;,&quot;plot&quot;) +
   scale_x_continuous() +
@@ -937,6 +1054,43 @@ metadata_f %&gt;%
 <pre><code>[1] &quot;group&quot;
 [1] &quot;ADV&quot;</code></pre>
 <p><img src="figure/505_Adenovirus_Analysis.Rmd/gene_richness_corr-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-gene_richness_corr-1">
+Past versions of gene_richness_corr-1.png
+</button>
+</p>
+<div id="fig-gene_richness_corr-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/047524bc9a8f870cf47ac5a98228ece2a3af9441/docs/figure/505_Adenovirus_Analysis.Rmd/gene_richness_corr-1.png" target="_blank">047524b</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-05-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Nothing conclussive can be extracted by correlating gene richness to ADV presence, except that both groups evolution are close to a perfect match. This is mainly due to how much ADV levels vary beween patients and how discontinuous the data is. Most patients persent ADV in only one or two timepoints, which affects the robustness of any longitudinal approach. An qualitative approach may be more useful.</p>
 <pre class="r"><code>c(0,48,96) %&gt;% 
   purrr::set_names() %&gt;% 
@@ -981,7 +1135,45 @@ metadata %&gt;%
 
   }) %&gt;% 
   ggpubr::ggarrange(plotlist = ., common.legend = T)</code></pre>
-<p><img src="figure/505_Adenovirus_Analysis.Rmd/ADV_presence_igc-1.png" width="768" style="display: block; margin: auto;" /> Here we see a similar signal. Gene richness increased more in the DTG than in the RTV/r group, but no differences were found between those with and without presence of Adenovirus. Low amount of patients with ADV and great variation may be taking a toll on Wilcoxon tests sensitivity.</p>
+<p><img src="figure/505_Adenovirus_Analysis.Rmd/ADV_presence_igc-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-ADV_presence_igc-1">
+Past versions of ADV_presence_igc-1.png
+</button>
+</p>
+<div id="fig-ADV_presence_igc-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/047524bc9a8f870cf47ac5a98228ece2a3af9441/docs/figure/505_Adenovirus_Analysis.Rmd/ADV_presence_igc-1.png" target="_blank">047524b</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-05-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Here we see a similar signal. Gene richness increased more in the DTG than in the RTV/r group, but no differences were found between those with and without presence of Adenovirus. Low amount of patients with ADV and great variation may be taking a toll on Wilcoxon tests sensitivity.</p>
 </div>
 </div>
 <div id="nmds" class="section level1">
@@ -997,31 +1189,36 @@ group_nmds &lt;- get_taxa(mymre, type=&quot;metaphlan&quot;, result_slot = &quot
 >knitr cache options</a> for more details.
 </p>
 </div>
-<pre class="r"><code>c(&quot;NMDS1&quot;, &quot;NMDS2&quot;) %&gt;% 
+<pre class="r"><code>c(&quot;group&quot;,&quot;ADV_p&quot;) %&gt;% 
+  purrr::set_names() %&gt;% 
+  purrr::map(function(cv){
+    c(&quot;NMDS1&quot;, &quot;NMDS2&quot;) %&gt;% 
   purrr::set_names() %&gt;% 
   purrr::map(function(comp){
   
   group_nmds$data %&gt;% 
-  left_join(igc, by=&quot;SampleID&quot;) %&gt;% 
-  inner_join(metadata_f[,c(&quot;SampleID&quot;,&quot;ADV&quot;, &quot;record_id&quot;)], by=&quot;SampleID&quot;) %&gt;% 
-  get_lmm_effects(data = ., cat_vector = &quot;group&quot;, num_vector = &quot;ADV&quot;, long_var = comp, link_var = &quot;record_id&quot;) %&gt;% purrr::pluck(&quot;group&quot;,&quot;ADV&quot;,&quot;plot&quot;) +
-  scale_x_continuous(n.breaks = 10) +
+  dplyr::select(SampleID, NMDS1, NMDS2) %&gt;% 
+  dplyr::left_join(igc, by=&quot;SampleID&quot;) %&gt;% 
+  dplyr::inner_join(metadata_f[,c(&quot;SampleID&quot;,&quot;ADV&quot;, &quot;record_id&quot;, cv)], by=&quot;SampleID&quot;) %&gt;% 
+  # get_lmm_effects(data = ., cat_vector = c(&quot;group&quot;,&quot;ADV_p&quot;), num_vector = &quot;ADV&quot;, long_var = comp, link_var = &quot;record_id&quot;) %&gt;% purrr::pluck(&quot;group&quot;,&quot;ADV&quot;,&quot;plot&quot;) +
+  # scale_x_continuous(n.breaks = 10) +
+  ggplot(., aes(x=))
   labs(x = &quot;NMDS1&quot;, title = comp)
 
   }) %&gt;% 
-  ggpubr::ggarrange(plotlist=., common.legend = T)</code></pre>
-<pre><code>[1] &quot;group&quot;
-[1] &quot;ADV&quot;
-[1] &quot;group&quot;
-[1] &quot;ADV&quot;</code></pre>
-<p><img src="figure/505_Adenovirus_Analysis.Rmd/nmds_ADV-1.png" width="960" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>group_nmds$data %&gt;% 
+  ggpubr::ggarrange(plotlist=., common.legend = T)
+
+  })
+
+
+
+group_nmds$data %&gt;% 
+
   left_join(igc, by=&quot;SampleID&quot;) %&gt;% 
   left_join(metadata_f[,c(&quot;SampleID&quot;,&quot;ADV&quot;)], by=&quot;SampleID&quot;) %&gt;% 
   dplyr::filter(!ADV == max(.[,&quot;ADV&quot;], na.rm = T)) %&gt;% 
   ggplot(aes(x=ADV, y = NMDS2, color = group)) +
   geom_point() </code></pre>
-<img src="figure/505_Adenovirus_Analysis.Rmd/nmds_ADV-2.png" width="960" style="display: block; margin: auto;" />
 <div class="alert alert-warning">
 <p>
 <strong>Warning:</strong> The above code chunk cached its results, but it won’t be re-run if previous chunks it depends on are updated. If you need to use caching, it is highly recommended to also set <code>knitr::opts_chunk$set(autodep = TRUE)</code> at the top of the file (in a chunk that is not cached). Alternatively, you can customize the option <code>dependson</code> for each individual chunk that is cached. Using either <code>autodep</code> or <code>dependson</code> will remove this warning. See the <a href="https://yihui.name/knitr/options/#cache"
@@ -1061,7 +1258,7 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] metar_0.1.5        nlme_3.1-157       testthat_3.1.4     RColorBrewer_1.1-3
+ [1] nlme_3.1-157       metar_0.1.5        testthat_3.1.4     RColorBrewer_1.1-3
  [5] forcats_0.5.1      stringr_1.4.0      dplyr_1.0.9        purrr_0.3.4       
  [9] readr_2.1.2        tidyr_1.2.0        tibble_3.1.7       ggplot2_3.3.6     
 [13] tidyverse_1.3.1   
@@ -1084,55 +1281,53 @@ loaded via a namespace (and not attached):
  [43] backports_1.4.1        insight_0.17.0         permute_0.9-7         
  [46] vctrs_0.4.1            Biobase_2.50.0         remotes_2.4.2         
  [49] here_1.0.1             abind_1.4-5            cachem_1.0.6          
- [52] withr_2.5.0            ggforce_0.3.3          aws.signature_0.6.0   
- [55] vroom_1.5.7            emmeans_1.7.3          vegan_2.6-2           
- [58] prettyunits_1.1.1      svglite_2.1.0          cluster_2.1.3         
- [61] ape_5.6-2              crayon_1.5.1           SuppDists_1.1-9.7     
- [64] pkgconfig_2.0.3        labeling_0.4.2         tweenr_1.0.2          
- [67] statsExpressions_1.3.1 pkgload_1.2.4          blme_1.0-5            
- [70] devtools_2.4.3         rlang_1.0.2            globals_0.14.0        
- [73] lifecycle_1.0.1        sandwich_3.0-1         selbal_0.1.0          
- [76] phyloseq_1.34.0        modelr_0.1.8           cellranger_1.1.0      
- [79] rprojroot_2.0.3        polyclip_1.10-0        datawizard_0.4.0      
- [82] Matrix_1.4-1           mc2d_0.1-21            carData_3.0-5         
- [85] Rhdf5lib_1.12.1        boot_1.3-28            zoo_1.8-10            
- [88] reprex_2.0.1           base64enc_0.1-3        whisker_0.4           
- [91] processx_3.5.3         viridisLite_0.4.0      PMCMRplus_1.9.4       
- [94] parameters_0.17.0      rhdf5filters_1.2.1     Biostrings_2.58.0     
- [97] workflowr_1.7.0        multcompView_0.1-8     arm_1.12-2            
-[100] parallelly_1.31.1      rstatix_0.7.0          S4Vectors_0.28.1      
-[103] ggsignif_0.6.3.9000    aws.s3_0.3.21          scales_1.2.0          
-[106] memoise_2.0.1          magrittr_2.0.3         plyr_1.8.7            
-[109] zlibbioc_1.36.0        compiler_4.0.5         kableExtra_1.3.4      
-[112] lme4_1.1-29            snakecase_0.11.0       cli_3.3.0             
-[115] ade4_1.7-19            XVector_0.30.0         lmerTest_3.1-3        
-[118] listenv_0.8.0          patchwork_1.1.1        ps_1.7.0              
-[121] ggside_0.2.0           MASS_7.3-57            mgcv_1.8-40           
-[124] tidyselect_1.1.2       stringi_1.7.6          highr_0.9             
-[127] yaml_2.3.5             ggrepel_0.9.1          grid_4.0.5            
-[130] sass_0.4.1             tools_4.0.5            parallel_4.0.5        
-[133] rstudioapi_0.13        foreach_1.5.2          logging_0.10-108      
-[136] git2r_0.30.1           janitor_2.1.0          gridExtra_2.3         
-[139] farver_2.1.0           digest_0.6.29          shiny_1.7.1           
-[142] BWStest_0.2.2          networkD3_0.4          Rcpp_1.0.8.3          
-[145] car_3.0-13             broom_0.8.0            performance_0.9.0     
-[148] later_1.3.0            httr_1.4.2             effectsize_0.6.0.1    
-[151] colorspace_2.0-3       rvest_1.0.2            brio_1.1.3            
-[154] fs_1.5.2               IRanges_2.24.1         splines_4.0.5         
-[157] rematch2_2.1.2         multtest_2.46.0        sessioninfo_1.2.2     
-[160] systemfonts_1.0.4      gmp_0.6-5              xtable_1.8-4          
-[163] jsonlite_1.8.0         nloptr_2.0.2           zeallot_0.1.0         
-[166] R6_2.5.1               broom.mixed_0.2.9.4    pillar_1.7.0          
-[169] htmltools_0.5.2        mime_0.12              glue_1.6.2            
-[172] fastmap_1.1.0          minqa_1.2.4            codetools_0.2-18      
-[175] pkgbuild_1.3.1         mvtnorm_1.1-3          furrr_0.2.3           
-[178] utf8_1.2.2             lattice_0.20-45        bslib_0.3.1           
-[181] logger_0.2.2           numDeriv_2016.8-1.1    curl_4.3.2            
-[184] survival_3.3-1         rmarkdown_2.14         desc_1.4.1            
-[187] biomformat_1.18.0      merTools_0.5.2         munsell_0.5.0         
-[190] rhdf5_2.34.0           iterators_1.0.14       ggstatsplot_0.9.1     
-[193] haven_2.5.0            reshape2_1.4.4         gtable_0.3.0          
-[196] bayestestR_0.11.5.1   </code></pre>
+ [52] withr_2.5.0            ggforce_0.3.3          vroom_1.5.7           
+ [55] emmeans_1.7.3          vegan_2.6-2            prettyunits_1.1.1     
+ [58] svglite_2.1.0          cluster_2.1.3          ape_5.6-2             
+ [61] crayon_1.5.1           SuppDists_1.1-9.7      pkgconfig_2.0.3       
+ [64] labeling_0.4.2         tweenr_1.0.2           statsExpressions_1.3.1
+ [67] pkgload_1.2.4          blme_1.0-5             devtools_2.4.3        
+ [70] rlang_1.0.2            globals_0.14.0         lifecycle_1.0.1       
+ [73] sandwich_3.0-1         selbal_0.1.0           phyloseq_1.34.0       
+ [76] modelr_0.1.8           cellranger_1.1.0       rprojroot_2.0.3       
+ [79] polyclip_1.10-0        datawizard_0.4.0       Matrix_1.4-1          
+ [82] mc2d_0.1-21            carData_3.0-5          Rhdf5lib_1.12.1       
+ [85] boot_1.3-28            zoo_1.8-10             reprex_2.0.1          
+ [88] whisker_0.4            processx_3.5.3         viridisLite_0.4.0     
+ [91] PMCMRplus_1.9.4        parameters_0.17.0      rhdf5filters_1.2.1    
+ [94] Biostrings_2.58.0      workflowr_1.7.0        multcompView_0.1-8    
+ [97] arm_1.12-2             parallelly_1.31.1      rstatix_0.7.0         
+[100] S4Vectors_0.28.1       ggsignif_0.6.3.9000    scales_1.2.0          
+[103] memoise_2.0.1          magrittr_2.0.3         plyr_1.8.7            
+[106] zlibbioc_1.36.0        compiler_4.0.5         kableExtra_1.3.4      
+[109] lme4_1.1-29            snakecase_0.11.0       cli_3.3.0             
+[112] ade4_1.7-19            XVector_0.30.0         lmerTest_3.1-3        
+[115] listenv_0.8.0          patchwork_1.1.1        ps_1.7.0              
+[118] ggside_0.2.0           MASS_7.3-57            mgcv_1.8-40           
+[121] tidyselect_1.1.2       stringi_1.7.6          highr_0.9             
+[124] yaml_2.3.5             ggrepel_0.9.1          grid_4.0.5            
+[127] sass_0.4.1             tools_4.0.5            parallel_4.0.5        
+[130] rstudioapi_0.13        foreach_1.5.2          logging_0.10-108      
+[133] git2r_0.30.1           janitor_2.1.0          gridExtra_2.3         
+[136] farver_2.1.0           digest_0.6.29          shiny_1.7.1           
+[139] networkD3_0.4          BWStest_0.2.2          Rcpp_1.0.8.3          
+[142] car_3.0-13             broom_0.8.0            performance_0.9.0     
+[145] later_1.3.0            httr_1.4.2             effectsize_0.6.0.1    
+[148] colorspace_2.0-3       rvest_1.0.2            brio_1.1.3            
+[151] fs_1.5.2               IRanges_2.24.1         splines_4.0.5         
+[154] rematch2_2.1.2         multtest_2.46.0        sessioninfo_1.2.2     
+[157] systemfonts_1.0.4      xtable_1.8-4           gmp_0.6-5             
+[160] jsonlite_1.8.0         nloptr_2.0.2           zeallot_0.1.0         
+[163] R6_2.5.1               broom.mixed_0.2.9.4    pillar_1.7.0          
+[166] htmltools_0.5.2        mime_0.12              glue_1.6.2            
+[169] fastmap_1.1.0          minqa_1.2.4            codetools_0.2-18      
+[172] pkgbuild_1.3.1         mvtnorm_1.1-3          furrr_0.2.3           
+[175] utf8_1.2.2             lattice_0.20-45        bslib_0.3.1           
+[178] logger_0.2.2           numDeriv_2016.8-1.1    survival_3.3-1        
+[181] rmarkdown_2.14         desc_1.4.1             biomformat_1.18.0     
+[184] merTools_0.5.2         munsell_0.5.0          rhdf5_2.34.0          
+[187] iterators_1.0.14       ggstatsplot_0.9.1      haven_2.5.0           
+[190] reshape2_1.4.4         gtable_0.3.0           bayestestR_0.11.5.1   </code></pre>
 </div>
 </div>
 
