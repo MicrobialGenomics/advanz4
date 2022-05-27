@@ -344,7 +344,7 @@ basal_mre <- metar::metaphlan_nmds(basal_mre, tax_level="Species")
 ```{r numeric_nmds_cors, message=F, warning=F}
 nmdscor <- basal_mre@taxa@metaphlan@nmds$Species$top_50$numeric 
 
-ggpubr::ggarrange(plotlist = nmdscor, ncol=2)
+ggpubr::ggarrange(plotlist = nmdscor, ncol=1)
 
 ```
 

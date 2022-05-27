@@ -19,7 +19,7 @@ source(here::here("code","LMM.R"))
 source(here::here("code","myFunctions.R"))
 ```
 
-```{r read_data, warning=FALSE, message=FALSE, cache=T}
+```{r read_data, warning=FALSE, message=FALSE, cache=F}
 
 mymre <- mymre <- aws.s3::s3readRDS(bucket = "s3://mistral-wp6-advanz4", object = "metagenome/WMGS/MREObject.rds")
 # metadata <-get_meta(mymre)
@@ -134,9 +134,14 @@ This one will be taken out from quantitative analysis from now on.
 
 
 ```{r filtered_distribution, message = F, warning = F}
-metadata_f <- 
-metadata %>% 
-  dplyr::filter(!.[,"ADV"] == max(.[,"ADV"], na.rm=T))
+maxADV <- metadata %>% 
+  pull(ADV) %>% 
+  max(., na.rm = T)
+
+metadata_f <-
+  metadata %>%
+  dplyr::filter((ADV != maxADV) %>% 
+  replace_na(T))
 
 
 
@@ -386,50 +391,60 @@ Here we see a similar signal. Gene richness increased more in the DTG than in th
 
 Last, we will look for links between overall microbiome structure and Adenovirus incidence.
 
-```{r construct_nmds, warning = F, message = F, cache = T}
+```{r construct_nmds, warning = F, message = F, cache = F}
+
+# Add the categorical var ADV_p to the mre
+
+mymre@metadata@categorical_vals <- rbind(mymre@metadata@categorical_vals, c("ADV_p", "Set1") )
+
 mymre <- metaphlan_nmds(mymre, tax_level = "Species", top_n = 50, save_files = F)
 
-group_nmds <- get_taxa(mymre, type="metaphlan", result_slot = "nmds") %>% 
-  purrr::pluck("Species", "top_50","categorical","group")
+ADV_nmds <- get_taxa(mymre, type="metaphlan", result_slot = "nmds") %>% 
+  purrr::pluck("Species", "top_50","categorical","ADV_p")
+```
+
+No significant clstering can be observed.
+
+```{r plot_nmds, warning=F, message= F, echo = F}
+ADV_nmds
+
 ```
 
 
 
-```{r nmds_ADV, warning=F, message = F, cache= T, fig.width= 10, fig.height= 8, eval=F}
 
-c("group","ADV_p") %>% 
-  purrr::set_names() %>% 
-  purrr::map(function(cv){
-    c("NMDS1", "NMDS2") %>% 
-  purrr::set_names() %>% 
-  purrr::map(function(comp){
-  
-  group_nmds$data %>% 
-  dplyr::select(SampleID, NMDS1, NMDS2) %>% 
-  dplyr::left_join(igc, by="SampleID") %>% 
-  dplyr::inner_join(metadata_f[,c("SampleID","ADV", "record_id", cv)], by="SampleID") %>% 
-  # get_lmm_effects(data = ., cat_vector = c("group","ADV_p"), num_vector = "ADV", long_var = comp, link_var = "record_id") %>% purrr::pluck("group","ADV","plot") +
-  # scale_x_continuous(n.breaks = 10) +
-  ggplot(., aes(x=))
-  labs(x = "NMDS1", title = comp)
+```{r nmds_ADV, warning=F, message = F, cache= F, fig.width= 10, fig.height= 8, eval=F}
 
-  }) %>% 
-  ggpubr::ggarrange(plotlist=., common.legend = T)
-
+NMDS_long_list <- c("ADV_p") %>%
+  purrr::set_names() %>%
+  purrr::map(function(cv) {
+    c("NMDS1", "NMDS2") %>%
+      purrr::set_names() %>%
+      purrr::map(function(comp) {
+        ADV_nmds$data %>%
+          dplyr::select(SampleID, NMDS = comp) %>%
+          dplyr::inner_join(metadata_f[, c("SampleID", "ADV_p","time_point" ,"record_id", cv)], by =
+                              "SampleID") %>%
+          get_lmm_effects(data = ., cat_vector = cv, num_vector = "NMDS", long_var = "time_point", link_var = "record_id") %>% purrr::pluck(cv,"NMDS","plot") +
+          scale_x_continuous(n.breaks = 10) +
+          # ggplot(., aes(x = time_point, y = NMDS, fill = !!sym(cv),color = !!sym(cv))) +
+          # geom_point() +
+          # geom_smooth(, method = "lm")+
+        labs(x = "week", y = comp)
+        
+      }) %>%
+      ggpubr::ggarrange(plotlist = ., common.legend = T)
+    
   })
 
 
-
-group_nmds$data %>% 
-
-  left_join(igc, by="SampleID") %>% 
-  left_join(metadata_f[,c("SampleID","ADV")], by="SampleID") %>% 
-  dplyr::filter(!ADV == max(.[,"ADV"], na.rm = T)) %>% 
-  ggplot(aes(x=ADV, y = NMDS2, color = group)) +
-  geom_point() 
+NMDS_long_list$ADV_p
 
 
 ```
+
+We observe no temporal tendency towards any direction in the NMDS by ADV presence, while group do
+
 
 
 Use:

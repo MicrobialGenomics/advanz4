@@ -281,6 +281,9 @@ $(document).ready(function () {
 <li>
   <a href="420_Taxonomy_DA.html">Differential Abundance</a>
 </li>
+<li>
+  <a href="505_Adenovirus_Analysis.Rmd">Adenovirus and Enterovirus analysis</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -320,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-04-28
+<strong>Last updated:</strong> 2022-05-27
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -411,16 +414,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree2d56276b1697067ceaa589cfa4354313d3ffd199targetblank2d56276a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/2d56276b1697067ceaa589cfa4354313d3ffd199" target="_blank">2d56276</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treeac624c3b67ddb408cf8e7ba77b4e594593f3461dtargetblankac624c3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/ac624c3b67ddb408cf8e7ba77b4e594593f3461d" target="_blank">ac624c3</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree2d56276b1697067ceaa589cfa4354313d3ffd199targetblank2d56276a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treeac624c3b67ddb408cf8e7ba77b4e594593f3461dtargetblankac624c3a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/2d56276b1697067ceaa589cfa4354313d3ffd199" target="_blank">2d56276</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/ac624c3b67ddb408cf8e7ba77b4e594593f3461d" target="_blank">ac624c3</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -431,16 +434,59 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/.Rhistory
+    Ignored:    analysis/420_Taxonomy_DA_cache/
+    Ignored:    analysis/505_Adenovirus_Analysis_cache/
+    Ignored:    analysis/output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/
     Ignored:    data/mre.rds
 
 Untracked files:
-    Untracked:  Metadata/2022_04_28_clean_metadata_LIMS.csv
+    Untracked:  analysis/figure/
 
 Unstaged changes:
-    Modified:   analysis/310_IGC_analysis.Rmd
-    Modified:   analysis/320_Beta_Diversity.Rmd
     Modified:   analysis/335_BLMicrobiome_vs_ImmuneResponse.Rmd
+    Modified:   analysis/420_Taxonomy_DA.Rmd
+    Modified:   analysis/505_Adenovirus_Analysis.Rmd
+    Modified:   analysis/_site.yml
     Modified:   output/mre_data/CatalogMapping/IGC/lmm/lmm_time_point_by_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/bray_stressplot.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD4after_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD4after_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD4diff_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD4diff_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD8after_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD8after_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD8diff_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD8diff_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_center.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_cluster.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_ethnic_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_gender.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_risk_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD4after_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD4after_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD4diff_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD4diff_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD8after_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD8after_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD8diff_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD8diff_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_center.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_ethnic_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_gender.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_risk_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_ADV.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CD4.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CD8.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CD8_CD38_DR.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CRP.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_ADV.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CD4.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CD8.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CD8_CD38_DR.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CRP.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/silhouette_plt.pdf
 
 </code></pre>
 <p>
@@ -479,6 +525,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/analysis/335_BLMicrobiome_vs_ImmuneResponse.Rmd" target="_blank">2a1fe84</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-04-28
+</td>
+<td>
+Fixed rmd integration to wflow_build()
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/335_BLMicrobiome_vs_ImmuneResponse.html" target="_blank">2a1fe84</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-04-28
+</td>
+<td>
+Fixed rmd integration to wflow_build()
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1127,8 +1207,7 @@ totalMissing_CD4_48</code></pre>
 <pre class="r"><code>basal_mre &lt;- metar::metaphlan_nmds(basal_mre, tax_level=&quot;Species&quot;)</code></pre>
 <pre class="r"><code>nmdscor &lt;- basal_mre@taxa@metaphlan@nmds$Species$top_50$numeric 
 
-ggpubr::ggarrange(plotlist = nmdscor, ncol=2)</code></pre>
-<pre><code>$`1`</code></pre>
+ggpubr::ggarrange(plotlist = nmdscor, ncol=1)</code></pre>
 <p><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/numeric_nmds_cors-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-numeric_nmds_cors-1">
@@ -1167,89 +1246,6 @@ cblazquez
 </table>
 </div>
 </div>
-<pre><code>
-$`2`</code></pre>
-<p><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/numeric_nmds_cors-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-numeric_nmds_cors-2">
-Past versions of numeric_nmds_cors-2.png
-</button>
-</p>
-<div id="fig-numeric_nmds_cors-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/2d56276b1697067ceaa589cfa4354313d3ffd199/docs/figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/numeric_nmds_cors-2.png" target="_blank">2d56276</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2022-04-28
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-$`3`</code></pre>
-<p><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/numeric_nmds_cors-3.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-numeric_nmds_cors-3">
-Past versions of numeric_nmds_cors-3.png
-</button>
-</p>
-<div id="fig-numeric_nmds_cors-3" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/2d56276b1697067ceaa589cfa4354313d3ffd199/docs/figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/numeric_nmds_cors-3.png" target="_blank">2d56276</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2022-04-28
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-attr(,&quot;class&quot;)
-[1] &quot;list&quot;      &quot;ggarrange&quot;</code></pre>
 <pre class="r"><code>group &lt;- basal_mre@taxa@metaphlan@nmds$Species$top_50$categorical$group &amp; 
     scale_color_brewer(palette=&quot;Set1&quot;) &amp;
     scale_fill_brewer(palette = &quot;Set1&quot;) 
@@ -1284,6 +1280,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/basal_NMDS-1.png" target="_blank">2a1fe84</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/2d56276b1697067ceaa589cfa4354313d3ffd199/docs/figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/basal_NMDS-1.png" target="_blank">2d56276</a>
@@ -1480,6 +1487,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/NMDS_numeric_correlations-1.png" target="_blank">2a1fe84</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/2d56276b1697067ceaa589cfa4354313d3ffd199/docs/figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/NMDS_numeric_correlations-1.png" target="_blank">2d56276</a>
@@ -1733,6 +1751,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-5.png" target="_blank">2a1fe84</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/2d56276b1697067ceaa589cfa4354313d3ffd199/docs/figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-5.png" target="_blank">2d56276</a>
 </td>
 <td>
@@ -1769,6 +1798,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-6.png" target="_blank">2a1fe84</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/2d56276b1697067ceaa589cfa4354313d3ffd199/docs/figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-6.png" target="_blank">2d56276</a>
@@ -1809,6 +1849,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-7.png" target="_blank">2a1fe84</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/2d56276b1697067ceaa589cfa4354313d3ffd199/docs/figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-7.png" target="_blank">2d56276</a>
 </td>
 <td>
@@ -1845,6 +1896,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-8.png" target="_blank">2a1fe84</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/2d56276b1697067ceaa589cfa4354313d3ffd199/docs/figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-8.png" target="_blank">2d56276</a>
@@ -1885,6 +1947,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-9.png" target="_blank">2a1fe84</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/2d56276b1697067ceaa589cfa4354313d3ffd199/docs/figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-9.png" target="_blank">2d56276</a>
 </td>
 <td>
@@ -1921,6 +1994,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-10.png" target="_blank">2a1fe84</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/2d56276b1697067ceaa589cfa4354313d3ffd199/docs/figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-10.png" target="_blank">2d56276</a>
@@ -1961,6 +2045,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-11.png" target="_blank">2a1fe84</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/2d56276b1697067ceaa589cfa4354313d3ffd199/docs/figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-11.png" target="_blank">2d56276</a>
 </td>
 <td>
@@ -1999,6 +2094,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-12.png" target="_blank">2a1fe84</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/2d56276b1697067ceaa589cfa4354313d3ffd199/docs/figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-12.png" target="_blank">2d56276</a>
 </td>
 <td>
@@ -2013,6 +2119,43 @@ cblazquez
 </div>
 </div>
 <p><img src="figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-13.png" width="40%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-categorical_vs_cluster-13">
+Past versions of categorical_vs_cluster-13.png
+</button>
+</p>
+<div id="fig-categorical_vs_cluster-13" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/335_BLMicrobiome_vs_ImmuneResponse.Rmd/categorical_vs_cluster-13.png" target="_blank">2a1fe84</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-04-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>The variabe correspoinding to the change in CD4 counts after 96 weeks <strong>CD4diff_96</strong> was dropped due to having only one value. This means all patients had an increase of CD4&gt;50, which breaks any comparison we try to make.</p>
 </div>
 </div>
@@ -2198,81 +2341,80 @@ attached base packages:
 
 other attached packages:
  [1] metar_0.1.5        testthat_3.1.4     patchwork_1.1.1    RColorBrewer_1.1-3
- [5] forcats_0.5.1      stringr_1.4.0      dplyr_1.0.8        purrr_0.3.4       
- [9] readr_2.1.2        tidyr_1.2.0        tibble_3.1.6       ggplot2_3.3.5     
-[13] tidyverse_1.3.1   
+ [5] forcats_0.5.1      stringr_1.4.0      dplyr_1.0.9        purrr_0.3.4       
+ [9] readr_2.1.2        tidyr_1.2.0        tibble_3.1.7       ggplot2_3.3.6     
+[13] tidyverse_1.3.1    devtools_2.4.3     usethis_2.1.5      workflowr_1.7.0   
 
 loaded via a namespace (and not attached):
   [1] estimability_1.3       coda_0.19-4            bit64_4.0.5           
   [4] knitr_1.39             multcomp_1.4-19        wesanderson_0.3.6     
   [7] data.table_1.14.2      DataExplorer_0.8.2     generics_0.1.2        
  [10] BiocGenerics_0.36.1    cowplot_1.1.1          callr_3.7.0           
- [13] TH.data_1.1-1          usethis_2.1.5          future_1.25.0         
- [16] correlation_0.8.0      bit_4.0.4              tzdb_0.3.0            
- [19] bayesm_3.1-4           webshot_0.5.3          xml2_1.3.2            
- [22] lubridate_1.8.0        httpuv_1.6.5           assertthat_0.2.1      
- [25] WRS2_1.1-3             xfun_0.30              hms_1.1.1             
- [28] jquerylib_0.1.4        evaluate_0.15          promises_1.2.0.1      
- [31] DEoptimR_1.0-11        fansi_1.0.3            dbplyr_2.1.1          
- [34] readxl_1.4.0           igraph_1.3.1           DBI_1.1.2             
- [37] htmlwidgets_1.5.4      reshape_0.8.9          tensorA_0.36.2        
- [40] kSamples_1.2-9         stats4_4.0.5           Rmpfr_0.8-7           
- [43] paletteer_1.4.0        ellipsis_0.3.2         survcomp_1.40.0       
- [46] ggpubr_0.4.0           backports_1.4.1        insight_0.17.0        
- [49] permute_0.9-7          prismatic_1.1.0        compositions_2.0-4    
- [52] vctrs_0.4.1            Biobase_2.50.0         remotes_2.4.2         
- [55] here_1.0.1             abind_1.4-5            cachem_1.0.6          
- [58] withr_2.5.0            ggforce_0.3.3          aws.signature_0.6.0   
- [61] robustbase_0.95-0      vroom_1.5.7            emmeans_1.7.3         
- [64] vegan_2.6-2            prettyunits_1.1.1      svglite_2.1.0         
- [67] cluster_2.1.3          ape_5.6-2              crayon_1.5.1          
- [70] pkgconfig_2.0.3        SuppDists_1.1-9.7      labeling_0.4.2        
- [73] tweenr_1.0.2           nlme_3.1-157           statsExpressions_1.3.1
- [76] pkgload_1.2.4          blme_1.0-5             devtools_2.4.3        
- [79] rlang_1.0.2            globals_0.14.0         lifecycle_1.0.1       
- [82] sandwich_3.0-1         survivalROC_1.0.3      selbal_0.1.0          
- [85] phyloseq_1.34.0        modelr_0.1.8           cellranger_1.1.0      
- [88] rprojroot_2.0.3        polyclip_1.10-0        datawizard_0.4.0      
- [91] Matrix_1.4-1           mc2d_0.1-21            carData_3.0-5         
- [94] Rhdf5lib_1.12.1        boot_1.3-28            zoo_1.8-10            
- [97] reprex_2.0.1           base64enc_0.1-3        whisker_0.4           
-[100] processx_3.5.3         viridisLite_0.4.0      PMCMRplus_1.9.4       
-[103] bootstrap_2019.6       parameters_0.17.0      KernSmooth_2.23-20    
-[106] rhdf5filters_1.2.1     Biostrings_2.58.0      workflowr_1.7.0       
-[109] multcompView_0.1-8     arm_1.12-2             parallelly_1.31.1     
-[112] rstatix_0.7.0          S4Vectors_0.28.1       ggsignif_0.6.3.9000   
-[115] rmeta_3.0              aws.s3_0.3.21          scales_1.2.0          
-[118] memoise_2.0.1          magrittr_2.0.3         plyr_1.8.7            
-[121] zlibbioc_1.36.0        compiler_4.0.5         kableExtra_1.3.4      
-[124] lme4_1.1-29            snakecase_0.11.0       cli_3.3.0             
-[127] ade4_1.7-19            XVector_0.30.0         listenv_0.8.0         
-[130] ps_1.7.0               MASS_7.3-57            mgcv_1.8-40           
-[133] ggside_0.2.0           tidyselect_1.1.2       stringi_1.7.6         
-[136] highr_0.9              yaml_2.3.5             ANCOM_2.2             
-[139] ggrepel_0.9.1          grid_4.0.5             sass_0.4.1            
-[142] tools_4.0.5            future.apply_1.9.0     parallel_4.0.5        
-[145] rstudioapi_0.13        foreach_1.5.2          logging_0.10-108      
-[148] git2r_0.30.1           janitor_2.1.0          gridExtra_2.3         
-[151] prodlim_2019.11.13     farver_2.1.0           digest_0.6.29         
-[154] lava_1.6.10            shiny_1.7.1            networkD3_0.4         
-[157] BWStest_0.2.2          Rcpp_1.0.8.3           car_3.0-12            
-[160] broom_0.8.0            performance_0.9.0      later_1.3.0           
-[163] httr_1.4.2             effectsize_0.6.0.1     colorspace_2.0-3      
-[166] rvest_1.0.2            brio_1.1.3             fs_1.5.2              
-[169] IRanges_2.24.1         splines_4.0.5          rematch2_2.1.2        
-[172] multtest_2.46.0        systemfonts_1.0.4      sessioninfo_1.2.2     
-[175] xtable_1.8-4           gmp_0.6-5              jsonlite_1.8.0        
-[178] nloptr_2.0.0           zeallot_0.1.0          R6_2.5.1              
-[181] broom.mixed_0.2.9.4    pillar_1.7.0           htmltools_0.5.2       
-[184] mime_0.12              glue_1.6.2             fastmap_1.1.0         
-[187] minqa_1.2.4            codetools_0.2-18       pkgbuild_1.3.1        
-[190] mvtnorm_1.1-3          furrr_0.2.3            utf8_1.2.2            
-[193] lattice_0.20-45        bslib_0.3.1            logger_0.2.2          
-[196] curl_4.3.2             survival_3.3-1         rmarkdown_2.14        
-[199] desc_1.4.1             biomformat_1.18.0      merTools_0.5.2        
-[202] munsell_0.5.0          rhdf5_2.34.0           iterators_1.0.14      
-[205] ggstatsplot_0.9.1      haven_2.5.0            reshape2_1.4.4        
-[208] gtable_0.3.0           bayestestR_0.11.5.1   </code></pre>
+ [13] TH.data_1.1-1          future_1.25.0          correlation_0.8.0     
+ [16] bit_4.0.4              tzdb_0.3.0             bayesm_3.1-4          
+ [19] webshot_0.5.3          xml2_1.3.2             lubridate_1.8.0       
+ [22] httpuv_1.6.5           assertthat_0.2.1       WRS2_1.1-3            
+ [25] xfun_0.31              hms_1.1.1              jquerylib_0.1.4       
+ [28] evaluate_0.15          promises_1.2.0.1       DEoptimR_1.0-11       
+ [31] fansi_1.0.3            dbplyr_2.1.1           readxl_1.4.0          
+ [34] igraph_1.3.1           DBI_1.1.2              htmlwidgets_1.5.4     
+ [37] reshape_0.8.9          tensorA_0.36.2         kSamples_1.2-9        
+ [40] stats4_4.0.5           Rmpfr_0.8-7            paletteer_1.4.0       
+ [43] ellipsis_0.3.2         survcomp_1.40.0        ggpubr_0.4.0          
+ [46] backports_1.4.1        insight_0.17.0         permute_0.9-7         
+ [49] prismatic_1.1.0        compositions_2.0-4     vctrs_0.4.1           
+ [52] Biobase_2.50.0         remotes_2.4.2          here_1.0.1            
+ [55] abind_1.4-5            cachem_1.0.6           withr_2.5.0           
+ [58] ggforce_0.3.3          aws.signature_0.6.0    robustbase_0.95-0     
+ [61] vroom_1.5.7            emmeans_1.7.3          vegan_2.6-2           
+ [64] prettyunits_1.1.1      svglite_2.1.0          cluster_2.1.3         
+ [67] ape_5.6-2              crayon_1.5.1           pkgconfig_2.0.3       
+ [70] SuppDists_1.1-9.7      labeling_0.4.2         tweenr_1.0.2          
+ [73] nlme_3.1-157           statsExpressions_1.3.1 pkgload_1.2.4         
+ [76] blme_1.0-5             rlang_1.0.2            globals_0.14.0        
+ [79] lifecycle_1.0.1        sandwich_3.0-1         survivalROC_1.0.3     
+ [82] selbal_0.1.0           phyloseq_1.34.0        modelr_0.1.8          
+ [85] cellranger_1.1.0       rprojroot_2.0.3        polyclip_1.10-0       
+ [88] datawizard_0.4.0       Matrix_1.4-1           mc2d_0.1-21           
+ [91] carData_3.0-5          Rhdf5lib_1.12.1        boot_1.3-28           
+ [94] zoo_1.8-10             reprex_2.0.1           base64enc_0.1-3       
+ [97] whisker_0.4            processx_3.5.3         viridisLite_0.4.0     
+[100] PMCMRplus_1.9.4        bootstrap_2019.6       parameters_0.17.0     
+[103] getPass_0.2-2          KernSmooth_2.23-20     rhdf5filters_1.2.1    
+[106] Biostrings_2.58.0      multcompView_0.1-8     arm_1.12-2            
+[109] parallelly_1.31.1      rstatix_0.7.0          S4Vectors_0.28.1      
+[112] ggsignif_0.6.3.9000    rmeta_3.0              aws.s3_0.3.21         
+[115] scales_1.2.0           memoise_2.0.1          magrittr_2.0.3        
+[118] plyr_1.8.7             zlibbioc_1.36.0        compiler_4.0.5        
+[121] kableExtra_1.3.4       lme4_1.1-29            snakecase_0.11.0      
+[124] cli_3.3.0              ade4_1.7-19            XVector_0.30.0        
+[127] listenv_0.8.0          ps_1.7.0               MASS_7.3-57           
+[130] mgcv_1.8-40            ggside_0.2.0           tidyselect_1.1.2      
+[133] stringi_1.7.6          highr_0.9              yaml_2.3.5            
+[136] ANCOM_2.2              ggrepel_0.9.1          grid_4.0.5            
+[139] sass_0.4.1             tools_4.0.5            future.apply_1.9.0    
+[142] parallel_4.0.5         rstudioapi_0.13        foreach_1.5.2         
+[145] logging_0.10-108       git2r_0.30.1           janitor_2.1.0         
+[148] gridExtra_2.3          prodlim_2019.11.13     farver_2.1.0          
+[151] digest_0.6.29          lava_1.6.10            shiny_1.7.1           
+[154] networkD3_0.4          BWStest_0.2.2          Rcpp_1.0.8.3          
+[157] car_3.0-13             broom_0.8.0            performance_0.9.0     
+[160] later_1.3.0            httr_1.4.2             effectsize_0.6.0.1    
+[163] colorspace_2.0-3       rvest_1.0.2            brio_1.1.3            
+[166] fs_1.5.2               IRanges_2.24.1         splines_4.0.5         
+[169] rematch2_2.1.2         multtest_2.46.0        systemfonts_1.0.4     
+[172] sessioninfo_1.2.2      xtable_1.8-4           gmp_0.6-5             
+[175] jsonlite_1.8.0         nloptr_2.0.2           zeallot_0.1.0         
+[178] R6_2.5.1               broom.mixed_0.2.9.4    pillar_1.7.0          
+[181] htmltools_0.5.2        mime_0.12              glue_1.6.2            
+[184] fastmap_1.1.0          minqa_1.2.4            codetools_0.2-18      
+[187] pkgbuild_1.3.1         mvtnorm_1.1-3          furrr_0.2.3           
+[190] utf8_1.2.2             lattice_0.20-45        bslib_0.3.1           
+[193] logger_0.2.2           curl_4.3.2             survival_3.3-1        
+[196] rmarkdown_2.14         desc_1.4.1             biomformat_1.18.0     
+[199] merTools_0.5.2         munsell_0.5.0          rhdf5_2.34.0          
+[202] iterators_1.0.14       ggstatsplot_0.9.1      haven_2.5.0           
+[205] reshape2_1.4.4         gtable_0.3.0           bayestestR_0.11.5.1   </code></pre>
 </div>
 </div>
 
