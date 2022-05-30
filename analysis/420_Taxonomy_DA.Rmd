@@ -12,6 +12,8 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(RColorBrewer)
 library(metar)
+source("code/LMM.R")
+source("code/myFunctions.R")
 
 ```
 
@@ -747,4 +749,29 @@ statlist <- rbind(ancom_longlist$group$DTG$`48`$stats,
 kableExtra::kable(statlist, format = "markdown")
 
 ```
+
+Interestingly though, only one species (Streptococcus parasanguinis) appeared as statistically significant DA, only after 96 weeks in the DTG group. This species was also identified in the non-compositional analysis, being in the intersection between DTG(0-48), DTG(0-96) and DRV/r(0-96).
+
+```{r plot_strep, message = FALSE, warning= FALSE}
+phy <- metar::get_phyloseq(mymre, type = "metaphlan")
+
+
+
+phyloseq::otu_table(phy) %>% 
+  t() %>% 
+  as.data.frame() %>% 
+  stats::setNames(phyloseq::tax_table(phy)[,"Species"]) %>% 
+  tibble::rownames_to_column("SampleID") %>% 
+  dplyr::select(SampleID,SampleID,statlist$taxa_id) %>% 
+  dplyr::inner_join(metadata[,c("SampleID","record_id" ,"time_point","group")], by = "SampleID") %>% 
+  create_LMM(data = .,breakpoints = NULL, 
+             cat_var = "group",
+             num_var= statlist$taxa_id, 
+             long_var = "time_point", 
+             link_var = "record_id") 
+  
+
+```
+ This is backed by LMMs which present a really small albeit significant reduction in this strain in the DTG group.
+
 

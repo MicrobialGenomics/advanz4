@@ -26,7 +26,7 @@ create_LMM <- function(data, num_var, cat_var, long_var, link_var,breakpoints = 
     t() %>%
     as.data.frame() %>%
     mutate(CategoricalVariable=rownames(.)) %>%
-    setNames(c("slope","pval","CategoricalVariable")) %>%
+    setNames(c("slope","pval","cat_var")) %>%
     mutate(pval=round(pval,3),
            slope = round(slope, 3))
 
@@ -34,13 +34,13 @@ create_LMM <- function(data, num_var, cat_var, long_var, link_var,breakpoints = 
 
 
   plot <- myLMM[[2]] +
-    geom_label(data = stat, aes(label=paste("p= ",pval, ", slope= ", slope, sep=""),
+    geom_label(data = stats, aes(label=paste("p= ",pval, ", slope= ", slope, sep=""),
                                 x = 0, y = Inf),
                color = "black",
                hjust=0.01, vjust=1) +
     geom_smooth(aes(group=cat_var, fill=cat_var),method=glm ,alpha=0.4, linetype=0)+
 
-    labs(x=cat_var, title=num_var, x=long_var)
+    labs(x=long_var, title=num_var, fill=long_var)
 
   return(list(plot = plot, stats = stats))
 }
