@@ -771,7 +771,43 @@ phyloseq::otu_table(phy) %>%
              link_var = "record_id") 
   
 
+
+
 ```
  This is backed by LMMs which present a really small albeit significant reduction in this strain in the DTG group.
 
+```{r oral_microbiome}
+oral_db <- here::here("Metadata","HOMD_oral_microbiome.txt") %>% 
+  read.delim(., header = T, skip = 1) %>% 
+  dplyr::select(Genus,Species) %>% 
+  mutate(name = paste(Genus, Species, sep="_")) %>% 
+  dplyr::pull(name)
+  
+
+stat_list_oral <- 
+names(stat_list_long) %>% 
+  purrr::set_names() %>% 
+  purrr::map(function(cv){
+    stat_list_long %>% 
+      purrr::pluck(cv) %>% 
+      dplyr::filter(species %in% oral_db) %>% 
+      dplyr::pull(species) %>% 
+      unique()
+  })
+
+
+stat_list_oral$group %>% 
+  purrr::set_names() %>% 
+  purrr::map(function(sp){
+    otu_df %>% 
+      dplyr::select(SampleID, sp) %>% 
+      inner_join(metadata[,c("SampleID","record_id","group","time_point")], by="SampleID") %>% 
+  ggstatsplot::grouped_ggbetweenstats(., grouping.var = "group", x = "time_point", y = !!sym(sp),type = "np", pairwise.comparisons = T)
+
+  })
+  
+
+
+
+```
 

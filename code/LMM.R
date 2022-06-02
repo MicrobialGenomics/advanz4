@@ -87,7 +87,7 @@ get_LMM_GraphParams <- function(data){
 #' @long_var a character, name of the Time or longitudinal variable. Alternatively, just the variable yu want to put on the X axis.
 #' @link_var lonk variable eg. patient, mouse... it stands for the random variable.
 #'
-get_lmm_effects <- function(data, cat_vector, num_vector, long_var, link_var){
+get_lmm_effects <- function(data, cat_vector, num_vector, long_var, link_var, title = T){
 
 
 
@@ -194,7 +194,17 @@ get_lmm_effects <- function(data, cat_vector, num_vector, long_var, link_var){
               summary(myUnifiedModel) %>%
               magrittr::extract2("coefficients") %>%
               as.data.frame() %>%
+              stats::setNames(c("estimate", "st.err", "df", "tval","p"))
               kableExtra::kable(., format = "markdown")
+
+            if(title == T){
+              myplot <-
+                myplot +
+                labs(title = num_var)
+            } else {
+              myplot <- myplot
+            }
+
 
             return(list(plot = myplot, summary = mySummary))
 

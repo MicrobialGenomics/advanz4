@@ -20,7 +20,7 @@ navbar:
   - text: Differential Abundance
     href: 420_Taxonomy_DA.html
   - text: Adenovirus and Enterovirus analysis
-    href: 505_Adenovirus_Analysis.Rmd
+    href: 505_Adenovirus_Analysis.html
 output:
   workflowr::wflow_html:
     toc: false

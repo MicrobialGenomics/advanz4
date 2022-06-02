@@ -1,0 +1,179 @@
+---
+title: "Species vs inflammation"
+author: "Carlos Blázquez Bondia"
+date: '2022-05-30'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(RColorBrewer)
+library(metar)
+source("code/LMM.R")
+source("code/myFunctions.R")
+
+```
+
+## Data import and exploration
+
+This section should explain anyithing that may have happened during the first fase of importing and formatting data, such as any modification or additional filtering step.
+
+```{r Setup, warning=F, message=F}
+
+# mymre <- here::here("data","mre.rds") %>%
+#   readRDS(.)
+
+mymre <- aws.s3::s3readRDS(bucket = "s3://mistral-wp6-advanz4", object = "metagenome/WMGS/MREObject.rds")
+# metadata <-get_meta(mymre)
+metadata <- here::here("Metadata", "2022_04_28_clean_metadata_LIMS.csv") %>% 
+  read.csv() %>% 
+  column_to_rownames("SampleID") %>% 
+  mutate(SampleID = rownames(.))
+
+
+
+cat_df <- 
+  here::here("Metadata", "CategoricalVariables.txt") %>% 
+  read.delim(., header = T)
+
+cat_vector <- cat_df %>% 
+  pull(CategoricalVariable)
+
+long_var <- here::here("Metadata", "LongitudinalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(LongitudinalVariable)
+
+link_var <- here::here("Metadata", "LongitudinalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(LinkVariable)
+
+num_vector <- here::here("Metadata", "NumericalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(NumericalVariable)
+
+
+
+```
+
+
+
+```{r update_mre, warning= F, message= F}
+
+#### This chunk is for updating the mre internally as new variables come out. Once the final mre is done this chunk will be removed.
+
+devtools::load_all(here::here("../WMGSPipeline"))
+
+mymre <- filter_samples(mre = mymre, sample_ids = metadata$SampleID)
+
+mymre@metadata@metadata_df <- as.tibble(metadata) 
+mymre@taxa@metaphlan@phyloseq@sam_data <- metadata %>%
+  phyloseq::sample_data(.)
+mymre@taxa@metaphlan@phyloseq_sec@sam_data <- metadata %>%
+  phyloseq::sample_data(.)
+
+
+
+
+mymre@metadata@categorical_vals <- here::here("Metadata", "CategoricalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+mymre@metadata@numeric_vals <- here::here("Metadata", "NumericalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+mymre@metadata@longitudinal_vals <- here::here("Metadata", "LongitudinalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+
+
+```
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+phy <- get_phyloseq(mymre, type = "metaphlan") %>% 
+      phyloseq::filter_taxa(., function(x) sum(x > 0) > (0.3*length(x)), TRUE)
+
+num_vector <- metar::get_num(mymre) %>% 
+  dplyr::pull(NumericalVariable)
+strep_df <- 
+  phyloseq::otu_table(phy) %>% 
+  t() %>% 
+  as.data.frame() %>% 
+  stats::setNames(phyloseq::tax_table(phy)[,"Species"]) %>% 
+  tibble::rownames_to_column("SampleID") %>% 
+  stats::setNames(.,stringr::str_remove_all(colnames(.), "\\[")) %>% 
+  stats::setNames(.,stringr::str_remove_all(colnames(.), "\\]")) %>% 
+  dplyr::select(SampleID,species = Streptococcus_parasanguinis) %>% 
+  dplyr::inner_join(metadata[,c("SampleID", link_var,long_var,cat_vector, num_vector)])
+
+
+num_vector %>% 
+  purrr::set_names() %>% 
+  purrr::map(function(nv){
+    strep_df %>% 
+      dplyr::select(cat_var = group,
+                    long_var = time_point,
+                    link_var = link_var,
+                    species,
+                    num_var = !!sym(nv)) %>% 
+      dplyr::filter(!is.na(species)) %>% 
+      dplyr::mutate(species = as.numeric(species))
+      create_LMM(., num_var = "species",
+                 long_var = "num_var", 
+                 cat_var = "cat_var", 
+                 breakpoints = NULL,
+                 link_var = "link_var" )
+  })
+
+
+
+
+basal <-
+  metadata %>%
+  filter(time_point == 0) %>%
+  pull(record_id) %>%
+  unique()
+
+thresholds <- data.frame(
+  num_var = num_vector,
+  threshold = c(150,50,30, )
+)
+
+
+num_vector %>%
+  purrr::set_names() %>%
+  purrr::map(
+    function(nv) {
+
+      
+      metadata %>%
+        dplyr::filter(record_id %in% basal) %>%
+        dplyr::select(record_id, group, num_var = nv, time_point) %>%
+        dplyr::group_by(record_id) %>%
+        dplyr::mutate(basal_num = num_var[time_point == 0]) %>%
+        dplyr::mutate(diff = num_var - basal_num) %>%
+        dplyr::mutate(thres = case_when(diff >= 150 ~ "yes", diff < 50 ~ "no")) %>%
+        dplyr::select(-basal_num) %>%
+        dplyr::group_by(group, time_point) %>%
+        dplyr::filter(!is.na(thres)) %>%
+        dplyr::count(thres) %>%
+        dplyr::mutate(sumn = n / sum(n)) %>%
+        dplyr::ungroup() %>%
+        dplyr::mutate(time_point = as.factor(time_point)) %>%
+        ggplot(aes(x = time_point, y = sumn, fill = thres)) +
+        facet_wrap( ~ group) +
+        geom_bar(stat = "identity", position = "stack") +
+        scale_fill_brewer(palette = "Set1") +
+        theme_bw() +
+        labs(x = "week", y = "percentage", title = nv)
+    })
+
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

@@ -281,7 +281,7 @@ $(document).ready(function () {
   <a href="420_Taxonomy_DA.html">Differential Abundance</a>
 </li>
 <li>
-  <a href="505_Adenovirus_Analysis.Rmd">Adenovirus and Enterovirus analysis</a>
+  <a href="505_Adenovirus_Analysis.html">Adenovirus and Enterovirus analysis</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -302,7 +302,7 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -311,7 +311,7 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -320,10 +320,10 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-05-30
+<strong>Last updated:</strong> 2022-06-01
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>advanz4/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -339,12 +339,12 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -411,16 +411,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree9713823b00b303b0cb85954d9a9ca081ad4a2c8dtargetblank9713823a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/9713823b00b303b0cb85954d9a9ca081ad4a2c8d" target="_blank">9713823</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree1743951bf18aab3b40cb5ba194de76e9401f18dctargetblank1743951a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/1743951bf18aab3b40cb5ba194de76e9401f18dc" target="_blank">1743951</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree9713823b00b303b0cb85954d9a9ca081ad4a2c8dtargetblank9713823a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree1743951bf18aab3b40cb5ba194de76e9401f18dctargetblank1743951a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/9713823b00b303b0cb85954d9a9ca081ad4a2c8d" target="_blank">9713823</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/1743951bf18aab3b40cb5ba194de76e9401f18dc" target="_blank">1743951</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -436,9 +436,56 @@ Ignored files:
     Ignored:    analysis/output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/
     Ignored:    data/mre.rds
 
+Untracked files:
+    Untracked:  Metadata/2022_05_30_clean_metadata_LIMS.csv
+    Untracked:  Metadata/HOMD_oral_microbiome.txt
+
 Unstaged changes:
+    Modified:   analysis/320_Beta_Diversity.Rmd
     Modified:   analysis/420_Taxonomy_DA.Rmd
+    Modified:   analysis/_site.yml
     Modified:   code/LMM.R
+    Modified:   code/basal_distances.R
+    Modified:   output/mre_data/CatalogMapping/IGC/lmm/lmm_time_point_by_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/bray_stressplot.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD4after_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD4after_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD4diff_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD4diff_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD8after_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD8after_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD8diff_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD8diff_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_center.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_cluster.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_ethnic_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_gender.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_risk_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD4after_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD4after_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD4diff_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD4diff_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD8after_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD8after_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD8diff_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD8diff_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_center.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_ethnic_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_gender.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_risk_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_ADV.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CD4.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CD8.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CD8_CD38_DR.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CRP.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_ADV.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CD4.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CD8.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CD8_CD38_DR.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CRP.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/silhouette_plt.pdf
 
 </code></pre>
 <p>
@@ -477,6 +524,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/1743951bf18aab3b40cb5ba194de76e9401f18dc/docs/320_Beta_Diversity.html" target="_blank">1743951</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-05-30
+</td>
+<td>
+Specific analysis for S.parasanguinis
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1818,6 +1882,40 @@ cblazquez
 <p>In the same fashion, when we start identifying samples by group and Timepoint, we see no clear separation, although samples from group 1 (+DGT) group appear to be more clustered together than group 2 (DRV+RLT), which show a more diffuse “central” cluster and are more dispersed. When looking at weight of the variables, the concentric spread of the arrows can be split in two sides, one more enriched in Prevotella and another in bacteroides, which spread mostly around the 2nd component of the NMDS.</p>
 <p>However, the Adonis test found the variable group to have a significant effect over sample distances (p&lt;0.001), although it only accounted for a small portion of the variance</p>
 <pre class="r"><code>myNMDSBiplot</code></pre>
+</div>
+<div id="distances-to-basal" class="section level1">
+<h1>Distances to basal</h1>
+<pre class="r"><code>phy &lt;- get_phyloseq(mymre, type = &quot;metaphlan&quot;) 
+
+otu_df &lt;- 
+  phyloseq::otu_table(phy) %&gt;% 
+  t() %&gt;% 
+  as.data.frame() %&gt;% 
+  stats::setNames(phyloseq::tax_table(phy)[,&quot;Species&quot;]) %&gt;% 
+  # tibble::rownames_to_column(&quot;SampleID&quot;) %&gt;% 
+  stats::setNames(.,stringr::str_remove_all(colnames(.), &quot;\\[&quot;)) %&gt;% 
+  stats::setNames(.,stringr::str_remove_all(colnames(.), &quot;\\]&quot;))  
+
+
+ids &lt;- otu_df %&gt;% 
+  colSums() %&gt;% 
+  sort( decreasing = T) %&gt;% 
+  head(50) %&gt;% 
+  names()
+  
+
+otu_df %&gt;% 
+  dplyr::select(ids) %&gt;% 
+  vegan::vegdist(x = ., method = &quot;bray&quot;) %&gt;% 
+  distance_from_basal(dist_mat = ., metadata = metadata, 
+                      link_var = &quot;record_id&quot;,
+                      long_var = &quot;time_point&quot;,
+                      cat_var = &quot;group&quot;,
+                      basal = 0) +
+  scale_x_continuous(breaks = unique(metadata$time_point)) +
+  scale_color_brewer(palette = &quot;Set1&quot;) +
+  scale_fill_brewer(palette = &quot;Set1&quot;)</code></pre>
+<p><img src="figure/320_Beta_Diversity.Rmd/First_differences-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1861,59 +1959,58 @@ loaded via a namespace (and not attached):
  [16] highr_0.9              knitr_1.39             rstudioapi_0.13       
  [19] stats4_4.0.5           ggsignif_0.6.3.9000    ggside_0.2.0          
  [22] listenv_0.8.0          emmeans_1.7.3          labeling_0.4.2        
- [25] git2r_0.30.1           polyclip_1.10-0        datawizard_0.4.0      
+ [25] git2r_0.30.1           polyclip_1.10-0        datawizard_0.4.1      
  [28] bit64_4.0.5            farver_2.1.0           rhdf5_2.34.0          
  [31] rprojroot_2.0.3        TH.data_1.1-1          coda_0.19-4           
  [34] parallelly_1.31.1      vctrs_0.4.1            generics_0.1.2        
  [37] xfun_0.31              BWStest_0.2.2          R6_2.5.1              
- [40] arm_1.12-2             reshape_0.8.9          rhdf5filters_1.2.1    
- [43] cachem_1.0.6           assertthat_0.2.1       promises_1.2.0.1      
- [46] networkD3_0.4          scales_1.2.0           vroom_1.5.7           
- [49] multcomp_1.4-19        merTools_0.5.2         gtable_0.3.0          
- [52] multcompView_0.1-8     globals_0.14.0         processx_3.5.3        
- [55] sandwich_3.0-1         rlang_1.0.2            zeallot_0.1.0         
- [58] PMCMRplus_1.9.4        splines_4.0.5          rstatix_0.7.0         
- [61] broom_0.8.0            yaml_2.3.5             reshape2_1.4.4        
- [64] abind_1.4-5            modelr_0.1.8           backports_1.4.1       
- [67] httpuv_1.6.5           tools_4.0.5            logging_0.10-108      
- [70] ellipsis_0.3.2         jquerylib_0.1.4        biomformat_1.18.0     
- [73] selbal_0.1.0           RColorBrewer_1.1-3     BiocGenerics_0.36.1   
- [76] WRS2_1.1-3             sessioninfo_1.2.2      Rcpp_1.0.8.3          
- [79] plyr_1.8.7             base64enc_0.1-3        zlibbioc_1.36.0       
- [82] ps_1.7.0               prettyunits_1.1.1      ggpubr_0.4.0          
- [85] correlation_0.8.0      zoo_1.8-10             S4Vectors_0.28.1      
- [88] haven_2.5.0            fs_1.5.2               here_1.0.1            
- [91] furrr_0.2.3            DataExplorer_0.8.2     magrittr_2.0.3        
- [94] data.table_1.14.2      reprex_2.0.1           mvtnorm_1.1-3         
- [97] whisker_0.4            pkgload_1.2.4          hms_1.1.1             
-[100] patchwork_1.1.1        mime_0.12              evaluate_0.15         
-[103] xtable_1.8-4           broom.mixed_0.2.9.4    readxl_1.4.0          
-[106] IRanges_2.24.1         compiler_4.0.5         ggstatsplot_0.9.1     
-[109] crayon_1.5.1           minqa_1.2.4            htmltools_0.5.2       
-[112] mc2d_0.1-21            mgcv_1.8-40            later_1.3.0           
-[115] tzdb_0.3.0             kSamples_1.2-9         SuppDists_1.1-9.7     
-[118] lubridate_1.8.0        aws.s3_0.3.21          DBI_1.1.2             
-[121] tweenr_1.0.2           dbplyr_2.1.1           MASS_7.3-57           
-[124] boot_1.3-28            Matrix_1.4-1           ade4_1.7-19           
-[127] car_3.0-13             wesanderson_0.3.6      brio_1.1.3            
-[130] cli_3.3.0              insight_0.17.0         parallel_4.0.5        
-[133] igraph_1.3.1           pkgconfig_2.0.3        getPass_0.2-2         
-[136] statsExpressions_1.3.1 paletteer_1.4.0        xml2_1.3.2            
-[139] foreach_1.5.2          bslib_0.3.1            blme_1.0-5            
-[142] multtest_2.46.0        XVector_0.30.0         estimability_1.3      
-[145] rvest_1.0.2            snakecase_0.11.0       callr_3.7.0           
-[148] digest_0.6.29          parameters_0.17.0      janitor_2.1.0         
-[151] Biostrings_2.58.0      rmarkdown_2.14         cellranger_1.1.0      
-[154] curl_4.3.2             shiny_1.7.1            nloptr_2.0.2          
-[157] lifecycle_1.0.1        nlme_3.1-157           jsonlite_1.8.0        
-[160] Rhdf5lib_1.12.1        carData_3.0-5          desc_1.4.1            
-[163] fansi_1.0.3            pillar_1.7.0           fastmap_1.1.0         
-[166] httr_1.4.2             pkgbuild_1.3.1         survival_3.3-1        
-[169] glue_1.6.2             remotes_2.4.2          bayestestR_0.11.5.1   
-[172] iterators_1.0.14       bit_4.0.4              performance_0.9.0     
-[175] ggforce_0.3.3          stringi_1.7.6          sass_0.4.1            
-[178] rematch2_2.1.2         memoise_2.0.1          Rmpfr_0.8-7           
-[181] ape_5.6-2             </code></pre>
+ [40] arm_1.12-2             rhdf5filters_1.2.1     cachem_1.0.6          
+ [43] assertthat_0.2.1       promises_1.2.0.1       networkD3_0.4         
+ [46] scales_1.2.0           vroom_1.5.7            multcomp_1.4-19       
+ [49] merTools_0.5.2         gtable_0.3.0           multcompView_0.1-8    
+ [52] globals_0.14.0         processx_3.5.3         sandwich_3.0-1        
+ [55] rlang_1.0.2            zeallot_0.1.0          PMCMRplus_1.9.4       
+ [58] splines_4.0.5          rstatix_0.7.0          broom_0.8.0           
+ [61] yaml_2.3.5             reshape2_1.4.4         abind_1.4-5           
+ [64] modelr_0.1.8           backports_1.4.1        httpuv_1.6.5          
+ [67] tools_4.0.5            logging_0.10-108       ellipsis_0.3.2        
+ [70] jquerylib_0.1.4        biomformat_1.18.0      selbal_0.1.0          
+ [73] RColorBrewer_1.1-3     BiocGenerics_0.36.1    sessioninfo_1.2.2     
+ [76] Rcpp_1.0.8.3           plyr_1.8.7             base64enc_0.1-3       
+ [79] zlibbioc_1.36.0        ps_1.7.0               prettyunits_1.1.1     
+ [82] ggpubr_0.4.0           correlation_0.8.1      zoo_1.8-10            
+ [85] S4Vectors_0.28.1       haven_2.5.0            fs_1.5.2              
+ [88] here_1.0.1             furrr_0.2.3            DataExplorer_0.8.2    
+ [91] magrittr_2.0.3         data.table_1.14.2      reprex_2.0.1          
+ [94] mvtnorm_1.1-3          whisker_0.4            pkgload_1.2.4         
+ [97] hms_1.1.1              patchwork_1.1.1        mime_0.12             
+[100] evaluate_0.15          xtable_1.8-4           broom.mixed_0.2.9.4   
+[103] readxl_1.4.0           IRanges_2.24.1         compiler_4.0.5        
+[106] ggstatsplot_0.9.3      crayon_1.5.1           minqa_1.2.4           
+[109] htmltools_0.5.2        mgcv_1.8-40            later_1.3.0           
+[112] tzdb_0.3.0             kSamples_1.2-9         SuppDists_1.1-9.7     
+[115] lubridate_1.8.0        aws.s3_0.3.21          DBI_1.1.2             
+[118] tweenr_1.0.2           dbplyr_2.1.1           MASS_7.3-57           
+[121] boot_1.3-28            Matrix_1.4-1           ade4_1.7-19           
+[124] car_3.0-13             wesanderson_0.3.6      brio_1.1.3            
+[127] cli_3.3.0              insight_0.17.1         parallel_4.0.5        
+[130] igraph_1.3.1           pkgconfig_2.0.3        getPass_0.2-2         
+[133] statsExpressions_1.3.2 paletteer_1.4.0        xml2_1.3.2            
+[136] foreach_1.5.2          bslib_0.3.1            blme_1.0-5            
+[139] multtest_2.46.0        XVector_0.30.0         estimability_1.3      
+[142] rvest_1.0.2            snakecase_0.11.0       callr_3.7.0           
+[145] digest_0.6.29          parameters_0.18.1      janitor_2.1.0         
+[148] Biostrings_2.58.0      rmarkdown_2.14         cellranger_1.1.0      
+[151] curl_4.3.2             shiny_1.7.1            nloptr_2.0.2          
+[154] lifecycle_1.0.1        nlme_3.1-157           jsonlite_1.8.0        
+[157] Rhdf5lib_1.12.1        carData_3.0-5          desc_1.4.1            
+[160] fansi_1.0.3            pillar_1.7.0           fastmap_1.1.0         
+[163] httr_1.4.2             pkgbuild_1.3.1         survival_3.3-1        
+[166] glue_1.6.2             remotes_2.4.2          bayestestR_0.12.1     
+[169] iterators_1.0.14       bit_4.0.4              performance_0.9.0     
+[172] ggforce_0.3.3          stringi_1.7.6          sass_0.4.1            
+[175] rematch2_2.1.2         memoise_2.0.1          Rmpfr_0.8-7           
+[178] ape_5.6-2             </code></pre>
 </div>
 </div>
 

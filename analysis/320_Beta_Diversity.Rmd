@@ -25,6 +25,7 @@ library(vegan)
 library(ggrepel)
 library(cluster)
 require(gridExtra)
+source("code/basal_distances.R")
 ```
 
 ## Including Plots
@@ -350,5 +351,44 @@ However, the Adonis test found the variable group to have a significant effect o
 
 
 myNMDSBiplot
+```
+
+
+# Distances to basal
+
+```{r First_differences, message = F, warning = F}
+
+phy <- get_phyloseq(mymre, type = "metaphlan") 
+
+otu_df <- 
+  phyloseq::otu_table(phy) %>% 
+  t() %>% 
+  as.data.frame() %>% 
+  stats::setNames(phyloseq::tax_table(phy)[,"Species"]) %>% 
+  # tibble::rownames_to_column("SampleID") %>% 
+  stats::setNames(.,stringr::str_remove_all(colnames(.), "\\[")) %>% 
+  stats::setNames(.,stringr::str_remove_all(colnames(.), "\\]"))  
+
+
+ids <- otu_df %>% 
+  colSums() %>% 
+  sort( decreasing = T) %>% 
+  head(50) %>% 
+  names()
+  
+
+otu_df %>% 
+  dplyr::select(ids) %>% 
+  vegan::vegdist(x = ., method = "bray") %>% 
+  distance_from_basal(dist_mat = ., metadata = metadata, 
+                      link_var = "record_id",
+                      long_var = "time_point",
+                      cat_var = "group",
+                      basal = 0) +
+  scale_x_continuous(breaks = unique(metadata$time_point)) +
+  scale_color_brewer(palette = "Set1") +
+  scale_fill_brewer(palette = "Set1")
+
+
 ```
 
