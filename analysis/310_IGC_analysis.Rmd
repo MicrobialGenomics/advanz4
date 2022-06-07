@@ -98,9 +98,7 @@ mymre@metadata@longitudinal_vals <- here::here("Metadata", "LongitudinalVariable
   read.delim(., header = T) %>% 
   tibble()
 
-metadata %>% 
-  dplyr::mutate(CD4_prop = )
-CD4_prop
+
 ```
 
 

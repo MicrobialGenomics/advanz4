@@ -19,6 +19,8 @@ navbar:
     href: 410_Taxonomy_Exploration.html
   - text: Differential Abundance
     href: 420_Taxonomy_DA.html
+  - text: 430_Species_v_Inflammation.html
+    href: DA species vs inflammation markers
   - text: Adenovirus and Enterovirus analysis
     href: 505_Adenovirus_Analysis.html
 output:

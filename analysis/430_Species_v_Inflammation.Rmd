@@ -3,6 +3,8 @@ title: "Species vs inflammation"
 author: "Carlos Blázquez Bondia"
 date: '2022-05-30'
 output: html_document
+editor_options:
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -10,8 +12,8 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(RColorBrewer)
 library(metar)
-source("code/LMM.R")
-source("code/myFunctions.R")
+source(paste(here::here(),"/code/LMM.R", sep=""))
+source(paste(here::here(),"/code/myFunctions.R", sep=""))
 
 ```
 
@@ -87,6 +89,9 @@ mymre@metadata@longitudinal_vals <- here::here("Metadata", "LongitudinalVariable
   read.delim(., header = T) %>% 
   tibble()
 
+link_var = "record_id"
+long_var = "time_point"
+cat_var = "group"
 
 
 ```
@@ -95,6 +100,9 @@ mymre@metadata@longitudinal_vals <- here::here("Metadata", "LongitudinalVariable
 You can also embed plots, for example:
 
 ```{r pressure, echo=FALSE}
+
+
+
 phy <- get_phyloseq(mymre, type = "metaphlan") %>% 
       phyloseq::filter_taxa(., function(x) sum(x > 0) > (0.3*length(x)), TRUE)
 
@@ -111,69 +119,104 @@ strep_df <-
   dplyr::select(SampleID,species = Streptococcus_parasanguinis) %>% 
   dplyr::inner_join(metadata[,c("SampleID", link_var,long_var,cat_vector, num_vector)])
 
-
-num_vector %>% 
-  purrr::set_names() %>% 
+res_list <- 
+num_vector[c(1:6)] %>%
+  purrr::set_names() %>%
   purrr::map(function(nv){
-    strep_df %>% 
+    strep_df %>%
       dplyr::select(cat_var = group,
                     long_var = time_point,
-                    link_var = link_var,
+                    link_var = record_id,
                     species,
-                    num_var = !!sym(nv)) %>% 
-      dplyr::filter(!is.na(species)) %>% 
-      dplyr::mutate(species = as.numeric(species))
+                    num_var = !!sym(nv)) %>%
+      dplyr::filter(!is.na(species) &
+                      !is.na(num_var)) %>%
+      # dplyr::mutate(species = as.numeric(species)) %>%
       create_LMM(., num_var = "species",
-                 long_var = "num_var", 
-                 cat_var = "cat_var", 
+                 long_var = "num_var",
+                 cat_var = "cat_var",
                  breakpoints = NULL,
                  link_var = "link_var" )
+  })
+
+names(res_list) %>% 
+  purrr::set_names() %>% 
+  purrr::map(function(nv){
+    res_list %>% 
+      purrr::pluck(nv, "plot") +
+      labs(title = nv, y = "S.parasanguinis (%)") +
+      scale_x_continuous(n.breaks = 10)+
+      theme(axis.title.y = element_text(face = "italic", angle = 90))
   })
 
 
 
 
-basal <-
-  metadata %>%
-  filter(time_point == 0) %>%
-  pull(record_id) %>%
-  unique()
+```
 
-thresholds <- data.frame(
-  num_var = num_vector,
-  threshold = c(150,50,30, )
-)
+```{r clinical_thresholds, warning = F, message = F, eval = F}
 
+# 
+# basal <-
+#   metadata %>%
+#   filter(time_point == 0) %>%
+#   pull(record_id) %>%
+#   unique()
+# 
+# thresholds <- data.frame(
+#   num_var = num_vector[c(1:2)],
+#   threshold = c(150,180)
+# )
 
-num_vector %>%
-  purrr::set_names() %>%
-  purrr::map(
-    function(nv) {
+# num_vector[c(1:6)] %>% 
+#   purrr::set_names() %>% 
+#   purrr::map(function (nv){
+#     metadata %>% 
+#       dplyr::select(link_var = record_id,
+#                     long_var = time_point, 
+#                     num_var = nv,
+#                     cat_var = group) %>% 
+#       dplyr::filter(link_var %in% basal) %>% 
+#       dplyr::group_by(link_var) %>% 
+#       dplyr::mutate(basal_num = num_var[long_var == 0]) %>%
+#       dplyr::mutate(diff = num_var - basal_num) %>% 
+#       dplyr::pull(diff) %>% 
+#       abs() %>% 
+#       summary()
+#   })
 
-      
-      metadata %>%
-        dplyr::filter(record_id %in% basal) %>%
-        dplyr::select(record_id, group, num_var = nv, time_point) %>%
-        dplyr::group_by(record_id) %>%
-        dplyr::mutate(basal_num = num_var[time_point == 0]) %>%
-        dplyr::mutate(diff = num_var - basal_num) %>%
-        dplyr::mutate(thres = case_when(diff >= 150 ~ "yes", diff < 50 ~ "no")) %>%
-        dplyr::select(-basal_num) %>%
-        dplyr::group_by(group, time_point) %>%
-        dplyr::filter(!is.na(thres)) %>%
-        dplyr::count(thres) %>%
-        dplyr::mutate(sumn = n / sum(n)) %>%
-        dplyr::ungroup() %>%
-        dplyr::mutate(time_point = as.factor(time_point)) %>%
-        ggplot(aes(x = time_point, y = sumn, fill = thres)) +
-        facet_wrap( ~ group) +
-        geom_bar(stat = "identity", position = "stack") +
-        scale_fill_brewer(palette = "Set1") +
-        theme_bw() +
-        labs(x = "week", y = "percentage", title = nv)
-    })
-
+# num_vector[c(1,2)] %>%
+#   purrr::set_names() %>%
+#   purrr::map(
+#     function(nv) {
+#       
+#       t <- 
+#         thresholds %>% 
+#         dplyr::filter(num_var == nv) %>% 
+#         dplyr::pull(threshold)
+#       
+#       metadata %>%
+#         dplyr::filter(record_id %in% basal) %>%
+#         dplyr::select(record_id, group, num_var = nv, time_point) %>%
+#         dplyr::group_by(record_id) %>%
+#         dplyr::mutate(basal_num = num_var[time_point == 0]) %>%
+#         dplyr::mutate(diff = num_var - basal_num) %>%
+#         dplyr::mutate(thres = case_when(diff >= t ~ "yes", diff < t ~ "no")) %>%
+#         dplyr::select(-basal_num) %>%
+#         dplyr::group_by(group, time_point) %>%
+#         dplyr::filter(!is.na(thres)) %>%
+#         dplyr::count(thres) %>%
+#         dplyr::mutate(sumn = n / sum(n)) %>%
+#         dplyr::ungroup() %>%
+#         dplyr::mutate(time_point = as.factor(time_point)) %>%
+#         ggplot(aes(x = time_point, y = sumn, fill = thres)) +
+#         facet_wrap( ~ group) +
+#         geom_bar(stat = "identity", position = "stack") +
+#         scale_fill_brewer(palette = "Set1") +
+#         theme_bw() +
+#         labs(x = "week", y = "percentage", title = nv)
+#     })
+# 
 
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
