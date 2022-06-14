@@ -764,7 +764,8 @@ phyloseq::otu_table(phy) %>%
   tibble::rownames_to_column("SampleID") %>% 
   dplyr::select(SampleID,SampleID,statlist$taxa_id) %>% 
   dplyr::inner_join(metadata[,c("SampleID","record_id" ,"time_point","group")], by = "SampleID") %>% 
-  create_LMM(data = .,breakpoints = NULL, 
+  create_LMM(data = .,
+             breakpoints = NULL, 
              cat_var = "group",
              num_var= statlist$taxa_id, 
              long_var = "time_point", 

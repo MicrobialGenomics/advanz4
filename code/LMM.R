@@ -8,7 +8,8 @@
 
 create_LMM <- function(data, num_var, cat_var, long_var, link_var,breakpoints = NULL){
 
-  myLMM <-data %>%
+  myLMM <-
+    data %>%
     as.data.frame() %>%
     dplyr::select(link_var = !!sym(link_var),
                   num_var = !!sym(num_var),
