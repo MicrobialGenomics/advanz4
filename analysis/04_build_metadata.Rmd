@@ -78,7 +78,7 @@ vars=c("CD4 value","CD8 value", "8+38+DR+", "PCR", "IL-6", "TNF-a", "sCD14")
 names(vars) <- c("CD4","CD8", "CD8_CD38_DR", "CRP", "IL6", "TNFa", "sCD14")
 
 
-MetadataLab<-here::here("Metadata", "MetadataManagement", "LabData.xls") %>%
+MetadataLab <- here::here("Metadata", "MetadataManagement", "LabData.xls") %>%
   readxl::read_excel() %>%
   filter(ParamName %in% vars & PatCode != "TMP??-000") %>% 
   pivot_wider(id_cols = c("PatCode", "Week"),names_from="ParamName", values_from = "Result") %>%
@@ -116,6 +116,37 @@ dim(MetadataLabDem)
 
 ```
 
+
+```{r, add_data_96, warning=F, message=F}
+
+dat_96 <- 
+  here::here("Metadata","MetadataManagement", "LabData_96.xls") %>% 
+  readxl::read_excel(.) %>% 
+  dplyr::select(sample = Muestra, 
+                method = Metodo,
+                value = Result,
+                units = Unidades,
+                result_date = `Fecha Validac.`) %>% 
+  dplyr::mutate(record_id = stringr::str_extract(sample, "(?<=\\s4)([A-Z][0-9]*)(?=\\s)"),.after=1,
+                method = dplyr::recode(method,
+                                       `Interleucina 6 (IL-6), suero` = "IL6",
+                                       `proteína C reactiva (PCR), suero` = "CRP",
+                                       `Factor de necrosis tumoral alfa (TNF-alfa), suero` = "TNFa"),
+                time_point = 96) %>% 
+  dplyr::select(-sample)
+
+
+
+# dat_96 %>% 
+#   pull(sample) %>% 
+#   stringr::str_extract_all(., "(?<=\\s4)([A-Z][0-9]*)(?=\\s)")
+
+```
+
+
+
+
+
 Now the metadata is almost complete. We need now to identify each sample so it can be quickly referenced in LIMS. \ 
 \ 
 1/3/2022: 
@@ -130,7 +161,7 @@ We'll add the variables suggested in the study design, separating the patients i
   *       **high** - T-cell counts higher than 500 cell/ul
 
 
-```{r LIMS_IDs}
+```{r LIMS_IDs, warning=F, message=F}
 metadata_final <-
   here::here("Metadata", "MetadataManagement","Informacio_LIMS.xlsx") %>%
   readxl::read_excel(sheet = "DNA") %>%
@@ -369,11 +400,21 @@ We'll perform a final filtering in which we remove patients with 1 sample and it
 
 singlesample <- 
   metadata_final %>% 
-  select(SampleID, record_id) %>% 
+  dplyr::select(SampleID, record_id) %>% 
   group_by(record_id) %>% 
-  summarise(n=n()) %>% 
-  filter(n<2) %>% 
+  filter(n()<2) %>% 
   pull(record_id)
+
+
+filtered_counts <- 
+  metadata_final %>% 
+  dplyr::select(record_id, group) %>%
+  dplyr::group_by(record_id) %>% 
+  dplyr::filter(n()>1) %>% 
+  unique() %>% 
+  pull(group) %>% 
+  table()
+
 
 
 
