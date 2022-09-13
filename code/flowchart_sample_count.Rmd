@@ -94,7 +94,7 @@ discarded_ids <-
   filter(!time_point == 0) %>%
   pull(record_id)
 
-new_meta <- metadata %>% 
+special_discarded <- metadata %>% 
   filter(record_id %in% c("C004", "E009")) %>%
   filter(!record_id %in% discarded_ids)  
 
