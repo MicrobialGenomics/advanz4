@@ -346,7 +346,8 @@ LMM_separate_list <-  c("richness") %>%
 )
 
 
-LMM_separate_list$richness
+LMM_separate_list$richness %>% 
+  ggpubr::ggarrange(plotlist = ., ncol = 2)
 
 ```
 
@@ -511,10 +512,48 @@ all_boxplot <- dat %>%
         axis.title = element_text(size = 14))
 
 all_boxplot
+write.csv(long_test, file = "output/general_boxplot_stats")
 
 ```
 
 There is a general increase even without stratifying
+
+```{r general_wilc_stats, message=F, warning=F}
+source("code/group_comparisons.R")
+mockdat <- dat %>% 
+  mutate(mock = "mock") 
+
+combn(unique(dat$long_var),2, simplify = F) %>% 
+  map_dfr(function(comp){
+    comp <- sort(comp)
+    mockdat %>% 
+    get_group_comparisons(dat = .,
+                      link_var = "link_var",
+                      long_var = "long_var",
+                      cat_vector = "mock",
+                      num_vector = "richness",
+                      comps = comp,
+                      type = "longitudinal"
+                      ) %>% 
+  pluck("mock","richness","stats") %>% 
+      dplyr::mutate(group1 = comp[1], 
+                    group2 = comp[2], .after=1)
+
+  }) %>% 
+      dplyr::arrange(group1,group2) %>% 
+  dplyr::mutate(group1 = as.character(group1), 
+                group2 = as.character(group2)) %>% 
+  dplyr::full_join(long_test, by=c("group1","group2")) %>% 
+  dplyr::select(cat_var, contains("group"), median1, iqr2, median2, iqr2, medianChange, iqr_change, n1, n2, statistic, p.adj) %>% 
+
+
+write.csv(.,"output/overall_pvals.csv",quote = T,row.names = F)  
+
+
+```
+
+
+
 
 ```{r group_boxplots, echo=F, message=F}
 
@@ -607,7 +646,7 @@ group_boxplot <-
   ) +
   theme_bw() +
   scale_fill_brewer(palette = pal) +
-  labs(y = "Gene richness (count)", fill = "group") +
+  labs(y = "Gene richness (count)", x="weeks",fill = "group") +
   theme(
     axis.text = element_text(size = 12),
     axis.title.x = element_text(size = 14),
@@ -623,3 +662,35 @@ group_boxplot
 ```
 
 This is even more intereseting, as most of the significant tchange happens in the DTG group, with significant differences in all time points, and significantly higher richnes in DTG vs DRV/r is found in al timepoints except 0.
+
+```{r group_stats, warning=F, message=FALSE}
+
+combn(unique(dat$long_var),2, simplify = F) %>% 
+  map_dfr(function(comp){
+    comp <- sort(comp)
+    mockdat %>% 
+    get_group_comparisons(dat = .,
+                      link_var = "link_var",
+                      long_var = "long_var",
+                      cat_vector = "cat_var",
+                      num_vector = "richness",
+                      comps = comp,
+                      type = "longitudinal"
+                      ) %>% 
+  pluck("cat_var","richness","stats") %>% 
+      dplyr::mutate(group1 = comp[1], 
+                    group2 = comp[2], .after=1)
+
+  }) %>% 
+      dplyr::arrange(cat_var,group1,group2) %>% 
+  dplyr::mutate(group1 = as.character(group1), 
+                group2 = as.character(group2)) %>% 
+  dplyr::full_join(test_long, by=c("cat_var","group1","group2")) %>% 
+  dplyr::select(cat_var, contains("group"), median1, iqr2, median2, iqr2, medianChange, iqr_change, n1, n2, statistic, p.adj) %>% 
+  write.csv(.,"output/group_pvals.csv",quote = T,row.names = F)  
+
+
+
+
+```
+

@@ -20,7 +20,11 @@ This section will have comments of the step of data entry and anything that may 
 mymre <- here::here("data","mre.rds") %>%
   readRDS()
 
-metadata <- get_meta(mymre)
+# metadata <- get_meta(mymre)
+metadata <- here::here("Metadata", "2022_05_30_clean_metadata_LIMS.csv") %>% 
+  read.csv() %>% 
+  column_to_rownames("SampleID") %>% 
+  mutate(SampleID = rownames(.))
 
 CategoricalVariablesDF <- get_cat(mymre)
 

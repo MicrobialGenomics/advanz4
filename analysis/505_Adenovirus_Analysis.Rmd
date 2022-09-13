@@ -5,7 +5,6 @@ date: "5/3/2022"
 output: html_document
 editor_options:
   chunk_output_type: console
-
 ---
 
 
@@ -46,7 +45,7 @@ num_var <- here::here("Metadata", "NumericalVariables.txt") %>%
 
 
 metadata <- 
-  here::here("Metadata", "2022_04_28_clean_metadata_LIMS.csv") %>% 
+  here::here("Metadata", "2022_05_30_clean_metadata_LIMS.csv") %>% 
   read.csv() %>% 
   mutate(ADV_p = case_when(
     is.na(ADV) ~ "no", 
