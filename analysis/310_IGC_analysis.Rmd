@@ -40,7 +40,7 @@ First we'll check how well the sequencing went by looking at the read count dist
 mymre <- aws.s3::s3readRDS("s3://mistral-wp6-advanz4/metagenome/WMGS/MREObject.rds") ### Check consistency between mre.rds(local and S3). You are reading s3 file, here, but in 200_ you are using local
 # metadata <- metar::get_metadata(mymre)@metadata_df
 
-metadata <- here::here("Metadata", "2022_04_27_clean_metadata_LIMS.csv") %>% 
+metadata <- here::here("Metadata", "2022_05_30_clean_metadata_LIMS.csv") %>% 
   read.csv() %>% 
   column_to_rownames("SampleID") %>% 
   mutate(SampleID = rownames(.))
@@ -488,42 +488,138 @@ myAnovaPlotList<-names(myUnifiedModelList) %>%
 
 This shows a slight effect of treatment, where the effect of time over richness in group group2 is 0.025 (St.err = 0.025) times lower than the same for group 1 (ANOVA p=0.31)
 
-
-```{r boxplots, eval=F, echo=F, message=F}
-
-
-### This was a first test to learn how to perform multiple comparisons in a true tidyverse fashion
-
-plot_list <-  NumericalVariablesDF %>%
-  
-  dplyr::pull(NumericalVariable) %>%
-  purrr::set_names() %>%
-  purrr::map( ~ {
-    metadata %>%
-      dplyr::select(cat_var = !!sym(cat_var),
-                    long_var = !!sym(long_var),
-                    num_var = .x,
-                    link_var = !!sym(link_var)) %>%
-      ggplot(., aes(x = as.factor(long_var), y = num_var, fill = cat_var)) +
-      geom_boxplot() +
-      stat_compare_means(method="wilcox.test", 
-                         label = "p.signif", 
-                         hide.ns = T, bracket.size = .6, 
-                         label.y.npc ="center") +
-      labs(title = .x,
-          x = "Week",
-          y="counts",
-          fill=cat_var) +
-      theme_bw() + 
-      scale_fill_brewer(palette = cat_df$PaletteName[1])
-  }
-)
-
-
-
-```
-
-
 ```{r Show_plot_list, message=F,prompt=F,echo=F, warning=F}
 myAnovaPlotList
 ```
+
+```{r general_boxplot}
+dat <- TableList %>% pluck("group")
+source("code/Paired_wilcox_NA_Handler.R")
+
+long_test <- PairedWilcox_withNAs(myDF = dat,Variable = "richness",Response = "long_var",IDs = "link_var") %>% 
+  rstatix::adjust_pvalue(p.col = "p") %>% 
+  rstatix::add_significance(p.col = "p.adj") %>% 
+  dplyr::mutate(y.position = y.position + 250000)
+
+all_boxplot <- dat %>% 
+  ggplot(., aes(x = as.factor(long_var),y=richness)) + 
+  geom_boxplot(fill="lightgray") +
+  theme_bw() +
+  ggpubr::stat_pvalue_manual(data = long_test, label = "p.adj.signif", hide.ns = T, bracket.size = 1.1, label.size = 12) +
+  labs(x = "Week") +
+  theme(axis.text = element_text(size = 12),
+        axis.title = element_text(size = 14))
+
+all_boxplot
+
+```
+
+There is a general increase even without stratifying
+
+```{r group_boxplots, echo=F, message=F}
+
+
+### This was a first test to learn how to perform multiple comparisons in a true tidyverse fashion
+cat_vector <- c("group")
+library(rstatix)
+library(ggpubr)
+
+pal = "Accent"
+
+
+dat <-
+  TableList %>%
+  pluck("group") %>%
+  select(sam_var, link_var, long_var, cat_var, richness) 
+
+test_cat <-
+  dat %>%
+  dplyr::group_by(long_var) %>%
+  rstatix::wilcox_test(richness ~ cat_var, p.adjust.method = "BH") %>%
+  # rstatix::adjust_pvalue(p.col = "p", method = "none") %>%
+  rstatix::add_significance(p.col = "p", output.col = "p.adj.signif") %>%
+  rstatix::add_xy_position("long_var") %>%
+  dplyr::mutate(y.position = y.position + 250000)
+
+
+
+
+
+test_long <-
+  dat %>%
+  PairedWilcox_withNAs(
+    myDF = .,
+    IDs = "link_var",
+    Variable = "richness",
+    Response = "long_var",
+    Subsets = "cat_var"
+  ) %>%
+  group_by(cat_var) %>%
+  rstatix::adjust_pvalue(p.col = "p",
+                         output.col = "p.adj",
+                         method = "BH") %>%
+  ungroup() %>%
+  # rstatix::adjust_pvalue(method = "BH") %>%
+  add_significance(p.col = "p.adj") %>%
+  
+  # mutate(CategoricalVariable = levels(as.factor(myInnerDataFrame$CategoricalVariable))) %>%
+  # add_y_position(y.trans = function(x){quantile(x, probs=c(.1))}) %>%
+  mutate(
+    xmin = recode(
+      group1,
+      `0` = 1,
+      `24` = 2,
+      `48` = 3
+    ),
+    xmax = recode(
+      group2,
+      `24` = 2,
+      `48` = 3,
+      `96` = 4
+    )
+  ) %>%
+  mutate(xmin = case_when(cat_var == "DTG" ~ xmin + 0.2,
+                          cat_var == "DRV/r" ~ xmin - 0.2),
+         xmax = case_when(cat_var == "DTG" ~ xmax + 0.2,
+                          cat_var == "DRV/r" ~ xmax - 0.2))
+
+
+group_boxplot <-
+  dat %>%
+  ggplot(., aes(x = as.factor(long_var), y = richness)) +
+  geom_boxplot(aes(fill = cat_var), position = "dodge") +
+  ggpubr::stat_pvalue_manual(
+    data = test_cat,
+    label = "p.adj.signif",
+    hide.ns = T,
+    size = 6,
+    step.increase = 0.1,
+    bracket.size = 1
+  ) +
+  ggpubr::stat_pvalue_manual(
+    data = test_long,
+    label = "p.adj.signif",
+    hide.ns = T,
+    step.increase = 0.2,
+    size = 6,
+    bracket.size = 1
+    
+  ) +
+  theme_bw() +
+  scale_fill_brewer(palette = pal) +
+  labs(y = "Gene richness (count)", fill = "group") +
+  theme(
+    axis.text = element_text(size = 12),
+    axis.title.x = element_text(size = 14),
+    axis.title.y = element_text(size = 14),
+    legend.key.size = unit(1.3,"cm"),
+    legend.title = element_text(size = 12),
+    legend.text = element_text(size = 12)
+  )
+
+
+group_boxplot
+
+```
+
+This is even more intereseting, as most of the significant tchange happens in the DTG group, with significant differences in all time points, and significantly higher richnes in DTG vs DRV/r is found in al timepoints except 0.
