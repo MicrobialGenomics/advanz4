@@ -76,7 +76,7 @@ num_var <- here::here("Metadata", "NumericalVariables.txt") %>%
 
 ```
 
-```{r update_mre, warning= F, message= F}
+```{r update_mre, warning= F, message= F, echo = F}
 
 #### This chunk is for updating the mre internally as new variables come out. Once the final mre is done this chunk will be removed.
 devtools::load_all("../WMGSPipeline/")
@@ -160,11 +160,10 @@ TableList <- cat_vector %>%
         
     })
 
-readCountDistribution
+
 
 ```
 
-only 6 samples have been discarded by low read count. The threshold used for filtering was the 2nd percentile, which equals 12428123 reads.
 
 
 
@@ -216,7 +215,7 @@ seq_depth_plots <-
     })
 
 
-seq_depth_plots$risk_group
+seq_depth_plots$group
 
 
 # ggarrange(plotlist=seq_depth_plots$ARM, common.legend = T, ncol = 1, nrow = 2)
@@ -230,7 +229,7 @@ seq_depth_plots$risk_group
 We'll control first for the effect of sequencing depth over Gene richness and try to stablish a proper rarefaction threshold.
 
 
-Data shows there is no bias created by sequencing depth between groups, and a threshold over the 2nd percentile is appropiate.
+Data shows there is no bias created by sequencing depth between groups. only 6 samples have been discarded by low read count. The threshold used for filtering was the 2nd percentile, which equals 12428123 reads.
 
 
 ## Longitudinal evolution: LMMs
@@ -297,6 +296,9 @@ get_LMM_GraphParams <- function(Table){
 
 ```
 
+
+
+
 We found trouble fiting the LMMs for ethnic groups due to patient A024 being the only one with the category "unknown". As the model can't estimate variance from only one observation, the code breaks.
 
 
@@ -346,8 +348,7 @@ LMM_separate_list <-  c("richness") %>%
 )
 
 
-LMM_separate_list$richness %>% 
-  ggpubr::ggarrange(plotlist = ., ncol = 2)
+LMM_separate_list$richness 
 
 ```
 
@@ -479,7 +480,8 @@ myAnovaPlotList<-names(myUnifiedModelList) %>%
       pluck(.x) %>%
       pluck("richness") %>%
       pluck("plot")
-  })
+  }) %>% 
+  pluck("group")
 
 
 
@@ -493,7 +495,14 @@ This shows a slight effect of treatment, where the effect of time over richness 
 myAnovaPlotList
 ```
 
-```{r general_boxplot}
+
+
+## Gene Richness evolution: Categorical comparisons
+
+### Non-stratified
+
+
+```{r general_boxplot, message = F, warning = F, echo = F}
 dat <- TableList %>% pluck("group")
 source("code/Paired_wilcox_NA_Handler.R")
 
@@ -512,17 +521,18 @@ all_boxplot <- dat %>%
         axis.title = element_text(size = 14))
 
 all_boxplot
-write.csv(long_test, file = "output/general_boxplot_stats")
+# write.csv(long_test, file = "output/general_boxplot_stats")
 
 ```
 
 There is a general increase even without stratifying
 
-```{r general_wilc_stats, message=F, warning=F}
+```{r general_wilc_stats,echo = F ,message=F, warning=F}
 source("code/group_comparisons.R")
 mockdat <- dat %>% 
   mutate(mock = "mock") 
 
+stats_table <- 
 combn(unique(dat$long_var),2, simplify = F) %>% 
   map_dfr(function(comp){
     comp <- sort(comp)
@@ -545,9 +555,13 @@ combn(unique(dat$long_var),2, simplify = F) %>%
                 group2 = as.character(group2)) %>% 
   dplyr::full_join(long_test, by=c("group1","group2")) %>% 
   dplyr::select(cat_var, contains("group"), median1, iqr2, median2, iqr2, medianChange, iqr_change, n1, n2, statistic, p.adj) %>% 
+  # kableExtra::kable(., format="markdown") %>% 
+  as.data.frame()
+
+rmarkdown::paged_table(as.data.frame(stats_table))
 
 
-write.csv(.,"output/overall_pvals.csv",quote = T,row.names = F)  
+# write.csv(.,"output/overall_pvals.csv",quote = T,row.names = F)
 
 
 ```
@@ -663,8 +677,9 @@ group_boxplot
 
 This is even more intereseting, as most of the significant tchange happens in the DTG group, with significant differences in all time points, and significantly higher richnes in DTG vs DRV/r is found in al timepoints except 0.
 
-```{r group_stats, warning=F, message=FALSE}
+```{r group_stats,echo = F ,warning=F, message=FALSE}
 
+group_stats <- 
 combn(unique(dat$long_var),2, simplify = F) %>% 
   map_dfr(function(comp){
     comp <- sort(comp)
@@ -687,10 +702,10 @@ combn(unique(dat$long_var),2, simplify = F) %>%
                 group2 = as.character(group2)) %>% 
   dplyr::full_join(test_long, by=c("cat_var","group1","group2")) %>% 
   dplyr::select(cat_var, contains("group"), median1, iqr2, median2, iqr2, medianChange, iqr_change, n1, n2, statistic, p.adj) %>% 
-  write.csv(.,"output/group_pvals.csv",quote = T,row.names = F)  
+  as.data.frame()
 
 
-
+rmarkdown::paged_table(group_stats)
 
 ```
 
