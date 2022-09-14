@@ -35,5 +35,5 @@ distance_from_basal <- function(dist_mat, metadata, link_var, long_var, cat_var,
     geom_smooth(aes(group = !!sym(cat_var)), method = "glm", formula = 'y ~ x', colour = "black") +
     theme_bw()
 
-  plt
+  return(list(plot = plt, data = dat))
 }
