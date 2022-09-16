@@ -2,11 +2,19 @@
 title: "Taxonomy exploration"
 author: "Carlos Blázquez Bondia"
 date: "3/25/2022"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
+editor_options:
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  out.width = "100%"
+)
 library(tidyverse)
 library(metar)
 library(phyloseq)
@@ -17,11 +25,11 @@ library(phyloseq)
 This section will have comments of the step of data entry and anything that may happen here
 
 ```{r cars, eval=T, message=F, warning=F}
-mymre <- here::here("data","mre.rds") %>%
-  readRDS()
+mymre <- aws.s3::s3readRDS("s3://mistral-wp6-advanz4/metagenome/WMGS/MREObject.rds") 
+
 
 # metadata <- get_meta(mymre)
-metadata <- here::here("Metadata", "2022_05_30_clean_metadata_LIMS.csv") %>% 
+metadata <- here::here("Metadata", "2022_09_14_clean_metadata_LIMS.csv") %>% 
   read.csv() %>% 
   column_to_rownames("SampleID") %>% 
   mutate(SampleID = rownames(.))
@@ -62,13 +70,15 @@ myBarplots <- CategoricalVariablesDF$CategoricalVariable %>%
   set_names() %>%
   map(~ {
     
-    dat <- abundance %>%
+    dat <- otu_df %>%
+
       rownames_to_column("SampleID") %>%
       full_join(., metadata[,c("SampleID","record_id","time_point", .x)], by="SampleID") %>%
-      pivot_longer(., cols=names(abundance)) %>%
+      pivot_longer(., cols=names(otu_df)) %>%
       dplyr::rename(taxa = name) %>%
       dplyr::mutate(facet = paste(!!sym(.x), time_point, sep="_")) %>%
-      dplyr::rename(cat_var = !!sym(.x))
+      dplyr::rename(cat_var = !!sym(.x)) 
+
     
     plt <- 
       ggplot(dat, aes(x=record_id, y = value, fill = taxa)) +
@@ -81,7 +91,7 @@ myBarplots <- CategoricalVariablesDF$CategoricalVariable %>%
   })
 
 
-myBarplots
+myBarplots$group
 
 ```
 

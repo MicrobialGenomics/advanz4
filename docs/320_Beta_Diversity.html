@@ -13,7 +13,7 @@
 
 <title>Beta Diversity and NMDS</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -67,7 +67,6 @@ if (window.hljs) {
 
 
 
-
 <link rel="stylesheet" href="style.css" type="text/css" />
 
 
@@ -92,9 +91,6 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
-}
-details > summary > p:only-child {
-  display: inline;
 }
 pre code {
   padding: 0;
@@ -247,7 +243,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -281,7 +277,7 @@ $(document).ready(function () {
   <a href="420_Taxonomy_DA.html">Differential Abundance</a>
 </li>
 <li>
-  <a href="DA species vs inflammation markers">430_Species_v_Inflammation.html</a>
+  <a href="430_Species_v_Inflammation.html">DA species vs inflammation markers</a>
 </li>
 <li>
   <a href="505_Adenovirus_Analysis.html">Adenovirus and Enterovirus analysis</a>
@@ -305,7 +301,9 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -314,7 +312,9 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -323,17 +323,27 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-06-07
+<strong>Last updated:</strong> 2022-09-15
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
 </p>
 <p>
-<strong>Knit directory:</strong> <code>advanz4/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>advanz4/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -342,91 +352,138 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
 <div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211203code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20211203)</code> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211203code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20211203)</code> </a>
 </p>
 </div>
-<div id="strongSeedstrongcodesetseed20211203code" class="panel-collapse collapse">
+<div id="strongSeedstrongcodesetseed20211203code"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20211203)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(20211203)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
 </p>
 </div>
-<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
 <div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
 </p>
 </div>
 <div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree3fa20ba400c57e7465b5ff4468c303398b28ff60targetblank3fa20baa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/3fa20ba400c57e7465b5ff4468c303398b28ff60" target="_blank">3fa20ba</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treedf7195ba7bf7773f4c84402f6d18a90baa699659targetblankdf7195ba">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/MicrobialGenomics/advanz4/tree/df7195ba7bf7773f4c84402f6d18a90baa699659" target="_blank">df7195b</a>
+</a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree3fa20ba400c57e7465b5ff4468c303398b28ff60targetblank3fa20baa" class="panel-collapse collapse">
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treedf7195ba7bf7773f4c84402f6d18a90baa699659targetblankdf7195ba"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/3fa20ba400c57e7465b5ff4468c303398b28ff60" target="_blank">3fa20ba</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version
+<a href="https://github.com/MicrobialGenomics/advanz4/tree/df7195ba7bf7773f4c84402f6d18a90baa699659" target="_blank">df7195b</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
 Ignored files:
@@ -434,20 +491,13 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/.Rhistory
-    Ignored:    analysis/420_Taxonomy_DA_cache/
-    Ignored:    analysis/505_Adenovirus_Analysis_cache/
-    Ignored:    analysis/output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/
     Ignored:    data/mre.rds
-
-Unstaged changes:
-    Modified:   analysis/310_IGC_analysis.Rmd
-    Modified:   analysis/430_Species_v_Inflammation.Rmd
-    Modified:   analysis/_site.yml
-    Modified:   output/mre_data/CatalogMapping/IGC/lmm/lmm_time_point_by_group.pdf
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -458,7 +508,12 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/320_Beta_Diversity.Rmd</code>) and HTML (<code>docs/320_Beta_Diversity.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/320_Beta_Diversity.Rmd</code>)
+and HTML (<code>docs/320_Beta_Diversity.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -482,6 +537,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/df7195ba7bf7773f4c84402f6d18a90baa699659/analysis/320_Beta_Diversity.Rmd" target="_blank">df7195b</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-09-14
+</td>
+<td>
+Updated beta_diversity.Rmd
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/0aa7922e8a20e42a68c244562eec53d699c4efdd/docs/320_Beta_Diversity.html" target="_blank">0aa7922</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-06-07
+</td>
+<td>
+Improved S.parasanguinis interaction plots with inflammation markers
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -729,16 +818,22 @@ Code reorganized towards new structure
 </div>
 <div id="r-markdown" class="section level2">
 <h2>R Markdown</h2>
-<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
-<pre><code>suggested package selbal ✔suggested package DataExplorer ✔suggested package lme4 ✔suggested package merTools ✔</code></pre>
+<p>This is an R Markdown document. Markdown is a simple formatting
+syntax for authoring HTML, PDF, and MS Word documents. For more details
+on using R Markdown see <a href="http://rmarkdown.rstudio.com"
+class="uri">http://rmarkdown.rstudio.com</a>.</p>
+<p>When you click the <strong>Knit</strong> button a document will be
+generated that includes both content as well as the output of any
+embedded R code chunks within the document. You can embed an R code
+chunk like this:</p>
+<pre><code>suggested package selbal vsuggested package DataExplorer vsuggested package lme4 vsuggested package merTools v</code></pre>
 </div>
 <div id="including-plots" class="section level2">
 <h2>Including Plots</h2>
 <p>You can also embed plots, for example:</p>
 <pre class="r"><code>mymre &lt;- aws.s3::s3readRDS(bucket = &quot;s3://mistral-wp6-advanz4&quot;, object = &quot;metagenome/WMGS/MREObject.rds&quot;)
 # metadata &lt;-get_meta(mymre)
-metadata &lt;- here::here(&quot;Metadata&quot;, &quot;2022_04_27_clean_metadata_LIMS.csv&quot;) %&gt;% 
+metadata &lt;- here::here(&quot;Metadata&quot;, &quot;2022_09_14_clean_metadata_LIMS.csv&quot;) %&gt;% 
   read.csv() %&gt;% 
   column_to_rownames(&quot;SampleID&quot;) %&gt;% 
   mutate(SampleID = rownames(.))
@@ -765,16 +860,16 @@ num_var &lt;- here::here(&quot;Metadata&quot;, &quot;NumericalVariables.txt&quot
   pull(NumericalVariable)</code></pre>
 <pre class="r"><code>#### This chunk is for updating the mre internally as new variables come out. Once the final mre is done this chunk will be removed.
 devtools::load_all(&quot;../WMGSPipeline&quot;)</code></pre>
-<pre><code>suggested package selbal ✔suggested package DataExplorer ✔suggested package lme4 ✔suggested package merTools ✔</code></pre>
+<pre><code>suggested package selbal vsuggested package DataExplorer vsuggested package lme4 vsuggested package merTools v</code></pre>
 <pre class="r"><code>mymre &lt;- filter_samples(mre = mymre, sample_ids = metadata$SampleID)
 
 mymre@metadata@metadata_df &lt;- tibble(metadata)
 
 mymre@taxa@metaphlan@phyloseq@sam_data &lt;- metadata %&gt;%
   phyloseq::sample_data(.)
-
-mymre@taxa@metaphlan@phyloseq_sec@sam_data &lt;- metadata %&gt;%
-  phyloseq::sample_data(.)
+# 
+# mymre@taxa@metaphlan@phyloseq_sec@sam_data &lt;- metadata %&gt;%
+#   phyloseq::sample_data(.)
 
 
 mymre@metadata@categorical_vals &lt;- here::here(&quot;Metadata&quot;, &quot;CategoricalVariables.txt&quot;) %&gt;% 
@@ -813,18 +908,843 @@ Top50&lt;- myAbundanceDF %&gt;%
 
 
 
-myNMDS &lt;- Top50 %&gt;%
-    # dplyr::filter(row.names(.) %in% Top50) %&gt;%
-    t() %&gt;%
+myNMDS &lt;- myAbundanceDF %&gt;%
+  t() %&gt;% 
     as.data.frame() %&gt;%
     # vegan::vegdist(., method = &quot;bray&quot;) %&gt;%
  
-    metaMDS(.,trymax=1000,  distance = &quot;bray&quot;,
+    metaMDS(.,trymax=800,  distance = &quot;bray&quot;,
             k = 2) %&gt;%
     pluck(&quot;points&quot;) %&gt;%
-    as.data.frame() 
-
-  # NMDS = data.frame(NMDS1 = dim_NMDS$points[,1], NMDS2 = dim_NMDS$points[,2])
+    as.data.frame() </code></pre>
+<pre><code>Square root transformation
+Wisconsin double standardization
+Run 0 stress 0.1685252 
+Run 1 stress 0.1674152 
+... New best solution
+... Procrustes: rmse 0.01148201  max resid 0.1142543 
+Run 2 stress 0.1704178 
+Run 3 stress 0.1787528 
+Run 4 stress 0.1728454 
+Run 5 stress 0.1715957 
+Run 6 stress 0.1743068 
+Run 7 stress 0.1725966 
+Run 8 stress 0.1759591 
+Run 9 stress 0.1935439 
+Run 10 stress 0.1708005 
+Run 11 stress 0.1691518 
+Run 12 stress 0.1765577 
+Run 13 stress 0.1900678 
+Run 14 stress 0.1685576 
+Run 15 stress 0.1726119 
+Run 16 stress 0.1695008 
+Run 17 stress 0.1720352 
+Run 18 stress 0.1721737 
+Run 19 stress 0.1727081 
+Run 20 stress 0.1723948 
+Run 21 stress 0.1721369 
+Run 22 stress 0.1713676 
+Run 23 stress 0.1687389 
+Run 24 stress 0.1770207 
+Run 25 stress 0.1755674 
+Run 26 stress 0.1841136 
+Run 27 stress 0.1701792 
+Run 28 stress 0.1747894 
+Run 29 stress 0.1706691 
+Run 30 stress 0.1713183 
+Run 31 stress 0.1739864 
+Run 32 stress 0.1815673 
+Run 33 stress 0.1693981 
+Run 34 stress 0.1719293 
+Run 35 stress 0.1686968 
+Run 36 stress 0.1779198 
+Run 37 stress 0.1716304 
+Run 38 stress 0.1923474 
+Run 39 stress 0.1707644 
+Run 40 stress 0.1722692 
+Run 41 stress 0.1673121 
+... New best solution
+... Procrustes: rmse 0.00653009  max resid 0.07567541 
+Run 42 stress 0.1703148 
+Run 43 stress 0.1712869 
+Run 44 stress 0.1709466 
+Run 45 stress 0.1685417 
+Run 46 stress 0.1692985 
+Run 47 stress 0.1716217 
+Run 48 stress 0.1691867 
+Run 49 stress 0.1669096 
+... New best solution
+... Procrustes: rmse 0.008890506  max resid 0.07977967 
+Run 50 stress 0.18862 
+Run 51 stress 0.190931 
+Run 52 stress 0.1670898 
+... Procrustes: rmse 0.0084366  max resid 0.08001199 
+Run 53 stress 0.1747196 
+Run 54 stress 0.1785528 
+Run 55 stress 0.1748951 
+Run 56 stress 0.1769899 
+Run 57 stress 0.1711884 
+Run 58 stress 0.1725519 
+Run 59 stress 0.1741397 
+Run 60 stress 0.1752044 
+Run 61 stress 0.1776176 
+Run 62 stress 0.1714225 
+Run 63 stress 0.1855294 
+Run 64 stress 0.1696222 
+Run 65 stress 0.1731512 
+Run 66 stress 0.1742407 
+Run 67 stress 0.1873302 
+Run 68 stress 0.169991 
+Run 69 stress 0.1743523 
+Run 70 stress 0.1767431 
+Run 71 stress 0.1726141 
+Run 72 stress 0.1764516 
+Run 73 stress 0.174158 
+Run 74 stress 0.176455 
+Run 75 stress 0.1687114 
+Run 76 stress 0.171709 
+Run 77 stress 0.1751193 
+Run 78 stress 0.1763797 
+Run 79 stress 0.1687288 
+Run 80 stress 0.1693599 
+Run 81 stress 0.1707173 
+Run 82 stress 0.1865437 
+Run 83 stress 0.1706457 
+Run 84 stress 0.1774915 
+Run 85 stress 0.1746984 
+Run 86 stress 0.1899614 
+Run 87 stress 0.1722876 
+Run 88 stress 0.1737139 
+Run 89 stress 0.168733 
+Run 90 stress 0.1772405 
+Run 91 stress 0.1714569 
+Run 92 stress 0.1819883 
+Run 93 stress 0.1779363 
+Run 94 stress 0.1695754 
+Run 95 stress 0.1733688 
+Run 96 stress 0.1720982 
+Run 97 stress 0.1721976 
+Run 98 stress 0.1753729 
+Run 99 stress 0.1720405 
+Run 100 stress 0.1689391 
+Run 101 stress 0.1666697 
+... New best solution
+... Procrustes: rmse 0.004999561  max resid 0.07999638 
+Run 102 stress 0.170293 
+Run 103 stress 0.1780651 
+Run 104 stress 0.1710319 
+Run 105 stress 0.1704844 
+Run 106 stress 0.177344 
+Run 107 stress 0.1748457 
+Run 108 stress 0.1708701 
+Run 109 stress 0.1770674 
+Run 110 stress 0.1737693 
+Run 111 stress 0.1698854 
+Run 112 stress 0.1731461 
+Run 113 stress 0.1703728 
+Run 114 stress 0.1731473 
+Run 115 stress 0.1725898 
+Run 116 stress 0.1733936 
+Run 117 stress 0.1833253 
+Run 118 stress 0.1690209 
+Run 119 stress 0.17077 
+Run 120 stress 0.1760401 
+Run 121 stress 0.1776151 
+Run 122 stress 0.1725755 
+Run 123 stress 0.1729951 
+Run 124 stress 0.1876329 
+Run 125 stress 0.1689278 
+Run 126 stress 0.1765097 
+Run 127 stress 0.1710927 
+Run 128 stress 0.1720985 
+Run 129 stress 0.1747495 
+Run 130 stress 0.175294 
+Run 131 stress 0.1707566 
+Run 132 stress 0.1676413 
+Run 133 stress 0.1686601 
+Run 134 stress 0.1741059 
+Run 135 stress 0.1711739 
+Run 136 stress 0.1674862 
+Run 137 stress 0.1729154 
+Run 138 stress 0.1691833 
+Run 139 stress 0.1729685 
+Run 140 stress 0.1704237 
+Run 141 stress 0.1711389 
+Run 142 stress 0.1725459 
+Run 143 stress 0.170316 
+Run 144 stress 0.1678632 
+Run 145 stress 0.1734026 
+Run 146 stress 0.1712 
+Run 147 stress 0.1710377 
+Run 148 stress 0.1765456 
+Run 149 stress 0.1710995 
+Run 150 stress 0.1694961 
+Run 151 stress 0.1716163 
+Run 152 stress 0.167065 
+... Procrustes: rmse 0.004750117  max resid 0.07574231 
+Run 153 stress 0.1771354 
+Run 154 stress 0.1686281 
+Run 155 stress 0.1741865 
+Run 156 stress 0.1754062 
+Run 157 stress 0.1695576 
+Run 158 stress 0.1687168 
+Run 159 stress 0.1727253 
+Run 160 stress 0.1697769 
+Run 161 stress 0.1744273 
+Run 162 stress 0.1697853 
+Run 163 stress 0.1711094 
+Run 164 stress 0.1732058 
+Run 165 stress 0.1730177 
+Run 166 stress 0.1710378 
+Run 167 stress 0.1729195 
+Run 168 stress 0.168208 
+Run 169 stress 0.1690501 
+Run 170 stress 0.1759672 
+Run 171 stress 0.1673349 
+Run 172 stress 0.1706316 
+Run 173 stress 0.1736358 
+Run 174 stress 0.1717404 
+Run 175 stress 0.1785004 
+Run 176 stress 0.1694608 
+Run 177 stress 0.1717511 
+Run 178 stress 0.1708968 
+Run 179 stress 0.1749762 
+Run 180 stress 0.1864515 
+Run 181 stress 0.170169 
+Run 182 stress 0.1682194 
+Run 183 stress 0.1750855 
+Run 184 stress 0.1723136 
+Run 185 stress 0.1736605 
+Run 186 stress 0.1743939 
+Run 187 stress 0.1697758 
+Run 188 stress 0.1688264 
+Run 189 stress 0.1709222 
+Run 190 stress 0.1712628 
+Run 191 stress 0.1726265 
+Run 192 stress 0.1727175 
+Run 193 stress 0.170983 
+Run 194 stress 0.1738631 
+Run 195 stress 0.1722756 
+Run 196 stress 0.1735213 
+Run 197 stress 0.1736792 
+Run 198 stress 0.1773448 
+Run 199 stress 0.1741963 
+Run 200 stress 0.1710396 
+Run 201 stress 0.1671187 
+... Procrustes: rmse 0.005137244  max resid 0.06768497 
+Run 202 stress 0.1694658 
+Run 203 stress 0.1767153 
+Run 204 stress 0.1700775 
+Run 205 stress 0.1766968 
+Run 206 stress 0.174063 
+Run 207 stress 0.1750247 
+Run 208 stress 0.192593 
+Run 209 stress 0.1742837 
+Run 210 stress 0.1671063 
+... Procrustes: rmse 0.004999998  max resid 0.04952159 
+Run 211 stress 0.1738257 
+Run 212 stress 0.1704379 
+Run 213 stress 0.1786337 
+Run 214 stress 0.1686703 
+Run 215 stress 0.1690072 
+Run 216 stress 0.1712085 
+Run 217 stress 0.170113 
+Run 218 stress 0.1727836 
+Run 219 stress 0.1777445 
+Run 220 stress 0.1900164 
+Run 221 stress 0.1703285 
+Run 222 stress 0.186149 
+Run 223 stress 0.1716801 
+Run 224 stress 0.1752187 
+Run 225 stress 0.173014 
+Run 226 stress 0.174021 
+Run 227 stress 0.1729418 
+Run 228 stress 0.1737316 
+Run 229 stress 0.175392 
+Run 230 stress 0.1714274 
+Run 231 stress 0.1734972 
+Run 232 stress 0.1739513 
+Run 233 stress 0.1730558 
+Run 234 stress 0.1731569 
+Run 235 stress 0.1691994 
+Run 236 stress 0.1754906 
+Run 237 stress 0.1705109 
+Run 238 stress 0.1770879 
+Run 239 stress 0.170076 
+Run 240 stress 0.1751252 
+Run 241 stress 0.1770703 
+Run 242 stress 0.1740089 
+Run 243 stress 0.1746992 
+Run 244 stress 0.1688997 
+Run 245 stress 0.1744571 
+Run 246 stress 0.1697082 
+Run 247 stress 0.1783636 
+Run 248 stress 0.1696892 
+Run 249 stress 0.1743824 
+Run 250 stress 0.1756249 
+Run 251 stress 0.1686051 
+Run 252 stress 0.1706698 
+Run 253 stress 0.1888203 
+Run 254 stress 0.1784471 
+Run 255 stress 0.1690692 
+Run 256 stress 0.1718125 
+Run 257 stress 0.1742706 
+Run 258 stress 0.173833 
+Run 259 stress 0.1683926 
+Run 260 stress 0.1716631 
+Run 261 stress 0.1705094 
+Run 262 stress 0.1719027 
+Run 263 stress 0.1683265 
+Run 264 stress 0.1731889 
+Run 265 stress 0.1696874 
+Run 266 stress 0.1698902 
+Run 267 stress 0.1720917 
+Run 268 stress 0.1904447 
+Run 269 stress 0.1692627 
+Run 270 stress 0.1725636 
+Run 271 stress 0.1745225 
+Run 272 stress 0.1685434 
+Run 273 stress 0.1712279 
+Run 274 stress 0.1817114 
+Run 275 stress 0.1711581 
+Run 276 stress 0.1717668 
+Run 277 stress 0.1789103 
+Run 278 stress 0.1742528 
+Run 279 stress 0.1761704 
+Run 280 stress 0.1684785 
+Run 281 stress 0.1747584 
+Run 282 stress 0.1712082 
+Run 283 stress 0.1754144 
+Run 284 stress 0.1764983 
+Run 285 stress 0.1692523 
+Run 286 stress 0.1714677 
+Run 287 stress 0.1724904 
+Run 288 stress 0.1705909 
+Run 289 stress 0.176227 
+Run 290 stress 0.1690974 
+Run 291 stress 0.1710161 
+Run 292 stress 0.1762851 
+Run 293 stress 0.1726636 
+Run 294 stress 0.1699819 
+Run 295 stress 0.1731515 
+Run 296 stress 0.1754049 
+Run 297 stress 0.1678634 
+Run 298 stress 0.1728478 
+Run 299 stress 0.1704766 
+Run 300 stress 0.1711611 
+Run 301 stress 0.1685518 
+Run 302 stress 0.1755402 
+Run 303 stress 0.1721989 
+Run 304 stress 0.1783992 
+Run 305 stress 0.1844116 
+Run 306 stress 0.1784118 
+Run 307 stress 0.1707743 
+Run 308 stress 0.1741447 
+Run 309 stress 0.1696961 
+Run 310 stress 0.1704082 
+Run 311 stress 0.1734691 
+Run 312 stress 0.1670247 
+... Procrustes: rmse 0.004494679  max resid 0.07163773 
+Run 313 stress 0.1707362 
+Run 314 stress 0.1716354 
+Run 315 stress 0.1715788 
+Run 316 stress 0.1673575 
+Run 317 stress 0.1716902 
+Run 318 stress 0.1768715 
+Run 319 stress 0.1782846 
+Run 320 stress 0.1719056 
+Run 321 stress 0.1708792 
+Run 322 stress 0.1713071 
+Run 323 stress 0.1705492 
+Run 324 stress 0.1702537 
+Run 325 stress 0.1737924 
+Run 326 stress 0.1748508 
+Run 327 stress 0.1698788 
+Run 328 stress 0.186728 
+Run 329 stress 0.1902135 
+Run 330 stress 0.169749 
+Run 331 stress 0.1713129 
+Run 332 stress 0.1698668 
+Run 333 stress 0.1674676 
+Run 334 stress 0.1703121 
+Run 335 stress 0.1699604 
+Run 336 stress 0.174754 
+Run 337 stress 0.1691123 
+Run 338 stress 0.1775816 
+Run 339 stress 0.1709752 
+Run 340 stress 0.1693075 
+Run 341 stress 0.1727422 
+Run 342 stress 0.1691468 
+Run 343 stress 0.1708645 
+Run 344 stress 0.1686384 
+Run 345 stress 0.1687306 
+Run 346 stress 0.171259 
+Run 347 stress 0.1734658 
+Run 348 stress 0.1694339 
+Run 349 stress 0.1696763 
+Run 350 stress 0.1705926 
+Run 351 stress 0.1732328 
+Run 352 stress 0.1683477 
+Run 353 stress 0.1745177 
+Run 354 stress 0.169125 
+Run 355 stress 0.1759051 
+Run 356 stress 0.1726224 
+Run 357 stress 0.1707339 
+Run 358 stress 0.1720209 
+Run 359 stress 0.1679732 
+Run 360 stress 0.1695915 
+Run 361 stress 0.1734208 
+Run 362 stress 0.1764431 
+Run 363 stress 0.1727295 
+Run 364 stress 0.16982 
+Run 365 stress 0.1751424 
+Run 366 stress 0.1726154 
+Run 367 stress 0.1686961 
+Run 368 stress 0.1669134 
+... Procrustes: rmse 0.005078166  max resid 0.07997421 
+Run 369 stress 0.1726609 
+Run 370 stress 0.1784233 
+Run 371 stress 0.1707876 
+Run 372 stress 0.1729116 
+Run 373 stress 0.1698666 
+Run 374 stress 0.1712718 
+Run 375 stress 0.1721215 
+Run 376 stress 0.1701114 
+Run 377 stress 0.1698416 
+Run 378 stress 0.171114 
+Run 379 stress 0.1780652 
+Run 380 stress 0.1747584 
+Run 381 stress 0.174027 
+Run 382 stress 0.1704223 
+Run 383 stress 0.1701116 
+Run 384 stress 0.1730495 
+Run 385 stress 0.1674864 
+Run 386 stress 0.1673352 
+Run 387 stress 0.1735954 
+Run 388 stress 0.171281 
+Run 389 stress 0.1700378 
+Run 390 stress 0.1755545 
+Run 391 stress 0.1760944 
+Run 392 stress 0.1691125 
+Run 393 stress 0.1694933 
+Run 394 stress 0.1815025 
+Run 395 stress 0.1727028 
+Run 396 stress 0.1920346 
+Run 397 stress 0.1675356 
+Run 398 stress 0.1707455 
+Run 399 stress 0.1810698 
+Run 400 stress 0.1743235 
+Run 401 stress 0.1770633 
+Run 402 stress 0.1735279 
+Run 403 stress 0.1717195 
+Run 404 stress 0.1686711 
+Run 405 stress 0.1732256 
+Run 406 stress 0.1781589 
+Run 407 stress 0.1742552 
+Run 408 stress 0.1749433 
+Run 409 stress 0.1687761 
+Run 410 stress 0.1763534 
+Run 411 stress 0.1714049 
+Run 412 stress 0.1670075 
+... Procrustes: rmse 0.005541262  max resid 0.07992066 
+Run 413 stress 0.1788981 
+Run 414 stress 0.1697403 
+Run 415 stress 0.1757101 
+Run 416 stress 0.1750453 
+Run 417 stress 0.1677601 
+Run 418 stress 0.1719484 
+Run 419 stress 0.1758481 
+Run 420 stress 0.1712672 
+Run 421 stress 0.1734132 
+Run 422 stress 0.1691768 
+Run 423 stress 0.16972 
+Run 424 stress 0.171695 
+Run 425 stress 0.1719016 
+Run 426 stress 0.1697414 
+Run 427 stress 0.1728873 
+Run 428 stress 0.1774035 
+Run 429 stress 0.1756982 
+Run 430 stress 0.1733879 
+Run 431 stress 0.1740145 
+Run 432 stress 0.1872707 
+Run 433 stress 0.1734916 
+Run 434 stress 0.1681418 
+Run 435 stress 0.1729094 
+Run 436 stress 0.1799382 
+Run 437 stress 0.1712197 
+Run 438 stress 0.17165 
+Run 439 stress 0.1704999 
+Run 440 stress 0.1907368 
+Run 441 stress 0.1720191 
+Run 442 stress 0.1680886 
+Run 443 stress 0.170497 
+Run 444 stress 0.1747697 
+Run 445 stress 0.1828925 
+Run 446 stress 0.1698652 
+Run 447 stress 0.1706562 
+Run 448 stress 0.1689279 
+Run 449 stress 0.1724723 
+Run 450 stress 0.1695742 
+Run 451 stress 0.1759831 
+Run 452 stress 0.1713512 
+Run 453 stress 0.1733044 
+Run 454 stress 0.1732615 
+Run 455 stress 0.1768648 
+Run 456 stress 0.1735704 
+Run 457 stress 0.171611 
+Run 458 stress 0.1821812 
+Run 459 stress 0.171141 
+Run 460 stress 0.1774719 
+Run 461 stress 0.1689254 
+Run 462 stress 0.1672721 
+Run 463 stress 0.1725793 
+Run 464 stress 0.1744744 
+Run 465 stress 0.1723953 
+Run 466 stress 0.1673852 
+Run 467 stress 0.1898434 
+Run 468 stress 0.1683855 
+Run 469 stress 0.1776799 
+Run 470 stress 0.1764647 
+Run 471 stress 0.1767884 
+Run 472 stress 0.1765118 
+Run 473 stress 0.171105 
+Run 474 stress 0.1680631 
+Run 475 stress 0.1742639 
+Run 476 stress 0.1743516 
+Run 477 stress 0.1683638 
+Run 478 stress 0.1732932 
+Run 479 stress 0.1674843 
+Run 480 stress 0.1697771 
+Run 481 stress 0.1808942 
+Run 482 stress 0.1788316 
+Run 483 stress 0.1837164 
+Run 484 stress 0.1706798 
+Run 485 stress 0.1730824 
+Run 486 stress 0.1755475 
+Run 487 stress 0.1736306 
+Run 488 stress 0.1706458 
+Run 489 stress 0.1705462 
+Run 490 stress 0.1702842 
+Run 491 stress 0.1727768 
+Run 492 stress 0.1719231 
+Run 493 stress 0.1727479 
+Run 494 stress 0.1677601 
+Run 495 stress 0.1873425 
+Run 496 stress 0.1715798 
+Run 497 stress 0.1746438 
+Run 498 stress 0.1734454 
+Run 499 stress 0.1862051 
+Run 500 stress 0.1802035 
+Run 501 stress 0.1720727 
+Run 502 stress 0.1755907 
+Run 503 stress 0.1738317 
+Run 504 stress 0.168206 
+Run 505 stress 0.1729471 
+Run 506 stress 0.1716625 
+Run 507 stress 0.1731466 
+Run 508 stress 0.1684533 
+Run 509 stress 0.1688262 
+Run 510 stress 0.1778284 
+Run 511 stress 0.1729962 
+Run 512 stress 0.1923343 
+Run 513 stress 0.1691147 
+Run 514 stress 0.1737892 
+Run 515 stress 0.1730888 
+Run 516 stress 0.1775595 
+Run 517 stress 0.1877351 
+Run 518 stress 0.170162 
+Run 519 stress 0.1725263 
+Run 520 stress 0.1712924 
+Run 521 stress 0.1736135 
+Run 522 stress 0.1671158 
+... Procrustes: rmse 0.005679018  max resid 0.07524713 
+Run 523 stress 0.1737068 
+Run 524 stress 0.1697178 
+Run 525 stress 0.1707182 
+Run 526 stress 0.1747398 
+Run 527 stress 0.1694343 
+Run 528 stress 0.1695866 
+Run 529 stress 0.1686961 
+Run 530 stress 0.1760672 
+Run 531 stress 0.1706518 
+Run 532 stress 0.1733057 
+Run 533 stress 0.17167 
+Run 534 stress 0.1697009 
+Run 535 stress 0.169776 
+Run 536 stress 0.1733204 
+Run 537 stress 0.1721782 
+Run 538 stress 0.1767694 
+Run 539 stress 0.1773749 
+Run 540 stress 0.1713611 
+Run 541 stress 0.1718165 
+Run 542 stress 0.1691063 
+Run 543 stress 0.172288 
+Run 544 stress 0.1680302 
+Run 545 stress 0.16891 
+Run 546 stress 0.181205 
+Run 547 stress 0.1758208 
+Run 548 stress 0.17145 
+Run 549 stress 0.1734393 
+Run 550 stress 0.1793416 
+Run 551 stress 0.1704733 
+Run 552 stress 0.1785235 
+Run 553 stress 0.175696 
+Run 554 stress 0.1745107 
+Run 555 stress 0.1699294 
+Run 556 stress 0.1740067 
+Run 557 stress 0.1729575 
+Run 558 stress 0.1737912 
+Run 559 stress 0.1715168 
+Run 560 stress 0.1710899 
+Run 561 stress 0.1739619 
+Run 562 stress 0.1710866 
+Run 563 stress 0.1860808 
+Run 564 stress 0.1678621 
+Run 565 stress 0.1732299 
+Run 566 stress 0.1692863 
+Run 567 stress 0.171222 
+Run 568 stress 0.1724469 
+Run 569 stress 0.1779226 
+Run 570 stress 0.1705483 
+Run 571 stress 0.1694667 
+Run 572 stress 0.169168 
+Run 573 stress 0.1730915 
+Run 574 stress 0.1683091 
+Run 575 stress 0.1711008 
+Run 576 stress 0.1712604 
+Run 577 stress 0.1744894 
+Run 578 stress 0.1726297 
+Run 579 stress 0.1704153 
+Run 580 stress 0.1758088 
+Run 581 stress 0.1688085 
+Run 582 stress 0.1673354 
+Run 583 stress 0.1744064 
+Run 584 stress 0.1867197 
+Run 585 stress 0.190532 
+Run 586 stress 0.1688066 
+Run 587 stress 0.1717184 
+Run 588 stress 0.1703468 
+Run 589 stress 0.1704094 
+Run 590 stress 0.1870067 
+Run 591 stress 0.1694587 
+Run 592 stress 0.1723143 
+Run 593 stress 0.1711866 
+Run 594 stress 0.1751194 
+Run 595 stress 0.1714077 
+Run 596 stress 0.1732645 
+Run 597 stress 0.1674062 
+Run 598 stress 0.1675803 
+Run 599 stress 0.1686653 
+Run 600 stress 0.1783257 
+Run 601 stress 0.1697775 
+Run 602 stress 0.1738881 
+Run 603 stress 0.176028 
+Run 604 stress 0.1890964 
+Run 605 stress 0.1881862 
+Run 606 stress 0.1671689 
+... Procrustes: rmse 0.006369091  max resid 0.07384816 
+Run 607 stress 0.1750734 
+Run 608 stress 0.170626 
+Run 609 stress 0.1699911 
+Run 610 stress 0.1759722 
+Run 611 stress 0.1871678 
+Run 612 stress 0.1682348 
+Run 613 stress 0.1693926 
+Run 614 stress 0.1736936 
+Run 615 stress 0.1683825 
+Run 616 stress 0.1728464 
+Run 617 stress 0.1758647 
+Run 618 stress 0.1698239 
+Run 619 stress 0.1721524 
+Run 620 stress 0.1686016 
+Run 621 stress 0.1781987 
+Run 622 stress 0.1703572 
+Run 623 stress 0.1734422 
+Run 624 stress 0.1762143 
+Run 625 stress 0.175858 
+Run 626 stress 0.1750699 
+Run 627 stress 0.1770758 
+Run 628 stress 0.1681677 
+Run 629 stress 0.1938084 
+Run 630 stress 0.1667566 
+... Procrustes: rmse 0.002908042  max resid 0.04022064 
+Run 631 stress 0.1714277 
+Run 632 stress 0.1738704 
+Run 633 stress 0.1786203 
+Run 634 stress 0.1766424 
+Run 635 stress 0.1686091 
+Run 636 stress 0.1693702 
+Run 637 stress 0.1723321 
+Run 638 stress 0.1745687 
+Run 639 stress 0.1706747 
+Run 640 stress 0.1727908 
+Run 641 stress 0.1695602 
+Run 642 stress 0.1716141 
+Run 643 stress 0.1798132 
+Run 644 stress 0.1701034 
+Run 645 stress 0.1727711 
+Run 646 stress 0.172155 
+Run 647 stress 0.1727164 
+Run 648 stress 0.1738992 
+Run 649 stress 0.1703961 
+Run 650 stress 0.1733643 
+Run 651 stress 0.1754832 
+Run 652 stress 0.1726026 
+Run 653 stress 0.1709784 
+Run 654 stress 0.1828272 
+Run 655 stress 0.1716329 
+Run 656 stress 0.1762991 
+Run 657 stress 0.1721192 
+Run 658 stress 0.1733531 
+Run 659 stress 0.1768955 
+Run 660 stress 0.1769656 
+Run 661 stress 0.1760045 
+Run 662 stress 0.1677994 
+Run 663 stress 0.1765232 
+Run 664 stress 0.1731954 
+Run 665 stress 0.1733878 
+Run 666 stress 0.1744369 
+Run 667 stress 0.1712077 
+Run 668 stress 0.1886266 
+Run 669 stress 0.1757686 
+Run 670 stress 0.1764746 
+Run 671 stress 0.175071 
+Run 672 stress 0.176998 
+Run 673 stress 0.1732278 
+Run 674 stress 0.1725978 
+Run 675 stress 0.1702774 
+Run 676 stress 0.1705034 
+Run 677 stress 0.1714245 
+Run 678 stress 0.1722128 
+Run 679 stress 0.1706774 
+Run 680 stress 0.1738395 
+Run 681 stress 0.1727482 
+Run 682 stress 0.1747751 
+Run 683 stress 0.1695681 
+Run 684 stress 0.171146 
+Run 685 stress 0.1709418 
+Run 686 stress 0.1738265 
+Run 687 stress 0.1747028 
+Run 688 stress 0.1724324 
+Run 689 stress 0.1699714 
+Run 690 stress 0.1722487 
+Run 691 stress 0.1761255 
+Run 692 stress 0.1750407 
+Run 693 stress 0.1826236 
+Run 694 stress 0.174196 
+Run 695 stress 0.1828969 
+Run 696 stress 0.1706362 
+Run 697 stress 0.1736637 
+Run 698 stress 0.1739707 
+Run 699 stress 0.1727154 
+Run 700 stress 0.1731533 
+Run 701 stress 0.1765623 
+Run 702 stress 0.1748832 
+Run 703 stress 0.1707062 
+Run 704 stress 0.1740902 
+Run 705 stress 0.1723893 
+Run 706 stress 0.1698969 
+Run 707 stress 0.1694657 
+Run 708 stress 0.189836 
+Run 709 stress 0.1689556 
+Run 710 stress 0.1735769 
+Run 711 stress 0.1736825 
+Run 712 stress 0.1669087 
+... Procrustes: rmse 0.004987819  max resid 0.07997758 
+Run 713 stress 0.1765734 
+Run 714 stress 0.1680697 
+Run 715 stress 0.171816 
+Run 716 stress 0.1878957 
+Run 717 stress 0.1705947 
+Run 718 stress 0.1715237 
+Run 719 stress 0.1973671 
+Run 720 stress 0.1705502 
+Run 721 stress 0.185486 
+Run 722 stress 0.1713965 
+Run 723 stress 0.1926971 
+Run 724 stress 0.1700991 
+Run 725 stress 0.1696128 
+Run 726 stress 0.1693317 
+Run 727 stress 0.181068 
+Run 728 stress 0.1695948 
+Run 729 stress 0.1710774 
+Run 730 stress 0.1740151 
+Run 731 stress 0.1752829 
+Run 732 stress 0.1699496 
+Run 733 stress 0.1731602 
+Run 734 stress 0.1725648 
+Run 735 stress 0.1836091 
+Run 736 stress 0.1689003 
+Run 737 stress 0.1734111 
+Run 738 stress 0.1777602 
+Run 739 stress 0.1719801 
+Run 740 stress 0.1729392 
+Run 741 stress 0.1780988 
+Run 742 stress 0.1684976 
+Run 743 stress 0.1748712 
+Run 744 stress 0.1703038 
+Run 745 stress 0.1730059 
+Run 746 stress 0.1705431 
+Run 747 stress 0.1699436 
+Run 748 stress 0.1698271 
+Run 749 stress 0.1707473 
+Run 750 stress 0.1751867 
+Run 751 stress 0.168861 
+Run 752 stress 0.1835476 
+Run 753 stress 0.1712666 
+Run 754 stress 0.1726033 
+Run 755 stress 0.1911644 
+Run 756 stress 0.1686785 
+Run 757 stress 0.1728057 
+Run 758 stress 0.1787705 
+Run 759 stress 0.1713662 
+Run 760 stress 0.1766297 
+Run 761 stress 0.1700251 
+Run 762 stress 0.1668664 
+... Procrustes: rmse 0.004247409  max resid 0.04824413 
+Run 763 stress 0.1707948 
+Run 764 stress 0.1700141 
+Run 765 stress 0.1694619 
+Run 766 stress 0.1697319 
+Run 767 stress 0.1754632 
+Run 768 stress 0.1696831 
+Run 769 stress 0.1687647 
+Run 770 stress 0.1729355 
+Run 771 stress 0.1695607 
+Run 772 stress 0.1783985 
+Run 773 stress 0.1709462 
+Run 774 stress 0.170844 
+Run 775 stress 0.169624 
+Run 776 stress 0.1753227 
+Run 777 stress 0.1943695 
+Run 778 stress 0.1901295 
+Run 779 stress 0.1944093 
+Run 780 stress 0.169464 
+Run 781 stress 0.1915157 
+Run 782 stress 0.1702828 
+Run 783 stress 0.1748373 
+Run 784 stress 0.1757732 
+Run 785 stress 0.1747033 
+Run 786 stress 0.1740744 
+Run 787 stress 0.1714028 
+Run 788 stress 0.1736581 
+Run 789 stress 0.1733564 
+Run 790 stress 0.1715251 
+Run 791 stress 0.1763435 
+Run 792 stress 0.1690229 
+Run 793 stress 0.188583 
+Run 794 stress 0.1896199 
+Run 795 stress 0.1751396 
+Run 796 stress 0.1780892 
+Run 797 stress 0.1775542 
+Run 798 stress 0.1764078 
+Run 799 stress 0.1704615 
+Run 800 stress 0.1712436 
+*** No convergence -- monoMDS stopping criteria:
+   193: no. of iterations &gt;= maxit
+   584: stress ratio &gt; sratmax
+    23: scale factor of the gradient &lt; sfgrmin</code></pre>
+<pre class="r"><code>  # NMDS = data.frame(NMDS1 = dim_NMDS$points[,1], NMDS2 = dim_NMDS$points[,2])
 
 BiPlotCoords&lt;- envfit(myNMDS, t(myAbundanceDF), perm=999) 
 
@@ -847,15 +1767,20 @@ BiPlotCoordsDF &lt;- c(&quot;MDS1&quot;,&quot;MDS2&quot;,&quot;r&quot;,&quot;pva
   set_names(nm=c(&quot;NMDS1&quot;,&quot;NMDS2&quot;,&quot;r&quot;,&quot;p&quot;)) %&gt;%
   dplyr::mutate(Dim1 = NMDS1*sqrt(r),
                 Dim2 = NMDS2*sqrt(r),
-                species = rownames(myAbundanceDF)) %&gt;%
-  dplyr::filter(species %in% Top50)
+                species = rownames(myAbundanceDF)) 
   
 
 myBrayDistMat &lt;-vegdist(wisconsin(sqrt(t(myAbundanceDF))))</code></pre>
 </div>
 <div id="nmds-by-treatment-group" class="section level2">
 <h2>NMDS by Treatment group</h2>
-<p>One of the variables: <strong>CD4diff_96</strong> has only one level. That means all patients in the study had an increase of CD4 counts higher than 50 cells/ml between weeks 96 and 0. As this variable only has one level it will cause the following code to break (as it performs conrast analysis). Hence, it will be removed from the following analysis. However, we’ll look at the distribution of the CD4 increases as a distribution:</p>
+<p>One of the variables: <strong>CD4diff_96</strong> has only one level.
+That means all patients in the study had an increase of CD4 counts
+higher than 50 cells/ml between weeks 96 and 0. As this variable only
+has one level it will cause the following code to break (as it performs
+conrast analysis). Hence, it will be removed from the following
+analysis. However, we’ll look at the distribution of the CD4 increases
+as a distribution:</p>
 <pre class="r"><code>metadata %&gt;% 
   dplyr::filter(time_point %in% c(0,48),
                 !is.na(CD4diff_96)) %&gt;%
@@ -865,925 +1790,119 @@ myBrayDistMat &lt;-vegdist(wisconsin(sqrt(t(myAbundanceDF))))</code></pre>
   ggplot(., aes(x= dif)) +
   geom_density()</code></pre>
 <p><img src="figure/320_Beta_Diversity.Rmd/CD4diff_dist-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-CD4diff_dist-1">
-Past versions of CD4diff_dist-1.png
-</button>
-</p>
-<div id="fig-CD4diff_dist-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/320_Beta_Diversity.Rmd/CD4diff_dist-1.png" target="_blank">2a1fe84</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2022-04-28
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/7d67e12d5f11c669abfa93c04ddc09ad23be5713/docs/figure/320_Beta_Diversity.Rmd/CD4diff_dist-1.png" target="_blank">7d67e12</a>
-</td>
-<td>
-cblazquez-irsi
-</td>
-<td>
-2022-03-29
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 <pre class="r"><code>cat_df &lt;- cat_df %&gt;%
   filter(!CategoricalVariable == &quot;CD4diff_96&quot;)
-cat_var &lt;- cat_vector
+cat_var &lt;- &quot;group&quot;
 
 
 
-# link_var &lt;- LongitudinalVariablesDF$LinkVariable[1]
-# id_var &lt;- &quot;SampleID&quot;
+link_var &lt;- &quot;record_id&quot;
+id_var &lt;- &quot;SampleID&quot;
 
-# myPal&lt;-RColorBrewer::brewer.pal(name =  cat_df$PaletteName[1],
-#                                 n=length(unique(metadata[,cat_var])))
-# BiPlotCoordsDF&lt;-BiPlotCoordsDF %&gt;%
-#   mutate(Dim1s = Dim1*3,
-#          Dim2s = Dim2*3)
-# 
-# 
-# myNMDS_DF &lt;- myNMDS %&gt;%
-#   rownames_to_column(var = id_var) %&gt;%
-#   dplyr::full_join(., metadata, by =id_var) %&gt;%
-#   dplyr::select(SampleID = id_var,
-#                 NMDS1 = MDS1,
-#                 NMDS2 = MDS2,
-#                 linkVar = !!sym(link_var),
-#                 catVar = !!sym(cat_var),
-#                 LongVar = long_var)
-# 
-# 
-#   myXmin&lt;-min(myNMDS$MDS1)
-#   # +(max(dim_NMDS$points[,1])-min(dim_NMDS$points[,1]))/20
-#   myYmin&lt;-max(myNMDS$MDS2)-(max(myNMDS$MDS1)-min(myNMDS$MDS1))
-# 
-# 
-# 
-#   
-# myAdonis&lt;- adonis(myBrayDistMat~ catVar, data = myNMDS_DF) %&gt;%
-#   pluck(&quot;aov.tab&quot;) %&gt;%
-#   as.data.frame() %&gt;%
-#   slice(1L) %&gt;%
-#   magrittr::set_rownames(cat_var)
-#   
-#   
-# myNMDSplot&lt;-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) + 
-#     geom_point() +
-#     theme_bw()+
-#     theme(panel.border=element_blank(),
-#           panel.grid.major=element_blank(),
-#           panel.grid.minor=element_blank(),
-#           
-#           axis.line=element_line(colour=&quot;black&quot;),
-#           axis.text.x=element_text(size=11),
-#           axis.text.y=element_text(size=11),
-#           axis.title.x=element_text(size=11),
-#           axis.title.y=element_text(size=11),
-#           
-#           legend.text=element_text(size=11,face=&quot;italic&quot;),
-#           legend.title=element_text(size=11))+
-#     
-#     ggtitle(expression(atop(&quot;Species composition&quot;,atop(italic(&quot;all samples&quot;))))) +
-#     theme(plot.title=element_text(lineheight=1,face=&quot;bold&quot;,size=13))+
-#     coord_fixed()+
-#     labs(fill = cat_var, color=cat_var, shape = long_var) 
-# 
-# 
-# 
-# 
-# myNMDSBiplot&lt;-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) + 
-#     geom_point(aes(colour=catVar, shape = as.character(LongVar))) +
-#     scale_colour_manual(values = myPal, labels = c(&quot;DGT&quot;, &quot;DRV/r&quot;)) +
-#     scale_fill_manual(values=myPal, labels = c(&quot;DGT&quot;, &quot;DRV/r&quot;))+
-#     theme_bw()+
-#     theme(panel.border=element_blank(),
-#           panel.grid.major=element_blank(),
-#           panel.grid.minor=element_blank(),
-#           
-#           axis.line=element_line(colour=&quot;black&quot;),
-#           axis.text.x=element_text(size=11),
-#           axis.text.y=element_text(size=11),
-#           axis.title.x=element_text(size=11),
-#           axis.title.y=element_text(size=11),
-#           
-#           legend.text=element_text(size=11,face=&quot;italic&quot;),
-#           legend.title=element_text(size=11))+
-#     
-#     ggtitle(expression(atop(&quot;Species composition&quot;,atop(italic(&quot;all samples&quot;))))) +
-#     theme(plot.title=element_text(lineheight=1,face=&quot;bold&quot;,size=13))+
-#     stat_ellipse(geom=&quot;polygon&quot;,
-#                  alpha=0.15,color=&quot;black&quot;,
-#                  aes(fill=catVar),level=0.95)+
-#     # scale_size_manual(values = c(1:length(unique(myNMDS_DF[,&quot;LongVar&quot;])))/1.5) +
-#     geom_segment(data=BiPlotCoordsDF,aes(x=0,xend=Dim1s,y=0,yend=Dim2s),
-#                  arrow = arrow(length = unit(0.2,&quot;cm&quot;)),colour=&quot;darkgrey&quot;)+
-#     geom_text_repel(data=BiPlotCoordsDF,aes(Dim1s,Dim2s,label=species),
-#                     size=2.5, box.padding = unit(0.25, &quot;lines&quot;),
-#                     segment.colour=&quot;black&quot;,
-#                     segment.alpha=0.5,
-#                     segment.size=0.10)+
-#     coord_fixed()+
-#     labs(fill = cat_var, color=cat_var, shape = long_var) +
-#   annotation_custom(gridExtra::tableGrob(round(myAdonis,3), 
-#                                          theme = ttheme_default(base_size = 8)),ymin = 3.5, xmin=2.4)
-# </code></pre>
-<p>When we look at the most simple ordination before colouring by categorical variables, we see no clear separated clusters between samples. They all appear to be mostly concentrated in one big cluster that randomly spreads in the positive direction for both NMDS components.</p>
+myPal&lt;-RColorBrewer::brewer.pal(name =  cat_df$PaletteName[1],
+                                n=length(unique(metadata[,cat_var])))
+BiPlotCoordsDF&lt;-BiPlotCoordsDF %&gt;%
+  mutate(Dim1s = Dim1*3,
+         Dim2s = Dim2*3)
+
+
+myNMDS_DF &lt;- myNMDS %&gt;%
+  rownames_to_column(var = id_var) %&gt;%
+  dplyr::full_join(., metadata, by =id_var) %&gt;%
+  dplyr::select(SampleID = id_var,
+                NMDS1 = MDS1,
+                NMDS2 = MDS2,
+                linkVar = !!sym(link_var),
+                catVar = !!sym(cat_var),
+                LongVar = long_var)
+
+
+  myXmin&lt;-min(myNMDS$MDS1)
+  # +(max(dim_NMDS$points[,1])-min(dim_NMDS$points[,1]))/20
+  myYmin&lt;-max(myNMDS$MDS2)-(max(myNMDS$MDS1)-min(myNMDS$MDS1))
+
+
+
+
+myAdonis&lt;- adonis(myBrayDistMat~ catVar, data = myNMDS_DF) %&gt;%
+  pluck(&quot;aov.tab&quot;) %&gt;%
+  as.data.frame() %&gt;%
+  slice(1L) %&gt;%
+  magrittr::set_rownames(cat_var)
+
+
+myNMDSplot&lt;-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
+    geom_point() +
+    theme_bw()+
+    theme(panel.border=element_blank(),
+          panel.grid.major=element_blank(),
+          panel.grid.minor=element_blank(),
+
+          axis.line=element_line(colour=&quot;black&quot;),
+          axis.text.x=element_text(size=11),
+          axis.text.y=element_text(size=11),
+          axis.title.x=element_text(size=11),
+          axis.title.y=element_text(size=11),
+
+          legend.text=element_text(size=11,face=&quot;italic&quot;),
+          legend.title=element_text(size=11))+
+
+    ggtitle(expression(atop(&quot;Species composition&quot;,atop(italic(&quot;all samples&quot;))))) +
+    theme(plot.title=element_text(lineheight=1,face=&quot;bold&quot;,size=13))+
+    coord_fixed()+
+    labs(fill = cat_var, color=cat_var, shape = long_var)
+
+
+
+
+myNMDSBiplot&lt;-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
+    geom_point(aes(colour=catVar, shape = as.character(LongVar))) +
+    scale_colour_manual(values = myPal, labels = c(&quot;DGT&quot;, &quot;DRV/r&quot;)) +
+    scale_fill_manual(values=myPal, labels = c(&quot;DGT&quot;, &quot;DRV/r&quot;))+
+    theme_bw()+
+    theme(panel.border=element_blank(),
+          panel.grid.major=element_blank(),
+          panel.grid.minor=element_blank(),
+
+          axis.line=element_line(colour=&quot;black&quot;),
+          axis.text.x=element_text(size=11),
+          axis.text.y=element_text(size=11),
+          axis.title.x=element_text(size=11),
+          axis.title.y=element_text(size=11),
+
+          legend.text=element_text(size=11,face=&quot;italic&quot;),
+          legend.title=element_text(size=11))+
+
+    ggtitle(expression(atop(&quot;Species composition&quot;,atop(italic(&quot;all samples&quot;))))) +
+    theme(plot.title=element_text(lineheight=1,face=&quot;bold&quot;,size=13))+
+    stat_ellipse(geom=&quot;polygon&quot;,
+                 alpha=0.15,color=&quot;black&quot;,
+                 aes(fill=catVar),level=0.95)+
+    # scale_size_manual(values = c(1:length(unique(myNMDS_DF[,&quot;LongVar&quot;])))/1.5) +
+    geom_segment(data=BiPlotCoordsDF,aes(x=0,xend=Dim1s,y=0,yend=Dim2s),
+                 arrow = arrow(length = unit(0.2,&quot;cm&quot;)),colour=&quot;darkgrey&quot;)+
+    geom_text_repel(data=BiPlotCoordsDF,aes(Dim1s,Dim2s,label=species),
+                    size=2.5, box.padding = unit(0.25, &quot;lines&quot;),
+                    segment.colour=&quot;black&quot;,
+                    segment.alpha=0.5,
+                    segment.size=0.10)+
+    coord_fixed()+
+    labs(fill = cat_var, color=cat_var, shape = long_var) +
+  annotation_custom(gridExtra::tableGrob(round(myAdonis,3),
+                                         theme = ttheme_default(base_size = 8)),ymin = 3.5, xmin=2.4)</code></pre>
+<p>When we look at the most simple ordination before colouring by
+categorical variables, we see no clear separated clusters between
+samples. They all appear to be mostly concentrated in one big cluster
+that randomly spreads in the positive direction for both NMDS
+components.</p>
 <pre class="r"><code>mymre &lt;- metar::metaphlan_nmds(mymre, tax_level = &quot;Species&quot;,top_n = 50, save_files = F)
 
 mymre@taxa@metaphlan@nmds$Species$top_50$categorical %&gt;%
   discard(., names(.) == &quot;record_id&quot;)</code></pre>
-<pre><code>$group</code></pre>
-<p><img src="figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_basic_NMDS-1">
-Past versions of plot_basic_NMDS-1.png
-</button>
-</p>
-<div id="fig-plot_basic_NMDS-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-1.png" target="_blank">2a1fe84</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2022-04-28
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/7d67e12d5f11c669abfa93c04ddc09ad23be5713/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-1.png" target="_blank">7d67e12</a>
-</td>
-<td>
-cblazquez-irsi
-</td>
-<td>
-2022-03-29
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/c51687a773a5cb2f278af76950c55a802ed234cd/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-1.png" target="_blank">c51687a</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2022-03-28
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-$risk_group</code></pre>
-<p><img src="figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_basic_NMDS-2">
-Past versions of plot_basic_NMDS-2.png
-</button>
-</p>
-<div id="fig-plot_basic_NMDS-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-2.png" target="_blank">2a1fe84</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2022-04-28
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/7d67e12d5f11c669abfa93c04ddc09ad23be5713/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-2.png" target="_blank">7d67e12</a>
-</td>
-<td>
-cblazquez-irsi
-</td>
-<td>
-2022-03-29
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-$center</code></pre>
-<p><img src="figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-3.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_basic_NMDS-3">
-Past versions of plot_basic_NMDS-3.png
-</button>
-</p>
-<div id="fig-plot_basic_NMDS-3" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-3.png" target="_blank">2a1fe84</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2022-04-28
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/7d67e12d5f11c669abfa93c04ddc09ad23be5713/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-3.png" target="_blank">7d67e12</a>
-</td>
-<td>
-cblazquez-irsi
-</td>
-<td>
-2022-03-29
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-$gender</code></pre>
-<p><img src="figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-4.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_basic_NMDS-4">
-Past versions of plot_basic_NMDS-4.png
-</button>
-</p>
-<div id="fig-plot_basic_NMDS-4" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-4.png" target="_blank">2a1fe84</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2022-04-28
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/7d67e12d5f11c669abfa93c04ddc09ad23be5713/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-4.png" target="_blank">7d67e12</a>
-</td>
-<td>
-cblazquez-irsi
-</td>
-<td>
-2022-03-29
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-$ethnic_group</code></pre>
-<p><img src="figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-5.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_basic_NMDS-5">
-Past versions of plot_basic_NMDS-5.png
-</button>
-</p>
-<div id="fig-plot_basic_NMDS-5" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-5.png" target="_blank">2a1fe84</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2022-04-28
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/7d67e12d5f11c669abfa93c04ddc09ad23be5713/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-5.png" target="_blank">7d67e12</a>
-</td>
-<td>
-cblazquez-irsi
-</td>
-<td>
-2022-03-29
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-$CD4diff_48</code></pre>
-<p><img src="figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-6.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_basic_NMDS-6">
-Past versions of plot_basic_NMDS-6.png
-</button>
-</p>
-<div id="fig-plot_basic_NMDS-6" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-6.png" target="_blank">2a1fe84</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2022-04-28
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/7d67e12d5f11c669abfa93c04ddc09ad23be5713/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-6.png" target="_blank">7d67e12</a>
-</td>
-<td>
-cblazquez-irsi
-</td>
-<td>
-2022-03-29
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-$CD8diff_48</code></pre>
-<p><img src="figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-7.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_basic_NMDS-7">
-Past versions of plot_basic_NMDS-7.png
-</button>
-</p>
-<div id="fig-plot_basic_NMDS-7" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-7.png" target="_blank">2a1fe84</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2022-04-28
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/7d67e12d5f11c669abfa93c04ddc09ad23be5713/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-7.png" target="_blank">7d67e12</a>
-</td>
-<td>
-cblazquez-irsi
-</td>
-<td>
-2022-03-29
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-$CD4after_48</code></pre>
-<p><img src="figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-8.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_basic_NMDS-8">
-Past versions of plot_basic_NMDS-8.png
-</button>
-</p>
-<div id="fig-plot_basic_NMDS-8" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-8.png" target="_blank">2a1fe84</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2022-04-28
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/7d67e12d5f11c669abfa93c04ddc09ad23be5713/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-8.png" target="_blank">7d67e12</a>
-</td>
-<td>
-cblazquez-irsi
-</td>
-<td>
-2022-03-29
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-$CD8after_48</code></pre>
-<p><img src="figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-9.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_basic_NMDS-9">
-Past versions of plot_basic_NMDS-9.png
-</button>
-</p>
-<div id="fig-plot_basic_NMDS-9" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-9.png" target="_blank">2a1fe84</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2022-04-28
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/7d67e12d5f11c669abfa93c04ddc09ad23be5713/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-9.png" target="_blank">7d67e12</a>
-</td>
-<td>
-cblazquez-irsi
-</td>
-<td>
-2022-03-29
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-$CD4diff_96</code></pre>
-<p><img src="figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-10.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_basic_NMDS-10">
-Past versions of plot_basic_NMDS-10.png
-</button>
-</p>
-<div id="fig-plot_basic_NMDS-10" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-10.png" target="_blank">2a1fe84</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2022-04-28
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/7d67e12d5f11c669abfa93c04ddc09ad23be5713/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-10.png" target="_blank">7d67e12</a>
-</td>
-<td>
-cblazquez-irsi
-</td>
-<td>
-2022-03-29
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-$CD8diff_96</code></pre>
-<p><img src="figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-11.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_basic_NMDS-11">
-Past versions of plot_basic_NMDS-11.png
-</button>
-</p>
-<div id="fig-plot_basic_NMDS-11" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-11.png" target="_blank">2a1fe84</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2022-04-28
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/7d67e12d5f11c669abfa93c04ddc09ad23be5713/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-11.png" target="_blank">7d67e12</a>
-</td>
-<td>
-cblazquez-irsi
-</td>
-<td>
-2022-03-29
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-$CD4after_96</code></pre>
-<p><img src="figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-12.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_basic_NMDS-12">
-Past versions of plot_basic_NMDS-12.png
-</button>
-</p>
-<div id="fig-plot_basic_NMDS-12" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-12.png" target="_blank">2a1fe84</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2022-04-28
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/7d67e12d5f11c669abfa93c04ddc09ad23be5713/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-12.png" target="_blank">7d67e12</a>
-</td>
-<td>
-cblazquez-irsi
-</td>
-<td>
-2022-03-29
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-$CD8after_96</code></pre>
-<p><img src="figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-13.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_basic_NMDS-13">
-Past versions of plot_basic_NMDS-13.png
-</button>
-</p>
-<div id="fig-plot_basic_NMDS-13" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-13.png" target="_blank">2a1fe84</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2022-04-28
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/7d67e12d5f11c669abfa93c04ddc09ad23be5713/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-13.png" target="_blank">7d67e12</a>
-</td>
-<td>
-cblazquez-irsi
-</td>
-<td>
-2022-03-29
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-$time_point</code></pre>
-<p><img src="figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-14.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_basic_NMDS-14">
-Past versions of plot_basic_NMDS-14.png
-</button>
-</p>
-<div id="fig-plot_basic_NMDS-14" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-14.png" target="_blank">2a1fe84</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2022-04-28
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/7d67e12d5f11c669abfa93c04ddc09ad23be5713/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-14.png" target="_blank">7d67e12</a>
-</td>
-<td>
-cblazquez-irsi
-</td>
-<td>
-2022-03-29
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-$cluster</code></pre>
-<p><img src="figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-15.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_basic_NMDS-15">
-Past versions of plot_basic_NMDS-15.png
-</button>
-</p>
-<div id="fig-plot_basic_NMDS-15" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/320_Beta_Diversity.Rmd/plot_basic_NMDS-15.png" target="_blank">2a1fe84</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2022-04-28
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>In a more formal analysis, the silhouette coefficient was tested for different number of clusters. This analysis found the biggest coefficient was found for n=1 clustrs, with massive drops between 2-3 and 5-6.</p>
+<p>In a more formal analysis, the silhouette coefficient was tested for
+different number of clusters. This analysis found the biggest
+coefficient was found for n=1 clustrs, with massive drops between 2-3
+and 5-6.</p>
 <pre class="r"><code>myBrayDistMat &lt;- phyloseq::otu_table(phy) %&gt;%
   t() %&gt;%
   sqrt() %&gt;%
@@ -1812,67 +1931,17 @@ c(1:11) %&gt;%
   labs(title = &quot;Silhouette coefficient by number of clusters&quot;, 
        x=&quot;nº Clusters&quot;, y = &quot;Silhouette coefficient&quot;)</code></pre>
 <p><img src="figure/320_Beta_Diversity.Rmd/silhouette_analysis-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-silhouette_analysis-1">
-Past versions of silhouette_analysis-1.png
-</button>
-</p>
-<div id="fig-silhouette_analysis-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/2a1fe845b3637c85682f64ab5aea8d2164e1192f/docs/figure/320_Beta_Diversity.Rmd/silhouette_analysis-1.png" target="_blank">2a1fe84</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2022-04-28
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/7d67e12d5f11c669abfa93c04ddc09ad23be5713/docs/figure/320_Beta_Diversity.Rmd/silhouette_analysis-1.png" target="_blank">7d67e12</a>
-</td>
-<td>
-cblazquez-irsi
-</td>
-<td>
-2022-03-29
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/c51687a773a5cb2f278af76950c55a802ed234cd/docs/figure/320_Beta_Diversity.Rmd/silhouette_analysis-1.png" target="_blank">c51687a</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2022-03-28
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>In the same fashion, when we start identifying samples by group and Timepoint, we see no clear separation, although samples from group 1 (+DGT) group appear to be more clustered together than group 2 (DRV+RLT), which show a more diffuse “central” cluster and are more dispersed. When looking at weight of the variables, the concentric spread of the arrows can be split in two sides, one more enriched in Prevotella and another in bacteroides, which spread mostly around the 2nd component of the NMDS.</p>
-<p>However, the Adonis test found the variable group to have a significant effect over sample distances (p&lt;0.001), although it only accounted for a small portion of the variance</p>
+<p>In the same fashion, when we start identifying samples by group and
+Timepoint, we see no clear separation, although samples from group 1
+(+DGT) group appear to be more clustered together than group 2
+(DRV+RLT), which show a more diffuse “central” cluster and are more
+dispersed. When looking at weight of the variables, the concentric
+spread of the arrows can be split in two sides, one more enriched in
+Prevotella and another in bacteroides, which spread mostly around the
+2nd component of the NMDS.</p>
+<p>However, the Adonis test found the variable group to have a
+significant effect over sample distances (p&lt;0.001), although it only
+accounted for a small portion of the variance</p>
 <pre class="r"><code>myNMDSBiplot</code></pre>
 </div>
 <div id="distances-to-basal" class="section level1">
@@ -1895,7 +1964,7 @@ ids &lt;- otu_df %&gt;%
   head(50) %&gt;% 
   names()
   
-
+lmms &lt;- 
 otu_df %&gt;% 
   dplyr::select(ids) %&gt;% 
   vegan::vegdist(x = ., method = &quot;bray&quot;) %&gt;% 
@@ -1903,143 +1972,113 @@ otu_df %&gt;%
                       link_var = &quot;record_id&quot;,
                       long_var = &quot;time_point&quot;,
                       cat_var = &quot;group&quot;,
-                      basal = 0) +
+                      basal = 0) %&gt;% 
+  pluck(&quot;plot&quot;)+
   scale_x_continuous(breaks = unique(metadata$time_point)) +
   scale_color_brewer(palette = &quot;Set1&quot;) +
-  scale_fill_brewer(palette = &quot;Set1&quot;)</code></pre>
-<p><img src="figure/320_Beta_Diversity.Rmd/First_differences-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-First_differences-1">
-Past versions of First_differences-1.png
-</button>
-</p>
-<div id="fig-First_differences-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/3fa20ba400c57e7465b5ff4468c303398b28ff60/docs/figure/320_Beta_Diversity.Rmd/First_differences-1.png" target="_blank">3fa20ba</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2022-06-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+  scale_fill_brewer(palette = &quot;Set1&quot;)
+
+
+
+
+
+boxplots &lt;- 
+  otu_df %&gt;% 
+  dplyr::select(ids) %&gt;% 
+  vegan::vegdist(x = ., method = &quot;bray&quot;) %&gt;% 
+  distance_from_basal(dist_mat = ., metadata = metadata, 
+                      link_var = &quot;record_id&quot;,
+                      long_var = &quot;time_point&quot;,
+                      cat_var = &quot;group&quot;,
+                      basal = 0) %&gt;% 
+  pluck(&quot;data&quot;) %&gt;% 
+  ggplot(., aes(x = as.factor(time_point), y = distance, fill = group)) +
+  geom_boxplot(position = &quot;dodge&quot;)  +
+  scale_color_brewer(palette = &quot;Set1&quot;) +
+  scale_fill_brewer(palette = &quot;Set1&quot;) +
+  theme_bw() + 
+  labs(x = &quot;Weeks&quot;, y = &quot;distance from basal&quot;)</code></pre>
+<p>Sample A0023 apparently jups to distance = 1 from the very start</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
-<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.0.5 (2021-03-31)
-Platform: x86_64-redhat-linux-gnu (64-bit)
-Running under: Fedora 34 (Workstation Edition)
+<pre><code>R version 4.0.2 (2020-06-22)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 22000)
 
 Matrix products: default
-BLAS/LAPACK: /usr/lib64/libflexiblas.so.3.1
 
 locale:
- [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
- [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
- [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+[1] LC_COLLATE=Spanish_Spain.1252  LC_CTYPE=Spanish_Spain.1252   
+[3] LC_MONETARY=Spanish_Spain.1252 LC_NUMERIC=C                  
+[5] LC_TIME=Spanish_Spain.1252    
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] metar_0.1.5     testthat_3.1.4  gridExtra_2.3   cluster_2.1.3  
- [5] ggrepel_0.9.1   vegan_2.6-2     lattice_0.20-45 permute_0.9-7  
- [9] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.9     purrr_0.3.4    
-[13] readr_2.1.2     tidyr_1.2.0     tibble_3.1.7    ggplot2_3.3.6  
-[17] tidyverse_1.3.1 phyloseq_1.34.0 devtools_2.4.3  usethis_2.1.5  
-[21] workflowr_1.7.0
+ [1] metar_0.1.4     testthat_3.0.1  gridExtra_2.3   cluster_2.1.0  
+ [5] ggrepel_0.9.1   vegan_2.5-7     lattice_0.20-41 permute_0.9-7  
+ [9] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.8     purrr_0.3.4    
+[13] readr_2.0.1     tidyr_1.2.0     tibble_3.1.6    ggplot2_3.3.5  
+[17] tidyverse_1.3.1 phyloseq_1.34.0
 
 loaded via a namespace (and not attached):
-  [1] utf8_1.2.2             tidyselect_1.1.2       lme4_1.1-29           
-  [4] htmlwidgets_1.5.4      gmp_0.6-5              grid_4.0.5            
-  [7] aws.signature_0.6.0    munsell_0.5.0          effectsize_0.6.0.1    
- [10] codetools_0.2-18       future_1.25.0          withr_2.5.0           
- [13] colorspace_2.0-3       Biobase_2.50.0         logger_0.2.2          
- [16] highr_0.9              knitr_1.39             rstudioapi_0.13       
- [19] stats4_4.0.5           ggsignif_0.6.3.9000    ggside_0.2.0          
- [22] listenv_0.8.0          emmeans_1.7.3          labeling_0.4.2        
- [25] git2r_0.30.1           polyclip_1.10-0        datawizard_0.4.1      
- [28] bit64_4.0.5            farver_2.1.0           rhdf5_2.34.0          
- [31] rprojroot_2.0.3        TH.data_1.1-1          coda_0.19-4           
- [34] parallelly_1.31.1      vctrs_0.4.1            generics_0.1.2        
- [37] xfun_0.31              BWStest_0.2.2          R6_2.5.1              
- [40] arm_1.12-2             rhdf5filters_1.2.1     cachem_1.0.6          
- [43] assertthat_0.2.1       promises_1.2.0.1       networkD3_0.4         
- [46] scales_1.2.0           vroom_1.5.7            multcomp_1.4-19       
- [49] merTools_0.5.2         gtable_0.3.0           multcompView_0.1-8    
- [52] globals_0.14.0         processx_3.5.3         sandwich_3.0-1        
- [55] rlang_1.0.2            zeallot_0.1.0          PMCMRplus_1.9.4       
- [58] splines_4.0.5          rstatix_0.7.0          broom_0.8.0           
- [61] yaml_2.3.5             reshape2_1.4.4         abind_1.4-5           
- [64] modelr_0.1.8           backports_1.4.1        httpuv_1.6.5          
- [67] tools_4.0.5            logging_0.10-108       ellipsis_0.3.2        
- [70] jquerylib_0.1.4        biomformat_1.18.0      selbal_0.1.0          
- [73] RColorBrewer_1.1-3     BiocGenerics_0.36.1    sessioninfo_1.2.2     
- [76] Rcpp_1.0.8.3           plyr_1.8.7             base64enc_0.1-3       
- [79] zlibbioc_1.36.0        ps_1.7.0               prettyunits_1.1.1     
- [82] ggpubr_0.4.0           correlation_0.8.1      zoo_1.8-10            
- [85] S4Vectors_0.28.1       haven_2.5.0            fs_1.5.2              
- [88] here_1.0.1             furrr_0.2.3            DataExplorer_0.8.2    
- [91] magrittr_2.0.3         data.table_1.14.2      reprex_2.0.1          
- [94] mvtnorm_1.1-3          whisker_0.4            pkgload_1.2.4         
- [97] hms_1.1.1              patchwork_1.1.1        mime_0.12             
-[100] evaluate_0.15          xtable_1.8-4           broom.mixed_0.2.9.4   
-[103] readxl_1.4.0           IRanges_2.24.1         compiler_4.0.5        
-[106] ggstatsplot_0.9.3      crayon_1.5.1           minqa_1.2.4           
-[109] htmltools_0.5.2        mgcv_1.8-40            later_1.3.0           
-[112] tzdb_0.3.0             kSamples_1.2-9         SuppDists_1.1-9.7     
-[115] lubridate_1.8.0        aws.s3_0.3.21          DBI_1.1.2             
-[118] tweenr_1.0.2           dbplyr_2.1.1           MASS_7.3-57           
-[121] boot_1.3-28            Matrix_1.4-1           ade4_1.7-19           
-[124] car_3.0-13             wesanderson_0.3.6      brio_1.1.3            
-[127] cli_3.3.0              insight_0.17.1         parallel_4.0.5        
-[130] igraph_1.3.1           pkgconfig_2.0.3        getPass_0.2-2         
-[133] statsExpressions_1.3.2 paletteer_1.4.0        xml2_1.3.2            
-[136] foreach_1.5.2          bslib_0.3.1            blme_1.0-5            
-[139] multtest_2.46.0        XVector_0.30.0         estimability_1.3      
-[142] rvest_1.0.2            snakecase_0.11.0       callr_3.7.0           
-[145] digest_0.6.29          parameters_0.18.1      janitor_2.1.0         
-[148] Biostrings_2.58.0      rmarkdown_2.14         cellranger_1.1.0      
-[151] curl_4.3.2             shiny_1.7.1            nloptr_2.0.2          
-[154] lifecycle_1.0.1        nlme_3.1-157           jsonlite_1.8.0        
-[157] Rhdf5lib_1.12.1        carData_3.0-5          desc_1.4.1            
-[160] fansi_1.0.3            pillar_1.7.0           fastmap_1.1.0         
-[163] httr_1.4.2             pkgbuild_1.3.1         survival_3.3-1        
-[166] glue_1.6.2             remotes_2.4.2          bayestestR_0.12.1     
-[169] iterators_1.0.14       bit_4.0.4              performance_0.9.0     
-[172] ggforce_0.3.3          stringi_1.7.6          sass_0.4.1            
-[175] rematch2_2.1.2         memoise_2.0.1          Rmpfr_0.8-7           
-[178] ape_5.6-2             </code></pre>
+  [1] readxl_1.3.1        backports_1.4.1     blme_1.0-5         
+  [4] workflowr_1.7.0     plyr_1.8.6          igraph_1.2.9       
+  [7] splines_4.0.2       usethis_2.0.0       digest_0.6.29      
+ [10] foreach_1.5.2       htmltools_0.5.2     wesanderson_0.3.6  
+ [13] fansi_0.5.0         magrittr_2.0.2      memoise_2.0.0      
+ [16] remotes_2.4.0       tzdb_0.3.0          aws.signature_0.6.0
+ [19] Biostrings_2.58.0   modelr_0.1.8        vroom_1.5.7        
+ [22] prettyunits_1.1.1   colorspace_2.0-2    rvest_1.0.1        
+ [25] haven_2.3.1         xfun_0.30           callr_3.7.0        
+ [28] crayon_1.5.1        jsonlite_1.7.2      lme4_1.1-27.1      
+ [31] survival_3.1-12     iterators_1.0.14    ape_5.5            
+ [34] glue_1.5.1          polyclip_1.10-0     gtable_0.3.0       
+ [37] zlibbioc_1.36.0     XVector_0.30.0      car_3.0-12         
+ [40] pkgbuild_1.2.0      Rhdf5lib_1.12.1     BiocGenerics_0.36.1
+ [43] abind_1.4-5         scales_1.2.0        mvtnorm_1.1-2      
+ [46] DBI_1.1.1           rstatix_0.7.0       Rcpp_1.0.7         
+ [49] xtable_1.8-4        merTools_0.5.2      bit_4.0.4          
+ [52] stats4_4.0.2        htmlwidgets_1.5.4   httr_1.4.2         
+ [55] RColorBrewer_1.1-3  ellipsis_0.3.2      farver_2.1.0       
+ [58] DataExplorer_0.8.2  pkgconfig_2.0.3     sass_0.4.0         
+ [61] dbplyr_2.1.1        utf8_1.2.2          here_1.0.1         
+ [64] labeling_0.4.2      tidyselect_1.1.2    rlang_1.0.2        
+ [67] reshape2_1.4.4      later_1.3.0         munsell_0.5.0      
+ [70] cellranger_1.1.0    tools_4.0.2         cachem_1.0.1       
+ [73] cli_3.0.1           generics_0.1.2      selbal_0.1.0       
+ [76] ade4_1.7-18         devtools_2.3.2      broom_0.8.0        
+ [79] aws.s3_0.3.21       evaluate_0.15       biomformat_1.18.0  
+ [82] fastmap_1.1.0       arm_1.12-2          yaml_2.3.5         
+ [85] bit64_4.0.5         processx_3.5.2      knitr_1.38         
+ [88] fs_1.5.0            nlme_3.1-148        whisker_0.4        
+ [91] mime_0.11           xml2_1.3.2          compiler_4.0.2     
+ [94] rstudioapi_0.13     curl_4.3            ggsignif_0.6.3     
+ [97] reprex_2.0.1        tweenr_1.0.2        bslib_0.3.1        
+[100] stringi_1.7.6       highr_0.9           ps_1.5.0           
+[103] desc_1.4.1          logger_0.2.2        Matrix_1.2-18      
+[106] nloptr_1.2.2.3      multtest_2.46.0     vctrs_0.3.8        
+[109] pillar_1.7.0        lifecycle_1.0.1     networkD3_0.4      
+[112] rhdf5filters_1.2.1  jquerylib_0.1.4     data.table_1.14.2  
+[115] patchwork_1.1.1     httpuv_1.6.3        R6_2.5.1           
+[118] promises_1.2.0.1    IRanges_2.24.1      sessioninfo_1.1.1  
+[121] codetools_0.2-16    boot_1.3-25         MASS_7.3-51.6      
+[124] assertthat_0.2.1    pkgload_1.2.4       rhdf5_2.34.0       
+[127] rprojroot_2.0.3     withr_2.5.0         S4Vectors_0.28.1   
+[130] broom.mixed_0.2.7   mgcv_1.8-31         parallel_4.0.2     
+[133] hms_1.1.1           grid_4.0.2          coda_0.19-4        
+[136] minqa_1.2.4         rmarkdown_2.11      carData_3.0-5      
+[139] logging_0.10-108    ggpubr_0.4.0        git2r_0.28.0       
+[142] ggforce_0.3.3       Biobase_2.50.0      shiny_1.7.1        
+[145] lubridate_1.8.0     base64enc_0.1-3    </code></pre>
 </div>
 </div>
 

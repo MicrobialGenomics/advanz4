@@ -21,6 +21,7 @@ library(rstatix)
 library(lme4)
 library(lmerTest)
 source(file = here::here("code","myFunctions.R"))
+source("code/Paired_wilcox_NA_Handler.R")
 
 
 ```
@@ -40,7 +41,7 @@ First we'll check how well the sequencing went by looking at the read count dist
 mymre <- aws.s3::s3readRDS("s3://mistral-wp6-advanz4/metagenome/WMGS/MREObject.rds") ### Check consistency between mre.rds(local and S3). You are reading s3 file, here, but in 200_ you are using local
 # metadata <- metar::get_metadata(mymre)@metadata_df
 
-metadata <- here::here("Metadata", "2022_05_30_clean_metadata_LIMS.csv") %>% 
+metadata <- here::here("Metadata", "2022_09_14_clean_metadata_LIMS.csv") %>% 
   read.csv() %>% 
   column_to_rownames("SampleID") %>% 
   mutate(SampleID = rownames(.))
@@ -122,7 +123,7 @@ Threshold <-  igc@dataTable %>%
 
 
 readCountDistribution<-igc@dataTable %>%
-    select(SampleID, NumberMappedReads) %>%
+    select(SampleID, NumberMappedReads) %>% 
     unique() %>%
 
     ggplot(aes(x=NumberMappedReads)) +
@@ -148,7 +149,7 @@ TableList <- cat_vector %>%
                 group_by(SampleID) %>%
                 summarise(across(everything(), min)) %>%
                 ungroup() %>%
-          left_join(., metadata, by="SampleID") %>%
+          right_join(., metadata, by="SampleID") %>%
           select(SampleID,
                  richness = GeneNumber,
                  link_var=link_var,
@@ -164,7 +165,7 @@ readCountDistribution
 
 ```
 
-only 6 samples have been discarded by low read count. The threshold used for filtering was the 2nd percentile, which equals 12428123 reads.
+only 6 samples have been discarded by low read count. The threshold used for filtering was the 2nd percentile, which equals 11888709 reads.
 
 
 
@@ -209,15 +210,15 @@ seq_depth_plots <-
                  label = "p.signif", 
                  label.x.npc = 0.5) +
             scale_fill_brewer( palette = myPal) +
-            geom_hline(yintercept = Threshold)
+            geom_hline(yintercept = Threshold) + 
+            labs(x = .x)
 
         pltGrd <- ggarrange(rarefaction,violin, common.legend = T)
         return(pltGrd)
     })
 
 
-seq_depth_plots$risk_group
-
+seq_depth_plots$group
 
 # ggarrange(plotlist=seq_depth_plots$ARM, common.legend = T, ncol = 1, nrow = 2)
 
@@ -559,17 +560,24 @@ write.csv(.,"output/overall_pvals.csv",quote = T,row.names = F)
 
 
 ### This was a first test to learn how to perform multiple comparisons in a true tidyverse fashion
-cat_vector <- c("group")
+cat_vector <- c("group", "CD4diff_96")
 library(rstatix)
 library(ggpubr)
 
 pal = "Accent"
 
-
-dat <-
+boxplots <- 
+cat_vector %>% 
+  set_names() %>% 
+  purrr::map(function(cv){
+    
+    
+    
+  dat <-
   TableList %>%
-  pluck("group") %>%
-  select(sam_var, link_var, long_var, cat_var, richness) 
+  pluck(cv) %>%
+  select(SampleID, link_var, long_var, cat_var, richness) %>% 
+  filter(!is.na(cat_var))
 
 test_cat <-
   dat %>%
@@ -586,6 +594,7 @@ test_cat <-
 
 test_long <-
   dat %>%
+  # mutate(long_var = as.factor(long_var)) %>% 
   PairedWilcox_withNAs(
     myDF = .,
     IDs = "link_var",
@@ -623,7 +632,7 @@ test_long <-
                           cat_var == "DRV/r" ~ xmax - 0.2))
 
 
-group_boxplot <-
+boxplot <-
   dat %>%
   ggplot(., aes(x = as.factor(long_var), y = richness)) +
   geom_boxplot(aes(fill = cat_var), position = "dodge") +
@@ -646,7 +655,7 @@ group_boxplot <-
   ) +
   theme_bw() +
   scale_fill_brewer(palette = pal) +
-  labs(y = "Gene richness (count)", x="weeks",fill = "group") +
+  labs(y = "Gene richness (count)", x="weeks",fill = cv) +
   theme(
     axis.text = element_text(size = 12),
     axis.title.x = element_text(size = 14),
@@ -657,18 +666,29 @@ group_boxplot <-
   )
 
 
-group_boxplot
+return(list(data = dat, plot = boxplot))
 
+  })
+
+boxplots$group$plot
+boxplots$CD4diff_96$plot
 ```
 
 This is even more intereseting, as most of the significant tchange happens in the DTG group, with significant differences in all time points, and significantly higher richnes in DTG vs DRV/r is found in al timepoints except 0.
 
 ```{r group_stats, warning=F, message=FALSE}
+source("code/group_comparisons.R")
 
-combn(unique(dat$long_var),2, simplify = F) %>% 
+
+cat_vector %>% 
+  set_names() %>% 
+  map(function(cv){
+    combn(unique(dat$long_var),2, simplify = F) %>% 
   map_dfr(function(comp){
     comp <- sort(comp)
-    mockdat %>% 
+    
+    list_res <- boxplots %>%
+      pluck(cv, "data") %>% 
     get_group_comparisons(dat = .,
                       link_var = "link_var",
                       long_var = "long_var",
@@ -676,21 +696,58 @@ combn(unique(dat$long_var),2, simplify = F) %>%
                       num_vector = "richness",
                       comps = comp,
                       type = "longitudinal"
-                      ) %>% 
-  pluck("cat_var","richness","stats") %>% 
+                      )  
+
+  stat_df <- 
+    list_res %>% 
+      pluck("cat_var","richness","stats") %>% 
       dplyr::mutate(group1 = comp[1], 
-                    group2 = comp[2], .after=1)
+                    group2 = comp[2], .after=1) %>% 
+      dplyr::mutate(group1 = as.character(group1), 
+                group2 = as.character(group2))
 
-  }) %>% 
-      dplyr::arrange(cat_var,group1,group2) %>% 
-  dplyr::mutate(group1 = as.character(group1), 
-                group2 = as.character(group2)) %>% 
-  dplyr::full_join(test_long, by=c("cat_var","group1","group2")) %>% 
-  dplyr::select(cat_var, contains("group"), median1, iqr2, median2, iqr2, medianChange, iqr_change, n1, n2, statistic, p.adj) %>% 
-  write.csv(.,"output/group_pvals.csv",quote = T,row.names = F)  
+  test_df <- 
+    list_res %>% 
+    pluck("cat_var","richness","test") 
+   
+ 
+   res_df <- 
+     dplyr::full_join(stat_df, test_df, by=c("cat_var","group1","group2")) %>% 
+  
+  dplyr::arrange(cat_var,group1,group2) %>% 
+  dplyr::select(cat_var, contains("group"), median1, iqr2, median2, iqr2, medianChange, iqr_change, n1, n2, statistic, p) 
 
 
+  }) 
+  })
+  # write.csv(.,"output/group_pvals_long.csv",quote = T,row.names = F)  
+
+
+
+
+cat_vector %>% 
+  purrr::set_names() %>% 
+  purrr::map(function(cv){
+    dat <-  boxplots %>% 
+      purrr::pluck(cv, "data")
+      
+    comp <- combn(unique(dat$cat_var),2, simplify = F)[[1]]
+          
+    get_group_comparisons(dat = dat,
+                      link_var = "link_var",
+                      long_var = "long_var",
+                      cat_vector = "cat_var",
+                      num_vector = "richness",
+                      comps = comp,
+                      type = "categorical"
+                      ) %>% 
+  pluck("cat_var", "richness")  
+  })
+
+  # write.table(.,"output/group_pvals_cat.csv",quote = T,row.names = F)  
 
 
 ```
+
+
 

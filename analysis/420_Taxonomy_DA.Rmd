@@ -256,7 +256,34 @@ otu_df %>%
 
 ```
 
-Only one spec
+Bifidobacterium adolescentis, Bifidobacterium longum and Olsenella scatoligenes were significant in all timepoints. Let's check the actual abundances per group and timepoint:
+
+```{r species_group_comparisons, warning = F, message=F}
+source("code/group_comparisons.R")
+sp_vec <- c("Bifidobacterium_adolescentis","Bifidobacterium_longum","Olsenella_scatoligenes")
+
+
+sp_res <- 
+otu_df %>% 
+  left_join(metadata, by = "SampleID") %>% 
+  # select(SampleID, record_id, time_point, group, abundance = !!sym(sp)) %>% 
+  get_group_comparisons(., 
+                        link_var = "record_id",
+                        long_var = "time_point",
+                        cat_vector = "group",
+                        num_vector = c("Bifidobacterium_adolescentis","Bifidobacterium_longum","Olsenella_scatoligenes"),
+                        comps = c("DRV/r", "DTG"),
+                        type = "categorical")
+
+
+sp_res$group$Bifidobacterium_adolescentis %>%  pluck("stats") %>% as.data.frame()
+sp_res$group$Bifidobacterium_longum %>%  pluck("stats") %>% as.data.frame()
+sp_res$group$Olsenella_scatoligenes %>%  pluck("stats") %>% as.data.frame()
+
+
+
+```
+
 
 
 ### Comparison of significant species

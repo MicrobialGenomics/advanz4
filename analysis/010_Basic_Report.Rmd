@@ -1,0 +1,458 @@
+---
+title: "ADVANZ-4 status report"
+author: "Carlos Blázquez Bondia"
+date: "`r Sys.Date()`"
+output:
+  html_document: default
+  pdf_document: default
+editor_options:
+  chunk_output_type: console
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(metar)
+library(tidyverse)
+library(ggplot2)
+library(RColorBrewer)
+library(ggpubr)
+library(rstatix)
+library(lme4)
+library(lmerTest)
+library(vegan)
+library(gridExtra)
+source(file = here::here("code","myFunctions.R"))
+source("code/Paired_wilcox_NA_Handler.R")
+
+
+```
+
+
+# Sequencing throupghput analysis and Gene Richness
+
+The median sequencing sample throughput was 20789049 reads, with a quasi-normal distribution. Samples were rarefied to the 98th percentile, which accounted to a threshold of 11888709 (Figure1). 6 samples were below this threshold and hence were removed.
+
+
+```{r load_metadata_vars, eval=T, include=F}
+# mymre<-readRDS(here::here(myPath,"data","mre.rds"))
+
+
+
+
+mymre <- aws.s3::s3readRDS("s3://mistral-wp6-advanz4/metagenome/WMGS/MREObject.rds") ### Check consistency between mre.rds(local and S3). You are reading s3 file, here, but in 200_ you are using local
+# metadata <- metar::get_metadata(mymre)@metadata_df
+
+metadata <- here::here("Metadata", "2022_09_14_clean_metadata_LIMS.csv") %>% 
+  read.csv() %>% 
+  column_to_rownames("SampleID") %>% 
+  mutate(SampleID = rownames(.))
+
+mymre@metadata@categorical_vals <-  
+  here::here("Metadata","CategoricalVariables.txt") %>%
+  read.table(., sep="\t") %>%
+  setNames(c("CategoricalVariable","PaletteName")) %>%
+  as_tibble()
+
+mymre@metadata@metadata_df <-  tibble(metadata)
+
+
+cat_df <- 
+  here::here("Metadata", "CategoricalVariables.txt") %>% 
+  read.delim(., header = T)
+
+cat_vector <- cat_df %>% 
+  pull(CategoricalVariable)
+
+long_var <- here::here("Metadata", "LongitudinalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(LongitudinalVariable)
+
+link_var <- here::here("Metadata", "LongitudinalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(LinkVariable)
+
+num_var <- here::here("Metadata", "NumericalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(NumericalVariable)
+
+
+```
+
+```{r update_mre, warning= F, message= F, echo =F}
+
+#### This chunk is for updating the mre internally as new variables come out. Once the final mre is done this chunk will be removed.
+devtools::load_all("../WMGSPipeline/")
+
+
+mymre <- filter_samples(mre = mymre, sample_ids = metadata$SampleID)
+
+mymre@metadata@metadata_df <- as_tibble(metadata)
+
+mymre@metadata@categorical_vals <- here::here("Metadata", "CategoricalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+mymre@metadata@numeric_vals <- here::here("Metadata", "NumericalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+mymre@metadata@longitudinal_vals <- here::here("Metadata", "LongitudinalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+
+```
+
+
+
+```{r get_GeneRichness_Data, echo=FALSE, message=F, warning=F}
+
+
+igc<-metar::get_diversity(mymre)@igc
+
+# We'll save this number to report the minimum read threshold.
+
+myigc <- igc_lmm(mymre)
+
+
+
+Threshold <-  igc@dataTable %>%
+  dplyr::select(SampleID, NumberMappedReads) %>%
+  unique() %>%
+  summarise(Q = quantile(NumberMappedReads,0.02)) %>% 
+  as.numeric()
+
+
+readCountDistribution<-igc@dataTable %>%
+    select(SampleID, NumberMappedReads) %>% 
+    unique() %>%
+
+    ggplot(aes(x=NumberMappedReads)) +
+    geom_density(fill="grey") + 
+    theme_bw() +
+    geom_vline(xintercept = Threshold)
+
+
+TableList <- cat_vector %>%
+    set_names() %>%
+    map( ~{
+
+        
+          ThresholdTable <- igc@dataTable %>%
+                filter(NumberMappedReads >= Threshold) %>%
+                filter(ReadCountReal>=Threshold) %>% ### Get the Mapped Read count (per-sample) just above the threshold
+                group_by(SampleID) %>%
+                summarise(across(everything(), min)) %>%
+                ungroup() %>%
+          right_join(., metadata, by="SampleID") %>%
+          select(SampleID,
+                 richness = GeneNumber,
+                 link_var=link_var,
+                 cat_var = .x,
+                 long_var = long_var,
+                 NumberMappedReads)
+  
+
+        
+    })
+
+```
+
+```{r get_phyloseqs}
+phy <- get_phyloseq(mymre, type="metaphlan")
+
+```
+
+
+```{r Get_DistMats, eval=T, include=F, cache=T}
+
+getAbundances<-function(phyloseq, level){
+  
+  collapsedPhyloseq<- phyloseq::tax_glom(phyloseq, level)
+  
+  OtuTable<- phyloseq::otu_table(collapsedPhyloseq) %>%
+    magrittr::set_rownames(as.character(phyloseq::tax_table(collapsedPhyloseq)[,level])) %>%
+    as.data.frame()
+  return(OtuTable)
+  
+}
+
+
+
+
+myAbundanceDF<- getAbundances(phy, "Species")
+
+Top50<- myAbundanceDF %>%
+    mutate(sum=rowSums(.)) %>%
+    arrange(desc(sum)) %>%
+    dplyr::slice(1:50)
+
+
+
+myNMDS <- myAbundanceDF %>%
+  t() %>% 
+    as.data.frame() %>%
+    # vegan::vegdist(., method = "bray") %>%
+ 
+    metaMDS(.,trymax=800,  distance = "bray",
+            k = 2) %>%
+    pluck("points") %>%
+    as.data.frame() 
+
+  # NMDS = data.frame(NMDS1 = dim_NMDS$points[,1], NMDS2 = dim_NMDS$points[,2])
+
+BiPlotCoords<- envfit(myNMDS, t(myAbundanceDF), perm=999) 
+
+BiPlotCoordsDF <- c("MDS1","MDS2","r","pvals") %>%
+  set_names() %>%
+  
+  map_dfr(., ~ {
+    
+    if(.x %in% c("MDS1","MDS2")){
+      BiPlotCoords$vectors$arrows[,.x] %>%
+        as.numeric()
+    } else{
+      BiPlotCoords$vectors %>%
+        pluck(.x) %>%
+        as.numeric()
+    } 
+      
+  }) %>%
+  as.data.frame() %>%
+  set_names(nm=c("NMDS1","NMDS2","r","p")) %>%
+  dplyr::mutate(Dim1 = NMDS1*sqrt(r),
+                Dim2 = NMDS2*sqrt(r),
+                species = rownames(myAbundanceDF)) 
+  
+
+myBrayDistMat <-vegdist(wisconsin(sqrt(t(myAbundanceDF))))
+
+
+```
+
+
+
+
+```{r NMDS_Group, warning= F, message= F}
+
+cat_df <- cat_df %>%
+  filter(!CategoricalVariable == "CD4diff_96")
+cat_var <- "group"
+
+
+
+link_var <- "record_id"
+id_var <- "SampleID"
+
+myPal<-RColorBrewer::brewer.pal(name =  cat_df$PaletteName[1],
+                                n=length(unique(metadata[,cat_var])))
+BiPlotCoordsDF<-BiPlotCoordsDF %>%
+  mutate(Dim1s = Dim1*3,
+         Dim2s = Dim2*3)
+
+
+myNMDS_DF <- myNMDS %>%
+  rownames_to_column(var = id_var) %>%
+  dplyr::full_join(., metadata, by =id_var) %>%
+  dplyr::select(SampleID = id_var,
+                NMDS1 = MDS1,
+                NMDS2 = MDS2,
+                linkVar = !!sym(link_var),
+                catVar = !!sym(cat_var),
+                LongVar = long_var)
+
+
+  myXmin<-min(myNMDS$MDS1)
+  # +(max(dim_NMDS$points[,1])-min(dim_NMDS$points[,1]))/20
+  myYmin<-max(myNMDS$MDS2)-(max(myNMDS$MDS1)-min(myNMDS$MDS1))
+
+
+
+
+myAdonis<- adonis(myBrayDistMat~ catVar, data = myNMDS_DF) %>%
+  pluck("aov.tab") %>%
+  as.data.frame() %>%
+  slice(1L) %>%
+  magrittr::set_rownames(cat_var)
+
+
+myNMDSplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
+    geom_point() +
+    theme_bw()+
+    theme(panel.border=element_blank(),
+          panel.grid.major=element_blank(),
+          panel.grid.minor=element_blank(),
+
+          axis.line=element_line(colour="black"),
+          axis.text.x=element_text(size=11),
+          axis.text.y=element_text(size=11),
+          axis.title.x=element_text(size=11),
+          axis.title.y=element_text(size=11),
+
+          legend.text=element_text(size=11,face="italic"),
+          legend.title=element_text(size=11))+
+
+    ggtitle(expression(atop("Species composition",atop(italic("all samples"))))) +
+    theme(plot.title=element_text(lineheight=1,face="bold",size=13))+
+    coord_fixed()+
+    labs(fill = cat_var, color=cat_var, shape = long_var)
+
+
+
+
+myNMDSBiplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
+    geom_point(aes(colour=catVar, shape = as.character(LongVar))) +
+    scale_colour_manual(values = myPal, labels = c("DGT", "DRV/r")) +
+    scale_fill_manual(values=myPal, labels = c("DGT", "DRV/r"))+
+    theme_bw()+
+    theme(panel.border=element_blank(),
+          panel.grid.major=element_blank(),
+          panel.grid.minor=element_blank(),
+
+          axis.line=element_line(colour="black"),
+          axis.text.x=element_text(size=11),
+          axis.text.y=element_text(size=11),
+          axis.title.x=element_text(size=11),
+          axis.title.y=element_text(size=11),
+
+          legend.text=element_text(size=11,face="italic"),
+          legend.title=element_text(size=11))+
+
+    ggtitle(expression(atop("Species composition",atop(italic("all samples"))))) +
+    theme(plot.title=element_text(lineheight=1,face="bold",size=13))+
+    stat_ellipse(geom="polygon",
+                 alpha=0.15,color="black",
+                 aes(fill=catVar),level=0.95)+
+    # scale_size_manual(values = c(1:length(unique(myNMDS_DF[,"LongVar"])))/1.5) +
+    geom_segment(data=BiPlotCoordsDF,aes(x=0,xend=Dim1s,y=0,yend=Dim2s),
+                 arrow = arrow(length = unit(0.2,"cm")),colour="darkgrey")+
+    geom_text_repel(data=BiPlotCoordsDF,aes(Dim1s,Dim2s,label=species),
+                    size=2.5, box.padding = unit(0.25, "lines"),
+                    segment.colour="black",
+                    segment.alpha=0.5,
+                    segment.size=0.10)+
+    coord_fixed()+
+    labs(fill = cat_var, color=cat_var, shape = long_var) +
+  annotation_custom(gridExtra::tableGrob(round(myAdonis,3),
+                                         theme = ttheme_default(base_size = 8)),ymin = 3.5, xmin=2.4)
+
+
+```
+
+
+
+```{r wilcox_across_group, warning=F, message=F, cache = T}
+
+phy <- get_phyloseq(mymre, type = "metaphlan") %>% 
+      phyloseq::filter_taxa(., function(x) sum(x > 0) > (0.3*length(x)), TRUE)
+
+
+otu_df <- 
+  phyloseq::otu_table(phy) %>% 
+  t() %>% 
+  as.data.frame() %>% 
+  stats::setNames(phyloseq::tax_table(phy)[,"Species"]) %>% 
+  tibble::rownames_to_column("SampleID") %>% 
+  stats::setNames(.,stringr::str_remove_all(colnames(.), "\\[")) %>% 
+  stats::setNames(.,stringr::str_remove_all(colnames(.), "\\]"))
+
+
+stat_list <-
+  cat_vector %>%
+  purrr::set_names() %>%
+  purrr::map(function(cv) {
+    
+    c(0,24,48,96) %>% 
+      set_names() %>% 
+      purrr::map_dfr(function(tp){
+        otu_df %>%
+        dplyr::select(-SampleID) %>%
+        colnames() %>%
+        purrr::set_names() %>%
+        purrr::map_dfr(function(sp) {
+          df <-
+            otu_df %>%
+            dplyr::select(SampleID, !!sym(sp)) %>%
+            dplyr::left_join(metadata[, c("SampleID", link_var, cv, long_var), drop = F], 
+                             by = "SampleID") %>% 
+            dplyr::filter(!!sym(long_var) %in% tp) 
+
+          
+          if (length(unique(dplyr::pull(.data = df, !!sym(cv)))) == 2) {
+            test <- df %>%
+              rstatix::wilcox_test(., formula(paste(sp, "~", cv)), paired = F) %>%
+              dplyr::mutate(method = "Wilcoxon") 
+            
+          } else{
+            test <- df %>%
+              rstatix::kruskal_test(., formula(paste(sp, "~", cv))) %>%
+              dplyr::mutate(method = "Kruskal-Wallis")
+          }
+          
+        }) %>% 
+      rename(species = .y.) %>% 
+      dplyr::mutate(long_var = tp) %>% 
+      group_by(long_var) %>% 
+      mutate(p.adj = p.adjust(p, "BH")) %>% 
+      # filter(p.adj < .05 ) %>% 
+      group_by(species) 
+      }) 
+}) 
+
+
+DAsp <- stat_list$group %>% 
+  filter(p<0.05) %>% 
+  group_by(species)
+
+
+## --- init MNJ
+## It is interesting that Bifidobacterium species (adolescentis, longum) are consistently found as DA in all (most) timepoints
+## Produce a table showing 
+sp_detected <- 
+stat_list$group %>% 
+  filter(p<0.05) %>% 
+  group_by(species) %>% 
+  tally() %>% 
+  filter(n>2) %>%
+  arrange(desc(n))## Species being significant (Wilcoxon unadjusted <0.05)
+
+sp_detected
+
+
+
+
+  
+### Show how many species are differential in at least two of the timepoints in each cat var. Risk_group should result in many species showing that kins of signal. See Venn section below.
+### --- end MNJ
+
+```
+
+
+Bifidobacterium adolescentis, Bifidobacterium longum and Olsenella scatoligenes were significant in all timepoints. Let's check the actual abundances per group and timepoint:
+
+
+```{r plot_DA, echo = F, message = F, warning=F}
+c("Olsenella_scatoligenes", "Bifidobacterium_adolescentis", "Bifidobacterium_longum") %>% 
+  purrr::map(function(sp){
+  otu_df %>% 
+  select(SampleID, species = !!sym(sp)) %>% 
+  # select(SampleID, !!sym(DAsp)) %>% 
+  left_join(., metadata[,c("SampleID","group","time_point")], by="SampleID") %>% 
+  # group_by(group) %>% 
+  ggstatsplot::grouped_ggbetweenstats(.,
+                              x="group",
+                              y = "species",
+                              pairwise.comparisons = F,
+                              type="np",
+                              bf.message=NULL,
+                              ylab = paste(sp,"(%)", sep = ""), 
+                              ggtheme = ggplot2::theme_bw(),
+                              grouping.var = "time_point",
+                              plotgrid.args = NULL)
+
+
+  }) %>% 
+  ggpubr::ggarrange(plotlist = ., nrow = 3)
+```
+

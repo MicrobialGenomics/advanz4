@@ -368,15 +368,9 @@ otu_df <-
   stats::setNames(.,stringr::str_remove_all(colnames(.), "\\]"))  
 
 
-ids <- otu_df %>% 
-  colSums() %>% 
-  sort( decreasing = T) %>% 
-  head(50) %>% 
-  names()
-  
+
 lmms <- 
 otu_df %>% 
-  dplyr::select(ids) %>% 
   vegan::vegdist(x = ., method = "bray") %>% 
   distance_from_basal(dist_mat = ., metadata = metadata, 
                       link_var = "record_id",
@@ -390,9 +384,13 @@ otu_df %>%
 
 
 
+```
+
+Sample A0023 apparently jups to distance = 1 from the very start
 
 
-boxplots <- 
+```{r first_dist_boxplots, warning= F, message=F}
+first_dif <- 
   otu_df %>% 
   dplyr::select(ids) %>% 
   vegan::vegdist(x = ., method = "bray") %>% 
@@ -401,14 +399,70 @@ boxplots <-
                       long_var = "time_point",
                       cat_var = "group",
                       basal = 0) %>% 
-  pluck("data") %>% 
-  ggplot(., aes(x = as.factor(time_point), y = distance, fill = group)) +
-  geom_boxplot(position = "dodge")  +
+  pluck("data")
+
+test_cat <-
+  first_dif %>%
+  dplyr::group_by(time_point) %>%
+  rstatix::wilcox_test(distance ~ group, p.adjust.method = "BH") %>%
+  # rstatix::adjust_pvalue(p.col = "p", method = "none") %>%
+  rstatix::add_significance(p.col = "p", output.col = "p.adj.signif") %>%
+  rstatix::add_xy_position("time_point") %>%
+  dplyr::mutate(y.position = y.position + 0.2)
+
+
+
+
+
+test_long <-
+  first_dif %>%
+  PairedWilcox_withNAs(
+    myDF = .,
+    IDs = "record_id",
+    Variable = "distance",
+    Response = "time_point",
+    Subsets = "group"
+  ) %>%
+  group_by(group) %>%
+  rstatix::adjust_pvalue(p.col = "p",
+                         output.col = "p.adj",
+                         method = "BH") %>%
+  ungroup() %>%
+  # rstatix::adjust_pvalue(method = "BH") %>%
+  add_significance(p.col = "p.adj") %>%
+  
+  # mutate(CategoricalVariable = levels(as.factor(myInnerDataFrame$CategoricalVariable))) %>%
+  # add_y_position(y.trans = function(x){quantile(x, probs=c(.1))}) %>%
+  mutate(
+    xmin = recode(
+      group1,
+      `24` = 1,
+      `48` = 2
+    ),
+    xmax = recode(
+      group2,
+      `24` = 1,
+      `48` = 2,
+      `96` = 3
+    )
+  ) %>%
+  mutate(xmin = case_when(group == "DTG" ~ xmin + 0.2,
+                          group == "DRV/r" ~ xmin - 0.2),
+         xmax = case_when(group == "DTG" ~ xmax + 0.2,
+                          group == "DRV/r" ~ xmax - 0.2))
+
+
+
+boxplots <- 
+ 
+  ggplot(first_dif, aes(x = as.factor(time_point), y = distance)) +
+  geom_boxplot(position = "dodge", aes(fill = group)  )+
   scale_color_brewer(palette = "Set1") +
   scale_fill_brewer(palette = "Set1") +
+  stat_pvalue_manual(test_cat, label = "p.adj.signif", step.increase = .01, hide.ns = T) +
+  stat_pvalue_manual(test_long, label = "p.adj.signif", step.increase = .02, hide.ns = T) +
   theme_bw() + 
   labs(x = "Weeks", y = "distance from basal")
 
 ```
 
-Sample A0023 apparently jups to distance = 1 from the very start

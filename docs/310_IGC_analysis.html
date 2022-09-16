@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2022-09-13" />
+<meta name="date" content="2022-09-16" />
 
 <title>Diversity_GeneRichness</title>
 
@@ -296,7 +296,7 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Diversity_GeneRichness</h1>
-<h4 class="date">2022-09-13</h4>
+<h4 class="date">2022-09-16</h4>
 
 </div>
 
@@ -325,7 +325,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-09-13
+<strong>Last updated:</strong> 2022-09-16
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -363,10 +363,10 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has staged changes. To know which version of the
-R Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
 </div>
@@ -459,15 +459,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree0981d5a1f256e15c8e4c445cef6ebeacd9b435e9targetblank0981d5aa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treedf7195ba7bf7773f4c84402f6d18a90baa699659targetblankdf7195ba">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/MicrobialGenomics/advanz4/tree/0981d5a1f256e15c8e4c445cef6ebeacd9b435e9" target="_blank">0981d5a</a>
+<a href="https://github.com/MicrobialGenomics/advanz4/tree/df7195ba7bf7773f4c84402f6d18a90baa699659" target="_blank">df7195b</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree0981d5a1f256e15c8e4c445cef6ebeacd9b435e9targetblank0981d5aa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treedf7195ba7bf7773f4c84402f6d18a90baa699659targetblankdf7195ba"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -477,7 +477,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/MicrobialGenomics/advanz4/tree/0981d5a1f256e15c8e4c445cef6ebeacd9b435e9" target="_blank">0981d5a</a>.
+<a href="https://github.com/MicrobialGenomics/advanz4/tree/df7195ba7bf7773f4c84402f6d18a90baa699659" target="_blank">df7195b</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -499,20 +499,22 @@ Ignored files:
     Ignored:    data/mre.rds
 
 Untracked files:
-    Untracked:  code/group_comparisons.R
-    Untracked:  output/general_boxplot_stats
-    Untracked:  output/group_pvals.csv
-    Untracked:  output/overall_pvals.csv
+    Untracked:  analysis/figure/310_IGC_analysis.Rmd/
+    Untracked:  analysis/figure/320_Beta_Diversity.Rmd/silhouette_analysis-1.png
+    Untracked:  output/general_boxplot_stats.csv
+    Untracked:  output/group_pvals_cat.tsv
 
 Unstaged changes:
+    Modified:   advanz4.Rproj
     Modified:   analysis/310_IGC_analysis.Rmd
-    Modified:   analysis/505_Adenovirus_Analysis.Rmd
-    Conflicted: output/mre_data/CatalogMapping/IGC/lmm/lmm_time_point_by_group.pdf
-
-Staged changes:
-    Modified:   analysis/04_build_metadata.Rmd
-    Modified:   analysis/310_IGC_analysis.Rmd
-    New:        code/Paired_wilcox_NA_Handler.R
+    Modified:   analysis/320_Beta_Diversity.Rmd
+    Modified:   analysis/410_Taxonomy_Exploration.Rmd
+    Modified:   analysis/420_Taxonomy_DA.Rmd
+    Modified:   code/Paired_wilcox_NA_Handler.R
+    Modified:   output/general_boxplot_stats
+    Modified:   output/group_pvals.csv
+    Modified:   output/mre_data/CatalogMapping/IGC/lmm/lmm_time_point_by_group.pdf
+    Modified:   output/overall_pvals.csv
 
 </code></pre>
 <p>
@@ -558,6 +560,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/272d281b6b6d84b83e8c8094b672ad9979725f49/analysis/310_IGC_analysis.Rmd" target="_blank">272d281</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-09-13
+</td>
+<td>
+added stats to IGC boxplots
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/272d281b6b6d84b83e8c8094b672ad9979725f49/docs/310_IGC_analysis.html" target="_blank">272d281</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-09-13
+</td>
+<td>
+added stats to IGC boxplots
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/972f1c0f5d871c6bc6035b744caa04776f18d3e4/analysis/310_IGC_analysis.Rmd" target="_blank">972f1c0</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-09-12
+</td>
+<td>
+Added gene richness boxplots
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/972f1c0f5d871c6bc6035b744caa04776f18d3e4/docs/310_IGC_analysis.html" target="_blank">972f1c0</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-09-12
+</td>
+<td>
+Added gene richness boxplots
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -896,7 +966,7 @@ mymre@metadata@longitudinal_vals &lt;- here::here(&quot;Metadata&quot;, &quot;Lo
   tibble()</code></pre>
 <p><img src="figure/310_IGC_analysis.Rmd/get_GeneRichness_Data-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>only 6 samples have been discarded by low read count. The threshold
-used for filtering was the 2nd percentile, which equals 12428123
+used for filtering was the 2nd percentile, which equals 11888709
 reads.</p>
 <div id="rarefaction-and-sequencing-depth" class="section level2">
 <h2>Rarefaction and sequencing depth</h2>
@@ -1021,6 +1091,7 @@ all_boxplot &lt;- dat %&gt;%
         axis.title = element_text(size = 14))
 
 all_boxplot</code></pre>
+<pre><code>Warning: Removed 20 rows containing non-finite values (stat_boxplot).</code></pre>
 <p><img src="figure/310_IGC_analysis.Rmd/general_boxplot-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>write.csv(long_test, file = &quot;output/general_boxplot_stats&quot;)</code></pre>
 <p>There is a general increase even without stratifying</p>
@@ -1053,15 +1124,27 @@ combn(unique(dat$long_var),2, simplify = F) %&gt;%
 
 
 write.csv(.,&quot;output/overall_pvals.csv&quot;,quote = T,row.names = F)  </code></pre>
+<pre><code>Warning: Removed 20 rows containing non-finite values (stat_boxplot).</code></pre>
 <p><img src="figure/310_IGC_analysis.Rmd/group_boxplots-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>Warning: Removed 13 rows containing non-finite values (stat_boxplot).</code></pre>
+<pre><code>Warning: Removed 4 rows containing non-finite values (stat_bracket).</code></pre>
+<p><img src="figure/310_IGC_analysis.Rmd/group_boxplots-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>This is even more intereseting, as most of the significant tchange
 happens in the DTG group, with significant differences in all time
 points, and significantly higher richnes in DTG vs DRV/r is found in al
 timepoints except 0.</p>
-<pre class="r"><code>combn(unique(dat$long_var),2, simplify = F) %&gt;% 
+<pre class="r"><code>source(&quot;code/group_comparisons.R&quot;)
+
+
+cat_vector %&gt;% 
+  set_names() %&gt;% 
+  map(function(cv){
+    combn(unique(dat$long_var),2, simplify = F) %&gt;% 
   map_dfr(function(comp){
     comp &lt;- sort(comp)
-    mockdat %&gt;% 
+    
+    list_res &lt;- boxplots %&gt;%
+      pluck(cv, &quot;data&quot;) %&gt;% 
     get_group_comparisons(dat = .,
                       link_var = &quot;link_var&quot;,
                       long_var = &quot;long_var&quot;,
@@ -1069,18 +1152,139 @@ timepoints except 0.</p>
                       num_vector = &quot;richness&quot;,
                       comps = comp,
                       type = &quot;longitudinal&quot;
-                      ) %&gt;% 
-  pluck(&quot;cat_var&quot;,&quot;richness&quot;,&quot;stats&quot;) %&gt;% 
-      dplyr::mutate(group1 = comp[1], 
-                    group2 = comp[2], .after=1)
+                      )  
 
-  }) %&gt;% 
-      dplyr::arrange(cat_var,group1,group2) %&gt;% 
-  dplyr::mutate(group1 = as.character(group1), 
-                group2 = as.character(group2)) %&gt;% 
-  dplyr::full_join(test_long, by=c(&quot;cat_var&quot;,&quot;group1&quot;,&quot;group2&quot;)) %&gt;% 
-  dplyr::select(cat_var, contains(&quot;group&quot;), median1, iqr2, median2, iqr2, medianChange, iqr_change, n1, n2, statistic, p.adj) %&gt;% 
-  write.csv(.,&quot;output/group_pvals.csv&quot;,quote = T,row.names = F)  </code></pre>
+  stat_df &lt;- 
+    list_res %&gt;% 
+      pluck(&quot;cat_var&quot;,&quot;richness&quot;,&quot;stats&quot;) %&gt;% 
+      dplyr::mutate(group1 = comp[1], 
+                    group2 = comp[2], .after=1) %&gt;% 
+      dplyr::mutate(group1 = as.character(group1), 
+                group2 = as.character(group2))
+
+  test_df &lt;- 
+    list_res %&gt;% 
+    pluck(&quot;cat_var&quot;,&quot;richness&quot;,&quot;test&quot;) 
+   
+ 
+   res_df &lt;- 
+     dplyr::full_join(stat_df, test_df, by=c(&quot;cat_var&quot;,&quot;group1&quot;,&quot;group2&quot;)) %&gt;% 
+  
+  dplyr::arrange(cat_var,group1,group2) %&gt;% 
+  dplyr::select(cat_var, contains(&quot;group&quot;), median1, iqr2, median2, iqr2, medianChange, iqr_change, n1, n2, statistic, p) 
+
+
+  }) 
+  })</code></pre>
+<pre><code>$group
+# A tibble: 12 x 12
+   cat_var group1 group2 median1    iqr2 median2 medianChange iqr_change    n1
+   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;
+ 1 DRV/r   0      24     755107  374478. 654897        25499     222805.    17
+ 2 DTG     0      24     834666. 312567. 973488.       98052     176412.    24
+ 3 DRV/r   24     48     751418. 467287. 671618        -6817     190205.    18
+ 4 DTG     24     48     909257  239801. 964298        51746     179725     28
+ 5 DRV/r   24     96     755848  375121  815363        33540     161676     17
+ 6 DTG     24     96     886425  247723. 958014.       47761     288152     24
+ 7 DRV/r   0      48     751746  354480. 799986        47364.    199075     30
+ 8 DTG     0      48     788174  279461  935456       112426     184921.    30
+ 9 DRV/r   0      96     755107  350377. 790849        58874     182579.    27
+10 DTG     0      96     786304  221308. 965992       154320.    204709.    31
+11 DRV/r   48     96     773533  217306. 800115        27639     176071     28
+12 DTG     48     96     917476  234882  947144        21814     215577.    31
+# ... with 3 more variables: n2 &lt;int&gt;, statistic &lt;dbl&gt;, p &lt;dbl&gt;
+
+$CD4diff_96
+# A tibble: 12 x 12
+   cat_var group1 group2 median1    iqr2 median2 medianChange iqr_change    n1
+   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;
+ 1 150_H   0      24     755107  363016  755848        70786     313404.    22
+ 2 150_L   0      24     978377  583364. 857580        65675     697720.     5
+ 3 150_H   24     48     744607  343154. 938572        75225     190301     22
+ 4 150_L   24     48     893415  203482. 984452.      131587     254005.     5
+ 5 150_H   24     96     745798  301453. 922104       109176.    206820.    22
+ 6 150_L   24     96     857580  490355  939568        33213     113397.     5
+ 7 150_H   0      48     748944  328650. 818263        73708     213384     34
+ 8 150_L   0      48     788174  147899. 935456       164482      79790      8
+ 9 150_H   0      96     755107  275205. 839854       126401     152558     40
+10 150_L   0      96     790040. 437621. 871840.       16462.    178483.     8
+11 150_H   48     96     850663  248154. 875026        62544     234746     34
+12 150_L   48     96     935456  273455  939568       -93881     188273      8
+# ... with 3 more variables: n2 &lt;int&gt;, statistic &lt;dbl&gt;, p &lt;dbl&gt;</code></pre>
+<pre class="r"><code>  # write.csv(.,&quot;output/group_pvals_long.csv&quot;,quote = T,row.names = F)  
+
+
+
+
+cat_vector %&gt;% 
+  purrr::set_names() %&gt;% 
+  purrr::map(function(cv){
+    dat &lt;-  boxplots %&gt;% 
+      purrr::pluck(cv, &quot;data&quot;)
+      
+    comp &lt;- combn(unique(dat$cat_var),2, simplify = F)[[1]]
+          
+    get_group_comparisons(dat = dat,
+                      link_var = &quot;link_var&quot;,
+                      long_var = &quot;long_var&quot;,
+                      cat_vector = &quot;cat_var&quot;,
+                      num_vector = &quot;richness&quot;,
+                      comps = comp,
+                      type = &quot;categorical&quot;
+                      ) %&gt;% 
+  pluck(&quot;cat_var&quot;, &quot;richness&quot;)  
+  })</code></pre>
+<pre><code>$group
+$group$stats
+# A tibble: 8 x 6
+# Groups:   cat_var [2]
+  cat_var long_var median upper_ci lower_ci     iqr
+  &lt;chr&gt;      &lt;int&gt;  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+1 DRV/r          0 748385  948385   614476. 333909.
+2 DRV/r         24 700943  910314.  551909. 358405.
+3 DRV/r         48 773533  982808.  620399. 362409 
+4 DRV/r         96 800115 1014203.  663826  350377.
+5 DTG            0 776668  923667.  641983. 281685.
+6 DTG           24 938264 1011618.  739281  272338.
+7 DTG           48 938572 1044632.  804957. 239675.
+8 DTG           96 931461 1040301.  803331. 236970.
+
+$group$test
+# A tibble: 4 x 13
+  long_var estimate .y.     group1 group2    n1    n2 statistic      p conf.low
+*    &lt;int&gt;    &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;  &lt;dbl&gt;    &lt;int&gt;
+1        0   -5325  num_var DRV/r  DTG       35    35       599 0.879   -117800
+2       24 -154404. num_var DRV/r  DTG       18    28       156 0.0306  -322571
+3       48 -146372  num_var DRV/r  DTG       29    35       339 0.0227  -253601
+4       96  -93766. num_var DRV/r  DTG       29    34       349 0.0473  -217298
+# ... with 3 more variables: conf.high &lt;int&gt;, method &lt;chr&gt;, alternative &lt;chr&gt;
+
+
+$CD4diff_96
+$CD4diff_96$stats
+# A tibble: 8 x 6
+# Groups:   cat_var [2]
+  cat_var long_var  median upper_ci lower_ci     iqr
+  &lt;chr&gt;      &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+1 150_H          0 752026.  926533.  656602. 269930.
+2 150_H         24 746989   984616.  690515  294101.
+3 150_H         48 850663  1020655.  701302. 319353 
+4 150_H         96 839854  1049911   780933. 268978.
+5 150_L          0 790040.  990543   763405. 227138.
+6 150_L         24 857580   989167.  405803  583364.
+7 150_L         48 935456  1022202.  874304. 147899.
+8 150_L         96 871840. 1036385   598764. 437621.
+
+$CD4diff_96$test
+# A tibble: 4 x 13
+  long_var estimate .y.     group1 group2    n1    n2 statistic     p conf.low
+*    &lt;int&gt;    &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt;    &lt;int&gt;
+1        0  -74646. num_var 150_H  150_L     34     8        97 0.222  -250289
+2       24   61627  num_var 150_H  150_L     21     5        59 0.705  -249202
+3       48  -92680. num_var 150_H  150_L     32     7        90 0.44   -259424
+4       96   29065  num_var 150_H  150_L     37     8       161 0.716  -144813
+# ... with 3 more variables: conf.high &lt;int&gt;, method &lt;chr&gt;, alternative &lt;chr&gt;</code></pre>
+<pre class="r"><code>  # write.table(.,&quot;output/group_pvals_cat.csv&quot;,quote = T,row.names = F)  </code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
