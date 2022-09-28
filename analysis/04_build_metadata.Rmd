@@ -194,8 +194,26 @@ new_crp_96 <- here::here("Metadata","MetadataManagement", "CRP_updated.csv") %>%
 
 ```
 
+
+
+```{r add_sCD14_sCD163, message = F, warning = F}
+sCD14_96 <- 
+  here::here("Metadata", "MetadataManagement", "LabData_96_sCD14.xls") %>% 
+  readxl::read_excel(.,) %>% 
+  dplyr::mutate(record_id = str_extract(Muestra, "(?<=4)[A-Z][0-9]*"),
+                method = str_extract(Metodo, "(?:sCD[0-9]*)"),
+                result_date = lubridate::as_date(`Fecha Validac.`),
+                time_point = 96) %>% 
+  dplyr::select(record_id, time_point, method, value = Result, units = Unidades, result_date) %>% 
+  rbind(., new_crp_96) %>% 
+  arrange(record_id)
+
+```
+
+
+
 ```{r merge_lab_results }
-clin_meta <- rbind(MetadataLab, new_crp_96) %>% 
+clin_meta <- rbind(MetadataLab, sCD14_96) %>% 
   dplyr::mutate(time_point = as.numeric(time_point)) %>% 
   dplyr::filter(!is.na(time_point)) %>% 
   # dplyr::filter(time_point %in% c(0,24,48,96)) %>% 

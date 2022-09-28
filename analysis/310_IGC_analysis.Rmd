@@ -341,14 +341,14 @@ LMM_separate_list <-  c("richness") %>%
                  aes(alpha=NULL,
                      label=paste("p=",pval, ", slope = ", slope, sep=""), 
                      x=-Inf, y=Inf), color="black", hjust=0.01, vjust=1 ) +
-      labs(title=.x, color = cat_var)
+      labs(title=.x, color = cat_var) + 
+        scale_color_brewer(palette = "Accent")
 
   }
 )
 
 
-LMM_separate_list$richness %>% 
-  ggpubr::ggarrange(plotlist = ., ncol = 2)
+LMM_separate_list$richness 
 
 ```
 
@@ -536,7 +536,7 @@ combn(unique(dat$long_var),2, simplify = F) %>%
                       comps = comp,
                       type = "longitudinal"
                       ) %>% 
-  pluck("mock","richness","stats") %>% 
+  purrr::pluck("mock","richness","stats") %>% 
       dplyr::mutate(group1 = comp[1], 
                     group2 = comp[2], .after=1)
 
