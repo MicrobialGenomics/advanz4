@@ -130,8 +130,23 @@ abundance_df <- first_table %>%
   column_to_rownames("SampleID")
 
 NMDS <- vegan::metaMDS(abundance_df, distance = "bray",k = 2, trymax = 500)
+vegan::stressplot(NMDS)
 
-nmds_df <- 
+
+dist_mat <- vegan::vegdist(abundance_df, method = "bray")
+
+adonis_df <- 
+  NMDS %>% 
+  pluck("points") %>% 
+  as.data.frame() %>% 
+  rownames_to_column("SampleID") %>% 
+  left_join(metadata[,c("SampleID","group", "time_point")], by="SampleID") %>% 
+  column_to_rownames("SampleID") %>% 
+  vegan::adonis2(dist_mat ~ group, data = .)
+
+
+
+nmds_plot <- 
   NMDS %>% 
   pluck("points") %>% 
   as.data.frame() %>% 
@@ -141,8 +156,10 @@ nmds_df <-
   stat_ellipse(geom="polygon",alpha=0.15,color="black",aes(fill=group),level=0.95) +
   geom_point(aes(color = group)) + 
   theme_bw()
+nmds_plot
 
 
-vegan::stressplot(NMDS)
 ```
 
+
+As we can see, no big patterns can be found either at looking at total composition or by NMDS ordination.
