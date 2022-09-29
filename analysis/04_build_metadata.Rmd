@@ -74,8 +74,8 @@ Raw extracted data had a "melted" structure, so we may need to change it to wide
 
 ```{r read_and_process_Lab_Results, warning=F, message=F}
 
-vars=c("CD4 value","CD8 value", "8+38+DR+", "PCR", "IL-6", "TNF-a", "sCD14")
-names(vars) <- c("CD4","CD8", "CD8_CD38_DR", "CRP", "IL6", "TNFa", "sCD14")
+vars=c("CD4 value","CD8 value", "4+38+DR+","8+38+DR+", "PCR", "IL-6", "TNF-a", "sCD14","HIV Viral load [central]")
+names(vars) <- c("CD4","CD8", "CD4_CD38_DR","CD8_CD38_DR", "CRP", "IL6", "TNFa", "sCD14", "viral_load")
 
 Sys.setlocale("LC_TIME", "English")
 MetadataLab <-
@@ -90,25 +90,20 @@ MetadataLab <-
     units = Units,
     result_date = LabDt
   ) %>%
-  dplyr::filter(method %in% c(
-    "CD4 value",
-    "CD8 value",
-    "8+38+DR+",
-    "PCR",
-    "IL-6",
-    "TNF-a",
-    "sCD14"
-  )) %>%
+  dplyr::filter(method %in% vars) %>%
   dplyr::mutate(
     method = recode(
       method,
      `CD4 value` = "CD4",
      `CD8 value` = "CD8",
+     `4+38+DR+`= "CD4_CD38_DR",
      `8+38+DR+` = "CD8_CD38_DR",
       PCR = "CRP",
       `IL-6` = "IL6",
       `TNF-a` = "TNFa",
-      sCD14 = "sCD14"),
+      sCD14 = "sCD14",
+     `HIV Viral load [central]` = "viral_load"
+     ),
     record_id = str_remove_all(record_id,"-"), result_date = as.character(result_date))
 
 
