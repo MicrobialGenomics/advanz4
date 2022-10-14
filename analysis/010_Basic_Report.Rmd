@@ -22,6 +22,7 @@ library(lme4)
 library(lmerTest)
 library(vegan)
 library(gridExtra)
+library(ggrepel)
 source(file = here::here("code","myFunctions.R"))
 source("code/Paired_wilcox_NA_Handler.R")
 
@@ -182,11 +183,6 @@ getAbundances<-function(phyloseq, level){
 
 
 myAbundanceDF<- getAbundances(phy, "Species")
-
-Top50<- myAbundanceDF %>%
-    mutate(sum=rowSums(.)) %>%
-    arrange(desc(sum)) %>%
-    dplyr::slice(1:50)
 
 
 
@@ -432,23 +428,24 @@ sp_detected
 Bifidobacterium adolescentis, Bifidobacterium longum and Olsenella scatoligenes were significant in all timepoints. Let's check the actual abundances per group and timepoint:
 
 
-```{r plot_DA, echo = F, message = F, warning=F}
-c("Olsenella_scatoligenes", "Bifidobacterium_adolescentis", "Bifidobacterium_longum") %>% 
+```{r plot_DA, echo = F, message = F, warning=F, eval=F, include=F}
+ c("Olsenella_scatoligenes", "Bifidobacterium_adolescentis", "Bifidobacterium_longum") %>% 
   purrr::map(function(sp){
   otu_df %>% 
   select(SampleID, species = !!sym(sp)) %>% 
   # select(SampleID, !!sym(DAsp)) %>% 
   left_join(., metadata[,c("SampleID","group","time_point")], by="SampleID") %>% 
-  # group_by(group) %>% 
-  ggstatsplot::grouped_ggbetweenstats(.,
-                              x="group",
-                              y = "species",
-                              pairwise.comparisons = F,
-                              type="np",
-                              bf.message=NULL,
-                              ylab = paste(sp,"(%)", sep = ""), 
-                              ggtheme = ggplot2::theme_bw(),
-                              grouping.var = "time_point",
+  mutate(time_point = as.factor(time_point)) %>%     
+  # ggstatsplot::ggbetweenstats(., x="group",y="species")
+  # group_by(group) %>%
+  ggstatsplot::grouped_ggbetweenstats(data = .,
+                              x=time_point,
+                              y = species,
+                              # type="np",
+                              grouping.var = group,
+                              # bf.message=NULL,
+                              # ylab = paste(sp,"(%)", sep = ""), 
+                              # ggtheme = ggplot2::theme_bw(),
                               plotgrid.args = NULL)
 
 
@@ -456,3 +453,5 @@ c("Olsenella_scatoligenes", "Bifidobacterium_adolescentis", "Bifidobacterium_lon
   ggpubr::ggarrange(plotlist = ., nrow = 3)
 ```
 
+Error in unique.default(x, nmax = nmax) : 
+unique() applies only to vectors

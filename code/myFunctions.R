@@ -1700,7 +1700,6 @@ myLMM_two.piece.GLMM<-function(Datos,Y,Time,t=NULL,Factor=NULL,ID){
     scale_x_continuous(breaks=unique(D[,Time])) +
     theme(legend.position="none",strip.background=element_blank())+
     geom_point(alpha=0.4)+
-    geom_vline(xintercept=t, linetype="dotted", color="black", size=2, inherit.aes=F)+
     geom_segment(data=geom.data,aes(x=x,y=y,xend=xend,yend=yend),inherit.aes=FALSE,size=1, color="black") +
     theme(axis.text=element_text(size=12), axis.title.x=element_blank(),
           axis.title.y=element_blank())+
@@ -1708,7 +1707,13 @@ myLMM_two.piece.GLMM<-function(Datos,Y,Time,t=NULL,Factor=NULL,ID){
     ggtitle(Y)
 
 
+  if (is.null(t)){
+    P <- P
+  } else {
+    P <- P +
+      geom_vline(xintercept= t, linetype="dotted", color="black", size=2, inherit.aes=F)
 
+  }
   # List with results
   # Names for A object (Factor levels value)
   names(A)<-lev

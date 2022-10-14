@@ -25,7 +25,10 @@ library(vegan)
 library(ggrepel)
 library(cluster)
 require(gridExtra)
+library(ggpubr)
+library(rstatix)
 source("code/basal_distances.R")
+source("code/Paired_wilcox_NA_Handler.R")
 ```
 
 ## Including Plots
@@ -33,7 +36,7 @@ source("code/basal_distances.R")
 You can also embed plots, for example:
 
 ```{r load_metadata_vars, eval=T, message = F}
-mymre <- aws.s3::s3readRDS(bucket = "s3://mistral-wp6-advanz4", object = "metagenome/WMGS/MREObject.rds")
+mymre <- aws.s3::s3readRDS(bucket = "s3://mistral-wp6-advanz4", object = "metagenome/WMGS/MREObject.rds", region = "eu-west-1")
 # metadata <-get_meta(mymre)
 metadata <- here::here("Metadata", "2022_09_14_clean_metadata_LIMS.csv") %>% 
   read.csv() %>% 
@@ -116,12 +119,6 @@ getAbundances<-function(phyloseq, level){
 
 
 myAbundanceDF<- getAbundances(phy, "Species")
-
-Top50<- myAbundanceDF %>%
-    mutate(sum=rowSums(.)) %>%
-    arrange(desc(sum)) %>%
-    dplyr::slice(1:50)
-
 
 
 myNMDS <- myAbundanceDF %>%
@@ -392,13 +389,12 @@ Sample A0023 apparently jups to distance = 1 from the very start
 ```{r first_dist_boxplots, warning= F, message=F}
 first_dif <- 
   otu_df %>% 
-  dplyr::select(ids) %>% 
+  dplyr::filter(rownames(.) %in% ids) %>% 
   vegan::vegdist(x = ., method = "bray") %>% 
   distance_from_basal(dist_mat = ., metadata = metadata, 
                       link_var = "record_id",
                       long_var = "time_point",
-                      cat_var = "group",
-                      basal = 0) %>% 
+                      cat_var = "group", basal= 0) %>% 
   pluck("data")
 
 test_cat <-

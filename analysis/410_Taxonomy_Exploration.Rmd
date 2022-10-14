@@ -25,7 +25,7 @@ library(phyloseq)
 This section will have comments of the step of data entry and anything that may happen here
 
 ```{r cars, eval=T, message=F, warning=F}
-mymre <- aws.s3::s3readRDS("s3://mistral-wp6-advanz4/metagenome/WMGS/MREObject.rds") 
+mymre <- aws.s3::s3readRDS(bucket = "mistral-wp6-advanz4", object ="/metagenome/WMGS/MREObject.rds", region = "eu-west-1") 
 
 
 # metadata <- get_meta(mymre)
@@ -70,11 +70,11 @@ myBarplots <- CategoricalVariablesDF$CategoricalVariable %>%
   set_names() %>%
   map(~ {
     
-    dat <- otu_df %>%
+    dat <- abundance %>%
 
       rownames_to_column("SampleID") %>%
       full_join(., metadata[,c("SampleID","record_id","time_point", .x)], by="SampleID") %>%
-      pivot_longer(., cols=names(otu_df)) %>%
+      pivot_longer(., cols=names(abundance)) %>%
       dplyr::rename(taxa = name) %>%
       dplyr::mutate(facet = paste(!!sym(.x), time_point, sep="_")) %>%
       dplyr::rename(cat_var = !!sym(.x)) 

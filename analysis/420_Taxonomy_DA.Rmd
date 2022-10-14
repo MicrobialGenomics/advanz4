@@ -26,9 +26,9 @@ This section should explain anyithing that may have happened during the first fa
 # mymre <- here::here("data","mre.rds") %>%
 #   readRDS(.)
 
-mymre <- aws.s3::s3readRDS(bucket = "s3://mistral-wp6-advanz4", object = "metagenome/WMGS/MREObject.rds")
+mymre <- aws.s3::s3readRDS(bucket = "mistral-wp6-advanz4", object ="/metagenome/WMGS/MREObject.rds", region = "eu-west-1") 
 # metadata <-get_meta(mymre)
-metadata <- here::here("Metadata", "2022_04_28_clean_metadata_LIMS.csv") %>% 
+metadata <- here::here("Metadata", "2022_09_29_clean_metadata_LIMS.csv") %>% 
   read.csv() %>% 
   column_to_rownames("SampleID") %>% 
   mutate(SampleID = rownames(.))
@@ -71,8 +71,8 @@ mymre <- filter_samples(mre = mymre, sample_ids = metadata$SampleID)
 mymre@metadata@metadata_df <- as.tibble(metadata) 
 mymre@taxa@metaphlan@phyloseq@sam_data <- metadata %>%
   phyloseq::sample_data(.)
-mymre@taxa@metaphlan@phyloseq_sec@sam_data <- metadata %>%
-  phyloseq::sample_data(.)
+# mymre@taxa@metaphlan@phyloseq_sec@sam_data <- metadata %>%
+#   phyloseq::sample_data(.)
 
 
 

@@ -14,6 +14,7 @@ editor_options:
 ```{r setup, warning = F, message=F, echo=F}
 library(metar)
 library(tidyverse)
+library(vegan)
 ```
 
 
@@ -21,7 +22,7 @@ library(tidyverse)
 ```{r load_metadata_vars,echo = F, eval=T, include=F}
 
 
-mymre <- aws.s3::s3readRDS("s3://mistral-wp6-advanz4/metagenome/WMGS/MREObject.rds") ### Check consistency between mre.rds(local and S3). You are reading s3 file, here, but in 200_ you are using local
+mymre <- aws.s3::s3readRDS(bucket = "mistral-wp6-advanz4", object = "metagenome/WMGS/MREObject.rds", region = "eu-west-1") ### Check consistency between mre.rds(local and S3). You are reading s3 file, here, but in 200_ you are using local
 # metadata <- metar::get_metadata(mymre)@metadata_df
 
 metadata <- here::here("Metadata", "2022_09_29_clean_metadata_LIMS.csv") %>% 
@@ -60,13 +61,19 @@ num_var <- here::here("Metadata", "NumericalVariables.txt") %>%
 
 ```
 
-```{r update_mre, echo = FALSE,warning= F, message= F}
+```{r update_mre, echo = FALSE,warning= F, message= F, results=F}
 
 #### This chunk is for updating the mre internally as new variables come out. Once the final mre is done this chunk will be removed.
 devtools::load_all("../WMGSPipeline/")
 
 
 mymre <- filter_samples(mre = mymre, sample_ids = metadata$SampleID)
+pathways <- here::here("data","All_pathabun_relab.tsv") %>% 
+  read.table(sep="\t", header = T, check.names = F,comment.char = "") %>% 
+  setNames(.,str_remove_all(colnames(.), "_Abundance")) %>% 
+  # dplyr::rename(pathway = `# Pathway`) %>% 
+  tibble::column_to_rownames("# Pathway") %>% 
+  dplyr::filter(!grepl("\\|", rownames(.)))
 
 mymre@metadata@metadata_df <- as_tibble(metadata)
 
@@ -85,37 +92,84 @@ mymre@metadata@longitudinal_vals <- here::here("Metadata", "LongitudinalVariable
 
 ```
 
-
+Let's tidy up the table into a long format, so it will be easier to plot from now on:
 
 ```{r extract_tables,message= F, warning=FALSE}
-first_table <- 
-metar::get_genefunction(mymre, type = "humann", annotation = "kegg") 
+# first_table <- 
+# metar::get_genefunction(mymre, type = "humann", annotation = "kegg") 
 # %>% 
 #   tidyr::pivot_wider(names_from = "kegg_id", values_from = "CPM")
+name_df <- 
+  rownames(pathways) %>% 
+  stringr::str_split_fixed(., ": ", n = 2) %>% 
+  as.data.frame() %>% 
+  stats::setNames(c("path", "description"))
 
 
+first_table <- pathways %>% 
+  t() %>% 
+  as.data.frame() %>% 
+  setNames(name_df$path) %>% 
+  tibble::rownames_to_column("SampleID") %>% 
+  pivot_longer(., cols = !"SampleID", names_to = "pathway") %>% 
+  dplyr::filter(SampleID %in% metadata$SampleID)
+
+unint_mean <- first_table %>% 
+  filter(pathway == "UNINTEGRATED") %>% 
+  pull(value) %>% 
+  mean()
+unmap_mean <- 
+  first_table %>% 
+  filter(pathway == "UNMAPPED") %>% 
+  pull(value) %>% 
+  mean()
+
+
+
+first_table %>% 
+  dplyr::filter(pathway %in% c("UNMAPPED", "UNINTEGRATED")) %>% 
+  right_join(., metadata[,c("SampleID", "group", "time_point")],by = "SampleID") %>% 
+
+  ggplot(aes(x=SampleID)) +
+  geom_col(aes(fill = pathway, y = value), position = "stack", stat="identity", width = 1) +
+  # geom_hline(yintercept = unmap_mean, lwd = 1.5, lty = 5, col = "azure", show.legend = T) +
+  # geom_hline(yintercept = unint_mean, lwd = 1.5, lty = 5, show.legend = T) +
+  theme_bw() +
+  theme(axis.text.x = element_blank()) +
+  scale_fill_manual(values=c("azure4","azure")) 
 
 
 
 ```
 
-```{r comp_barplots, warning=F, message=F}
+As we can see, most values of dataset consists of, either unmapped reads (UNMAPPED) or mapped reads who could be attributed to a gene family but but could not be integrated in any cataloged pathway from MetaCyc. We'll remove those to prevent noise.
+
+
+```{r final_table, warning=F,message=F,}
+path_df <- first_table %>%
+  dplyr::filter(!pathway %in% c("UNMAPPED", "UNINTEGRATED"))
+
+```
+
+# Barplot description 
+
+```{r comp_barplots, warning=F, message=F, fig.align='right'}
 
 
 
-first_table %>% 
+path_df %>% 
 # metar::get_genefunction(mymre, type = "humann", annotation = "kegg") %>% 
   dplyr::arrange(SampleID) %>% 
   group_by(SampleID) %>% 
-  mutate(percent = CPM/sum(CPM)*100) %>%
-  mutate(sum_check = sum(percent)) %>% 
+  # mutate(percent = CPM/sum(CPM)*100) %>%
+  # mutate(sum_check = sum(percent)) %>% 
 
   right_join(., metadata[,c("SampleID", "group", "time_point")],by = "SampleID") %>% 
   arrange(SampleID, time_point) %>% 
   filter(!time_point == 24) %>% 
   ggplot(., aes(x = SampleID)) +
   facet_wrap(~group+time_point, scales = "free_x", ncol = 3, nrow = 2)+
-  geom_col(aes(fill = kegg_id, y = percent), position = "stack", stat="percent", width = 1) +
+  geom_col(aes(fill = pathway, y = value), position = "stack", stat="percent", width = 1) +
   theme_bw() +
   theme(legend.position = "none",
         axis.text.x = element_blank(),
@@ -123,26 +177,31 @@ first_table %>%
 ```
 
 
-```{r NMDS, message=FALSE, warning=F}
+```{r NMDS, message=FALSE, warning=F, results= F, fig.align='right'}
 
-abundance_df <- first_table %>% 
-  pivot_wider(names_from = "kegg_id", values_from = "CPM") %>% 
+abundance_df <- path_df %>% 
+  pivot_wider(names_from = "pathway", values_from = "value") %>% 
   column_to_rownames("SampleID")
 
 NMDS <- vegan::metaMDS(abundance_df, distance = "bray",k = 2, trymax = 500)
 vegan::stressplot(NMDS)
 
 
-dist_mat <- vegan::vegdist(abundance_df, method = "bray")
-
+dist_mat <- vegan::vegdist(abundance_df, method = "bray") 
 adonis_df <- 
   NMDS %>% 
   pluck("points") %>% 
   as.data.frame() %>% 
   rownames_to_column("SampleID") %>% 
-  left_join(metadata[,c("SampleID","group", "time_point")], by="SampleID") %>% 
+  right_join(metadata[,c("SampleID","group", "time_point")], by="SampleID") %>% 
   column_to_rownames("SampleID") %>% 
-  vegan::adonis2(dist_mat ~ group, data = .)
+  vegan::adonis(dist_mat ~ group, data = .)%>% 
+  purrr::pluck("aov.tab") %>% 
+  as.data.frame() %>% 
+  dplyr::slice(1L) %>% 
+  round(3) %>% 
+  setNames(c("df","sum_sq", "mean_sq", "F", "R2", "p"))
+
 
 
 
@@ -156,10 +215,12 @@ nmds_plot <-
   stat_ellipse(geom="polygon",alpha=0.15,color="black",aes(fill=group),level=0.95) +
   geom_point(aes(color = group)) + 
   theme_bw()
-nmds_plot
+
+nmds_plot +
+  annotation_custom(gridExtra::tableGrob(adonis_df), ymin = 0.4, xmin = -0.8)
 
 
 ```
 
 
-As we can see, no big patterns can be found either at looking at total composition or by NMDS ordination.
+As we can see, no big patterns can be found either at looking at total composition or by NMDS ordination. However ADONIS says the "group" variable is significant, although the R^2 is tiny. The significant result may be due to differences in dispersion between the two groups.
