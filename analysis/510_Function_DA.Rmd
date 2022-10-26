@@ -69,7 +69,7 @@ num_var <- here::here("Metadata", "NumericalVariables.txt") %>%
 ```{r update_mre, echo = FALSE,warning= F, message= F, results=F}
 
 #### This chunk is for updating the mre internally as new variables come out. Once the final mre is done this chunk will be removed.
-devtools::load_all("../WMGSPipeline/")
+devtools::load_all(here::here("..","WMGSPipeline"))
 
 
 mymre <- filter_samples(mre = mymre, sample_ids = metadata$SampleID)
@@ -164,7 +164,11 @@ cat_vector <- cat_df %>%
   dplyr::filter(!CategoricalVariable %in% c("risk_group", "center", "ethnic_group")) %>% 
   pull(CategoricalVariable)
 
-res <-
+if(file.exists(here::here("data","signif_paths.rds"))){
+  res <- here::here("data","signif_paths.rds") %>% 
+  readRDS(.)
+} else{
+  res <-
    cat_vector%>%
   purrr::set_names() %>%
   purrr::map(function(cv) {
@@ -343,5 +347,69 @@ res <-
         ))}
       })
   })
+}
+
+
+```
+
+
+```{r further_filter, message = F, warning = F}
+
+filtered_stats <- 
+  res %>% 
+  purrr::pluck("group") %>% 
+  purrr::discard(., function(x) is.null(x)) %>% 
+  names() %>% 
+  purrr::set_names() %>% 
+  map(~{
+    # print(.x)
+    if (.x %in% name_df$path){
+      name <- name_df %>% 
+        dplyr::filter(path == .x) %>% 
+        pull(description)
+      
+    } else {name <- .x}
+    
+    res %>% 
+      purrr::pluck("group",.x,"stats" ,"multilmm") %>% 
+      tibble::rownames_to_column("variable") %>% 
+      dplyr::filter(str_detect(variable,"long_var:cat_var*")) %>% 
+      dplyr::filter(p < 0.05)
+    
+  }) %>% 
+  purrr::keep(., function(x) nrow(x) > 0)
+
+filtered_stats <- 
+name_df %>% 
+  dplyr::filter(path %in% names(filtered_stats)) %>% 
+  pull(description) %>% 
+  setNames(filtered_stats, .)
+
+```
+
+```{r venn_diagram, warning = F, message=FALSE}
+
+comps_group <- list("DTG"=c("DTG_48","DTG_96"),
+              "DRV/r" = c("DRV/r_48", "DRV/r_96"))
+
+Venn_Group <- res$group %>% # Construct list for Venn diagram
+      dplyr::select(species, group2, level) %>%
+      dplyr::mutate(row=row_number()) %>% 
+      tidyr::pivot_wider(., values_from = "species", names_from = c("level", "group2")) %>% 
+      dplyr::select(-row) %>%
+      map(~{
+        .x[!is.na(.x)]
+      }) 
+
+group_diff <- names(comps_group) %>% # DA species common between 48 and 96 for each group
+  set_names() %>% 
+  map(~ {
+    Venn_Group %>% 
+      ggVennDiagram::Venn(.) %>% 
+      ggVennDiagram::discern_overlap(., slice = comps_group[[.x]])
+  }) 
+
+
+
 ```
 

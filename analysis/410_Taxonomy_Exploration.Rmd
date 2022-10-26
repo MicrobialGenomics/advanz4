@@ -29,7 +29,7 @@ mymre <- aws.s3::s3readRDS(bucket = "mistral-wp6-advanz4", object ="/metagenome/
 
 
 # metadata <- get_meta(mymre)
-metadata <- here::here("Metadata", "2022_09_14_clean_metadata_LIMS.csv") %>% 
+metadata <- here::here("Metadata", "2022_10_05_clean_metadata_LIMS.csv") %>% 
   read.csv() %>% 
   column_to_rownames("SampleID") %>% 
   mutate(SampleID = rownames(.))
@@ -57,11 +57,11 @@ CategoricalVariablesDF <- get_cat(mymre)
 myphyloseq <- get_phyloseq(mymre, type="metaphlan")
 
 abundance <- myphyloseq %>%
-  tax_glom(.,"Phylum") %>%
+  tax_glom(.,"Kingdom") %>%
   otu_table(.) %>%
   t() %>%
   as.data.frame()  %>%
-  setNames(tax_table(tax_glom(myphyloseq, "Phylum"))[,"Phylum"])
+  setNames(tax_table(tax_glom(myphyloseq, "Kingdom"))[,"Kingdom"])
 
 
 
@@ -73,11 +73,12 @@ myBarplots <- CategoricalVariablesDF$CategoricalVariable %>%
     dat <- abundance %>%
 
       rownames_to_column("SampleID") %>%
-      full_join(., metadata[,c("SampleID","record_id","time_point", .x)], by="SampleID") %>%
+      right_join(., metadata[,c("SampleID","record_id","time_point", .x)], by="SampleID") %>%
       pivot_longer(., cols=names(abundance)) %>%
       dplyr::rename(taxa = name) %>%
       dplyr::mutate(facet = paste(!!sym(.x), time_point, sep="_")) %>%
-      dplyr::rename(cat_var = !!sym(.x)) 
+      dplyr::rename(cat_var = !!sym(.x)) %>% 
+      dplyr::filter(!is.na(cat_var), !is.na(time_point))
 
     
     plt <- 
@@ -86,7 +87,8 @@ myBarplots <- CategoricalVariablesDF$CategoricalVariable %>%
       geom_bar(position = "stack", stat = "identity") +
       theme_bw() +
       theme(strip.text = element_text(size=8, face="bold"),
-            strip.background = element_rect(colour = "white"))
+            strip.background = element_rect(colour = "white"),
+            axis.text.x = element_text(angle = 90))
     
   })
 

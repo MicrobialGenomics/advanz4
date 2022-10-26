@@ -45,8 +45,8 @@ mySampleData %>%
   filter(n<2)
 
 
-myClinicalData<-here::here("Metadata","MetadataManagement","Clinical_Table.csv") %>%
-  read.csv(., encoding = "UTF-8") %>%
+myClinicalData<-here::here("Metadata","MetadataManagement","Export.xlsx") %>%
+  readxl::read_excel() %>%
   select(variables_selected$VarName) %>%
   mutate(PatCode = gsub("-","",PatCode)) %>%
   mutate(group = case_when(Treat == "ABC+3TC+DGT" ~ "DTG",
