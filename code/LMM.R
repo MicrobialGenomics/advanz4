@@ -51,8 +51,8 @@ create_LMM <- function(data, num_var, cat_var, long_var, link_var,breakpoints = 
 
 get_LMM_GraphParams <- function(data, t) {
 
-  Summary of how the old function gets the breakpoints:
-  It creates a new variable (T1) which is basically
+  # Summary of how the old function gets the breakpoints:
+  # It creates a new variable (T1) which is basically
 
   data %>%
     pull(cat_var) %>%

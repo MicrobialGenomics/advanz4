@@ -12,8 +12,8 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(RColorBrewer)
 library(metar)
-source(paste(here::here(),"/code/LMM.R", sep=""))
-source(paste(here::here(),"/code/myFunctions.R", sep=""))
+source("code/LMM.R")
+source("code/myFunctions.R")
 
 ```
 
@@ -28,7 +28,7 @@ This section should explain anyithing that may have happened during the first fa
 
 mymre <- aws.s3::s3readRDS(bucket = "s3://mistral-wp6-advanz4", object = "metagenome/WMGS/MREObject.rds")
 # metadata <-get_meta(mymre)
-metadata <- here::here("Metadata", "2022_04_28_clean_metadata_LIMS.csv") %>% 
+metadata <- here::here("Metadata", "2022_09_29_clean_metadata_LIMS.csv") %>% 
   read.csv() %>% 
   column_to_rownames("SampleID") %>% 
   mutate(SampleID = rownames(.))

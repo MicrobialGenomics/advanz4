@@ -23,6 +23,8 @@ navbar:
     href: 430_Species_v_Inflammation.html
   - text: Functional annotation, exploratory
     href: 500_Gene_function_exploratory.html
+  - text: Gene function DA
+    href: 510_Function_DA.html
   - text: Adenovirus and Enterovirus analysis
     href: 505_Adenovirus_Analysis.html
 output:

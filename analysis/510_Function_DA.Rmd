@@ -158,196 +158,197 @@ print(paste("number of pathways that passed the filter: ",length(stat_list), sep
 We can see 69 pathways show significant differences over time in one or both groups. We'll go now for pairwise comparisons between groups, to have a better view of how they compare:
 
 
-```{r pairwise_comps, message = F, warning=F, results = F, cache=TRUE}
+```{r pairwise_comps, message = F, warning=F, results = F, cache=F, echo = F}
 
 cat_vector <- cat_df %>% 
   dplyr::filter(!CategoricalVariable %in% c("risk_group", "center", "ethnic_group")) %>% 
   pull(CategoricalVariable)
 
-if(file.exists(here::here("data","signif_paths.rds"))){
+# if(file.exists(here::here("data","signif_paths.rds"))){
   res <- here::here("data","signif_paths.rds") %>% 
   readRDS(.)
-} else{
-  res <-
-   cat_vector%>%
-  purrr::set_names() %>%
-  purrr::map(function(cv) {
-    
-  
-    
-  lev <- metadata %>% 
-      pull(!!sym(cv)) %>% 
-      unique()
-    
-  pal <- cat_df %>% 
-    dplyr::filter(CategoricalVariable == cv) %>% 
-    pull(PaletteName)
-    
-    stat_list %>%
-      # purrr::keep(names(.) == "ASPASN-PWY") %>%
-      # purrr::keep( ~ nrow(.x) > 0) %>%
-      names() %>%
-      purrr::set_names() %>%
-      purrr::map(function(fn)
-      {
-        print(fn)
-        df <- path_df %>%
-          dplyr::select(path = fn) %>%
-          rownames_to_column("SampleID") %>%
-          dplyr::inner_join(metadata[, c("SampleID", cv, "time_point", "record_id")], by =
-                              "SampleID") %>%
-          dplyr::rename(cat_var = !!sym(cv))
-        
-        if(any(
-        df %>%
-          filter(time_point %in% c(0, 48, 96)) %>% 
-          group_by(cat_var, time_point) %>% 
-          summarise(n = sum(path)) %>% 
-          pull(n) == 0)){
-          return(NULL)
-        } else {
-          
-        
-
-        
-        test <-
-          df %>%
-          dplyr::filter(time_point %in% c(0, 48, 96)) %>%
-          dplyr::group_by(time_point) %>% 
-          rstatix::wilcox_test(path ~ cat_var, p.adjust.method = "none") %>%
-          rstatix::add_xy_position(., x = "time_point") %>%
-          # filter(p.adj < 0.05) %>%
-          dplyr::group_by(time_point) %>%
-          rstatix::adjust_pvalue("p", method = "BH") %>%
-          dplyr::ungroup() %>%
-
-
-          rstatix::add_significance("p.adj")
-        
-        
-        test_long <-
-          
-          df %>%
-          dplyr::filter(time_point %in% c(0, 48,96)) %>%
-          PairedWilcox_withNAs(myDF = ., IDs = "record_id", 
-                               Variable = "path", 
-                               Response = "time_point",
-                               Subsets = "cat_var") %>% 
-          dplyr::group_by(cat_var) %>% 
-          rstatix::adjust_pvalue(p.col = "p",method = "BH",output.col =  "p.adj") %>% 
-          dplyr::ungroup() %>% 
-          rstatix::add_x_position(., x="time_point",  group = "cat_var", dodge = 0.8) %>% 
-          rstatix::add_significance("p.adj") %>%
-          arrange(cat_var)
-        
-        print("boxplots")
-        
-        boxplot <-
-          df %>%
-          dplyr::filter(time_point %in% c(0, 48,96)) %>%
-          dplyr::mutate(time_point = as.factor(time_point)) %>%
-          ggplot(., aes(x = time_point, y = path)) +
-          geom_boxplot(aes(fill = cat_var), position = "dodge") +
-          ggpubr::stat_pvalue_manual(
-            data = test,
-            label = "p.adj.signif",
-            hide.ns = T,
-            y.position = quantile(df[, "path"], .95) *
-              1.1,
-            size = 6,
-            step.increase = 0.1,
-            bracket.size = 1
-          ) +
-          ggpubr::stat_pvalue_manual(
-            data = test_long,
-            label = "p.adj.signif",
-            hide.ns = T,
-            y.position = quantile(df[, "path"], .95) *
-              1.2,
-            step.increase = 0.1,
-            size = 6,
-            bracket.size = 1
-            
-          ) +
-          theme_bw() +
-          scale_fill_brewer(palette = pal) +
-          labs(title = fn)
-        
-        
-        boxplotstats <-
-          rbind(
-            test %>%
-              dplyr::rename(var = time_point) %>%
-              dplyr::select(var, group1, group2, n1, n2, p.adj),
-            test_long %>%
-              dplyr::rename(var = cat_var) %>%
-              dplyr::select(var, group1, group2, n1, n2, p.adj)
-          )
-        
-        print("lmms")
-        lmm <-
-          df %>% 
-          dplyr::filter(!is.na(cat_var)) %>% 
-          create_LMM(
-            data =  .,
-            num_var = "path",
-            cat_var = "cat_var",
-            long_var = "time_point",
-            link_var = "record_id",
-            breakpoints = NULL
-          )
-        
-        lmm_plot <-
-          lmm %>%
-          purrr::pluck("plot") +
-          scale_color_brewer(palette = pal) +
-          scale_fill_brewer(palette = pal)
-        # ggsave(filename = paste("Results/FunctionalAnnotation/DA/", fn,".svg", sep=""), dpi = 600, width = 20, height = 15, units = "cm")
-        
-        
-        lmm_stats <-
-          lmm %>%
-          pluck("stats")
-        
-        
-        print("multilmms")
-        multilmm <-
-          df %>% 
-          # dplyr::filter(!time_point == 9) %>%
-          get_lmm_effects(
-            .,
-            cat_vector = cv,
-            num_vector = "path",
-            long_var = "time_point",
-            link_var = "record_id",
-            title = T
-          )
-        
-        multilmm_plot <- multilmm %>% 
-          purrr::pluck(cv, "path","plot") +
-          labs(title = fn) +
-          scale_color_brewer(palette = pal) +
-          scale_fill_brewer(palette = pal)
-        
-        multilmm_stats <- multilmm %>% 
-          purrr::pluck(cv, "path", "summary")
-        
-        print("done")
-        return(list(
-          plots = list(
-            boxplot = boxplot,
-            lmm = lmm$plot,
-            multilmm = multilmm_plot
-          ),
-          stats = list(
-            boxplot = boxplotstats,
-            lmm = lmm_stats,
-            multilmm = multilmm_stats
-          )
-        ))}
-      })
-  })
-}
+# } 
+# else{
+#   res <-
+#    cat_vector%>%
+#   purrr::set_names() %>%
+#   purrr::map(function(cv) {
+#     
+#   
+#     
+#   lev <- metadata %>% 
+#       pull(!!sym(cv)) %>% 
+#       unique()
+#     
+#   pal <- cat_df %>% 
+#     dplyr::filter(CategoricalVariable == cv) %>% 
+#     pull(PaletteName)
+#     
+#     stat_list %>%
+#       # purrr::keep(names(.) == "ASPASN-PWY") %>%
+#       # purrr::keep( ~ nrow(.x) > 0) %>%
+#       names() %>%
+#       purrr::set_names() %>%
+#       purrr::map(function(fn)
+#       {
+#         print(fn)
+#         df <- path_df %>%
+#           dplyr::select(path = fn) %>%
+#           rownames_to_column("SampleID") %>%
+#           dplyr::inner_join(metadata[, c("SampleID", cv, "time_point", "record_id")], by =
+#                               "SampleID") %>%
+#           dplyr::rename(cat_var = !!sym(cv))
+#         
+#         if(any(
+#         df %>%
+#           filter(time_point %in% c(0, 48, 96)) %>% 
+#           group_by(cat_var, time_point) %>% 
+#           summarise(n = sum(path)) %>% 
+#           pull(n) == 0)){
+#           return(NULL)
+#         } else {
+#           
+#         
+# 
+#         
+#         test <-
+#           df %>%
+#           dplyr::filter(time_point %in% c(0, 48, 96)) %>%
+#           dplyr::group_by(time_point) %>% 
+#           rstatix::wilcox_test(path ~ cat_var, p.adjust.method = "none") %>%
+#           rstatix::add_xy_position(., x = "time_point") %>%
+#           # filter(p.adj < 0.05) %>%
+#           dplyr::group_by(time_point) %>%
+#           rstatix::adjust_pvalue("p", method = "BH") %>%
+#           dplyr::ungroup() %>%
+# 
+# 
+#           rstatix::add_significance("p.adj")
+#         
+#         
+#         test_long <-
+#           
+#           df %>%
+#           dplyr::filter(time_point %in% c(0, 48,96)) %>%
+#           PairedWilcox_withNAs(myDF = ., IDs = "record_id", 
+#                                Variable = "path", 
+#                                Response = "time_point",
+#                                Subsets = "cat_var") %>% 
+#           dplyr::group_by(cat_var) %>% 
+#           rstatix::adjust_pvalue(p.col = "p",method = "BH",output.col =  "p.adj") %>% 
+#           dplyr::ungroup() %>% 
+#           rstatix::add_x_position(., x="time_point",  group = "cat_var", dodge = 0.8) %>% 
+#           rstatix::add_significance("p.adj") %>%
+#           arrange(cat_var)
+#         
+#         print("boxplots")
+#         
+#         boxplot <-
+#           df %>%
+#           dplyr::filter(time_point %in% c(0, 48,96)) %>%
+#           dplyr::mutate(time_point = as.factor(time_point)) %>%
+#           ggplot(., aes(x = time_point, y = path)) +
+#           geom_boxplot(aes(fill = cat_var), position = "dodge") +
+#           ggpubr::stat_pvalue_manual(
+#             data = test,
+#             label = "p.adj.signif",
+#             hide.ns = T,
+#             y.position = quantile(df[, "path"], .95) *
+#               1.1,
+#             size = 6,
+#             step.increase = 0.1,
+#             bracket.size = 1
+#           ) +
+#           ggpubr::stat_pvalue_manual(
+#             data = test_long,
+#             label = "p.adj.signif",
+#             hide.ns = T,
+#             y.position = quantile(df[, "path"], .95) *
+#               1.2,
+#             step.increase = 0.1,
+#             size = 6,
+#             bracket.size = 1
+#             
+#           ) +
+#           theme_bw() +
+#           scale_fill_brewer(palette = pal) +
+#           labs(title = fn)
+#         
+#         
+#         boxplotstats <-
+#           rbind(
+#             test %>%
+#               dplyr::rename(var = time_point) %>%
+#               dplyr::select(var, group1, group2, n1, n2, p.adj),
+#             test_long %>%
+#               dplyr::rename(var = cat_var) %>%
+#               dplyr::select(var, group1, group2, n1, n2, p.adj)
+#           )
+#         
+#         print("lmms")
+#         lmm <-
+#           df %>% 
+#           dplyr::filter(!is.na(cat_var)) %>% 
+#           create_LMM(
+#             data =  .,
+#             num_var = "path",
+#             cat_var = "cat_var",
+#             long_var = "time_point",
+#             link_var = "record_id",
+#             breakpoints = NULL
+#           )
+#         
+#         lmm_plot <-
+#           lmm %>%
+#           purrr::pluck("plot") +
+#           scale_color_brewer(palette = pal) +
+#           scale_fill_brewer(palette = pal)
+#         # ggsave(filename = paste("Results/FunctionalAnnotation/DA/", fn,".svg", sep=""), dpi = 600, width = 20, height = 15, units = "cm")
+#         
+#         
+#         lmm_stats <-
+#           lmm %>%
+#           pluck("stats")
+#         
+#         
+#         print("multilmms")
+#         multilmm <-
+#           df %>% 
+#           # dplyr::filter(!time_point == 9) %>%
+#           get_lmm_effects(
+#             .,
+#             cat_vector = cv,
+#             num_vector = "path",
+#             long_var = "time_point",
+#             link_var = "record_id",
+#             title = T
+#           )
+#         
+#         multilmm_plot <- multilmm %>% 
+#           purrr::pluck(cv, "path","plot") +
+#           labs(title = fn) +
+#           scale_color_brewer(palette = pal) +
+#           scale_fill_brewer(palette = pal)
+#         
+#         multilmm_stats <- multilmm %>% 
+#           purrr::pluck(cv, "path", "summary")
+#         
+#         print("done")
+#         return(list(
+#           plots = list(
+#             boxplot = boxplot,
+#             lmm = lmm$plot,
+#             multilmm = multilmm_plot
+#           ),
+#           stats = list(
+#             boxplot = boxplotstats,
+#             lmm = lmm_stats,
+#             multilmm = multilmm_stats
+#           )
+#         ))}
+#       })
+#   })
+# }
 
 
 ```
@@ -389,27 +390,41 @@ name_df %>%
 
 ```{r venn_diagram, warning = F, message=FALSE}
 
+library(ggVennDiagram)
+
 comps_group <- list("DTG"=c("DTG_48","DTG_96"),
               "DRV/r" = c("DRV/r_48", "DRV/r_96"))
 
-Venn_Group <- res$group %>% # Construct list for Venn diagram
-      dplyr::select(species, group2, level) %>%
-      dplyr::mutate(row=row_number()) %>% 
-      tidyr::pivot_wider(., values_from = "species", names_from = c("level", "group2")) %>% 
-      dplyr::select(-row) %>%
-      map(~{
-        .x[!is.na(.x)]
-      }) 
+Venn_Group <- res$group %>%
+  purrr::discard(is.null) %>% 
+  names() %>% # Construct list for Venn diagram
+  purrr::set_names() %>% 
+  purrr::map_dfr(function(fn){
+    res$group %>% 
+      purrr::pluck(fn, "stats","boxplot") %>% 
+      dplyr::filter(var %in% c(0,48,96),
+                    p.adj < 0.05) %>% 
+      mutate(path = fn) %>% 
+      dplyr::select(var, path)
+  }) %>%
+  arrange(var) %>% 
+  left_join(name_df, by = "path") %>% 
+  filter(!path %in% path[var == 0]) # fiter those who already were significant at basal
+  
+sets <- list(
+  `48` = Venn_Group %>% filter(var == 48) %>% pull(description),
+  `96` = Venn_Group %>% filter(var == 96) %>% pull(description)
+) 
 
-group_diff <- names(comps_group) %>% # DA species common between 48 and 96 for each group
-  set_names() %>% 
-  map(~ {
-    Venn_Group %>% 
-      ggVennDiagram::Venn(.) %>% 
-      ggVennDiagram::discern_overlap(., slice = comps_group[[.x]])
-  }) 
+sets %>%
+  ggVennDiagram::ggVennDiagram(., show_intersect = T) 
+
+res_df <- list(w48 = sets$`48`[!sets$`48` %in% sets$`96`],
+                     w96 = sets$`96`[!sets$`96` %in% sets$`48`],
+                     common = intersect(sets$`48`, sets$`96`))
 
 
 
+res_df
 ```
 

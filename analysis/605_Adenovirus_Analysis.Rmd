@@ -45,7 +45,7 @@ num_var <- here::here("Metadata", "NumericalVariables.txt") %>%
 
 
 metadata <- 
-  here::here("Metadata", "2022_05_30_clean_metadata_LIMS.csv") %>% 
+  here::here("Metadata", "2022_09_29_clean_metadata_LIMS.csv") %>% 
   read.csv() %>% 
   mutate(ADV_p = case_when(
     is.na(ADV) ~ "no", 
@@ -390,7 +390,7 @@ Here we see a similar signal. Gene richness increased more in the DTG than in th
 
 Last, we will look for links between overall microbiome structure and Adenovirus incidence.
 
-```{r construct_nmds, warning = F, message = F, cache = F}
+```{r construct_nmds, warning = F, message = F, cache = F, eval = F}
 
 # Add the categorical var ADV_p to the mre
 
@@ -404,7 +404,7 @@ ADV_nmds <- get_taxa(mymre, type="metaphlan", result_slot = "nmds") %>%
 
 No significant clstering can be observed.
 
-```{r plot_nmds, warning=F, message= F, echo = F}
+```{r plot_nmds, warning=F, message= F, echo = F, eval = F}
 ADV_nmds
 
 ```

@@ -14,6 +14,8 @@ library(RColorBrewer)
 library(metar)
 source("code/LMM.R")
 source("code/myFunctions.R")
+library(rstatix)
+library(ggpubr)
 
 ```
 
@@ -89,7 +91,8 @@ mymre@metadata@longitudinal_vals <- here::here("Metadata", "LongitudinalVariable
   read.delim(., header = T) %>% 
   tibble()
 
-
+mymre@taxa@metaphlan@phyloseq@sam_data <- phyloseq::sample_data(metadata)
+mymre@taxa@metaphlan@phyloseq_sec@sam_data <- phyloseq::sample_data(metadata)
 
 ```
 

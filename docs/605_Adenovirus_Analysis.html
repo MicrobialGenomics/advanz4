@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Marc Noguera, Carlos Blázquez" />
+
+
+<title>Adenovirus Analisis</title>
+
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">advanz4</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+<li>
+  <a href="310_IGC_analysis.html">Gene richness</a>
+</li>
+<li>
+  <a href="320_Beta_Diversity.html">Beta Diversity</a>
+</li>
+<li>
+  <a href="335_BLMicrobiome_vs_ImmuneResponse.html">Immune and clinical BL comparisons</a>
+</li>
+<li>
+  <a href="330_TaxaLevel_LMM.html">LMM taxa ranking</a>
+</li>
+<li>
+  <a href="410_Taxonomy_Exploration.html">Taxonomy</a>
+</li>
+<li>
+  <a href="420_Taxonomy_DA.html">Differential Abundance</a>
+</li>
+<li>
+  <a href="430_Species_v_Inflammation.html">DA species vs inflammation markers</a>
+</li>
+<li>
+  <a href="500_Gene_function_exploratory.html">Functional annotation, exploratory</a>
+</li>
+<li>
+  <a href="510_Function_DA.html">Gene function DA</a>
+</li>
+<li>
+  <a href="505_Adenovirus_Analysis.html">Adenovirus and Enterovirus analysis</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Adenovirus Analisis</h1>
+<h4 class="author">Marc Noguera, Carlos Blázquez</h4>
+<h4 class="date">5/3/2022</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2022-10-27
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>advanz4/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211203code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20211203)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20211203code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20211203)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treebce7fb3c95b24808b78b48d992c394c4490f37cdtargetblankbce7fb3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/bce7fb3c95b24808b78b48d992c394c4490f37cd" target="_blank">bce7fb3</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treebce7fb3c95b24808b78b48d992c394c4490f37cdtargetblankbce7fb3a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/bce7fb3c95b24808b78b48d992c394c4490f37cd" target="_blank">bce7fb3</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .RData
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    analysis/.Rhistory
+    Ignored:    analysis/420_Taxonomy_DA_cache/
+    Ignored:    analysis/505_Adenovirus_Analysis_cache/
+    Ignored:    analysis/510_Function_DA_cache/
+    Ignored:    analysis/output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/
+    Ignored:    data/mre.rds
+    Ignored:    data/signif_paths.rds
+
+Untracked files:
+    Untracked:  analysis/figure/
+    Untracked:  code/04_build_metadata.Rmd
+
+Unstaged changes:
+    Deleted:    analysis/04_build_metadata.Rmd
+    Modified:   analysis/310_IGC_analysis.Rmd
+    Modified:   analysis/420_Taxonomy_DA.Rmd
+    Modified:   analysis/430_Species_v_Inflammation.Rmd
+    Modified:   analysis/510_Function_DA.Rmd
+    Deleted:    analysis/510_Function_DA.html
+    Modified:   analysis/605_Adenovirus_Analysis.Rmd
+    Modified:   analysis/_site.yml
+    Modified:   code/LMM.R
+    Modified:   output/mre_data/CatalogMapping/IGC/lmm/lmm_time_point_by_group.pdf
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/605_Adenovirus_Analysis.Rmd</code>) and HTML (<code>docs/605_Adenovirus_Analysis.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/19b15b838b9f3f9a6e8e23c1913d8d8adae38763/analysis/605_Adenovirus_Analysis.Rmd" target="_blank">19b15b8</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-10-14
+</td>
+<td>
+Added Functional DA
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<pre class="r"><code>mymre &lt;- mymre &lt;- aws.s3::s3readRDS(bucket = &quot;s3://mistral-wp6-advanz4&quot;, object = &quot;metagenome/WMGS/MREObject.rds&quot;)
+# metadata &lt;-get_meta(mymre)
+
+
+cat_df &lt;- 
+  here::here(&quot;Metadata&quot;, &quot;CategoricalVariables.txt&quot;) %&gt;% 
+  read.delim(., header = T)
+
+cat_vector &lt;- cat_df %&gt;% 
+  pull(CategoricalVariable)
+
+long_var &lt;- here::here(&quot;Metadata&quot;, &quot;LongitudinalVariables.txt&quot;) %&gt;%
+  read.delim(., header = T)  %&gt;% 
+  pull(LongitudinalVariable)
+
+link_var &lt;- here::here(&quot;Metadata&quot;, &quot;LongitudinalVariables.txt&quot;) %&gt;%
+  read.delim(., header = T)  %&gt;% 
+  pull(LinkVariable)
+
+num_var &lt;- here::here(&quot;Metadata&quot;, &quot;NumericalVariables.txt&quot;) %&gt;%
+  read.delim(., header = T)  %&gt;% 
+  pull(NumericalVariable)
+
+
+metadata &lt;- 
+  here::here(&quot;Metadata&quot;, &quot;2022_09_29_clean_metadata_LIMS.csv&quot;) %&gt;% 
+  read.csv() %&gt;% 
+  mutate(ADV_p = case_when(
+    is.na(ADV) ~ &quot;no&quot;, 
+    !is.na(ADV) ~ &quot;yes&quot;), .after = &quot;ADV&quot;) %&gt;% 
+  mutate(rownames = SampleID) %&gt;% 
+  column_to_rownames(&quot;rownames&quot;)</code></pre>
+<pre><code>suggested package selbal ✔suggested package DataExplorer ✔suggested package lme4 ✔suggested package merTools ✔</code></pre>
+<div id="import-data-and-variable-definition." class="section level1">
+<h1>Import data and variable definition.</h1>
+<p>Only a few patients had any detecatble ADV presence on their guts, which also had huge variations. Hence we expect a quantitative approach to hold little power. We’ll complement with a qualitative approach based on presence/absence of both ADV and EV.</p>
+<p>First, classify each sample as ADV+/ADV-. (Do the same for Enterovirus).</p>
+</div>
+<div id="adenovirus-per-treatment" class="section level1">
+<h1>Adenovirus per treatment</h1>
+<p>A quick view at the value distribution should inform of normality and ossible outliers</p>
+<pre class="r"><code>metadata %&gt;% 
+  dplyr::select(link_var = !!sym(link_var),
+                long_var = !!sym(long_var),
+                cat_var = &quot;group&quot;,
+                ADV) %&gt;% 
+
+  ggplot2::ggplot(., aes(x=ADV, color=cat_var)) +
+  geom_density(stat=&quot;density&quot;) +
+  theme_minimal() +
+  labs(title = &quot;Adenovirus&quot;, subtitle = &quot;Abundance distribution (log10)&quot;, x=&quot;log10(ADV)&quot;,
+       color = &quot;group&quot;) +
+  scale_color_brewer(palette = &quot;Set1&quot;)</code></pre>
+<p><img src="figure/605_Adenovirus_Analysis.Rmd/first_exploration-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>It is clear there are outliers on the data which heavily skew the DTG group. This is due to one specific sample from the DTG group with an outstanding ammount of ADV.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">SampleID</th>
+<th align="left">record_id</th>
+<th align="right">time_point</th>
+<th align="right">ADV</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">ADZ4_260</td>
+<td align="left">ADZ4_260</td>
+<td align="left">B007</td>
+<td align="right">0</td>
+<td align="right">7716041</td>
+</tr>
+</tbody>
+</table>
+<p>This one will be taken out from quantitative analysis from now on.</p>
+<pre class="r"><code>maxADV &lt;- metadata %&gt;% 
+  pull(ADV) %&gt;% 
+  max(., na.rm = T)
+
+metadata_f &lt;-
+  metadata %&gt;%
+  dplyr::filter((ADV != maxADV) %&gt;% 
+  replace_na(T))
+
+
+
+
+metadata_f %&gt;% 
+  dplyr::select(link_var = !!sym(link_var),
+                long_var = !!sym(long_var),
+                cat_var = &quot;group&quot;,
+                ADV) %&gt;% 
+
+  ggplot2::ggplot(., aes(x=ADV, color=cat_var)) +
+  geom_density(stat=&quot;density&quot;) +
+  theme_minimal() +
+  labs(title = &quot;Adenovirus&quot;, subtitle = &quot;Abundance distribution (log10)&quot;, x=&quot;log10(ADV)&quot;,
+       color = &quot;group&quot;) +
+  scale_color_brewer(palette = &quot;Set1&quot;)</code></pre>
+<p><img src="figure/605_Adenovirus_Analysis.Rmd/filtered_distribution-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Now the data is still heavily skewed but we can see a more reasonable distribution, with majority of 0s but those with actual abundance have more “evenly” distributed values.</p>
+<div id="quantitative-exploration" class="section level2">
+<h2>Quantitative exploration</h2>
+<pre class="r"><code>LMMlist &lt;- metadata_f %&gt;% 
+  create_LMM(data = .,
+           num_var = &quot;ADV&quot;,
+           cat_var = &quot;group&quot;,
+           long_var = long_var, 
+           link_var = link_var,
+           breakpoints = NULL)
+
+
+LMMlist$stats</code></pre>
+<pre><code>        slope  pval cat_var
+DRV/r  26.833 0.538   DRV/r
+DTG   -40.395 0.039     DTG</code></pre>
+<pre class="r"><code>unique(metadata_f$group) %&gt;% 
+  purrr::set_names() %&gt;% 
+  purrr::map_dfr(~{
+    metadata_f %&gt;% 
+  dplyr::select(link_var = !!sym(link_var),
+                long_var = !!sym(long_var),
+                cat_var = &quot;group&quot;,
+                ADV) %&gt;% 
+      dplyr::filter(cat_var == .x) %&gt;% 
+      dplyr::pull(ADV) %&gt;% 
+      summary() 
+
+}) %&gt;% 
+  dplyr::mutate(lev=unique(metadata_f$group)) %&gt;% 
+  tibble::column_to_rownames(&quot;lev&quot;) %&gt;% 
+  kableExtra::kable(format=&quot;markdown&quot;)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Min.</th>
+<th align="right">1st Qu.</th>
+<th align="right">Median</th>
+<th align="right">Mean</th>
+<th align="right">3rd Qu.</th>
+<th align="right">Max.</th>
+<th align="right">NA’s</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">DTG</td>
+<td align="right">0.0107</td>
+<td align="right">0.0807</td>
+<td align="right">2.4553</td>
+<td align="right">2026.839</td>
+<td align="right">554.6086</td>
+<td align="right">25980.53</td>
+<td align="right">99</td>
+</tr>
+<tr class="even">
+<td align="left">DRV/r</td>
+<td align="right">0.0028</td>
+<td align="right">0.0408</td>
+<td align="right">1.6708</td>
+<td align="right">2435.987</td>
+<td align="right">146.4422</td>
+<td align="right">37014.20</td>
+<td align="right">89</td>
+</tr>
+</tbody>
+</table>
+<p>We see here that ADV follows a non-normal heavily skewed toward the left. We’ll check how do they behave considering treatment time.</p>
+<pre class="r"><code>myLMMs &lt;- get_lmm_effects(data =metadata_f, 
+                          cat_vector = c(&quot;group&quot;), 
+                          num_vector = c(&quot;ADV&quot;), 
+                          long_var = long_var, 
+                          link_var = &quot;record_id&quot;) </code></pre>
+<pre><code>[1] &quot;group&quot;
+[1] &quot;ADV&quot;</code></pre>
+<pre class="r"><code>myLMMs$group$ADV$plot</code></pre>
+<p><img src="figure/605_Adenovirus_Analysis.Rmd/ADV_longitudinal-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>It appears both groups have opposite trends, as the DRV/r group tends to increase while the DTG decreases. However, it is not only backed ANOVA test, but the increase in the DRV/r group should be taken with caution, as most patients actually decrease excep for one who has a massive increase between weeks 48 and 96. There is also little coninuity in the data, as mmost patients only present some levels of ADV at only one time point, those gaps negatively affecting the test’s robustness.</p>
+</div>
+</div>
+<div id="adenovirus-qualitative-analysis" class="section level1">
+<h1>Adenovirus qualitative analysis</h1>
+<p>We will test for presence/absence and try to test for differences among groups. We’ll test for proportions of patients positive per ADV per group and time. We’ll first visualize the evolution of the data. Afterwards, an exact Fisher’s test will be used between baseline and weeks 48/96 for each group.</p>
+<pre class="r"><code>cat_var = &quot;group&quot;
+num_var = &quot;ADV&quot;
+link_var = &quot;record_id&quot;
+
+#Exploratory histogram
+metadata %&gt;% 
+  dplyr::select(link_var = link_var, 
+                long_var = long_var, 
+                cat_var = cat_var, 
+                num_var = ADV_p) %&gt;% 
+  dplyr::group_by(cat_var, long_var) %&gt;% 
+  dplyr::count(num_var) %&gt;% 
+  dplyr::mutate(long_var = as.factor(long_var)) %&gt;% 
+  tidyr::pivot_wider(id_cols = c(&quot;cat_var&quot;,&quot;long_var&quot;), names_from = &quot;num_var&quot;, values_from = &quot;n&quot;) %&gt;%
+  dplyr::mutate(incidence = yes*100 / (no + yes)) %&gt;% 
+  ggplot(., aes(x=long_var, y = incidence, fill = cat_var)) +
+  # facet_wrap(~cat_var) +
+  geom_histogram(stat=&quot;identity&quot;, position = &quot;dodge&quot;) +
+  theme_minimal() +
+  scale_fill_brewer(palette = &quot;Set1&quot;) +
+  labs(x = &quot;week&quot;,y=&quot;ADV incidence (%)&quot;, fill = &quot;group&quot;) </code></pre>
+<p><img src="figure/605_Adenovirus_Analysis.Rmd/ADV_prevalence-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>## Fisher&#39;s test
+
+
+unique(metadata[,cat_var]) %&gt;%
+  purrr::set_names() %&gt;%
+  purrr::map(function(cv) {
+    a &lt;- 
+    metadata %&gt;%
+      select(cat_var = cat_var,
+             long_var = long_var,
+             ADV_p) %&gt;%
+      dplyr::filter(cat_var == cv) %&gt;%
+      dplyr::group_by(long_var) %&gt;%
+      dplyr::count(ADV_p) %&gt;%
+      dplyr::ungroup() %&gt;%
+      tidyr::pivot_wider(
+        id_cols = c(&quot;long_var&quot;),
+        names_from = &quot;ADV_p&quot;,
+        values_from = &quot;n&quot;
+      ) %&gt;%
+      tibble::column_to_rownames(&quot;long_var&quot;) %&gt;%
+      as.matrix() %&gt;%
+      fisher.test()
+    
+  })</code></pre>
+<pre><code>$DTG
+
+    Fisher&#39;s Exact Test for Count Data
+
+data:  .
+p-value = 0.7189
+alternative hypothesis: two.sided
+
+
+$`DRV/r`
+
+    Fisher&#39;s Exact Test for Count Data
+
+data:  .
+p-value = 0.2936
+alternative hypothesis: two.sided</code></pre>
+<p>Although there is a difference in ADV incidence between baselina and week 96 for both groups, no decreasing trend over tie could be observe, as ADV seems to spike in the following weeks of starting treatment. Interestingly, this spike happens at week 24 for RTV/r and week 48 for DTG.</p>
+<p>No differences in presence/absence ratios per time points were found in either group, according to Fisher’s test.</p>
+<div id="adenovirus-detection-vs-microbiome-composition" class="section level3">
+<h3>Adenovirus detection vs Microbiome composition</h3>
+<pre class="r"><code>threshold &lt;-   
+  metar::get_diversity(mymre, type = &quot;igc&quot;, res_slot = &quot;metaphlan3&quot;) %&gt;%
+  purrr::pluck(&quot;dataTable&quot;)%&gt;%
+  dplyr::select(SampleID, NumberMappedReads) %&gt;%
+  unique() %&gt;%
+  summarise(Q = quantile(NumberMappedReads, 0.02)) %&gt;%
+  as.numeric()
+
+igc &lt;-   
+  metar::get_diversity(mymre, type = &quot;igc&quot;, res_slot = &quot;metaphlan3&quot;) %&gt;%
+  purrr::pluck(&quot;dataTable&quot;) %&gt;% 
+  filter(NumberMappedReads &gt;= threshold) %&gt;%
+  filter(ReadCountReal &gt;= threshold) %&gt;%
+  group_by(SampleID) %&gt;%
+  summarise(across(everything(), min)) %&gt;%
+  ungroup() %&gt;% 
+  select(SampleID, GeneNumber)
+
+
+metadata_f %&gt;% 
+  dplyr::select(SampleID, 
+                link_var = &quot;record_id&quot;, 
+                # long_var = long_var,
+                cat_var = cat_var,
+                ADV) %&gt;% 
+  dplyr::right_join(igc, by=&quot;SampleID&quot;) %&gt;% 
+  # mutate(ADV = log10(ADV)) %&gt;%
+  get_lmm_effects(., cat_vector = cat_var, num_vector = &quot;ADV&quot;, long_var = &quot;GeneNumber&quot;,link_var = &quot;link_var&quot;) %&gt;% 
+  purrr::pluck(&quot;group&quot;,&quot;ADV&quot;,&quot;plot&quot;) +
+  scale_x_continuous() +
+  # scale_y_log10() +
+  labs(x = &quot;gene count&quot;)</code></pre>
+<pre><code>[1] &quot;group&quot;
+[1] &quot;ADV&quot;</code></pre>
+<p><img src="figure/605_Adenovirus_Analysis.Rmd/gene_richness_corr-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Nothing conclussive can be extracted by correlating gene richness to ADV presence, except that both groups evolution are close to a perfect match. This is mainly due to how much ADV levels vary beween patients and how discontinuous the data is. Most patients persent ADV in only one or two timepoints, which affects the robustness of any longitudinal approach. An qualitative approach may be more useful.</p>
+<pre class="r"><code>c(0,48,96) %&gt;% 
+  purrr::set_names() %&gt;% 
+  purrr::map(function(tp){
+  
+    group_difs &lt;- metadata %&gt;% 
+  dplyr::filter(time_point == tp) %&gt;% 
+  dplyr::select(SampleID, 
+                link_var = &quot;record_id&quot;, 
+                # long_var = long_var,
+                cat_var = cat_var,
+                ADV_p) %&gt;%
+  dplyr::left_join(igc, by=&quot;SampleID&quot;) %&gt;% 
+  dplyr::filter(!is.na(ADV_p)) %&gt;% 
+  dplyr::group_by(cat_var) %&gt;% 
+  rstatix::wilcox_test(., GeneNumber ~ ADV_p) %&gt;% 
+  rstatix::add_xy_position(x = &quot;cat_var&quot;) %&gt;% 
+  # mutate(xmin = c(0.8,1.2),
+  #        xmax=c(1.8,2.2)) %&gt;% 
+  rstatix::add_significance() %&gt;% 
+  dplyr::mutate(ADV_p = &quot;yes&quot;)  # This dows nothing, but plotting fails without it as it keeps looking for &quot;ADV-p&quot; because it is stated in aes()
+  
+  
+
+
+metadata %&gt;% 
+    dplyr::filter(time_point == tp) %&gt;% 
+  dplyr::select(SampleID, 
+                link_var = &quot;record_id&quot;, 
+                # long_var = long_var,
+                cat_var = cat_var,
+                ADV_p) %&gt;%
+  dplyr::left_join(igc, by=&quot;SampleID&quot;) %&gt;% 
+  dplyr::filter(!is.na(ADV_p)) %&gt;% 
+  ggplot(aes(x=cat_var, y = GeneNumber, fill = ADV_p)) +
+  geom_boxplot(color=&quot;black&quot;, outlier.shape = NA) +
+  geom_point(size = 0.7, position = position_jitterdodge(jitter.width = .2), shape = 3) +
+  theme_bw() +
+  labs(x = &quot;group&quot;, y = &quot;gene count&quot;, fill = &quot;ADV&quot;, title = paste(&quot;ADV/group, week &quot;,tp,sep=&quot;&quot;)) +
+  scale_fill_brewer(palette = &quot;Set1&quot;) +
+  ggpubr::stat_pvalue_manual(data = group_difs,label = &quot;p = ,{p}&quot;, hide.ns = F, size = 3)
+
+  }) %&gt;% 
+  ggpubr::ggarrange(plotlist = ., common.legend = T)</code></pre>
+<p><img src="figure/605_Adenovirus_Analysis.Rmd/ADV_presence_igc-1.png" width="768" style="display: block; margin: auto;" /> Here we see a similar signal. Gene richness increased more in the DTG than in the RTV/r group, but no differences were found between those with and without presence of Adenovirus. Low amount of patients with ADV and great variation may be taking a toll on Wilcoxon tests sensitivity.</p>
+</div>
+</div>
+<div id="nmds" class="section level1">
+<h1>NMDS</h1>
+<p>Last, we will look for links between overall microbiome structure and Adenovirus incidence.</p>
+<pre class="r"><code># Add the categorical var ADV_p to the mre
+
+mymre@metadata@categorical_vals &lt;- rbind(mymre@metadata@categorical_vals, c(&quot;ADV_p&quot;, &quot;Set1&quot;) )
+
+mymre &lt;- metaphlan_nmds(mymre, tax_level = &quot;Species&quot;, top_n = 50, save_files = F)
+
+ADV_nmds &lt;- get_taxa(mymre, type=&quot;metaphlan&quot;, result_slot = &quot;nmds&quot;) %&gt;% 
+  purrr::pluck(&quot;Species&quot;, &quot;top_50&quot;,&quot;categorical&quot;,&quot;ADV_p&quot;)</code></pre>
+<p>No significant clstering can be observed.</p>
+<pre class="r"><code>NMDS_long_list &lt;- c(&quot;ADV_p&quot;) %&gt;%
+  purrr::set_names() %&gt;%
+  purrr::map(function(cv) {
+    c(&quot;NMDS1&quot;, &quot;NMDS2&quot;) %&gt;%
+      purrr::set_names() %&gt;%
+      purrr::map(function(comp) {
+        ADV_nmds$data %&gt;%
+          dplyr::select(SampleID, NMDS = comp) %&gt;%
+          dplyr::inner_join(metadata_f[, c(&quot;SampleID&quot;, &quot;ADV_p&quot;,&quot;time_point&quot; ,&quot;record_id&quot;, cv)], by =
+                              &quot;SampleID&quot;) %&gt;%
+          get_lmm_effects(data = ., cat_vector = cv, num_vector = &quot;NMDS&quot;, long_var = &quot;time_point&quot;, link_var = &quot;record_id&quot;) %&gt;% purrr::pluck(cv,&quot;NMDS&quot;,&quot;plot&quot;) +
+          scale_x_continuous(n.breaks = 10) +
+          # ggplot(., aes(x = time_point, y = NMDS, fill = !!sym(cv),color = !!sym(cv))) +
+          # geom_point() +
+          # geom_smooth(, method = &quot;lm&quot;)+
+        labs(x = &quot;week&quot;, y = comp)
+        
+      }) %&gt;%
+      ggpubr::ggarrange(plotlist = ., common.legend = T)
+    
+  })
+
+
+NMDS_long_list$ADV_p</code></pre>
+<p>We observe no temporal tendency towards any direction in the NMDS by ADV presence, while group do</p>
+<p>Use:</p>
+<ul>
+<li>NMDS coordinates (NMDS1 and NMDS2) vs ADV+/ADV-</li>
+<li>PERMANOVA to check significance.</li>
+<li>ADV+/ADV- vs gene richness</li>
+</ul>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.5 (2021-03-31)
+Platform: x86_64-redhat-linux-gnu (64-bit)
+Running under: Fedora 34 (Workstation Edition)
+
+Matrix products: default
+BLAS/LAPACK: /usr/lib64/libflexiblas.so.3.1
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] nlme_3.1-158       metar_0.1.5        testthat_3.1.4     RColorBrewer_1.1-3
+ [5] forcats_0.5.1      stringr_1.4.0      dplyr_1.0.9        purrr_0.3.4       
+ [9] readr_2.1.2        tidyr_1.2.0        tibble_3.1.7       ggplot2_3.3.6     
+[13] tidyverse_1.3.1    devtools_2.4.3     usethis_2.1.6      workflowr_1.7.0   
+
+loaded via a namespace (and not attached):
+  [1] utf8_1.2.2          tidyselect_1.1.2    lme4_1.1-29        
+  [4] htmlwidgets_1.5.4   grid_4.0.5          aws.signature_0.6.0
+  [7] munsell_0.5.0       codetools_0.2-18    future_1.26.1      
+ [10] withr_2.5.0         colorspace_2.0-3    Biobase_2.50.0     
+ [13] phyloseq_1.34.0     logger_0.2.2        highr_0.9          
+ [16] knitr_1.39          rstudioapi_0.13     stats4_4.0.5       
+ [19] ggsignif_0.6.3.9000 listenv_0.8.0       labeling_0.4.2     
+ [22] git2r_0.30.1        polyclip_1.10-0     bit64_4.0.5        
+ [25] farver_2.1.0        rhdf5_2.34.0        rprojroot_2.0.3    
+ [28] coda_0.19-4         parallelly_1.32.0   vctrs_0.4.1        
+ [31] generics_0.1.2      xfun_0.31           R6_2.5.1           
+ [34] arm_1.12-2          rhdf5filters_1.2.1  cachem_1.0.6       
+ [37] assertthat_0.2.1    promises_1.2.0.1    networkD3_0.4      
+ [40] scales_1.2.0        vroom_1.5.7         merTools_0.5.2     
+ [43] gtable_0.3.0        globals_0.15.0      processx_3.6.1     
+ [46] rlang_1.0.2         systemfonts_1.0.4   splines_4.0.5      
+ [49] rstatix_0.7.0       broom_0.8.0         yaml_2.3.5         
+ [52] reshape2_1.4.4      abind_1.4-5         modelr_0.1.8       
+ [55] backports_1.4.1     httpuv_1.6.5        tools_4.0.5        
+ [58] logging_0.10-108    kableExtra_1.3.4    ellipsis_0.3.2     
+ [61] jquerylib_0.1.4     biomformat_1.18.0   selbal_0.1.0       
+ [64] BiocGenerics_0.36.1 sessioninfo_1.2.2   Rcpp_1.0.8.3       
+ [67] plyr_1.8.7          base64enc_0.1-3     zlibbioc_1.36.0    
+ [70] ps_1.7.1            prettyunits_1.1.1   ggpubr_0.4.0       
+ [73] cowplot_1.1.1       S4Vectors_0.28.1    haven_2.5.0        
+ [76] cluster_2.1.3       fs_1.5.2            here_1.0.1         
+ [79] furrr_0.3.0         DataExplorer_0.8.2  magrittr_2.0.3     
+ [82] data.table_1.14.2   lmerTest_3.1-3      reprex_2.0.1       
+ [85] mvtnorm_1.1-3       whisker_0.4         pkgload_1.2.4      
+ [88] hms_1.1.1           patchwork_1.1.1     mime_0.12          
+ [91] evaluate_0.15       xtable_1.8-4        broom.mixed_0.2.9.4
+ [94] readxl_1.4.0        IRanges_2.24.1      gridExtra_2.3      
+ [97] compiler_4.0.5      crayon_1.5.1        minqa_1.2.4        
+[100] htmltools_0.5.2     mgcv_1.8-40         later_1.3.0        
+[103] tzdb_0.3.0          lubridate_1.8.0     aws.s3_0.3.21      
+[106] DBI_1.1.3           tweenr_1.0.2        dbplyr_2.2.0       
+[109] MASS_7.3-57         boot_1.3-28         Matrix_1.4-1       
+[112] ade4_1.7-19         car_3.1-0           wesanderson_0.3.6  
+[115] permute_0.9-7       brio_1.1.3          cli_3.3.0          
+[118] parallel_4.0.5      igraph_1.3.2        pkgconfig_2.0.3    
+[121] getPass_0.2-2       numDeriv_2016.8-1.1 xml2_1.3.2         
+[124] foreach_1.5.2       svglite_2.1.0       bslib_0.3.1        
+[127] blme_1.0-5          webshot_0.5.3       multtest_2.46.0    
+[130] XVector_0.30.0      rvest_1.0.2         callr_3.7.0        
+[133] digest_0.6.29       vegan_2.6-2         Biostrings_2.58.0  
+[136] rmarkdown_2.14      cellranger_1.1.0    curl_4.3.2         
+[139] shiny_1.7.1         nloptr_2.0.3        lifecycle_1.0.1    
+[142] jsonlite_1.8.0      Rhdf5lib_1.12.1     carData_3.0-5      
+[145] viridisLite_0.4.0   desc_1.4.1          fansi_1.0.3        
+[148] pillar_1.7.0        lattice_0.20-45     fastmap_1.1.0      
+[151] httr_1.4.2          pkgbuild_1.3.1      survival_3.3-1     
+[154] glue_1.6.2          remotes_2.4.2       iterators_1.0.14   
+[157] bit_4.0.4           ggforce_0.3.3       stringi_1.7.6      
+[160] sass_0.4.1          memoise_2.0.1       ape_5.6-2          </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

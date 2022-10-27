@@ -22,6 +22,7 @@ library(rstatix)
 library(lme4)
 library(lmerTest)
 source(file = here::here("code","myFunctions.R"))
+source("code/LMM.R")
 source("code/Paired_wilcox_NA_Handler.R")
 
 
@@ -222,7 +223,7 @@ seq_depth_plots <-
 
 seq_depth_plots$group
 
-<a# ggarrange(plotlist=seq_depth_plots$ARM, common.legend = T, ncol = 1, nrow = 2)
+# ggarrange(plotlist=seq_depth_plots$ARM, common.legend = T, ncol = 1, nrow = 2)
 
 
 ```
@@ -243,7 +244,7 @@ We'll start studying the longitudinal effect of treatment group over gene richne
 `richness ~ group*time_point + (1|ID)`
 
 
-```{r create_LMM_Function, echo=FALSE}
+```{r create_LMM_Function, echo=FALSE, eval = F}
 
 
 
@@ -320,31 +321,32 @@ LMM_separate_list <-  c("richness") %>%
                link_var = "link_var",
                breakpoints = t)
     
-    pvals<-names(LMM[[1]]) %>%
-      set_names() %>%
-      
-      map_dfr(~ {
-        LMM[[1]][[.x]] %>%
-          as.data.frame() %>%
-          slice(2) %>%
-          select("p-value", "Value") %>%
-          as.numeric() %>%
-          round(digits=3)
-        }) %>% 
-      
-      t() %>%
-      as.data.frame() %>%
-      setNames(., nm= c("pval", "slope")) %>%
-      rownames_to_column(var="cat_var")
+    pvals <- LMM$stats
+    #   set_names() %>%
+    #   
+    #   map_dfr(~ {
+    #     LMM$stats[[.x]] %>%
+    #       as.data.frame() %>%
+    #       slice(2) %>%
+    #       select("p-value", "Value") %>%
+    #       as.numeric() %>%
+    #       round(digits=3)
+    #     }) %>% 
+    #   
+    #   t() %>%
+    #   as.data.frame() %>%
+    #   setNames(., nm= c("pval", "slope")) %>%
+    #   rownames_to_column(var="cat_var")
     
     
-      LMM[[2]] +
-      geom_label(data=pvals, 
-                 aes(alpha=NULL,
-                     label=paste("p=",pval, ", slope = ", slope, sep=""), 
-                     x=-Inf, y=Inf), color="black", hjust=0.01, vjust=1 ) +
+      LMM$plot +
+      # geom_label(data=pvals, 
+      #            aes(alpha=NULL,
+      #                label=paste("p=",pval, ", slope = ", slope, sep=""), 
+      #                x=-Inf, y=Inf), color="black", hjust=0.01, vjust=1 ) +
       labs(title=.x, color = cat_var) + 
-        scale_color_brewer(palette = "Accent")
+      scale_color_brewer(palette = "Accent") +
+        scale_fill_brewer(palette = "Accent")
 
   }
 )
