@@ -49,35 +49,36 @@ create_LMM <- function(data, num_var, cat_var, long_var, link_var,breakpoints = 
 #' Helper function to obtain the graphical parameters to build a beautiful LMM plot.
 #' @data is the same data frame as the other functions.
 
-get_LMM_GraphParams <- function(data){
+get_LMM_GraphParams <- function(data, t) {
 
-  myList <- data %>%
+  Summary of how the old function gets the breakpoints:
+  It creates a new variable (T1) which is basically
+
+  data %>%
     pull(cat_var) %>%
     unique() %>%
     set_names() %>%
     map_dfr( ~ {
-
-      model<-data %>%
+      model <- data %>%
         dplyr::select(num_var, long_var, cat_var, link_var) %>%
         dplyr::filter(cat_var == .x) %>%
         lmerTest::lmer(formula = "num_var ~ long_var + (1|link_var)") %>%
         summary() %>%
         magrittr::extract2("coefficients")
 
-      graphparams<- data %>%
-        summarise(xmin=min(long_var, na.rm = T),
-                  xmax=max(long_var, na.rm = T),
-                  ymin = model[1,1] + xmin*model[2,1],
-                  ymax = model[1,1] + xmax*model[2,1]) %>%
+      data %>%
+        summarise(
+          xmin = min(long_var, na.rm = T),
+          xmax = max(long_var, na.rm = T),
+          ymin = model[1, 1] + xmin * model[2, 1],
+          ymax = model[1, 1] + xmax * model[2, 1]
+        ) %>%
         mutate(cat_var = .x) %>%
         relocate(cat_var)
     }) %>%
     as.data.frame()
 
-
-  return(myList)
 }
-
 
 
 #' A wrapper to perform unified lmms models which test for group effect in the slope. Test performed by ANOVA. It returns a nested list organized by cat_var/num_var and 2 slots: plot and statistics

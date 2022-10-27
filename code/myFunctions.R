@@ -1508,7 +1508,7 @@ myLMM_t.piecewise<-function(Data,Variable,t){
   # Length of breakpoints
   n<-length(t)
   # Are t values presented in Variable?
-  stopifnot(sum(t%in%Data[,Variable])==n)
+  stopifnot(sum(t%in%V)==n)
   # Build a matrix with the new variables
   M<-matrix(0,ncol=n,nrow=length(V))
   # Names of variables

@@ -25,11 +25,16 @@ knitr::opts_chunk$set(
 Metadata consists on two tables. ne with sample information, coming a merge between two tables, the one with the samples collected in HC and the other ones from IrsiCaixa. The other table contains all the relevant clinical and demographic information along with group data
 
 ```{r read_tables, warning=F, message=F}
+
+
+upload_bucket <- "mistral-wp6-advanz4/data_transfer/metagenome/"
+
+aws.s3::put_object(file =  here::here("Metadata","MetadataManagement","Var_names.csv"), bucket = upload_bucket)
 variables_selected <- read.csv(here::here("Metadata","MetadataManagement","Var_names.csv"), header=T, encoding = "UTF-8") %>%
   dplyr::filter(selected == "YES") 
 
- 
 
+aws.s3::put_object(file =  here::here("Metadata","MetadataManagement","metadata_select.csv"), bucket = upload_bucket)
 mySampleData<-here::here("Metadata","MetadataManagement","metadata_select.csv")%>%
   read.csv(.) %>%
   relocate(CODE,Week,ExtractionDate,PatCode) %>%
@@ -37,14 +42,8 @@ mySampleData<-here::here("Metadata","MetadataManagement","metadata_select.csv")%
   select(-c(DateDiff))
 
 
-mySampleData %>%
-  filter(Selected_For_Sequencing == "Yes") %>%
-  select(CODE, PatCode) %>%
-  group_by(PatCode) %>%
-  summarise(n=n()) %>%
-  filter(n<2)
 
-
+aws.s3::put_object(file =  here::here("Metadata","MetadataManagement","Clinical_Table.csv"), bucket = upload_bucket)
 myClinicalData<-here::here("Metadata","MetadataManagement","Clinical_Table.csv") %>%
   read.csv(., encoding = "UTF-8") %>%
   select(variables_selected$VarName) %>%
@@ -78,6 +77,9 @@ vars=c("CD4 value","CD8 value", "4+38+DR+","8+38+DR+", "PCR", "IL-6", "TNF-a", "
 names(vars) <- c("CD4","CD8", "CD4_CD38_DR","CD8_CD38_DR", "CRP", "IL6", "TNFa", "sCD14", "viral_load")
 
 Sys.setlocale("LC_TIME", "English")
+
+
+aws.s3::put_object(file =  here::here("Metadata","MetadataManagement","LabData.xls"), bucket = upload_bucket)
 MetadataLab <-
   here::here("Metadata", "MetadataManagement", "LabData.xls") %>%
   readxl::read_excel() %>%
@@ -143,6 +145,7 @@ Lab data for week 96 came later, so we'll have to format it and merge it with pr
 
 ```{r, add_data_96, warning=F, message=F}
 
+aws.s3::put_object(file =  here::here("Metadata","MetadataManagement","LabData_96.xls"), bucket = upload_bucket)
 dat_96 <- 
   here::here("Metadata","MetadataManagement", "LabData_96.xls") %>% 
   readxl::read_excel(.) %>% 
@@ -172,6 +175,9 @@ dat_96 <-
 
 
 ```{r add_reworked_CRP, warning=F, message=F}
+
+
+aws.s3::put_object(file =  here::here("Metadata","MetadataManagement","CRP_updated.csv"), bucket = upload_bucket)
 new_crp_96 <- here::here("Metadata","MetadataManagement", "CRP_updated.csv") %>% 
   read.csv(., sep=";", header = T) %>% 
   dplyr::select(sample = Muestra, value = Result, units = Unidades, result_date = Fecha.Validac.) %>% 
@@ -192,6 +198,7 @@ new_crp_96 <- here::here("Metadata","MetadataManagement", "CRP_updated.csv") %>%
 
 
 ```{r add_sCD14_sCD163, message = F, warning = F}
+aws.s3::put_object(file =  here::here("Metadata","MetadataManagement","LabData_96_sCD14.xls"), bucket = upload_bucket)
 sCD14_96 <- 
   here::here("Metadata", "MetadataManagement", "LabData_96_sCD14.xls") %>% 
   readxl::read_excel(.,) %>% 
@@ -219,6 +226,9 @@ clin_meta <- rbind(MetadataLab, sCD14_96) %>%
 
 
 ```{r merge_lab_demographic, message = F, warning=F}
+
+
+aws.s3::put_object(file =  here::here("Metadata","MetadataManagement","Vital.xlsx"), bucket = upload_bucket)
 MetadataLabDem<- here::here("Metadata","MetadataManagement","Vital.xlsx") %>%
   readxl::read_excel() %>%
   filter(PatCode != "TMP??-000") %>%
@@ -252,6 +262,7 @@ We'll add the variables suggested in the study design, separating the patients i
 ```{r LIMS_IDs, warning=F, message=F}
 
 
+aws.s3::put_object(file =  here::here("Metadata","MetadataManagement","Informacio_LIMS.xlsx"), bucket = upload_bucket)
 metadata_final <-
   here::here("Metadata", "MetadataManagement","Informacio_LIMS.xlsx") %>%
   readxl::read_excel(sheet = "DNA") %>%
@@ -459,6 +470,8 @@ metadata_final <-
 
 
 ```{r add_ADV_results, message= T, warning= T}
+
+aws.s3::put_object(file =  here::here("Metadata","MetadataManagement","Resultats_Real_Time.xlsx"), bucket = upload_bucket)
 PCR <- here::here("Metadata", "MetadataManagement", "Resultats_Real_Time.xlsx") %>% 
   readxl::read_excel(., sheet = 1) %>% 
   setNames(c("SampleID", "test", "ct", "value", "unit", "kit")) %>% 
@@ -586,6 +599,10 @@ CD4 nadir in the DTG group is significantly higher than DRV (mean 44.4% higher).
 
 ```{r Write_metadata}
 
+aws.s3::put_object(file =  here::here("Metadata","MetadataManagement","2022_10_05_clean_metadata_LIMS.csv"), bucket = upload_bucket)
+
+
+
 metadata_final %>%
   readr::write_delim(
         file = here::here("Metadata",
@@ -595,6 +612,15 @@ metadata_final %>%
         delim = ",", quote = "all"
     )
 
+
+aws.s3::put_object(file =  here::here(
+  "Metadata",
+  
+  str_c(
+    Sys.Date() %>% str_replace_all("-", "_"),
+    "_clean_metadata_LIMS.csv"
+  )
+), bucket = upload_bucket)
 
 
 ```

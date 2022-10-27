@@ -222,7 +222,7 @@ seq_depth_plots <-
 
 seq_depth_plots$group
 
-# ggarrange(plotlist=seq_depth_plots$ARM, common.legend = T, ncol = 1, nrow = 2)
+<a# ggarrange(plotlist=seq_depth_plots$ARM, common.legend = T, ncol = 1, nrow = 2)
 
 
 ```
@@ -247,7 +247,7 @@ We'll start studying the longitudinal effect of treatment group over gene richne
 
 
 
-create_LMM <- function(metadata, num_var, cat_var, long_var, link_var,breakpoints){
+create_LMM <- function(data =metadata, num_var, cat_var, long_var, link_var,breakpoints){
   
   myLMM <-metadata %>%
     as.data.frame() %>%

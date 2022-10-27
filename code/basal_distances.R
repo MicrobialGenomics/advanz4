@@ -20,20 +20,29 @@ distance_from_basal <- function(dist_mat, metadata, link_var, long_var, cat_var,
     dplyr::left_join(dist_df, by = c("SampleID", "basal_id")) %>%
     dplyr::filter(!!sym(long_var) != basal)
 
-  plt <-
-    ggplot(dat, aes(
-      !!sym(long_var),
-      distance,
-      group = !!sym(link_var),
-      colour = !!sym(cat_var),
-      fill = !!sym(cat_var)
-    )) +
-    facet_grid(cols = vars(!!sym(cat_var))) +
-    geom_point() +
-    geom_line() +
-    stat_summary(aes(group = !!sym(cat_var)), fun = median, geom = "line", size = 2) +
-    geom_smooth(aes(group = !!sym(cat_var)), method = "glm", formula = 'y ~ x', colour = "black") +
-    theme_bw()
+  lmm <-
+    dat %>%
+    as.data.frame() %>%
+    dplyr::mutate(cat_var = as.factor(!!sym(cat_var))) %>%
+    myLMM_two.piece.GLMM(Datos = .,
+                          Y = "distance",
+                         Time = long_var,
+                         t=NULL,
+                         ID = "record_id",
+                         Factor = "cat_var")
+    # ggplot(dat, aes(
+    #   !!sym(long_var),
+    #   distance,
+    #   group = !!sym(link_var),
+    #   colour = !!sym(cat_var),
+    #   fill = !!sym(cat_var)
+    # )) +
+    # facet_grid(cols = vars(!!sym(cat_var))) +
+    # geom_point() +
+    # geom_line() +
+    # stat_summary(aes(group = !!sym(cat_var)), fun = median, geom = "line", size = 2) +
+    # geom_smooth(aes(group = !!sym(cat_var)), method = "glm", formula = 'y ~ x', colour = "black") +
+    # theme_bw()
 
-  return(list(plot = plt, data = dat))
+  return(list(plot = lmm[[2]], stat = lmm[[1]], data = dat))
 }
