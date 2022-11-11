@@ -1,0 +1,50 @@
+---
+title: "Gene Richness vs CD4"
+author: "Marc Noguera"
+date: "11/11/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(RColorBrewer)
+library(metar)
+source("code/LMM.R")
+source("code/myFunctions.R")
+
+```
+## Gene Richness vs CD4
+
+In this analysis we are interested in the relationship between CD4/CD4 recovery and gene richness. For that, several questions are of importance.
+
+### CD4 baseline distribution
+
+We already know that CD4 mean(sd) is similar for DTG/DRVr groups, but we have not checked the distribution. Is it unimodal or bimodal? a density plot should help
+
+### GeneRichness at baseline distribution
+
+We know (I think) that there is no difference in generichness between arme at baseline, but we do not know the distribution. In Guillen et al, we found a bimodal distribution in HIV patients. Is that the case of advanz4?
+
+### Gene Richness vs CD4 at baseline
+
+Is there any association between gene richness and CD4 at baseline only, overall, and per-group(DTG and DRVr only)?
+
+### Delta-CD4 and DeltaGR
+
+We need to check if the increments in CD4 are linked to increments in GeneRichness. Let's calculate these increments in two different ways:
+
+- Absolute: CD4(tx)-CD4(t0) or GR(tx)-GR(to)
+- Relative: (CD4(tx)-CD(t0)/(CD4(tx)+CD4(t0))) or (GR(tx)-GR(t0)/(GR(tx)+GR(t0)))
+
+Check distribution of these values and see if there is a possibility of reasonable categorization.
+
+And plot:
+
+- Values vs timepoint, overall and per-group(DTG and DRVr only). Fit ANOVA/t-test vs DTG/DRVr at each timepoint to check for differential increases per ARM
+- AbsCD4 vs AbsGR, overall and per-group(DTG and dRVr only). Fit LM
+- RelCD4 vs RelGR, overall and per-group(DTG and DRVr only). Fit LM
+
+### CAtegorized
+
+This has partially been done. Split patients between 150>CD4(t48)/(t96)>150, and check if DeltaGR is different for groups and fisher.test of these groups vs arm is significant.
