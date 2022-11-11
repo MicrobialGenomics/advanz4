@@ -45,6 +45,6 @@ And plot:
 - AbsCD4 vs AbsGR, overall and per-group(DTG and dRVr only). Fit LM
 - RelCD4 vs RelGR, overall and per-group(DTG and DRVr only). Fit LM
 
-### CAtegorized
+### CAtegorized CD4
 
 This has partially been done. Split patients between 150>CD4(t48)/(t96)>150, and check if DeltaGR is different for groups and fisher.test of these groups vs arm is significant.
