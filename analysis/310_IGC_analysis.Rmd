@@ -109,7 +109,7 @@ mymre@metadata@longitudinal_vals <- here::here("Metadata", "LongitudinalVariable
 
 ```{r get_GeneRichness_Data, echo=FALSE, message=F, warning=F}
 
-
+knitr::read_chunk(path = here::here("analysis","310_IGC_analysis.Rmd"), labels = "get_GeneRichness_Data")
 igc<-metar::get_diversity(mymre)@igc
 
 # We'll save this number to report the minimum read threshold.

@@ -1,0 +1,203 @@
+---
+title: "335_Microbiome_clinical"
+author: "Carlos Blázquez Bondia"
+date: '2022-11-10'
+output:
+  html_document: default
+  pdf_document: default
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+source("code/LMM.R")
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r Setup, warning=F, message=F}
+
+# mymre <- here::here("data","mre.rds") %>%
+#   readRDS(.)
+
+mymre <- aws.s3::s3readRDS(bucket = "s3://mistral-wp6-advanz4", object = "metagenome/WMGS/MREObject.rds")
+# metadata <-get_meta(mymre)
+metadata <- here::here("Metadata", "2022_09_29_clean_metadata_LIMS.csv") %>% 
+  read.csv() %>% 
+  column_to_rownames("SampleID") %>% 
+  mutate(SampleID = rownames(.))
+
+
+
+cat_df <- 
+  here::here("Metadata", "CategoricalVariables.txt") %>% 
+  read.delim(., header = T)
+
+cat_vector <- cat_df %>% 
+  pull(CategoricalVariable)
+
+long_var <- here::here("Metadata", "LongitudinalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(LongitudinalVariable)
+
+link_var <- here::here("Metadata", "LongitudinalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(LinkVariable)
+
+num_vector <- here::here("Metadata", "NumericalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(NumericalVariable)
+
+
+
+```
+
+
+
+```{r update_mre, warning= F, message= F}
+
+#### This chunk is for updating the mre internally as new variables come out. Once the final mre is done this chunk will be removed.
+
+devtools::load_all(here::here("../WMGSPipeline"))
+
+mymre <- filter_samples(mre = mymre, sample_ids = metadata$SampleID)
+
+mymre@metadata@metadata_df <- as.tibble(metadata) 
+mymre@taxa@metaphlan@phyloseq@sam_data <- metadata %>%
+  phyloseq::sample_data(.)
+mymre@taxa@metaphlan@phyloseq_sec@sam_data <- metadata %>%
+  phyloseq::sample_data(.)
+
+
+
+
+mymre@metadata@categorical_vals <- here::here("Metadata", "CategoricalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+mymre@metadata@numeric_vals <- here::here("Metadata", "NumericalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+mymre@metadata@longitudinal_vals <- here::here("Metadata", "LongitudinalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+link_var = "record_id"
+long_var = "time_point"
+cat_var = "group"
+
+
+```
+
+# Gene richness vs clinical variables
+
+We'll check how differently CD4 evolve over time between both DTG and DRV/r arm. The best way I can think of is with LMMs and ANOVA of the residuals.
+
+```{r get_basic_data, warning = F, message = F}
+
+igc <- get_diversity(mymre, type = "igc")
+
+Threshold <-  igc@dataTable %>%
+  dplyr::select(SampleID, NumberMappedReads) %>%
+  unique() %>%
+  summarise(Q = quantile(NumberMappedReads,0.02)) %>% 
+  as.numeric()
+
+
+
+TableList <- cat_vector %>%
+    set_names() %>%
+    map( ~{
+
+        
+          ThresholdTable <- igc@dataTable %>%
+                filter(NumberMappedReads >= Threshold) %>%
+                filter(ReadCountReal>=Threshold) %>% ### Get the Mapped Read count (per-sample) just above the threshold
+                group_by(SampleID) %>%
+                summarise(across(everything(), min)) %>%
+                ungroup() %>%
+          right_join(., metadata, by="SampleID") %>%
+          select(SampleID,
+                 richness = GeneNumber,
+                 link_var=link_var,
+                 cat_var = .x,
+                 long_var = long_var,
+                 NumberMappedReads)
+})
+
+
+  })
+
+
+```
+
+```{r igc_vars_CD4_basal, message=F, warning=F, results=F}
+
+plotlist <- cat_vector %>% 
+  set_names() %>% 
+  map(function(cv){
+    TableList %>%
+      pluck(cv) %>% 
+      dplyr::select(SampleID,
+                    cat_var,
+                    richness, 
+                    long_var) %>%
+            filter(!is.na(cat_var)) %>%
+      left_join(metadata[,c("SampleID","CD4")], by = "SampleID") %>% 
+      dplyr::filter(long_var == 0) %>% 
+            # ggstatsplot::ggbetweenstats(
+            #   data = .,
+            #   x = cat_var,
+            #   y = richness,
+            #   bf.message = FALSE,
+            #   type = "nonparametric",
+            #   pairwise.comparisons = T,
+            #   xlab = cat_var, 
+            #   ggtheme = ggplot2::theme_bw()
+            #   
+            # )
+    ggplot(aes(x=CD4, y = richness,color = cat_var)) +
+      geom_boxplot() +
+      labs(color = cv)
+      
+  })
+```
+
+```{r igc_vars_CD4_48, message=F, warning=F, results=F}
+
+plotlist <- cat_vector %>% 
+  set_names() %>% 
+  map(function(cv){
+    TableList %>%
+      pluck(cv) %>% 
+      dplyr::select(SampleID,
+                    cat_var,
+                    richness, 
+                    long_var) %>%
+            filter(!is.na(cat_var)) %>%
+      left_join(metadata[,c("SampleID","CD4")], by = "SampleID") %>% 
+      dplyr::filter(long_var == 0) %>% 
+            # ggstatsplot::ggbetweenstats(
+            #   data = .,
+            #   x = cat_var,
+            #   y = richness,
+            #   bf.message = FALSE,
+            #   type = "nonparametric",
+            #   pairwise.comparisons = T,
+            #   xlab = cat_var, 
+            #   ggtheme = ggplot2::theme_bw()
+            #   
+            # )
+    ggplot(aes(x=CD4, y = richness,color = cat_var)) +
+      geom_boxplot() +
+      labs(color = cv)
+      
+  })
+```
