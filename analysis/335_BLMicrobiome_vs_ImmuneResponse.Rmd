@@ -40,7 +40,7 @@ devtools::load_all(here::here("../","WMGSPipeline"))
 
 mymre <- aws.s3::s3readRDS(bucket = "s3://mistral-wp6-advanz4", object = "metagenome/WMGS/MREObject.rds")
 # metadata <-get_meta(mymre)
-metadata <- here::here("Metadata", "2022_04_27_clean_metadata_LIMS.csv") %>% 
+metadata <- here::here("Metadata", "2022_10_05_clean_metadata_LIMS.csv") %>% 
   read.csv() %>% 
   column_to_rownames("SampleID") %>% 
   mutate(SampleID = rownames(.))
@@ -201,8 +201,10 @@ plotlist <- cat_vector %>%
               
             )
   })
-
-
+igc_plotlist <- 
+plotlist %>% 
+  purrr::keep(names(.) %in% c("group", "CD4diff_48","CD4diff_96")) %>% 
+ggpubr::ggarrange(plotlist = ., ncol = 1, nrow = 3)
 
 ```
 
