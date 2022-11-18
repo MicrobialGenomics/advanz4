@@ -1,6 +1,6 @@
 ---
 title: "Gene Richness vs CD4"
-author: "Marc Noguera"
+author: "Carlos Blazquez"
 date: "11/11/2022"
 output: html_document
 ---
