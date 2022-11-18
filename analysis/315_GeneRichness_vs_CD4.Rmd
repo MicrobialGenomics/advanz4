@@ -3,6 +3,9 @@ title: "Gene Richness vs CD4"
 author: "Carlos Blazquez"
 date: "11/11/2022"
 output: html_document
+editor_options:
+  chunk_output_type: console
+
 ---
 
 ```{r setup, include=FALSE}
@@ -14,19 +17,232 @@ source("code/LMM.R")
 source("code/myFunctions.R")
 
 ```
+
+```{r input_data, warning=F, message=F}
+metadata <- 
+  here::here("Metadata") %>% 
+  file.info(list.files(., full.names = T)) %>%
+  rownames() %>% 
+  magrittr::extract(str_detect(.,"clean_metadata")) %>% 
+  sort(decreasing = T) %>% 
+  magrittr::extract(1L) %>% 
+  read.csv() %>% 
+  column_to_rownames("SampleID") %>% 
+  mutate(SampleID = rownames(.))
+
+mymre <- aws.s3::s3readRDS(bucket = "mistral-wp6-advanz4",object = "metagenome/WMGS/MREObject.rds", region = "eu-west-1")
+
+
+
+```
+
+```{r update_mre, warning= F, message= F, echo = F, results=F}
+
+#### This chunk is for updating the mre internally as new variables come out. Once the final mre is done this chunk will be removed.
+
+devtools::load_all(here::here("../WMGSPipeline"))
+
+mymre <- filter_samples(mre = mymre, sample_ids = metadata$SampleID)
+
+mymre@metadata@metadata_df <- as.tibble(metadata) 
+mymre@taxa@metaphlan@phyloseq@sam_data <- metadata %>%
+  phyloseq::sample_data(.)
+
+
+
+
+mymre@metadata@categorical_vals <- here::here("Metadata", "CategoricalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+mymre@metadata@numeric_vals <- here::here("Metadata", "NumericalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+mymre@metadata@longitudinal_vals <- here::here("Metadata", "LongitudinalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+cat_vector <- get_cat(mymre) %>% 
+  pull(CategoricalVariable)
+
+```
+
+
 ## Gene Richness vs CD4
 
 In this analysis we are interested in the relationship between CD4/CD4 recovery and gene richness. For that, several questions are of importance.
 
 ### CD4 baseline distribution
 
-We already know that CD4 mean(sd) is similar for DTG/DRVr groups, but we have not checked the distribution. Is it unimodal or bimodal? a density plot should help
+We already know that CD4 mean(sd) is similar for DTG/DRVr groups, but we have not checked the distribution. Is it unimodal or bimodal? a density plot should help.
+
+```{r basal_CD4}
+basal_df <- 
+metadata %>% 
+  # dplyr::mutate(delta_cd4 = CD4[time_point == 48] - CD4[time_point == 0])
+  dplyr::filter(time_point == 0) %>% 
+  dplyr::select(SampleID, group, CD4)  
+  
+median_df <- basal_df %>% 
+  dplyr::group_by(group) %>% 
+  summarise(med = median(CD4))
+  
+
+peak_finder <-
+  function(density, keep = F) {
+    ### Let's define this function heere but we'll use it later
+    res <-
+      density %>%
+      purrr::keep(names(.) %in% c("x", "y")) %>%
+      as.data.frame() %>%
+      dplyr::mutate(is_peak = c(F, # 1st value can't be a local maxima, as there is no prior value to compare
+                                diff(y) %>% # For each nth element of the vector, get (n+1) - n
+                                  sign() %>%  # convert to -1 (n+1 is lower than n) or +1 (n+1 is higher than n)
+                                  diff() == -2, # if n is at a local maxima, both n+1 and n-1 are negative so [(n+1)-n] - [n - (n-1)] is -2
+                                F)) # Last element can't be a local maxima either)
+                    
+                    if (!keep) {
+                      res %>%
+                        dplyr::filter(is_peak) %>%
+                        dplyr::select(-is_peak)
+                    } else{
+                      res %>%
+                        dplyr::select(-is_peak)
+                    }
+  }
+
+
+peak_df <- unique(basal_df$group) %>% 
+  purrr::set_names() %>% 
+  purrr::map_dfr(function(arm){
+   basal_df %>% 
+      dplyr::filter(group == arm) %>% 
+      pull(CD4) %>% 
+      density(n=nrow(.)) %>% 
+      peak_finder(., keep = F) %>% 
+      mutate(group = arm)
+
+  })
+
+
+
+  
+  
+  
+plt <- ggplot(basal_df, aes(x=CD4, color=group)) +
+
+
+    # geom_histogram(aes(fill = group), bins = 1000) +
+    geom_density( alpha = .4) +
+  theme_bw() +
+  scale_color_brewer(palette = "Accent") +
+  scale_fill_brewer(palette = "Accent") +
+  geom_vline(data = median_df, aes(xintercept =  med, color = group), lwd = 1.5, lty = 2) +
+  geom_text(data = median_df, aes(label = paste("med =",med), x = med, y = c(0.012,0.015)), color = "black")
+  # geom_vline(data = peak_df, aes(xintercept =  x),color = "black",lty = 3) +)
+  labs (x = "CD4 (counts)")
+  # geom_errorbar(stat = "hline", xintercept = "median",
+  # width=0.8,aes(xmax=..x..,xmin=..x..))
+
+  
+  
+plt
+peak_df
+
+```
+It appears the distribution of CD4 at BL shows two peaks in kernel density, one at 26 counts/ml and one at 229 count/ml. There is a second peak in the DRV as well, but it seems the density function smoothed it out. 
+
 
 ### GeneRichness at baseline distribution
 
 We know (I think) that there is no difference in generichness between arme at baseline, but we do not know the distribution. In Guillen et al, we found a bimodal distribution in HIV patients. Is that the case of advanz4?
 
+
+```{r GR_basal, warning= F, message= F}
+
+igc<-metar::get_diversity(mymre)@igc
+Threshold <-  igc@dataTable %>%
+  dplyr::select(SampleID, NumberMappedReads) %>%
+  unique() %>%
+  summarise(Q = quantile(NumberMappedReads,0.02)) %>% 
+  as.numeric()
+
+basal_df <- "group" %>%
+    set_names() %>%
+    map( ~{
+
+        
+          ThresholdTable <- igc@dataTable %>%
+                filter(NumberMappedReads >= Threshold) %>%
+                filter(ReadCountReal>=Threshold) %>% ### Get the Mapped Read count (per-sample) just above the threshold
+                group_by(SampleID) %>%
+                summarise(across(everything(), min)) %>%
+                ungroup() %>%
+          right_join(., metadata, by="SampleID") %>%
+          select(SampleID,
+                 richness = GeneNumber,
+                 link_var=link_var,
+                 cat_var = .x,
+                 long_var = long_var,
+                 NumberMappedReads)
+  
+
+        
+    }) %>% 
+  purrr::pluck("group") %>% 
+  dplyr::filter(long_var == 0)
+
+
+median_df <- 
+  basal_df %>% 
+  dplyr::rename(group = cat_var) %>% 
+  dplyr::group_by(group) %>% 
+  filter(!is.na(richness)) %>% 
+  summarise(med = median(richness))
+
+  
+plt <- 
+basal_df %>% 
+  ggplot(aes(x = richness, fill = cat_var)) +
+  # geom_histogram(aes(y = ..density..),alpha = .4) +
+  geom_density(alpha = .4) +
+  theme_bw() +
+  scale_fill_brewer(palette="Accent") +
+  scale_color_brewer(palette = "Accent") +
+  labs(x="gene_count", fill = "group") +
+  geom_vline(data = median_df, aes(xintercept =  med, color = group), lwd = 1.5, lty = 2) 
+
+
+peak_df <- 
+basal_df %>% 
+  pull(cat_var) %>% 
+  unique() %>% 
+  map_dfr(function(arm){
+    basal_df %>% 
+      dplyr::filter(cat_var == arm) %>%
+      dplyr::filter(!is.na(richness)) %>% 
+      dplyr::pull(richness) %>% 
+      density() %>%
+      peak_finder() %>% 
+      dplyr::mutate(group = arm)
+
+  })
+
+plt
+peak_df
+
+```
+
+
+It seems both groups have a similar median richness, but with somewhat different distributions, with DTG following a slightly bimodal distribution with a higher median peak than Drv/r. Although the left "step" in may look like a local maxima, it actually does not decrease on the right side.
+
+
 ### Gene Richness vs CD4 at baseline
+
+
+
+
 
 Is there any association between gene richness and CD4 at baseline only, overall, and per-group(DTG and DRVr only)?
 

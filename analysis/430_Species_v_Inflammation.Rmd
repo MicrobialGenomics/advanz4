@@ -101,23 +101,14 @@ You can also embed plots, for example:
 
 ```{r pressure, echo=FALSE}
 
-
+cat_vector <- cat_df
 
 phy <- get_phyloseq(mymre, type = "metaphlan") %>% 
       phyloseq::filter_taxa(., function(x) sum(x > 0) > (0.3*length(x)), TRUE)
 
 num_vector <- metar::get_num(mymre) %>% 
   dplyr::pull(NumericalVariable)
-strep_df <- 
-  phyloseq::otu_table(phy) %>% 
-  t() %>% 
-  as.data.frame() %>% 
-  stats::setNames(phyloseq::tax_table(phy)[,"Species"]) %>% 
-  tibble::rownames_to_column("SampleID") %>% 
-  stats::setNames(.,stringr::str_remove_all(colnames(.), "\\[")) %>% 
-  stats::setNames(.,stringr::str_remove_all(colnames(.), "\\]")) %>% 
-  dplyr::select(SampleID,species = Streptococcus_parasanguinis) %>% 
-  dplyr::inner_join(metadata[,c("SampleID", link_var,long_var,cat_vector, num_vector)])
+
 
 res_list <- 
 num_vector[c(1:6)] %>%
@@ -137,16 +128,6 @@ num_vector[c(1:6)] %>%
                  cat_var = "cat_var",
                  breakpoints = NULL,
                  link_var = "link_var" )
-  })
-
-names(res_list) %>% 
-  purrr::set_names() %>% 
-  purrr::map(function(nv){
-    res_list %>% 
-      purrr::pluck(nv, "plot") +
-      labs(title = nv, y = "S.parasanguinis (%)") +
-      scale_x_continuous(n.breaks = 10)+
-      theme(axis.title.y = element_text(face = "italic", angle = 90))
   })
 
 
@@ -217,6 +198,24 @@ names(res_list) %>%
 #         labs(x = "week", y = "percentage", title = nv)
 #     })
 # 
+
+```
+
+```{r corr_heatmaps, warning = F, message=F}
+
+otu_df <- phyloseq::otu_table(phy) %>% 
+  t() %>% 
+  as.data.frame() %>% 
+  stats::setNames(phyloseq::tax_table(phy)[,"Species"]) %>% 
+  tibble::rownames_to_column("SampleID")
+
+
+corr_df <- 
+  otu_df %>% 
+  colnames() %>% 
+  set_names() %>% 
+  purrr::map_dfr()
+  corrr::
 
 ```
 
