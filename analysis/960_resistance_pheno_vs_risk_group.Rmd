@@ -1,0 +1,70 @@
+---
+title: "Sexual Practice vs resistome phenotype"
+author: "Marc Noguera"
+date: "11/18/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = here::here())
+suppressMessages(require(phyloseq))
+suppressMessages(require(ggstatsplot))
+suppressMessages(require(ggplot2))
+suppressMessages(require(here))
+suppressMessages(require(knitr))
+# Load package from local copy
+devtools::load_all("~/Documents/Work/Development/WMGSPipeline/")
+
+```
+
+## Intro
+
+This is a quick analysis to check the relationsgip between sexual practice and gut resistome (phenotype data). This is not the approach that is needed for ADVANZ4 design, but anyway it may be interesting.
+
+
+```{r setup}
+
+res_data_df<-xlsx::read.xlsx("~/Downloads/samples_advanz.xlsx",sheetIndex = 1)
+mymre <- aws.s3::s3readRDS(bucket = "mistral-wp6-advanz4",object = "metagenome/WMGS/MREObject.rds", region = "eu-west-1")
+metadata_df<-mymre  %>% 
+  metar::get_meta()
+
+res_data_df$Codigo
+metadata_df$record_id[1:5]
+
+metadata_df<-metadata_df %>% 
+  dplyr::mutate(Paciente=paste0("4",record_id),Week=dplyr::case_when(
+    time_point == 0 ~ "Basal",
+    time_point == 24 ~ "w24",
+    time_point == 48 ~ "w48",
+    time_point == 96 ~ "w96"
+  )) 
+
+metadata_df<-metadata_df %>% 
+  dplyr::select(SampleID,risk_group,Week,Paciente) %>% 
+  dplyr::left_join(res_data_df)
+```
+
+## Understand interaction
+
+```{r pressure, echo=FALSE}
+
+metadata_df<-metadata_df %>% 
+  dplyr::filter(! is.na(risk_group)) %>% 
+  dplyr::filter(! is.na(Codigo)) %>% 
+  dplyr::select(-Muestra,-Codigo)
+
+metadata_df %>% 
+  replace(is.na(.),0)
+  dplyr::filter(Week=="Basal") %>% 
+  dplyr::select(risk_group,MR_SN) %>% 
+  table() %>% 
+  chisq.test()
+
+
+metadata_df
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
