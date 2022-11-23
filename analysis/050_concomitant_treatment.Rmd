@@ -1,0 +1,91 @@
+---
+title: "05_concomitant_treatments"
+author: "Carlos Blázquez Bondia"
+date: '2022-11-23'
+output:
+  html_document: default
+  pdf_document: default
+editor_options:
+  chunk_output_type: console
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(lubridate)
+library(datetimeutils)
+```
+
+# Curate data
+
+Input data came fro a straight dump of the database and is not curated, codified or formatted. First we should select which variables would be of use for us, such as record_id, entry and dates so we can map them to their corresponding timepoints.
+
+```{r input_select, message = F, warning = F}
+
+first_table <- here::here("Metadata","MetadataManagement", "Mconc.xlsx") %>% 
+  readxl::read_excel(sheet = 1)
+
+table <- first_table %>% 
+  dplyr::select(
+    record_id = PatCode,
+    conc_treatment = `Medicación`,
+    dose = `MConc_1_valor_dosis`,
+    unit = `MConc_1_dosis`,
+    freq = `MConc_1_Dosis_Frecuencia`,
+    start_day = `MConc_1_fechainicio_dia`,
+    start_month = `MConc_1_fechainicio_mes`,
+    start_year = `Inicio`,
+    interrupted = `¿Interrumpido?`,
+    end_day = `MConc_1_fechaInterrumpido_dia`,
+    end_month = `MConc_1_fechafin_mes`,
+    end_year = `MConc_1_fechaInterrumpido_ano`,
+    rand_date = RndDt
+  ) %>% mutate(
+    rand_date = convert_date(as.numeric(rand_date), type = "Excel")
+  )
+
+
+months <- c("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio",
+        "Agosto","Septiembre","Octubre","Noviembre","Diciembre")
+
+table_dt <- 
+table %>%
+  dplyr::mutate(
+    start_date = as_date(
+      strptime(
+      paste(
+        start_day,
+        "/",
+        match(start_month, months),
+        "/",
+        start_year,
+        sep = ""),
+      format = "%d/%m/%Y")),
+    end_date = as_date(strptime(
+      paste(
+        end_day,
+        "/",
+        match(end_month, months),
+        "/",
+        end_year,
+        sep = ""),
+      format = "%d/%m/%Y"))) %>% 
+  dplyr::select(record_id, !matches("_day|_month|_year")) %>% 
+  dplyr::mutate(conc_treatment = stringi::stri_trans_general(tolower(conc_treatment), id = "Latin-ASCII"))
+
+
+
+
+
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
