@@ -5,7 +5,6 @@ date: "11/11/2022"
 output: html_document
 editor_options:
   chunk_output_type: console
-
 ---
 
 ```{r setup, include=FALSE}
@@ -168,7 +167,7 @@ Threshold <-  igc@dataTable %>%
   summarise(Q = quantile(NumberMappedReads,0.02)) %>% 
   as.numeric()
 
-basal_df <- "group" %>%
+TableList <- "group" %>%
     set_names() %>%
     map( ~{
 
@@ -182,15 +181,18 @@ basal_df <- "group" %>%
           right_join(., metadata, by="SampleID") %>%
           select(SampleID,
                  richness = GeneNumber,
-                 link_var=link_var,
+                 link_var=record_id,
                  cat_var = .x,
-                 long_var = long_var,
+                 long_var = time_point,
                  NumberMappedReads)
   
 
         
     }) %>% 
-  purrr::pluck("group") %>% 
+  purrr::pluck("group") 
+
+basal_df <- 
+  TableList %>% 
   dplyr::filter(long_var == 0)
 
 
@@ -241,12 +243,59 @@ It seems both groups have a similar median richness, but with somewhat different
 ### Gene Richness vs CD4 at baseline
 
 
-
-
-
 Is there any association between gene richness and CD4 at baseline only, overall, and per-group(DTG and DRVr only)?
+```{r GR_vs_CD4, message = F, warning=FALSE}
+df <- 
+basal_df %>% 
+  right_join(metadata[,c("SampleID","CD4")]) %>% 
+  dplyr::filter(!is.na(richness),
+                !is.na(CD4))
+
+
+overall <- cor.test(x= df$richness, y=df$CD4, method = "spearman") %>% 
+  keep(names(.) %in% c("statistic","estimate", "p.value"))
+
+
+per_group <- 
+  unique(metadata$group) %>% 
+  set_names() %>% 
+  purrr::map(function(group){
+    df_1 <- 
+      df %>% 
+      filter(cat_var == group) %>% 
+      select(richness, CD4) 
+    cor.test(x=df_1$richness, y = df_1$CD4, method = "spearman") %>% 
+      keep(names(.) %in% c("statistic", "estimate", "p.value")) %>% 
+    as.data.frame()
+  })
+
+overall
+per_group
+
+```
+
+Doesn't seem to be any signifcant association between gene richness and CD4 counts at basal.
 
 ### Delta-CD4 and DeltaGR
+
+```{r Numeric_deltas, warning=F, message=F}
+
+
+
+deltas <- 
+TableList %>% 
+  dplyr::right_join(., metadata[,c("SampleID","CD4")], by="SampleID") %>% 
+  dplyr::group_by(link_var) %>% 
+  # dplyr::filter(long_var %in% c(0,96)) %>% 
+  dplyr::filter(any(long_var == 0)) %>%
+  dplyr::mutate(GR_abs = richness - richness[long_var == 0],
+                GR_rel = (richness - richness[long_var == 0])/(richness + richness[long_var == 0]),
+                CD4_abs = CD4- CD4[long_var == 0],
+                CD4_rel = (CD4 - CD4[long_var == 0])/(CD4 + CD4[long_var == 0]))
+
+
+```
+
 
 We need to check if the increments in CD4 are linked to increments in GeneRichness. Let's calculate these increments in two different ways:
 
@@ -254,6 +303,101 @@ We need to check if the increments in CD4 are linked to increments in GeneRichne
 - Relative: (CD4(tx)-CD(t0)/(CD4(tx)+CD4(t0))) or (GR(tx)-GR(t0)/(GR(tx)+GR(t0)))
 
 Check distribution of these values and see if there is a possibility of reasonable categorization.
+
+```{r plot_dists, warning=F, results=F, message=F, echo = F}
+median_df_overall <- 
+  deltas %>% 
+  dplyr::filter(long_var %in% c(48, 96)) %>% 
+    mutate(time_point = recode(long_var, `48` = "week 48", `96` = "week 96")) %>% 
+  dplyr::group_by(time_point) %>% 
+  filter(!is.na(GR_rel)) %>% 
+  summarise(med = median(GR_rel)) %>% 
+  dplyr::mutate(med = round(med, 3))
+
+plt_overall <- 
+  deltas %>% 
+  dplyr::filter(long_var %in% c(48,96)) %>% 
+  mutate(time_point = recode(long_var, `48` = "week 48", `96` = "week 96")) %>% 
+  # dplyr::filter(!is.na(GR_rel)) %>% 
+  ggplot(aes(x = GR_rel)) +
+  facet_wrap(~time_point) +
+  geom_density() +
+  theme_bw() +
+  geom_vline(data = median_df_overall,aes(xintercept = med)) +
+  geom_text(data = median_df_overall, aes(label = paste("med =",med), x = med, y = 1.5), color = "black") +
+  labs(x="richness increase (relative)") +
+  theme(strip.background = element_blank(),
+        strip.text = element_text(face = "bold", size = 12))
+
+median_df_group <- 
+  deltas %>% 
+  dplyr::filter(long_var %in% c(48, 96)) %>% 
+  dplyr::mutate(time_point = recode(long_var, `48` = "week 48", `96` = "week 96")) %>% 
+  dplyr::group_by(time_point, cat_var) %>% 
+  dplyr::filter(!is.na(GR_rel)) %>% 
+  summarise(med = median(GR_rel)) %>% 
+  dplyr::mutate(med = round(med, 3))
+
+plt_group <- 
+  deltas %>% 
+  dplyr::filter(long_var %in% c(48,96)) %>% 
+  mutate(time_point = recode(long_var, `48` = "week 48", `96` = "week 96")) %>% 
+  # dplyr::filter(!is.na(GR_rel)) %>% 
+  ggplot(aes(x = GR_rel, color = cat_var)) +
+  facet_wrap(~time_point) +
+  geom_density() +
+  theme_bw() +
+  geom_vline(data = median_df_group,aes(xintercept = med, color = cat_var)) +
+  geom_text(data = median_df_group, aes(label = paste("med =",med), x = med, y = c(2,2.5,2.5,3))) +
+  labs(x="richness increase (relative)", color = "group", y = "density") +
+  theme(strip.background = element_blank(),
+        strip.text = element_text(face = "bold", size = 12)) +
+  scale_color_brewer(palette = "Accent")
+
+
+plt_overall
+plt_group
+
+```
+As we can see, the distribution of Gene Richness change vs baseline is pretty similar at both weeks 488 and 96, albeit week 96 has a slightly higher median. The differences get bigger when comparing between groups though, as DTG seems significantly bigger than DRV, especially at week 96 (DTG=0.88 vs DRV/r = 0.39 median delta. Let's test with a wilcoxon test)
+
+```{r test_deltaGR, warning=F, message=F}
+long_deltas <- 
+deltas %>% 
+  dplyr::filter(long_var %in% c(48,96)) %>% 
+  group_by(link_var) %>%
+  dplyr::filter(!is.na(GR_rel)) %>% 
+  dplyr::filter(n()==2) %>% 
+  dplyr::group_by(cat_var, .drop= T) %>% 
+  rstatix::wilcox_test(., GR_rel ~ long_var, paired = T) %>% 
+  dplyr::select(-.y.) %>% 
+  setNames(c("time_point", "time1", "time2", "n1","n2", "stat","p")) %>% 
+  as.data.frame() %>% 
+  kableExtra::kable(format = "markdown")
+
+
+cat_deltas <- 
+deltas %>% 
+  dplyr::filter(long_var %in% c(48,96)) %>% 
+  group_by(long_var) %>% 
+  dplyr::filter(!is.na(GR_rel)) %>% 
+  rstatix::wilcox_test(., GR_rel ~ cat_var) %>% 
+  dplyr::select(-.y.) %>% 
+  setNames(c("time_point", "group1", "group2", "n1","n2", "stat","p")) %>% 
+  as.data.frame() %>% 
+  kableExtra::kable(format = "markdown")
+
+long_deltas
+cat_deltas
+
+```
+
+The difference in deltas between groups is significant at week 96 but not at 48. However, no significant differences were found longitudinally between groups.
+
+
+```{r correlations, warning = F, message=F}
+
+```
 
 And plot:
 
