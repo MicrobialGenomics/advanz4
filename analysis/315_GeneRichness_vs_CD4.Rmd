@@ -12,8 +12,10 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(RColorBrewer)
 library(metar)
+library("ggpubr")
 source("code/LMM.R")
 source("code/myFunctions.R")
+
 
 ```
 
@@ -64,6 +66,10 @@ mymre@metadata@longitudinal_vals <- here::here("Metadata", "LongitudinalVariable
 
 cat_vector <- get_cat(mymre) %>% 
   pull(CategoricalVariable)
+
+num_vector <- 
+  get_num(mymre) %>% 
+  pull(NumericalVariable)
 
 ```
 
@@ -138,7 +144,7 @@ plt <- ggplot(basal_df, aes(x=CD4, color=group)) +
   scale_color_brewer(palette = "Accent") +
   scale_fill_brewer(palette = "Accent") +
   geom_vline(data = median_df, aes(xintercept =  med, color = group), lwd = 1.5, lty = 2) +
-  geom_text(data = median_df, aes(label = paste("med =",med), x = med, y = c(0.012,0.015)), color = "black")
+  geom_text(data = median_df, aes(label = paste("med =",med), x = med, y = c(0.012,0.015)), color = "black") +
   # geom_vline(data = peak_df, aes(xintercept =  x),color = "black",lty = 3) +)
   labs (x = "CD4 (counts)")
   # geom_errorbar(stat = "hline", xintercept = "median",
@@ -167,7 +173,7 @@ Threshold <-  igc@dataTable %>%
   summarise(Q = quantile(NumberMappedReads,0.02)) %>% 
   as.numeric()
 
-TableList <- "group" %>%
+TableList <- c(cat_vector) %>%
     set_names() %>%
     map( ~{
 
@@ -188,11 +194,11 @@ TableList <- "group" %>%
   
 
         
-    }) %>% 
-  purrr::pluck("group") 
+    })
 
 basal_df <- 
   TableList %>% 
+  pluck("group") %>% 
   dplyr::filter(long_var == 0)
 
 
@@ -284,6 +290,7 @@ Doesn't seem to be any signifcant association between gene richness and CD4 coun
 
 deltas <- 
 TableList %>% 
+  pluck("group") %>% 
   dplyr::right_join(., metadata[,c("SampleID","CD4")], by="SampleID") %>% 
   dplyr::group_by(link_var) %>% 
   # dplyr::filter(long_var %in% c(0,96)) %>% 
@@ -394,10 +401,158 @@ cat_deltas
 
 The difference in deltas between groups is significant at week 96 but not at 48. However, no significant differences were found longitudinally between groups.
 
+# Correlations between CD4 and GR
+
+Let's check if there is a correlation between both variables. First overall:
+
+```{r overall_corrs, warning=F, message=F}
+absolute_cors <- 
+deltas %>% 
+  dplyr::filter(!long_var == 0) %>% 
+  correlation::cor_test(., "CD4_abs", "GR_abs", method ="spearman")
+
+relative_cors <- 
+deltas %>% 
+  dplyr::filter(!long_var == 0) %>% 
+  correlation::cor_test(., "CD4_rel", "GR_rel", method ="spearman")
+
+absolute_cors
+
+relative_cors
+```
+No overall correlations could be found. Let's check split per timepoint:
+
 
 ```{r correlations, warning = F, message=F}
+c(48,96) %>% 
+  purrr::set_names() %>% 
+  purrr::map(function(tp){
+  deltas %>% 
+  dplyr::filter(long_var == tp) %>% 
+  correlation::cor_test(., "CD4_rel", "GR_rel", method ="spearman")
+
+  })
+```
+
+No Meaningful correlations could be found neither overall nor at specific timepoints.
+
+# Interactions between CD4 and GR: LMMs
+
+To have a better view of wether both variables interact, we will perform LMMs. First on overall:
+
+```{r LMMs_overall, warning=F,message=FALSE}
+lmm_abs <- 
+deltas %>% 
+  mutate(mock = 1) %>% ## The function needs a cat_var, so we'll create a mock one
+  dplyr::filter(!is.na(CD4_abs), !is.na(GR_abs), !long_var == 0) %>% 
+  # dplyr::rename(record_id = link_var) %>% 
+  create_LMM(., num_var = "CD4_abs", long_var = "GR_abs", link_var =  "link_var", cat_var = "mock")
+stat_abs <- lmm_abs$stats
+plt_abs <- lmm_abs$plot +
+  scale_x_continuous(n.breaks = 4) +
+  labs(x = "delta richness", y = "delta CD4", title = "Absolute") +
+  theme(axis.title.x = element_text(size = 12),
+        axis.title.y = element_text(size = 12, angle = 90))
+
+
+
+lmm_rel <- 
+deltas %>% 
+  mutate(mock = 1) %>% ## The function needs a cat_var, so we'll create a mock one
+  dplyr::filter(!is.na(CD4_rel), !is.na(GR_rel), !long_var == 0) %>% 
+  # dplyr::rename(record_id = link_var) %>% 
+  create_LMM(., num_var = "CD4_rel", long_var = "GR_rel", link_var =  "link_var", cat_var = "mock")
+stat_rel <- lmm_rel$stats
+plt_rel <- lmm_rel$plot +
+  scale_x_continuous(n.breaks = 4) +
+  labs(x = "delta richness", y = "delta CD4", title = "Relative")+
+  facet_wrap(NULL) +
+  theme(axis.title.x = element_text(size = 12),
+        axis.title.y = element_text(size = 12, angle = 90))
+
+
+ggpubr::ggarrange(plt_abs, plt_rel)
+
 
 ```
+
+nothing could be observed overall. Let's check per group:
+
+```{r LMMs_group, warning=F,message=FALSE}
+lmm_abs <- 
+deltas %>% 
+  dplyr::filter(!is.na(CD4_abs), !is.na(GR_abs), !long_var == 0) %>% 
+  # dplyr::rename(record_id = link_var) %>% 
+  create_LMM(., num_var = "CD4_abs", long_var = "GR_abs", link_var =  "link_var", cat_var = "cat_var")
+stat_abs <- lmm_abs$stats
+plt_abs <- lmm_abs$plot +
+  scale_x_continuous(n.breaks = 4) +
+  labs(x = "delta richness", y = "delta CD4", title = "Absolute") +
+  theme(axis.title.x = element_text(size = 12),
+        axis.title.y = element_text(size = 12, angle = 90))
+
+
+
+lmm_rel <- 
+deltas %>% 
+  dplyr::filter(!is.na(CD4_rel), !is.na(GR_rel), !long_var == 0) %>% 
+  # dplyr::rename(record_id = link_var) %>% 
+  create_LMM(., num_var = "CD4_rel", long_var = "GR_rel", link_var =  "link_var", cat_var = "cat_var")
+stat_rel <- lmm_rel$stats
+plt_rel <- lmm_rel$plot +
+  scale_x_continuous(n.breaks = 4) +
+  labs(x = "delta richness", y = "delta CD4", title = "Relative")+
+  theme(axis.title.x = element_text(size = 12),
+        axis.title.y = element_text(size = 12, angle = 90))
+
+
+ggpubr::ggarrange(plt_abs, plt_rel, nrow = 2, ncol = 1)
+
+
+```
+
+No quantitative difference could be found between delta GR and delta CD4. The only thing to look at now is to check wether there is a significant GR differences between those who recovered more or less than 150 CD4-
+
+# Comparisons by CD4 recovery
+We did not find many signals correlating numerical absolute and relative numbers of CD4 and Gene Richness. Now we'r going to check if there is any actual difference in Gene richness in those with CD4 recovery < 150 
+
+```{r}
+df <- 
+deltas %>% 
+  left_join(metadata[,c("SampleID", "CD4diff_48", "CD4diff_96")], by = "SampleID") %>% 
+  # mutate(CD4diff_48 = recode(CD4diff_48, "150_H" = "48_H", "150_L" = "48_L"),
+  #        CD4diff_96 = recode(CD4diff_96, "150_H" = "96_H", "150_L" = "96_L")) %>% 
+  mutate(recovery = case_when(
+    CD4diff_48 == "150_H" ~ "48",
+    CD4diff_48 == "150_L" & CD4diff_96 == "150_H" ~ "96",
+    CD4diff_48 == "150_L" & CD4diff_96 == "150_L" ~ "No",
+    is.na(CD4diff_48) & CD4diff_96 == "150_H" ~ "96",
+    is.na(CD4diff_48) & CD4diff_96 == "150_L" ~ "No")) %>% 
+  filter(!is.na(recovery), !long_var == 0)
+
+
+
+
+plt <- 
+  df %>% 
+  ggplot(., aes(x = as.factor(long_var), y = richness, fill = recovery)) +
+  geom_boxplot() +
+  labs(x = "weeks", y = "gene richness (absolute)", fill = "recovery\n(>150 increase)") +
+  scale_fill_brewer(palette = "Dark2") +
+  theme_bw() +
+  
+  theme(
+    axis.title = element_text(face = "bold")
+  )
+
+
+
+
+```
+
+
+
+
 
 And plot:
 

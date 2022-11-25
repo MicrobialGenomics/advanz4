@@ -34,8 +34,8 @@ create_LMM <- function(data, num_var, cat_var, long_var, link_var,breakpoints = 
 
 
 
-  plot <- myLMM[[2]] +
-    geom_label(data = stats, aes(label=paste("p= ",pval, ", slope= ", slope, sep=""),
+  plt <- myLMM[[2]] +
+    geom_label(data = stats, inherit.aes = F,aes(label=paste("p= ",pval, ", slope= ", slope, sep=""),
                                 x = 0, y = Inf),
                color = "black",
                hjust=0.01, vjust=1) +
@@ -43,7 +43,7 @@ create_LMM <- function(data, num_var, cat_var, long_var, link_var,breakpoints = 
 
     labs(x=long_var, title=num_var, fill=long_var)
 
-  return(list(plot = plot, stats = stats))
+  return(list(plot = plt, stats = stats))
 }
 
 #' Helper function to obtain the graphical parameters to build a beautiful LMM plot.

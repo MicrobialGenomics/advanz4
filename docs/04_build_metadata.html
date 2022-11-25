@@ -11,7 +11,7 @@
 
 <meta name="author" content="Carlos Blázquez Bondia" />
 
-<meta name="date" content="2022-10-05" />
+<meta name="date" content="2022-11-25" />
 
 <title>ADVANZ_Metadata</title>
 
@@ -271,6 +271,9 @@ $(document).ready(function () {
   <a href="335_BLMicrobiome_vs_ImmuneResponse.html">Immune and clinical BL comparisons</a>
 </li>
 <li>
+  <a href="315_GeneRichness_vs_CD4.html">CD4 recovery vs Gene richness</a>
+</li>
+<li>
   <a href="330_TaxaLevel_LMM.html">LMM taxa ranking</a>
 </li>
 <li>
@@ -284,6 +287,9 @@ $(document).ready(function () {
 </li>
 <li>
   <a href="500_Gene_function_exploratory.html">Functional annotation, exploratory</a>
+</li>
+<li>
+  <a href="510_Function_DA.html">Gene function DA</a>
 </li>
 <li>
   <a href="505_Adenovirus_Analysis.html">Adenovirus and Enterovirus analysis</a>
@@ -302,7 +308,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">ADVANZ_Metadata</h1>
 <h4 class="author">Carlos Blázquez Bondia</h4>
-<h4 class="date">2022-10-05</h4>
+<h4 class="date">2022-11-25</h4>
 
 </div>
 
@@ -331,7 +337,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-10-05
+<strong>Last updated:</strong> 2022-11-25
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -462,15 +468,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree679dfd549a7abbc250f490fac82dc764a6fc7c65targetblank679dfd5a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree46edcd5e35bed5006ecb507cbdd964bb6be6aeb6targetblank46edcd5a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/MicrobialGenomics/advanz4/tree/679dfd549a7abbc250f490fac82dc764a6fc7c65" target="_blank">679dfd5</a>
+<a href="https://github.com/MicrobialGenomics/advanz4/tree/46edcd5e35bed5006ecb507cbdd964bb6be6aeb6" target="_blank">46edcd5</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree679dfd549a7abbc250f490fac82dc764a6fc7c65targetblank679dfd5a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree46edcd5e35bed5006ecb507cbdd964bb6be6aeb6targetblank46edcd5a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -480,7 +486,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/MicrobialGenomics/advanz4/tree/679dfd549a7abbc250f490fac82dc764a6fc7c65" target="_blank">679dfd5</a>.
+<a href="https://github.com/MicrobialGenomics/advanz4/tree/46edcd5e35bed5006ecb507cbdd964bb6be6aeb6" target="_blank">46edcd5</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -501,19 +507,15 @@ Ignored files:
     Ignored:    Metadata/MetadataManagement/Old_Metadata/
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/010_Basic_Report_cache/
+    Ignored:    analysis/420_Taxonomy_DA_cache/
+    Ignored:    analysis/510_Function_DA_cache/
     Ignored:    data/mre.rds
-
-Untracked files:
-    Untracked:  analysis/605_Adenovirus_Analysis.Rmd
 
 Unstaged changes:
     Modified:   advanz4.Rproj
-    Modified:   analysis/010_Basic_Report.Rmd
-    Modified:   analysis/320_Beta_Diversity.Rmd
-    Modified:   analysis/500_Gene_function_exploratory.Rmd
-    Deleted:    analysis/505_Adenovirus_Analysis.Rmd
+    Modified:   analysis/315_GeneRichness_vs_CD4.Rmd
     Modified:   analysis/_site.yml
-    Modified:   output/mre_data/CatalogMapping/IGC/lmm/lmm_time_point_by_group.pdf
+    Modified:   code/LMM.R
 
 </code></pre>
 <p>
@@ -559,6 +561,91 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/f0e92e1a746d3195eda0a946ef9c97b4dd72a2f0/analysis/04_build_metadata.Rmd" target="_blank">f0e92e1</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-11-16
+</td>
+<td>
+Started with baseline distributions of CD4 and GR
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/26a797d9ff2c12ed7faaf5728a2393e85b2e149f/analysis/04_build_metadata.Rmd" target="_blank">26a797d</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-10-27
+</td>
+<td>
+Rendered new workflowr site
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/e660a2852bdbb9838f9fa3423447ab5659a5aff5/analysis/04_build_metadata.Rmd" target="_blank">e660a28</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-10-27
+</td>
+<td>
+updates on various scripts
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/b3a335bbc7ef98042cebda5244d48762fd2a1bd7/analysis/04_build_metadata.Rmd" target="_blank">b3a335b</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-10-26
+</td>
+<td>
+First try into venn-like analsis of gene function
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/19b15b838b9f3f9a6e8e23c1913d8d8adae38763/docs/04_build_metadata.html" target="_blank">19b15b8</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-10-14
+</td>
+<td>
+Added Functional DA
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -843,15 +930,6 @@ mySampleData&lt;-here::here(&quot;Metadata&quot;,&quot;MetadataManagement&quot;,
   select(-c(DateDiff))
 
 
-mySampleData %&gt;%
-  filter(Selected_For_Sequencing == &quot;Yes&quot;) %&gt;%
-  select(CODE, PatCode) %&gt;%
-  group_by(PatCode) %&gt;%
-  summarise(n=n()) %&gt;%
-  filter(n&lt;2)
-#&gt; # A tibble: 0 x 2
-#&gt; # ... with 2 variables: PatCode &lt;chr&gt;, n &lt;int&gt;
-
 
 myClinicalData&lt;-here::here(&quot;Metadata&quot;,&quot;MetadataManagement&quot;,&quot;Clinical_Table.csv&quot;) %&gt;%
   read.csv(., encoding = &quot;UTF-8&quot;) %&gt;%
@@ -914,30 +992,6 @@ MetadataLab &lt;-
      `HIV Viral load [central]` = &quot;viral_load&quot;
      ),
     record_id = str_remove_all(record_id,&quot;-&quot;), result_date = as.character(result_date))
-
-
-
-
-
-
-
-
-  
-  # pivot_wider(id_cols = c(&quot;PatCode&quot;, &quot;Week&quot;),names_from=&quot;ParamName&quot;, values_from = c(&quot;Result&quot;)) %&gt;%
-  # dplyr::select(record_id = PatCode,
-  #               time_point = Week,
-  #               CD4 = `CD4 value`,
-  #               CD8 = `CD8 value`,
-  #               CD8_CD38_DR = `8+38+DR+`,
-  #               CRP = PCR,
-  #               IL6 = `IL-6`,
-  #               TNFa = `TNF-a`,
-  #               sCD14 = sCD14,
-  #               result_date = LabDt
-  #               ) %&gt;%
-  # mutate(time_point = as.numeric(time_point)) %&gt;%
-  # mutate(record_id = gsub(&quot;-&quot;,&quot;&quot;,record_id)) %&gt;%
-  # left_join(myMergedMetadata, ., by=c(&quot;record_id&quot;,&quot;time_point&quot;), all=T) 
 </code></pre>
 <p>Lab data for week 96 came later, so we’ll have to format it and merge
 it with previous lab data before incorporating it into the main
@@ -960,12 +1014,7 @@ dat_96 &lt;-
                 result_date = as.character(lubridate::as_date(result_date))) %&gt;% 
   dplyr::select(-sample) %&gt;% 
   filter(method != &quot;CRP&quot;)
-
-
-
-# dat_96 %&gt;% 
-#   pull(sample) %&gt;% 
-#   stringr::str_extract_all(., &quot;(?&lt;=\\s4)([A-Z][0-9]*)(?=\\s)&quot;)</code></pre>
+</code></pre>
 <pre class="r"><code>new_crp_96 &lt;- here::here(&quot;Metadata&quot;,&quot;MetadataManagement&quot;, &quot;CRP_updated.csv&quot;) %&gt;% 
   read.csv(., sep=&quot;;&quot;, header = T) %&gt;% 
   dplyr::select(sample = Muestra, value = Result, units = Unidades, result_date = Fecha.Validac.) %&gt;% 
@@ -1215,21 +1264,6 @@ metadata_final &lt;-
   ) %&gt;%
   mutate(across(where(is.character), ~ na_if(.,&quot;unknown&quot;))) %&gt;%
   arrange(record_id, time_point)
-
-
-## Filter patients with &lt;2 samples
-# outpatients &lt;- metadata_final %&gt;%
-#   select(SampleID, record_id) %&gt;%
-#   group_by(record_id) %&gt;%
-#   summarise(n=n()) %&gt;%
-#   filter(n&lt;2) %&gt;% 
-#   pull(record_id)
-# 
-
-
-
-# 
-# write.csv(colnames(metadata_final),file=&quot;Var_names.csv&quot;, quote=T)
 </code></pre>
 <pre class="r"><code>PCR &lt;- here::here(&quot;Metadata&quot;, &quot;MetadataManagement&quot;, &quot;Resultats_Real_Time.xlsx&quot;) %&gt;% 
   readxl::read_excel(., sheet = 1) %&gt;% 
@@ -1323,7 +1357,7 @@ myCompTable &lt;- metadata_final %&gt;%
   compareGroups(group ~ gender + age + ethnic_group + CD4_nadir ,., simplify = F) %&gt;% createTable()
 
 compareGroups::export2md(myCompTable, format=&quot;markdown&quot;,caption = paste(&quot;Group comparisons at basal&quot;,&quot;(group Ns may not match flowchart due to some patients having multiple samples but not at basal)&quot;, sep=&quot;\n&quot;)) </code></pre>
-<template id="4dec5faa-7068-404d-8299-88cb91a566f6"><style>
+<template id="82b99792-7f81-4aa2-8c06-6fc17082f741"><style>
 .tabwid table{
   border-spacing:0px !important;
   border-collapse:collapse;
@@ -1357,12 +1391,12 @@ compareGroups::export2md(myCompTable, format=&quot;markdown&quot;,caption = past
 .tabwid table tr {
 background-color: transparent;
 }
-</style><div class="tabwid"><style>.cl-c41715d6{}.cl-c40bb5ce{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-c40bb5cf{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-c40bb5d0{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-c40bcece{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-c40bcecf{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-c40c1cc6{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c40c1cc7{width:77.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c40c1cc8{width:87.8pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c40c1cc9{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c40c1cca{width:77.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c40c1ccb{width:87.8pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c40c1ccc{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c40c1ccd{width:77.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c40c1cce{width:87.8pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c40c1ccf{width:87.8pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c40c1cd0{width:77.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c40c4552{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c40c4553{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c40c4554{width:77.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c40c4555{width:87.8pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-c41715d6'><caption class="Table Caption">Group comparisons at basal
-(group Ns may not match flowchart due to some patients having multiple samples but not at basal)</caption><thead><tr style="overflow-wrap:break-word;"><td class="cl-c40c1ccf"><p class="cl-c40bcece"><span class="cl-c40bb5ce"></span></p></td><td class="cl-c40c1cd0"><p class="cl-c40bcece"><span class="cl-c40bb5ce">   DRV/r   </span></p></td><td class="cl-c40c1cd0"><p class="cl-c40bcece"><span class="cl-c40bb5ce">    DTG    </span></p></td><td class="cl-c40c4552"><p class="cl-c40bcece"><span class="cl-c40bb5ce">p.overall</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c40c4555"><p class="cl-c40bcece"><span class="cl-c40bb5cf"></span></p></td><td class="cl-c40c4554"><p class="cl-c40bcece"><span class="cl-c40bb5cf">   N=39    </span></p></td><td class="cl-c40c4554"><p class="cl-c40bcece"><span class="cl-c40bb5cf">   N=40    </span></p></td><td class="cl-c40c4553"><p class="cl-c40bcece"><span class="cl-c40bb5cf">         </span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-c40c1cc8"><p class="cl-c40bcecf"><span class="cl-c40bb5d0">gender:</span></p></td><td class="cl-c40c1cc7"><p class="cl-c40bcece"><span class="cl-c40bb5d0">           </span></p></td><td class="cl-c40c1cc7"><p class="cl-c40bcece"><span class="cl-c40bb5d0">           </span></p></td><td class="cl-c40c1cc6"><p class="cl-c40bcece"><span class="cl-c40bb5d0">  1.000  </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c40c1ccb"><p class="cl-c40bcecf"><span class="cl-c40bb5d0">    female</span></p></td><td class="cl-c40c1cca"><p class="cl-c40bcece"><span class="cl-c40bb5d0"> 6 (15.4%) </span></p></td><td class="cl-c40c1cca"><p class="cl-c40bcece"><span class="cl-c40bb5d0"> 7 (17.5%) </span></p></td><td class="cl-c40c1cc9"><p class="cl-c40bcece"><span class="cl-c40bb5d0">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c40c1ccb"><p class="cl-c40bcecf"><span class="cl-c40bb5d0">    male</span></p></td><td class="cl-c40c1cca"><p class="cl-c40bcece"><span class="cl-c40bb5d0">33 (84.6%) </span></p></td><td class="cl-c40c1cca"><p class="cl-c40bcece"><span class="cl-c40bb5d0">33 (82.5%) </span></p></td><td class="cl-c40c1cc9"><p class="cl-c40bcece"><span class="cl-c40bb5d0">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c40c1ccb"><p class="cl-c40bcecf"><span class="cl-c40bb5d0">age</span></p></td><td class="cl-c40c1cca"><p class="cl-c40bcece"><span class="cl-c40bb5d0">43.5 (16.6)</span></p></td><td class="cl-c40c1cca"><p class="cl-c40bcece"><span class="cl-c40bb5d0">39.7 (11.2)</span></p></td><td class="cl-c40c1cc9"><p class="cl-c40bcece"><span class="cl-c40bb5d0">  0.246  </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c40c1cc8"><p class="cl-c40bcecf"><span class="cl-c40bb5d0">ethnic_group:</span></p></td><td class="cl-c40c1cc7"><p class="cl-c40bcece"><span class="cl-c40bb5d0">           </span></p></td><td class="cl-c40c1cc7"><p class="cl-c40bcece"><span class="cl-c40bb5d0">           </span></p></td><td class="cl-c40c1cc6"><p class="cl-c40bcece"><span class="cl-c40bb5d0">  0.302  </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c40c1ccb"><p class="cl-c40bcecf"><span class="cl-c40bb5d0">    asian</span></p></td><td class="cl-c40c1cca"><p class="cl-c40bcece"><span class="cl-c40bb5d0"> 0 (0.00%) </span></p></td><td class="cl-c40c1cca"><p class="cl-c40bcece"><span class="cl-c40bb5d0"> 1 (2.50%) </span></p></td><td class="cl-c40c1cc9"><p class="cl-c40bcece"><span class="cl-c40bb5d0">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c40c1ccb"><p class="cl-c40bcecf"><span class="cl-c40bb5d0">    black</span></p></td><td class="cl-c40c1cca"><p class="cl-c40bcece"><span class="cl-c40bb5d0"> 4 (10.5%) </span></p></td><td class="cl-c40c1cca"><p class="cl-c40bcece"><span class="cl-c40bb5d0"> 2 (5.00%) </span></p></td><td class="cl-c40c1cc9"><p class="cl-c40bcece"><span class="cl-c40bb5d0">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c40c1ccb"><p class="cl-c40bcecf"><span class="cl-c40bb5d0">    caucassian</span></p></td><td class="cl-c40c1cca"><p class="cl-c40bcece"><span class="cl-c40bb5d0">13 (34.2%) </span></p></td><td class="cl-c40c1cca"><p class="cl-c40bcece"><span class="cl-c40bb5d0">19 (47.5%) </span></p></td><td class="cl-c40c1cc9"><p class="cl-c40bcece"><span class="cl-c40bb5d0">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c40c1ccb"><p class="cl-c40bcecf"><span class="cl-c40bb5d0">    hispanic</span></p></td><td class="cl-c40c1cca"><p class="cl-c40bcece"><span class="cl-c40bb5d0">15 (39.5%) </span></p></td><td class="cl-c40c1cca"><p class="cl-c40bcece"><span class="cl-c40bb5d0">16 (40.0%) </span></p></td><td class="cl-c40c1cc9"><p class="cl-c40bcece"><span class="cl-c40bb5d0">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c40c1ccb"><p class="cl-c40bcecf"><span class="cl-c40bb5d0">    other</span></p></td><td class="cl-c40c1cca"><p class="cl-c40bcece"><span class="cl-c40bb5d0"> 6 (15.8%) </span></p></td><td class="cl-c40c1cca"><p class="cl-c40bcece"><span class="cl-c40bb5d0"> 2 (5.00%) </span></p></td><td class="cl-c40c1cc9"><p class="cl-c40bcece"><span class="cl-c40bb5d0">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c40c1cce"><p class="cl-c40bcecf"><span class="cl-c40bb5d0">CD4_nadir</span></p></td><td class="cl-c40c1ccd"><p class="cl-c40bcece"><span class="cl-c40bb5d0">30.1 (22.5)</span></p></td><td class="cl-c40c1ccd"><p class="cl-c40bcece"><span class="cl-c40bb5d0">44.4 (29.1)</span></p></td><td class="cl-c40c1ccc"><p class="cl-c40bcece"><span class="cl-c40bb5d0">  0.017  </span></p></td></tr></tbody></table></div></template>
-<div class="flextable-shadow-host" id="c7817d71-436c-4e47-92cd-4ecb0916a165"></div>
+</style><div class="tabwid"><style>.cl-bc5ffbb0{}.cl-bc56a452{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-bc56a453{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-bc56a454{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-bc56cbbc{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-bc56cbbd{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-bc5719e6{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc5719e7{width:77.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc5719e8{width:87.8pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc5719e9{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc5719ea{width:77.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc5719eb{width:87.8pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc5719ec{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc5719ed{width:77.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc5719ee{width:87.8pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc5719ef{width:87.8pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc5719f0{width:77.4pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc5740e2{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 2pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc5740e3{width:62.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc5740e4{width:77.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-bc5740e5{width:87.8pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-bc5ffbb0'><caption class="Table Caption">Group comparisons at basal
+(group Ns may not match flowchart due to some patients having multiple samples but not at basal)</caption><thead><tr style="overflow-wrap:break-word;"><td class="cl-bc5719ef"><p class="cl-bc56cbbc"><span class="cl-bc56a452"></span></p></td><td class="cl-bc5719f0"><p class="cl-bc56cbbc"><span class="cl-bc56a452">   DRV/r   </span></p></td><td class="cl-bc5719f0"><p class="cl-bc56cbbc"><span class="cl-bc56a452">    DTG    </span></p></td><td class="cl-bc5740e2"><p class="cl-bc56cbbc"><span class="cl-bc56a452">p.overall</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc5740e5"><p class="cl-bc56cbbc"><span class="cl-bc56a453"></span></p></td><td class="cl-bc5740e4"><p class="cl-bc56cbbc"><span class="cl-bc56a453">   N=39    </span></p></td><td class="cl-bc5740e4"><p class="cl-bc56cbbc"><span class="cl-bc56a453">   N=40    </span></p></td><td class="cl-bc5740e3"><p class="cl-bc56cbbc"><span class="cl-bc56a453">         </span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-bc5719e8"><p class="cl-bc56cbbd"><span class="cl-bc56a454">gender:</span></p></td><td class="cl-bc5719e7"><p class="cl-bc56cbbc"><span class="cl-bc56a454">           </span></p></td><td class="cl-bc5719e7"><p class="cl-bc56cbbc"><span class="cl-bc56a454">           </span></p></td><td class="cl-bc5719e6"><p class="cl-bc56cbbc"><span class="cl-bc56a454">  1.000  </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc5719eb"><p class="cl-bc56cbbd"><span class="cl-bc56a454">    female</span></p></td><td class="cl-bc5719ea"><p class="cl-bc56cbbc"><span class="cl-bc56a454"> 6 (15.4%) </span></p></td><td class="cl-bc5719ea"><p class="cl-bc56cbbc"><span class="cl-bc56a454"> 7 (17.5%) </span></p></td><td class="cl-bc5719e9"><p class="cl-bc56cbbc"><span class="cl-bc56a454">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc5719eb"><p class="cl-bc56cbbd"><span class="cl-bc56a454">    male</span></p></td><td class="cl-bc5719ea"><p class="cl-bc56cbbc"><span class="cl-bc56a454">33 (84.6%) </span></p></td><td class="cl-bc5719ea"><p class="cl-bc56cbbc"><span class="cl-bc56a454">33 (82.5%) </span></p></td><td class="cl-bc5719e9"><p class="cl-bc56cbbc"><span class="cl-bc56a454">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc5719eb"><p class="cl-bc56cbbd"><span class="cl-bc56a454">age</span></p></td><td class="cl-bc5719ea"><p class="cl-bc56cbbc"><span class="cl-bc56a454">43.5 (16.6)</span></p></td><td class="cl-bc5719ea"><p class="cl-bc56cbbc"><span class="cl-bc56a454">39.7 (11.2)</span></p></td><td class="cl-bc5719e9"><p class="cl-bc56cbbc"><span class="cl-bc56a454">  0.246  </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc5719e8"><p class="cl-bc56cbbd"><span class="cl-bc56a454">ethnic_group:</span></p></td><td class="cl-bc5719e7"><p class="cl-bc56cbbc"><span class="cl-bc56a454">           </span></p></td><td class="cl-bc5719e7"><p class="cl-bc56cbbc"><span class="cl-bc56a454">           </span></p></td><td class="cl-bc5719e6"><p class="cl-bc56cbbc"><span class="cl-bc56a454">  0.302  </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc5719eb"><p class="cl-bc56cbbd"><span class="cl-bc56a454">    asian</span></p></td><td class="cl-bc5719ea"><p class="cl-bc56cbbc"><span class="cl-bc56a454"> 0 (0.00%) </span></p></td><td class="cl-bc5719ea"><p class="cl-bc56cbbc"><span class="cl-bc56a454"> 1 (2.50%) </span></p></td><td class="cl-bc5719e9"><p class="cl-bc56cbbc"><span class="cl-bc56a454">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc5719eb"><p class="cl-bc56cbbd"><span class="cl-bc56a454">    black</span></p></td><td class="cl-bc5719ea"><p class="cl-bc56cbbc"><span class="cl-bc56a454"> 4 (10.5%) </span></p></td><td class="cl-bc5719ea"><p class="cl-bc56cbbc"><span class="cl-bc56a454"> 2 (5.00%) </span></p></td><td class="cl-bc5719e9"><p class="cl-bc56cbbc"><span class="cl-bc56a454">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc5719eb"><p class="cl-bc56cbbd"><span class="cl-bc56a454">    caucassian</span></p></td><td class="cl-bc5719ea"><p class="cl-bc56cbbc"><span class="cl-bc56a454">13 (34.2%) </span></p></td><td class="cl-bc5719ea"><p class="cl-bc56cbbc"><span class="cl-bc56a454">19 (47.5%) </span></p></td><td class="cl-bc5719e9"><p class="cl-bc56cbbc"><span class="cl-bc56a454">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc5719eb"><p class="cl-bc56cbbd"><span class="cl-bc56a454">    hispanic</span></p></td><td class="cl-bc5719ea"><p class="cl-bc56cbbc"><span class="cl-bc56a454">15 (39.5%) </span></p></td><td class="cl-bc5719ea"><p class="cl-bc56cbbc"><span class="cl-bc56a454">16 (40.0%) </span></p></td><td class="cl-bc5719e9"><p class="cl-bc56cbbc"><span class="cl-bc56a454">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc5719eb"><p class="cl-bc56cbbd"><span class="cl-bc56a454">    other</span></p></td><td class="cl-bc5719ea"><p class="cl-bc56cbbc"><span class="cl-bc56a454"> 6 (15.8%) </span></p></td><td class="cl-bc5719ea"><p class="cl-bc56cbbc"><span class="cl-bc56a454"> 2 (5.00%) </span></p></td><td class="cl-bc5719e9"><p class="cl-bc56cbbc"><span class="cl-bc56a454">         </span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-bc5719ee"><p class="cl-bc56cbbd"><span class="cl-bc56a454">CD4_nadir</span></p></td><td class="cl-bc5719ed"><p class="cl-bc56cbbc"><span class="cl-bc56a454">30.1 (22.5)</span></p></td><td class="cl-bc5719ed"><p class="cl-bc56cbbc"><span class="cl-bc56a454">44.4 (29.1)</span></p></td><td class="cl-bc5719ec"><p class="cl-bc56cbbc"><span class="cl-bc56a454">  0.017  </span></p></td></tr></tbody></table></div></template>
+<div class="flextable-shadow-host" id="10bf8d13-e1bf-4eff-aaa4-e002639b2c81"></div>
 <script>
-var dest = document.getElementById("c7817d71-436c-4e47-92cd-4ecb0916a165");
-var template = document.getElementById("4dec5faa-7068-404d-8299-88cb91a566f6");
+var dest = document.getElementById("10bf8d13-e1bf-4eff-aaa4-e002639b2c81");
+var template = document.getElementById("82b99792-7f81-4aa2-8c06-6fc17082f741");
 var caption = template.content.querySelector("caption");
 if(caption) {
   caption.style.cssText = "display:block;text-align:center;";
@@ -1415,7 +1449,7 @@ Session information
 <pre class="r"><code>sessionInfo()
 #&gt; R version 4.0.2 (2020-06-22)
 #&gt; Platform: x86_64-w64-mingw32/x64 (64-bit)
-#&gt; Running under: Windows 10 x64 (build 22000)
+#&gt; Running under: Windows 10 x64 (build 22621)
 #&gt; 
 #&gt; Matrix products: default
 #&gt; 

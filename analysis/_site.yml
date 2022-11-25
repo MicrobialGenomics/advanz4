@@ -13,6 +13,8 @@ navbar:
     href: 320_Beta_Diversity.html
   - text: Immune and clinical BL comparisons
     href: 335_BLMicrobiome_vs_ImmuneResponse.html
+  - text: CD4 recovery vs Gene richness
+    href: 315_GeneRichness_vs_CD4.html
   - text: LMM taxa ranking
     href: 330_TaxaLevel_LMM.html
   - text: Taxonomy
