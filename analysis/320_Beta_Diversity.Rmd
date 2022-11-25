@@ -385,12 +385,16 @@ otu_df %>%
 
 lab <- lmms %>% 
   pluck("stat") %>% 
-  map(~ {
-    .x %>% 
+  names() %>% 
+  set_names() %>% 
+  map_dfr(~ {
+    lmms %>% 
+      purrr::pluck("stat",.x) %>% 
       as.data.frame() %>% 
       dplyr::select(Value, pval = `p-value`) %>% 
       dplyr::slice(2L) %>% 
-        round(3)
+        round(3) %>% 
+      dplyr::mutate(group =.x)
 })
 
 plot <- 
@@ -398,11 +402,11 @@ plot <-
   pluck("plot")+
   scale_x_continuous(breaks = unique(metadata$time_point)) +
   scale_color_brewer(palette = "Accent") +
-  scale_fill_brewer(palette = "Accent") +
-  geom_label(data = lab, )
+  scale_fill_brewer(palette = "Accent") 
 
 
-
+plot
+lab
 
 ```
 
@@ -412,7 +416,6 @@ Sample A0023 apparently jups to distance = 1 from the very start
 ```{r first_dist_boxplots, warning= F, message=F}
 first_dif <- 
   otu_df %>% 
-  dplyr::filter(rownames(.) %in% ids) %>% 
   vegan::vegdist(x = ., method = "bray") %>% 
   distance_from_basal(dist_mat = ., metadata = metadata, 
                       link_var = "record_id",

@@ -15,7 +15,7 @@
 
 <title>Gene Richness vs CD4</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -69,6 +69,7 @@ if (window.hljs) {
 
 
 
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 
 
@@ -93,6 +94,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -245,7 +249,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -268,6 +272,9 @@ $(document).ready(function () {
 </li>
 <li>
   <a href="335_BLMicrobiome_vs_ImmuneResponse.html">Immune and clinical BL comparisons</a>
+</li>
+<li>
+  <a href="315_GeneRichness_vs_CD4.html">CD4 recovery vs Gene richness</a>
 </li>
 <li>
   <a href="330_TaxaLevel_LMM.html">LMM taxa ranking</a>
@@ -311,9 +318,7 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -322,9 +327,7 @@ aria-hidden="true"></span>
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -336,24 +339,14 @@ aria-hidden="true"></span> </a>
 <strong>Last updated:</strong> 2022-11-25
 </p>
 <p>
-<strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
-<strong>Knit directory:</strong> <code>advanz4/</code> <span
-class="glyphicon glyphicon-question-sign" aria-hidden="true"
-title="This is the local directory in which the code in this file was executed.">
-</span>
+<strong>Knit directory:</strong> <code>advanz4/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
 </p>
 <p>
-This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
-analysis was created with <a
-  href="https://github.com/workflowr/workflowr">workflowr</a> (version
-1.7.0). The <em>Checks</em> tab describes the reproducibility checks
-that were applied when the results were created. The <em>Past
-versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -362,167 +355,169 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
-class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
 <div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! The global environment was empty. Objects defined in the
-global environment can affect the analysis in your R Markdown file in
-unknown ways. For reproduciblity it’s best to always run the code in an
-empty environment.</p>
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211203code">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Seed:</strong>
-<code>set.seed(20211203)</code> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211203code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20211203)</code> </a>
 </p>
 </div>
-<div id="strongSeedstrongcodesetseed20211203code"
-class="panel-collapse collapse">
+<div id="strongSeedstrongcodesetseed20211203code" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20211203)</code> was run prior to running
-the code in the R Markdown file. Setting a seed ensures that any results
-that rely on randomness, e.g. subsampling or permutations, are
-reproducible.</p>
+<p>The command <code>set.seed(20211203)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Session information:</strong>
-recorded </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
 </p>
 </div>
-<div id="strongSessioninformationstrongrecorded"
-class="panel-collapse collapse">
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Recording the operating system, R version, and package
-versions is critical for reproducibility.</p>
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
 <div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be
-confident that you successfully produced the results during this
-run.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
 </p>
 </div>
 <div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr
-project makes it easier to run your code on other machines.</p>
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree46edcd5e35bed5006ecb507cbdd964bb6be6aeb6targetblank46edcd5a">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/MicrobialGenomics/advanz4/tree/46edcd5e35bed5006ecb507cbdd964bb6be6aeb6" target="_blank">46edcd5</a>
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree074d657fa84a274ad41976f978b04c48c7415fa2targetblank074d657a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/074d657fa84a274ad41976f978b04c48c7415fa2" target="_blank">074d657</a> </a>
 </p>
 </div>
-<div
-id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree46edcd5e35bed5006ecb507cbdd964bb6be6aeb6targetblank46edcd5a"
-class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree074d657fa84a274ad41976f978b04c48c7415fa2targetblank074d657a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development
-and connecting the code version to the results is critical for
-reproducibility.
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version
-<a href="https://github.com/MicrobialGenomics/advanz4/tree/46edcd5e35bed5006ecb507cbdd964bb6be6aeb6" target="_blank">46edcd5</a>.
-See the <em>Past versions</em> tab to see a history of the changes made
-to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/074d657fa84a274ad41976f978b04c48c7415fa2" target="_blank">074d657</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for
-the analysis have been committed to Git prior to generating the results
-(you can use <code>wflow_publish</code> or
-<code>wflow_git_commit</code>). workflowr only checks the R Markdown
-file, but you know if there are other scripts or data files that it
-depends on. Below is the status of the Git repository when the results
-were generated:
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
     Ignored:    .RData
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    Metadata/MetadataManagement/Old_Metadata/
     Ignored:    analysis/.Rhistory
-    Ignored:    analysis/010_Basic_Report_cache/
     Ignored:    analysis/420_Taxonomy_DA_cache/
+    Ignored:    analysis/505_Adenovirus_Analysis_cache/
     Ignored:    analysis/510_Function_DA_cache/
+    Ignored:    analysis/output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/
     Ignored:    data/mre.rds
+    Ignored:    data/signif_paths.rds
 
 Untracked files:
-    Untracked:  analysis/figure/
+    Untracked:  code/Rmd_progress/
 
 Unstaged changes:
-    Modified:   advanz4.Rproj
-    Modified:   analysis/315_GeneRichness_vs_CD4.Rmd
-    Modified:   code/LMM.R
+    Deleted:    analysis/002_datatransfer.Rmd
+    Deleted:    analysis/006_DataPreprocessing.Rmd
+    Deleted:    analysis/008_PopulateMRE.Rmd
+    Deleted:    analysis/010_Basic_Report.Rmd
+    Deleted:    analysis/020_MetaExplorer_Report.Rmd
+    Deleted:    analysis/030_AnalysisPlan.Rmd
+    Deleted:    analysis/04_build_metadata.Rmd
+    Deleted:    analysis/050_concomitant_treatment.Rmd
+    Modified:   analysis/310_IGC_analysis.Rmd
+    Modified:   analysis/340_microbiome_vs_clinical.Rmd
+    Modified:   analysis/430_Species_v_Inflammation.Rmd
+    Deleted:    analysis/960_resistance_pheno_vs_risk_group.Rmd
+    Modified:   output/mre_data/CatalogMapping/IGC/lmm/lmm_time_point_by_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/bray_stressplot.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD4after_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD4after_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD4diff_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD4diff_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD8after_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD8after_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD8diff_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD8diff_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_center.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_cluster.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_ethnic_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_gender.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_risk_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD4after_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD4after_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD4diff_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD4diff_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD8after_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD8after_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD8diff_48.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD8diff_96.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_center.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_ethnic_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_gender.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_risk_group.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_ADV.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CD4.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CD8.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CD8_CD38_DR.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CRP.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/nmds_adonis_results.csv
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/nmds_coordinates.csv
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_ADV.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CD4.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CD8.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CD8_CD38_DR.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CRP.pdf
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/sample_cluster_labels.csv
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/silhouette_coefs.csv
+    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/silhouette_plt.pdf
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not
-included in this status report because it is ok for generated content to
-have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
 </p>
 </div>
 </div>
@@ -533,13 +528,7 @@ have uncommitted changes.
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were
-made to the R Markdown
-(<code>analysis/315_GeneRichness_vs_CD4.Rmd</code>) and HTML
-(<code>docs/315_GeneRichness_vs_CD4.html</code>) files. If you’ve
-configured a remote Git repository (see <code>?wflow_git_remote</code>),
-click on the hyperlinks in the table below to view the files as they
-were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/315_GeneRichness_vs_CD4.Rmd</code>) and HTML (<code>docs/315_GeneRichness_vs_CD4.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -563,6 +552,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/074d657fa84a274ad41976f978b04c48c7415fa2/analysis/315_GeneRichness_vs_CD4.Rmd" target="_blank">074d657</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-11-25
+</td>
+<td>
+Added comparisons in GR and CD4
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/074d657fa84a274ad41976f978b04c48c7415fa2/docs/315_GeneRichness_vs_CD4.html" target="_blank">074d657</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-11-25
+</td>
+<td>
+Added comparisons in GR and CD4
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -594,9 +617,7 @@ cblazquez-irsi
 2022-11-23
 </td>
 <td>
-Merge branch ‘main’ of <a
-href="https://github.com/MicrobialGenomics/advanz4"
-class="uri">https://github.com/MicrobialGenomics/advanz4</a>
+Merge branch ‘main’ of <a href="https://github.com/MicrobialGenomics/advanz4" class="uri">https://github.com/MicrobialGenomics/advanz4</a>
 </td>
 </tr>
 <tr>
@@ -647,9 +668,7 @@ Marc Noguera-Julian
 2022-11-18
 </td>
 <td>
-Merge branch ‘main’ of <a
-href="https://github.com/MicrobialGenomics/advanz4"
-class="uri">https://github.com/MicrobialGenomics/advanz4</a>
+Merge branch ‘main’ of <a href="https://github.com/MicrobialGenomics/advanz4" class="uri">https://github.com/MicrobialGenomics/advanz4</a>
 </td>
 </tr>
 <tr>
@@ -758,14 +777,10 @@ Create 315_GeneRichness_vs_CD4.Rmd
 mymre &lt;- aws.s3::s3readRDS(bucket = &quot;mistral-wp6-advanz4&quot;,object = &quot;metagenome/WMGS/MREObject.rds&quot;, region = &quot;eu-west-1&quot;)</code></pre>
 <div id="gene-richness-vs-cd4" class="section level2">
 <h2>Gene Richness vs CD4</h2>
-<p>In this analysis we are interested in the relationship between
-CD4/CD4 recovery and gene richness. For that, several questions are of
-importance.</p>
+<p>In this analysis we are interested in the relationship between CD4/CD4 recovery and gene richness. For that, several questions are of importance.</p>
 <div id="cd4-baseline-distribution" class="section level3">
 <h3>CD4 baseline distribution</h3>
-<p>We already know that CD4 mean(sd) is similar for DTG/DRVr groups, but
-we have not checked the distribution. Is it unimodal or bimodal? a
-density plot should help.</p>
+<p>We already know that CD4 mean(sd) is similar for DTG/DRVr groups, but we have not checked the distribution. Is it unimodal or bimodal? a density plot should help.</p>
 <pre class="r"><code>basal_df &lt;- 
 metadata %&gt;% 
   # dplyr::mutate(delta_cd4 = CD4[time_point == 48] - CD4[time_point == 0])
@@ -836,23 +851,65 @@ plt &lt;- ggplot(basal_df, aes(x=CD4, color=group)) +
   
 plt</code></pre>
 <p><img src="figure/315_GeneRichness_vs_CD4.Rmd/basal_CD4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-basal_CD4-1">
+Past versions of basal_CD4-1.png
+</button>
+</p>
+<div id="fig-basal_CD4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/074d657fa84a274ad41976f978b04c48c7415fa2/docs/figure/315_GeneRichness_vs_CD4.Rmd/basal_CD4-1.png" target="_blank">074d657</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-11-25
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/f0e92e1a746d3195eda0a946ef9c97b4dd72a2f0/docs/figure/315_GeneRichness_vs_CD4.Rmd/basal_CD4-1.png" target="_blank">f0e92e1</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-11-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>peak_df</code></pre>
 <pre><code>          x            y group
 1  26.10519 0.0103359201   DTG
 2 229.10519 0.0005447832   DTG
 3  11.04344 0.0169875257 DRV/r
 4  68.04344 0.0063346692 DRV/r</code></pre>
-<p>It appears the distribution of CD4 at BL shows two peaks in kernel
-density, one at 26 counts/ml and one at 229 count/ml. There is a second
-peak in the DRV as well, but it seems the density function smoothed it
-out.</p>
+<p>It appears the distribution of CD4 at BL shows two peaks in kernel density, one at 26 counts/ml and one at 229 count/ml. There is a second peak in the DRV as well, but it seems the density function smoothed it out.</p>
 </div>
 <div id="generichness-at-baseline-distribution" class="section level3">
 <h3>GeneRichness at baseline distribution</h3>
-<p>We know (I think) that there is no difference in generichness between
-arme at baseline, but we do not know the distribution. In Guillen et al,
-we found a bimodal distribution in HIV patients. Is that the case of
-advanz4?</p>
+<p>We know (I think) that there is no difference in generichness between arme at baseline, but we do not know the distribution. In Guillen et al, we found a bimodal distribution in HIV patients. Is that the case of advanz4?</p>
 <pre class="r"><code>igc&lt;-metar::get_diversity(mymre)@igc
 Threshold &lt;-  igc@dataTable %&gt;%
   dplyr::select(SampleID, NumberMappedReads) %&gt;%
@@ -926,20 +983,52 @@ basal_df %&gt;%
 
 plt</code></pre>
 <p><img src="figure/315_GeneRichness_vs_CD4.Rmd/GR_basal-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-GR_basal-1">
+Past versions of GR_basal-1.png
+</button>
+</p>
+<div id="fig-GR_basal-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/649e4c5bbb240d9e3844ebabcf07eb03d532b165/docs/figure/315_GeneRichness_vs_CD4.Rmd/GR_basal-1.png" target="_blank">649e4c5</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-11-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>peak_df</code></pre>
 <pre><code>         x            y group
 1 774765.3 1.863682e-06   DTG
 2 731633.3 1.494479e-06 DRV/r</code></pre>
-<p>It seems both groups have a similar median richness, but with
-somewhat different distributions, with DTG following a slightly bimodal
-distribution with a higher median peak than Drv/r. Although the left
-“step” in may look like a local maxima, it actually does not decrease on
-the right side.</p>
+<p>It seems both groups have a similar median richness, but with somewhat different distributions, with DTG following a slightly bimodal distribution with a higher median peak than Drv/r. Although the left “step” in may look like a local maxima, it actually does not decrease on the right side.</p>
 </div>
 <div id="gene-richness-vs-cd4-at-baseline" class="section level3">
 <h3>Gene Richness vs CD4 at baseline</h3>
-<p>Is there any association between gene richness and CD4 at baseline
-only, overall, and per-group(DTG and DRVr only)?</p>
+<p>Is there any association between gene richness and CD4 at baseline only, overall, and per-group(DTG and DRVr only)?</p>
 <pre class="r"><code>df &lt;- 
 basal_df %&gt;% 
   right_join(metadata[,c(&quot;SampleID&quot;,&quot;CD4&quot;)]) %&gt;% 
@@ -983,8 +1072,7 @@ S   6356.89 0.5305265 0.1096792
 $`DRV/r`
   statistic   p.value  estimate
 S  5778.569 0.2725564 0.1906766</code></pre>
-<p>Doesn’t seem to be any signifcant association between gene richness
-and CD4 counts at basal.</p>
+<p>Doesn’t seem to be any signifcant association between gene richness and CD4 counts at basal.</p>
 </div>
 <div id="delta-cd4-and-deltagr" class="section level3">
 <h3>Delta-CD4 and DeltaGR</h3>
@@ -999,23 +1087,89 @@ TableList %&gt;%
                 GR_rel = (richness - richness[long_var == 0])/(richness + richness[long_var == 0]),
                 CD4_abs = CD4- CD4[long_var == 0],
                 CD4_rel = (CD4 - CD4[long_var == 0])/(CD4 + CD4[long_var == 0]))</code></pre>
-<p>We need to check if the increments in CD4 are linked to increments in
-GeneRichness. Let’s calculate these increments in two different
-ways:</p>
+<p>We need to check if the increments in CD4 are linked to increments in GeneRichness. Let’s calculate these increments in two different ways:</p>
 <ul>
 <li>Absolute: CD4(tx)-CD4(t0) or GR(tx)-GR(to)</li>
-<li>Relative: (CD4(tx)-CD(t0)/(CD4(tx)+CD4(t0))) or
-(GR(tx)-GR(t0)/(GR(tx)+GR(t0)))</li>
+<li>Relative: (CD4(tx)-CD(t0)/(CD4(tx)+CD4(t0))) or (GR(tx)-GR(t0)/(GR(tx)+GR(t0)))</li>
 </ul>
-<p>Check distribution of these values and see if there is a possibility
-of reasonable categorization.</p>
-<p><img src="figure/315_GeneRichness_vs_CD4.Rmd/plot_dists-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/315_GeneRichness_vs_CD4.Rmd/plot_dists-2.png" width="672" style="display: block; margin: auto;" />
-As we can see, the distribution of Gene Richness change vs baseline is
-pretty similar at both weeks 488 and 96, albeit week 96 has a slightly
-higher median. The differences get bigger when comparing between groups
-though, as DTG seems significantly bigger than DRV, especially at week
-96 (DTG=0.88 vs DRV/r = 0.39 median delta. Let’s test with a wilcoxon
-test)</p>
+<p>Check distribution of these values and see if there is a possibility of reasonable categorization.</p>
+<p><img src="figure/315_GeneRichness_vs_CD4.Rmd/plot_dists-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_dists-1">
+Past versions of plot_dists-1.png
+</button>
+</p>
+<div id="fig-plot_dists-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/649e4c5bbb240d9e3844ebabcf07eb03d532b165/docs/figure/315_GeneRichness_vs_CD4.Rmd/plot_dists-1.png" target="_blank">649e4c5</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-11-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/315_GeneRichness_vs_CD4.Rmd/plot_dists-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_dists-2">
+Past versions of plot_dists-2.png
+</button>
+</p>
+<div id="fig-plot_dists-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/649e4c5bbb240d9e3844ebabcf07eb03d532b165/docs/figure/315_GeneRichness_vs_CD4.Rmd/plot_dists-2.png" target="_blank">649e4c5</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-11-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>As we can see, the distribution of Gene Richness change vs baseline is pretty similar at both weeks 488 and 96, albeit week 96 has a slightly higher median. The differences get bigger when comparing between groups though, as DTG seems significantly bigger than DRV, especially at week 96 (DTG=0.88 vs DRV/r = 0.39 median delta. Let’s test with a wilcoxon test)</p>
 <pre class="r"><code>long_deltas &lt;- 
 deltas %&gt;% 
   dplyr::filter(long_var %in% c(48,96)) %&gt;% 
@@ -1109,15 +1263,12 @@ long_deltas</code></pre>
 </tr>
 </tbody>
 </table>
-<p>The difference in deltas between groups is significant at week 96 but
-not at 48. However, no significant differences were found longitudinally
-between groups.</p>
+<p>The difference in deltas between groups is significant at week 96 but not at 48. However, no significant differences were found longitudinally between groups.</p>
 </div>
 </div>
 <div id="correlations-between-cd4-and-gr" class="section level1">
 <h1>Correlations between CD4 and GR</h1>
-<p>Let’s check if there is a correlation between both variables. First
-overall:</p>
+<p>Let’s check if there is a correlation between both variables. First overall:</p>
 <pre class="r"><code>absolute_cors &lt;- 
 deltas %&gt;% 
   dplyr::filter(!long_var == 0) %&gt;% 
@@ -1140,8 +1291,7 @@ Observations: 122</code></pre>
 CD4_rel    |     GR_rel | -0.01 | [-0.19, 0.17] | 3.06e+05 | 0.895
 
 Observations: 122</code></pre>
-<p>No overall correlations could be found. Let’s check split per
-timepoint:</p>
+<p>No overall correlations could be found. Let’s check split per timepoint:</p>
 <pre class="r"><code>c(48,96) %&gt;% 
   purrr::set_names() %&gt;% 
   purrr::map(function(tp){
@@ -1163,13 +1313,11 @@ Parameter1 | Parameter2 |  rho |        95% CI |       S |     p
 CD4_rel    |     GR_rel | 0.16 | [-0.17, 0.46] | 8315.92 | 0.336
 
 Observations: 39</code></pre>
-<p>No Meaningful correlations could be found neither overall nor at
-specific timepoints.</p>
+<p>No Meaningful correlations could be found neither overall nor at specific timepoints.</p>
 </div>
 <div id="interactions-between-cd4-and-gr-lmms" class="section level1">
 <h1>Interactions between CD4 and GR: LMMs</h1>
-<p>To have a better view of wether both variables interact, we will
-perform LMMs. First on overall:</p>
+<p>To have a better view of wether both variables interact, we will perform LMMs. First on overall:</p>
 <pre class="r"><code>lmm_abs &lt;- 
 deltas %&gt;% 
   mutate(mock = 1) %&gt;% ## The function needs a cat_var, so we&#39;ll create a mock one
@@ -1202,6 +1350,43 @@ plt_rel &lt;- lmm_rel$plot +
 
 ggpubr::ggarrange(plt_abs, plt_rel)</code></pre>
 <p><img src="figure/315_GeneRichness_vs_CD4.Rmd/LMMs_overall-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-LMMs_overall-1">
+Past versions of LMMs_overall-1.png
+</button>
+</p>
+<div id="fig-LMMs_overall-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/074d657fa84a274ad41976f978b04c48c7415fa2/docs/figure/315_GeneRichness_vs_CD4.Rmd/LMMs_overall-1.png" target="_blank">074d657</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-11-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>nothing could be observed overall. Let’s check per group:</p>
 <pre class="r"><code>lmm_abs &lt;- 
 deltas %&gt;% 
@@ -1232,17 +1417,48 @@ plt_rel &lt;- lmm_rel$plot +
 
 ggpubr::ggarrange(plt_abs, plt_rel, nrow = 2, ncol = 1)</code></pre>
 <p><img src="figure/315_GeneRichness_vs_CD4.Rmd/LMMs_group-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>No quantitative difference could be found between delta GR and delta
-CD4. The only thing to look at now is to check wether there is a
-significant GR differences between those who recovered more or less than
-150 CD4-</p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-LMMs_group-1">
+Past versions of LMMs_group-1.png
+</button>
+</p>
+<div id="fig-LMMs_group-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/074d657fa84a274ad41976f978b04c48c7415fa2/docs/figure/315_GeneRichness_vs_CD4.Rmd/LMMs_group-1.png" target="_blank">074d657</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-11-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>No quantitative difference could be found between delta GR and delta CD4. The only thing to look at now is to check wether there is a significant GR differences between those who recovered more or less than 150 CD4-</p>
 </div>
 <div id="comparisons-by-cd4-recovery" class="section level1">
 <h1>Comparisons by CD4 recovery</h1>
-<p>We did not find many signals correlating numerical absolute and
-relative numbers of CD4 and Gene Richness. Now we’r going to check if
-there is any actual difference in Gene richness in those with CD4
-recovery &lt; 150</p>
+<p>We did not find many signals correlating numerical absolute and relative numbers of CD4 and Gene Richness. Now we’r going to check if there is any actual difference in Gene richness in those with CD4 recovery &lt; 150</p>
 <pre class="r"><code>df &lt;- 
 deltas %&gt;% 
   left_join(metadata[,c(&quot;SampleID&quot;, &quot;CD4diff_48&quot;, &quot;CD4diff_96&quot;)], by = &quot;SampleID&quot;) %&gt;% 
@@ -1272,102 +1488,102 @@ plt &lt;-
   )</code></pre>
 <p>And plot:</p>
 <ul>
-<li>Values vs timepoint, overall and per-group(DTG and DRVr only). Fit
-ANOVA/t-test vs DTG/DRVr at each timepoint to check for differential
-increases per ARM</li>
-<li>AbsCD4 vs AbsGR, overall and per-group(DTG and dRVr only). Fit
-LM</li>
-<li>RelCD4 vs RelGR, overall and per-group(DTG and DRVr only). Fit
-LM</li>
+<li>Values vs timepoint, overall and per-group(DTG and DRVr only). Fit ANOVA/t-test vs DTG/DRVr at each timepoint to check for differential increases per ARM</li>
+<li>AbsCD4 vs AbsGR, overall and per-group(DTG and dRVr only). Fit LM</li>
+<li>RelCD4 vs RelGR, overall and per-group(DTG and DRVr only). Fit LM</li>
 </ul>
 <div id="categorized-cd4" class="section level3">
 <h3>CAtegorized CD4</h3>
-<p>This has partially been done. Split patients between
-150&gt;CD4(t48)/(t96)&gt;150, and check if DeltaGR is different for
-groups and fisher.test of these groups vs arm is significant.</p>
+<p>This has partially been done. Split patients between 150&gt;CD4(t48)/(t96)&gt;150, and check if DeltaGR is different for groups and fisher.test of these groups vs arm is significant.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
-<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-Session information
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.0.2 (2020-06-22)
-Platform: x86_64-w64-mingw32/x64 (64-bit)
-Running under: Windows 10 x64 (build 22621)
+<pre><code>R version 4.0.5 (2021-03-31)
+Platform: x86_64-redhat-linux-gnu (64-bit)
+Running under: Fedora 34 (Workstation Edition)
 
 Matrix products: default
+BLAS/LAPACK: /usr/lib64/libflexiblas.so.3.1
 
 locale:
-[1] LC_COLLATE=Spanish_Spain.1252  LC_CTYPE=Spanish_Spain.1252   
-[3] LC_MONETARY=Spanish_Spain.1252 LC_NUMERIC=C                  
-[5] LC_TIME=Spanish_Spain.1252    
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] nlme_3.1-148       metar_0.1.4        testthat_3.0.1     ggpubr_0.4.0      
- [5] RColorBrewer_1.1-3 forcats_0.5.1      stringr_1.4.0      dplyr_1.0.8       
- [9] purrr_0.3.4        readr_2.0.1        tidyr_1.2.0        tibble_3.1.6      
-[13] ggplot2_3.3.5      tidyverse_1.3.1   
+ [1] nlme_3.1-158       metar_0.1.5        testthat_3.1.4     ggpubr_0.4.0      
+ [5] RColorBrewer_1.1-3 forcats_0.5.1      stringr_1.4.0      dplyr_1.0.9       
+ [9] purrr_0.3.4        readr_2.1.2        tidyr_1.2.0        tibble_3.1.7      
+[13] ggplot2_3.3.6      tidyverse_1.3.1    devtools_2.4.3     usethis_2.1.6     
+[17] workflowr_1.7.0   
 
 loaded via a namespace (and not attached):
-  [1] utf8_1.2.2          tidyselect_1.1.2    lme4_1.1-27.1      
-  [4] htmlwidgets_1.5.4   grid_4.0.2          devtools_2.3.2     
-  [7] aws.signature_0.6.0 munsell_0.5.0       codetools_0.2-16   
- [10] withr_2.5.0         colorspace_2.0-2    Biobase_2.50.0     
+  [1] utf8_1.2.2          tidyselect_1.1.2    lme4_1.1-29        
+  [4] htmlwidgets_1.5.4   grid_4.0.5          aws.signature_0.6.0
+  [7] munsell_0.5.0       codetools_0.2-18    future_1.26.1      
+ [10] withr_2.5.0         colorspace_2.0-3    Biobase_2.50.0     
  [13] phyloseq_1.34.0     logger_0.2.2        highr_0.9          
- [16] knitr_1.38          rstudioapi_0.13     stats4_4.0.2       
- [19] ggsignif_0.6.3      labeling_0.4.2      git2r_0.28.0       
- [22] polyclip_1.10-0     datawizard_0.6.2    bit64_4.0.5        
- [25] farver_2.1.0        rhdf5_2.34.0        rprojroot_2.0.3    
- [28] coda_0.19-4         vctrs_0.3.8         generics_0.1.2     
- [31] xfun_0.30           R6_2.5.1            arm_1.12-2         
- [34] rhdf5filters_1.2.1  cachem_1.0.1        assertthat_0.2.1   
- [37] promises_1.2.0.1    networkD3_0.4       scales_1.2.0       
- [40] vroom_1.5.7         merTools_0.5.2      gtable_0.3.0       
- [43] processx_3.5.2      workflowr_1.7.0     rlang_1.0.2        
- [46] systemfonts_1.0.2   splines_4.0.2       rstatix_0.7.0      
- [49] broom_0.8.0         yaml_2.3.5          reshape2_1.4.4     
- [52] abind_1.4-5         modelr_0.1.8        backports_1.4.1    
- [55] httpuv_1.6.3        tools_4.0.2         usethis_2.0.0      
- [58] logging_0.10-108    ellipsis_0.3.2      kableExtra_1.3.4   
- [61] jquerylib_0.1.4     biomformat_1.18.0   selbal_0.1.0       
- [64] BiocGenerics_0.36.1 sessioninfo_1.1.1   Rcpp_1.0.7         
- [67] plyr_1.8.6          base64enc_0.1-3     zlibbioc_1.36.0    
- [70] ps_1.5.0            prettyunits_1.1.1   cowplot_1.1.1      
- [73] correlation_0.8.2   S4Vectors_0.28.1    haven_2.3.1        
- [76] cluster_2.1.0       fs_1.5.0            here_1.0.1         
- [79] DataExplorer_0.8.2  magrittr_2.0.2      data.table_1.14.2  
- [82] reprex_2.0.1        mvtnorm_1.1-2       whisker_0.4        
- [85] pkgload_1.2.4       hms_1.1.1           patchwork_1.1.1    
- [88] mime_0.11           evaluate_0.15       xtable_1.8-4       
- [91] broom.mixed_0.2.7   readxl_1.3.1        IRanges_2.24.1     
- [94] gridExtra_2.3       compiler_4.0.2      crayon_1.5.1       
- [97] minqa_1.2.4         htmltools_0.5.2     mgcv_1.8-31        
-[100] later_1.3.0         tzdb_0.3.0          lubridate_1.8.0    
-[103] aws.s3_0.3.21       DBI_1.1.1           tweenr_1.0.2       
-[106] dbplyr_2.1.1        MASS_7.3-51.6       boot_1.3-25        
-[109] Matrix_1.2-18       ade4_1.7-18         car_3.0-12         
-[112] wesanderson_0.3.6   permute_0.9-7       cli_3.0.1          
-[115] insight_0.18.4      parallel_4.0.2      igraph_1.2.9       
-[118] pkgconfig_2.0.3     xml2_1.3.2          foreach_1.5.2      
-[121] svglite_2.0.0       bslib_0.3.1         blme_1.0-5         
-[124] multtest_2.46.0     webshot_0.5.2       XVector_0.30.0     
-[127] rvest_1.0.1         callr_3.7.0         digest_0.6.29      
-[130] vegan_2.5-7         Biostrings_2.58.0   rmarkdown_2.11     
-[133] cellranger_1.1.0    curl_4.3            shiny_1.7.1        
-[136] nloptr_1.2.2.3      lifecycle_1.0.1     jsonlite_1.7.2     
-[139] Rhdf5lib_1.12.1     carData_3.0-5       desc_1.4.1         
-[142] viridisLite_0.4.0   fansi_0.5.0         pillar_1.7.0       
-[145] lattice_0.20-41     fastmap_1.1.0       httr_1.4.2         
-[148] pkgbuild_1.2.0      survival_3.1-12     glue_1.5.1         
-[151] remotes_2.4.0       bayestestR_0.12.1   iterators_1.0.14   
-[154] bit_4.0.4           ggforce_0.3.3       stringi_1.7.6      
-[157] sass_0.4.0          memoise_2.0.0       ape_5.5            </code></pre>
+ [16] knitr_1.39          rstudioapi_0.13     stats4_4.0.5       
+ [19] ggsignif_0.6.3.9000 listenv_0.8.0       labeling_0.4.2     
+ [22] git2r_0.30.1        polyclip_1.10-0     datawizard_0.4.1   
+ [25] bit64_4.0.5         farver_2.1.0        rhdf5_2.34.0       
+ [28] rprojroot_2.0.3     coda_0.19-4         parallelly_1.32.0  
+ [31] vctrs_0.4.1         generics_0.1.2      xfun_0.31          
+ [34] R6_2.5.1            arm_1.12-2          rhdf5filters_1.2.1 
+ [37] cachem_1.0.6        assertthat_0.2.1    promises_1.2.0.1   
+ [40] networkD3_0.4       scales_1.2.0        vroom_1.5.7        
+ [43] merTools_0.5.2      gtable_0.3.0        globals_0.15.0     
+ [46] processx_3.6.1      rlang_1.0.2         systemfonts_1.0.4  
+ [49] splines_4.0.5       rstatix_0.7.0       broom_0.8.0        
+ [52] yaml_2.3.5          reshape2_1.4.4      abind_1.4-5        
+ [55] modelr_0.1.8        backports_1.4.1     httpuv_1.6.5       
+ [58] tools_4.0.5         logging_0.10-108    kableExtra_1.3.4   
+ [61] ellipsis_0.3.2      jquerylib_0.1.4     biomformat_1.18.0  
+ [64] selbal_0.1.0        BiocGenerics_0.36.1 sessioninfo_1.2.2  
+ [67] Rcpp_1.0.8.3        plyr_1.8.7          base64enc_0.1-3    
+ [70] zlibbioc_1.36.0     ps_1.7.1            prettyunits_1.1.1  
+ [73] cowplot_1.1.1       correlation_0.8.1   S4Vectors_0.28.1   
+ [76] haven_2.5.0         cluster_2.1.3       fs_1.5.2           
+ [79] here_1.0.1          furrr_0.3.0         DataExplorer_0.8.2 
+ [82] magrittr_2.0.3      data.table_1.14.2   reprex_2.0.1       
+ [85] mvtnorm_1.1-3       whisker_0.4         pkgload_1.2.4      
+ [88] hms_1.1.1           patchwork_1.1.1     mime_0.12          
+ [91] evaluate_0.15       xtable_1.8-4        broom.mixed_0.2.9.4
+ [94] readxl_1.4.0        IRanges_2.24.1      gridExtra_2.3      
+ [97] compiler_4.0.5      crayon_1.5.1        minqa_1.2.4        
+[100] htmltools_0.5.2     mgcv_1.8-40         later_1.3.0        
+[103] tzdb_0.3.0          lubridate_1.8.0     aws.s3_0.3.21      
+[106] DBI_1.1.3           tweenr_1.0.2        dbplyr_2.2.0       
+[109] MASS_7.3-57         boot_1.3-28         Matrix_1.4-1       
+[112] ade4_1.7-19         car_3.1-0           wesanderson_0.3.6  
+[115] permute_0.9-7       brio_1.1.3          cli_3.3.0          
+[118] insight_0.17.1      parallel_4.0.5      igraph_1.3.2       
+[121] pkgconfig_2.0.3     getPass_0.2-2       xml2_1.3.2         
+[124] foreach_1.5.2       svglite_2.1.0       bslib_0.3.1        
+[127] blme_1.0-5          webshot_0.5.3       multtest_2.46.0    
+[130] XVector_0.30.0      rvest_1.0.2         callr_3.7.0        
+[133] digest_0.6.29       vegan_2.6-2         Biostrings_2.58.0  
+[136] rmarkdown_2.14      cellranger_1.1.0    curl_4.3.2         
+[139] shiny_1.7.1         nloptr_2.0.3        lifecycle_1.0.1    
+[142] jsonlite_1.8.0      Rhdf5lib_1.12.1     carData_3.0-5      
+[145] viridisLite_0.4.0   desc_1.4.1          fansi_1.0.3        
+[148] pillar_1.7.0        lattice_0.20-45     fastmap_1.1.0      
+[151] httr_1.4.2          pkgbuild_1.3.1      survival_3.3-1     
+[154] glue_1.6.2          remotes_2.4.2       bayestestR_0.12.1  
+[157] iterators_1.0.14    bit_4.0.4           ggforce_0.3.3      
+[160] stringi_1.7.6       sass_0.4.1          memoise_2.0.1      
+[163] ape_5.6-2          </code></pre>
 </div>
 </div>
 </div>

@@ -748,10 +748,14 @@ cat_vector %>%
   pluck("cat_var", "richness")  
   })
 
-  # write.table(.,"output/group_pvals_cat.csv",quote = T,row.names = F)  
 
 
 ```
 
 
+```{r CD4_corrs}
+
+metadata
+
+```
 

@@ -133,9 +133,6 @@ TableList <- cat_vector %>%
 })
 
 
-  })
-
-
 ```
 
 ```{r igc_vars_CD4_basal, message=F, warning=F, results=F}
