@@ -336,7 +336,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-11-25
+<strong>Last updated:</strong> 2022-11-28
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -427,16 +427,36 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
+<<<<<<< Updated upstream
 <a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree074d657fa84a274ad41976f978b04c48c7415fa2targetblank074d657a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/074d657fa84a274ad41976f978b04c48c7415fa2" target="_blank">074d657</a> </a>
 </p>
 </div>
 <div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree074d657fa84a274ad41976f978b04c48c7415fa2targetblank074d657a" class="panel-collapse collapse">
+=======
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree074d657fa84a274ad41976f978b04c48c7415fa2targetblank074d657a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/MicrobialGenomics/advanz4/tree/074d657fa84a274ad41976f978b04c48c7415fa2" target="_blank">074d657</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree074d657fa84a274ad41976f978b04c48c7415fa2targetblank074d657a"
+class="panel-collapse collapse">
+>>>>>>> Stashed changes
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
+<<<<<<< Updated upstream
 The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/074d657fa84a274ad41976f978b04c48c7415fa2" target="_blank">074d657</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+=======
+The results in this page were generated with repository version
+<a href="https://github.com/MicrobialGenomics/advanz4/tree/074d657fa84a274ad41976f978b04c48c7415fa2" target="_blank">074d657</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+>>>>>>> Stashed changes
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -455,7 +475,11 @@ Ignored files:
     Ignored:    data/signif_paths.rds
 
 Untracked files:
+<<<<<<< Updated upstream
     Untracked:  code/Rmd_progress/
+=======
+    Untracked:  code/Rmd_in_progress/
+>>>>>>> Stashed changes
 
 Unstaged changes:
     Deleted:    analysis/002_datatransfer.Rmd
@@ -466,6 +490,7 @@ Unstaged changes:
     Deleted:    analysis/030_AnalysisPlan.Rmd
     Deleted:    analysis/04_build_metadata.Rmd
     Deleted:    analysis/050_concomitant_treatment.Rmd
+<<<<<<< Updated upstream
     Modified:   analysis/310_IGC_analysis.Rmd
     Modified:   analysis/340_microbiome_vs_clinical.Rmd
     Modified:   analysis/430_Species_v_Inflammation.Rmd
@@ -514,6 +539,11 @@ Unstaged changes:
     Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/sample_cluster_labels.csv
     Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/silhouette_coefs.csv
     Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/silhouette_plt.pdf
+=======
+    Modified:   analysis/315_GeneRichness_vs_CD4.Rmd
+    Deleted:    analysis/960_resistance_pheno_vs_risk_group.Rmd
+    Modified:   code/LMM.R
+>>>>>>> Stashed changes
 
 </code></pre>
 <p>
@@ -1458,7 +1488,17 @@ cblazquez-irsi
 </div>
 <div id="comparisons-by-cd4-recovery" class="section level1">
 <h1>Comparisons by CD4 recovery</h1>
+<<<<<<< Updated upstream
 <p>We did not find many signals correlating numerical absolute and relative numbers of CD4 and Gene Richness. Now we’r going to check if there is any actual difference in Gene richness in those with CD4 recovery &lt; 150</p>
+=======
+<p>We did not find many signals correlating numerical absolute and
+relative numbers of CD4 and Gene Richness. Now we’r going to check if
+there is any actual difference in Gene richness in those with CD4
+recovery &lt; 150. The patients have been stratified in 3 groups: those
+who reached an increase of 150 counts/ml at week 48 (48), those who did
+at week 96 (96) and those who didn’t surpass this threshold at all
+(No)</p>
+>>>>>>> Stashed changes
 <pre class="r"><code>df &lt;- 
 deltas %&gt;% 
   left_join(metadata[,c(&quot;SampleID&quot;, &quot;CD4diff_48&quot;, &quot;CD4diff_96&quot;)], by = &quot;SampleID&quot;) %&gt;% 
@@ -1472,20 +1512,104 @@ deltas %&gt;%
     is.na(CD4diff_48) &amp; CD4diff_96 == &quot;150_L&quot; ~ &quot;No&quot;)) %&gt;% 
   filter(!is.na(recovery), !long_var == 0)
 
-
+test_cat &lt;- 
+df %&gt;% 
+  group_by(long_var) %&gt;% 
+  rstatix::wilcox_test(richness ~ recovery) %&gt;% 
+  rstatix::add_xy_position(x = &quot;long_var&quot;, group = &quot;recovery&quot;)
 
 
 plt &lt;- 
-  df %&gt;% 
-  ggplot(., aes(x = as.factor(long_var), y = richness, fill = recovery)) +
-  geom_boxplot() +
+df %&gt;% 
+  ggplot(., aes(x = as.factor(long_var), y = richness)) +
+  geom_boxplot(aes(fill = recovery)) +
   labs(x = &quot;weeks&quot;, y = &quot;gene richness (absolute)&quot;, fill = &quot;recovery\n(&gt;150 increase)&quot;) +
   scale_fill_brewer(palette = &quot;Dark2&quot;) +
   theme_bw() +
-  
+  stat_pvalue_manual(test_cat,inhertit.aes = F ,hide.ns = T) +
   theme(
     axis.title = element_text(face = &quot;bold&quot;)
   )</code></pre>
+<pre><code>Warning: Ignoring unknown parameters: inhertit.aes</code></pre>
+<pre class="r"><code>lmm &lt;- 
+df %&gt;% 
+ get_lmm_effects(., cat_vector = c(&quot;recovery&quot;),num_vector = &quot;richness&quot;, link_var = &quot;link_var&quot;, long_var = &quot;long_var&quot;)</code></pre>
+<pre><code>[1] &quot;recovery&quot;
+[1] &quot;richness&quot;</code></pre>
+<pre><code>Warning in as_lmerModLT(model, devfun): Model may not have converged with 1
+eigenvalue close to zero: 2.9e-09</code></pre>
+<pre><code>Warning in as_lmerModLT(model, devfun): Model may not have converged with 1
+eigenvalue close to zero: 2.6e-09</code></pre>
+<pre class="r"><code>plt</code></pre>
+<pre><code>Warning: Removed 9 rows containing non-finite values (stat_boxplot).</code></pre>
+<p><img src="figure/315_GeneRichness_vs_CD4.Rmd/richness_CD4_categorical-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lmm$recovery$richness$plot</code></pre>
+<pre><code>Warning: Removed 9 rows containing missing values (geom_point).</code></pre>
+<pre><code>Warning: Removed 6 row(s) containing missing values (geom_path).</code></pre>
+<p><img src="figure/315_GeneRichness_vs_CD4.Rmd/richness_CD4_categorical-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lmm$recovery$richness$summary</code></pre>
+<pre><code>                      estimate      st.err        df        tval            p
+(Intercept)        795788.5599  43417.3975 127.73715 18.32879458 1.433652e-37
+long_var              770.1625    505.7558  80.74575  1.52279522 1.317169e-01
+cat_var96            8010.1415 116519.5970 134.79827  0.06874502 9.452945e-01
+cat_varNo          -29525.4107 107031.8415 126.49272 -0.27585633 7.831086e-01
+long_var:cat_var96    253.5737   1334.0261  98.66064  0.19008152 8.496358e-01
+long_var:cat_varNo   -252.2829   1181.9625  78.58672 -0.21344409 8.315334e-01</code></pre>
+<p>No differences in gene richness could be found between those who
+recovered more than &lt;150 CD4+/ml at week 48 and those who did at week
+96. We’ll test for deltaGR now:</p>
+<pre class="r"><code>df &lt;- 
+deltas %&gt;% 
+  left_join(metadata[,c(&quot;SampleID&quot;, &quot;CD4diff_48&quot;, &quot;CD4diff_96&quot;)], by = &quot;SampleID&quot;) %&gt;% 
+  # mutate(CD4diff_48 = recode(CD4diff_48, &quot;150_H&quot; = &quot;48_H&quot;, &quot;150_L&quot; = &quot;48_L&quot;),
+  #        CD4diff_96 = recode(CD4diff_96, &quot;150_H&quot; = &quot;96_H&quot;, &quot;150_L&quot; = &quot;96_L&quot;)) %&gt;% 
+  mutate(recovery = case_when(
+    CD4diff_48 == &quot;150_H&quot; ~ &quot;48&quot;,
+    CD4diff_48 == &quot;150_L&quot; &amp; CD4diff_96 == &quot;150_H&quot; ~ &quot;96&quot;,
+    CD4diff_48 == &quot;150_L&quot; &amp; CD4diff_96 == &quot;150_L&quot; ~ &quot;No&quot;,
+    is.na(CD4diff_48) &amp; CD4diff_96 == &quot;150_H&quot; ~ &quot;96&quot;,
+    is.na(CD4diff_48) &amp; CD4diff_96 == &quot;150_L&quot; ~ &quot;No&quot;)) %&gt;% 
+  filter(!is.na(recovery), !long_var == 0)
+
+test_cat &lt;- 
+df %&gt;% 
+  group_by(long_var) %&gt;% 
+  rstatix::wilcox_test(GR_rel ~ recovery) %&gt;% 
+  rstatix::add_xy_position(x = &quot;long_var&quot;, group = &quot;recovery&quot;)
+
+
+plt &lt;- 
+df %&gt;% 
+  ggplot(., aes(x = as.factor(long_var), y = GR_rel)) +
+  geom_boxplot(aes(fill = recovery)) +
+  labs(x = &quot;weeks&quot;, y = &quot;deltaGR (relative)&quot;, fill = &quot;recovery\n(&gt;150 increase)&quot;) +
+  scale_fill_brewer(palette = &quot;Dark2&quot;) +
+  theme_bw() +
+  stat_pvalue_manual(test_cat,inhertit.aes = F ,hide.ns = T) +
+  theme(
+    axis.title = element_text(face = &quot;bold&quot;)
+  )
+
+
+
+
+lmm &lt;- 
+df %&gt;% 
+ get_lmm_effects(., cat_vector = c(&quot;recovery&quot;),num_vector = &quot;GR_rel&quot;, link_var = &quot;link_var&quot;, long_var = &quot;long_var&quot;)</code></pre>
+<pre><code>[1] &quot;recovery&quot;
+[1] &quot;GR_rel&quot;</code></pre>
+<pre class="r"><code>plt</code></pre>
+<p><img src="figure/315_GeneRichness_vs_CD4.Rmd/delta_GR_CD4_cat-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lmm$recovery$GR_rel$plot</code></pre>
+<p><img src="figure/315_GeneRichness_vs_CD4.Rmd/delta_GR_CD4_cat-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lmm$recovery$GR_rel$summary</code></pre>
+<pre><code>                        estimate       st.err        df       tval         p
+(Intercept)         0.0479822750 0.0348358559 101.35262  1.3773818 0.1714284
+long_var            0.0005301657 0.0003544080  70.11652  1.4959189 0.1391625
+cat_var96          -0.0347647331 0.0854416581 116.43001 -0.4068827 0.6848412
+cat_varNo          -0.1263813874 0.0811144307  98.18136 -1.5580629 0.1224360
+long_var:cat_var96  0.0002888975 0.0008931111  79.37839  0.3234732 0.7471875
+long_var:cat_varNo -0.0001419035 0.0007703357  68.69652 -0.1842100 0.8543914</code></pre>
 <p>And plot:</p>
 <ul>
 <li>Values vs timepoint, overall and per-group(DTG and DRVr only). Fit ANOVA/t-test vs DTG/DRVr at each timepoint to check for differential increases per ARM</li>
@@ -1534,6 +1658,7 @@ loaded via a namespace (and not attached):
   [7] munsell_0.5.0       codetools_0.2-18    future_1.26.1      
  [10] withr_2.5.0         colorspace_2.0-3    Biobase_2.50.0     
  [13] phyloseq_1.34.0     logger_0.2.2        highr_0.9          
+<<<<<<< Updated upstream
  [16] knitr_1.39          rstudioapi_0.13     stats4_4.0.5       
  [19] ggsignif_0.6.3.9000 listenv_0.8.0       labeling_0.4.2     
  [22] git2r_0.30.1        polyclip_1.10-0     datawizard_0.4.1   
@@ -1584,6 +1709,57 @@ loaded via a namespace (and not attached):
 [157] iterators_1.0.14    bit_4.0.4           ggforce_0.3.3      
 [160] stringi_1.7.6       sass_0.4.1          memoise_2.0.1      
 [163] ape_5.6-2          </code></pre>
+=======
+ [16] knitr_1.38          rstudioapi_0.13     stats4_4.0.2       
+ [19] ggsignif_0.6.3      labeling_0.4.2      git2r_0.28.0       
+ [22] polyclip_1.10-0     datawizard_0.6.2    bit64_4.0.5        
+ [25] farver_2.1.0        rhdf5_2.34.0        rprojroot_2.0.3    
+ [28] coda_0.19-4         vctrs_0.3.8         generics_0.1.2     
+ [31] xfun_0.30           R6_2.5.1            arm_1.12-2         
+ [34] rhdf5filters_1.2.1  cachem_1.0.1        assertthat_0.2.1   
+ [37] promises_1.2.0.1    networkD3_0.4       scales_1.2.0       
+ [40] vroom_1.5.7         merTools_0.5.2      gtable_0.3.0       
+ [43] processx_3.5.2      workflowr_1.7.0     rlang_1.0.2        
+ [46] systemfonts_1.0.2   splines_4.0.2       rstatix_0.7.0      
+ [49] broom_0.8.0         yaml_2.3.5          reshape2_1.4.4     
+ [52] abind_1.4-5         modelr_0.1.8        backports_1.4.1    
+ [55] httpuv_1.6.3        tools_4.0.2         usethis_2.0.0      
+ [58] logging_0.10-108    ellipsis_0.3.2      kableExtra_1.3.4   
+ [61] jquerylib_0.1.4     biomformat_1.18.0   selbal_0.1.0       
+ [64] BiocGenerics_0.36.1 sessioninfo_1.1.1   Rcpp_1.0.7         
+ [67] plyr_1.8.6          base64enc_0.1-3     zlibbioc_1.36.0    
+ [70] ps_1.5.0            prettyunits_1.1.1   cowplot_1.1.1      
+ [73] correlation_0.8.2   S4Vectors_0.28.1    haven_2.3.1        
+ [76] cluster_2.1.0       fs_1.5.0            here_1.0.1         
+ [79] DataExplorer_0.8.2  magrittr_2.0.2      data.table_1.14.2  
+ [82] lmerTest_3.1-3      reprex_2.0.1        mvtnorm_1.1-2      
+ [85] whisker_0.4         pkgload_1.2.4       hms_1.1.1          
+ [88] patchwork_1.1.1     mime_0.11           evaluate_0.15      
+ [91] xtable_1.8-4        broom.mixed_0.2.7   readxl_1.3.1       
+ [94] IRanges_2.24.1      gridExtra_2.3       compiler_4.0.2     
+ [97] crayon_1.5.1        minqa_1.2.4         htmltools_0.5.2    
+[100] mgcv_1.8-31         later_1.3.0         tzdb_0.3.0         
+[103] lubridate_1.8.0     aws.s3_0.3.21       DBI_1.1.1          
+[106] tweenr_1.0.2        dbplyr_2.1.1        MASS_7.3-51.6      
+[109] boot_1.3-25         Matrix_1.2-18       ade4_1.7-18        
+[112] car_3.0-12          wesanderson_0.3.6   permute_0.9-7      
+[115] cli_3.0.1           insight_0.18.4      parallel_4.0.2     
+[118] igraph_1.2.9        pkgconfig_2.0.3     numDeriv_2016.8-1.1
+[121] xml2_1.3.2          foreach_1.5.2       svglite_2.0.0      
+[124] bslib_0.3.1         blme_1.0-5          multtest_2.46.0    
+[127] webshot_0.5.2       XVector_0.30.0      rvest_1.0.1        
+[130] callr_3.7.0         digest_0.6.29       vegan_2.5-7        
+[133] Biostrings_2.58.0   rmarkdown_2.11      cellranger_1.1.0   
+[136] curl_4.3            shiny_1.7.1         nloptr_1.2.2.3     
+[139] lifecycle_1.0.1     jsonlite_1.7.2      Rhdf5lib_1.12.1    
+[142] carData_3.0-5       desc_1.4.1          viridisLite_0.4.0  
+[145] fansi_0.5.0         pillar_1.7.0        lattice_0.20-41    
+[148] fastmap_1.1.0       httr_1.4.2          pkgbuild_1.2.0     
+[151] survival_3.1-12     glue_1.5.1          remotes_2.4.0      
+[154] bayestestR_0.12.1   iterators_1.0.14    bit_4.0.4          
+[157] ggforce_0.3.3       stringi_1.7.6       sass_0.4.0         
+[160] memoise_2.0.0       ape_5.5            </code></pre>
+>>>>>>> Stashed changes
 </div>
 </div>
 </div>

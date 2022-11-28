@@ -1,0 +1,44 @@
+---
+title: "MetaExplorer Report Generation"
+author: "Marc Noguera"
+date: "3/23/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = here::here())
+```
+
+## MetaR Explorer Report
+
+This Rmd is intended to read MRE object (no writing) and produce local report for exploratory and analysis plan meeting
+
+```{r read MRE and export report, eval =F}
+require(phyloseq)
+require(ggstatsplot)
+require(ggplot2)
+require(here)
+
+bucket<-"s3://mistral-wp6-advanz4/"
+bucketDir<-"metagenome/WMGS"
+
+# Load package from local copy, needs to handle some of the dependencies manually.
+devtools::load_all("~/Documents/Work/Development/WMGSPipeline/")### Change to require/library/load local package
+devtools::load_all("~/Documents/Work/Development/metaExplorer/")### Change to require/library/load local package
+# myMREObject<-readRDS("data/processed/mreObject.rds")
+mre<-aws.s3::s3readRDS(bucket=bucket,object = paste0(bucketDir,"/MREObject.rds"))
+
+### Execute on the fly until memory space for rarefaction issue is solved
+mre<-mre %>% metar::igc_lmm() %>% igc_rarefaction()
+
+metaExplorer::export_report(
+mre,
+diversity_slot = "igc",
+taxa_slot = "metaphlan",
+metadata_vars = get_metadata_vars(mre),
+report_title = "ADVANZ4 Exploratory Report",
+output_file = paste0(here::here(),"/docs/mistral_advanz4_report.pdf")
+)
+```
+

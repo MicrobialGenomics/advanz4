@@ -514,9 +514,10 @@ ggpubr::ggarrange(plt_abs, plt_rel, nrow = 2, ncol = 1)
 No quantitative difference could be found between delta GR and delta CD4. The only thing to look at now is to check wether there is a significant GR differences between those who recovered more or less than 150 CD4-
 
 # Comparisons by CD4 recovery
-We did not find many signals correlating numerical absolute and relative numbers of CD4 and Gene Richness. Now we'r going to check if there is any actual difference in Gene richness in those with CD4 recovery < 150 
+We did not find many signals correlating numerical absolute and relative numbers of CD4 and Gene Richness. Now we'r going to check if there is any actual difference in Gene richness in those with CD4 recovery < 150.
+The patients have been stratified in 3 groups: those who reached an increase of 150 counts/ml at week 48 (48), those who did at week 96 (96) and those who didn't surpass this threshold at all (No)
 
-```{r}
+```{r richness_CD4_categorical}
 df <- 
 deltas %>% 
   left_join(metadata[,c("SampleID", "CD4diff_48", "CD4diff_96")], by = "SampleID") %>% 
@@ -530,17 +531,21 @@ deltas %>%
     is.na(CD4diff_48) & CD4diff_96 == "150_L" ~ "No")) %>% 
   filter(!is.na(recovery), !long_var == 0)
 
-
+test_cat <- 
+df %>% 
+  group_by(long_var) %>% 
+  rstatix::wilcox_test(richness ~ recovery) %>% 
+  rstatix::add_xy_position(x = "long_var", group = "recovery")
 
 
 plt <- 
-  df %>% 
-  ggplot(., aes(x = as.factor(long_var), y = richness, fill = recovery)) +
-  geom_boxplot() +
+df %>% 
+  ggplot(., aes(x = as.factor(long_var), y = richness)) +
+  geom_boxplot(aes(fill = recovery)) +
   labs(x = "weeks", y = "gene richness (absolute)", fill = "recovery\n(>150 increase)") +
   scale_fill_brewer(palette = "Dark2") +
   theme_bw() +
-  
+  stat_pvalue_manual(test_cat,inhertit.aes = F ,hide.ns = T) +
   theme(
     axis.title = element_text(face = "bold")
   )
@@ -548,9 +553,64 @@ plt <-
 
 
 
+lmm <- 
+df %>% 
+ get_lmm_effects(., cat_vector = c("recovery"),num_vector = "richness", link_var = "link_var", long_var = "long_var")
+
+
+plt
+lmm$recovery$richness$plot
+lmm$recovery$richness$summary
 ```
 
+No differences in gene richness could be found between those who recovered more than <150 CD4+/ml at week 48 and those who did at week 96. We'll test for deltaGR now:
 
+```{r delta_GR_CD4_cat, warning = F, message=F}
+
+df <- 
+deltas %>% 
+  left_join(metadata[,c("SampleID", "CD4diff_48", "CD4diff_96")], by = "SampleID") %>% 
+  # mutate(CD4diff_48 = recode(CD4diff_48, "150_H" = "48_H", "150_L" = "48_L"),
+  #        CD4diff_96 = recode(CD4diff_96, "150_H" = "96_H", "150_L" = "96_L")) %>% 
+  mutate(recovery = case_when(
+    CD4diff_48 == "150_H" ~ "48",
+    CD4diff_48 == "150_L" & CD4diff_96 == "150_H" ~ "96",
+    CD4diff_48 == "150_L" & CD4diff_96 == "150_L" ~ "No",
+    is.na(CD4diff_48) & CD4diff_96 == "150_H" ~ "96",
+    is.na(CD4diff_48) & CD4diff_96 == "150_L" ~ "No")) %>% 
+  filter(!is.na(recovery), !long_var == 0)
+
+test_cat <- 
+df %>% 
+  group_by(long_var) %>% 
+  rstatix::wilcox_test(GR_rel ~ recovery) %>% 
+  rstatix::add_xy_position(x = "long_var", group = "recovery")
+
+
+plt <- 
+df %>% 
+  ggplot(., aes(x = as.factor(long_var), y = GR_rel)) +
+  geom_boxplot(aes(fill = recovery)) +
+  labs(x = "weeks", y = "deltaGR (relative)", fill = "recovery\n(>150 increase)") +
+  scale_fill_brewer(palette = "Dark2") +
+  theme_bw() +
+  stat_pvalue_manual(test_cat,inhertit.aes = F ,hide.ns = T) +
+  theme(
+    axis.title = element_text(face = "bold")
+  )
+
+
+
+
+lmm <- 
+df %>% 
+ get_lmm_effects(., cat_vector = c("recovery"),num_vector = "GR_rel", link_var = "link_var", long_var = "long_var")
+
+
+plt
+lmm$recovery$GR_rel$plot
+lmm$recovery$GR_rel$summary
+```
 
 
 

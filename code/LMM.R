@@ -106,10 +106,10 @@ get_lmm_effects <- function(data, cat_vector, num_vector, long_var, link_var, ti
           dat <-
             data %>%
             dplyr::select(SampleID,
-                          link_var = link_var,
-                          long_var = long_var,
-                          cat_var = cat_var,
-                          num_var = num_var)
+                          link_var = !!sym(link_var),
+                          long_var = !!sym(long_var),
+                          cat_var = !!sym(cat_var),
+                          num_var = !!sym(num_var))
 
           cat_levels <-
             dat %>%
