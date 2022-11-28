@@ -411,14 +411,33 @@ deltas %>%
   dplyr::filter(!long_var == 0) %>% 
   correlation::cor_test(., "CD4_abs", "GR_abs", method ="spearman")
 
+plot_overall_abs <- deltas %>% 
+  ggplot(aes(x=CD4_abs, y = GR_abs)) +
+  geom_point(aes(color = cat_var)) +
+  geom_smooth(method = "lm") +
+  theme_bw() + 
+  labs(color = "group", title = "Absolute")
+
+
 relative_cors <- 
 deltas %>% 
   dplyr::filter(!long_var == 0) %>% 
   correlation::cor_test(., "CD4_rel", "GR_rel", method ="spearman")
 
+plot_overall_rel <- deltas %>% 
+  ggplot(aes(x=CD4_rel, y = GR_rel)) +
+  geom_point(aes(color = cat_var)) +
+  geom_smooth(method = "lm") +
+  theme_bw() +
+  labs(color = "group", title = "relative")
+
+
 absolute_cors
 
+
 relative_cors
+ggarrange(plot_overall_abs, plot_overall_rel, common.legend = T)
+
 ```
 No overall correlations could be found. Let's check split per timepoint:
 
@@ -610,6 +629,93 @@ df %>%
 plt
 lmm$recovery$GR_rel$plot
 lmm$recovery$GR_rel$summary
+```
+
+
+Finally, we are going to tests if overall having an increase higher than 150 counts is tied to different deltaGR.
+
+```{r diff_CD4_test, warning = F, message = F}
+
+dif48_abs <- 
+df %>%
+  ungroup() %>% 
+  dplyr::filter(long_var == 48) %>% 
+  rstatix::wilcox_test(GR_abs ~ CD4diff_48)
+
+
+dif48_rel <- 
+  df %>%
+  ungroup() %>%
+  dplyr::filter(long_var == 48) %>% 
+  rstatix::wilcox_test(GR_rel ~ CD4diff_48)
+dif_48 <- rbind(dif48_abs, dif48_rel)
+
+
+plt_48_abs <- 
+df %>% 
+  ungroup() %>% 
+  dplyr::filter(long_var %in% c(48),
+                !is.na(CD4diff_48)) %>% 
+  ggplot(aes(y = GR_abs, fill = CD4diff_48)) +
+  geom_boxplot() +
+    theme_bw() +
+  labs(title = "Absolute")
+
+plt_48_rel <- 
+df %>% 
+  ungroup() %>% 
+  dplyr::filter(long_var %in% c(48),
+                !is.na(CD4diff_48)) %>% 
+  ggplot(aes(y = GR_rel, fill = CD4diff_48)) +
+  geom_boxplot() + 
+  theme_bw() +
+  labs(title = "Relative")
+
+dif96_abs <- 
+  df %>%
+  ungroup() %>%
+  dplyr::filter(long_var == 96) %>% 
+  rstatix::wilcox_test(GR_abs ~ CD4diff_96)
+
+
+dif96_rel <- 
+  df %>%
+  ungroup() %>%   
+  dplyr::filter(long_var == 96) %>% 
+  rstatix::wilcox_test(GR_rel ~ CD4diff_96)
+dif_96 <- rbind(dif96_abs, dif96_rel)
+
+
+plt_96_abs <- 
+df %>% 
+  ungroup() %>% 
+  dplyr::filter(long_var %in% c(96),
+                !is.na(CD4diff_96)) %>% 
+  ggplot(aes(y = GR_abs, fill = CD4diff_96)) +
+  geom_boxplot() + 
+  theme_bw() +
+  labs(title = "Absolute")
+
+
+plt_96_rel <- 
+df %>% 
+  ungroup() %>% 
+  dplyr::filter(long_var %in% c(96),
+                !is.na(CD4diff_96)) %>% 
+  ggplot(aes(y = GR_rel, fill = CD4diff_96)) +
+  geom_boxplot() + 
+  theme_bw() +
+  labs(title = "Relative")
+
+
+
+dif_48
+ggpubr::ggarrange(plt_48_abs, plt_48_rel, common.legend = T)
+
+dif_96
+ggpubr::ggarrange(plt_96_abs, plt_96_rel, common.legend = T)
+
+
 ```
 
 
