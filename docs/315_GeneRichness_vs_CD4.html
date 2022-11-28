@@ -470,15 +470,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree6778971304fc9248a78e92037ad654e226a251d0targetblank6778971a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree27df3cbd6182d522f0342d5985ff57c229c46ff4targetblank27df3cba">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/MicrobialGenomics/advanz4/tree/6778971304fc9248a78e92037ad654e226a251d0" target="_blank">6778971</a>
+<a href="https://github.com/MicrobialGenomics/advanz4/tree/27df3cbd6182d522f0342d5985ff57c229c46ff4" target="_blank">27df3cb</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree6778971304fc9248a78e92037ad654e226a251d0targetblank6778971a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree27df3cbd6182d522f0342d5985ff57c229c46ff4targetblank27df3cba"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -488,7 +488,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/MicrobialGenomics/advanz4/tree/6778971304fc9248a78e92037ad654e226a251d0" target="_blank">6778971</a>.
+<a href="https://github.com/MicrobialGenomics/advanz4/tree/27df3cbd6182d522f0342d5985ff57c229c46ff4" target="_blank">27df3cb</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -515,7 +515,6 @@ Ignored files:
 
 Unstaged changes:
     Modified:   analysis/315_GeneRichness_vs_CD4.Rmd
-    Modified:   code/LMM.R
 
 </code></pre>
 <p>
@@ -562,6 +561,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/27df3cbd6182d522f0342d5985ff57c229c46ff4/analysis/315_GeneRichness_vs_CD4.Rmd" target="_blank">27df3cb</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-11-28
+</td>
+<td>
+Added comparisons and lmms of GR per recovery
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/27df3cbd6182d522f0342d5985ff57c229c46ff4/docs/315_GeneRichness_vs_CD4.html" target="_blank">27df3cb</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-11-28
+</td>
+<td>
+Added comparisons and lmms of GR per recovery
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1459,6 +1492,99 @@ cat_var96          -0.0347647331 0.0854416581 116.43001 -0.4068827 0.6848412
 cat_varNo          -0.1263813874 0.0811144307  98.18136 -1.5580629 0.1224360
 long_var:cat_var96  0.0002888975 0.0008931111  79.37839  0.3234732 0.7471875
 long_var:cat_varNo -0.0001419035 0.0007703357  68.69652 -0.1842100 0.8543914</code></pre>
+<p>Finally, we are going to tests if overall having an increase higher
+than 150 counts is tied to different deltaGR.</p>
+<pre class="r"><code>dif48_abs &lt;- 
+df %&gt;%
+  ungroup() %&gt;% 
+  dplyr::filter(long_var == 48) %&gt;% 
+  rstatix::wilcox_test(GR_abs ~ CD4diff_48)
+
+
+dif48_rel &lt;- 
+  df %&gt;%
+  ungroup() %&gt;%
+  dplyr::filter(long_var == 48) %&gt;% 
+  rstatix::wilcox_test(GR_rel ~ CD4diff_48)
+dif_48 &lt;- rbind(dif48_abs, dif48_rel)
+
+
+plt_48_abs &lt;- 
+df %&gt;% 
+  ungroup() %&gt;% 
+  dplyr::filter(long_var %in% c(48),
+                !is.na(CD4diff_48)) %&gt;% 
+  ggplot(aes(y = GR_abs, fill = CD4diff_48)) +
+  geom_boxplot() +
+    theme_bw() +
+  labs(title = &quot;Absolute&quot;)
+
+plt_48_rel &lt;- 
+df %&gt;% 
+  ungroup() %&gt;% 
+  dplyr::filter(long_var %in% c(48),
+                !is.na(CD4diff_48)) %&gt;% 
+  ggplot(aes(y = GR_rel, fill = CD4diff_48)) +
+  geom_boxplot() + 
+  theme_bw() +
+  labs(title = &quot;Relative&quot;)
+
+dif96_abs &lt;- 
+  df %&gt;%
+  ungroup() %&gt;%
+  dplyr::filter(long_var == 96) %&gt;% 
+  rstatix::wilcox_test(GR_abs ~ CD4diff_96)
+
+
+dif96_rel &lt;- 
+  df %&gt;%
+  ungroup() %&gt;%   
+  dplyr::filter(long_var == 96) %&gt;% 
+  rstatix::wilcox_test(GR_rel ~ CD4diff_96)
+dif_96 &lt;- rbind(dif96_abs, dif96_rel)
+
+
+plt_96_abs &lt;- 
+df %&gt;% 
+  ungroup() %&gt;% 
+  dplyr::filter(long_var %in% c(96),
+                !is.na(CD4diff_96)) %&gt;% 
+  ggplot(aes(y = GR_abs, fill = CD4diff_96)) +
+  geom_boxplot() + 
+  theme_bw() +
+  labs(title = &quot;Absolute&quot;)
+
+
+plt_96_rel &lt;- 
+df %&gt;% 
+  ungroup() %&gt;% 
+  dplyr::filter(long_var %in% c(96),
+                !is.na(CD4diff_96)) %&gt;% 
+  ggplot(aes(y = GR_rel, fill = CD4diff_96)) +
+  geom_boxplot() + 
+  theme_bw() +
+  labs(title = &quot;Relative&quot;)
+
+
+
+dif_48</code></pre>
+<pre><code># A tibble: 2 x 9
+  .y.    group1 group2    n1    n2 statistic     p p.adj p.adj.signif
+  &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;       
+1 GR_abs 150_H  150_L     42    14       183 0.444 0.444 ns          
+2 GR_rel 150_H  150_L     42    14       186 0.488 0.488 ns          </code></pre>
+<pre class="r"><code>ggpubr::ggarrange(plt_48_abs, plt_48_rel, common.legend = T)</code></pre>
+<p><img src="figure/315_GeneRichness_vs_CD4.Rmd/diff_CD4_test-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>dif_96</code></pre>
+<pre><code># A tibble: 2 x 9
+  .y.    group1 group2    n1    n2 statistic     p p.adj p.adj.signif
+  &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;       
+1 GR_abs 150_H  150_L     40     8       169 0.123 0.123 ns          
+2 GR_rel 150_H  150_L     40     8       174 0.085 0.085 ns          </code></pre>
+<pre class="r"><code>ggpubr::ggarrange(plt_96_abs, plt_96_rel, common.legend = T)</code></pre>
+<p><img src="figure/315_GeneRichness_vs_CD4.Rmd/diff_CD4_test-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>No differences could be observed between those who had &gt;150 CD4
+count increase at either week 96 or week 48.</p>
 <p>And plot:</p>
 <ul>
 <li>Values vs timepoint, overall and per-group(DTG and DRVr only). Fit

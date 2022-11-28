@@ -718,7 +718,7 @@ ggpubr::ggarrange(plt_96_abs, plt_96_rel, common.legend = T)
 
 ```
 
-
+No differences could be observed between those who had >150 CD4 count increase at either week 96 or week 48.
 
 And plot:
 
