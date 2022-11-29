@@ -95,8 +95,13 @@ median_df <- basal_df %>%
   
 
 peak_finder <-
-  function(density, keep = F) {
+  function(density, goal = "max",keep = F) {
     ### Let's define this function heere but we'll use it later
+    stopifnot("goal can only be either local maxima (use: 'max') or local minima (use 'min)" = goal %in% c("min","max"))
+    
+    val <- case_when(goal == "max" ~ -2,
+                   goal == "min" ~ 2)
+    
     res <-
       density %>%
       purrr::keep(names(.) %in% c("x", "y")) %>%
@@ -104,7 +109,7 @@ peak_finder <-
       dplyr::mutate(is_peak = c(F, # 1st value can't be a local maxima, as there is no prior value to compare
                                 diff(y) %>% # For each nth element of the vector, get (n+1) - n
                                   sign() %>%  # convert to -1 (n+1 is lower than n) or +1 (n+1 is higher than n)
-                                  diff() == -2, # if n is at a local maxima, both n+1 and n-1 are negative so [(n+1)-n] - [n - (n-1)] is -2
+                                  diff() == val, # if n is at a local maxima, both n+1 and n-1 are negative so [(n+1)-n] - [n - (n-1)] is -2
                                 F)) # Last element can't be a local maxima either)
                     
                     if (!keep) {
@@ -125,7 +130,7 @@ peak_df <- unique(basal_df$group) %>%
       dplyr::filter(group == arm) %>% 
       pull(CD4) %>% 
       density(n=nrow(.)) %>% 
-      peak_finder(., keep = F) %>% 
+      peak_finder(., goal = "max",keep = F) %>% 
       mutate(group = arm)
 
   })
@@ -145,7 +150,7 @@ plt <- ggplot(basal_df, aes(x=CD4, color=group)) +
   scale_fill_brewer(palette = "Accent") +
   geom_vline(data = median_df, aes(xintercept =  med, color = group), lwd = 1.5, lty = 2) +
   geom_text(data = median_df, aes(label = paste("med =",med), x = med, y = c(0.012,0.015)), color = "black") +
-  # geom_vline(data = peak_df, aes(xintercept =  x),color = "black",lty = 3) +)
+  # geom_vline(data = peak_df, aes(xintercept =  x),color = "black",lty = 3) +
   labs (x = "CD4 (counts)")
   # geom_errorbar(stat = "hline", xintercept = "median",
   # width=0.8,aes(xmax=..x..,xmin=..x..))
@@ -414,7 +419,7 @@ deltas %>%
 plot_overall_abs <- deltas %>% 
   ggplot(aes(x=CD4_abs, y = GR_abs)) +
   geom_point(aes(color = cat_var)) +
-  geom_smooth(method = "lm") +
+  geom_smooth(method = "glm") +
   theme_bw() + 
   labs(color = "group", title = "Absolute")
 
@@ -427,13 +432,16 @@ deltas %>%
 plot_overall_rel <- deltas %>% 
   ggplot(aes(x=CD4_rel, y = GR_rel)) +
   geom_point(aes(color = cat_var)) +
-  geom_smooth(method = "lm") +
+  geom_smooth(method = "glm") +
   theme_bw() +
   labs(color = "group", title = "relative")
 
 
 absolute_cors
 
+
+deltas %>% 
+  glm(data = ., formula = "CD4_rel ~ GR_rel")
 
 relative_cors
 ggarrange(plot_overall_abs, plot_overall_rel, common.legend = T)
@@ -719,6 +727,28 @@ ggpubr::ggarrange(plt_96_abs, plt_96_rel, common.legend = T)
 ```
 
 No differences could be observed between those who had >150 CD4 count increase at either week 96 or week 48.
+
+```{r Chisq_test, warning=F,message=F}
+contingency_table <- 
+df %>% 
+  ungroup() %>% 
+  dplyr::select(cat_var,recovery) %>% 
+  dplyr::group_by(cat_var, recovery) %>% 
+  tally() %>% 
+  pivot_wider(values_from = n, names_from = recovery) 
+
+
+contingency_table
+
+contingency_table %>% 
+  column_to_rownames("cat_var") %>% 
+  chisq.test()
+
+
+
+```
+
+It appears, belonging to either treatment group does not affect the odds of recovering <150 CD4 counts at week 48 or 96.
 
 And plot:
 
