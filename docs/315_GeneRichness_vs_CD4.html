@@ -1282,7 +1282,7 @@ deltas %&gt;%
 plot_overall_abs &lt;- deltas %&gt;% 
   ggplot(aes(x=CD4_abs, y = GR_abs)) +
   geom_point(aes(color = cat_var)) +
-  geom_smooth(method = &quot;lm&quot;) +
+  geom_smooth(method = &quot;glm&quot;) +
   theme_bw() + 
   labs(color = &quot;group&quot;, title = &quot;Absolute&quot;)
 
@@ -1295,7 +1295,7 @@ deltas %&gt;%
 plot_overall_rel &lt;- deltas %&gt;% 
   ggplot(aes(x=CD4_rel, y = GR_rel)) +
   geom_point(aes(color = cat_var)) +
-  geom_smooth(method = &quot;lm&quot;) +
+  geom_smooth(method = &quot;glm&quot;) +
   theme_bw() +
   labs(color = &quot;group&quot;, title = &quot;relative&quot;)
 
@@ -1306,6 +1306,19 @@ absolute_cors</code></pre>
 CD4_abs    |     GR_abs | 0.12 | [-0.06, 0.30] | 2.65e+05 | 0.177
 
 Observations: 122</code></pre>
+<pre class="r"><code>deltas %&gt;% 
+  glm(data = ., formula = &quot;CD4_rel ~ GR_rel&quot;)</code></pre>
+<pre><code>
+Call:  glm(formula = &quot;CD4_rel ~ GR_rel&quot;, data = .)
+
+Coefficients:
+(Intercept)       GR_rel  
+     0.4407       0.4821  
+
+Degrees of Freedom: 189 Total (i.e. Null);  188 Residual
+  (48 observations deleted due to missingness)
+Null Deviance:      27.09 
+Residual Deviance: 26.16    AIC: 168.5</code></pre>
 <pre class="r"><code>relative_cors</code></pre>
 <pre><code>Parameter1 | Parameter2 |   rho |        95% CI |        S |     p
 ------------------------------------------------------------------

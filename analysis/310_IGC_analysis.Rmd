@@ -38,8 +38,6 @@ First we'll check how well the sequencing went by looking at the read count dist
 # mymre<-readRDS(here::here(myPath,"data","mre.rds"))
 
 
-
-
 mymre <- aws.s3::s3readRDS(bucket = "mistral-wp6-advanz4",object = "metagenome/WMGS/MREObject.rds", region = "eu-west-1")
 ### Check consistency between mre.rds(local and S3). You are reading s3 file, here, but in 200_ you are using local
 # metadata <- metar::get_metadata(mymre)@metadata_df

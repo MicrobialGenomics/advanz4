@@ -80,6 +80,8 @@ CmvEventAnyDt,new_cmv_date,YES
 CMV.Event.Evol,new_cmv_evol,YES
 CmvEventEvolTm,cmv_time_evol,YES
 CMV.Negative,cmv_negative,YES
+CMV.basal,cmv_bl,YES
+CMV.organic.disease.after.review,cmv_disease_after,YES
 AA_MaxDt,AA_max_date,NO
 C1_MaxDt,C1_max_date,NO
 DisA_MaxDt,DisA_max_date,NO
@@ -104,7 +106,7 @@ Motivo,reason_spanish,NO
 WeeksOnProtocolDbr_,weeks_protocol_n,NO
 PrematureFinalisation_,followup_dropout_n,NO
 NewAidsEventDt,aids_new_date_n,NO
-CmvEventEvolDt,cmv_new_date_n,NO
+CmvEventEvolDt,cmv_new_date_n,Yes
 IRIS_,iris_n,NO
 NewAidsEvent_..weeks.,aids_new_weeks_n,NO
 CmvEventAny_,cmv_event_n,NO
@@ -114,3 +116,4 @@ CmvEventEvolTm_,cmv_evol_weeks,NO
 ResistenceTime,resistence_time,NO
 SidaTime,aids_time,NO
 m.u.l.t.i.p.l.e,??,NO
+

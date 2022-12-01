@@ -1,0 +1,199 @@
+---
+title: "CMV vs Gene Richness"
+author: "Carlos Blázquez Bondia"
+date: '2022-11-30'
+output:
+  html_document: default
+  pdf_document: default
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, echo=F, warning=F, message=F}
+
+library(tidyverse)
+library(ggplot2)
+library(rstatix)
+library(ggpubr)
+library(RColorBrewer)
+
+```
+
+
+
+```{r load_metadata_vars, eval=T, include=F}
+# mymre<-readRDS(here::here(myPath,"data","mre.rds"))
+
+
+mymre <- aws.s3::s3readRDS(bucket = "mistral-wp6-advanz4",object = "metagenome/WMGS/MREObject.rds", region = "eu-west-1")
+### Check consistency between mre.rds(local and S3). You are reading s3 file, here, but in 200_ you are using local
+# metadata <- metar::get_metadata(mymre)@metadata_df
+
+metadata <- here::here("Metadata", "2022_11_30_clean_metadata_LIMS.csv") %>% 
+  read.csv() %>% 
+  column_to_rownames("SampleID") %>% 
+  mutate(SampleID = rownames(.))
+
+mymre@metadata@categorical_vals <-  
+  here::here("Metadata","CategoricalVariables.txt") %>%
+  read.table(., sep="\t") %>%
+  setNames(c("CategoricalVariable","PaletteName")) %>%
+  as_tibble()
+
+mymre@metadata@metadata_df <-  tibble(metadata)
+
+
+cat_df <- 
+  here::here("Metadata", "CategoricalVariables.txt") %>% 
+  read.delim(., header = T)
+
+cat_vector <- cat_df %>% 
+  pull(CategoricalVariable)
+
+long_var <- here::here("Metadata", "LongitudinalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(LongitudinalVariable)
+
+link_var <- here::here("Metadata", "LongitudinalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(LinkVariable)
+
+num_var <- here::here("Metadata", "NumericalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(NumericalVariable)
+
+
+```
+
+```{r update_mre, warning= F, message= F}
+
+#### This chunk is for updating the mre internally as new variables come out. Once the final mre is done this chunk will be removed.
+devtools::load_all("../WMGSPipeline/")
+
+
+mymre <- filter_samples(mre = mymre, sample_ids = metadata$SampleID)
+
+mymre@metadata@metadata_df <- as_tibble(metadata)
+
+mymre@metadata@categorical_vals <- here::here("Metadata", "CategoricalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+mymre@metadata@numeric_vals <- here::here("Metadata", "NumericalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+mymre@metadata@longitudinal_vals <- here::here("Metadata", "LongitudinalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+
+```
+
+
+
+```{r get_GeneRichness_Data, echo=FALSE, message=F, warning=F}
+
+knitr::read_chunk(path = here::here("analysis","310_IGC_analysis.Rmd"), labels = "get_GeneRichness_Data")
+igc<-metar::get_diversity(mymre)@igc
+
+# We'll save this number to report the minimum read threshold.
+
+myigc <- igc_lmm(mymre)
+
+
+
+Threshold <-  igc@dataTable %>%
+  dplyr::select(SampleID, NumberMappedReads) %>%
+  unique() %>%
+  summarise(Q = quantile(NumberMappedReads,0.02)) %>% 
+  as.numeric()
+
+
+readCountDistribution<-igc@dataTable %>%
+    select(SampleID, NumberMappedReads) %>% 
+    unique() %>%
+
+    ggplot(aes(x=NumberMappedReads)) +
+    geom_density(fill="grey") + 
+    theme_bw() +
+    geom_vline(xintercept = Threshold)
+
+
+
+
+
+
+
+
+TableList <- cat_vector %>%
+    set_names() %>%
+    map( ~{
+
+        
+          ThresholdTable <- igc@dataTable %>%
+                filter(NumberMappedReads >= Threshold) %>%
+                filter(ReadCountReal>=Threshold) %>% ### Get the Mapped Read count (per-sample) just above the threshold
+                group_by(SampleID) %>%
+                summarise(across(everything(), min)) %>%
+                ungroup() %>%
+          right_join(., metadata, by="SampleID") %>%
+          select(SampleID,
+                 richness = GeneNumber,
+                 link_var=link_var,
+                 cat_var = .x,
+                 long_var = long_var,
+                 NumberMappedReads)
+  
+
+        
+    })
+
+
+
+```
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r CMV_Basal_vs_GR}
+working_df <- 
+  TableList %>% 
+  purrr::pluck("group") %>% 
+  left_join(metadata[,c("SampleID","cmv_bl")])
+
+bl_df <- 
+working_df %>% 
+  dplyr::filter(long_var == 0) %>% 
+  dplyr::mutate(has_cmv = case_when(
+    cmv_bl == 0 ~ "no",
+    cmv_bl > 0 ~ "yes"
+  ))
+
+bl_df %>% 
+  ggplot(aes(x = cat_var, y = richness, color = has_cmv)) +
+  geom_violin(draw_quantiles = T, alpha = 0) +
+  ggpubr::stat_compare_means(method="wilcox.test")
+
+
+bl_df %>% 
+  ggplot(aes(x=richness, y = cmv_bl,color=cat_var)) +
+  geom_point()
+
+
+cor.test(x=bl_df$richness, y=bl_df$cmv_bl)
+
+bl
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

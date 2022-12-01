@@ -7,7 +7,6 @@ output:
   pdf_document: default
 editor_options:
   chunk_output_type: console
-
 ---
 
 ```{r setup, include=FALSE}
