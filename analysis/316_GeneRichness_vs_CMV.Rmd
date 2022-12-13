@@ -188,12 +188,41 @@ cor.test(x=bl_df$richness, y=bl_df$cmv_bl)
 bl
 ```
 
-## Including Plots
+## CMV along the study
 
-You can also embed plots, for example:
+We'll perform a quick view of how CMV evolves along the timepoints and try to find if they correlate with Gene Richness
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r CMV_tp, echo=FALSE}
+
+GR_df <- 
+  metadata %>%
+  dplyr::left_join(TableList$group[,c("SampleID","richness")], by = "SampleID") %>% 
+  dplyr::select(time_point, richness, CMV_VL, group ) %>% 
+  filter(time_point == 48) %>% 
+  pull(CMV_VL)
+
+
+ggplot(GR_df, aes(x = as.factor(time_point), y = CMV_VL, color = group)) +
+  geom_violin() +
+  theme_bw() +
+  labs(color = "group")
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+Apparently, there's barely any CMV viral load outside of baseline. It appears there is some value at week 48 but a closer look shows all entries at this timepoint have a VL of 35, which is the standard result when measurement is below LLOQ (<35). We'll stick to BL comparisons.
+
+
+# Beta diversity ordination by CMV presence
+
+```{r NMDS_CMV}
+
+
+
+basal_mre <- 
+  metar::filter_samples(mre = mymre, sample_ids = basal_df$SampleID)
+basal_nmds <- metar::metaphlan_nmds(mre = basal_mre, tax_level = "Species", save_files = F)
+```
+
+
+
