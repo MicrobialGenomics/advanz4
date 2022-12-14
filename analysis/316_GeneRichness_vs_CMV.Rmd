@@ -180,7 +180,8 @@ bl_df %>%
 
 bl_df %>% 
   ggplot(aes(x=richness, y = cmv_bl,color=cat_var)) +
-  geom_point()
+  geom_point() +
+  geom_smooth(method = "glm")
 
 
 cor.test(x=bl_df$richness, y=bl_df$cmv_bl)
