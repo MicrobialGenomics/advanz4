@@ -86,6 +86,7 @@ mymre@metadata@numeric_vals <- here::here("Metadata", "NumericalVariables.txt") 
 mymre@metadata@longitudinal_vals <- here::here("Metadata", "LongitudinalVariables.txt") %>% 
   read.delim(., header = T) %>% 
   tibble()
+mymre@taxa@metaphlan@phyloseq@sam_data <- phyloseq::sample_data(metadata)
 
 
 ```
@@ -158,7 +159,7 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-```{r CMV_Basal_vs_GR}
+```{r CMV_Basal_vs_GR, message = F, warning= F}
 working_df <- 
   TableList %>% 
   purrr::pluck("group") %>% 
@@ -186,21 +187,18 @@ bl_df %>%
 
 cor.test(x=bl_df$richness, y=bl_df$cmv_bl)
 
-bl
 ```
 
 ## CMV along the study
 
 We'll perform a quick view of how CMV evolves along the timepoints and try to find if they correlate with Gene Richness
 
-```{r CMV_tp, echo=FALSE}
+```{r CMV_tp, echo=FALSE, message = F, warning = F}
 
 GR_df <- 
   metadata %>%
   dplyr::left_join(TableList$group[,c("SampleID","richness")], by = "SampleID") %>% 
-  dplyr::select(time_point, richness, CMV_VL, group ) %>% 
-  filter(time_point == 48) %>% 
-  pull(CMV_VL)
+  dplyr::select(time_point, richness, CMV_VL, group ) 
 
 
 ggplot(GR_df, aes(x = as.factor(time_point), y = CMV_VL, color = group)) +
@@ -216,13 +214,23 @@ Apparently, there's barely any CMV viral load outside of baseline. It appears th
 
 # Beta diversity ordination by CMV presence
 
-```{r NMDS_CMV}
+```{r NMDS_CMV, message = F, warning=FALSE}
 
-
+bl_df <- 
+  metadata %>% 
+  mutate(cmv_bl_c = case_when(cmv_bl == 0 ~ "no", cmv_bl > 0 ~ "yes")) %>% 
+  dplyr::filter(time_point == 0) 
 
 basal_mre <- 
-  metar::filter_samples(mre = mymre, sample_ids = basal_df$SampleID)
+  metar::filter_samples(mre = mymre, sample_ids = bl_df$SampleID)
+basal_mre@metadata@metadata_df <- tibble(bl_df)
+basal_mre@metadata@categorical_vals <- tibble(CategoricalVariable = "cmv_bl_c", PaletteName = "Accent")
+add_num(basal_mre, c("HIV_VL","CMV_VL"), palette = c("Set1","Set1"))
+basal_mre@taxa@metaphlan@phyloseq@sam_data <- phyloseq::sample_data(bl_df)
 basal_nmds <- metar::metaphlan_nmds(mre = basal_mre, tax_level = "Species", save_files = F)
+
+basal_nmds@taxa@metaphlan@nmds$Species$top_50$categorical$cmv_bl_c
+
 ```
 
 
