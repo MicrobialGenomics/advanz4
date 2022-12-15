@@ -16,6 +16,9 @@ library(ggplot2)
 library(rstatix)
 library(ggpubr)
 library(RColorBrewer)
+library(vegan)
+library(gridExtra)
+
 
 ```
 
@@ -153,11 +156,10 @@ TableList <- cat_vector %>%
 
 
 ```
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+## presence of CMV at BL interaction with GR
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+First we'll compare those samples at basal in gene richness as whether or not they have CMV presence.
 
 ```{r CMV_Basal_vs_GR, message = F, warning= F}
 working_df <- 
@@ -174,9 +176,11 @@ working_df %>%
   ))
 
 bl_df %>% 
-  ggplot(aes(x = cat_var, y = richness, color = has_cmv)) +
-  geom_violin(draw_quantiles = T, alpha = 0) +
-  ggpubr::stat_compare_means(method="wilcox.test")
+  ggplot(aes(x = has_cmv, y = richness, fill = has_cmv)) +
+  geom_violin(alpha = 1, draw_quantiles = c(.25,.5,.75), trim = F) +
+  ggpubr::stat_compare_means(method="wilcox.test") +
+  theme_bw() +
+  labs(x = "CMV presence", fill = "CMV presence")
 
 
 bl_df %>% 
@@ -188,6 +192,8 @@ bl_df %>%
 cor.test(x=bl_df$richness, y=bl_df$cmv_bl)
 
 ```
+
+Overall, doesn't seem like there is a difference in Gene Richness between CMV+ and CMV-, although the p.val is close to 0.05.
 
 ## CMV along the study
 
@@ -215,7 +221,6 @@ Apparently, there's barely any CMV viral load outside of baseline. It appears th
 # Beta diversity ordination by CMV presence
 
 ```{r NMDS_CMV, message = F, warning=FALSE}
-
 bl_df <- 
   metadata %>% 
   mutate(cmv_bl_c = case_when(cmv_bl == 0 ~ "no", cmv_bl > 0 ~ "yes")) %>% 
@@ -224,14 +229,202 @@ bl_df <-
 basal_mre <- 
   metar::filter_samples(mre = mymre, sample_ids = bl_df$SampleID)
 basal_mre@metadata@metadata_df <- tibble(bl_df)
-basal_mre@metadata@categorical_vals <- tibble(CategoricalVariable = "cmv_bl_c", PaletteName = "Accent")
+basal_mre@metadata@categorical_vals <- tibble(CategoricalVariable = c("cmv_bl_c", "time_point"), PaletteName = c("Accent", "Set1"))
 add_num(basal_mre, c("HIV_VL","CMV_VL"), palette = c("Set1","Set1"))
-basal_mre@taxa@metaphlan@phyloseq@sam_data <- phyloseq::sample_data(bl_df)
-basal_nmds <- metar::metaphlan_nmds(mre = basal_mre, tax_level = "Species", save_files = F)
 
-basal_nmds@taxa@metaphlan@nmds$Species$top_50$categorical$cmv_bl_c
+phy <- get_phyloseq(basal_mre, type = "metaphlan")
+phy@sam_data <- phyloseq::sample_data(bl_df)
 
 ```
 
 
 
+```{r Get_DistMats, eval=T, include=T, results = 'hide', message = F, warning = F}
+
+getAbundances<-function(phyloseq, level){
+  
+  collapsedPhyloseq<- phyloseq::tax_glom(phyloseq, level)
+  
+  OtuTable<- phyloseq::otu_table(collapsedPhyloseq) %>%
+    magrittr::set_rownames(as.character(phyloseq::tax_table(collapsedPhyloseq)[,level])) %>%
+    as.data.frame()
+  return(OtuTable)
+  
+}
+
+
+
+
+myAbundanceDF<- getAbundances(phy, "Species")
+
+
+myNMDS <- myAbundanceDF %>%
+  t() %>% 
+    as.data.frame() %>%
+    # vegan::vegdist(., method = "bray") %>%
+ 
+    metaMDS(.,trymax=800,  distance = "bray",
+            k = 2) %>%
+    pluck("points") %>%
+    as.data.frame() 
+
+  # NMDS = data.frame(NMDS1 = dim_NMDS$points[,1], NMDS2 = dim_NMDS$points[,2])
+
+BiPlotCoords<- envfit(myNMDS, t(myAbundanceDF), perm=999) 
+
+BiPlotCoordsDF <- c("MDS1","MDS2","r","pvals") %>%
+  set_names() %>%
+  
+  map_dfr(., ~ {
+    
+    if(.x %in% c("MDS1","MDS2")){
+      BiPlotCoords$vectors$arrows[,.x] %>%
+        as.numeric()
+    } else{
+      BiPlotCoords$vectors %>%
+        pluck(.x) %>%
+        as.numeric()
+    } 
+      
+  }) %>%
+  as.data.frame() %>%
+  set_names(nm=c("NMDS1","NMDS2","r","p")) %>%
+  dplyr::mutate(Dim1 = NMDS1*sqrt(r),
+                Dim2 = NMDS2*sqrt(r),
+                species = rownames(myAbundanceDF)) 
+  
+
+myBrayDistMat <-vegdist(wisconsin(sqrt(t(myAbundanceDF))))
+
+
+
+```
+```{r NMDS_Group, warning= F, message= F, results='hide', eval = F}
+
+cat_df <- tibble(CategoricalVariable = c("cmv_bl_c","time_point"), PaletteName = c("Accent","Set1"))
+
+
+cat_var <- "cmv_bl_c"
+link_var <- "record_id"
+id_var <- "SampleID"
+
+myPal<-RColorBrewer::brewer.pal(name =  cat_df$PaletteName[1],
+                                n=length(unique(metadata[,cat_var])))
+
+myNMDS <- myAbundanceDF %>%
+  t() %>% 
+    as.data.frame() %>%
+    # vegan::vegdist(., method = "bray") %>%
+ 
+    metaMDS(.,trymax=800,  distance = "bray",
+            k = 2) %>%
+    pluck("points") %>%
+    as.data.frame() 
+
+
+
+myNMDS_DF <- myNMDS %>%
+  rownames_to_column(var = id_var) %>%
+  dplyr::full_join(., bl_df, by =id_var) %>%
+  dplyr::select(SampleID = id_var,
+                NMDS1 = MDS1,
+                NMDS2 = MDS2,
+                linkVar = !!sym(link_var),
+                catVar = cmv_bl_c,
+                LongVar = long_var)
+
+
+  myXmin<-min(myNMDS$MDS1)
+  # +(max(dim_NMDS$points[,1])-min(dim_NMDS$points[,1]))/20
+  myYmin<-max(myNMDS$MDS2)-(max(myNMDS$MDS1)-min(myNMDS$MDS1))
+
+
+
+
+myAdonis<- adonis2(myBrayDistMat~ catVar, data = myNMDS_DF) %>%
+  slice(1L) %>%
+  as.data.frame() %>%
+  magrittr::set_rownames(cat_var)
+
+
+myNMDSplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
+    geom_point(aes(color=catVar, shape = as.factor(LongVar))) +
+    theme_bw()+
+    theme(panel.border=element_blank(),
+          panel.grid.major=element_blank(),
+          panel.grid.minor=element_blank(),
+
+          axis.line=element_line(colour="black"),
+          axis.text.x=element_text(size=11),
+          axis.text.y=element_text(size=11),
+          axis.title.x=element_text(size=11),
+          axis.title.y=element_text(size=11),
+
+          legend.text=element_text(size=11,face="italic"),
+          legend.title=element_text(size=11))+
+        stat_ellipse(geom="polygon",alpha=0.15,color="black",aes(fill=catVar),level=0.95)+
+    # ggtitle(expression(atop("Species composition",atop(italic("all samples"))))) +
+    theme(plot.title=element_text(lineheight=1,face="bold",size=13))+
+    coord_fixed()+
+    labs(fill = cat_var, color=cat_var, shape = long_var) +
+  scale_color_brewer(palette = "Accent") +
+  scale_fill_brewer(palette = "Accent") + 
+  annotation_custom(gridExtra::tableGrob(round(myAdonis,3),
+                                         theme = ttheme_default(base_size = 10)),ymin = 1)
+
+
+
+
+
+
+
+```
+
+
+While it seems the samples with detectable CMV are more disprerse along the ordination, Adonis seems unable to find a significance. It may be due lo low sample count.
+
+
+```{r intra_group_distances, warning = F, message= F}
+cmv_pos <- bl_df %>% 
+  dplyr::filter(cmv_bl_c == "yes") %>% 
+  dplyr::pull(SampleID)
+
+cmv_neg <- bl_df %>% 
+  dplyr::filter(cmv_bl_c == "no") %>% 
+  dplyr::pull(SampleID)
+
+gdata::upperTriangle(myBrayDistMat, byrow = T) %>% as.matrix()
+myBrayDistMat[lower.tri(myBrayDistMat)]
+
+upper_distmat <- as.matrix(myBrayDistMat)
+upper_distmat[lower.tri(upper_distmat)] <- NA
+
+
+distance_df <- 
+upper_distmat %>% 
+  as.matrix() %>% 
+  as.data.frame() %>% 
+  # dplyr::filter(!rownames(.)==colnames(.)) %>%
+  rownames_to_column("Sample1") %>% 
+  pivot_longer(cols = !Sample1, names_to = "Sample2", values_to = "dist") %>% 
+
+    mutate(cmv = case_when(
+      Sample1 %in% cmv_pos & Sample2 %in% cmv_pos ~ "yes",
+      Sample1 %in% cmv_neg & Sample2 %in% cmv_neg ~ "no"
+    )) %>% 
+    dplyr::filter(Sample1 != Sample2,
+                  !is.na(cmv),
+                  !is.na(dist)) 
+
+
+distance_df %>% 
+  ggstatsplot::ggbetweenstats(.,
+                              x = "cmv",
+                              y = "dist",
+                              type = "np") +
+  labs(y = "pairwise within-group distances")
+
+```
+
+On the other hand though, A non-parametric mean comparison on the within-group distances shows a significant difference between both groups.
+However, a 
