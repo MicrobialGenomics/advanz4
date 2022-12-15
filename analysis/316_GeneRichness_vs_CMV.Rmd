@@ -239,7 +239,7 @@ phy@sam_data <- phyloseq::sample_data(bl_df)
 
 
 
-```{r Get_DistMats, eval=T, include=T, results = 'hide', message = F, warning = F}
+```{r Get_DistMats, eval=T, include=T, message = F, warning = F, results = "hide"}
 
 getAbundances<-function(phyloseq, level){
   
@@ -254,9 +254,9 @@ getAbundances<-function(phyloseq, level){
 
 
 
-
 myAbundanceDF<- getAbundances(phy, "Species")
 
+myBrayDistMat <-vegdist(wisconsin(sqrt(t(myAbundanceDF))))
 
 myNMDS <- myAbundanceDF %>%
   t() %>% 
@@ -268,38 +268,9 @@ myNMDS <- myAbundanceDF %>%
     pluck("points") %>%
     as.data.frame() 
 
-  # NMDS = data.frame(NMDS1 = dim_NMDS$points[,1], NMDS2 = dim_NMDS$points[,2])
-
-BiPlotCoords<- envfit(myNMDS, t(myAbundanceDF), perm=999) 
-
-BiPlotCoordsDF <- c("MDS1","MDS2","r","pvals") %>%
-  set_names() %>%
-  
-  map_dfr(., ~ {
-    
-    if(.x %in% c("MDS1","MDS2")){
-      BiPlotCoords$vectors$arrows[,.x] %>%
-        as.numeric()
-    } else{
-      BiPlotCoords$vectors %>%
-        pluck(.x) %>%
-        as.numeric()
-    } 
-      
-  }) %>%
-  as.data.frame() %>%
-  set_names(nm=c("NMDS1","NMDS2","r","p")) %>%
-  dplyr::mutate(Dim1 = NMDS1*sqrt(r),
-                Dim2 = NMDS2*sqrt(r),
-                species = rownames(myAbundanceDF)) 
-  
-
-myBrayDistMat <-vegdist(wisconsin(sqrt(t(myAbundanceDF))))
-
-
 
 ```
-```{r NMDS_Group, warning= F, message= F, results='hide', eval = F}
+```{r NMDS_Group, warning= F, message= F, results='hide', eval = T}
 
 cat_df <- tibble(CategoricalVariable = c("cmv_bl_c","time_point"), PaletteName = c("Accent","Set1"))
 
@@ -308,18 +279,7 @@ cat_var <- "cmv_bl_c"
 link_var <- "record_id"
 id_var <- "SampleID"
 
-myPal<-RColorBrewer::brewer.pal(name =  cat_df$PaletteName[1],
-                                n=length(unique(metadata[,cat_var])))
 
-myNMDS <- myAbundanceDF %>%
-  t() %>% 
-    as.data.frame() %>%
-    # vegan::vegdist(., method = "bray") %>%
- 
-    metaMDS(.,trymax=800,  distance = "bray",
-            k = 2) %>%
-    pluck("points") %>%
-    as.data.frame() 
 
 
 
@@ -376,9 +336,10 @@ myNMDSplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
 
 
 
-
+myNMDSplot
 
 ```
+
 
 
 While it seems the samples with detectable CMV are more disprerse along the ordination, Adonis seems unable to find a significance. It may be due lo low sample count.
@@ -393,8 +354,6 @@ cmv_neg <- bl_df %>%
   dplyr::filter(cmv_bl_c == "no") %>% 
   dplyr::pull(SampleID)
 
-gdata::upperTriangle(myBrayDistMat, byrow = T) %>% as.matrix()
-myBrayDistMat[lower.tri(myBrayDistMat)]
 
 upper_distmat <- as.matrix(myBrayDistMat)
 upper_distmat[lower.tri(upper_distmat)] <- NA
@@ -427,4 +386,3 @@ distance_df %>%
 ```
 
 On the other hand though, A non-parametric mean comparison on the within-group distances shows a significant difference between both groups.
-However, a 
