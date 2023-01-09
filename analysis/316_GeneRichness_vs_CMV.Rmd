@@ -352,6 +352,8 @@ test_chi <-
   t_df %>% 
   as.matrix() %>%
   chisq_test(x = .)
+t_df
+test_chi
 
 ```
 
