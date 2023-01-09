@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2022-11-25" />
+<meta name="date" content="2022-12-16" />
 
 <title>Diversity_GeneRichness</title>
 
@@ -279,6 +279,9 @@ $(document).ready(function () {
   <a href="330_TaxaLevel_LMM.html">LMM taxa ranking</a>
 </li>
 <li>
+  <a href="316_GeneRichness_vs_CMV.html">CMV_analysis</a>
+</li>
+<li>
   <a href="410_Taxonomy_Exploration.html">Taxonomy</a>
 </li>
 <li>
@@ -309,14 +312,14 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Diversity_GeneRichness</h1>
-<h4 class="date">2022-11-25</h4>
+<h4 class="date">2022-12-16</h4>
 
 </div>
 
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -325,7 +328,7 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -334,10 +337,10 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-11-25
+<strong>Last updated:</strong> 2022-12-16
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>advanz4/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -353,12 +356,12 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
 </div>
 </div>
 </div>
@@ -425,16 +428,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree074d657fa84a274ad41976f978b04c48c7415fa2targetblank074d657a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/074d657fa84a274ad41976f978b04c48c7415fa2" target="_blank">074d657</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treeb9a23b33647f184fb1b27b48f6ec9b349cbb0ed3targetblankb9a23b3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/b9a23b33647f184fb1b27b48f6ec9b349cbb0ed3" target="_blank">b9a23b3</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree074d657fa84a274ad41976f978b04c48c7415fa2targetblank074d657a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treeb9a23b33647f184fb1b27b48f6ec9b349cbb0ed3targetblankb9a23b3a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/074d657fa84a274ad41976f978b04c48c7415fa2" target="_blank">074d657</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/b9a23b33647f184fb1b27b48f6ec9b349cbb0ed3" target="_blank">b9a23b3</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -453,7 +456,8 @@ Ignored files:
     Ignored:    data/signif_paths.rds
 
 Unstaged changes:
-    Modified:   analysis/310_IGC_analysis.Rmd
+    Modified:   analysis/316_GeneRichness_vs_CMV.Rmd
+    Modified:   output/mre_data/CatalogMapping/IGC/lmm/lmm_time_point_by_group.pdf
 
 </code></pre>
 <p>
@@ -492,6 +496,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/024b1077514245ecd47e073de16b3f022d37ef4a/analysis/310_IGC_analysis.Rmd" target="_blank">024b107</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2022-12-01
+</td>
+<td>
+Started CMV and updated metadata
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/a0f19e26ed38110e625ec87f05921c88274a473c/analysis/310_IGC_analysis.Rmd" target="_blank">a0f19e2</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-11-25
+</td>
+<td>
+moved files to code
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/a0f19e26ed38110e625ec87f05921c88274a473c/docs/310_IGC_analysis.html" target="_blank">a0f19e2</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-11-25
+</td>
+<td>
+moved files to code
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1106,6 +1161,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/a0f19e26ed38110e625ec87f05921c88274a473c/docs/figure/310_IGC_analysis.Rmd/get_GeneRichness_Data-1.png" target="_blank">a0f19e2</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-11-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/074d657fa84a274ad41976f978b04c48c7415fa2/docs/figure/310_IGC_analysis.Rmd/get_GeneRichness_Data-1.png" target="_blank">074d657</a>
 </td>
 <td>
@@ -1223,6 +1289,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/a0f19e26ed38110e625ec87f05921c88274a473c/docs/figure/310_IGC_analysis.Rmd/Plot_Rarefaction-1.png" target="_blank">a0f19e2</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-11-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/074d657fa84a274ad41976f978b04c48c7415fa2/docs/figure/310_IGC_analysis.Rmd/Plot_Rarefaction-1.png" target="_blank">074d657</a>
@@ -1360,6 +1437,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/a0f19e26ed38110e625ec87f05921c88274a473c/docs/figure/310_IGC_analysis.Rmd/plot_LMMs-1.png" target="_blank">a0f19e2</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-11-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/074d657fa84a274ad41976f978b04c48c7415fa2/docs/figure/310_IGC_analysis.Rmd/plot_LMMs-1.png" target="_blank">074d657</a>
@@ -1508,6 +1596,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/a0f19e26ed38110e625ec87f05921c88274a473c/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-1.png" target="_blank">a0f19e2</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-11-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/074d657fa84a274ad41976f978b04c48c7415fa2/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-1.png" target="_blank">074d657</a>
 </td>
 <td>
@@ -1634,6 +1733,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/a0f19e26ed38110e625ec87f05921c88274a473c/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-2.png" target="_blank">a0f19e2</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-11-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/074d657fa84a274ad41976f978b04c48c7415fa2/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-2.png" target="_blank">074d657</a>
@@ -1764,6 +1874,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/a0f19e26ed38110e625ec87f05921c88274a473c/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-3.png" target="_blank">a0f19e2</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-11-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/074d657fa84a274ad41976f978b04c48c7415fa2/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-3.png" target="_blank">074d657</a>
 </td>
 <td>
@@ -1890,6 +2011,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/a0f19e26ed38110e625ec87f05921c88274a473c/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-4.png" target="_blank">a0f19e2</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-11-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/074d657fa84a274ad41976f978b04c48c7415fa2/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-4.png" target="_blank">074d657</a>
@@ -2020,6 +2152,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/a0f19e26ed38110e625ec87f05921c88274a473c/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-5.png" target="_blank">a0f19e2</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-11-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/074d657fa84a274ad41976f978b04c48c7415fa2/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-5.png" target="_blank">074d657</a>
 </td>
 <td>
@@ -2148,6 +2291,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/a0f19e26ed38110e625ec87f05921c88274a473c/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-6.png" target="_blank">a0f19e2</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-11-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/074d657fa84a274ad41976f978b04c48c7415fa2/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-6.png" target="_blank">074d657</a>
 </td>
 <td>
@@ -2263,6 +2417,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/a0f19e26ed38110e625ec87f05921c88274a473c/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-7.png" target="_blank">a0f19e2</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-11-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/074d657fa84a274ad41976f978b04c48c7415fa2/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-7.png" target="_blank">074d657</a>
@@ -2382,6 +2547,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/a0f19e26ed38110e625ec87f05921c88274a473c/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-8.png" target="_blank">a0f19e2</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-11-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/074d657fa84a274ad41976f978b04c48c7415fa2/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-8.png" target="_blank">074d657</a>
 </td>
 <td>
@@ -2488,6 +2664,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/a0f19e26ed38110e625ec87f05921c88274a473c/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-9.png" target="_blank">a0f19e2</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-11-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/074d657fa84a274ad41976f978b04c48c7415fa2/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-9.png" target="_blank">074d657</a>
 </td>
 <td>
@@ -2592,6 +2779,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/a0f19e26ed38110e625ec87f05921c88274a473c/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-10.png" target="_blank">a0f19e2</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-11-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/074d657fa84a274ad41976f978b04c48c7415fa2/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-10.png" target="_blank">074d657</a>
@@ -2711,6 +2909,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/a0f19e26ed38110e625ec87f05921c88274a473c/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-11.png" target="_blank">a0f19e2</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-11-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/074d657fa84a274ad41976f978b04c48c7415fa2/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-11.png" target="_blank">074d657</a>
 </td>
 <td>
@@ -2826,6 +3035,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/a0f19e26ed38110e625ec87f05921c88274a473c/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-12.png" target="_blank">a0f19e2</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-11-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/074d657fa84a274ad41976f978b04c48c7415fa2/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-12.png" target="_blank">074d657</a>
@@ -2945,6 +3165,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/a0f19e26ed38110e625ec87f05921c88274a473c/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-13.png" target="_blank">a0f19e2</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-11-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/074d657fa84a274ad41976f978b04c48c7415fa2/docs/figure/310_IGC_analysis.Rmd/Show_plot_list-13.png" target="_blank">074d657</a>
 </td>
 <td>
@@ -3044,6 +3275,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/a0f19e26ed38110e625ec87f05921c88274a473c/docs/figure/310_IGC_analysis.Rmd/general_boxplot-1.png" target="_blank">a0f19e2</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-11-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/074d657fa84a274ad41976f978b04c48c7415fa2/docs/figure/310_IGC_analysis.Rmd/general_boxplot-1.png" target="_blank">074d657</a>
@@ -3160,6 +3402,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/a0f19e26ed38110e625ec87f05921c88274a473c/docs/figure/310_IGC_analysis.Rmd/group_boxplots-1.png" target="_blank">a0f19e2</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-11-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/074d657fa84a274ad41976f978b04c48c7415fa2/docs/figure/310_IGC_analysis.Rmd/group_boxplots-1.png" target="_blank">074d657</a>
 </td>
 <td>
@@ -3231,6 +3484,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/a0f19e26ed38110e625ec87f05921c88274a473c/docs/figure/310_IGC_analysis.Rmd/group_boxplots-2.png" target="_blank">a0f19e2</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-11-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/074d657fa84a274ad41976f978b04c48c7415fa2/docs/figure/310_IGC_analysis.Rmd/group_boxplots-2.png" target="_blank">074d657</a>

@@ -125,11 +125,6 @@ readCountDistribution<-igc@dataTable %>%
 
 
 
-
-
-
-
-
 TableList <- cat_vector %>%
     set_names() %>%
     map( ~{
@@ -270,6 +265,7 @@ myNMDS <- myAbundanceDF %>%
 
 
 ```
+
 ```{r NMDS_Group, warning= F, message= F, results='hide', eval = T}
 
 cat_df <- tibble(CategoricalVariable = c("cmv_bl_c","time_point"), PaletteName = c("Accent","Set1"))
@@ -280,9 +276,6 @@ link_var <- "record_id"
 id_var <- "SampleID"
 
 
-
-
-
 myNMDS_DF <- myNMDS %>%
   rownames_to_column(var = id_var) %>%
   dplyr::full_join(., bl_df, by =id_var) %>%
@@ -291,7 +284,7 @@ myNMDS_DF <- myNMDS %>%
                 NMDS2 = MDS2,
                 linkVar = !!sym(link_var),
                 catVar = cmv_bl_c,
-                LongVar = long_var)
+                shape = CD4diff_48)
 
 
   myXmin<-min(myNMDS$MDS1)
@@ -308,7 +301,7 @@ myAdonis<- adonis2(myBrayDistMat~ catVar, data = myNMDS_DF) %>%
 
 
 myNMDSplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
-    geom_point(aes(color=catVar, shape = as.factor(LongVar))) +
+    geom_point(aes(color=catVar, shape = as.factor(shape)), size = 3) +
     theme_bw()+
     theme(panel.border=element_blank(),
           panel.grid.major=element_blank(),
@@ -335,14 +328,33 @@ myNMDSplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
 
 
 
-
 myNMDSplot
 
 ```
 
 
 
-While it seems the samples with detectable CMV are more disprerse along the ordination, Adonis seems unable to find a significance. It may be due lo low sample count.
+While it seems the samples with detectable CMV are more disprerse along the ordination, Adonis seems unable to find a significance. It may be due lo low sample count. Interestingly enough, there seems to be a correlation between CMV presence at basal and CD4 recovery. Most shockingly, presence of CMV seems to be correlated with a higher chance of recovering CD4 in more than 150 counts/ml. It could however mean that patients with CMV have a higher CD4 activation as they are trying to contain the virus.
+
+
+```{r cmv_cd4, warning=F, message=FALSE}
+t_df <- 
+  myNMDS_DF %>% 
+  dplyr::select(shape, catVar) %>% 
+  filter(!is.na(shape)) %>% 
+  mutate(across(everything(), as.factor)) %>% 
+  group_by(shape,catVar) %>% 
+  summarise(n=n()) %>% 
+  spread(shape, n) %>% 
+  column_to_rownames("catVar") 
+
+test_chi <- 
+  t_df %>% 
+  as.matrix() %>%
+  chisq_test(x = .)
+
+```
+
 
 
 ```{r intra_group_distances, warning = F, message= F}
@@ -377,6 +389,13 @@ upper_distmat %>%
 
 
 distance_df %>% 
+
+  group_by(cmv) %>% 
+  count()
+
+
+distance_df %>% 
+  sample_n_by(cmv, size = 406) %>%
   ggstatsplot::ggbetweenstats(.,
                               x = "cmv",
                               y = "dist",
@@ -385,4 +404,4 @@ distance_df %>%
 
 ```
 
-On the other hand though, A non-parametric mean comparison on the within-group distances shows a significant difference between both groups.
+On the other hand though, A non-parametric mean comparison on the within-group distances shows a significant difference between both groups. Even when the CMV+ group is randomly subsampled to match the N of CMV-.

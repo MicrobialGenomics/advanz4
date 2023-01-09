@@ -11,9 +11,9 @@
 
 <meta name="author" content="Carlos Blázquez Bondia" />
 
-<meta name="date" content="2022-11-10" />
+<meta name="date" content="2022-11-29" />
 
-<title>335_Microbiome_clinical</title>
+<title>Species_v_GR</title>
 
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -312,9 +312,9 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">335_Microbiome_clinical</h1>
+<h1 class="title toc-ignore">Species_v_GR</h1>
 <h4 class="author">Carlos Blázquez Bondia</h4>
-<h4 class="date">2022-11-10</h4>
+<h4 class="date">2022-11-29</h4>
 
 </div>
 
@@ -339,7 +339,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-12-16
+<strong>Last updated:</strong> 2022-12-15
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -474,7 +474,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/340_microbiome_vs_clinical.Rmd</code>) and HTML (<code>docs/340_microbiome_vs_clinical.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/431_Species_vs_GR.Rmd</code>) and HTML (<code>docs/431_Species_vs_GR.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -503,50 +503,16 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/a0f19e26ed38110e625ec87f05921c88274a473c/analysis/340_microbiome_vs_clinical.Rmd" target="_blank">a0f19e2</a>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/024b1077514245ecd47e073de16b3f022d37ef4a/analysis/431_Species_vs_GR.Rmd" target="_blank">024b107</a>
 </td>
 <td>
-cblazquez
+cblazquez-irsi
 </td>
 <td>
-2022-11-25
+2022-12-01
 </td>
 <td>
-moved files to code
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/a0f19e26ed38110e625ec87f05921c88274a473c/docs/340_microbiome_vs_clinical.html" target="_blank">a0f19e2</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2022-11-25
-</td>
-<td>
-moved files to code
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/24d99edede71a5f7f1a8ddcafdca5370db6681ba/analysis/340_microbiome_vs_clinical.Rmd" target="_blank">24d99ed</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2022-11-11
-</td>
-<td>
-Added first draft of metagenome vs clinical parameters
+Started CMV and updated metadata
 </td>
 </tr>
 </tbody>
@@ -560,155 +526,20 @@ Added first draft of metagenome vs clinical parameters
 <h2>R Markdown</h2>
 <p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
 <p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
-<pre class="r"><code># mymre &lt;- here::here(&quot;data&quot;,&quot;mre.rds&quot;) %&gt;%
-#   readRDS(.)
-
-mymre &lt;- aws.s3::s3readRDS(bucket = &quot;s3://mistral-wp6-advanz4&quot;, object = &quot;metagenome/WMGS/MREObject.rds&quot;)
-# metadata &lt;-get_meta(mymre)
-metadata &lt;- here::here(&quot;Metadata&quot;, &quot;2022_09_29_clean_metadata_LIMS.csv&quot;) %&gt;% 
-  read.csv() %&gt;% 
-  column_to_rownames(&quot;SampleID&quot;) %&gt;% 
-  mutate(SampleID = rownames(.))
-
-
-
-cat_df &lt;- 
-  here::here(&quot;Metadata&quot;, &quot;CategoricalVariables.txt&quot;) %&gt;% 
-  read.delim(., header = T)
-
-cat_vector &lt;- cat_df %&gt;% 
-  pull(CategoricalVariable)
-
-long_var &lt;- here::here(&quot;Metadata&quot;, &quot;LongitudinalVariables.txt&quot;) %&gt;%
-  read.delim(., header = T)  %&gt;% 
-  pull(LongitudinalVariable)
-
-link_var &lt;- here::here(&quot;Metadata&quot;, &quot;LongitudinalVariables.txt&quot;) %&gt;%
-  read.delim(., header = T)  %&gt;% 
-  pull(LinkVariable)
-
-num_vector &lt;- here::here(&quot;Metadata&quot;, &quot;NumericalVariables.txt&quot;) %&gt;%
-  read.delim(., header = T)  %&gt;% 
-  pull(NumericalVariable)</code></pre>
-<pre class="r"><code>#### This chunk is for updating the mre internally as new variables come out. Once the final mre is done this chunk will be removed.
-
-devtools::load_all(here::here(&quot;../WMGSPipeline&quot;))</code></pre>
-<pre><code>suggested package selbal ✔suggested package DataExplorer ✔suggested package lme4 ✔suggested package merTools ✔</code></pre>
-<pre class="r"><code>mymre &lt;- filter_samples(mre = mymre, sample_ids = metadata$SampleID)
-
-mymre@metadata@metadata_df &lt;- as.tibble(metadata) 
-mymre@taxa@metaphlan@phyloseq@sam_data &lt;- metadata %&gt;%
-  phyloseq::sample_data(.)
-mymre@taxa@metaphlan@phyloseq_sec@sam_data &lt;- metadata %&gt;%
-  phyloseq::sample_data(.)
-
-
-
-
-mymre@metadata@categorical_vals &lt;- here::here(&quot;Metadata&quot;, &quot;CategoricalVariables.txt&quot;) %&gt;% 
-  read.delim(., header = T) %&gt;% 
-  tibble()
-
-mymre@metadata@numeric_vals &lt;- here::here(&quot;Metadata&quot;, &quot;NumericalVariables.txt&quot;) %&gt;% 
-  read.delim(., header = T) %&gt;% 
-  tibble()
-
-mymre@metadata@longitudinal_vals &lt;- here::here(&quot;Metadata&quot;, &quot;LongitudinalVariables.txt&quot;) %&gt;% 
-  read.delim(., header = T) %&gt;% 
-  tibble()
-
-link_var = &quot;record_id&quot;
-long_var = &quot;time_point&quot;
-cat_var = &quot;group&quot;</code></pre>
+<pre class="r"><code>summary(cars)</code></pre>
+<pre><code>     speed           dist       
+ Min.   : 4.0   Min.   :  2.00  
+ 1st Qu.:12.0   1st Qu.: 26.00  
+ Median :15.0   Median : 36.00  
+ Mean   :15.4   Mean   : 42.98  
+ 3rd Qu.:19.0   3rd Qu.: 56.00  
+ Max.   :25.0   Max.   :120.00  </code></pre>
 </div>
-<div id="gene-richness-vs-clinical-variables" class="section level1">
-<h1>Gene richness vs clinical variables</h1>
-<p>We’ll check how differently CD4 evolve over time between both DTG and DRV/r arm. The best way I can think of is with LMMs and ANOVA of the residuals.</p>
-<pre class="r"><code>igc &lt;- get_diversity(mymre, type = &quot;igc&quot;)
-
-Threshold &lt;-  igc@dataTable %&gt;%
-  dplyr::select(SampleID, NumberMappedReads) %&gt;%
-  unique() %&gt;%
-  summarise(Q = quantile(NumberMappedReads,0.02)) %&gt;% 
-  as.numeric()
-
-
-
-TableList &lt;- cat_vector %&gt;%
-    set_names() %&gt;%
-    map( ~{
-
-        
-          ThresholdTable &lt;- igc@dataTable %&gt;%
-                filter(NumberMappedReads &gt;= Threshold) %&gt;%
-                filter(ReadCountReal&gt;=Threshold) %&gt;% ### Get the Mapped Read count (per-sample) just above the threshold
-                group_by(SampleID) %&gt;%
-                summarise(across(everything(), min)) %&gt;%
-                ungroup() %&gt;%
-          right_join(., metadata, by=&quot;SampleID&quot;) %&gt;%
-          select(SampleID,
-                 richness = GeneNumber,
-                 link_var=link_var,
-                 cat_var = .x,
-                 long_var = long_var,
-                 NumberMappedReads)
-})</code></pre>
-<pre class="r"><code>plotlist &lt;- cat_vector %&gt;% 
-  set_names() %&gt;% 
-  map(function(cv){
-    TableList %&gt;%
-      pluck(cv) %&gt;% 
-      dplyr::select(SampleID,
-                    cat_var,
-                    richness, 
-                    long_var) %&gt;%
-            filter(!is.na(cat_var)) %&gt;%
-      left_join(metadata[,c(&quot;SampleID&quot;,&quot;CD4&quot;)], by = &quot;SampleID&quot;) %&gt;% 
-      dplyr::filter(long_var == 0) %&gt;% 
-            # ggstatsplot::ggbetweenstats(
-            #   data = .,
-            #   x = cat_var,
-            #   y = richness,
-            #   bf.message = FALSE,
-            #   type = &quot;nonparametric&quot;,
-            #   pairwise.comparisons = T,
-            #   xlab = cat_var, 
-            #   ggtheme = ggplot2::theme_bw()
-            #   
-            # )
-    ggplot(aes(x=CD4, y = richness,color = cat_var)) +
-      geom_boxplot() +
-      labs(color = cv)
-      
-  })</code></pre>
-<pre class="r"><code>plotlist &lt;- cat_vector %&gt;% 
-  set_names() %&gt;% 
-  map(function(cv){
-    TableList %&gt;%
-      pluck(cv) %&gt;% 
-      dplyr::select(SampleID,
-                    cat_var,
-                    richness, 
-                    long_var) %&gt;%
-            filter(!is.na(cat_var)) %&gt;%
-      left_join(metadata[,c(&quot;SampleID&quot;,&quot;CD4&quot;)], by = &quot;SampleID&quot;) %&gt;% 
-      dplyr::filter(long_var == 0) %&gt;% 
-            # ggstatsplot::ggbetweenstats(
-            #   data = .,
-            #   x = cat_var,
-            #   y = richness,
-            #   bf.message = FALSE,
-            #   type = &quot;nonparametric&quot;,
-            #   pairwise.comparisons = T,
-            #   xlab = cat_var, 
-            #   ggtheme = ggplot2::theme_bw()
-            #   
-            # )
-    ggplot(aes(x=CD4, y = richness,color = cat_var)) +
-      geom_boxplot() +
-      labs(color = cv)
-      
-  })</code></pre>
+<div id="including-plots" class="section level2">
+<h2>Including Plots</h2>
+<p>You can also embed plots, for example:</p>
+<p><img src="figure/431_Species_vs_GR.Rmd/pressure-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -736,64 +567,24 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] metar_0.1.5     testthat_3.1.4  forcats_0.5.1   stringr_1.4.0  
- [5] dplyr_1.0.9     purrr_0.3.4     readr_2.1.2     tidyr_1.2.0    
- [9] tibble_3.1.7    ggplot2_3.3.6   tidyverse_1.3.1 devtools_2.4.3 
-[13] usethis_2.1.6   workflowr_1.7.0
+[1] devtools_2.4.3  usethis_2.1.6   workflowr_1.7.0
 
 loaded via a namespace (and not attached):
-  [1] utf8_1.2.2          tidyselect_1.1.2    lme4_1.1-29        
-  [4] htmlwidgets_1.5.4   grid_4.0.5          aws.signature_0.6.0
-  [7] munsell_0.5.0       codetools_0.2-18    future_1.26.1      
- [10] withr_2.5.0         colorspace_2.0-3    Biobase_2.50.0     
- [13] phyloseq_1.34.0     logger_0.2.2        knitr_1.39         
- [16] rstudioapi_0.13     stats4_4.0.5        ggsignif_0.6.3.9000
- [19] listenv_0.8.0       git2r_0.30.1        polyclip_1.10-0    
- [22] bit64_4.0.5         farver_2.1.0        rhdf5_2.34.0       
- [25] rprojroot_2.0.3     coda_0.19-4         parallelly_1.32.0  
- [28] vctrs_0.4.1         generics_0.1.2      xfun_0.31          
- [31] R6_2.5.1            arm_1.12-2          rhdf5filters_1.2.1 
- [34] cachem_1.0.6        assertthat_0.2.1    promises_1.2.0.1   
- [37] networkD3_0.4       scales_1.2.0        vroom_1.5.7        
- [40] merTools_0.5.2      gtable_0.3.0        globals_0.15.0     
- [43] processx_3.6.1      rlang_1.0.2         splines_4.0.5      
- [46] rstatix_0.7.0       broom_0.8.0         yaml_2.3.5         
- [49] reshape2_1.4.4      abind_1.4-5         modelr_0.1.8       
- [52] backports_1.4.1     httpuv_1.6.5        tools_4.0.5        
- [55] logging_0.10-108    ellipsis_0.3.2      jquerylib_0.1.4    
- [58] biomformat_1.18.0   selbal_0.1.0        RColorBrewer_1.1-3 
- [61] BiocGenerics_0.36.1 sessioninfo_1.2.2   Rcpp_1.0.8.3       
- [64] plyr_1.8.7          base64enc_0.1-3     zlibbioc_1.36.0    
- [67] ps_1.7.1            prettyunits_1.1.1   ggpubr_0.4.0       
- [70] S4Vectors_0.28.1    haven_2.5.0         cluster_2.1.3      
- [73] fs_1.5.2            here_1.0.1          furrr_0.3.0        
- [76] DataExplorer_0.8.2  magrittr_2.0.3      data.table_1.14.2  
- [79] reprex_2.0.1        mvtnorm_1.1-3       whisker_0.4        
- [82] pkgload_1.2.4       hms_1.1.1           patchwork_1.1.1    
- [85] mime_0.12           evaluate_0.15       xtable_1.8-4       
- [88] broom.mixed_0.2.9.4 readxl_1.4.0        IRanges_2.24.1     
- [91] gridExtra_2.3       compiler_4.0.5      crayon_1.5.1       
- [94] minqa_1.2.4         htmltools_0.5.2     mgcv_1.8-40        
- [97] later_1.3.0         tzdb_0.3.0          lubridate_1.8.0    
-[100] aws.s3_0.3.21       DBI_1.1.3           tweenr_1.0.2       
-[103] dbplyr_2.2.0        MASS_7.3-57         boot_1.3-28        
-[106] Matrix_1.4-1        ade4_1.7-19         car_3.1-0          
-[109] wesanderson_0.3.6   permute_0.9-7       brio_1.1.3         
-[112] cli_3.3.0           parallel_4.0.5      igraph_1.3.2       
-[115] pkgconfig_2.0.3     getPass_0.2-2       xml2_1.3.2         
-[118] foreach_1.5.2       bslib_0.3.1         blme_1.0-5         
-[121] multtest_2.46.0     XVector_0.30.0      rvest_1.0.2        
-[124] callr_3.7.0         digest_0.6.29       vegan_2.6-2        
-[127] Biostrings_2.58.0   rmarkdown_2.14      cellranger_1.1.0   
-[130] curl_4.3.2          shiny_1.7.1         nloptr_2.0.3       
-[133] lifecycle_1.0.1     nlme_3.1-158        jsonlite_1.8.0     
-[136] Rhdf5lib_1.12.1     carData_3.0-5       desc_1.4.1         
-[139] fansi_1.0.3         pillar_1.7.0        lattice_0.20-45    
-[142] fastmap_1.1.0       httr_1.4.2          pkgbuild_1.3.1     
-[145] survival_3.3-1      glue_1.6.2          remotes_2.4.2      
-[148] iterators_1.0.14    bit_4.0.4           ggforce_0.3.3      
-[151] stringi_1.7.6       sass_0.4.1          memoise_2.0.1      
-[154] ape_5.6-2          </code></pre>
+ [1] xfun_0.31         bslib_0.3.1       remotes_2.4.2     purrr_0.3.4      
+ [5] vctrs_0.4.1       testthat_3.1.4    htmltools_0.5.2   yaml_2.3.5       
+ [9] utf8_1.2.2        rlang_1.0.2       pkgbuild_1.3.1    later_1.3.0      
+[13] pillar_1.7.0      jquerylib_0.1.4   glue_1.6.2        withr_2.5.0      
+[17] sessioninfo_1.2.2 lifecycle_1.0.1   stringr_1.4.0     memoise_2.0.1    
+[21] evaluate_0.15     knitr_1.39        callr_3.7.0       fastmap_1.1.0    
+[25] httpuv_1.6.5      ps_1.7.1          fansi_1.0.3       highr_0.9        
+[29] Rcpp_1.0.8.3      promises_1.2.0.1  cachem_1.0.6      desc_1.4.1       
+[33] pkgload_1.2.4     jsonlite_1.8.0    fs_1.5.2          brio_1.1.3       
+[37] digest_0.6.29     stringi_1.7.6     processx_3.6.1    getPass_0.2-2    
+[41] rprojroot_2.0.3   cli_3.3.0         tools_4.0.5       magrittr_2.0.3   
+[45] sass_0.4.1        tibble_3.1.7      crayon_1.5.1      whisker_0.4      
+[49] pkgconfig_2.0.3   ellipsis_0.3.2    prettyunits_1.1.1 rmarkdown_2.14   
+[53] httr_1.4.2        rstudioapi_0.13   R6_2.5.1          git2r_0.30.1     
+[57] compiler_4.0.5   </code></pre>
 </div>
 </div>
 
