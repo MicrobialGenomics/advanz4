@@ -412,6 +412,47 @@ lab
 
 Sample A0023 apparently jups to distance = 1 from the very start
 
+# Pairwise distances evolution
+
+It has been suggested the human microbiome follows the "Anna Karenina" principle which states: *"All happy families are alike; each unhappy family is unhappy in its own way."*. In microbiome it translates to healthy patients having somewhat similar microbiomes and when the immune system breaks down, the microbiome escapes a stable configuration and changes without any specific directin. Hence, in this setting, pairwise distances at basal should be higher and decrease as the immune system recomposes and the microbimes move towards a "healthy" composition which is more constant among patients.
+
+
+```{r pairwise_distances_tp, warning=F, message=FALSE}
+
+upper_distmat <- as.matrix(myBrayDistMat)
+upper_distmat[lower.tri(upper_distmat)] <- NA
+sample_vc <- metadata$time_point
+names(sample_vc) <- metadata$SampleID
+
+distance_df <- 
+upper_distmat %>% 
+  as.matrix() %>% 
+  as.data.frame() %>% 
+  # dplyr::filter(!rownames(.)==colnames(.)) %>%
+  rownames_to_column("Sample1") %>% 
+  pivot_longer(cols = !Sample1, names_to = "Sample2", values_to = "dist") %>% 
+
+    mutate(tp1 = sample_vc[Sample1],
+           tp2 = sample_vc[Sample2]) %>% 
+    dplyr::filter(Sample1 != Sample2,
+                  tp1 == tp2) 
+
+
+
+
+distance_df %>% 
+  # sample_n_by(cmv, size = 406) %>%
+  ggstatsplot::ggbetweenstats(.,
+                              x = "tp1",
+                              y = "dist",
+                              type = "np") +
+  labs(y = "pairwise within-group distances",
+       x = "week")
+
+
+```
+
+Looks like the hypotesis holds. Beta diversity drastically decreases from baseline to week 24 (medians 074 vs 0.66) and becomes somewhat consistent afterwards, decreasing very slowly as it only becomes relevant after 96 weeks. This suggests the microbiome makes ost of the recovery quickly after which it stabilizes, changling very slowly, if at all.
 
 ```{r first_dist_boxplots, warning= F, message=F}
 first_dif <- 
@@ -478,7 +519,7 @@ test_long <-
 boxplots <- 
  
   ggplot(first_dif, aes(x = as.factor(time_point), y = distance)) +
-  geom_boxplot(position = "dodge", aes(fill = group)  )+
+  geom_boxplot(position = "dodge")+
   scale_color_brewer(palette = "Set1") +
   scale_fill_brewer(palette = "Set1") +
   stat_pvalue_manual(test_cat, label = "p.adj.signif", step.increase = .01, hide.ns = T) +
