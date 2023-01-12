@@ -182,7 +182,7 @@ metadata %>%
 ```
 
 
-```{r NMDS_Group, warning= F, message= F, results='hide', eval = F}
+```{r NMDS_Group, warning= F, message= F, results='hide', eval = T}
 
 cat_df <- cat_df %>%
   filter(!CategoricalVariable == "CD4diff_96")
@@ -290,6 +290,10 @@ myNMDSBiplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
                                          theme = ttheme_default(base_size = 8)),ymin = 3.5, xmin=2.4)
 
 
+```
+
+```{r Print_NMDS, message=F, warning=F}
+myNMDSplot
 ```
 
 
