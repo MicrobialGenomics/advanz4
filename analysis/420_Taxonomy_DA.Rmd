@@ -14,6 +14,7 @@ library(RColorBrewer)
 library(metar)
 source("code/LMM.R")
 source("code/myFunctions.R")
+source("code/group_comparisons.R")
 library(rstatix)
 library(ggpubr)
 
@@ -56,6 +57,12 @@ num_var <- here::here("Metadata", "NumericalVariables.txt") %>%
   read.delim(., header = T)  %>% 
   pull(NumericalVariable)
 
+
+mymre %>% 
+  get_meta() %>% 
+  dplyr::pull(record_id) %>% 
+  unique() %>% 
+  length()
 
 
 ```
@@ -253,18 +260,74 @@ otu_df %>%
                               ylab = "Olsenella_scatoligenes(%)", 
                               ggtheme = ggplot2::theme_bw(),
                               grouping.var = "time_point",plotgrid.args = NULL)
-
-
-  
 ### Show how many species are differential in at least two of the timepoints in each cat var. Risk_group should result in many species showing that kins of signal. See Venn section below.
 ### --- end MNJ
+
+```
+
+
+
+```{r plots_poster, echo = F, message=FALSE, warning=FALSE, results='hide'}
+# b.adolescentis <- 
+
+
+otu_df %>% 
+  select(SampleID,DAsp$species) %>% 
+  # select(SampleID, !!sym(DAsp)) %>% 
+  left_join(., metadata[,c("SampleID","group","time_point", "record_id")], by="SampleID") %>% 
+  # group_by(group) %>% 
+  get_comp_boxplots(.,
+                    cat_var = "group",
+                    num_var = "Olsenella_scatoligenes",
+                    long_var = "time_point",
+                    link_var = "record_id",
+                    y_trans = "sqrt") %>% 
+  pluck("plot") 
+
+otu_df %>% 
+  select(SampleID,DAsp$species) %>% 
+  # select(SampleID, !!sym(DAsp)) %>% 
+  left_join(., metadata[,c("SampleID","group","time_point", "record_id")], by="SampleID") %>% 
+  group_by(group) %>% 
+  get_comp_boxplots(.,cat_var = "group", 
+                    num_var = "Bifidobacterium_adolescentis", 
+                    long_var = "time_point", 
+                    link_var = "record_id", 
+                    y_trans = "sqrt") %>% 
+  purrr::pluck("plot") 
+
+
+otu_df %>% 
+  select(SampleID,DAsp$species) %>% 
+  # select(SampleID, !!sym(DAsp)) %>% 
+  left_join(., metadata[,c("SampleID","group","time_point", "record_id")], by="SampleID") %>% 
+  group_by(group) %>% 
+  get_comp_boxplots(.,
+                    cat_var = "group",
+                    num_var = "Bifidobacterium_longum", 
+                    long_var = "time_point", 
+                    link_var = "record_id",
+                    y_trans = "sqrt") %>% 
+  purrr::pluck("plot") +
+  # scale_y_sqrt(breaks = seq(1,10,1)) +
+  # coord_trans(y = "sqrt") +
+  # scale_y_continuous() +
+  ggthemes::theme_clean() +
+  labs(y = expression(sqrt("Abundance")), title = "B.longum") + 
+  theme(plot.title = element_text(face = "italic"),
+        legend.position = "right", 
+        axis.title = element_text(size = 12, face = "bold"),
+        axis.text = element_text(size = 12)) 
+
+
+# 
 
 ```
 
 Bifidobacterium adolescentis, Bifidobacterium longum and Olsenella scatoligenes were significant in all timepoints. Let's check the actual abundances per group and timepoint:
 
 ```{r species_group_comparisons, warning = F, message=F}
-source("code/group_comparisons.R")
+
 sp_vec <- c("Bifidobacterium_adolescentis","Bifidobacterium_longum","Olsenella_scatoligenes")
 
 
