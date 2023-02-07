@@ -203,7 +203,8 @@ otu_df %>%
   select(SampleID,Bifidobacterium_longum) %>%
   # select(SampleID, !!sym(DAsp)) %>%
   left_join(., metadata[,c("SampleID","group","time_point")], by="SampleID") %>%
-  group_by(group) %>%
+  # group_by(group) %>%
+  dplyr::ungroup() %>% 
   ggstatsplot::grouped_ggbetweenstats(.,
                               x="group",
                               y = Bifidobacterium_longum,
@@ -211,8 +212,9 @@ otu_df %>%
                               type="np",bf.message=NULL,
                               ylab = "Bifidobacterium_longum(%)",
                               ggtheme = ggplot2::theme_bw(),
-                              grouping.var = "time_point",
-                              plotgrid.args = list("ncol" = 4, "nrow" = 1))
+                              # grouping.var = "time_point",
+                              plotgrid.args = list("ncol" = 4, "nrow" = 1)) +
+  facet_wrap()
 # 
 
  ### There is a nice signal, consistent longitudinally, in Bifidobacterium Genus
@@ -246,7 +248,7 @@ otu_df %>%
   ggstatsplot::grouped_ggbetweenstats(.,
                               x="group",
                               y = Olsenella_scatoligenes,
-                              pairwise.comparisons = F,
+                              pairwise.comparisons = T,
                               type="np",bf.message=NULL,
                               ylab = "Olsenella_scatoligenes(%)", 
                               ggtheme = ggplot2::theme_bw(),

@@ -182,7 +182,7 @@ metadata %>%
 ```
 
 
-```{r NMDS_Group, warning= F, message= F, results='hide', eval = T}
+```{r NMDS_Group, warning= F, message= F, results='hide', eval = T`}
 
 cat_df <- cat_df %>%
   filter(!CategoricalVariable == "CD4diff_96")
