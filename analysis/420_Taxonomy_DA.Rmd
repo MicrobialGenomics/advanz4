@@ -296,7 +296,7 @@ otu_df %>%
                     y_trans = "sqrt") %>% 
   purrr::pluck("plot") 
 
-
+69
 otu_df %>% 
   select(SampleID,DAsp$species) %>% 
   # select(SampleID, !!sym(DAsp)) %>% 
