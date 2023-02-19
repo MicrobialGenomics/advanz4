@@ -1,0 +1,190 @@
+---
+title: "317_GeneRichness_Inflammation"
+author: "Carlos Blázquez Bondia"
+date: '2022-12-15'
+output:
+  pdf_document: default
+  html_document: default
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(RColorBrewer)
+library(metar)
+source("code/LMM.R")
+source("code/myFunctions.R")
+source("code/group_comparisons.R")
+library(rstatix)
+library(ggpubr)
+
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r load_metadata_vars, eval=T, message = F}
+mymre <- aws.s3::s3readRDS(bucket = "s3://mistral-wp6-advanz4", object = "metagenome/WMGS/MREObject.rds", region = "eu-west-1")
+# metadata <-get_meta(mymre)
+metadata <- 
+  here::here("Metadata") %>% 
+  file.info(list.files(., full.names = T)) %>%
+  rownames() %>% 
+  magrittr::extract(str_detect(.,"clean_metadata")) %>% 
+  sort(decreasing = T) %>% 
+  magrittr::extract(1L) %>% 
+  read.csv() %>% 
+  column_to_rownames("SampleID") %>% 
+  mutate(SampleID = rownames(.))
+
+
+
+cat_df <- 
+  here::here("Metadata", "CategoricalVariables.txt") %>% 
+  read.delim(., header = T)
+
+cat_vector <- cat_df %>% 
+  pull(CategoricalVariable)
+
+long_var <- here::here("Metadata", "LongitudinalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(LongitudinalVariable)
+
+id_var <- here::here("Metadata", "LongitudinalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(LinkVariable)
+
+num_var <- here::here("Metadata", "NumericalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(NumericalVariable)
+
+
+```
+
+
+```{r update_mre, warning= F, message= F}
+
+#### This chunk is for updating the mre internally as new variables come out. Once the final mre is done this chunk will be removed.
+devtools::load_all("../WMGSPipeline")
+mymre <- filter_samples(mre = mymre, sample_ids = metadata$SampleID)
+
+mymre@metadata@metadata_df <- tibble(metadata)
+
+mymre@taxa@metaphlan@phyloseq@sam_data <- metadata %>%
+  phyloseq::sample_data(.)
+# 
+# mymre@taxa@metaphlan@phyloseq_sec@sam_data <- metadata %>%
+#   phyloseq::sample_data(.)
+
+
+mymre@metadata@categorical_vals <- here::here("Metadata", "CategoricalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+mymre@metadata@numeric_vals <- here::here("Metadata", "NumericalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+mymre@metadata@longitudinal_vals <- here::here("Metadata", "LongitudinalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+phy <- get_phyloseq(mymre, type = "metaphlan")
+
+```
+
+
+
+```{r obtain_gene_richness}
+
+```
+
+
+# Basal exploration of inflammation markers
+
+Perform basic distributin analysis of each marker at baseline, test for imbalances between groups which may be creating a bias.
+
+```{r basal_inflammation, message = F, warning= F}
+library(compareGroups)
+
+metadata %>% 
+  dplyr::select(record_id, time_point, group, num_var) %>% 
+  dplyr::filter(time_point == 0) %>% 
+  compareGroups::compareGroups(formula(paste("group", "~", paste(num_var, collapse = " + "), sep = " ")), data = .,) %>% 
+  compareGroups::createTable(.,show.n = T)
+      
+```
+No significant changes could be observed in any inflammation marker, except for CD4 counts, which is still a farily small change.
+
+# Correlation between GR and markers
+
+```{r read_GR, echo = F, warning=F, message=F, results='hide'}
+igc<-metar::get_diversity(mymre)@igc
+Threshold <-  igc@dataTable %>%
+  dplyr::select(SampleID, NumberMappedReads) %>%
+  unique() %>%
+  summarise(Q = quantile(NumberMappedReads,0.02)) %>% 
+  as.numeric()
+
+
+igc_df <- igc@dataTable %>%
+                filter(NumberMappedReads >= Threshold) %>%
+                filter(ReadCountReal>=Threshold) %>% ### Get the Mapped Read count (per-sample) just above the threshold
+                group_by(SampleID) %>%
+                summarise(across(everything(), min)) %>%
+                ungroup() %>%
+          right_join(., metadata, by="SampleID") %>%
+          select(SampleID,
+                 richness = GeneNumber,
+                 link_var= record_id,
+                 cat_var = group,
+                 long_var = time_point,
+                 NumberMappedReads, 
+                 num_var)
+
+
+```
+
+
+Create a corr table and heatmap. This will be a good exploratory analysis to see which inflammation markers change with the microbiome. This is a longitudinal study, which means time may be an important variable we need to account with the models. A good exploratory first test will be to correlate markers with gene richness at basal. Then a correlation of deltas may give information on those who grow more depending on gene richness.
+
+
+```{r basal_corrs, warning= F, message= F}
+
+
+num_var %>%
+  purrr::set_names() %>%
+  purrr::map_dfr(function(nv) {
+    print(nv)
+    igc_df %>%
+      dplyr::filter(long_var == 0) %>%
+      dplyr::select(SampleID, cat_var, nv, richness) %>% 
+      dplyr::mutate(!!sym(nv) := as.numeric(!!sym(nv))) %>% 
+      cor_test("richness", nv,  method = "spearman")
+  })
+
+```
+
+Apparently, no correlation could be found between GR and inflammation markers at basal. Let's look for the longitudinal approach.
+
+```{r corrr_deltas, warning=F, message=FALSE}
+
+num_var %>% 
+  purrr::set_names() %>% 
+  purrr::map(function(nv){
+    igc_df %>% 
+      dplyr::mutate(delta_nv := !!sym(nv)[long_var == 96] - !!sym(nv)[long_var == 0]),
+                    delta_gr = !!sym(nv)[long_var == 96]/!!sym(nv)[long_var == 0])
+  })
+
+
+
+
+```
+
