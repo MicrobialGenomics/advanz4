@@ -74,6 +74,10 @@ num_var <- here::here("Metadata", "NumericalVariables.txt") %>%
 
 #### This chunk is for updating the mre internally as new variables come out. Once the final mre is done this chunk will be removed.
 devtools::load_all("../WMGSPipeline")
+mymre@taxa@virgo <- SpquantSet()
+mymre@gene_function@humann <- metar::GeneFunSet()
+mymre@taxa@metaphlan@phyloseq_sec
+
 mymre <- filter_samples(mre = mymre, sample_ids = metadata$SampleID)
 
 mymre@metadata@metadata_df <- tibble(metadata)
@@ -97,7 +101,7 @@ mymre@metadata@longitudinal_vals <- here::here("Metadata", "LongitudinalVariable
   read.delim(., header = T) %>% 
   tibble()
 
-phy <- get_phyloseq(mymre, type="metaphlan")
+phy <- get_phyloseq(mymre, type = "metaphlan")
 
 ```
 
@@ -288,7 +292,7 @@ myNMDSBiplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
     labs(fill = cat_var, color=cat_var, shape = long_var) +
   annotation_custom(gridExtra::tableGrob(round(myAdonis,3),
                                          theme = ttheme_default(base_size = 8)),ymin = 3.5, xmin=2.4)
-
+myNMDSplot
 
 ```
 

@@ -637,14 +637,14 @@ test_long <-
 boxplot <-
   dat %>%
   ggplot(., aes(x = as.factor(long_var), y = richness)) +
-  geom_boxplot(aes(fill = cat_var), position = "dodge") +
+  geom_boxplot(aes(fill = cat_var), position = "dodge", outlier.size = .6) +
   ggpubr::stat_pvalue_manual(
     data = test_cat,
     label = "p.adj.signif",
     hide.ns = T,
     size = 6,
-    step.increase = 0.1,
-    bracket.size = 1
+    step.increase = 0.0,
+    bracket.size = .75
   ) +
   ggpubr::stat_pvalue_manual(
     data = test_long,
@@ -652,7 +652,7 @@ boxplot <-
     hide.ns = T,
     step.increase = 0.2,
     size = 6,
-    bracket.size = 1
+    bracket.size = .75
     
   ) +
   theme_bw() +
@@ -672,7 +672,8 @@ return(list(data = dat, plot = boxplot))
 
   })
 
-boxplots$group$plot
+boxplots$group$plot +
+  scale_fill_brewer(labels = c("bDRV", "DTG"), palette = "Accent")
 boxplots$CD4diff_96$plot
 ```
 
