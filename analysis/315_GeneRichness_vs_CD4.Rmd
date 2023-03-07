@@ -45,6 +45,9 @@ devtools::load_all(here::here("../WMGSPipeline"))
 
 mymre <- filter_samples(mre = mymre, sample_ids = metadata$SampleID)
 
+
+
+
 mymre@metadata@metadata_df <- as.tibble(metadata) 
 mymre@taxa@metaphlan@phyloseq@sam_data <- metadata %>%
   phyloseq::sample_data(.)

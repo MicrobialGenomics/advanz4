@@ -232,6 +232,9 @@ clin_meta <- rbind(MetadataLab, sCD14_96) %>%
 ```
 
 
+
+
+ALso, weight in 3 patients: C007 (w48), D009 (w96), E008 (w0) and D013(w96) was wrongly recorded, as the last decimal was not included. We will rectify that and recalculate the BMI.
 ```{r merge_lab_demographic, message = F, warning=F}
 
 
@@ -241,9 +244,16 @@ MetadataLabDem<- here::here("Metadata","MetadataManagement","Vital.xlsx") %>%
   filter(PatCode != "TMP??-000") %>%
   pivot_wider(id_cols = c("PatCode", "Week"),names_from="ParamName", values_from = "Result") %>%
   dplyr::rename(record_id = PatCode,
-         time_point = Week) %>%
+         time_point = Week,
+         weight = Weight,
+         height = Height) %>%
   mutate(time_point = as.numeric(time_point),
-         record_id = gsub("-","",record_id)) %>%
+         record_id = gsub("-","",record_id),
+         weight = case_when(record_id == "C007" & time_point == 48 ~ 69.7,
+                            record_id == "D009" & time_point == 96 ~ 61.9,
+                            record_id == "E008" & time_point == 0 ~ 39.1,
+                            link_var == "D013" & long_var == 96 ~ 67,
+                            TRUE ~ as.numeric(weight)))  %>%
   full_join(., clin_meta ,by=c("record_id","time_point"), all.x = T) %>%
   right_join(., myMergedMetadata, by = c("record_id", "time_point")) %>% 
   relocate(record_id, time_point, group, names(vars),Weight, Height, BMI, SBP, DBP)
@@ -344,6 +354,8 @@ metadata_final <- c(48,96) %>%
 
 
 # Reformat metadata
+
+Some variables are coded in a way that makes analysis difficult. We will recode them to remove duplicities and sistematize it.
 
 ```{r reformat_metadata, warning = F, message = F}
 
@@ -448,7 +460,8 @@ metadata_final <-
     Safety = "safety_concerns",
     `Clinical Progression` = "clinical_progression",
     `Selection Criteria` = "Selection Criteria"
-  )
+  ),
+  
   
 
   ) %>%
@@ -456,19 +469,6 @@ metadata_final <-
   arrange(record_id, time_point)
 
 
-## Filter patients with <2 samples
-# outpatients <- metadata_final %>%
-#   select(SampleID, record_id) %>%
-#   group_by(record_id) %>%
-#   summarise(n=n()) %>%
-#   filter(n<2) %>% 
-#   pull(record_id)
-# 
-
-
-
-# 
-# write.csv(colnames(metadata_final),file="Var_names.csv", quote=T)
 
 
 

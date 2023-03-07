@@ -1,0 +1,111 @@
+---
+title: "BL_stratification"
+author: "Carlos Blázquez Bondia"
+date: "2023-03-06"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+
+```{r read_GR, echo = F, warning=F, message=F, results='hide'}
+igc<-metar::get_diversity(mymre)@igc
+Threshold <-  igc@dataTable %>%
+  dplyr::select(SampleID, NumberMappedReads) %>%
+  unique() %>%
+  summarise(Q = quantile(NumberMappedReads,0.02)) %>% 
+  as.numeric()
+
+
+igc_df <- igc@dataTable %>%
+                filter(NumberMappedReads >= Threshold) %>%
+                filter(ReadCountReal>=Threshold) %>% ### Get the Mapped Read count (per-sample) just above the threshold
+                group_by(SampleID) %>%
+                summarise(across(everything(), min)) %>%
+                ungroup() %>%
+          right_join(., metadata, by="SampleID") %>%
+          select(SampleID,
+                 richness = GeneNumber,
+                 link_var= record_id,
+                 cat_var = group,
+                 long_var = time_point,
+                 NumberMappedReads, 
+                 num_var, 
+                 height = Height,
+                 weight = Weight) %>% 
+  mutate(sCD14 = as.numeric(sCD14),
+         weight = case_when(link_var == "C007" & long_var == 48 ~ 69.7,
+                            link_var == "D009" & long_var == 96 ~ 61.9,
+                            link_var == "E008" & long_var == 0 ~ 39.1,
+                            link_var == "D013" & long_var == 96 ~ 67,
+                            TRUE ~ as.numeric(weight)),
+         BMI = weight/((height/100)^2))
+
+
+```
+
+
+
+## Stratification by BMI
+
+One of the first things will be to test for how the BMI distributes at baseline, and to check for differences between groups
+
+
+```{r basal_dist_df}
+igc_df %>% 
+  dplyr::filter(long_var == 0, !is.na(BMI)) %>% 
+  dplyr::pull(BMI) %>% 
+  density() %>% 
+  plot()
+
+
+
+
+
+
+igc_df %>% 
+  # dplyr::filter(long_var == 0) %>% 
+  dplyr::select(link_var, long_var, cat_var, richness, BMI) %>% 
+  group_by(link_var) %>% 
+  dplyr::filter(long_var %in% c(0,96), 
+                !is.na(BMI)) %>% 
+  filter(n() ==2) %>% 
+  mutate(delta_BMI_abs = BMI - BMI[long_var == 0],
+         delta_BMI_rel = (BMI - BMI[long_var == 0])*100 / BMI[long_var == 0],
+         delta_gr_abs = richness - richness[long_var == 0],
+         delta_gr_rel = (richness - richness[long_var == 0]) / (richness + richness[long_var == 0])) %>%
+  dplyr::filter(long_var == 96) %>% 
+  dplyr::select(link_var, cat_var, contains("delta")) %>% 
+  # dplyr::pull(delta_BMI_rel) %>% 
+  ggplot(.) +
+  geom_density(aes(x = delta_BMI_rel)) +
+  theme_bw() +
+  labs(x = "BMI increase at wk 96 (%)")
+
+```
+
+
+```{r}
+
+
+igc_df %>% 
+  # dplyr::filter(long_var == 0) %>% 
+  dplyr::select(link_var, long_var, cat_var, richness, BMI) %>% 
+  group_by(link_var) %>% 
+  dplyr::filter(long_var %in% c(0,96), 
+                !is.na(BMI)) %>% 
+  filter(n() ==2) %>% 
+  mutate(delta_BMI_abs = BMI - BMI[long_var == 0],
+         delta_BMI_rel = (BMI - BMI[long_var == 0])*100 / BMI[long_var == 0],
+         delta_gr_abs = richness - richness[long_var == 0],
+         delta_gr_rel = (richness - richness[long_var == 0]) / (richness + richness[long_var == 0])) %>%
+  dplyr::filter(long_var == 96) %>% 
+  dplyr::filter(!is.na(delta_BMI_rel), !is.na(delta_gr_rel)) %>% 
+  create_LMM(.,link_var = "link_var", cat_var = "cat_var",long_var = "delta_gr_rel",num_var = "delta_BMI_rel",breakpoints = NULL)
+
+```
+

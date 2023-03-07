@@ -1,0 +1,80 @@
+---
+title: "ML_outcome_prediction"
+author: "Carlos Blázquez Bondia"
+date: "2023-03-02"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(glmnet)
+```
+
+
+
+
+```{r load_metadata_vars, eval=T, message = F}
+# mymre <- aws.s3::s3readRDS(bucket = "s3://mistral-wp6-advanz4", object = "metagenome/WMGS/MREObject.rds", region = "eu-west-1")
+# metadata <-get_meta(mymre)
+mymre <- here::here("data","filt_mre.rds") %>%
+  readRDS(.)
+metadata <- 
+  here::here("Metadata") %>% 
+  file.info(list.files(., full.names = T)) %>%
+  rownames() %>% 
+  magrittr::extract(str_detect(.,"clean_metadata")) %>% 
+  sort(decreasing = T) %>% 
+  magrittr::extract(1L) %>% 
+  read.csv() %>% 
+  column_to_rownames("SampleID") %>% 
+  mutate(SampleID = rownames(.))
+
+
+
+cat_df <- 
+  here::here("Metadata", "CategoricalVariables.txt") %>% 
+  read.delim(., header = T)
+
+cat_vector <- cat_df %>% 
+  pull(CategoricalVariable)
+
+long_var <- here::here("Metadata", "LongitudinalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(LongitudinalVariable)
+
+id_var <- here::here("Metadata", "LongitudinalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(LinkVariable)
+
+num_var <- here::here("Metadata", "NumericalVariables.txt") %>%
+  read.delim(., header = T)  %>% 
+  pull(NumericalVariable)
+
+```
+
+
+```{r prepare_data, message = F, warning=F, results="hide"}
+basal_df <- metadata %>% 
+  dplyr::filter(time_point == 0) %>% 
+  dplyr::mutate(set = factor(sample(c("T","V"), nrow(.), replace = T,prob = c(.7,.3)))) 
+training <- basal_df %>% 
+  dplyr::filter(set == "T") %>% 
+  dplyr::select(SampleID
+                )
+
+
+basal_otus <- otu_df %>% 
+  dplyr::filter(SampleID %in% basal_df$SampleID) %>% 
+  tibble::column_to_rownames("SampleID") %>% 
+  t() 
+
+
+
+
+
+glmnet()
+
+```
+
+ prepare_data, message = F, warn

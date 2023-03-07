@@ -11,7 +11,6 @@ editor_options:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(RColorBrewer)
 library(metar)
@@ -23,15 +22,44 @@ library(ggpubr)
 
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+```{r utils, echo = F, warning=F, message=FALSE}
+peak_finder <-
+  function(density, goal = "max",keep = F) {
+    ### Let's define this function heere but we'll use it later
+    stopifnot("goal can only be either local maxima (use: 'max') or local minima (use 'min)" = goal %in% c("min","max"))
+    
+    val <- case_when(goal == "max" ~ -2,
+                   goal == "min" ~ 2)
+    
+    res <-
+      density %>%
+      purrr::keep(names(.) %in% c("x", "y")) %>%
+      as.data.frame() %>%
+      dplyr::mutate(is_peak = c(F, # 1st value can't be a local maxima, as there is no prior value to compare
+                                diff(y) %>% # For each nth element of the vector, get (n+1) - n
+                                  sign() %>%  # convert to -1 (n+1 is lower than n) or +1 (n+1 is higher than n)
+                                  diff() == val, # if n is at a local maxima, both n+1 and n-1 are negative so [(n+1)-n] - [n - (n-1)] is -2
+                                F)) # Last element can't be a local maxima either)
+                    
+                    if (!keep) {
+                      res %>%
+                        dplyr::filter(is_peak) %>%
+                        dplyr::select(-is_peak)
+                    } else{
+                      res %>%
+                        dplyr::select(-is_peak)
+                    }
+  }
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```
 
 ```{r load_metadata_vars, eval=T, message = F}
-mymre <- aws.s3::s3readRDS(bucket = "s3://mistral-wp6-advanz4", object = "metagenome/WMGS/MREObject.rds", region = "eu-west-1")
+# mymre <- aws.s3::s3readRDS(bucket = "s3://mistral-wp6-advanz4", object = "metagenome/WMGS/MREObject.rds", region = "eu-west-1")
 # metadata <-get_meta(mymre)
+mymre <- here::here("data","filt_mre.rds") %>%
+  readRDS(.)
 metadata <- 
   here::here("Metadata") %>% 
   file.info(list.files(., full.names = T)) %>%
@@ -68,7 +96,7 @@ num_var <- here::here("Metadata", "NumericalVariables.txt") %>%
 ```
 
 
-```{r update_mre, warning= F, message= F}
+```{r update_mre, warning= F, message= F, eval=F, results='hide'}
 
 #### This chunk is for updating the mre internally as new variables come out. Once the final mre is done this chunk will be removed.
 devtools::load_all("../WMGSPipeline")
@@ -100,10 +128,6 @@ phy <- get_phyloseq(mymre, type = "metaphlan")
 ```
 
 
-
-```{r obtain_gene_richness}
-
-```
 
 
 # Basal exploration of inflammation markers
@@ -146,7 +170,8 @@ igc_df <- igc@dataTable %>%
                  cat_var = group,
                  long_var = time_point,
                  NumberMappedReads, 
-                 num_var)
+                 num_var) %>% 
+  mutate(sCD14 = as.numeric(sCD14))
 
 
 ```
@@ -175,16 +200,125 @@ Apparently, no correlation could be found between GR and inflammation markers at
 
 ```{r corrr_deltas, warning=F, message=FALSE}
 
+
 num_var %>% 
   purrr::set_names() %>% 
   purrr::map(function(nv){
+    print(nv)
     igc_df %>% 
-      dplyr::mutate(delta_nv := !!sym(nv)[long_var == 96] - !!sym(nv)[long_var == 0]),
-                    delta_gr = !!sym(nv)[long_var == 96]/!!sym(nv)[long_var == 0])
+      group_by(link_var) %>% 
+      dplyr::filter(long_var %in% c(0,48)) %>% 
+      dplyr::filter(n() == 2) %>% 
+      dplyr::mutate(num_var = as.numeric(!!sym(nv))) %>% 
+      dplyr::mutate(delta_nv := num_var[long_var == 48]/num_var[long_var == 0],
+                    delta_gr = richness[long_var == 48]/richness[long_var == 0]) %>% 
+
+      filter(!is.na(num_var)) %>% 
+      group_by(cat_var,.drop = T) %>%
+      # ungroup() %>% 
+      rstatix::wilcox_test(num_var ~ long_var)
   })
 
+res_list <- 
+num_var[!num_var %in% c("CD4", "CD8","CD8_CD38_DR", "ADV")] %>% 
+  purrr::set_names() %>% 
+  purrr::map(function(nv){
+    print(nv)
+    igc_df %>% 
+      dplyr::mutate(num_var := as.numeric(!!sym(nv))) %>% 
+      filter(!is.na(num_var)) %>% 
+    get_comp_boxplots(dat = .,cat_var = "cat_var",num_var = "num_var", long_var = "long_var",link_var = "link_var",y_trans = "sqrt", pal = "Accent") %>% 
+      purrr::pluck("plot") +
+      labs(y = nv, fill = "group")
+    
+  })
 
-
+ggarrange(plotlist = res_list, nrow = 2, ncol = 2)
 
 ```
+
+There are significant differences in both CRP and sCD14, which were lower in the DTG group. CRP became significant at week 96 only, while sCD14 became significant after 48 weeks, and kept doing so at week 96
+
+# Inflammation markers by gene richness
+
+## Baseline
+
+First let's check if Gene Richness had any effect on the baseline levels of inflammation markers.
+
+```{r GR_inflammation_BL, warning=FALSE, message=FALSE}
+filt_vars <- num_var[!num_var %in% c("CD4", "CD8","CD8_CD38_DR", "ADV")]
+
+deltas <- 
+igc_df %>% 
+  dplyr::select(SampleID, link_var, long_var, cat_var, richness,filt_vars) %>% 
+  group_by(link_var) %>% 
+  dplyr::filter(long_var %in% c(0,96)) %>% 
+  dplyr::filter(n() == 2) %>% 
+  dplyr::mutate(delta_richness = (richness-richness[long_var == 0]) / (richness + richness[long_var == 0]),
+    across(.cols = filt_vars, 
+                       .fns =  ~ .x  / .x[long_var == 0], 
+                       .names = "delta_{.col}" )
+                )  %>% 
+  dplyr::ungroup() %>% 
+  dplyr::select(SampleID, link_var, cat_var, long_var, contains("delta"))
+
+new_numvars <- paste("delta",filt_vars,sep= "_")
+new_numvars %>% 
+  purrr::set_names() %>%
+  purrr::map(~ {
+    deltas %>% 
+      ggplot(., aes(x=!!sym(.x), y = delta_richness, colour = cat_var)) +
+      geom_point() +
+      theme_bw()
+  }) %>% 
+  ggpubr::ggarrange(plotlist = ., common.legend = T)
+  
+
+
+lmms <- 
+  deltas %>%  
+  dplyr::mutate(cat_var = "mock") %>% 
+get_lmm_effects(
+  .,
+  cat_vector = "cat_var",
+  long_var = "delta_richness",
+  num_vector = new_numvars,
+  link_var = "link_var"
+) 
+
+
+new_numvars %>%
+  purrr::set_names() %>%
+  purrr::map(~ {
+    deltas %>%
+      dplyr::mutate(cat_var = "mock") %>%
+      dplyr::filter(!is.na({.x}), 
+                    !is.na(delta_richness),
+                    long_var == 96) %>%
+      create_LMM(
+        .,
+        num_var = .x,
+        long_var = "delta_richness",
+        cat_var = "cat_var",
+        link_var = "link_var",
+        breakpoints = NULL
+      ) %>% 
+      purrr::pluck("plot") +
+      scale_x_continuous(breaks = c(0,2,4,6,8)) +
+      # scale_y_continuous(trans = "log2") +
+      theme(axis.title.x = element_text(size = 12),
+            axis.title.y = element_text(size = 12, angle = 90))
+  }) %>%
+  ggpubr::ggarrange(plotlist = .)
+
+
+deltas %>% 
+  dplyr::filter(long_var == 96) %>% 
+  dplyr::select(delta_richness, new_numvars) %>% 
+  cor_test(use = "complete.obs") %>% 
+  dplyr::filter()
+
+```
+
+
 

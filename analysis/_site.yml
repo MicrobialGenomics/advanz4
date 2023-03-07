@@ -15,6 +15,8 @@ navbar:
     href: 335_BLMicrobiome_vs_ImmuneResponse.html
   - text: CD4 recovery vs Gene richness
     href: 315_GeneRichness_vs_CD4.html
+  - text: Gene richness vs inflammation
+    href: 317_GeneRichness_vs_Inflammation.html
   - text: LMM taxa ranking
     href: 330_TaxaLevel_LMM.html
   - text: CMV_analysis
