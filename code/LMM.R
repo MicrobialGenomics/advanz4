@@ -87,7 +87,7 @@ get_LMM_GraphParams <- function(data, t) {
 #' @cat_vector a character vector containing the names of the categorical variables you want to use.
 #' @num_vector character vector. Contains the names of the numerical variables (usually the Y variable)
 #' @long_var a character, name of the Time or longitudinal variable. Alternatively, just the variable yu want to put on the X axis.
-#' @link_var lonk variable eg. patient, mouse... it stands for the random variable.
+#' @link_var link variable eg. patient, mouse... it stands for the random variable.
 #'
 get_lmm_effects <- function(data, cat_vector, num_vector, long_var, link_var, title = T){
 
