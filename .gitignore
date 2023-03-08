@@ -38,8 +38,8 @@ vignettes/*.pdf
 # R Environment Variables
 .Renviron
 
-# mre object (it's too big to be pulling/pushing around)
-*rds
+# original mre object 
+data/mre.rds
 
 # MetadataManagement folder
 Metadata/MetadataManagement/
