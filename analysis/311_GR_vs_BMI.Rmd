@@ -7,9 +7,81 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+source(here::here("code","LMM.R"))
+source(here::here("code","myFunctions.R"))
+library(RColorBrewer)
+
 ```
 
+```{r load_data, message=F, warning=F, echo=FALSE}
 
+mymre <- here::here("data", "filt_mre.rds") %>% 
+  readRDS()
+
+
+metadata <-
+  here::here("Metadata") %>% 
+    list.files(pattern = "clean_metadata", full.names = T) %>%
+  file.info() %>% 
+  dplyr::arrange(desc(ctime)) %>% 
+  rownames() %>% 
+  dplyr::first() %>% 
+  read.csv()
+  
+mymre@metadata@categorical_vals <- here::here("Metadata", "CategoricalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+mymre@metadata@numeric_vals <- here::here("Metadata", "NumericalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+mymre@metadata@longitudinal_vals <- here::here("Metadata", "LongitudinalVariables.txt") %>% 
+  read.delim(., header = T) %>% 
+  tibble()
+
+cat_vector <- get_cat(mymre) %>% 
+  pull(CategoricalVariable)
+
+num_vector <- 
+  get_num(mymre) %>% 
+  pull(NumericalVariable)
+
+
+```
+
+```{r support_funs, warning=F, message=F, echo = F}
+peak_finder <-
+  function(density, goal = "max",keep = F) {
+    ### Let's define this function heere but we'll use it later
+    stopifnot("goal can only be either local maxima (use: 'max') or local minima (use 'min)" = goal %in% c("min","max"))
+    
+    val <- case_when(goal == "max" ~ -2,
+                   goal == "min" ~ 2)
+    
+    res <-
+      density %>%
+      purrr::keep(names(.) %in% c("x", "y")) %>%
+      as.data.frame() %>%
+      dplyr::mutate(is_peak = c(F, # 1st value can't be a local maxima, as there is no prior value to compare
+                                diff(y) %>% # For each nth element of the vector, get (n+1) - n
+                                  sign() %>%  # convert to -1 (n+1 is lower than n) or +1 (n+1 is higher than n)
+                                  diff() == val, # if n is at a local maxima, both n+1 and n-1 are negative so [(n+1)-n] - [n - (n-1)] is -2
+                                F)) # Last element can't be a local maxima either)
+                    
+                    if (!keep) {
+                      res %>%
+                        dplyr::filter(is_peak) %>%
+                        dplyr::select(-is_peak)
+                    } else{
+                      res %>%
+                        dplyr::select(-is_peak)
+                    }
+  }
+
+
+```
 
 
 ```{r read_GR, echo = F, warning=F, message=F, results='hide'}
@@ -34,7 +106,7 @@ igc_df <- igc@dataTable %>%
                  cat_var = group,
                  long_var = time_point,
                  NumberMappedReads, 
-                 num_var, 
+                 num_vector, 
                  height = Height,
                  weight = Weight) %>% 
   mutate(sCD14 = as.numeric(sCD14),
@@ -56,42 +128,110 @@ One of the first things will be to test for how the BMI distributes at baseline,
 
 
 ```{r basal_dist_df}
+peaks_bl <- igc_df %>% 
+  dplyr::filter(long_var == 0, !is.na(BMI)) %>% 
+  dplyr::pull(BMI) %>%
+  density() %>% 
+  peak_finder(goal = "max")
+
+median_bl <- igc_df %>% 
+  dplyr::filter(long_var == 0, !is.na(BMI)) %>% 
+  pull(BMI) %>% 
+  median()
+
 igc_df %>% 
   dplyr::filter(long_var == 0, !is.na(BMI)) %>% 
-  dplyr::pull(BMI) %>% 
-  density() %>% 
-  plot()
-
-
-
+  ggplot(.) +
+  # geom_histogram(aes(x = BMI), fill = "grey", bins = 100) +
+  geom_density(aes(x = BMI),bins = 100, fill = "grey") +
+  theme_bw() +
+  geom_vline(xintercept = peaks_bl$x, lty = 3) +
+  geom_vline(xintercept = median_bl, col = "red") +
+  geom_text(data = peaks_bl, aes(x = x, y = y*.9, label = round(x, 3))) +
+  geom_text(aes(x = median_bl, y = max(peaks_bl$y)*.5, label = round(median_bl,3))) +
+  labs(x = "BMI", y = "kernel density", title = "BMI distribution at baseline") +
+  theme(axis.title.y = element_blank())
 
 
 
 igc_df %>% 
-  # dplyr::filter(long_var == 0) %>% 
-  dplyr::select(link_var, long_var, cat_var, richness, BMI) %>% 
-  group_by(link_var) %>% 
-  dplyr::filter(long_var %in% c(0,96), 
-                !is.na(BMI)) %>% 
-  filter(n() ==2) %>% 
-  mutate(delta_BMI_abs = BMI - BMI[long_var == 0],
-         delta_BMI_rel = (BMI - BMI[long_var == 0])*100 / BMI[long_var == 0],
-         delta_gr_abs = richness - richness[long_var == 0],
-         delta_gr_rel = (richness - richness[long_var == 0]) / (richness + richness[long_var == 0])) %>%
-  dplyr::filter(long_var == 96) %>% 
-  dplyr::select(link_var, cat_var, contains("delta")) %>% 
-  # dplyr::pull(delta_BMI_rel) %>% 
-  ggplot(.) +
-  geom_density(aes(x = delta_BMI_rel)) +
-  theme_bw() +
-  labs(x = "BMI increase at wk 96 (%)")
+  dplyr::filter(long_var == 0, !is.na(BMI)) %>% 
+  dplyr::mutate(BMI_c = case_when(BMI >= 22 ~ "high",
+                                  BMI < 22 ~ "low")) %>% 
+  group_by(BMI_c) %>% 
+  tally() %>% 
+  kableExtra::kable(format="markdown")
+
+
+
+
+
+
+
+
 
 ```
 
+It seems there is a certain bimodality in the distribution of BMI at BL. However, still seems to be close to normal, so the max peak of 21.57 is fairly close to the median of 22.084. From this it 22 seems a good cut-off point between high and low BMI.
 
-```{r}
 
 
+```{r kmeans_split, warning=FALSE, message=FALSE}
+
+
+bmi_c <- 
+igc_df %>% 
+  dplyr::filter(long_var == 0, !is.na(BMI)) %>% 
+  dplyr::select(link_var, long_var, cat_var, BMI, richness) %>% 
+  mutate(cluster = kmeans(BMI, centers = 2)$cluster)
+
+bmi_c %>% 
+  arrange(BMI) %>% 
+  filter(BMI == max(BMI[cluster == 1]))
+
+```
+
+A kmeans clustering approach splits both groups at around BMI = 22.5. This should further reiforce the 22 threshold.
+
+# STratification by BMI at baseline
+
+Now we found a threshold appropiate to split by BMI, we can stratify the population by treatment and bmi, vs gene richness.
+
+
+```{r BL_stratified_analysis, warning = F, message = F}
+
+bmi_c %>% 
+  dplyr::mutate(BMI_c = case_when(
+    BMI >= 22 ~ "high",
+    BMI < 22 ~ "low"
+  )) %>% 
+  
+  # dplyr::mutate(group_bmi = paste(cat_var, BMI_c)) %>% 
+  ggplot(aes(x = cat_var, y = richness, fill = BMI_c)) +
+  geom_boxplot() + 
+  ggpubr::stat_compare_means(method = "wilcox.test", hide.ns = F) +
+  theme_light()
+
+
+bmi_c %>% 
+  # dplyr::select(BMI, richness) %>% 
+  dplyr::filter(!is.na(richness)) %>% 
+  mutate(new_c = kmeans(.[,c("BMI","richness")], centers = 2)$cluster) %>% 
+  ggplot(aes( x = BMI, y = richness, color = cat_var)) +
+  geom_point() +
+  theme_light()
+
+```
+Doesn't seem to be any noticeable difference between groups or BMI types. No diferences between groups could be found, 
+
+
+# Stratification by BMI changes
+
+Maybe the increase in gene richness may be associated with higher increase in BMI
+
+```{r, eval = F}
+
+delta_bmi_df
 igc_df %>% 
   # dplyr::filter(long_var == 0) %>% 
   dplyr::select(link_var, long_var, cat_var, richness, BMI) %>% 
@@ -103,9 +243,17 @@ igc_df %>%
          delta_BMI_rel = (BMI - BMI[long_var == 0])*100 / BMI[long_var == 0],
          delta_gr_abs = richness - richness[long_var == 0],
          delta_gr_rel = (richness - richness[long_var == 0]) / (richness + richness[long_var == 0])) %>%
-  dplyr::filter(long_var == 96) %>% 
-  dplyr::filter(!is.na(delta_BMI_rel), !is.na(delta_gr_rel)) %>% 
+  dplyr::filter(long_var == 96) 
+
+
+
+%>%
+  ggplot(aes(x = delta_BMI_abs)) +
+  geom_density()
+  
+  
   create_LMM(.,link_var = "link_var", cat_var = "cat_var",long_var = "delta_gr_rel",num_var = "delta_BMI_rel",breakpoints = NULL)
+
 
 ```
 
