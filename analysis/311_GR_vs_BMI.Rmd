@@ -217,21 +217,21 @@ bmi_c %>%
   # dplyr::select(BMI, richness) %>% 
   dplyr::filter(!is.na(richness)) %>% 
   mutate(new_c = kmeans(.[,c("BMI","richness")], centers = 2)$cluster) %>% 
-  ggplot(aes( x = BMI, y = richness, color = cat_var)) +
+  ggplot(aes( x = BMI, y = richness, color = as.factor(new_c))) +
   geom_point() +
   theme_light()
 
 ```
-Doesn't seem to be any noticeable difference between groups or BMI types. No diferences between groups could be found, 
+Doesn't seem to be any noticeable difference between groups or BMI types. No diferences richness between HBMI and LBMI could be found. 
 
 
 # Stratification by BMI changes
 
 Maybe the increase in gene richness may be associated with higher increase in BMI
 
-```{r, eval = F}
+```{r, eval = T, warning = F, message = F}
 
-delta_bmi_df
+delta_bmi_df <- 
 igc_df %>% 
   # dplyr::filter(long_var == 0) %>% 
   dplyr::select(link_var, long_var, cat_var, richness, BMI) %>% 
@@ -239,21 +239,73 @@ igc_df %>%
   dplyr::filter(long_var %in% c(0,96), 
                 !is.na(BMI)) %>% 
   filter(n() ==2) %>% 
-  mutate(delta_BMI_abs = BMI - BMI[long_var == 0],
+  mutate(bmi0 = BMI[long_var == 0],
+    delta_BMI_abs = BMI - BMI[long_var == 0],
          delta_BMI_rel = (BMI - BMI[long_var == 0])*100 / BMI[long_var == 0],
          delta_gr_abs = richness - richness[long_var == 0],
          delta_gr_rel = (richness - richness[long_var == 0]) / (richness + richness[long_var == 0])) %>%
-  dplyr::filter(long_var == 96) 
+  dplyr::filter(long_var == 96) %>% 
+  dplyr::select(record_id = link_var, contains("delta"), bmi0, cat_var) 
 
 
+peaks_abs <-
+  unique(metadata$group) %>%
+  purrr::set_names() %>%
+  purrr::map_dfr(function(treat) {
+    
+    delta_bmi_df %>%
+      dplyr::filter(cat_var == treat) %>% 
+      dplyr::pull(delta_BMI_abs) %>%
+      density() %>%
+      peak_finder(goal = "min") %>%
+      round(., 3) %>% 
+      mutate(cat_var = treat)
+  })
 
-%>%
+
+plot_delta_abs <- 
+delta_bmi_df %>% 
   ggplot(aes(x = delta_BMI_abs)) +
-  geom_density()
-  
-  
-  create_LMM(.,link_var = "link_var", cat_var = "cat_var",long_var = "delta_gr_rel",num_var = "delta_BMI_rel",breakpoints = NULL)
+  geom_density(aes(color = cat_var)) +
+  geom_vline(xintercept = peaks_abs$x, aes(color = cat_var)) +
+  geom_text(data = peaks_abs, aes(x = peaks_abs$x, y = peaks_abs$y*.9,label = peaks_abs$x, color = cat_var)) +
+  theme_light() +
+  labs(title = "Absolute", x = "BMI increase") +
+  theme(axis.title.y = element_blank())
+
+
+
+
+peaks_rel <- 
+  unique(metadata$group) %>%
+  purrr::set_names() %>%
+  purrr::map_dfr(function(treat) {
+    
+    delta_bmi_df %>%
+      dplyr::filter(cat_var == treat) %>% 
+      dplyr::pull(delta_BMI_rel) %>%
+      density() %>%
+      peak_finder(goal = "min") %>%
+      round(., 3) %>% 
+      mutate(cat_var = treat)
+  })
+
+plot_delta_rel <- 
+delta_bmi_df %>% 
+  ggplot(aes(x = delta_BMI_rel,color = cat_var)) +
+  geom_density(aes(color = cat_var)) +
+  geom_vline(xintercept = peaks_rel$x) +
+  geom_text(data = peaks_rel, aes(x = peaks_rel$x, y = peaks_rel$y*.9,label = peaks_rel$x, color = cat_var)) +
+  labs(title = "Relative (%)", x = "BMI increase") +
+  theme_light()
+
+
+# delta_bmi_df %>% 
+
+
+
+ggpubr::ggarrange(plot_delta_abs, plot_delta_rel)  
 
 
 ```
-
+Both absolute and relative increases seem fairly unimodal with a slight skew to the left. There seems to be a local minima in the relative deltas, but not enough to justfy a split. 
