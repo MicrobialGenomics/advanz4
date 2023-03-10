@@ -9,18 +9,20 @@ navbar:
     href: license.html
   - text: Gene richness
     href: 310_IGC_analysis.html
-  - text: Beta Diversity
-    href: 320_Beta_Diversity.html
-  - text: Immune and clinical BL comparisons
-    href: 335_BLMicrobiome_vs_ImmuneResponse.html
+  - text: BMI vs diversity
+    href: 331_GR_BMI.html
   - text: CD4 recovery vs Gene richness
     href: 315_GeneRichness_vs_CD4.html
-  - text: Gene richness vs inflammation
-    href: 317_GeneRichness_vs_Inflammation.html
-  - text: LMM taxa ranking
-    href: 330_TaxaLevel_LMM.html
   - text: CMV_analysis
     href: 316_GeneRichness_vs_CMV.html
+  - text: Gene richness vs inflammation
+    href: 317_GeneRichness_vs_Inflammation.html
+  - text: Beta Diversity
+    href: 320_Beta_Diversity.html
+  - text: LMM taxa ranking
+    href: 330_TaxaLevel_LMM.html
+  - text: Immune and clinical BL comparisons
+    href: 335_BLMicrobiome_vs_ImmuneResponse.html
   - text: Taxonomy
     href: 410_Taxonomy_Exploration.html
   - text: Differential Abundance
