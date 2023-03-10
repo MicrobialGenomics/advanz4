@@ -345,7 +345,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-03-09
+<strong>Last updated:</strong> 2023-03-10
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -436,16 +436,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treecbd814a4074642b4d8adb494acd1565ec8a60635targetblankcbd814aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/cbd814a4074642b4d8adb494acd1565ec8a60635" target="_blank">cbd814a</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree40fda18774f1450d6a209987f551e8653f7ca40atargetblank40fda18a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/40fda18774f1450d6a209987f551e8653f7ca40a" target="_blank">40fda18</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treecbd814a4074642b4d8adb494acd1565ec8a60635targetblankcbd814aa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree40fda18774f1450d6a209987f551e8653f7ca40atargetblank40fda18a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/cbd814a4074642b4d8adb494acd1565ec8a60635" target="_blank">cbd814a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/40fda18774f1450d6a209987f551e8653f7ca40a" target="_blank">40fda18</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -464,9 +464,6 @@ Ignored files:
 
 Unstaged changes:
     Modified:   analysis/311_GR_vs_BMI.Rmd
-    Modified:   analysis/_site.yml
-    Modified:   output/mre_data/CatalogMapping/IGC/lmm/lmm_time_point_by_group.pdf
-    Modified:   output/overall_pvals.csv
 
 </code></pre>
 <p>
@@ -505,6 +502,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/40fda18774f1450d6a209987f551e8653f7ca40a/analysis/311_GR_vs_BMI.Rmd" target="_blank">40fda18</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-10
+</td>
+<td>
+Readded delta BMI vs GR
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/40fda18774f1450d6a209987f551e8653f7ca40a/docs/311_GR_vs_BMI.html" target="_blank">40fda18</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-10
+</td>
+<td>
+Readded delta BMI vs GR
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -598,9 +629,78 @@ started analysis n GR vs BMI
 </div>
 </div>
 <pre><code>suggested package selbal ✔suggested package DataExplorer ✔suggested package lme4 ✔suggested package merTools ✔</code></pre>
-<div id="stratification-by-bmi" class="section level2">
-<h2>Stratification by BMI</h2>
-<p>One of the first things will be to test for how the BMI distributes at baseline, and to check for differences between groups</p>
+<div id="stratification-by-bmi" class="section level1">
+<h1>Stratification by BMI</h1>
+<p>This set of tests comes from recent studies which found that INSTIs are associated with greater BMI increases, respective to other treatments in ART-receiving patients. BMI is highly related to gut health, metabolism and microbiome, and may be a possible confussor regarding the interaction between treatment and microbiote, especially gene richness, as it may be masking the actual effect of treatment. The first is to assess how big of an impact our treatments have on the patients BMIs:</p>
+<pre class="r"><code>igc_df %&gt;% 
+  dplyr::select(SampleID, link_var, cat_var, long_var, BMI) %&gt;% 
+  get_lmm_effects(.,cat_vector = &quot;cat_var&quot;, num_vector = &quot;BMI&quot;, long_var = &quot;long_var&quot;, link_var = &quot;link_var&quot;, title = &quot;BMI evolution/group&quot;)</code></pre>
+<pre><code>[1] &quot;cat_var&quot;
+[1] &quot;BMI&quot;</code></pre>
+<pre><code>$cat_var
+$cat_var$BMI
+$cat_var$BMI$plot</code></pre>
+<p><img src="figure/311_GR_vs_BMI.Rmd/BMI-vs_group-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>
+$cat_var$BMI$summary
+                        estimate      st.err       df       tval            p
+(Intercept)         22.843254724 0.571780322 101.7421 39.9511033 5.318804e-64
+long_var             0.025897438 0.004761211 161.2773  5.4392542 1.951105e-07
+cat_varDTG           0.432868903 0.792613839 102.4527  0.5461284 5.861650e-01
+long_var:cat_varDTG  0.003153891 0.006389171 161.2107  0.4936307 6.222388e-01</code></pre>
+<pre class="r"><code>require(rstatix)
+bmi_test &lt;- 
+get_comp_boxplots(dat = igc_df, cat_var = &quot;cat_var&quot;, num_var = &quot;BMI&quot;, long_var = &quot;long_var&quot;, link_var = &quot;link_var&quot;, pal = &quot;Accent&quot;)
+
+
+bmi_test$plot</code></pre>
+<p><img src="figure/311_GR_vs_BMI.Rmd/BMI-vs_group-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>bmi_test$test$cat %&gt;% 
+  dplyr::select(long_var, contains ( &quot;group&quot;), p.adj.signif) %&gt;% 
+  kableExtra::kable(format = &quot;markdown&quot;)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">long_var</th>
+<th align="left">group1</th>
+<th align="left">group2</th>
+<th align="left">groups</th>
+<th align="left">p.adj.signif</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0</td>
+<td align="left">DRV/r</td>
+<td align="left">DTG</td>
+<td align="left">DRV/r, DTG</td>
+<td align="left">ns</td>
+</tr>
+<tr class="even">
+<td align="right">24</td>
+<td align="left">DRV/r</td>
+<td align="left">DTG</td>
+<td align="left">DRV/r, DTG</td>
+<td align="left">ns</td>
+</tr>
+<tr class="odd">
+<td align="right">48</td>
+<td align="left">DRV/r</td>
+<td align="left">DTG</td>
+<td align="left">DRV/r, DTG</td>
+<td align="left">ns</td>
+</tr>
+<tr class="even">
+<td align="right">96</td>
+<td align="left">DRV/r</td>
+<td align="left">DTG</td>
+<td align="left">DRV/r, DTG</td>
+<td align="left">ns</td>
+</tr>
+</tbody>
+</table>
+<p>Turns out looking at BMI alone, no categorical differences can be found. While both treatment groups significantly increase in BMI, no diferences between DTG an DRV are found.</p>
+<p>Anyhow, this may have something to do with BMI differences at BL. Let’s check for its distribution:</p>
 <pre class="r"><code>peaks_bl &lt;- igc_df %&gt;% 
   dplyr::filter(long_var == 0, !is.na(BMI)) %&gt;% 
   dplyr::pull(BMI) %&gt;%
@@ -616,7 +716,7 @@ igc_df %&gt;%
   dplyr::filter(long_var == 0, !is.na(BMI)) %&gt;% 
   ggplot(.) +
   # geom_histogram(aes(x = BMI), fill = &quot;grey&quot;, bins = 100) +
-  geom_density(aes(x = BMI),bins = 100, fill = &quot;grey&quot;) +
+  geom_density(aes(x = BMI, color = cat_var),bins = 100) +
   theme_bw() +
   geom_vline(xintercept = peaks_bl$x, lty = 3) +
   geom_vline(xintercept = median_bl, col = &quot;red&quot;) +
@@ -688,7 +788,7 @@ cblazquez
 </tr>
 </tbody>
 </table>
-<p>It seems there is a certain bimodality in the distribution of BMI at BL. However, still seems to be close to normal, so the max peak of 21.57 is fairly close to the median of 22.084. From this it 22 seems a good cut-off point between high and low BMI.</p>
+<p>It seems there is a certain bimodality in the distribution of BMI at BL in the DTG. However, still seems to be close to normal, so the max peak of 21.57 is fairly close to the median of 22.084. From this it 22 seems a good cut-off point between high and low BMI.</p>
 <pre class="r"><code>bmi_c &lt;- 
 igc_df %&gt;% 
   dplyr::filter(long_var == 0, !is.na(BMI)) %&gt;% 
@@ -917,6 +1017,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/40fda18774f1450d6a209987f551e8653f7ca40a/docs/figure/311_GR_vs_BMI.Rmd/unnamed-chunk-1-1.png" target="_blank">40fda18</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/cbd814a4074642b4d8adb494acd1565ec8a60635/docs/figure/311_GR_vs_BMI.Rmd/unnamed-chunk-1-1.png" target="_blank">cbd814a</a>
 </td>
 <td>
@@ -931,6 +1042,7 @@ cblazquez
 </div>
 </div>
 <p>Both treatment groups appear to have a unimodal distribution regarding their BMI increase at week 96, both in absolute and relative terms. However there seems to be a shift between both, as the “valley” between both peaks in the DTG group seems to be shifted toward the left, relative to the DRV group.</p>
+<p>A good threshold to separate two groups seems to be 2.5 increase of absolute BMI. It separates both peaks from each group, more or less equitatively.</p>
 <pre class="r"><code>test_gr0_abs &lt;-
   delta_bmi_df %&gt;%
   glm(delta_BMI_abs ~ gr0 * cat_var, data = .) %&gt;%
@@ -944,7 +1056,7 @@ deltas_gr0_abs &lt;-
   ggplot(aes(x = gr0, y = delta_BMI_abs, color = cat_var)) +
   geom_point() +
   geom_smooth(method = &quot;glm&quot;, aes(fill = cat_var)) +
-  labs(title = &quot;Absolute&quot;, subtitle = paste(&quot;ANOVA p =&quot;, test_gr0_abs)) +
+  labs(title = &quot;Absolute&quot;, subtitle = paste(&quot;ANOVA p =&quot;, test_gr0_abs),x = &quot;Gene richness at baseline&quot;) +
   theme_light()
 
 
@@ -962,13 +1074,50 @@ deltas_gr0_rel &lt;-
   geom_point() +
   geom_smooth(method = &quot;glm&quot;, aes(fill = cat_var)) +
   theme_light() +
-  labs(title = &quot;Relative&quot;, subtitle = paste(&quot;ANOVA p =&quot;, test_gr0_rel)) +
+  labs(title = &quot;Relative&quot;, subtitle = paste(&quot;ANOVA p =&quot;, test_gr0_rel),x = &quot;Gene richness at baseline&quot;) +
   theme(axis.title.y = element_blank())
 
 
 
 ggpubr::ggarrange(deltas_gr0_abs, deltas_gr0_rel, common.legend = T)</code></pre>
 <p><img src="figure/311_GR_vs_BMI.Rmd/delta_cors-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-delta_cors-1">
+Past versions of delta_cors-1.png
+</button>
+</p>
+<div id="fig-delta_cors-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/40fda18774f1450d6a209987f551e8653f7ca40a/docs/figure/311_GR_vs_BMI.Rmd/delta_cors-1.png" target="_blank">40fda18</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>test_gr_abs &lt;-
   delta_bmi_df %&gt;%
   glm(delta_BMI_abs ~ delta_gr_abs * cat_var, data = .) %&gt;%
@@ -982,7 +1131,7 @@ deltas_gr_abs &lt;-
   ggplot(aes(x = delta_gr_abs, y = delta_BMI_abs, color = cat_var)) +
   geom_point() +
   geom_smooth(method = &quot;glm&quot;, aes(fill = cat_var)) +
-  labs(title = &quot;Absolute&quot;, subtitle = paste(&quot;ANOVA p =&quot;, test_gr_abs)) +
+  labs(title = &quot;Absolute&quot;, subtitle = paste(&quot;ANOVA p =&quot;, test_gr_abs), x = &quot;Gene richness increase&quot;) +
   theme_light()
 
 
@@ -1000,13 +1149,67 @@ deltas_gr_rel &lt;-
   geom_point() +
   geom_smooth(method = &quot;glm&quot;, aes(fill = cat_var)) +
   theme_light() +
-  labs(title = &quot;Relative&quot;, subtitle = paste(&quot;ANOVA p =&quot;, test_gr_rel)) +
+  labs(title = &quot;Relative&quot;, subtitle = paste(&quot;ANOVA p =&quot;, test_gr_rel),x = &quot;Gene richness increase&quot;) +
   theme(axis.title.y = element_blank())
 
 
 
 ggpubr::ggarrange(deltas_gr_abs, deltas_gr_rel, common.legend = T)</code></pre>
 <p><img src="figure/311_GR_vs_BMI.Rmd/delta_cors-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-delta_cors-2">
+Past versions of delta_cors-2.png
+</button>
+</p>
+<div id="fig-delta_cors-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/40fda18774f1450d6a209987f551e8653f7ca40a/docs/figure/311_GR_vs_BMI.Rmd/delta_cors-2.png" target="_blank">40fda18</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="stratifying-population-by-bmi" class="section level1">
+<h1>Stratifying population by BMI</h1>
+<p>Now that we saw the increase in gene richness follows a bimodal distribution in each group, it is possible that we didn’t find an effect of gene richness per treatment group due to the confusor effect of BMI. We will split the population between high BMI change (BMI_H) and low BMI increase (BMI_L). The cutting point will be an absolute increase of 2.5 in BMI, as seen earlier in the delta distribution.</p>
+<pre class="r"><code>delta_bmi_df %&gt;% 
+  dplyr::mutate(bmi_c = case_when(
+    delta_BMI_abs &gt;= 2.5 ~ &quot;H_BMI&quot;,
+    delta_BMI_abs &lt; 2 ~ &quot;L_BMI&quot;
+  )) %&gt;% 
+  # dplyr::select(link_var = record_id, bmi_c) %&gt;% 
+  # left_join(igc_df, by = &quot;link_var&quot;) %&gt;% 
+  # mutate(cat_var2 = paste(cat_var, bmi_c)) %&gt;% 
+  dplyr::filter(!is.na(bmi_c)) %&gt;% 
+  ggplot(aes(y = gr0, x = cat_var, fill = bmi_c)) +
+  ggpubr::stat_compare_means(method = &quot;wilcox.test&quot;) +
+  geom_boxplot()</code></pre>
+<p><img src="figure/311_GR_vs_BMI.Rmd/bmi_stratification-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1034,62 +1237,57 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] metar_0.1.5        RColorBrewer_1.1-3 forcats_0.5.1      stringr_1.4.0     
- [5] dplyr_1.0.9        purrr_0.3.4        readr_2.1.2        tidyr_1.2.0       
- [9] tibble_3.1.7       ggplot2_3.3.6      tidyverse_1.3.1    devtools_2.4.3    
-[13] usethis_2.1.6      workflowr_1.7.0   
+ [1] rstatix_0.7.0      metar_0.1.5        RColorBrewer_1.1-3 forcats_0.5.1     
+ [5] stringr_1.4.0      dplyr_1.0.9        purrr_0.3.4        readr_2.1.2       
+ [9] tidyr_1.2.0        tibble_3.1.7       ggplot2_3.3.6      tidyverse_1.3.1   
 
 loaded via a namespace (and not attached):
   [1] readxl_1.4.0        backports_1.4.1     blme_1.0-5         
-  [4] systemfonts_1.0.4   plyr_1.8.7          igraph_1.3.2       
-  [7] splines_4.0.5       listenv_0.8.0       digest_0.6.29      
- [10] foreach_1.5.2       htmltools_0.5.2     fansi_1.0.3        
- [13] magrittr_2.0.3      memoise_2.0.1       cluster_2.1.3      
- [16] tzdb_0.3.0          remotes_2.4.2       globals_0.15.0     
+  [4] workflowr_1.7.0     systemfonts_1.0.4   plyr_1.8.7         
+  [7] igraph_1.3.2        splines_4.0.5       listenv_0.8.0      
+ [10] digest_0.6.29       foreach_1.5.2       htmltools_0.5.2    
+ [13] lmerTest_3.1-3      fansi_1.0.3         magrittr_2.0.3     
+ [16] cluster_2.1.3       tzdb_0.3.0          globals_0.15.0     
  [19] Biostrings_2.58.0   modelr_0.1.8        svglite_2.1.0      
- [22] prettyunits_1.1.1   colorspace_2.0-3    rvest_1.0.2        
- [25] haven_2.5.0         xfun_0.31           callr_3.7.0        
- [28] crayon_1.5.1        jsonlite_1.8.0      lme4_1.1-29        
- [31] survival_3.3-1      iterators_1.0.14    ape_5.6-2          
- [34] glue_1.6.2          kableExtra_1.3.4    gtable_0.3.0       
- [37] zlibbioc_1.36.0     XVector_0.30.0      webshot_0.5.3      
- [40] phyloseq_1.34.0     car_3.1-0           pkgbuild_1.3.1     
- [43] Rhdf5lib_1.12.1     BiocGenerics_0.36.1 abind_1.4-5        
- [46] scales_1.2.0        mvtnorm_1.1-3       DBI_1.1.3          
- [49] rstatix_0.7.0       Rcpp_1.0.8.3        viridisLite_0.4.0  
- [52] xtable_1.8-4        merTools_0.5.2      stats4_4.0.5       
- [55] htmlwidgets_1.5.4   httr_1.4.2          ellipsis_0.3.2     
- [58] farver_2.1.0        DataExplorer_0.8.2  pkgconfig_2.0.3    
- [61] sass_0.4.1          dbplyr_2.2.0        utf8_1.2.2         
- [64] here_1.0.1          labeling_0.4.2      tidyselect_1.1.2   
- [67] rlang_1.0.2         reshape2_1.4.4      later_1.3.0        
- [70] munsell_0.5.0       cellranger_1.1.0    tools_4.0.5        
- [73] cachem_1.0.6        cli_3.3.0           generics_0.1.2     
- [76] selbal_0.1.0        ade4_1.7-19         broom_0.8.0        
- [79] evaluate_0.15       biomformat_1.18.0   fastmap_1.1.0      
- [82] arm_1.12-2          yaml_2.3.5          processx_3.6.1     
- [85] knitr_1.39          fs_1.5.2            future_1.26.1      
- [88] nlme_3.1-158        mime_0.12           whisker_0.4        
- [91] xml2_1.3.2          brio_1.1.3          compiler_4.0.5     
- [94] rstudioapi_0.13     ggsignif_0.6.3.9000 testthat_3.1.4     
- [97] reprex_2.0.1        bslib_0.3.1         stringi_1.7.6      
-[100] highr_0.9           ps_1.7.1            desc_1.4.1         
-[103] logger_0.2.2        lattice_0.20-45     Matrix_1.4-1       
-[106] nloptr_2.0.3        vegan_2.6-2         permute_0.9-7      
-[109] multtest_2.46.0     vctrs_0.4.1         furrr_0.3.0        
-[112] pillar_1.7.0        lifecycle_1.0.1     networkD3_0.4      
-[115] rhdf5filters_1.2.1  jquerylib_0.1.4     cowplot_1.1.1      
-[118] data.table_1.14.2   httpuv_1.6.5        R6_2.5.1           
-[121] promises_1.2.0.1    gridExtra_2.3       parallelly_1.32.0  
-[124] IRanges_2.24.1      sessioninfo_1.2.2   codetools_0.2-18   
-[127] boot_1.3-28         MASS_7.3-57         assertthat_0.2.1   
-[130] pkgload_1.2.4       rhdf5_2.34.0        rprojroot_2.0.3    
-[133] withr_2.5.0         broom.mixed_0.2.9.4 S4Vectors_0.28.1   
-[136] mgcv_1.8-40         parallel_4.0.5      hms_1.1.1          
-[139] grid_4.0.5          coda_0.19-4         minqa_1.2.4        
-[142] rmarkdown_2.14      carData_3.0-5       ggpubr_0.4.0       
-[145] git2r_0.30.1        getPass_0.2-2       shiny_1.7.1        
-[148] Biobase_2.50.0      lubridate_1.8.0    </code></pre>
+ [22] colorspace_2.0-3    rvest_1.0.2         haven_2.5.0        
+ [25] xfun_0.31           crayon_1.5.1        jsonlite_1.8.0     
+ [28] lme4_1.1-29         survival_3.3-1      iterators_1.0.14   
+ [31] ape_5.6-2           glue_1.6.2          kableExtra_1.3.4   
+ [34] gtable_0.3.0        zlibbioc_1.36.0     XVector_0.30.0     
+ [37] webshot_0.5.3       phyloseq_1.34.0     car_3.1-0          
+ [40] Rhdf5lib_1.12.1     BiocGenerics_0.36.1 abind_1.4-5        
+ [43] scales_1.2.0        mvtnorm_1.1-3       DBI_1.1.3          
+ [46] Rcpp_1.0.8.3        viridisLite_0.4.0   xtable_1.8-4       
+ [49] merTools_0.5.2      stats4_4.0.5        htmlwidgets_1.5.4  
+ [52] httr_1.4.2          ellipsis_0.3.2      farver_2.1.0       
+ [55] DataExplorer_0.8.2  pkgconfig_2.0.3     sass_0.4.1         
+ [58] dbplyr_2.2.0        utf8_1.2.2          here_1.0.1         
+ [61] labeling_0.4.2      tidyselect_1.1.2    rlang_1.0.2        
+ [64] reshape2_1.4.4      later_1.3.0         munsell_0.5.0      
+ [67] cellranger_1.1.0    tools_4.0.5         cli_3.3.0          
+ [70] generics_0.1.2      selbal_0.1.0        ade4_1.7-19        
+ [73] broom_0.8.0         evaluate_0.15       biomformat_1.18.0  
+ [76] fastmap_1.1.0       arm_1.12-2          yaml_2.3.5         
+ [79] knitr_1.39          fs_1.5.2            future_1.26.1      
+ [82] nlme_3.1-158        whisker_0.4         mime_0.12          
+ [85] xml2_1.3.2          compiler_4.0.5      rstudioapi_0.13    
+ [88] ggsignif_0.6.3.9000 reprex_2.0.1        bslib_0.3.1        
+ [91] stringi_1.7.6       highr_0.9           logger_0.2.2       
+ [94] lattice_0.20-45     Matrix_1.4-1        nloptr_2.0.3       
+ [97] vegan_2.6-2         permute_0.9-7       multtest_2.46.0    
+[100] vctrs_0.4.1         pillar_1.7.0        lifecycle_1.0.1    
+[103] networkD3_0.4       rhdf5filters_1.2.1  furrr_0.3.0        
+[106] jquerylib_0.1.4     cowplot_1.1.1       data.table_1.14.2  
+[109] httpuv_1.6.5        R6_2.5.1            promises_1.2.0.1   
+[112] gridExtra_2.3       IRanges_2.24.1      parallelly_1.32.0  
+[115] codetools_0.2-18    boot_1.3-28         MASS_7.3-57        
+[118] assertthat_0.2.1    rhdf5_2.34.0        rprojroot_2.0.3    
+[121] withr_2.5.0         S4Vectors_0.28.1    broom.mixed_0.2.9.4
+[124] mgcv_1.8-40         parallel_4.0.5      hms_1.1.1          
+[127] grid_4.0.5          coda_0.19-4         minqa_1.2.4        
+[130] rmarkdown_2.14      carData_3.0-5       ggpubr_0.4.0       
+[133] git2r_0.30.1        numDeriv_2016.8-1.1 Biobase_2.50.0     
+[136] shiny_1.7.1         lubridate_1.8.0    </code></pre>
 </div>
 </div>
 

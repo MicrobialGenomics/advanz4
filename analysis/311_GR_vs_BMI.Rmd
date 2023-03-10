@@ -13,6 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 source(here::here("code","LMM.R"))
 source(here::here("code","myFunctions.R"))
+source(here::here("code", "group_comparisons.R"))
 library(RColorBrewer)
 
 ```
@@ -125,9 +126,35 @@ igc_df <- igc@dataTable %>%
 
 
 
-## Stratification by BMI
+# Stratification by BMI
 
-One of the first things will be to test for how the BMI distributes at baseline, and to check for differences between groups
+This set of tests comes from recent studies which found that INSTIs are associated with greater BMI increases, respective to other treatments in ART-receiving patients. BMI is highly related to gut health, metabolism and microbiome, and may be a possible confussor regarding the interaction between treatment and microbiote, especially gene richness, as it may be masking the actual effect of treatment. The first is to assess how big of an impact our treatments have on the patients BMIs:
+
+
+```{r BMI-vs_group, warning=FALSE, message=FALSE}
+
+igc_df %>% 
+  dplyr::select(SampleID, link_var, cat_var, long_var, BMI) %>% 
+  get_lmm_effects(.,cat_vector = "cat_var", num_vector = "BMI", long_var = "long_var", link_var = "link_var", title = "BMI evolution/group")
+  
+
+require(rstatix)
+bmi_test <- 
+get_comp_boxplots(dat = igc_df, cat_var = "cat_var", num_var = "BMI", long_var = "long_var", link_var = "link_var", pal = "Accent")
+
+
+bmi_test$plot
+
+bmi_test$test$cat %>% 
+  dplyr::select(long_var, contains ( "group"), p.adj.signif) %>% 
+  kableExtra::kable(format = "markdown")
+
+
+```
+
+Turns out looking at BMI alone, no categorical differences can be found. While both treatment groups significantly increase in BMI, no diferences between DTG an DRV are found.
+
+Anyhow, this may have something to do with BMI differences at BL. Let's check for its distribution:
 
 
 ```{r basal_dist_df}
@@ -146,7 +173,7 @@ igc_df %>%
   dplyr::filter(long_var == 0, !is.na(BMI)) %>% 
   ggplot(.) +
   # geom_histogram(aes(x = BMI), fill = "grey", bins = 100) +
-  geom_density(aes(x = BMI),bins = 100, fill = "grey") +
+  geom_density(aes(x = BMI, color = cat_var),bins = 100) +
   theme_bw() +
   geom_vline(xintercept = peaks_bl$x, lty = 3) +
   geom_vline(xintercept = median_bl, col = "red") +
@@ -175,7 +202,7 @@ igc_df %>%
 
 ```
 
-It seems there is a certain bimodality in the distribution of BMI at BL. However, still seems to be close to normal, so the max peak of 21.57 is fairly close to the median of 22.084. From this it 22 seems a good cut-off point between high and low BMI.
+It seems there is a certain bimodality in the distribution of BMI at BL in the DTG. However, still seems to be close to normal, so the max peak of 21.57 is fairly close to the median of 22.084. From this it 22 seems a good cut-off point between high and low BMI.
 
 
 
@@ -315,7 +342,7 @@ ggpubr::ggarrange(plot_delta_abs, plot_delta_rel, common.legend = T)
 
 Both treatment groups appear to have a unimodal distribution regarding their BMI increase at week 96, both in absolute and relative terms. However there seems to be a shift between both, as the "valley" between both peaks in the DTG group seems to be shifted toward the left, relative to the DRV group.
 
-
+A good threshold to separate two groups seems to be 2.5 increase of absolute BMI. It separates both peaks from each group, more or less equitatively.
 
 
 ```{r delta_cors, warning=FALSE, message=F}
@@ -332,7 +359,7 @@ deltas_gr0_abs <-
   ggplot(aes(x = gr0, y = delta_BMI_abs, color = cat_var)) +
   geom_point() +
   geom_smooth(method = "glm", aes(fill = cat_var)) +
-  labs(title = "Absolute", subtitle = paste("ANOVA p =", test_gr0_abs)) +
+  labs(title = "Absolute", subtitle = paste("ANOVA p =", test_gr0_abs),x = "Gene richness at baseline") +
   theme_light()
 
 
@@ -350,7 +377,7 @@ deltas_gr0_rel <-
   geom_point() +
   geom_smooth(method = "glm", aes(fill = cat_var)) +
   theme_light() +
-  labs(title = "Relative", subtitle = paste("ANOVA p =", test_gr0_rel)) +
+  labs(title = "Relative", subtitle = paste("ANOVA p =", test_gr0_rel),x = "Gene richness at baseline") +
   theme(axis.title.y = element_blank())
 
 
@@ -372,7 +399,7 @@ deltas_gr_abs <-
   ggplot(aes(x = delta_gr_abs, y = delta_BMI_abs, color = cat_var)) +
   geom_point() +
   geom_smooth(method = "glm", aes(fill = cat_var)) +
-  labs(title = "Absolute", subtitle = paste("ANOVA p =", test_gr_abs)) +
+  labs(title = "Absolute", subtitle = paste("ANOVA p =", test_gr_abs), x = "Gene richness increase") +
   theme_light()
 
 
@@ -390,7 +417,7 @@ deltas_gr_rel <-
   geom_point() +
   geom_smooth(method = "glm", aes(fill = cat_var)) +
   theme_light() +
-  labs(title = "Relative", subtitle = paste("ANOVA p =", test_gr_rel)) +
+  labs(title = "Relative", subtitle = paste("ANOVA p =", test_gr_rel),x = "Gene richness increase") +
   theme(axis.title.y = element_blank())
 
 
@@ -400,6 +427,31 @@ ggpubr::ggarrange(deltas_gr_abs, deltas_gr_rel, common.legend = T)
 ```
 
 
+
+
+# Stratifying population by BMI
+
+Now that we saw the increase in gene richness follows a bimodal distribution in each group, it is possible that we didn't find an effect of gene richness per treatment group due to the confusor effect of BMI. We will split the population between high BMI change (BMI_H) and low BMI increase (BMI_L). The cutting point will be an absolute increase of 2.5 in BMI, as seen earlier in the delta distribution.
+
+
+```{r bmi_stratification, warning=F, message=FALSE}
+delta_bmi_df %>% 
+  dplyr::mutate(bmi_c = case_when(
+    delta_BMI_abs >= 2.5 ~ "H_BMI",
+    delta_BMI_abs < 2 ~ "L_BMI"
+  )) %>% 
+  # dplyr::select(link_var = record_id, bmi_c) %>% 
+  # left_join(igc_df, by = "link_var") %>% 
+  # mutate(cat_var2 = paste(cat_var, bmi_c)) %>% 
+  dplyr::filter(!is.na(bmi_c)) %>% 
+  ggplot(aes(y = gr0, x = cat_var, fill = bmi_c)) +
+  ggpubr::stat_compare_means(method = "wilcox.test") +
+  geom_boxplot()
+
+
+
+
+```
 
 
 
