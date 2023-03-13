@@ -345,7 +345,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-03-10
+<strong>Last updated:</strong> 2023-03-13
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -436,16 +436,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree40fda18774f1450d6a209987f551e8653f7ca40atargetblank40fda18a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/40fda18774f1450d6a209987f551e8653f7ca40a" target="_blank">40fda18</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree13934937790cdaa1d7797b79257775a36849ee2atargetblank1393493a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/13934937790cdaa1d7797b79257775a36849ee2a" target="_blank">1393493</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree40fda18774f1450d6a209987f551e8653f7ca40atargetblank40fda18a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree13934937790cdaa1d7797b79257775a36849ee2atargetblank1393493a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/40fda18774f1450d6a209987f551e8653f7ca40a" target="_blank">40fda18</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/13934937790cdaa1d7797b79257775a36849ee2a" target="_blank">1393493</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -502,6 +502,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/13934937790cdaa1d7797b79257775a36849ee2a/analysis/311_GR_vs_BMI.Rmd" target="_blank">1393493</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-10
+</td>
+<td>
+started stratifcation by BMI
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/13934937790cdaa1d7797b79257775a36849ee2a/docs/311_GR_vs_BMI.html" target="_blank">1393493</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-10
+</td>
+<td>
+started stratifcation by BMI
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -641,6 +675,43 @@ started analysis n GR vs BMI
 $cat_var$BMI
 $cat_var$BMI$plot</code></pre>
 <p><img src="figure/311_GR_vs_BMI.Rmd/BMI-vs_group-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-BMI-vs_group-1">
+Past versions of BMI-vs_group-1.png
+</button>
+</p>
+<div id="fig-BMI-vs_group-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/13934937790cdaa1d7797b79257775a36849ee2a/docs/figure/311_GR_vs_BMI.Rmd/BMI-vs_group-1.png" target="_blank">1393493</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $cat_var$BMI$summary
                         estimate      st.err       df       tval            p
@@ -655,6 +726,43 @@ get_comp_boxplots(dat = igc_df, cat_var = &quot;cat_var&quot;, num_var = &quot;B
 
 bmi_test$plot</code></pre>
 <p><img src="figure/311_GR_vs_BMI.Rmd/BMI-vs_group-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-BMI-vs_group-2">
+Past versions of BMI-vs_group-2.png
+</button>
+</p>
+<div id="fig-BMI-vs_group-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/13934937790cdaa1d7797b79257775a36849ee2a/docs/figure/311_GR_vs_BMI.Rmd/BMI-vs_group-2.png" target="_blank">1393493</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>bmi_test$test$cat %&gt;% 
   dplyr::select(long_var, contains ( &quot;group&quot;), p.adj.signif) %&gt;% 
   kableExtra::kable(format = &quot;markdown&quot;)</code></pre>
@@ -748,6 +856,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/13934937790cdaa1d7797b79257775a36849ee2a/docs/figure/311_GR_vs_BMI.Rmd/basal_dist_df-1.png" target="_blank">1393493</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/ec3949c8abd001aa4c07563476791b0c859c652a/docs/figure/311_GR_vs_BMI.Rmd/basal_dist_df-1.png" target="_blank">ec3949c</a>
@@ -1105,6 +1224,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/13934937790cdaa1d7797b79257775a36849ee2a/docs/figure/311_GR_vs_BMI.Rmd/delta_cors-1.png" target="_blank">1393493</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/40fda18774f1450d6a209987f551e8653f7ca40a/docs/figure/311_GR_vs_BMI.Rmd/delta_cors-1.png" target="_blank">40fda18</a>
 </td>
 <td>
@@ -1180,6 +1310,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/13934937790cdaa1d7797b79257775a36849ee2a/docs/figure/311_GR_vs_BMI.Rmd/delta_cors-2.png" target="_blank">1393493</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/40fda18774f1450d6a209987f551e8653f7ca40a/docs/figure/311_GR_vs_BMI.Rmd/delta_cors-2.png" target="_blank">40fda18</a>
 </td>
 <td>
@@ -1196,7 +1337,7 @@ cblazquez
 </div>
 <div id="stratifying-population-by-bmi" class="section level1">
 <h1>Stratifying population by BMI</h1>
-<p>Now that we saw the increase in gene richness follows a bimodal distribution in each group, it is possible that we didn’t find an effect of gene richness per treatment group due to the confusor effect of BMI. We will split the population between high BMI change (BMI_H) and low BMI increase (BMI_L). The cutting point will be an absolute increase of 2.5 in BMI, as seen earlier in the delta distribution.</p>
+<p>Now that we saw the increase in gene richness follows a bimodal distribution in each group, it is possible that we didn’t find an effect of gene richness per treatment group due to the confusor effect of BMI. We will split the population between high (BMI_H) and low BMI increase (BMI_L). The cutting point will be an absolute increase of 2.5 in BMI, as seen earlier in the delta distribution.</p>
 <pre class="r"><code>delta_bmi_df %&gt;% 
   dplyr::mutate(bmi_c = case_when(
     delta_BMI_abs &gt;= 2.5 ~ &quot;H_BMI&quot;,
@@ -1208,8 +1349,77 @@ cblazquez
   dplyr::filter(!is.na(bmi_c)) %&gt;% 
   ggplot(aes(y = gr0, x = cat_var, fill = bmi_c)) +
   ggpubr::stat_compare_means(method = &quot;wilcox.test&quot;) +
-  geom_boxplot()</code></pre>
+  geom_boxplot() +
+  theme_bw() +
+  labs(x = &quot;treatment&quot;, y = &quot;gene richness (baseline)&quot;, fill = &quot;BMI&quot;)</code></pre>
 <p><img src="figure/311_GR_vs_BMI.Rmd/bmi_stratification-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-bmi_stratification-1">
+Past versions of bmi_stratification-1.png
+</button>
+</p>
+<div id="fig-bmi_stratification-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/13934937790cdaa1d7797b79257775a36849ee2a/docs/figure/311_GR_vs_BMI.Rmd/bmi_stratification-1.png" target="_blank">1393493</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>delta_bmi_df %&gt;% 
+  dplyr::mutate(bmi_c = case_when(
+    delta_BMI_abs &gt;= 2.5 ~ &quot;H_BMI&quot;,
+    delta_BMI_abs &lt; 2 ~ &quot;L_BMI&quot;
+  )) %&gt;% 
+  dplyr::filter(!is.na(bmi_c)) %&gt;% 
+  ggplot(aes(y = delta_gr_rel, x = cat_var, fill = bmi_c)) +
+  ggpubr::stat_compare_means(method = &quot;wilcox.test&quot;) +
+  geom_boxplot() +
+  theme_bw() +
+  labs(x = &quot;treatment&quot;, y = &quot;GR increase at week 96 (%)&quot;, fill = &quot;BMI&quot;)</code></pre>
+<p><img src="figure/311_GR_vs_BMI.Rmd/bmi_stratification-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>delta_bmi_df %&gt;% 
+  dplyr::mutate(bmi_c = case_when(
+    delta_BMI_abs &gt;= 2.5 ~ &quot;H_BMI&quot;,
+    delta_BMI_abs &lt; 2 ~ &quot;L_BMI&quot;
+  )) %&gt;% 
+  dplyr::select(record_id, bmi_c) %&gt;% 
+  dplyr::rename(link_var = record_id) %&gt;% 
+  dplyr::right_join(igc_df, by = &quot;link_var&quot;) %&gt;% 
+  dplyr::filter(!is.na(bmi_c)) %&gt;% 
+  dplyr::mutate(group_bmi = paste(cat_var, bmi_c, sep = &quot;_&quot;)) %&gt;% 
+  ggplot(aes(y = richness, x = as.factor(long_var), color = group_bmi)) +
+  geom_boxplot(aes(x = as.factor(long_var))) +
+  ggpubr::stat_compare_means(method = &quot;wilcox_test&quot;) +
+  # geom_point() +
+  geom_smooth(method = &quot;glm&quot;, alpha = 0) +
+  theme_bw() +
+  labs(x = &quot;week&quot;) </code></pre>
+<p><img src="figure/311_GR_vs_BMI.Rmd/bmi_stratification-3.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

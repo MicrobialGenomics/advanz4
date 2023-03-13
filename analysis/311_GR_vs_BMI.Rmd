@@ -431,7 +431,7 @@ ggpubr::ggarrange(deltas_gr_abs, deltas_gr_rel, common.legend = T)
 
 # Stratifying population by BMI
 
-Now that we saw the increase in gene richness follows a bimodal distribution in each group, it is possible that we didn't find an effect of gene richness per treatment group due to the confusor effect of BMI. We will split the population between high BMI change (BMI_H) and low BMI increase (BMI_L). The cutting point will be an absolute increase of 2.5 in BMI, as seen earlier in the delta distribution.
+Now that we saw the increase in gene richness follows a bimodal distribution in each group, it is possible that we didn't find an effect of gene richness per treatment group due to the confusor effect of BMI. We will split the population between high (BMI_H) and low BMI increase (BMI_L). The cutting point will be an absolute increase of 2.5 in BMI, as seen earlier in the delta distribution.
 
 
 ```{r bmi_stratification, warning=F, message=FALSE}
@@ -446,9 +446,40 @@ delta_bmi_df %>%
   dplyr::filter(!is.na(bmi_c)) %>% 
   ggplot(aes(y = gr0, x = cat_var, fill = bmi_c)) +
   ggpubr::stat_compare_means(method = "wilcox.test") +
-  geom_boxplot()
+  geom_boxplot() +
+  theme_bw() +
+  labs(x = "treatment", y = "gene richness (baseline)", fill = "BMI")
 
 
+delta_bmi_df %>% 
+  dplyr::mutate(bmi_c = case_when(
+    delta_BMI_abs >= 2.5 ~ "H_BMI",
+    delta_BMI_abs < 2 ~ "L_BMI"
+  )) %>% 
+  dplyr::filter(!is.na(bmi_c)) %>% 
+  ggplot(aes(y = delta_gr_rel, x = cat_var, fill = bmi_c)) +
+  ggpubr::stat_compare_means(method = "wilcox.test") +
+  geom_boxplot() +
+  theme_bw() +
+  labs(x = "treatment", y = "GR increase at week 96 (%)", fill = "BMI")
+
+delta_bmi_df %>% 
+  dplyr::mutate(bmi_c = case_when(
+    delta_BMI_abs >= 2.5 ~ "H_BMI",
+    delta_BMI_abs < 2 ~ "L_BMI"
+  )) %>% 
+  dplyr::select(record_id, bmi_c) %>% 
+  dplyr::rename(link_var = record_id) %>% 
+  dplyr::right_join(igc_df, by = "link_var") %>% 
+  dplyr::filter(!is.na(bmi_c)) %>% 
+  dplyr::mutate(group_bmi = paste(cat_var, bmi_c, sep = "_")) %>% 
+  ggplot(aes(y = richness, x = as.factor(long_var), color = group_bmi)) +
+  geom_boxplot(aes(x = as.factor(long_var))) +
+  ggpubr::stat_compare_means(method = "wilcox_test") +
+  # geom_point() +
+  geom_smooth(method = "glm", alpha = 0) +
+  theme_bw() +
+  labs(x = "week") 
 
 
 ```
