@@ -259,14 +259,16 @@ Doesn't seem to be any noticeable difference between groups or BMI types. No dif
 
 Maybe the increase in gene richness may be associated with higher increase in BMI
 
-```{r, eval = T, warning = F, message = F}
+```{r plot_distributions_96, eval = T, warning = F, message = F}
+
+tp <- 96
 
 delta_bmi_df <- 
 igc_df %>% 
   # dplyr::filter(long_var == 0) %>% 
   dplyr::select(link_var, long_var, cat_var, richness, BMI) %>% 
   group_by(link_var) %>% 
-  dplyr::filter(long_var %in% c(0,96), 
+  dplyr::filter(long_var %in% c(0,tp), 
                 !is.na(BMI)) %>% 
   filter(n() ==2) %>% 
   mutate(bmi0 = BMI[long_var == 0],
@@ -275,7 +277,7 @@ igc_df %>%
          delta_BMI_rel = (BMI - BMI[long_var == 0])*100 / BMI[long_var == 0],
          delta_gr_abs = richness - richness[long_var == 0],
          delta_gr_rel = (richness - richness[long_var == 0]) / (richness + richness[long_var == 0])) %>%
-  dplyr::filter(long_var == 96) %>% 
+  dplyr::filter(long_var == tp) %>% 
   dplyr::select(record_id = link_var, contains("delta"), bmi0, gr0, cat_var) 
 
 
@@ -345,7 +347,7 @@ Both treatment groups appear to have a unimodal distribution regarding their BMI
 A good threshold to separate two groups seems to be 2.5 increase of absolute BMI. It separates both peaks from each group, more or less equitatively.
 
 
-```{r delta_cors, warning=FALSE, message=F}
+```{r delta_cors_96, warning=FALSE, message=F}
 test_gr0_abs <-
   delta_bmi_df %>%
   glm(delta_BMI_abs ~ gr0 * cat_var, data = .) %>%
@@ -434,11 +436,11 @@ ggpubr::ggarrange(deltas_gr_abs, deltas_gr_rel, common.legend = T)
 Now that we saw the increase in gene richness follows a bimodal distribution in each group, it is possible that we didn't find an effect of gene richness per treatment group due to the confusor effect of BMI. We will split the population between high (BMI_H) and low BMI increase (BMI_L). The cutting point will be an absolute increase of 2.5 in BMI, as seen earlier in the delta distribution.
 
 
-```{r bmi_stratification, warning=F, message=FALSE}
+```{r bmi_stratification_96, warning=F, message=FALSE}
 delta_bmi_df %>% 
   dplyr::mutate(bmi_c = case_when(
     delta_BMI_abs >= 2.5 ~ "H_BMI",
-    delta_BMI_abs < 2 ~ "L_BMI"
+    delta_BMI_abs < 2.5 ~ "L_BMI"
   )) %>% 
   # dplyr::select(link_var = record_id, bmi_c) %>% 
   # left_join(igc_df, by = "link_var") %>% 
@@ -454,7 +456,7 @@ delta_bmi_df %>%
 delta_bmi_df %>% 
   dplyr::mutate(bmi_c = case_when(
     delta_BMI_abs >= 2.5 ~ "H_BMI",
-    delta_BMI_abs < 2 ~ "L_BMI"
+    delta_BMI_abs < 2.5 ~ "L_BMI"
   )) %>% 
   dplyr::filter(!is.na(bmi_c)) %>% 
   ggplot(aes(y = delta_gr_rel, x = cat_var, fill = bmi_c)) +
@@ -463,10 +465,25 @@ delta_bmi_df %>%
   theme_bw() +
   labs(x = "treatment", y = "GR increase at week 96 (%)", fill = "BMI")
 
+
 delta_bmi_df %>% 
   dplyr::mutate(bmi_c = case_when(
     delta_BMI_abs >= 2.5 ~ "H_BMI",
-    delta_BMI_abs < 2 ~ "L_BMI"
+    delta_BMI_abs < 2.5 ~ "L_BMI"
+  )) %>% 
+  dplyr::select(record_id, bmi_c) %>% 
+  dplyr::rename(link_var = record_id) %>% 
+  dplyr::right_join(igc_df, by = "link_var") %>% 
+  dplyr::filter(!is.na(bmi_c)) %>% 
+  dplyr::mutate(group_bmi = paste(cat_var, bmi_c, sep = "_")) %>% 
+  group_by(group_bmi) %>% 
+  rstatix::wilcox_test(richness ~ long_var)
+
+
+delta_bmi_df %>% 
+  dplyr::mutate(bmi_c = case_when(
+    delta_BMI_abs >= 2.5 ~ "H_BMI",
+    delta_BMI_abs < 2.5 ~ "L_BMI"
   )) %>% 
   dplyr::select(record_id, bmi_c) %>% 
   dplyr::rename(link_var = record_id) %>% 
@@ -475,7 +492,7 @@ delta_bmi_df %>%
   dplyr::mutate(group_bmi = paste(cat_var, bmi_c, sep = "_")) %>% 
   ggplot(aes(y = richness, x = as.factor(long_var), color = group_bmi)) +
   geom_boxplot(aes(x = as.factor(long_var))) +
-  ggpubr::stat_compare_means(method = "wilcox_test") +
+  ggpubr::stat_compare_means(method = "kruskal.test", hide.ns = F, label = "p.signif") +
   # geom_point() +
   geom_smooth(method = "glm", alpha = 0) +
   theme_bw() +
@@ -485,5 +502,220 @@ delta_bmi_df %>%
 ```
 
 
+Seems like the biggest differences happened at 24th week, after which both groups behave roughly the same. Let's test this:
+
+# Differences at week 24
+
+```{r plot_distributions, eval = T, warning = F, message = F, echo = F}
+
+tp <- 24
+
+delta_bmi_df <- 
+igc_df %>% 
+  # dplyr::filter(long_var == 0) %>% 
+  dplyr::select(link_var, long_var, cat_var, richness, BMI) %>% 
+  group_by(link_var) %>% 
+  dplyr::filter(long_var %in% c(0,tp), 
+                !is.na(BMI)) %>% 
+  filter(n() ==2) %>% 
+  mutate(bmi0 = BMI[long_var == 0],
+         gr0 = richness[long_var == 0],
+    delta_BMI_abs = BMI - BMI[long_var == 0],
+         delta_BMI_rel = (BMI - BMI[long_var == 0])*100 / BMI[long_var == 0],
+         delta_gr_abs = richness - richness[long_var == 0],
+         delta_gr_rel = (richness - richness[long_var == 0]) / (richness + richness[long_var == 0])) %>%
+  dplyr::filter(long_var == tp) %>% 
+  dplyr::select(record_id = link_var, contains("delta"), bmi0, gr0, cat_var) 
 
 
+peaks_abs <-
+  unique(metadata$group) %>%
+  purrr::set_names() %>%
+  purrr::map_dfr(function(treat) {
+    
+    delta_bmi_df %>%
+      dplyr::filter(cat_var == treat) %>% 
+      dplyr::pull(delta_BMI_abs) %>%
+      density() %>%
+      peak_finder(goal = "min") %>%
+      round(., 3) %>% 
+      mutate(cat_var = treat)
+  })
+
+
+plot_delta_abs <- 
+delta_bmi_df %>% 
+  ggplot(aes(x = delta_BMI_abs)) +
+  geom_density(aes(color = cat_var)) +
+  geom_vline(aes(color = cat_var), xintercept = peaks_abs$x, lty = 3) +
+  geom_text(data = peaks_abs, aes(x = peaks_abs$x, y = peaks_abs$y*.9,label = peaks_abs$x, color = cat_var)) +
+  theme_light() +
+  labs(title = "Absolute", x = "BMI increase") 
+
+
+
+
+peaks_rel <- 
+  unique(metadata$group) %>%
+  purrr::set_names() %>%
+  purrr::map_dfr(function(treat) {
+    
+    delta_bmi_df %>%
+      dplyr::filter(cat_var == treat) %>% 
+      dplyr::pull(delta_BMI_rel) %>%
+      density() %>%
+      peak_finder(goal = "min") %>%
+      round(., 3) %>% 
+      mutate(cat_var = treat)
+  })
+
+plot_delta_rel <- 
+delta_bmi_df %>% 
+  ggplot(aes(x = delta_BMI_rel,color = cat_var)) +
+  geom_density(aes(color = cat_var)) +
+  geom_vline(data = peaks_rel, aes(color = cat_var), xintercept = peaks_rel$x, lty = 3) +
+  geom_text(data = peaks_rel, aes(x = x, y = y*.9,label = x, color = cat_var)) +
+  labs(title = "Relative (%)", x = "BMI increase") +
+  theme_light()+
+  theme(axis.title.y = element_blank())
+
+
+# delta_bmi_df %>% 
+
+
+
+ggpubr::ggarrange(plot_delta_abs, plot_delta_rel, common.legend = T)  
+
+
+```
+Here it appears the threshold should be un BMI increase of 1.3, let's do that:
+
+
+```{r delta_cors, warning=FALSE, message=F, echo = F}
+test_gr0_abs <-
+  delta_bmi_df %>%
+  glm(delta_BMI_abs ~ gr0 * cat_var, data = .) %>%
+  rstatix::anova_test() %>% 
+  as.tibble() %>% 
+  dplyr::slice(3L) %>% 
+  pull(p)
+
+deltas_gr0_abs <- 
+  delta_bmi_df %>% 
+  ggplot(aes(x = gr0, y = delta_BMI_abs, color = cat_var)) +
+  geom_point() +
+  geom_smooth(method = "glm", aes(fill = cat_var)) +
+  labs(title = "Absolute", subtitle = paste("ANOVA p =", test_gr0_abs),x = "Gene richness at baseline") +
+  theme_light()
+
+
+test_gr0_rel <-
+  delta_bmi_df %>%
+  glm(delta_BMI_rel ~ gr0 * cat_var, data = .) %>%
+  rstatix::anova_test() %>% 
+  as.tibble() %>% 
+  dplyr::slice(3) %>% 
+  pull(p)
+
+deltas_gr0_rel <- 
+  delta_bmi_df %>% 
+  ggplot(aes(x = gr0, y = delta_BMI_rel, color = cat_var)) +
+  geom_point() +
+  geom_smooth(method = "glm", aes(fill = cat_var)) +
+  theme_light() +
+  labs(title = "Relative", subtitle = paste("ANOVA p =", test_gr0_rel),x = "Gene richness at baseline") +
+  theme(axis.title.y = element_blank())
+
+
+
+ggpubr::ggarrange(deltas_gr0_abs, deltas_gr0_rel, common.legend = T)
+
+
+
+test_gr_abs <-
+  delta_bmi_df %>%
+  glm(delta_BMI_abs ~ delta_gr_abs * cat_var, data = .) %>%
+  rstatix::anova_test() %>% 
+  as.tibble() %>% 
+  dplyr::slice(3L) %>% 
+  pull(p)
+
+deltas_gr_abs <- 
+  delta_bmi_df %>% 
+  ggplot(aes(x = delta_gr_abs, y = delta_BMI_abs, color = cat_var)) +
+  geom_point() +
+  geom_smooth(method = "glm", aes(fill = cat_var)) +
+  labs(title = "Absolute", subtitle = paste("ANOVA p =", test_gr_abs), x = "Gene richness increase") +
+  theme_light()
+
+
+test_gr_rel <-
+  delta_bmi_df %>%
+  glm(delta_BMI_rel ~ delta_gr_rel * cat_var, data = .) %>%
+  rstatix::anova_test() %>% 
+  as.tibble() %>% 
+  dplyr::slice(3) %>% 
+  pull(p)
+
+deltas_gr_rel <- 
+  delta_bmi_df %>% 
+  ggplot(aes(x = delta_gr_rel, y = delta_BMI_rel, color = cat_var)) +
+  geom_point() +
+  geom_smooth(method = "glm", aes(fill = cat_var)) +
+  theme_light() +
+  labs(title = "Relative", subtitle = paste("ANOVA p =", test_gr_rel),x = "Gene richness increase") +
+  theme(axis.title.y = element_blank())
+
+
+
+ggpubr::ggarrange(deltas_gr_abs, deltas_gr_rel, common.legend = T)
+
+```
+
+```{r bmi_stratification, warning=F, message=FALSE, echo = F}
+delta_bmi_df %>% 
+  dplyr::mutate(bmi_c = case_when(
+    delta_BMI_abs >= 1.3 ~ "H_BMI",
+    delta_BMI_abs < 1.3 ~ "L_BMI"
+  )) %>% 
+  # dplyr::select(link_var = record_id, bmi_c) %>% 
+  # left_join(igc_df, by = "link_var") %>% 
+  # mutate(cat_var2 = paste(cat_var, bmi_c)) %>% 
+  dplyr::filter(!is.na(bmi_c)) %>% 
+  ggplot(aes(y = gr0, x = cat_var, fill = bmi_c)) +
+  ggpubr::stat_compare_means(method = "wilcox.test") +
+  geom_boxplot() +
+  theme_bw() +
+  labs(x = "treatment", y = "gene richness (baseline)", fill = "BMI")
+
+
+delta_bmi_df %>% 
+  dplyr::mutate(bmi_c = case_when(
+    delta_BMI_abs >= 1.3 ~ "H_BMI",
+    delta_BMI_abs < 1.3 ~ "L_BMI"
+  )) %>% 
+  dplyr::filter(!is.na(bmi_c)) %>% 
+  ggplot(aes(y = delta_gr_rel, x = cat_var, fill = bmi_c)) +
+  ggpubr::stat_compare_means(method = "wilcox.test") +
+  geom_boxplot() +
+  theme_bw() +
+  labs(x = "treatment", y = "GR increase at week 96 (%)", fill = "BMI")
+
+
+delta_bmi_df %>% 
+  dplyr::mutate(bmi_c = case_when(
+    delta_BMI_abs >= 1.3 ~ "H_BMI",
+    delta_BMI_abs < 1.3 ~ "L_BMI"
+  )) %>% 
+  dplyr::select(record_id, bmi_c) %>% 
+  dplyr::rename(link_var = record_id) %>% 
+  dplyr::right_join(igc_df, by = "link_var") %>% 
+  dplyr::filter(!is.na(bmi_c)) %>% 
+  dplyr::mutate(group_bmi = paste(cat_var, bmi_c, sep = "_")) %>% 
+  group_by(group_bmi) %>% 
+  rstatix::wilcox_test(richness ~ long_var) %>% 
+  dplyr::filter(p < 0.05) %>% 
+  kableExtra::kable(format = "markdown")
+
+
+```

@@ -32,7 +32,13 @@ mymre <- aws.s3::s3readRDS(bucket = "mistral-wp6-advanz4",object = "metagenome/W
 ### Check consistency between mre.rds(local and S3). You are reading s3 file, here, but in 200_ you are using local
 # metadata <- metar::get_metadata(mymre)@metadata_df
 
-metadata <- here::here("Metadata", "2022_11_30_clean_metadata_LIMS.csv") %>% 
+metadata <-
+  here::here("Metadata") %>% 
+    list.files(pattern = "clean_metadata", full.names = T) %>%
+  file.info() %>% 
+  dplyr::arrange(desc(ctime)) %>% 
+  rownames() %>% 
+  dplyr::first() %>% 
   read.csv() %>% 
   column_to_rownames("SampleID") %>% 
   mutate(SampleID = rownames(.))

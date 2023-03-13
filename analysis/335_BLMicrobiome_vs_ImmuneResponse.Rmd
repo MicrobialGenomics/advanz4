@@ -40,10 +40,15 @@ devtools::load_all(here::here("../","WMGSPipeline"))
 
 mymre <- aws.s3::s3readRDS(bucket = "s3://mistral-wp6-advanz4", object = "metagenome/WMGS/MREObject.rds")
 # metadata <-get_meta(mymre)
-metadata <- here::here("Metadata", "2022_10_05_clean_metadata_LIMS.csv") %>% 
-  read.csv() %>% 
-  column_to_rownames("SampleID") %>% 
-  mutate(SampleID = rownames(.))
+metadata <-
+  here::here("Metadata") %>% 
+    list.files(pattern = "clean_metadata", full.names = T) %>%
+  file.info() %>% 
+  dplyr::arrange(desc(ctime)) %>% 
+  rownames() %>% 
+  dplyr::first() %>% 
+  read.csv()
+
 
 
 

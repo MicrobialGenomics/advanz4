@@ -19,7 +19,7 @@ bucket <- "s3://mistral-wp6-advanz4/"
 bucket_dir <- "metagenome/WMGS/"
 
 # mymre <- aws.s3::s3readRDS(bucket = bucket, object = paste0(bucket_dir,"MREObject.rds"))
-mymre <- readRDS(here::here("data","mre.rds"))
+mymre <- readRDS(here::here("data","filt_mre.rds"))
 
 metadata <- here::here("Metadata", "metadata.csv") %>%
   read.csv()

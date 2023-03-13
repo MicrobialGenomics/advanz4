@@ -125,9 +125,13 @@ cat_df <- metar::get_cat(mymre) %>%
 cat_vector <- cat_df$CategoricalVariable
 
 metadata <-
-  metar::get_meta(mymre) %>%
-  mutate(rnames = SampleID) %>%
-  tibble::column_to_rownames("rnames")
+  here::here("Metadata") %>% 
+    list.files(pattern = "clean_metadata", full.names = T) %>%
+  file.info() %>% 
+  dplyr::arrange(desc(ctime)) %>% 
+  rownames() %>% 
+  dplyr::first() %>% 
+  read.csv()
 
 ## Remove patients with <2 samples, this is temporal 
 
@@ -159,7 +163,7 @@ abundance <-
 
 
 
-```{r LMM_effect_table, warning=F, message=F}
+```{r LMM_effect_table, warning=F, message=F, results = "hide"}
 
 
 num_vector <- abundance %>% 

@@ -37,8 +37,8 @@ navbar:
     href: 505_Adenovirus_Analysis.html
 output:
   workflowr::wflow_html:
-    toc: false
+    toc: yes
     toc_float: yes
-    theme: cosmo
+    theme: paper
     highlight: textmate
     css: style.css

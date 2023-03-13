@@ -16,7 +16,7 @@
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -29,6 +29,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -233,6 +236,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -240,6 +306,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -266,19 +342,25 @@ $(document).ready(function () {
   <a href="310_IGC_analysis.html">Gene richness</a>
 </li>
 <li>
-  <a href="320_Beta_Diversity.html">Beta Diversity</a>
-</li>
-<li>
-  <a href="335_BLMicrobiome_vs_ImmuneResponse.html">Immune and clinical BL comparisons</a>
+  <a href="331_GR_BMI.html">BMI vs diversity</a>
 </li>
 <li>
   <a href="315_GeneRichness_vs_CD4.html">CD4 recovery vs Gene richness</a>
 </li>
 <li>
+  <a href="316_GeneRichness_vs_CMV.html">CMV_analysis</a>
+</li>
+<li>
+  <a href="317_GeneRichness_vs_Inflammation.html">Gene richness vs inflammation</a>
+</li>
+<li>
+  <a href="320_Beta_Diversity.html">Beta Diversity</a>
+</li>
+<li>
   <a href="330_TaxaLevel_LMM.html">LMM taxa ranking</a>
 </li>
 <li>
-  <a href="316_GeneRichness_vs_CMV.html">CMV_analysis</a>
+  <a href="335_BLMicrobiome_vs_ImmuneResponse.html">Immune and clinical BL comparisons</a>
 </li>
 <li>
   <a href="410_Taxonomy_Exploration.html">Taxonomy</a>
@@ -335,7 +417,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-01-12
+<strong>Last updated:</strong> 2023-03-13
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -426,16 +508,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree0ab01c5c901e4ee2188fb92d2484d482f6cefb4etargetblank0ab01c5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/0ab01c5c901e4ee2188fb92d2484d482f6cefb4e" target="_blank">0ab01c5</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree1b0ddcbaff018d4f448ac865958b47049611e559targetblank1b0ddcba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/1b0ddcbaff018d4f448ac865958b47049611e559" target="_blank">1b0ddcb</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree0ab01c5c901e4ee2188fb92d2484d482f6cefb4etargetblank0ab01c5a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree1b0ddcbaff018d4f448ac865958b47049611e559targetblank1b0ddcba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/0ab01c5c901e4ee2188fb92d2484d482f6cefb4e" target="_blank">0ab01c5</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/1b0ddcbaff018d4f448ac865958b47049611e559" target="_blank">1b0ddcb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -451,13 +533,11 @@ Ignored files:
     Ignored:    analysis/510_Function_DA_cache/
     Ignored:    analysis/output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/
     Ignored:    data/mre.rds
-    Ignored:    data/signif_paths.rds
-
-Untracked files:
-    Untracked:  analysis/figure/
 
 Unstaged changes:
+    Modified:   analysis/311_GR_vs_BMI.Rmd
     Modified:   analysis/320_Beta_Diversity.Rmd
+    Modified:   analysis/_site.yml
 
 </code></pre>
 <p>
@@ -496,6 +576,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/160c5b629ee12b8ed055587786942974f97fd8e7/analysis/320_Beta_Diversity.Rmd" target="_blank">160c5b6</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2023-02-19
+</td>
+<td>
+updated data input
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/7434033a00b86c1b2ff881b22a61387f0b6b1f49/analysis/320_Beta_Diversity.Rmd" target="_blank">7434033</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-02-07
+</td>
+<td>
+Added poster figures to Taxonomy DA script
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/57d7a9ee85c95b15ea1f34a2af473ed6845cde74/analysis/320_Beta_Diversity.Rmd" target="_blank">57d7a9e</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-01-12
+</td>
+<td>
+Added ANOVA to NMDS plot
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/57d7a9ee85c95b15ea1f34a2af473ed6845cde74/docs/320_Beta_Diversity.html" target="_blank">57d7a9e</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-01-12
+</td>
+<td>
+Added ANOVA to NMDS plot
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -971,13 +1119,18 @@ Code reorganized towards new structure
 <div id="including-plots" class="section level2">
 <h2>Including Plots</h2>
 <p>You can also embed plots, for example:</p>
-<pre class="r"><code>mymre &lt;- aws.s3::s3readRDS(bucket = &quot;s3://mistral-wp6-advanz4&quot;, object = &quot;metagenome/WMGS/MREObject.rds&quot;, region = &quot;eu-west-1&quot;)
-# metadata &lt;-get_meta(mymre)
-metadata &lt;- here::here(&quot;Metadata&quot;, &quot;2022_09_14_clean_metadata_LIMS.csv&quot;) %&gt;% 
-  read.csv() %&gt;% 
-  column_to_rownames(&quot;SampleID&quot;) %&gt;% 
-  mutate(SampleID = rownames(.))
+<pre class="r"><code>mymre &lt;- here::here(&quot;data&quot;, &quot;filt_mre.rds&quot;) %&gt;% 
+  readRDS()
 
+
+metadata &lt;-
+  here::here(&quot;Metadata&quot;) %&gt;% 
+    list.files(pattern = &quot;clean_metadata&quot;, full.names = T) %&gt;%
+  file.info() %&gt;% 
+  dplyr::arrange(desc(ctime)) %&gt;% 
+  rownames() %&gt;% 
+  dplyr::first() %&gt;% 
+  read.csv()
 
 
 cat_df &lt;- 
@@ -999,9 +1152,12 @@ num_var &lt;- here::here(&quot;Metadata&quot;, &quot;NumericalVariables.txt&quot
   read.delim(., header = T)  %&gt;% 
   pull(NumericalVariable)</code></pre>
 <pre class="r"><code>#### This chunk is for updating the mre internally as new variables come out. Once the final mre is done this chunk will be removed.
-devtools::load_all(&quot;../WMGSPipeline&quot;)</code></pre>
-<pre><code>suggested package selbal ✔suggested package DataExplorer ✔suggested package lme4 ✔suggested package merTools ✔</code></pre>
-<pre class="r"><code>mymre &lt;- filter_samples(mre = mymre, sample_ids = metadata$SampleID)
+devtools::load_all(&quot;../WMGSPipeline&quot;)
+mymre@taxa@virgo &lt;- SpquantSet()
+mymre@gene_function@humann &lt;- metar::GeneFunSet()
+mymre@taxa@metaphlan@phyloseq_sec
+
+mymre &lt;- filter_samples(mre = mymre, sample_ids = metadata$SampleID)
 
 mymre@metadata@metadata_df &lt;- tibble(metadata)
 
@@ -1022,10 +1178,11 @@ mymre@metadata@numeric_vals &lt;- here::here(&quot;Metadata&quot;, &quot;Numeric
 
 mymre@metadata@longitudinal_vals &lt;- here::here(&quot;Metadata&quot;, &quot;LongitudinalVariables.txt&quot;) %&gt;% 
   read.delim(., header = T) %&gt;% 
-  tibble()
+  tibble()</code></pre>
+<pre class="r"><code>phy &lt;- get_phyloseq(mymre, type = &quot;metaphlan&quot;)
 
-phy &lt;- get_phyloseq(mymre, type=&quot;metaphlan&quot;)</code></pre>
-<pre class="r"><code>getAbundances&lt;-function(phyloseq, level){
+
+getAbundances&lt;-function(phyloseq, level){
   
   collapsedPhyloseq&lt;- phyloseq::tax_glom(phyloseq, level)
   
@@ -1265,9 +1422,48 @@ myNMDSBiplot&lt;-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
     coord_fixed()+
     labs(fill = cat_var, color=cat_var, shape = long_var) +
   annotation_custom(gridExtra::tableGrob(round(myAdonis,3),
-                                         theme = ttheme_default(base_size = 8)),ymin = 3.5, xmin=2.4)</code></pre>
+                                         theme = ttheme_default(base_size = 8)),ymin = 3.5, xmin=2.4)
+myNMDSplot</code></pre>
+<p><img src="figure/320_Beta_Diversity.Rmd/NMDS_Group-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>myNMDSplot</code></pre>
 <p><img src="figure/320_Beta_Diversity.Rmd/Print_NMDS-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-Print_NMDS-1">
+Past versions of Print_NMDS-1.png
+</button>
+</p>
+<div id="fig-Print_NMDS-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/57d7a9ee85c95b15ea1f34a2af473ed6845cde74/docs/figure/320_Beta_Diversity.Rmd/Print_NMDS-1.png" target="_blank">57d7a9e</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-01-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>When we look at the most simple ordination before colouring by categorical variables, we see no clear separated clusters between samples. They all appear to be mostly concentrated in one big cluster that randomly spreads in the positive direction for both NMDS components.</p>
 <p>In a more formal analysis, the silhouette coefficient was tested for different number of clusters. This analysis found the biggest coefficient was found for n=1 clustrs, with massive drops between 2-3 and 5-6.</p>
 <pre class="r"><code>myBrayDistMat &lt;- phyloseq::otu_table(phy) %&gt;%
@@ -1542,6 +1738,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/57d7a9ee85c95b15ea1f34a2af473ed6845cde74/docs/figure/320_Beta_Diversity.Rmd/pairwise_distances_tp-1.png" target="_blank">57d7a9e</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-01-12
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/0ab01c5c901e4ee2188fb92d2484d482f6cefb4e/docs/figure/320_Beta_Diversity.Rmd/pairwise_distances_tp-1.png" target="_blank">0ab01c5</a>
 </td>
 <td>
@@ -1797,72 +2004,64 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] nlme_3.1-158       metar_0.1.5        testthat_3.1.4     RColorBrewer_1.1-3
- [5] rstatix_0.7.0      ggpubr_0.4.0       gridExtra_2.3      cluster_2.1.3     
- [9] ggrepel_0.9.1      vegan_2.6-2        lattice_0.20-45    permute_0.9-7     
-[13] forcats_0.5.1      stringr_1.4.0      dplyr_1.0.9        purrr_0.3.4       
-[17] readr_2.1.2        tidyr_1.2.0        tibble_3.1.7       ggplot2_3.3.6     
-[21] tidyverse_1.3.1    phyloseq_1.34.0   
+ [1] nlme_3.1-158       RColorBrewer_1.1-3 rstatix_0.7.0      ggpubr_0.4.0      
+ [5] gridExtra_2.3      cluster_2.1.3      ggrepel_0.9.1      vegan_2.6-2       
+ [9] lattice_0.20-45    permute_0.9-7      forcats_0.5.1      stringr_1.4.0     
+[13] dplyr_1.0.9        purrr_0.3.4        readr_2.1.2        tidyr_1.2.0       
+[17] tibble_3.1.7       ggplot2_3.3.6      tidyverse_1.3.1    phyloseq_1.34.0   
+[21] metar_0.1.5       
 
 loaded via a namespace (and not attached):
   [1] utf8_1.2.2             tidyselect_1.1.2       lme4_1.1-29           
-  [4] htmlwidgets_1.5.4      gmp_0.6-5              grid_4.0.5            
-  [7] devtools_2.4.3         aws.signature_0.6.0    munsell_0.5.0         
- [10] effectsize_0.7.0       codetools_0.2-18       future_1.26.1         
- [13] withr_2.5.0            colorspace_2.0-3       Biobase_2.50.0        
- [16] logger_0.2.2           highr_0.9              knitr_1.39            
- [19] rstudioapi_0.13        stats4_4.0.5           ggsignif_0.6.3.9000   
- [22] listenv_0.8.0          emmeans_1.7.4-1        labeling_0.4.2        
- [25] git2r_0.30.1           polyclip_1.10-0        datawizard_0.4.1      
- [28] bit64_4.0.5            farver_2.1.0           rhdf5_2.34.0          
- [31] rprojroot_2.0.3        TH.data_1.1-1          coda_0.19-4           
- [34] parallelly_1.32.0      vctrs_0.4.1            generics_0.1.2        
- [37] xfun_0.31              BWStest_0.2.2          R6_2.5.1              
- [40] arm_1.12-2             rhdf5filters_1.2.1     cachem_1.0.6          
- [43] assertthat_0.2.1       promises_1.2.0.1       networkD3_0.4         
- [46] scales_1.2.0           vroom_1.5.7            multcomp_1.4-19       
- [49] merTools_0.5.2         gtable_0.3.0           multcompView_0.1-8    
- [52] globals_0.15.0         processx_3.6.1         sandwich_3.0-2        
- [55] workflowr_1.7.0        rlang_1.0.2            zeallot_0.1.0         
- [58] PMCMRplus_1.9.4        splines_4.0.5          prismatic_1.1.0       
- [61] broom_0.8.0            yaml_2.3.5             reshape2_1.4.4        
- [64] abind_1.4-5            modelr_0.1.8           backports_1.4.1       
- [67] httpuv_1.6.5           tools_4.0.5            usethis_2.1.6         
- [70] logging_0.10-108       ellipsis_0.3.2         jquerylib_0.1.4       
- [73] biomformat_1.18.0      selbal_0.1.0           BiocGenerics_0.36.1   
- [76] sessioninfo_1.2.2      Rcpp_1.0.8.3           plyr_1.8.7            
- [79] base64enc_0.1-3        zlibbioc_1.36.0        ps_1.7.1              
- [82] prettyunits_1.1.1      correlation_0.8.1      zoo_1.8-10            
- [85] S4Vectors_0.28.1       haven_2.5.0            fs_1.5.2              
- [88] here_1.0.1             furrr_0.3.0            DataExplorer_0.8.2    
- [91] magrittr_2.0.3         data.table_1.14.2      reprex_2.0.1          
- [94] mvtnorm_1.1-3          whisker_0.4            pkgload_1.2.4         
- [97] hms_1.1.1              patchwork_1.1.1        mime_0.12             
-[100] evaluate_0.15          xtable_1.8-4           broom.mixed_0.2.9.4   
-[103] readxl_1.4.0           IRanges_2.24.1         compiler_4.0.5        
-[106] ggstatsplot_0.9.3      crayon_1.5.1           minqa_1.2.4           
-[109] htmltools_0.5.2        mgcv_1.8-40            later_1.3.0           
-[112] tzdb_0.3.0             kSamples_1.2-9         SuppDists_1.1-9.7     
-[115] lubridate_1.8.0        aws.s3_0.3.21          DBI_1.1.3             
-[118] tweenr_1.0.2           dbplyr_2.2.0           MASS_7.3-57           
-[121] boot_1.3-28            Matrix_1.4-1           ade4_1.7-19           
-[124] car_3.1-0              wesanderson_0.3.6      brio_1.1.3            
-[127] cli_3.3.0              insight_0.17.1         parallel_4.0.5        
-[130] igraph_1.3.2           pkgconfig_2.0.3        statsExpressions_1.3.2
-[133] paletteer_1.4.0        xml2_1.3.2             foreach_1.5.2         
-[136] bslib_0.3.1            blme_1.0-5             multtest_2.46.0       
-[139] XVector_0.30.0         estimability_1.3       rvest_1.0.2           
-[142] callr_3.7.0            digest_0.6.29          parameters_0.18.1     
-[145] Biostrings_2.58.0      rmarkdown_2.14         cellranger_1.1.0      
-[148] curl_4.3.2             shiny_1.7.1            nloptr_2.0.3          
-[151] lifecycle_1.0.1        jsonlite_1.8.0         Rhdf5lib_1.12.1       
-[154] carData_3.0-5          desc_1.4.1             fansi_1.0.3           
-[157] pillar_1.7.0           fastmap_1.1.0          httr_1.4.2            
-[160] pkgbuild_1.3.1         survival_3.3-1         glue_1.6.2            
-[163] remotes_2.4.2          bayestestR_0.12.1      iterators_1.0.14      
-[166] bit_4.0.4              performance_0.9.1      ggforce_0.3.3         
-[169] stringi_1.7.6          sass_0.4.1             rematch2_2.1.2        
-[172] memoise_2.0.1          Rmpfr_0.8-9            ape_5.6-2             </code></pre>
+  [4] htmlwidgets_1.5.4      grid_4.0.5             gmp_0.6-5             
+  [7] munsell_0.5.0          codetools_0.2-18       effectsize_0.7.0      
+ [10] future_1.26.1          withr_2.5.0            colorspace_2.0-3      
+ [13] Biobase_2.50.0         logger_0.2.2           highr_0.9             
+ [16] knitr_1.39             rstudioapi_0.13        stats4_4.0.5          
+ [19] ggsignif_0.6.3.9000    listenv_0.8.0          labeling_0.4.2        
+ [22] emmeans_1.7.4-1        git2r_0.30.1           farver_2.1.0          
+ [25] datawizard_0.4.1       rhdf5_2.34.0           rprojroot_2.0.3       
+ [28] coda_0.19-4            parallelly_1.32.0      vctrs_0.4.1           
+ [31] generics_0.1.2         TH.data_1.1-1          xfun_0.31             
+ [34] BWStest_0.2.2          R6_2.5.1               arm_1.12-2            
+ [37] rhdf5filters_1.2.1     cachem_1.0.6           assertthat_0.2.1      
+ [40] promises_1.2.0.1       networkD3_0.4          scales_1.2.0          
+ [43] multcomp_1.4-19        merTools_0.5.2         gtable_0.3.0          
+ [46] multcompView_0.1-8     globals_0.15.0         sandwich_3.0-2        
+ [49] workflowr_1.7.0        rlang_1.0.2            zeallot_0.1.0         
+ [52] PMCMRplus_1.9.4        splines_4.0.5          broom_0.8.0           
+ [55] prismatic_1.1.0        yaml_2.3.5             reshape2_1.4.4        
+ [58] abind_1.4-5            modelr_0.1.8           backports_1.4.1       
+ [61] httpuv_1.6.5           tools_4.0.5            ellipsis_0.3.2        
+ [64] jquerylib_0.1.4        biomformat_1.18.0      selbal_0.1.0          
+ [67] BiocGenerics_0.36.1    Rcpp_1.0.8.3           plyr_1.8.7            
+ [70] zlibbioc_1.36.0        correlation_0.8.1      S4Vectors_0.28.1      
+ [73] zoo_1.8-10             haven_2.5.0            fs_1.5.2              
+ [76] here_1.0.1             furrr_0.3.0            DataExplorer_0.8.2    
+ [79] magrittr_2.0.3         data.table_1.14.2      reprex_2.0.1          
+ [82] mvtnorm_1.1-3          whisker_0.4            hms_1.1.1             
+ [85] patchwork_1.1.1        mime_0.12              evaluate_0.15         
+ [88] xtable_1.8-4           broom.mixed_0.2.9.4    readxl_1.4.0          
+ [91] IRanges_2.24.1         compiler_4.0.5         ggstatsplot_0.9.3     
+ [94] crayon_1.5.1           minqa_1.2.4            htmltools_0.5.2       
+ [97] mgcv_1.8-40            later_1.3.0            tzdb_0.3.0            
+[100] lubridate_1.8.0        DBI_1.1.3              SuppDists_1.1-9.7     
+[103] kSamples_1.2-9         dbplyr_2.2.0           MASS_7.3-57           
+[106] boot_1.3-28            Matrix_1.4-1           ade4_1.7-19           
+[109] car_3.1-0              cli_3.3.0              parallel_4.0.5        
+[112] insight_0.17.1         igraph_1.3.2           pkgconfig_2.0.3       
+[115] statsExpressions_1.3.2 xml2_1.3.2             paletteer_1.4.0       
+[118] foreach_1.5.2          bslib_0.3.1            blme_1.0-5            
+[121] multtest_2.46.0        XVector_0.30.0         estimability_1.3      
+[124] rvest_1.0.2            digest_0.6.29          parameters_0.18.1     
+[127] Biostrings_2.58.0      rmarkdown_2.14         cellranger_1.1.0      
+[130] shiny_1.7.1            nloptr_2.0.3           lifecycle_1.0.1       
+[133] jsonlite_1.8.0         Rhdf5lib_1.12.1        carData_3.0-5         
+[136] fansi_1.0.3            pillar_1.7.0           fastmap_1.1.0         
+[139] httr_1.4.2             survival_3.3-1         glue_1.6.2            
+[142] bayestestR_0.12.1      iterators_1.0.14       stringi_1.7.6         
+[145] sass_0.4.1             performance_0.9.1      rematch2_2.1.2        
+[148] memoise_2.0.1          Rmpfr_0.8-9            ape_5.6-2             </code></pre>
 </div>
 </div>
 
@@ -1882,6 +2081,8 @@ footer is added to webpages before the MathJax javascript. -->
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -1914,6 +2115,35 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

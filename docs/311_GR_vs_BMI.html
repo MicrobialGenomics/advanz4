@@ -18,7 +18,7 @@
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -31,6 +31,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -235,6 +238,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -242,6 +308,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -436,16 +512,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree13934937790cdaa1d7797b79257775a36849ee2atargetblank1393493a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/13934937790cdaa1d7797b79257775a36849ee2a" target="_blank">1393493</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree1b0ddcbaff018d4f448ac865958b47049611e559targetblank1b0ddcba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/1b0ddcbaff018d4f448ac865958b47049611e559" target="_blank">1b0ddcb</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree13934937790cdaa1d7797b79257775a36849ee2atargetblank1393493a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree1b0ddcbaff018d4f448ac865958b47049611e559targetblank1b0ddcba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/13934937790cdaa1d7797b79257775a36849ee2a" target="_blank">1393493</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/1b0ddcbaff018d4f448ac865958b47049611e559" target="_blank">1b0ddcb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -463,7 +539,18 @@ Ignored files:
     Ignored:    data/mre.rds
 
 Unstaged changes:
+    Modified:   analysis/304_Taxonomy_DA.Rmd
+    Modified:   analysis/310_IGC_analysis.Rmd
     Modified:   analysis/311_GR_vs_BMI.Rmd
+    Modified:   analysis/316_GeneRichness_vs_CMV.Rmd
+    Modified:   analysis/320_Beta_Diversity.Rmd
+    Modified:   analysis/330_TaxaLevel_LMM.Rmd
+    Modified:   analysis/335_BLMicrobiome_vs_ImmuneResponse.Rmd
+    Modified:   analysis/340_microbiome_vs_clinical.Rmd
+    Modified:   analysis/410_Taxonomy_Exploration.Rmd
+    Modified:   analysis/430_Species_v_Inflammation.Rmd
+    Modified:   analysis/_site.yml
+    Modified:   output/mre_data/CatalogMapping/IGC/lmm/lmm_time_point_by_group.pdf
 
 </code></pre>
 <p>
@@ -502,6 +589,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/1b0ddcbaff018d4f448ac865958b47049611e559/analysis/311_GR_vs_BMI.Rmd" target="_blank">1b0ddcb</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-13
+</td>
+<td>
+Added richness vs stratification by BMI_group
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/1b0ddcbaff018d4f448ac865958b47049611e559/docs/311_GR_vs_BMI.html" target="_blank">1b0ddcb</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-13
+</td>
+<td>
+Added richness vs stratification by BMI_group
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1036,12 +1157,14 @@ cblazquez
 <div id="stratification-by-bmi-changes" class="section level1">
 <h1>Stratification by BMI changes</h1>
 <p>Maybe the increase in gene richness may be associated with higher increase in BMI</p>
-<pre class="r"><code>delta_bmi_df &lt;- 
+<pre class="r"><code>tp &lt;- 96
+
+delta_bmi_df &lt;- 
 igc_df %&gt;% 
   # dplyr::filter(long_var == 0) %&gt;% 
   dplyr::select(link_var, long_var, cat_var, richness, BMI) %&gt;% 
   group_by(link_var) %&gt;% 
-  dplyr::filter(long_var %in% c(0,96), 
+  dplyr::filter(long_var %in% c(0,tp), 
                 !is.na(BMI)) %&gt;% 
   filter(n() ==2) %&gt;% 
   mutate(bmi0 = BMI[long_var == 0],
@@ -1050,7 +1173,7 @@ igc_df %&gt;%
          delta_BMI_rel = (BMI - BMI[long_var == 0])*100 / BMI[long_var == 0],
          delta_gr_abs = richness - richness[long_var == 0],
          delta_gr_rel = (richness - richness[long_var == 0]) / (richness + richness[long_var == 0])) %&gt;%
-  dplyr::filter(long_var == 96) %&gt;% 
+  dplyr::filter(long_var == tp) %&gt;% 
   dplyr::select(record_id = link_var, contains(&quot;delta&quot;), bmi0, gr0, cat_var) 
 
 
@@ -1111,55 +1234,7 @@ delta_bmi_df %&gt;%
 
 
 ggpubr::ggarrange(plot_delta_abs, plot_delta_rel, common.legend = T)  </code></pre>
-<p><img src="figure/311_GR_vs_BMI.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-1-1">
-Past versions of unnamed-chunk-1-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-1-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/40fda18774f1450d6a209987f551e8653f7ca40a/docs/figure/311_GR_vs_BMI.Rmd/unnamed-chunk-1-1.png" target="_blank">40fda18</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2023-03-10
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/cbd814a4074642b4d8adb494acd1565ec8a60635/docs/figure/311_GR_vs_BMI.Rmd/unnamed-chunk-1-1.png" target="_blank">cbd814a</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2023-03-09
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/311_GR_vs_BMI.Rmd/plot_distributions_96-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Both treatment groups appear to have a unimodal distribution regarding their BMI increase at week 96, both in absolute and relative terms. However there seems to be a shift between both, as the “valley” between both peaks in the DTG group seems to be shifted toward the left, relative to the DRV group.</p>
 <p>A good threshold to separate two groups seems to be 2.5 increase of absolute BMI. It separates both peaks from each group, more or less equitatively.</p>
 <pre class="r"><code>test_gr0_abs &lt;-
@@ -1199,6 +1274,125 @@ deltas_gr0_rel &lt;-
 
 
 ggpubr::ggarrange(deltas_gr0_abs, deltas_gr0_rel, common.legend = T)</code></pre>
+<p><img src="figure/311_GR_vs_BMI.Rmd/delta_cors_96-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>test_gr_abs &lt;-
+  delta_bmi_df %&gt;%
+  glm(delta_BMI_abs ~ delta_gr_abs * cat_var, data = .) %&gt;%
+  rstatix::anova_test() %&gt;% 
+  as.tibble() %&gt;% 
+  dplyr::slice(3L) %&gt;% 
+  pull(p)
+
+deltas_gr_abs &lt;- 
+  delta_bmi_df %&gt;% 
+  ggplot(aes(x = delta_gr_abs, y = delta_BMI_abs, color = cat_var)) +
+  geom_point() +
+  geom_smooth(method = &quot;glm&quot;, aes(fill = cat_var)) +
+  labs(title = &quot;Absolute&quot;, subtitle = paste(&quot;ANOVA p =&quot;, test_gr_abs), x = &quot;Gene richness increase&quot;) +
+  theme_light()
+
+
+test_gr_rel &lt;-
+  delta_bmi_df %&gt;%
+  glm(delta_BMI_rel ~ delta_gr_rel * cat_var, data = .) %&gt;%
+  rstatix::anova_test() %&gt;% 
+  as.tibble() %&gt;% 
+  dplyr::slice(3) %&gt;% 
+  pull(p)
+
+deltas_gr_rel &lt;- 
+  delta_bmi_df %&gt;% 
+  ggplot(aes(x = delta_gr_rel, y = delta_BMI_rel, color = cat_var)) +
+  geom_point() +
+  geom_smooth(method = &quot;glm&quot;, aes(fill = cat_var)) +
+  theme_light() +
+  labs(title = &quot;Relative&quot;, subtitle = paste(&quot;ANOVA p =&quot;, test_gr_rel),x = &quot;Gene richness increase&quot;) +
+  theme(axis.title.y = element_blank())
+
+
+
+ggpubr::ggarrange(deltas_gr_abs, deltas_gr_rel, common.legend = T)</code></pre>
+<p><img src="figure/311_GR_vs_BMI.Rmd/delta_cors_96-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="stratifying-population-by-bmi" class="section level1">
+<h1>Stratifying population by BMI</h1>
+<p>Now that we saw the increase in gene richness follows a bimodal distribution in each group, it is possible that we didn’t find an effect of gene richness per treatment group due to the confusor effect of BMI. We will split the population between high (BMI_H) and low BMI increase (BMI_L). The cutting point will be an absolute increase of 2.5 in BMI, as seen earlier in the delta distribution.</p>
+<pre class="r"><code>delta_bmi_df %&gt;% 
+  dplyr::mutate(bmi_c = case_when(
+    delta_BMI_abs &gt;= 2.5 ~ &quot;H_BMI&quot;,
+    delta_BMI_abs &lt; 2.5 ~ &quot;L_BMI&quot;
+  )) %&gt;% 
+  # dplyr::select(link_var = record_id, bmi_c) %&gt;% 
+  # left_join(igc_df, by = &quot;link_var&quot;) %&gt;% 
+  # mutate(cat_var2 = paste(cat_var, bmi_c)) %&gt;% 
+  dplyr::filter(!is.na(bmi_c)) %&gt;% 
+  ggplot(aes(y = gr0, x = cat_var, fill = bmi_c)) +
+  ggpubr::stat_compare_means(method = &quot;wilcox.test&quot;) +
+  geom_boxplot() +
+  theme_bw() +
+  labs(x = &quot;treatment&quot;, y = &quot;gene richness (baseline)&quot;, fill = &quot;BMI&quot;)</code></pre>
+<p><img src="figure/311_GR_vs_BMI.Rmd/bmi_stratification_96-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>delta_bmi_df %&gt;% 
+  dplyr::mutate(bmi_c = case_when(
+    delta_BMI_abs &gt;= 2.5 ~ &quot;H_BMI&quot;,
+    delta_BMI_abs &lt; 2.5 ~ &quot;L_BMI&quot;
+  )) %&gt;% 
+  dplyr::filter(!is.na(bmi_c)) %&gt;% 
+  ggplot(aes(y = delta_gr_rel, x = cat_var, fill = bmi_c)) +
+  ggpubr::stat_compare_means(method = &quot;wilcox.test&quot;) +
+  geom_boxplot() +
+  theme_bw() +
+  labs(x = &quot;treatment&quot;, y = &quot;GR increase at week 96 (%)&quot;, fill = &quot;BMI&quot;)</code></pre>
+<p><img src="figure/311_GR_vs_BMI.Rmd/bmi_stratification_96-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>delta_bmi_df %&gt;% 
+  dplyr::mutate(bmi_c = case_when(
+    delta_BMI_abs &gt;= 2.5 ~ &quot;H_BMI&quot;,
+    delta_BMI_abs &lt; 2.5 ~ &quot;L_BMI&quot;
+  )) %&gt;% 
+  dplyr::select(record_id, bmi_c) %&gt;% 
+  dplyr::rename(link_var = record_id) %&gt;% 
+  dplyr::right_join(igc_df, by = &quot;link_var&quot;) %&gt;% 
+  dplyr::filter(!is.na(bmi_c)) %&gt;% 
+  dplyr::mutate(group_bmi = paste(cat_var, bmi_c, sep = &quot;_&quot;)) %&gt;% 
+  group_by(group_bmi) %&gt;% 
+  rstatix::wilcox_test(richness ~ long_var)</code></pre>
+<pre><code># A tibble: 24 × 10
+   group_bmi  .y.   group1 group2    n1    n2 statistic     p p.adj p.adj.signif
+ * &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;       
+ 1 DRV/r_H_B… rich… 0      24        10     3        15 0.364 1     ns          
+ 2 DRV/r_H_B… rich… 0      48        10    10        39 0.436 1     ns          
+ 3 DRV/r_H_B… rich… 0      96        10    10        42 0.579 1     ns          
+ 4 DRV/r_H_B… rich… 24     48         3    10         3 0.182 0.91  ns          
+ 5 DRV/r_H_B… rich… 24     96         3    10         2 0.121 0.726 ns          
+ 6 DRV/r_H_B… rich… 48     96        10    10        53 0.853 1     ns          
+ 7 DRV/r_L_B… rich… 0      24        10     6        32 0.875 1     ns          
+ 8 DRV/r_L_B… rich… 0      48        10     8        29 0.958 1     ns          
+ 9 DRV/r_L_B… rich… 0      96        10    10        35 0.447 1     ns          
+10 DRV/r_L_B… rich… 24     48         6     8        17 0.937 1     ns          
+# … with 14 more rows</code></pre>
+<pre class="r"><code>delta_bmi_df %&gt;% 
+  dplyr::mutate(bmi_c = case_when(
+    delta_BMI_abs &gt;= 2.5 ~ &quot;H_BMI&quot;,
+    delta_BMI_abs &lt; 2.5 ~ &quot;L_BMI&quot;
+  )) %&gt;% 
+  dplyr::select(record_id, bmi_c) %&gt;% 
+  dplyr::rename(link_var = record_id) %&gt;% 
+  dplyr::right_join(igc_df, by = &quot;link_var&quot;) %&gt;% 
+  dplyr::filter(!is.na(bmi_c)) %&gt;% 
+  dplyr::mutate(group_bmi = paste(cat_var, bmi_c, sep = &quot;_&quot;)) %&gt;% 
+  ggplot(aes(y = richness, x = as.factor(long_var), color = group_bmi)) +
+  geom_boxplot(aes(x = as.factor(long_var))) +
+  ggpubr::stat_compare_means(method = &quot;kruskal.test&quot;, hide.ns = F, label = &quot;p.signif&quot;) +
+  # geom_point() +
+  geom_smooth(method = &quot;glm&quot;, alpha = 0) +
+  theme_bw() +
+  labs(x = &quot;week&quot;) </code></pre>
+<p><img src="figure/311_GR_vs_BMI.Rmd/bmi_stratification_96-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Seems like the biggest differences happened at 24th week, after which both groups behave roughly the same. Let’s test this:</p>
+</div>
+<div id="differences-at-week-24" class="section level1">
+<h1>Differences at week 24</h1>
+<p><img src="figure/311_GR_vs_BMI.Rmd/plot_distributions-1.png" width="672" style="display: block; margin: auto;" /> Here it appears the threshold should be un BMI increase of 1.3, let’s do that:</p>
 <p><img src="figure/311_GR_vs_BMI.Rmd/delta_cors-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-delta_cors-1">
@@ -1248,43 +1442,6 @@ cblazquez
 </table>
 </div>
 </div>
-<pre class="r"><code>test_gr_abs &lt;-
-  delta_bmi_df %&gt;%
-  glm(delta_BMI_abs ~ delta_gr_abs * cat_var, data = .) %&gt;%
-  rstatix::anova_test() %&gt;% 
-  as.tibble() %&gt;% 
-  dplyr::slice(3L) %&gt;% 
-  pull(p)
-
-deltas_gr_abs &lt;- 
-  delta_bmi_df %&gt;% 
-  ggplot(aes(x = delta_gr_abs, y = delta_BMI_abs, color = cat_var)) +
-  geom_point() +
-  geom_smooth(method = &quot;glm&quot;, aes(fill = cat_var)) +
-  labs(title = &quot;Absolute&quot;, subtitle = paste(&quot;ANOVA p =&quot;, test_gr_abs), x = &quot;Gene richness increase&quot;) +
-  theme_light()
-
-
-test_gr_rel &lt;-
-  delta_bmi_df %&gt;%
-  glm(delta_BMI_rel ~ delta_gr_rel * cat_var, data = .) %&gt;%
-  rstatix::anova_test() %&gt;% 
-  as.tibble() %&gt;% 
-  dplyr::slice(3) %&gt;% 
-  pull(p)
-
-deltas_gr_rel &lt;- 
-  delta_bmi_df %&gt;% 
-  ggplot(aes(x = delta_gr_rel, y = delta_BMI_rel, color = cat_var)) +
-  geom_point() +
-  geom_smooth(method = &quot;glm&quot;, aes(fill = cat_var)) +
-  theme_light() +
-  labs(title = &quot;Relative&quot;, subtitle = paste(&quot;ANOVA p =&quot;, test_gr_rel),x = &quot;Gene richness increase&quot;) +
-  theme(axis.title.y = element_blank())
-
-
-
-ggpubr::ggarrange(deltas_gr_abs, deltas_gr_rel, common.legend = T)</code></pre>
 <p><img src="figure/311_GR_vs_BMI.Rmd/delta_cors-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-delta_cors-2">
@@ -1334,24 +1491,6 @@ cblazquez
 </table>
 </div>
 </div>
-</div>
-<div id="stratifying-population-by-bmi" class="section level1">
-<h1>Stratifying population by BMI</h1>
-<p>Now that we saw the increase in gene richness follows a bimodal distribution in each group, it is possible that we didn’t find an effect of gene richness per treatment group due to the confusor effect of BMI. We will split the population between high (BMI_H) and low BMI increase (BMI_L). The cutting point will be an absolute increase of 2.5 in BMI, as seen earlier in the delta distribution.</p>
-<pre class="r"><code>delta_bmi_df %&gt;% 
-  dplyr::mutate(bmi_c = case_when(
-    delta_BMI_abs &gt;= 2.5 ~ &quot;H_BMI&quot;,
-    delta_BMI_abs &lt; 2 ~ &quot;L_BMI&quot;
-  )) %&gt;% 
-  # dplyr::select(link_var = record_id, bmi_c) %&gt;% 
-  # left_join(igc_df, by = &quot;link_var&quot;) %&gt;% 
-  # mutate(cat_var2 = paste(cat_var, bmi_c)) %&gt;% 
-  dplyr::filter(!is.na(bmi_c)) %&gt;% 
-  ggplot(aes(y = gr0, x = cat_var, fill = bmi_c)) +
-  ggpubr::stat_compare_means(method = &quot;wilcox.test&quot;) +
-  geom_boxplot() +
-  theme_bw() +
-  labs(x = &quot;treatment&quot;, y = &quot;gene richness (baseline)&quot;, fill = &quot;BMI&quot;)</code></pre>
 <p><img src="figure/311_GR_vs_BMI.Rmd/bmi_stratification-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-bmi_stratification-1">
@@ -1377,6 +1516,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/1b0ddcbaff018d4f448ac865958b47049611e559/docs/figure/311_GR_vs_BMI.Rmd/bmi_stratification-1.png" target="_blank">1b0ddcb</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/13934937790cdaa1d7797b79257775a36849ee2a/docs/figure/311_GR_vs_BMI.Rmd/bmi_stratification-1.png" target="_blank">1393493</a>
 </td>
 <td>
@@ -1390,36 +1540,100 @@ cblazquez
 </table>
 </div>
 </div>
-<pre class="r"><code>delta_bmi_df %&gt;% 
-  dplyr::mutate(bmi_c = case_when(
-    delta_BMI_abs &gt;= 2.5 ~ &quot;H_BMI&quot;,
-    delta_BMI_abs &lt; 2 ~ &quot;L_BMI&quot;
-  )) %&gt;% 
-  dplyr::filter(!is.na(bmi_c)) %&gt;% 
-  ggplot(aes(y = delta_gr_rel, x = cat_var, fill = bmi_c)) +
-  ggpubr::stat_compare_means(method = &quot;wilcox.test&quot;) +
-  geom_boxplot() +
-  theme_bw() +
-  labs(x = &quot;treatment&quot;, y = &quot;GR increase at week 96 (%)&quot;, fill = &quot;BMI&quot;)</code></pre>
 <p><img src="figure/311_GR_vs_BMI.Rmd/bmi_stratification-2.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>delta_bmi_df %&gt;% 
-  dplyr::mutate(bmi_c = case_when(
-    delta_BMI_abs &gt;= 2.5 ~ &quot;H_BMI&quot;,
-    delta_BMI_abs &lt; 2 ~ &quot;L_BMI&quot;
-  )) %&gt;% 
-  dplyr::select(record_id, bmi_c) %&gt;% 
-  dplyr::rename(link_var = record_id) %&gt;% 
-  dplyr::right_join(igc_df, by = &quot;link_var&quot;) %&gt;% 
-  dplyr::filter(!is.na(bmi_c)) %&gt;% 
-  dplyr::mutate(group_bmi = paste(cat_var, bmi_c, sep = &quot;_&quot;)) %&gt;% 
-  ggplot(aes(y = richness, x = as.factor(long_var), color = group_bmi)) +
-  geom_boxplot(aes(x = as.factor(long_var))) +
-  ggpubr::stat_compare_means(method = &quot;wilcox_test&quot;) +
-  # geom_point() +
-  geom_smooth(method = &quot;glm&quot;, alpha = 0) +
-  theme_bw() +
-  labs(x = &quot;week&quot;) </code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-bmi_stratification-2">
+Past versions of bmi_stratification-2.png
+</button>
+</p>
+<div id="fig-bmi_stratification-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/1b0ddcbaff018d4f448ac865958b47049611e559/docs/figure/311_GR_vs_BMI.Rmd/bmi_stratification-2.png" target="_blank">1b0ddcb</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">group_bmi</th>
+<th align="left">.y.</th>
+<th align="left">group1</th>
+<th align="left">group2</th>
+<th align="right">n1</th>
+<th align="right">n2</th>
+<th align="right">statistic</th>
+<th align="right">p</th>
+<th align="right">p.adj</th>
+<th align="left">p.adj.signif</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
 <p><img src="figure/311_GR_vs_BMI.Rmd/bmi_stratification-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-bmi_stratification-3">
+Past versions of bmi_stratification-3.png
+</button>
+</p>
+<div id="fig-bmi_stratification-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/1b0ddcbaff018d4f448ac865958b47049611e559/docs/figure/311_GR_vs_BMI.Rmd/bmi_stratification-3.png" target="_blank">1b0ddcb</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1517,6 +1731,8 @@ footer is added to webpages before the MathJax javascript. -->
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -1549,6 +1765,35 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
