@@ -433,6 +433,8 @@ ggpubr::ggarrange(deltas_gr_abs, deltas_gr_rel, common.legend = T)
 
 # Stratifying population by BMI
 
+## Week 96
+
 Now that we saw the increase in gene richness follows a bimodal distribution in each group, it is possible that we didn't find an effect of gene richness per treatment group due to the confusor effect of BMI. We will split the population between high (BMI_H) and low BMI increase (BMI_L). The cutting point will be an absolute increase of 2.5 in BMI, as seen earlier in the delta distribution.
 
 
@@ -504,7 +506,7 @@ delta_bmi_df %>%
 
 Seems like the biggest differences happened at 24th week, after which both groups behave roughly the same. Let's test this:
 
-# Differences at week 24
+## Week 24
 
 ```{r plot_distributions, eval = T, warning = F, message = F, echo = F}
 
@@ -699,7 +701,7 @@ delta_bmi_df %>%
   ggpubr::stat_compare_means(method = "wilcox.test") +
   geom_boxplot() +
   theme_bw() +
-  labs(x = "treatment", y = "GR increase at week 96 (%)", fill = "BMI")
+  labs(x = "treatment", y = "GR increase at week 24 (%)", fill = "BMI")
 
 
 delta_bmi_df %>% 
