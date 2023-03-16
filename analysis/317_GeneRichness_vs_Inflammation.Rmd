@@ -139,8 +139,9 @@ library(compareGroups)
 
 metadata %>% 
   dplyr::select(record_id, time_point, group, num_var) %>% 
+  mutate(sCD14 = as.numeric(sCD14)) %>% 
   dplyr::filter(time_point == 0) %>% 
-  compareGroups::compareGroups(formula(paste("group", "~", paste(num_var, collapse = " + "), sep = " ")), data = .,) %>% 
+  compareGroups::compareGroups(formula(paste("group", "~", paste(num_var, collapse = " + "), sep = " ")), data = .) %>% 
   compareGroups::createTable(.,show.n = T)
       
 ```

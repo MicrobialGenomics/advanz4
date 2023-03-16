@@ -422,7 +422,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-03-15
+<strong>Last updated:</strong> 2023-03-16
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -556,15 +556,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treeec0749dc797b4eb1e7cb4cf5e8f4b05bf699c921targetblankec0749da">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree5ba2c0eba12ddd3d27cf39d53a4f4c0902f10524targetblank5ba2c0ea">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/MicrobialGenomics/advanz4/tree/ec0749dc797b4eb1e7cb4cf5e8f4b05bf699c921" target="_blank">ec0749d</a>
+<a href="https://github.com/MicrobialGenomics/advanz4/tree/5ba2c0eba12ddd3d27cf39d53a4f4c0902f10524" target="_blank">5ba2c0e</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treeec0749dc797b4eb1e7cb4cf5e8f4b05bf699c921targetblankec0749da"
+id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree5ba2c0eba12ddd3d27cf39d53a4f4c0902f10524targetblank5ba2c0ea"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -574,7 +574,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/MicrobialGenomics/advanz4/tree/ec0749dc797b4eb1e7cb4cf5e8f4b05bf699c921" target="_blank">ec0749d</a>.
+<a href="https://github.com/MicrobialGenomics/advanz4/tree/5ba2c0eba12ddd3d27cf39d53a4f4c0902f10524" target="_blank">5ba2c0e</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -600,13 +600,8 @@ Ignored files:
     Ignored:    analysis/mre/
     Ignored:    data/mre.rds
 
-Untracked files:
-    Untracked:  analysis/figure/
-
 Unstaged changes:
-    Modified:   advanz4.Rproj
     Modified:   analysis/317_GeneRichness_vs_Inflammation.Rmd
-    Modified:   code/group_comparisons.R
 
 </code></pre>
 <p>
@@ -653,6 +648,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/5ba2c0eba12ddd3d27cf39d53a4f4c0902f10524/analysis/317_GeneRichness_vs_Inflammation.Rmd" target="_blank">5ba2c0e</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2023-03-16
+</td>
+<td>
+Added evolution of inflammation markers per GR group
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/5ba2c0eba12ddd3d27cf39d53a4f4c0902f10524/docs/317_GeneRichness_vs_Inflammation.html" target="_blank">5ba2c0e</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2023-03-16
+</td>
+<td>
+Added evolution of inflammation markers per GR group
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -781,8 +810,9 @@ for imbalances between groups which may be creating a bias.</p>
 
 metadata %&gt;% 
   dplyr::select(record_id, time_point, group, num_var) %&gt;% 
+  mutate(sCD14 = as.numeric(sCD14)) %&gt;% 
   dplyr::filter(time_point == 0) %&gt;% 
-  compareGroups::compareGroups(formula(paste(&quot;group&quot;, &quot;~&quot;, paste(num_var, collapse = &quot; + &quot;), sep = &quot; &quot;)), data = .,) %&gt;% 
+  compareGroups::compareGroups(formula(paste(&quot;group&quot;, &quot;~&quot;, paste(num_var, collapse = &quot; + &quot;), sep = &quot; &quot;)), data = .) %&gt;% 
   compareGroups::createTable(.,show.n = T)</code></pre>
 <pre><code>
 --------Summary descriptives table by &#39;group&#39;---------
@@ -797,6 +827,7 @@ CD8_CD38_DR 42.3 (14.9)   46.0 (17.4)      0.311   79
 CRP         0.66 (0.97)   1.86 (4.17)      0.082   79 
 IL6         25.2 (31.2)   37.6 (48.6)      0.261   55 
 TNFa        17.4 (10.7)   20.7 (12.4)      0.203   79 
+sCD14       3096 (1251)   3012 (1294)      0.770   79 
 ADV         3249 (7784) 703266 (2325877)   0.342   23 
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ </code></pre>
 <p>No significant changes could be observed in any inflammation marker,
