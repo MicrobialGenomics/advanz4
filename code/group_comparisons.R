@@ -126,6 +126,8 @@ get_group_comparisons <- function(dat,
                         upper_ci = quantile(num_var, .75, type = 8, na.rm = T),
                         lower_ci = quantile(num_var,.25, type = 8, na.rm = T),
                         iqr = IQR(num_var, type = 8, na.rm = T))
+
+
             return(list(stats = stats, test = wilc))
           })
       })
@@ -205,8 +207,9 @@ get_comp_boxplots <-
     test_cat <-
       df %>%
       dplyr::group_by(long_var) %>%
-      rstatix::wilcox_test(num_var ~ cat_var, p.adjust.method = "BH") %>%
-      rstatix::add_significance(p.col = "p", output.col = "p.adj.signif") %>%
+      rstatix::wilcox_test(num_var ~ cat_var, p.adjust.method = "none") %>%
+      rstatix::adjust_pvalue(p.col = "p", method = "BH") %>%
+      rstatix::add_significance(p.col = "p.adj", output.col = "p.adj.signif") %>%
       rstatix::add_xy_position("long_var", ) %>%
       mutate(y.trans = trans_fun(y.position))
 

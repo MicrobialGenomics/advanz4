@@ -18,7 +18,7 @@
 <script src="site_libs/header-attrs-2.19/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -31,6 +31,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -232,6 +235,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -239,6 +305,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -265,22 +341,25 @@ $(document).ready(function () {
   <a href="310_IGC_analysis.html">Gene richness</a>
 </li>
 <li>
-  <a href="320_Beta_Diversity.html">Beta Diversity</a>
-</li>
-<li>
-  <a href="335_BLMicrobiome_vs_ImmuneResponse.html">Immune and clinical BL comparisons</a>
+  <a href="331_GR_BMI.html">BMI vs diversity</a>
 </li>
 <li>
   <a href="315_GeneRichness_vs_CD4.html">CD4 recovery vs Gene richness</a>
 </li>
 <li>
+  <a href="316_GeneRichness_vs_CMV.html">CMV_analysis</a>
+</li>
+<li>
   <a href="317_GeneRichness_vs_Inflammation.html">Gene richness vs inflammation</a>
+</li>
+<li>
+  <a href="320_Beta_Diversity.html">Beta Diversity</a>
 </li>
 <li>
   <a href="330_TaxaLevel_LMM.html">LMM taxa ranking</a>
 </li>
 <li>
-  <a href="316_GeneRichness_vs_CMV.html">CMV_analysis</a>
+  <a href="335_BLMicrobiome_vs_ImmuneResponse.html">Immune and clinical BL comparisons</a>
 </li>
 <li>
   <a href="410_Taxonomy_Exploration.html">Taxonomy</a>
@@ -343,7 +422,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-03-02
+<strong>Last updated:</strong> 2023-03-15
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -477,15 +556,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treeda33aea4103f1864427112e7cf78ca056bb0097ftargetblankda33aeaa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treeec0749dc797b4eb1e7cb4cf5e8f4b05bf699c921targetblankec0749da">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/MicrobialGenomics/advanz4/tree/da33aea4103f1864427112e7cf78ca056bb0097f" target="_blank">da33aea</a>
+<a href="https://github.com/MicrobialGenomics/advanz4/tree/ec0749dc797b4eb1e7cb4cf5e8f4b05bf699c921" target="_blank">ec0749d</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treeda33aea4103f1864427112e7cf78ca056bb0097ftargetblankda33aeaa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treeec0749dc797b4eb1e7cb4cf5e8f4b05bf699c921targetblankec0749da"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -495,7 +574,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/MicrobialGenomics/advanz4/tree/da33aea4103f1864427112e7cf78ca056bb0097f" target="_blank">da33aea</a>.
+<a href="https://github.com/MicrobialGenomics/advanz4/tree/ec0749dc797b4eb1e7cb4cf5e8f4b05bf699c921" target="_blank">ec0749d</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -518,13 +597,16 @@ Ignored files:
     Ignored:    analysis/010_Basic_Report_cache/
     Ignored:    analysis/420_Taxonomy_DA_cache/
     Ignored:    analysis/510_Function_DA_cache/
-    Ignored:    data/filt_mre.rds
+    Ignored:    analysis/mre/
     Ignored:    data/mre.rds
+
+Untracked files:
+    Untracked:  analysis/figure/
 
 Unstaged changes:
     Modified:   advanz4.Rproj
     Modified:   analysis/317_GeneRichness_vs_Inflammation.Rmd
-    Modified:   analysis/_site.yml
+    Modified:   code/group_comparisons.R
 
 </code></pre>
 <p>
@@ -576,6 +658,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/e1710d26f13b98dd1b41d35034e5f1c325cf0830/analysis/317_GeneRichness_vs_Inflammation.Rmd" target="_blank">e1710d2</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2023-03-07
+</td>
+<td>
+started analysis n GR vs BMI
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/e1710d26f13b98dd1b41d35034e5f1c325cf0830/docs/317_GeneRichness_vs_Inflammation.html" target="_blank">e1710d2</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2023-03-07
+</td>
+<td>
+started analysis n GR vs BMI
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/ad0a04c40c748f71af516303f6d7dc754e53bd44/analysis/317_GeneRichness_vs_Inflammation.Rmd" target="_blank">ad0a04c</a>
 </td>
 <td>
@@ -595,16 +711,6 @@ Started correlation of GR vs Inflammation
 </div>
 </div>
 </div>
-<div id="r-markdown" class="section level2">
-<h2>R Markdown</h2>
-<p>This is an R Markdown document. Markdown is a simple formatting
-syntax for authoring HTML, PDF, and MS Word documents. For more details
-on using R Markdown see <a href="http://rmarkdown.rstudio.com"
-class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>When you click the <strong>Knit</strong> button a document will be
-generated that includes both content as well as the output of any
-embedded R code chunks within the document. You can embed an R code
-chunk like this:</p>
 <pre class="r"><code># mymre &lt;- aws.s3::s3readRDS(bucket = &quot;s3://mistral-wp6-advanz4&quot;, object = &quot;metagenome/WMGS/MREObject.rds&quot;, region = &quot;eu-west-1&quot;)
 # metadata &lt;-get_meta(mymre)
 mymre &lt;- here::here(&quot;data&quot;,&quot;filt_mre.rds&quot;) %&gt;%
@@ -666,7 +772,6 @@ mymre@metadata@longitudinal_vals &lt;- here::here(&quot;Metadata&quot;, &quot;Lo
   tibble()
 
 phy &lt;- get_phyloseq(mymre, type = &quot;metaphlan&quot;)</code></pre>
-</div>
 <div id="basal-exploration-of-inflammation-markers"
 class="section level1">
 <h1>Basal exploration of inflammation markers</h1>
@@ -697,8 +802,88 @@ ADV         3249 (7784) 703266 (2325877)   0.342   23
 <p>No significant changes could be observed in any inflammation marker,
 except for CD4 counts, which is still a farily small change.</p>
 </div>
-<div id="correlation-between-gr-and-markers" class="section level1">
-<h1>Correlation between GR and markers</h1>
+<div id="gene-richness-correlations" class="section level1">
+<h1>Gene richness correlations</h1>
+<p>Now to the main point of this document. The first thing to do is to
+assess any correlation between initial GR and inflammation markers.</p>
+<p>First let’s look how richness distributes across time, this will
+allow us to choose the best correlation and possibly stratify the
+population between low and high gene richness.</p>
+<pre class="r"><code>peaks_df &lt;- 
+c(0,24,48,96) %&gt;% 
+  purrr::set_names() %&gt;% 
+  purrr::map_dfr(function(tp){
+    igc_df %&gt;% 
+      dplyr::filter(!is.na(richness), long_var == tp) %&gt;% 
+      dplyr::pull(richness) %&gt;% 
+      density() %&gt;% 
+      peak_finder(., goal = &quot;min&quot;) %&gt;% 
+      dplyr::mutate(long_var = tp)
+  })
+
+
+igc_df %&gt;% 
+  dplyr::filter(!is.na(richness)) %&gt;% 
+  ggplot(aes(x = richness, color = as.factor(long_var))) +
+  geom_density(lwd = 2) +
+  scale_color_brewer(palette = &quot;YlOrRd&quot;) +
+  geom_vline(data = peaks_df, aes(xintercept = x, color = as.factor(long_var)), lty = 2) +
+  geom_text(data = peaks_df, aes(x= x, y = y*.9, color = as.factor(long_var), label = round(x,3))) +
+  theme_bw() + 
+  labs(color = &quot;week&quot;)</code></pre>
+<p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/plot_distributions-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>It seems richness is bimodal, with both peaks becoming increasingly
+separate as the study goes on. There seems to be no shift on the overall
+distribution. Instead, patients with really low microbiome counts tend
+to move towards one of the the two peaks (LGC and HGC) to check wether
+patients are inherently prone to move towards either peak, we could
+check differences in BL GR between LGC and HGC.</p>
+<pre class="r"><code>peak &lt;-
+  igc_df %&gt;%
+  dplyr::filter(!is.na(richness), long_var == 96) %&gt;%
+  dplyr::pull(richness) %&gt;%
+  density() %&gt;%
+  peak_finder(., goal = &quot;min&quot;) %&gt;%
+  dplyr::mutate(long_var = 96) %&gt;%
+  dplyr::filter(x == max(x)) %&gt;% 
+  dplyr::pull(x)
+
+igc_df %&gt;% 
+  group_by(link_var) %&gt;% 
+  dplyr::filter(long_var %in% c(0,96)) %&gt;% 
+  dplyr::filter(n() == 2) %&gt;% 
+  dplyr::mutate(gr0 = richness[long_var == 0],
+                gr96 = richness[long_var == 96]) %&gt;%
+  dplyr::select(SampleID,link_var, cat_var, gr0, gr96) %&gt;% 
+  unique() %&gt;% 
+  ungroup() %&gt;% 
+  dplyr::filter(!is.na(gr0), !is.na(gr96)) %&gt;% 
+  cor_test(., gr96, gr0, method = &quot;spearman&quot;)</code></pre>
+<pre><code># A tibble: 1 x 6
+  var1  var2    cor statistic            p method  
+  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt;   
+1 gr96  gr0    0.53    73319. 0.0000000166 Spearman</code></pre>
+<pre class="r"><code>igc_df &lt;- 
+igc_df %&gt;% 
+  group_by(link_var) %&gt;% 
+  dplyr::filter(long_var %in% c(0,96)) %&gt;% 
+  dplyr::filter(n() == 2) %&gt;% 
+  dplyr::mutate(gr0 = richness[long_var == 0],
+                gr96 = richness[long_var == 96]) %&gt;%
+  dplyr::select(link_var, gr0, gr96) %&gt;% 
+  unique() %&gt;% 
+  dplyr::filter(!is.na(gr0), !is.na(gr96)) %&gt;% 
+  dplyr::mutate( gr_group = case_when(gr96 &gt;= peak ~ &quot;HGC&quot;,
+                                      gr96 &lt; peak ~ &quot;LGC&quot;)) %&gt;%
+  right_join(igc_df, by = &quot;link_var&quot;)
+
+igc_df %&gt;% 
+  ggplot(aes(x = cat_var, y = gr0, fill = gr_group)) +
+  geom_boxplot() +
+  stat_compare_means(method = &quot;wilcox.test&quot;) +
+  theme_bw() +
+  labs( y = &quot;Gene richness at BL&quot;, x = &quot;group&quot;, fill = &quot;GR cluster 96&quot;)</code></pre>
+<p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/test_basal_peaks-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Create a corr table and heatmap. This will be a good exploratory
 analysis to see which inflammation markers change with the microbiome.
 This is a longitudinal study, which means time may be an important
@@ -714,6 +899,7 @@ depending on gene richness.</p>
       dplyr::filter(long_var == 0) %&gt;%
       dplyr::select(SampleID, cat_var, nv, richness) %&gt;% 
       dplyr::mutate(!!sym(nv) := as.numeric(!!sym(nv))) %&gt;% 
+      ungroup() %&gt;% 
       cor_test(&quot;richness&quot;, nv,  method = &quot;spearman&quot;)
   })</code></pre>
 <pre><code>[1] &quot;CD4&quot;
@@ -840,6 +1026,210 @@ num_var[!num_var %in% c(&quot;CD4&quot;, &quot;CD8&quot;,&quot;CD8_CD38_DR&quot;
 lower in the DTG group. CRP became significant at week 96 only, while
 sCD14 became significant after 48 weeks, and kept doing so at week
 96</p>
+</div>
+<div id="inflammation-markers-by-gene-richness" class="section level1">
+<h1>Inflammation markers by gene richness</h1>
+<div id="baseline" class="section level2">
+<h2>Baseline</h2>
+<p>First let’s check if Gene Richness had any effect on the baseline
+levels of inflammation markers.</p>
+<pre class="r"><code>filt_vars &lt;- num_var[!num_var %in% c(&quot;CD4&quot;, &quot;CD8&quot;,&quot;CD8_CD38_DR&quot;, &quot;ADV&quot;)]
+
+deltas &lt;- 
+igc_df %&gt;% 
+  dplyr::select(SampleID, link_var, long_var, cat_var, richness,filt_vars) %&gt;% 
+  group_by(link_var) %&gt;% 
+  dplyr::filter(long_var %in% c(0,96)) %&gt;% 
+  dplyr::filter(n() == 2) %&gt;% 
+  dplyr::mutate(delta_richness = (richness-richness[long_var == 0]) / (richness + richness[long_var == 0]),
+    across(.cols = filt_vars, 
+                       .fns =  ~ .x  / .x[long_var == 0], 
+                       .names = &quot;delta_{.col}&quot; )
+                )  %&gt;% 
+  dplyr::ungroup() %&gt;% 
+  dplyr::select(SampleID, link_var, cat_var, long_var, contains(&quot;delta&quot;))
+
+new_numvars &lt;- paste(&quot;delta&quot;,filt_vars,sep= &quot;_&quot;)
+new_numvars %&gt;% 
+  purrr::set_names() %&gt;%
+  purrr::map(~ {
+    deltas %&gt;% 
+      ggplot(., aes(x=!!sym(.x), y = delta_richness, colour = cat_var)) +
+      geom_point() +
+      theme_bw()
+  }) %&gt;% 
+  ggpubr::ggarrange(plotlist = ., common.legend = T)</code></pre>
+<p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/GR_inflammation_BL-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>lmms &lt;- 
+  deltas %&gt;%  
+  dplyr::mutate(cat_var = &quot;mock&quot;) %&gt;% 
+get_lmm_effects(
+  .,
+  cat_vector = &quot;cat_var&quot;,
+  long_var = &quot;delta_richness&quot;,
+  num_vector = new_numvars,
+  link_var = &quot;link_var&quot;
+) </code></pre>
+<pre><code>[1] &quot;cat_var&quot;
+[1] &quot;delta_CRP&quot;
+[1] &quot;delta_IL6&quot;
+[1] &quot;delta_TNFa&quot;
+[1] &quot;delta_sCD14&quot;</code></pre>
+<pre class="r"><code>new_numvars %&gt;%
+  purrr::set_names() %&gt;%
+  purrr::map(~ {
+    deltas %&gt;%
+      dplyr::mutate(cat_var = &quot;mock&quot;) %&gt;%
+      dplyr::filter(!is.na({.x}), 
+                    !is.na(delta_richness),
+                    long_var == 96) %&gt;%
+      create_LMM(
+        .,
+        num_var = .x,
+        long_var = &quot;delta_richness&quot;,
+        cat_var = &quot;cat_var&quot;,
+        link_var = &quot;link_var&quot;,
+        breakpoints = NULL
+      ) %&gt;% 
+      purrr::pluck(&quot;plot&quot;) +
+      scale_x_continuous(breaks = c(0,2,4,6,8)) +
+      # scale_y_continuous(trans = &quot;log2&quot;) +
+      theme(axis.title.x = element_text(size = 12),
+            axis.title.y = element_text(size = 12, angle = 90))
+  }) %&gt;%
+  ggpubr::ggarrange(plotlist = .)</code></pre>
+<p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/GR_inflammation_BL-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>deltas %&gt;% 
+  dplyr::filter(long_var == 96) %&gt;% 
+  dplyr::select(delta_richness, new_numvars) %&gt;% 
+  cor_test(use = &quot;complete.obs&quot;) %&gt;% 
+  dplyr::filter()</code></pre>
+<pre><code># A tibble: 25 x 8
+   var1           var2              cor statistic       p conf.~1 conf.~2 method
+   &lt;chr&gt;          &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt; 
+ 1 delta_richness delta_richne~  1        3.25e+8 0        1        1     Pears~
+ 2 delta_richness delta_CRP     -0.01    -6.90e-2 0.945   -0.290    0.272 Pears~
+ 3 delta_richness delta_IL6     -0.03    -1.32e-1 0.896   -0.446    0.397 Pears~
+ 4 delta_richness delta_TNFa    -0.14    -9.78e-1 0.333   -0.406    0.146 Pears~
+ 5 delta_richness delta_sCD14    0.023    1.58e-1 0.875   -0.260    0.302 Pears~
+ 6 delta_CRP      delta_richne~ -0.01    -6.90e-2 0.945   -0.290    0.272 Pears~
+ 7 delta_CRP      delta_CRP      1      Inf       0        1        1     Pears~
+ 8 delta_CRP      delta_IL6     -0.0057  -2.75e-2 0.978   -0.400    0.390 Pears~
+ 9 delta_CRP      delta_TNFa     0.39     3.19e+0 0.00238  0.149    0.594 Pears~
+10 delta_CRP      delta_sCD14    0.23     1.74e+0 0.0878  -0.0344   0.461 Pears~
+# ... with 15 more rows, and abbreviated variable names 1: conf.low,
+#   2: conf.high</code></pre>
+</div>
+</div>
+<div id="differences-by-groups" class="section level1">
+<h1>Differences by groups</h1>
+<pre class="r"><code>igc_df &lt;-
+  igc_df %&gt;%
+  dplyr::filter(!is.na(gr_group)) %&gt;%
+  mutate(cat_var2 = paste(gr_group, cat_var, sep = &quot;_&quot;))
+
+
+my_list &lt;- 
+num_var %&gt;% 
+  purrr::set_names() %&gt;% 
+  purrr::map(function(nv){
+    igc_df %&gt;% 
+      dplyr::filter(!is.na(!!sym(nv)), !is.na(gr_group)) %&gt;% 
+      mutate(cat_var2 = paste(gr_group, cat_var, sep = &quot;_&quot;)) %&gt;% 
+      # get_lmm_effects()
+      get_comp_boxplots(cat_var = &quot;cat_var2&quot;, num_var = nv, long_var = &quot;long_var&quot;,link_var = &quot;link_var&quot;)
+  })
+
+myPlotList &lt;- map(my_list, pluck, &quot;plot&quot;)
+ggarrange(plotlist = myPlotList, common.legend = T)</code></pre>
+<p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>cat &lt;- 
+num_var %&gt;% 
+  purrr::set_names() %&gt;% 
+  purrr::map_dfr(function(nv){
+    
+    obj &lt;- 
+    igc_df %&gt;% 
+      dplyr::filter(!is.na(!!sym(nv)), !is.na(gr_group)) %&gt;% 
+      mutate(cat_var2 = paste(gr_group, cat_var, sep = &quot;_&quot;)) %&gt;% 
+      get_group_comparisons(.,link_var = &quot;link_var&quot;, long_var = &quot;long_var&quot;,cat_vector = &quot;cat_var2&quot;,num_vector = nv,type = &quot;categorical&quot;, comps = unique(igc_df$cat_var2))
+    
+    objtest &lt;- obj %&gt;% pluck(&quot;cat_var2&quot;,nv,&quot;test&quot;)
+    objstats &lt;- obj %&gt;% pluck(&quot;cat_var2&quot;,nv,&quot;stats&quot;) %&gt;% 
+      mutate(stat = paste(round(median,2),&quot; [&quot;,round(iqr,2),&quot;]&quot;, sep = &quot;&quot;))
+  
+    objtest %&gt;% 
+      pivot_longer(cols = c(&quot;group1&quot;,&quot;group2&quot;)) %&gt;% 
+      dplyr::rename(cat_var = value) %&gt;%
+      dplyr::left_join(objstats[,c(&quot;cat_var&quot;,&quot;long_var&quot;,&quot;stat&quot;)], by = c(&quot;cat_var&quot;, &quot;long_var&quot;)) %&gt;% 
+      pivot_wider(names_from = &quot;name&quot;, values_from = c(&quot;cat_var&quot;, &quot;stat&quot;)) %&gt;% 
+      dplyr::select(long_var, group1 = cat_var_group1, group2 = cat_var_group2, contains(&quot;stat&quot;), p.adj)
+    
+  })
+
+cat %&gt;% 
+  dplyr::filter(p.adj &lt; 0.05)</code></pre>
+<pre><code># A tibble: 0 x 7
+# ... with 7 variables: long_var &lt;int&gt;, group1 &lt;chr&gt;, group2 &lt;chr&gt;,
+#   statistic &lt;dbl&gt;, stat_group1 &lt;chr&gt;, stat_group2 &lt;chr&gt;, p.adj &lt;dbl&gt;</code></pre>
+<pre class="r"><code>long &lt;- 
+num_var %&gt;% 
+  purrr::set_names() %&gt;% 
+  purrr::map_dfr(function(nv){
+    
+    obj &lt;- 
+    igc_df %&gt;% 
+      dplyr::filter(!is.na(!!sym(nv)), !is.na(gr_group)) %&gt;% 
+      mutate(cat_var2 = paste(gr_group, cat_var, sep = &quot;_&quot;)) %&gt;% 
+      get_group_comparisons(.,link_var = &quot;link_var&quot;, long_var = &quot;long_var&quot;,cat_vector = &quot;cat_var2&quot;,num_vector = nv,type = &quot;longitudinal&quot;, comps = c(0,48))
+    
+    obj %&gt;% 
+      pluck(&quot;cat_var2&quot;,nv,&quot;test&quot;) %&gt;% 
+      rstatix::adjust_pvalue( method = &quot;BH&quot;, p.col = &quot;p&quot;) %&gt;% 
+      full_join(obj$cat_var2[[nv]]$stats, by = &quot;cat_var&quot;)%&gt;% 
+      dplyr::mutate(.y. = nv) %&gt;% 
+      dplyr::select(cat_var, group1, group2,num_var = .y., contains(&quot;median&quot;), contains(&quot;iqr&quot;), &quot;p.adj&quot;)
+  })
+
+
+long %&gt;%
+  dplyr::filter(p.adj &lt; 0.05 )</code></pre>
+<pre><code># A tibble: 15 x 11
+   cat_var  group1 group2 num_var media~1 median1 median2   iqr1    iqr2 iqr_c~2
+   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+ 1 HGC_DRV~ 0      48     CD4       163.     63.5   206.  6.65e1 1.59e+2  149.  
+ 2 HGC_DTG  0      48     CD4       161      40     196   3.80e1 1.09e+2   78   
+ 3 LGC_DRV~ 0      48     CD4       190      18     192   4.20e1 2.09e+2  202.  
+ 4 LGC_DTG  0      48     CD4       228      70     370   8.55e1 1.99e+2  222.  
+ 5 HGC_DRV~ 0      48     CD8_CD~   -29.6    43.0    15.0 1.76e1 4.07e+0   14.1 
+ 6 HGC_DTG  0      48     CD8_CD~   -22.3    42.4    17.3 2.45e1 1.86e+1   24   
+ 7 LGC_DRV~ 0      48     CD8_CD~   -15.9    39.3    20.3 3.10e1 2.17e+1   18.5 
+ 8 LGC_DTG  0      48     CD8_CD~   -36      65.7    21.9 3.62e1 1.18e+1   18.5 
+ 9 HGC_DTG  0      48     IL6       -14      16       2   1.87e1 6.67e-1   17.4 
+10 HGC_DTG  0      48     TNFa       -9.5    18.5     9   5.17e0 1.58e+0    7.67
+11 LGC_DRV~ 0      48     TNFa       -5      15      10   5.67e0 4.33e+0    7.25
+12 LGC_DTG  0      48     TNFa      -11      20       7   1.9 e1 4.00e+0   12.7 
+13 HGC_DTG  0      48     sCD14   -1168    2800    1690   9.85e2 6.13e+2  428   
+14 LGC_DRV~ 0      48     sCD14    -836    2788    1956   1.70e3 7.63e+2  964.  
+15 LGC_DTG  0      48     sCD14   -1320    2876    1700   2.31e3 1.53e+3  654.  
+# ... with 1 more variable: p.adj &lt;dbl&gt;, and abbreviated variable names
+#   1: medianChange, 2: iqr_change</code></pre>
+<pre class="r"><code>num_var %&gt;% 
+  purrr::set_names() %&gt;% 
+  purrr::map(function(nv){
+    igc_df %&gt;% 
+      dplyr::filter(!is.na(!!sym(nv)), !is.na(gr_group)) %&gt;% 
+      mutate(cat_var2 = paste(gr_group, cat_var, sep = &quot;_&quot;)) %&gt;% 
+      ggplot(aes(x = long_var, y = !!sym(nv), color = cat_var, lty = gr_group)) +
+      stat_smooth(method = &quot;loess&quot;, alpha = .01) +
+      theme_bw() +
+      labs(x = &quot;weeks&quot;) +
+      scale_color_brewer(palette = &quot;Set2&quot;) +
+      scale_x_continuous(breaks = c(0,24,48,96))
+      
+      }) %&gt;% 
+  ggarrange(plotlist = ., common.legend = T)</code></pre>
+<p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-2.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -864,11 +1254,11 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] compareGroups_4.5.1 ggpubr_0.4.0        rstatix_0.7.1      
- [4] metar_0.1.5         RColorBrewer_1.1-3  forcats_0.5.2      
- [7] stringr_1.4.0       dplyr_1.0.8         purrr_0.3.4        
-[10] readr_2.0.1         tidyr_1.2.0         tibble_3.1.6       
-[13] ggplot2_3.3.5       tidyverse_1.3.1    
+ [1] nlme_3.1-148        compareGroups_4.5.1 ggpubr_0.4.0       
+ [4] rstatix_0.7.1       metar_0.1.5         RColorBrewer_1.1-3 
+ [7] forcats_0.5.2       stringr_1.4.0       dplyr_1.0.8        
+[10] purrr_0.3.4         readr_2.0.1         tidyr_1.2.0        
+[13] tibble_3.1.6        ggplot2_3.3.5       tidyverse_1.3.1    
 
 loaded via a namespace (and not attached):
   [1] uuid_1.1-0          readxl_1.3.1        backports_1.4.1    
@@ -899,26 +1289,26 @@ loaded via a namespace (and not attached):
  [76] broom_1.0.2         evaluate_0.19       biomformat_1.18.0  
  [79] fastmap_1.1.0       arm_1.12-2          yaml_2.3.6         
  [82] knitr_1.38          fs_1.5.2            zip_2.2.2          
- [85] future_1.30.0       nlme_3.1-148        whisker_0.4.1      
- [88] mime_0.12           xml2_1.3.2          compiler_4.0.2     
- [91] rstudioapi_0.13     ggsignif_0.6.4      reprex_2.0.1       
- [94] HardyWeinberg_1.7.2 stringi_1.7.6       highr_0.10         
- [97] gdtools_0.2.4       logger_0.2.2        lattice_0.20-41    
-[100] Matrix_1.5-3        nloptr_2.0.0        vegan_2.6-4        
-[103] permute_0.9-7       multtest_2.46.0     vctrs_0.4.1        
-[106] pillar_1.8.1        lifecycle_1.0.1     networkD3_0.4      
-[109] rhdf5filters_1.2.1  furrr_0.3.1         jquerylib_0.1.4    
-[112] cowplot_1.1.1       flextable_0.6.8     data.table_1.14.6  
-[115] httpuv_1.6.7        R6_2.5.1            promises_1.2.0.1   
-[118] gridExtra_2.3       writexl_1.4.1       IRanges_2.24.1     
-[121] parallelly_1.33.0   codetools_0.2-16    boot_1.3-25        
-[124] MASS_7.3-51.6       assertthat_0.2.1    chron_2.3-58       
-[127] rhdf5_2.34.0        rprojroot_2.0.3     withr_2.5.0        
-[130] S4Vectors_0.28.1    broom.mixed_0.2.9.4 mgcv_1.8-31        
-[133] parallel_4.0.2      hms_1.1.2           grid_4.0.2         
-[136] coda_0.19-4         minqa_1.2.5         rmarkdown_2.19     
-[139] carData_3.0-5       git2r_0.30.1        base64enc_0.1-3    
-[142] Biobase_2.50.0      shiny_1.7.1         lubridate_1.8.0    </code></pre>
+ [85] future_1.30.0       whisker_0.4.1       mime_0.12          
+ [88] xml2_1.3.2          compiler_4.0.2      rstudioapi_0.13    
+ [91] ggsignif_0.6.4      reprex_2.0.1        HardyWeinberg_1.7.2
+ [94] stringi_1.7.6       highr_0.10          gdtools_0.2.4      
+ [97] logger_0.2.2        lattice_0.20-41     Matrix_1.5-3       
+[100] nloptr_2.0.0        vegan_2.6-4         permute_0.9-7      
+[103] multtest_2.46.0     vctrs_0.4.1         pillar_1.8.1       
+[106] lifecycle_1.0.1     networkD3_0.4       rhdf5filters_1.2.1 
+[109] furrr_0.3.1         jquerylib_0.1.4     cowplot_1.1.1      
+[112] flextable_0.6.8     data.table_1.14.6   httpuv_1.6.7       
+[115] R6_2.5.1            promises_1.2.0.1    gridExtra_2.3      
+[118] writexl_1.4.1       IRanges_2.24.1      parallelly_1.33.0  
+[121] codetools_0.2-16    boot_1.3-25         MASS_7.3-51.6      
+[124] assertthat_0.2.1    chron_2.3-58        rhdf5_2.34.0       
+[127] rprojroot_2.0.3     withr_2.5.0         S4Vectors_0.28.1   
+[130] broom.mixed_0.2.9.4 mgcv_1.8-31         parallel_4.0.2     
+[133] hms_1.1.2           grid_4.0.2          coda_0.19-4        
+[136] minqa_1.2.5         rmarkdown_2.19      carData_3.0-5      
+[139] git2r_0.30.1        base64enc_0.1-3     Biobase_2.50.0     
+[142] shiny_1.7.1         lubridate_1.8.0    </code></pre>
 </div>
 </div>
 
@@ -938,6 +1328,8 @@ footer is added to webpages before the MathJax javascript. -->
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -970,6 +1362,35 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
