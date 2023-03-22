@@ -14,7 +14,7 @@
 
 <title>Taxonomy: Differential Abundance</title>
 
-<script src="site_libs/header-attrs-2.19/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
@@ -156,15 +156,11 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark the anchor link active (and if it's in a dropdown, also mark that active)
-  var dropdown = menuAnchor.closest('li.dropdown');
-  if (window.bootstrap) { // Bootstrap 4+
-    menuAnchor.addClass('active');
-    dropdown.find('> .dropdown-toggle').addClass('active');
-  } else { // Bootstrap 3
-    menuAnchor.parent().addClass('active');
-    dropdown.addClass('active');
-  }
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -193,8 +189,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "\e259";
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -202,9 +198,16 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "\e258";
-  font-family: 'Glyphicons Halflings';
+  content: "&#xe258;";
   border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -399,9 +402,7 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -410,9 +411,7 @@ aria-hidden="true"></span>
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -421,27 +420,17 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-03-21
+<strong>Last updated:</strong> 2023-03-14
 </p>
 <p>
-<strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
-<strong>Knit directory:</strong> <code>advanz4/</code> <span
-class="glyphicon glyphicon-question-sign" aria-hidden="true"
-title="This is the local directory in which the code in this file was executed.">
-</span>
+<strong>Knit directory:</strong> <code>advanz4/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
 </p>
 <p>
-This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
-analysis was created with <a
-  href="https://github.com/workflowr/workflowr">workflowr</a> (version
-1.7.0). The <em>Checks</em> tab describes the reproducibility checks
-that were applied when the results were created. The <em>Past
-versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -450,138 +439,91 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
-class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
 <div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! The global environment was empty. Objects defined in the
-global environment can affect the analysis in your R Markdown file in
-unknown ways. For reproduciblity it’s best to always run the code in an
-empty environment.</p>
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211203code">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Seed:</strong>
-<code>set.seed(20211203)</code> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211203code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20211203)</code> </a>
 </p>
 </div>
-<div id="strongSeedstrongcodesetseed20211203code"
-class="panel-collapse collapse">
+<div id="strongSeedstrongcodesetseed20211203code" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20211203)</code> was run prior to running
-the code in the R Markdown file. Setting a seed ensures that any results
-that rely on randomness, e.g. subsampling or permutations, are
-reproducible.</p>
+<p>The command <code>set.seed(20211203)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Session information:</strong>
-recorded </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
 </p>
 </div>
-<div id="strongSessioninformationstrongrecorded"
-class="panel-collapse collapse">
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Recording the operating system, R version, and package
-versions is critical for reproducibility.</p>
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
 <div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be
-confident that you successfully produced the results during this
-run.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
 </p>
 </div>
 <div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr
-project makes it easier to run your code on other machines.</p>
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree7cbd79ee787541d35b45bc739934a2f1628923c4targetblank7cbd79ea">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/MicrobialGenomics/advanz4/tree/7cbd79ee787541d35b45bc739934a2f1628923c4" target="_blank">7cbd79e</a>
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treebb21c7fc952766048ca41ad86a048577f7c10d4etargetblankbb21c7fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/bb21c7fc952766048ca41ad86a048577f7c10d4e" target="_blank">bb21c7f</a> </a>
 </p>
 </div>
-<div
-id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree7cbd79ee787541d35b45bc739934a2f1628923c4targetblank7cbd79ea"
-class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treebb21c7fc952766048ca41ad86a048577f7c10d4etargetblankbb21c7fa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development
-and connecting the code version to the results is critical for
-reproducibility.
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version
-<a href="https://github.com/MicrobialGenomics/advanz4/tree/7cbd79ee787541d35b45bc739934a2f1628923c4" target="_blank">7cbd79e</a>.
-See the <em>Past versions</em> tab to see a history of the changes made
-to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/bb21c7fc952766048ca41ad86a048577f7c10d4e" target="_blank">bb21c7f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for
-the analysis have been committed to Git prior to generating the results
-(you can use <code>wflow_publish</code> or
-<code>wflow_git_commit</code>). workflowr only checks the R Markdown
-file, but you know if there are other scripts or data files that it
-depends on. Below is the status of the Git repository when the results
-were generated:
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
@@ -592,20 +534,14 @@ Ignored files:
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/010_Basic_Report_cache/
     Ignored:    analysis/420_Taxonomy_DA_cache/
+    Ignored:    analysis/505_Adenovirus_Analysis_cache/
     Ignored:    analysis/510_Function_DA_cache/
-    Ignored:    analysis/mre/
+    Ignored:    analysis/output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/
     Ignored:    data/mre.rds
-
-Unstaged changes:
-    Modified:   analysis/310_IGC_analysis.Rmd
-    Modified:   analysis/317_GeneRichness_vs_Inflammation.Rmd
-    Modified:   code/group_comparisons.R
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not
-included in this status report because it is ok for generated content to
-have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
 </p>
 </div>
 </div>
@@ -616,12 +552,7 @@ have uncommitted changes.
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were
-made to the R Markdown (<code>analysis/304_Taxonomy_DA.Rmd</code>) and
-HTML (<code>docs/304_Taxonomy_DA.html</code>) files. If you’ve
-configured a remote Git repository (see <code>?wflow_git_remote</code>),
-click on the hyperlinks in the table below to view the files as they
-were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/304_Taxonomy_DA.Rmd</code>) and HTML (<code>docs/304_Taxonomy_DA.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -773,9 +704,7 @@ Added structure plan for code and added TP96 of CD4 and CD8
 </div>
 <div id="data-import-and-exploration" class="section level2">
 <h2>Data import and exploration</h2>
-<p>This section should explain anyithing that may have happened during
-the first fase of importing and formatting data, such as any
-modification or additional filtering step.</p>
+<p>This section should explain anyithing that may have happened during the first fase of importing and formatting data, such as any modification or additional filtering step.</p>
 <pre class="r"><code>bucket &lt;- &quot;s3://mistral-wp6-advanz4/&quot;
 bucket_dir &lt;- &quot;metagenome/WMGS/&quot;
 
@@ -1544,66 +1473,103 @@ metadata %&gt;%
 </div>
 <div id="differential-abundance-results" class="section level1">
 <h1>Differential abundance results</h1>
-<p>Here we will leave all results regarding DA. In case we analyze it by
-more than one approach (e.g, wilcoxon, ANCOM, etc), each will have it’s
-own subsection)</p>
+<p>Here we will leave all results regarding DA. In case we analyze it by more than one approach (e.g, wilcoxon, ANCOM, etc), each will have it’s own subsection)</p>
 <div id="method-1-e.g-wilcoxon-on-count-data" class="section level2">
 <h2>Method 1 (e.g: Wilcoxon on count data)</h2>
 </div>
 <div id="method-2-e.g-compositional-approach" class="section level2">
 <h2>Method 2 (e.g compositional approach)</h2>
 <p><img src="figure/304_Taxonomy_DA.Rmd/pressure-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Note that the <code>echo = FALSE</code> parameter was added to the
-code chunk to prevent printing of the R code that generated the
-plot.</p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pressure-1">
+Past versions of pressure-1.png
+</button>
+</p>
+<div id="fig-pressure-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/2040367d569519135daab2a8ad37ec09f0596c92/docs/figure/304_Taxonomy_DA.Rmd/pressure-1.png" target="_blank">2040367</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2022-03-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
-<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-Session information
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.0.2 (2020-06-22)
-Platform: x86_64-w64-mingw32/x64 (64-bit)
-Running under: Windows 10 x64 (build 22621)
+<pre><code>R version 4.0.5 (2021-03-31)
+Platform: x86_64-redhat-linux-gnu (64-bit)
+Running under: Fedora 34 (Workstation Edition)
 
 Matrix products: default
+BLAS/LAPACK: /usr/lib64/libflexiblas.so.3.1
 
 locale:
-[1] LC_COLLATE=Spanish_Spain.1252  LC_CTYPE=Spanish_Spain.1252   
-[3] LC_MONETARY=Spanish_Spain.1252 LC_NUMERIC=C                  
-[5] LC_TIME=Spanish_Spain.1252    
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] forcats_0.5.2   stringr_1.4.0   dplyr_1.0.8     purrr_0.3.4    
- [5] readr_2.0.1     tidyr_1.2.0     tibble_3.1.6    ggplot2_3.3.5  
- [9] tidyverse_1.3.1 devtools_2.3.2  usethis_2.0.0   workflowr_1.7.0
+ [1] forcats_0.5.1   stringr_1.4.0   dplyr_1.0.9     purrr_0.3.4    
+ [5] readr_2.1.2     tidyr_1.2.0     tibble_3.1.7    ggplot2_3.3.6  
+ [9] tidyverse_1.3.1 devtools_2.4.3  usethis_2.1.6   workflowr_1.7.0
 
 loaded via a namespace (and not attached):
- [1] httr_1.4.4        pkgload_1.2.4     jsonlite_1.8.0    here_1.0.1       
- [5] modelr_0.1.8      brio_1.1.3        assertthat_0.2.1  getPass_0.2-2    
- [9] highr_0.10        cellranger_1.1.0  yaml_2.3.6        remotes_2.4.2    
-[13] sessioninfo_1.2.2 pillar_1.8.1      backports_1.4.1   glue_1.6.2       
-[17] digest_0.6.29     promises_1.2.0.1  rvest_1.0.1       colorspace_2.0-3 
-[21] htmltools_0.5.2   httpuv_1.6.7      pkgconfig_2.0.3   broom_1.0.2      
-[25] haven_2.3.1       scales_1.2.1      processx_3.8.0    whisker_0.4.1    
-[29] later_1.3.0       tzdb_0.3.0        git2r_0.30.1      generics_0.1.3   
-[33] ellipsis_0.3.2    cachem_1.0.6      withr_2.5.0       cli_3.2.0        
-[37] magrittr_2.0.3    crayon_1.5.2      readxl_1.3.1      memoise_2.0.1    
-[41] evaluate_0.19     ps_1.7.2          fs_1.5.2          fansi_1.0.3      
-[45] xml2_1.3.2        pkgbuild_1.2.0    tools_4.0.2       prettyunits_1.1.1
-[49] hms_1.1.2         lifecycle_1.0.1   munsell_0.5.0     reprex_2.0.1     
-[53] callr_3.7.3       compiler_4.0.2    jquerylib_0.1.4   rlang_1.0.2      
-[57] grid_4.0.2        rstudioapi_0.13   rmarkdown_2.19    testthat_3.1.6   
-[61] gtable_0.3.1      DBI_1.1.3         R6_2.5.1          lubridate_1.8.0  
-[65] knitr_1.38        fastmap_1.1.0     utf8_1.2.2        rprojroot_2.0.3  
-[69] desc_1.4.2        stringi_1.7.6     Rcpp_1.0.8.3      vctrs_0.4.1      
-[73] dbplyr_2.1.1      tidyselect_1.1.2  xfun_0.30        </code></pre>
+ [1] httr_1.4.2        sass_0.4.1        pkgload_1.2.4     jsonlite_1.8.0   
+ [5] here_1.0.1        modelr_0.1.8      bslib_0.3.1       brio_1.1.3       
+ [9] assertthat_0.2.1  getPass_0.2-2     highr_0.9         cellranger_1.1.0 
+[13] yaml_2.3.5        remotes_2.4.2     sessioninfo_1.2.2 pillar_1.7.0     
+[17] backports_1.4.1   glue_1.6.2        digest_0.6.29     promises_1.2.0.1 
+[21] rvest_1.0.2       colorspace_2.0-3  htmltools_0.5.2   httpuv_1.6.5     
+[25] pkgconfig_2.0.3   broom_0.8.0       haven_2.5.0       scales_1.2.0     
+[29] processx_3.6.1    whisker_0.4       later_1.3.0       tzdb_0.3.0       
+[33] git2r_0.30.1      generics_0.1.2    ellipsis_0.3.2    cachem_1.0.6     
+[37] withr_2.5.0       cli_3.3.0         magrittr_2.0.3    crayon_1.5.1     
+[41] readxl_1.4.0      memoise_2.0.1     evaluate_0.15     ps_1.7.1         
+[45] fs_1.5.2          fansi_1.0.3       xml2_1.3.2        pkgbuild_1.3.1   
+[49] tools_4.0.5       prettyunits_1.1.1 hms_1.1.1         lifecycle_1.0.1  
+[53] reprex_2.0.1      munsell_0.5.0     callr_3.7.0       compiler_4.0.5   
+[57] jquerylib_0.1.4   rlang_1.0.2       grid_4.0.5        rstudioapi_0.13  
+[61] rmarkdown_2.14    testthat_3.1.4    gtable_0.3.0      DBI_1.1.3        
+[65] R6_2.5.1          lubridate_1.8.0   knitr_1.39        fastmap_1.1.0    
+[69] utf8_1.2.2        rprojroot_2.0.3   desc_1.4.1        stringi_1.7.6    
+[73] Rcpp_1.0.8.3      vctrs_0.4.1       dbplyr_2.2.0      tidyselect_1.1.2 
+[77] xfun_0.31        </code></pre>
 </div>
 </div>
 </div>

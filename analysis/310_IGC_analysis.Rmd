@@ -839,7 +839,7 @@ cat_vector %>%
 ```
 
 
-```{r CD4_corrs}
+```{r CD4_corrs, eval = F, echo = F}
 
 metadata
 
