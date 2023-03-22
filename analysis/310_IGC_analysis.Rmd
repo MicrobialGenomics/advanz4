@@ -708,7 +708,7 @@ obj <-
     comps = unique(igc_df$cat_var)
   ) 
 
-objtest <- obj %>% pluck("cat_var", "richness", "test")%>% 
+objtest <- obj %>% pluck("cat_var", "richness", "test") %>% 
   rstatix::adjust_pvalue(p.col = "p", method = "BH")
 objstats <- obj %>% pluck("cat_var", "richness", "stats") %>%
   mutate(stat = paste(round(median, 2), " [", round(iqr, 2), "]", sep = ""))

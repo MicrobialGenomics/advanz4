@@ -306,7 +306,7 @@ num_var %>%
   })
 
 res_list <- 
-num_var[!num_var %in% c("CD4", "CD8","CD8_CD38_DR", "ADV")] %>% 
+num_var[!num_var %in% c("CD8_CD38_DR", "ADV")] %>% 
   purrr::set_names() %>% 
   purrr::map(function(nv){
     print(nv)
@@ -319,7 +319,7 @@ num_var[!num_var %in% c("CD4", "CD8","CD8_CD38_DR", "ADV")] %>%
     
   })
 
-ggarrange(plotlist = res_list, nrow = 2, ncol = 2)
+ggarrange(plotlist = res_list, nrow = 3, ncol = 2, common.legend = T)
 
 ```
 
@@ -433,7 +433,7 @@ ggarrange(plotlist = myPlotList, common.legend = T)
 
 
 
-cat <- 
+cat_df <- 
 num_var %>% 
   purrr::set_names() %>% 
   purrr::map_dfr(function(nv){
@@ -457,11 +457,11 @@ num_var %>%
     
   })
 
-cat %>% 
+cat_df %>% 
   dplyr::filter(p.adj < 0.05)
 
 
-long <- 
+long_df <- 
 num_var %>% 
   purrr::set_names() %>% 
   purrr::map_dfr(function(nv){
@@ -481,12 +481,12 @@ num_var %>%
   })
 
 
-long %>%
+long_df %>%
   dplyr::filter(p.adj < 0.05 )
 
 
 
-num_var %>% 
+num_var[!num_var %in% c("CD8_CD38_DR", "ADV")] %>% 
   purrr::set_names() %>% 
   purrr::map(function(nv){
     igc_df %>% 

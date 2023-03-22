@@ -422,7 +422,7 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-03-16
+<strong>Last updated:</strong> 2023-03-21
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -556,15 +556,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree5ba2c0eba12ddd3d27cf39d53a4f4c0902f10524targetblank5ba2c0ea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree7cbd79ee787541d35b45bc739934a2f1628923c4targetblank7cbd79ea">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/MicrobialGenomics/advanz4/tree/5ba2c0eba12ddd3d27cf39d53a4f4c0902f10524" target="_blank">5ba2c0e</a>
+<a href="https://github.com/MicrobialGenomics/advanz4/tree/7cbd79ee787541d35b45bc739934a2f1628923c4" target="_blank">7cbd79e</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree5ba2c0eba12ddd3d27cf39d53a4f4c0902f10524targetblank5ba2c0ea"
+id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree7cbd79ee787541d35b45bc739934a2f1628923c4targetblank7cbd79ea"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -574,7 +574,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/MicrobialGenomics/advanz4/tree/5ba2c0eba12ddd3d27cf39d53a4f4c0902f10524" target="_blank">5ba2c0e</a>.
+<a href="https://github.com/MicrobialGenomics/advanz4/tree/7cbd79ee787541d35b45bc739934a2f1628923c4" target="_blank">7cbd79e</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -601,7 +601,12 @@ Ignored files:
     Ignored:    data/mre.rds
 
 Unstaged changes:
+    Modified:   analysis/310_IGC_analysis.Rmd
     Modified:   analysis/317_GeneRichness_vs_Inflammation.Rmd
+    Modified:   code/group_comparisons.R
+    Modified:   output/general_boxplot_stats
+    Modified:   output/mre_data/CatalogMapping/IGC/lmm/lmm_time_point_by_group.pdf
+    Modified:   output/overall_pvals.csv
 
 </code></pre>
 <p>
@@ -648,6 +653,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/54b8abb5590d61cf23d99771d7e72b458cdaa83c/analysis/317_GeneRichness_vs_Inflammation.Rmd" target="_blank">54b8abb</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2023-03-16
+</td>
+<td>
+fixed problem with sCD14
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/54b8abb5590d61cf23d99771d7e72b458cdaa83c/docs/317_GeneRichness_vs_Inflammation.html" target="_blank">54b8abb</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2023-03-16
+</td>
+<td>
+fixed problem with sCD14
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1035,7 +1074,7 @@ $ADV
 1 DRV/r   num_var 0      48         9    12        64 0.508
 2 DTG     num_var 0      48         8    10        46 0.633</code></pre>
 <pre class="r"><code>res_list &lt;- 
-num_var[!num_var %in% c(&quot;CD4&quot;, &quot;CD8&quot;,&quot;CD8_CD38_DR&quot;, &quot;ADV&quot;)] %&gt;% 
+num_var[!num_var %in% c(&quot;CD8_CD38_DR&quot;, &quot;ADV&quot;)] %&gt;% 
   purrr::set_names() %&gt;% 
   purrr::map(function(nv){
     print(nv)
@@ -1047,11 +1086,13 @@ num_var[!num_var %in% c(&quot;CD4&quot;, &quot;CD8&quot;,&quot;CD8_CD38_DR&quot;
       labs(y = nv, fill = &quot;group&quot;)
     
   })</code></pre>
-<pre><code>[1] &quot;CRP&quot;
+<pre><code>[1] &quot;CD4&quot;
+[1] &quot;CD8&quot;
+[1] &quot;CRP&quot;
 [1] &quot;IL6&quot;
 [1] &quot;TNFa&quot;
 [1] &quot;sCD14&quot;</code></pre>
-<pre class="r"><code>ggarrange(plotlist = res_list, nrow = 2, ncol = 2)</code></pre>
+<pre class="r"><code>ggarrange(plotlist = res_list, nrow = 3, ncol = 2, common.legend = T)</code></pre>
 <p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>There are significant differences in both CRP and sCD14, which were
 lower in the DTG group. CRP became significant at week 96 only, while
@@ -1174,7 +1215,7 @@ num_var %&gt;%
 myPlotList &lt;- map(my_list, pluck, &quot;plot&quot;)
 ggarrange(plotlist = myPlotList, common.legend = T)</code></pre>
 <p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>cat &lt;- 
+<pre class="r"><code>cat_df &lt;- 
 num_var %&gt;% 
   purrr::set_names() %&gt;% 
   purrr::map_dfr(function(nv){
@@ -1198,12 +1239,12 @@ num_var %&gt;%
     
   })
 
-cat %&gt;% 
+cat_df %&gt;% 
   dplyr::filter(p.adj &lt; 0.05)</code></pre>
 <pre><code># A tibble: 0 x 7
 # ... with 7 variables: long_var &lt;int&gt;, group1 &lt;chr&gt;, group2 &lt;chr&gt;,
 #   statistic &lt;dbl&gt;, stat_group1 &lt;chr&gt;, stat_group2 &lt;chr&gt;, p.adj &lt;dbl&gt;</code></pre>
-<pre class="r"><code>long &lt;- 
+<pre class="r"><code>long_df &lt;- 
 num_var %&gt;% 
   purrr::set_names() %&gt;% 
   purrr::map_dfr(function(nv){
@@ -1223,7 +1264,7 @@ num_var %&gt;%
   })
 
 
-long %&gt;%
+long_df %&gt;%
   dplyr::filter(p.adj &lt; 0.05 )</code></pre>
 <pre><code># A tibble: 15 x 11
    cat_var  group1 group2 num_var media~1 median1 median2   iqr1    iqr2 iqr_c~2
@@ -1245,7 +1286,7 @@ long %&gt;%
 15 LGC_DTG  0      48     sCD14   -1320    2876    1700   2.31e3 1.53e+3  654.  
 # ... with 1 more variable: p.adj &lt;dbl&gt;, and abbreviated variable names
 #   1: medianChange, 2: iqr_change</code></pre>
-<pre class="r"><code>num_var %&gt;% 
+<pre class="r"><code>num_var[!num_var %in% c(&quot;CD8_CD38_DR&quot;, &quot;ADV&quot;)] %&gt;% 
   purrr::set_names() %&gt;% 
   purrr::map(function(nv){
     igc_df %&gt;% 
