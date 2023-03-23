@@ -42,4 +42,4 @@ vignettes/*.pdf
 data/mre.rds
 
 # MetadataManagement folder
-Metadata/MetadataManagement/
+# Metadata/MetadataManagement/

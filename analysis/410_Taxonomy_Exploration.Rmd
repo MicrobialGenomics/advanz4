@@ -25,18 +25,19 @@ library(phyloseq)
 This section will have comments of the step of data entry and anything that may happen here
 
 ```{r cars, eval=T, message=F, warning=F}
-mymre <- aws.s3::s3readRDS(bucket = "mistral-wp6-advanz4", object ="/metagenome/WMGS/MREObject.rds", region = "eu-west-1") 
-
-
-# metadata <- get_meta(mymre)
-metadata <-
+mymre <- here::here("data","filt_mre.rds") %>%
+  readRDS(.)
+metadata <- 
   here::here("Metadata") %>% 
-    list.files(pattern = "clean_metadata", full.names = T) %>%
-  file.info() %>% 
-  dplyr::arrange(desc(ctime)) %>% 
+  file.info(list.files(., full.names = T)) %>%
   rownames() %>% 
-  dplyr::first() %>% 
-  read.csv()
+  magrittr::extract(str_detect(.,"clean_metadata")) %>% 
+  sort(decreasing = T) %>% 
+  magrittr::extract(1L) %>% 
+  read.csv() %>% 
+  column_to_rownames("SampleID") %>% 
+  mutate(SampleID = rownames(.))
+
 
 CategoricalVariablesDF <- get_cat(mymre)
 

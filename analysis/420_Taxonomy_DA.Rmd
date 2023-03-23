@@ -28,13 +28,17 @@ This section should explain anyithing that may have happened during the first fa
 
 mymre <- here::here("data","filt_mre.rds") %>%
   readRDS(.)
-
-# mymre <- aws.s3::s3readRDS(bucket = "mistral-wp6-advanz4", object ="/metagenome/WMGS/MREObject.rds", region = "eu-west-1") 
-# metadata <-get_meta(mymre)
-metadata <- here::here("Metadata", "2022_11_30_clean_metadata_LIMS.csv") %>% 
+metadata <- 
+  here::here("Metadata") %>% 
+  file.info(list.files(., full.names = T)) %>%
+  rownames() %>% 
+  magrittr::extract(str_detect(.,"clean_metadata")) %>% 
+  sort(decreasing = T) %>% 
+  magrittr::extract(1L) %>% 
   read.csv() %>% 
   column_to_rownames("SampleID") %>% 
   mutate(SampleID = rownames(.))
+
 
 
 
@@ -58,18 +62,12 @@ num_var <- here::here("Metadata", "NumericalVariables.txt") %>%
   pull(NumericalVariable)
 
 
-mymre %>% 
-  get_meta() %>% 
-  dplyr::pull(record_id) %>% 
-  unique() %>% 
-  length()
-
 
 ```
 
 
 
-```{r update_mre, warning= F, message= F}
+```{r update_mre, warning= F, message= F, eval = F}
 
 #### This chunk is for updating the mre internally as new variables come out. Once the final mre is done this chunk will be removed.
 
