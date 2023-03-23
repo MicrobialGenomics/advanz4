@@ -37,8 +37,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -514,16 +512,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree1cd979ddacc7cd7e13a94b3d780f7b17655d413ctargetblank1cd979da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/1cd979ddacc7cd7e13a94b3d780f7b17655d413c" target="_blank">1cd979d</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree7fa6cf0fcc4e1f27d2910cb70283ff4e86a2203dtargetblank7fa6cf0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/7fa6cf0fcc4e1f27d2910cb70283ff4e86a2203d" target="_blank">7fa6cf0</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree1cd979ddacc7cd7e13a94b3d780f7b17655d413ctargetblank1cd979da" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree7fa6cf0fcc4e1f27d2910cb70283ff4e86a2203dtargetblank7fa6cf0a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/1cd979ddacc7cd7e13a94b3d780f7b17655d413c" target="_blank">1cd979d</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/7fa6cf0fcc4e1f27d2910cb70283ff4e86a2203d" target="_blank">7fa6cf0</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -539,10 +537,6 @@ Ignored files:
     Ignored:    analysis/510_Function_DA_cache/
     Ignored:    analysis/output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/
     Ignored:    data/mre.rds
-
-Untracked files:
-    Untracked:  Metadata/MetadataManagement/.~lock.Export.xlsx#
-    Untracked:  Metadata/MetadataManagement/.~lock.LabData.xls#
 
 Unstaged changes:
     Modified:   analysis/250_BL_stratification.Rmd
@@ -584,6 +578,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/7fa6cf0fcc4e1f27d2910cb70283ff4e86a2203d/analysis/250_BL_stratification.Rmd" target="_blank">7fa6cf0</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-23
+</td>
+<td>
+added differentiation between CD4 and nadir at BL comparisons
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/7fa6cf0fcc4e1f27d2910cb70283ff4e86a2203d/docs/250_BL_stratification.html" target="_blank">7fa6cf0</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-23
+</td>
+<td>
+added differentiation between CD4 and nadir at BL comparisons
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -643,191 +671,6 @@ metadata &lt;-
   rownames() %&gt;% 
   dplyr::first() %&gt;% 
   read.csv()</code></pre>
-<pre class="r"><code>metadata %&gt;% 
-  dplyr::filter(time_point == 0) %&gt;% 
-  group_by(group) %&gt;% 
-  compareGroups::compareGroups(group ~ age + gender + BMI + HIV_VL + CD4 + risk_group, data = .) %&gt;% 
-  compareGroups::createTable(x = .) %&gt;% 
-  compareGroups::export2md()</code></pre>
-<table class="table table-striped table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<caption>
-Summary descriptives table by groups of `group’
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:center;">
-bDRV
-</th>
-<th style="text-align:center;">
-DTG
-</th>
-<th style="text-align:center;">
-p.overall
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;font-style: italic;border-bottom: 1px solid grey">
-</td>
-<td style="text-align:center;font-style: italic;border-bottom: 1px solid grey">
-N=39
-</td>
-<td style="text-align:center;font-style: italic;border-bottom: 1px solid grey">
-N=40
-</td>
-<td style="text-align:center;font-style: italic;border-bottom: 1px solid grey">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-age
-</td>
-<td style="text-align:center;">
-43.5 (16.6)
-</td>
-<td style="text-align:center;">
-39.7 (11.2)
-</td>
-<td style="text-align:center;">
-0.246
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-gender:
-</td>
-<td style="text-align:center;">
-</td>
-<td style="text-align:center;">
-</td>
-<td style="text-align:center;">
-1.000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;padding-left: 2em;" indentlevel="1">
-female
-</td>
-<td style="text-align:center;">
-6 (15.4%)
-</td>
-<td style="text-align:center;">
-7 (17.5%)
-</td>
-<td style="text-align:center;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;padding-left: 2em;" indentlevel="1">
-male
-</td>
-<td style="text-align:center;">
-33 (84.6%)
-</td>
-<td style="text-align:center;">
-33 (82.5%)
-</td>
-<td style="text-align:center;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-BMI
-</td>
-<td style="text-align:center;">
-22.2 (3.45)
-</td>
-<td style="text-align:center;">
-22.7 (3.24)
-</td>
-<td style="text-align:center;">
-0.486
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-HIV_VL
-</td>
-<td style="text-align:center;">
-1015705 (1567297)
-</td>
-<td style="text-align:center;">
-1052302 (1371282)
-</td>
-<td style="text-align:center;">
-0.912
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-CD4
-</td>
-<td style="text-align:center;">
-30.9 (26.5)
-</td>
-<td style="text-align:center;">
-51.5 (43.0)
-</td>
-<td style="text-align:center;">
-0.012
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-risk_group:
-</td>
-<td style="text-align:center;">
-</td>
-<td style="text-align:center;">
-</td>
-<td style="text-align:center;">
-0.670
-</td>
-</tr>
-<tr>
-<td style="text-align:left;padding-left: 2em;" indentlevel="1">
-hts
-</td>
-<td style="text-align:center;">
-18 (48.6%)
-</td>
-<td style="text-align:center;">
-14 (35.9%)
-</td>
-<td style="text-align:center;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;padding-left: 2em;" indentlevel="1">
-msm
-</td>
-<td style="text-align:center;">
-18 (48.6%)
-</td>
-<td style="text-align:center;">
-24 (61.5%)
-</td>
-<td style="text-align:center;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;padding-left: 2em;" indentlevel="1">
-pwid
-</td>
-<td style="text-align:center;">
-1 (2.70%)
-</td>
-<td style="text-align:center;">
-1 (2.56%)
-</td>
-<td style="text-align:center;">
-</td>
-</tr>
-</tbody>
-</table>
 <pre class="r"><code>igc&lt;-metar::get_diversity(mymre)@igc
 Threshold &lt;-  igc@dataTable %&gt;%
   dplyr::select(SampleID, NumberMappedReads) %&gt;%
@@ -836,8 +679,24 @@ Threshold &lt;-  igc@dataTable %&gt;%
   as.numeric()
 
 
-
-igc_df &lt;- igc@dataTable %&gt;%
+igc@dataTable %&gt;%
+  filter(NumberMappedReads &gt;= Threshold) %&gt;%
+  filter(ReadCountReal &gt;= Threshold) %&gt;% ### Get the Mapped Read count (per-sample) just above the threshold
+  group_by(SampleID) %&gt;%
+  summarise(across(everything(), min)) %&gt;%
+  ungroup() %&gt;%
+  right_join(., metadata, by = &quot;SampleID&quot;) %&gt;% 
+  dplyr::filter(time_point == 0) %&gt;% 
+  summarise(age = paste(median(age), &quot; [&quot;,IQR(age), &quot;]&quot;, sep = &quot;&quot;),
+            BMI = paste(round(median(BMI, na.rm = T),3), &quot; [&quot;,round(IQR(BMI, na.rm = T), 3), &quot;]&quot;, sep = &quot;&quot;),
+            CD4_nadir = paste(round(median(CD4_nadir, na.rm = T),3), &quot; [&quot;,round(IQR(CD4_nadir, na.rm = T), 3), &quot;]&quot;, sep = &quot;&quot;),
+            VL = paste(round(median(HIV_VL, na.rm = T),3), &quot; [&quot;,round(IQR(HIV_VL, na.rm = T), 3), &quot;]&quot;, sep = &quot;&quot;),
+            richness = paste(round(median(GeneNumber, na.rm = T),3), &quot; [&quot;,round(IQR(GeneNumber, na.rm = T), 3), &quot;]&quot;, sep = &quot;&quot;)) </code></pre>
+<pre><code># A tibble: 1 × 5
+  age       BMI            CD4_nadir VL               richness         
+  &lt;chr&gt;     &lt;chr&gt;          &lt;chr&gt;     &lt;chr&gt;            &lt;chr&gt;            
+1 40 [16.5] 22.084 [4.281] 35 [47]   366000 [1277645] 756556.5 [306940]</code></pre>
+<pre class="r"><code>igc_df &lt;- igc@dataTable %&gt;%
   filter(NumberMappedReads &gt;= Threshold) %&gt;%
   filter(ReadCountReal &gt;= Threshold) %&gt;% ### Get the Mapped Read count (per-sample) just above the threshold
   group_by(SampleID) %&gt;%
@@ -846,219 +705,11 @@ igc_df &lt;- igc@dataTable %&gt;%
   right_join(., metadata, by = &quot;SampleID&quot;) %&gt;%
   dplyr::filter(time_point == 0) %&gt;% 
   compareGroups::compareGroups(group ~ age + gender + BMI + HIV_VL + CD4 + CD4_nadir + risk_group + GeneNumber, 
-                               data = ., method = ) %&gt;%
+                               data = ., method = 2) %&gt;%
   compareGroups::createTable(x = .) %&gt;%
   compareGroups::export2md()</code></pre>
 <pre><code>Warning in chisq.test(xx, correct = FALSE): Chi-squared approximation may be
 incorrect</code></pre>
-<pre class="r"><code>igc_df</code></pre>
-<table class="table table-striped table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<caption>
-Summary descriptives table by groups of `group’
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:center;">
-bDRV
-</th>
-<th style="text-align:center;">
-DTG
-</th>
-<th style="text-align:center;">
-p.overall
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;font-style: italic;border-bottom: 1px solid grey">
-</td>
-<td style="text-align:center;font-style: italic;border-bottom: 1px solid grey">
-N=39
-</td>
-<td style="text-align:center;font-style: italic;border-bottom: 1px solid grey">
-N=40
-</td>
-<td style="text-align:center;font-style: italic;border-bottom: 1px solid grey">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-age
-</td>
-<td style="text-align:center;">
-43.5 (16.6)
-</td>
-<td style="text-align:center;">
-39.7 (11.2)
-</td>
-<td style="text-align:center;">
-0.246
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-gender:
-</td>
-<td style="text-align:center;">
-</td>
-<td style="text-align:center;">
-</td>
-<td style="text-align:center;">
-1.000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;padding-left: 2em;" indentlevel="1">
-female
-</td>
-<td style="text-align:center;">
-6 (15.4%)
-</td>
-<td style="text-align:center;">
-7 (17.5%)
-</td>
-<td style="text-align:center;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;padding-left: 2em;" indentlevel="1">
-male
-</td>
-<td style="text-align:center;">
-33 (84.6%)
-</td>
-<td style="text-align:center;">
-33 (82.5%)
-</td>
-<td style="text-align:center;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-BMI
-</td>
-<td style="text-align:center;">
-22.2 (3.45)
-</td>
-<td style="text-align:center;">
-22.7 (3.24)
-</td>
-<td style="text-align:center;">
-0.486
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-HIV_VL
-</td>
-<td style="text-align:center;">
-1015705 (1567297)
-</td>
-<td style="text-align:center;">
-1052302 (1371282)
-</td>
-<td style="text-align:center;">
-0.912
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-CD4
-</td>
-<td style="text-align:center;">
-30.9 (26.5)
-</td>
-<td style="text-align:center;">
-51.5 (43.0)
-</td>
-<td style="text-align:center;">
-0.012
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-CD4_nadir
-</td>
-<td style="text-align:center;">
-30.1 (22.5)
-</td>
-<td style="text-align:center;">
-44.4 (29.1)
-</td>
-<td style="text-align:center;">
-0.017
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-risk_group:
-</td>
-<td style="text-align:center;">
-</td>
-<td style="text-align:center;">
-</td>
-<td style="text-align:center;">
-0.670
-</td>
-</tr>
-<tr>
-<td style="text-align:left;padding-left: 2em;" indentlevel="1">
-hts
-</td>
-<td style="text-align:center;">
-18 (48.6%)
-</td>
-<td style="text-align:center;">
-14 (35.9%)
-</td>
-<td style="text-align:center;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;padding-left: 2em;" indentlevel="1">
-msm
-</td>
-<td style="text-align:center;">
-18 (48.6%)
-</td>
-<td style="text-align:center;">
-24 (61.5%)
-</td>
-<td style="text-align:center;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;padding-left: 2em;" indentlevel="1">
-pwid
-</td>
-<td style="text-align:center;">
-1 (2.70%)
-</td>
-<td style="text-align:center;">
-1 (2.56%)
-</td>
-<td style="text-align:center;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-GeneNumber
-</td>
-<td style="text-align:center;">
-743863 (243608)
-</td>
-<td style="text-align:center;">
-758684 (214993)
-</td>
-<td style="text-align:center;">
-0.788
-</td>
-</tr>
-</tbody>
-</table>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
