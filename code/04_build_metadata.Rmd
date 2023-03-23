@@ -241,7 +241,7 @@ clin_meta <- rbind(MetadataLab, sCD14_96) %>%
 
 
 
-ALso, weight in 3 patients: C007 (w48), D009 (w96), E008 (w0) and D013(w96) was wrongly recorded, as the last decimal was not included. We will rectify that and recalculate the BMI.
+ALso, weight in 3 patients: C007 (w48), D009 (w96), E008 (w0) and D013(w96) was wrongly recorded, as the last decimal was not included. We will rectify that and recalculate the BMI. Patient B006 failed to record its weight at baseline
 ```{r merge_lab_demographic, message = F, warning=F}
 
 
@@ -421,6 +421,7 @@ metadata_final <-
     `BISX-No UDVP` = "msm",
     HMSX = "msm", 
     `HMSX-HTSX-No UDVP` = "msm",
+    `HMSX-HTSX-No\r UDVP` = "msm",
     `Not Qualified` = "unknown",
     `HMSX-HTSX` = "msm",
     UDVP = "pwid"
