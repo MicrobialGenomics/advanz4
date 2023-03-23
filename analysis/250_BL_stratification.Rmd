@@ -76,9 +76,12 @@ igc_df <- igc@dataTable %>%
   ungroup() %>%
   right_join(., metadata, by = "SampleID") %>%
   dplyr::filter(time_point == 0) %>% 
-  compareGroups::compareGroups(group ~ age + gender + BMI + HIV_VL + CD4 + risk_group + GeneNumber, data = .) %>%
+  compareGroups::compareGroups(group ~ age + gender + BMI + HIV_VL + CD4 + CD4_nadir + risk_group + GeneNumber, 
+                               data = ., method = ) %>%
   compareGroups::createTable(x = .) %>%
   compareGroups::export2md()
+
+igc_df
 
 
 ```
