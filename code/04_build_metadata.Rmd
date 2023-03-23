@@ -86,7 +86,7 @@ Raw extracted data had a "melted" structure, so we may need to change it to wide
 
 ```{r read_and_process_Lab_Results, warning=F, message=F}
 
-vars=c("CD4 value","CD8 value", "4+38+DR+","8+38+DR+", "PCR", "IL-6", "TNF-a", "sCD14","HIV Viral load [lab]", "CMV Viral Load")
+vars=c("CD4 value","CD8 value", "4+38+DR+","8+38+DR+", "PCR", "IL-6", "TNF-a", "sCD14","Viral Load HIV [lab]", "CMV Viral Load")
 names(vars) <- c("CD4","CD8", "CD4_CD38_DR","CD8_CD38_DR", "CRP", "IL6", "TNFa", "sCD14", "HIV_VL", "CMV_VL")
 
 Sys.setlocale("LC_TIME", "English")
@@ -117,7 +117,7 @@ MetadataLab <-
       `IL-6` = "IL6",
       `TNF-a` = "TNFa",
       sCD14 = "sCD14",
-     `HIV Viral load [central]` = "HIV_VL",
+     `Viral Load HIV [lab]` = "HIV_VL",
      `CMV Viral Load` = "CMV_VL"
      ),
     record_id = str_remove_all(record_id,"-"), result_date = as.character(result_date))
@@ -259,11 +259,11 @@ MetadataLabDem<- here::here("Metadata","MetadataManagement","Vital.xlsx") %>%
          weight = case_when(record_id == "C007" & time_point == 48 ~ 69.7,
                             record_id == "D009" & time_point == 96 ~ 61.9,
                             record_id == "E008" & time_point == 0 ~ 39.1,
-                            link_var == "D013" & long_var == 96 ~ 67,
+                            record_id == "D013" & time_point == 96 ~ 67,
                             TRUE ~ as.numeric(weight)))  %>%
   full_join(., clin_meta ,by=c("record_id","time_point"), all.x = T) %>%
   right_join(., myMergedMetadata, by = c("record_id", "time_point")) %>% 
-  relocate(record_id, time_point, group, names(vars),Weight, Height, BMI, SBP, DBP)
+  relocate(record_id, time_point, group, names(vars),weight, height, BMI, SBP, DBP)
  
 dim(MetadataLabDem) 
 
@@ -571,10 +571,10 @@ BMI was problematic and not properly calculated in some patients. Also, in some 
 ```{r fix_BMIs, warning=F, message=F}
 metadata_final <- 
   metadata_final %>% 
-  mutate(weight = case_when(link_var == "C007" & long_var == 48 ~ 69.7,
-                            link_var == "D009" & long_var == 96 ~ 61.9,
-                            link_var == "E008" & long_var == 0 ~ 39.1,
-                            link_var == "D013" & long_var == 96 ~ 67,
+  mutate(weight = case_when(record_id == "C007" & time_point == 48 ~ 69.7,
+                            record_id == "D009" & time_point == 96 ~ 61.9,
+                            record_id == "E008" & time_point == 0 ~ 39.1,
+                            record_id == "D013" & time_point == 96 ~ 67,
                             TRUE ~ as.numeric(weight)),
          BMI = weight/((height/100)^2))
 
