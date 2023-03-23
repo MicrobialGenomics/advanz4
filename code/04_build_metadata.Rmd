@@ -30,7 +30,7 @@ Metadata consists on two tables. ne with sample information, coming a merge betw
 upload_bucket <- "mistral-wp6-advanz4/data_transfer/metagenome/"
 
 # aws.s3::put_object(file =  here::here("Metadata","MetadataManagement","Var_names.csv"), bucket = upload_bucket)
-variables_selected <- read.csv(here::here("Metadata","MetadataManagement","Var_names.csv"), header=T, encoding = "UTF-8") %>%
+variables_selected <- read.csv(here::here("Metadata","MetadataManagement","Var_names_excel.csv"), header=T) %>%
   dplyr::filter(selected == "YES") 
 
 
@@ -41,21 +41,28 @@ mySampleData<-here::here("Metadata","MetadataManagement","metadata_select.csv")%
   mutate(ExtractionDate = as.character(format(as.Date(ExtractionDate), "%d%b%Y"))) %>%
   select(-c(DateDiff))
 
-# here::here("Metadata","MetadataManagement","Export.xlsx") %>% 
-#   readxl::read_excel() %>% 
+# here::here("Metadata","MetadataManagement","Export.xlsx") %>%
+#   readxl::read_excel() %>%
 #   write.csv(., "Metadata/MetadataManagement/Clinical_Table.csv") # An excel file may bring problems due to format, encoding and sys.locale. This is to create a csv which should be read more universally.
 
 
 # aws.s3::put_object(file =  here::here("Metadata","MetadataManagement","Clinical_Table.csv"), bucket = upload_bucket)
 
 
-myClinicalData<-here::here("Metadata","MetadataManagement","Clinical_table.csv") %>%
-  read.csv() %>%
-  # setNames(stringi::stri_enc_detect(colnames(.))) %>% 
+myClinicalData<-
+  # here::here("Metadata","MetadataManagement","Clinical_Table.csv") %>%
+  # read.csv(., fileEncoding = "ISO-8859-1") %>%
+  here::here("Metadata","MetadataManagement","Export.xlsx") %>%
+  readxl::read_excel() %>%
+  setNames(str_replace_all(colnames(.), "\\r","")) %>% 
+  # setNames(str_replace_all(colnames(.), ",",".")) %>% 
+  # setNames(str_replace_all(colnames(.), " ","."))
+
+  # setNames(stringi::stri_enc_detect(colnames(.))) %>%
   select(variables_selected$VarName) %>%
   mutate(PatCode = gsub("-","",PatCode)) %>%
   mutate(group = case_when(Treat == "ABC+3TC+DGT" ~ "DTG",
-                           Treat == "ABC+3TC+DRV+RTV" ~ "DRV/r")) 
+                           Treat == "ABC+3TC+DRV+RTV" ~ "bDRV")) 
 
 myMergedMetadata <- myClinicalData %>%
   right_join(mySampleData, ., by="PatCode") %>%
@@ -79,7 +86,7 @@ Raw extracted data had a "melted" structure, so we may need to change it to wide
 
 ```{r read_and_process_Lab_Results, warning=F, message=F}
 
-vars=c("CD4 value","CD8 value", "4+38+DR+","8+38+DR+", "PCR", "IL-6", "TNF-a", "sCD14","HIV Viral load [central]", "CMV Viral Load")
+vars=c("CD4 value","CD8 value", "4+38+DR+","8+38+DR+", "PCR", "IL-6", "TNF-a", "sCD14","HIV Viral load [lab]", "CMV Viral Load")
 names(vars) <- c("CD4","CD8", "CD4_CD38_DR","CD8_CD38_DR", "CRP", "IL6", "TNFa", "sCD14", "HIV_VL", "CMV_VL")
 
 Sys.setlocale("LC_TIME", "English")
@@ -554,6 +561,26 @@ metadata_final %>%
 Finally, we add the clinical data (CRP, TNFa and IL6) which came late. We'll format it nicely and merge it with the final_meta
 
 
+## Other fixes
+
+This section will be to document any errors or problems we may find during downstream analyses.
+
+### FIx BMI
+BMI was problematic and not properly calculated in some patients. Also, in some patients the fractional comma was missing, leading to outrageous weights and BMIs.
+
+```{r fix_BMIs, warning=F, message=F}
+metadata_final <- 
+  metadata_final %>% 
+  mutate(weight = case_when(link_var == "C007" & long_var == 48 ~ 69.7,
+                            link_var == "D009" & long_var == 96 ~ 61.9,
+                            link_var == "E008" & long_var == 0 ~ 39.1,
+                            link_var == "D013" & long_var == 96 ~ 67,
+                            TRUE ~ as.numeric(weight)),
+         BMI = weight/((height/100)^2))
+
+
+
+```
 
 
 ## Basic Analytics

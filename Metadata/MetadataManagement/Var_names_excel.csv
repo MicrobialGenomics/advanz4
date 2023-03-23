@@ -1,0 +1,198 @@
+VarName,NewName,selected
+PatCode,pat_code,YES
+Sexo,gender,YES
+Edad,age,YES
+OrigenEtnico,ethnic_group,YES
+PaisOrigen,country,YES
+CD4_0,CD4_nadir,YES
+Treat,treatment,YES
+DoB,birth_date,YES
+PatNo,pat_number,YES
+Centro,center,YES
+RND,randomized,NO
+RndDt,randomization_Date,YES
+FechaInclusion,inclusion_date,YES
+Reason,end_reason_48,YES
+Reason_,end_reason_96,YES
+ITT,ITT,YES
+mITT,mITT,YES
+PP,PP,YES
+DiagSIDA,aids_diag,YES
+DiagSIDAFecha,aids_diag_date,YES
+modo_infeccion,risk_group,YES
+AntecEnfHepatica,any_liver_disease_record,YES
+EnfermHepatica_memo,previous_liver_disease,YES
+EnfermHepatica_FechaDiagn,previous_liver_disease_date,YES
+EnfermHepatica_activa,active_liver_disease,YES
+AntecEnfRenal,any_kidney_disease_record,YES
+EnfermRenal_memo,previous_kidney_disease,YES
+EnfermRenal_FechaDiagnost,previous_kidney_disease_date,YES
+EnfermRenal_activa,active_kidney_disease,YES
+OtrasEnfer,any_other_disease,YES
+NumOtrasEnferm,n_other_diseases,YES
+EventoDefiSIDA,aids_event,YES
+"Candidiasis
+traqueal,
+bronquial o
+pulmonar",aids_myco_candidiasis_respiratory,YES
+"Candidiasis
+esofágica",aids_myco_candidiasis_esophagic,YES
+"Coccidioidomicosis
+generalizada",aids_myco_candidiasis_general,YES
+"Criptococosis
+extrapulmonar",aids_myco_coccidiomycosis_general,YES
+"Criptosporidiasis
+con diarrea de
+más de mes",aids_parasyte_criptococcosis_extrapulmonar,YES
+"Infección por
+citomegalovirus de un
+órgano diferente al
+hígado, bazo o ganglios
+linfáticos",aids_myco_criptosporidiasis_1month,YES
+"Retinitis por
+citomegalovirus",aids_CMV_retinitis,YES
+"Encefalopatía
+por VIH",aids_HIV_encephalopathy,YES
+"Infección por el virus del herpes
+simple que cause úlcera
+mucocutánea de más de 1 mes de
+evolución o bronquitis, neumonitis
+o esafogitis",aids_HSV_severe,YES
+"Histoplasmosis
+diseminada",aids_myco_histoplasmosis,YES
+"Isosporidiasis
+crónica",aids_parasyte_isosporidiasis,YES
+"Sarcoma
+de
+Kaposi",aids_sarcoma_kaposi,YES
+"Linfoma de
+Burkitt o
+equivalente",aids_burkitt_lymphoma,YES
+"Linfoma
+inmunoblástico
+o equivalente",aids_lymphoma_immunoblast,YES
+"Linfoma
+cerebral
+primario",aids_lymphoma_brain,YES
+"Infección por MAI
+o M kansasii
+diseminada o
+extrapulmonar",aids_mycobacterium_kansasii,YES
+"Tuberculosis
+extrapulmonar
+o diseminada",aids_mycobacterium_TB_extrapulmonar,YES
+"Infección por otras
+microbacterias,
+diseminada o
+extrapulmonar",aids_mycobacterium_other,YES
+"Neumonía
+por P.
+carinni",aids_pneumonia_pneumocystis,YES
+"Leucoencefalopatía
+multifocal
+progresiva",aids_leucoencephalopathy,YES
+"Sepsis recurrente
+por especies de
+Salmonella que no
+sean S. typhi",aids_salmonella_sepsis,YES
+"Toxoplasmosis
+cerebral",aids_parasyte_brain_toxoplasmosis,YES
+"Wasting
+syndrome",aids_wasting,YES
+"Carcinoma
+de cérvix
+invasivo",aids_cervix_carcinoma,YES
+"Tuberculosis
+pulmonar",aids_mycobacterium_TB_lung,YES
+"Neumonía
+bacteriana
+recurrente",aids_pneumonia_recurring,YES
+SidaCalculada,aids_calculated_logic,YES
+"¿Tiene el
+resultado
+del
+estudi",study_result,YES
+"Fecha test
+Resistencia
+inicial",drug_resistance_date,YES
+OnProtocolLastDbrDt,protocol_last_date,YES
+WeeksOnProtocolDbr,protocol_weeks,YES
+OnProtocolLastMonitorDt,protocol_last_monitor_date,YES
+ExcmITT,exclussion_ITT,YES
+ExcPP,exclussion_PP,YES
+PrematureFinalisation,followup_complete,YES
+Comment,followup_dropout_comment,NO
+IRIS,iris,YES
+IrisDt,iris_date,YES
+"IRIS
+(weeks)",iris_weeks,YES
+"IRIS_
+(weeks)",iris_new_weeks_n,YES
+NewAidsEvent,new_aids_date,YES
+NewAidsEvent_,new_aids_n,YES
+"NewAidsEvent
+(weeks)",new_aids_weeks,YES
+"CMV
+Event
+Any",new_cmv,YES
+CmvEventAnyTm,cmv_any_time,YES
+CmvEventAnyDt,new_cmv_date,YES
+"CMV
+Event
+Evol",new_cmv_evol,YES
+CmvEventEvolTm,cmv_time_evol,YES
+"CMV
+Negative",cmv_negative,YES
+"CMV
+basal",cmv_bl,YES
+"CMV
+organic
+disease
+after
+review",cmv_disease_after,YES
+AA_MaxDt,AA_max_date,NO
+C1_MaxDt,C1_max_date,NO
+DisA_MaxDt,DisA_max_date,NO
+DisB_MaxDt,DisB_max_date,NO
+Lab_MaxDt,lab_max_date,YES
+PE_MaxDt,PE_max_date,YES
+VS_MaxDt,VS_max_date,YES
+Uni_MaxDt,Uni_max_date,YES
+MaxDt,patient_max_date,YES
+MaxWeek,max_week,YES
+MaxWeekOnProtocol,max_week_protocol,YES
+"max
+FollowUp
+(weeks)",followup_max_weeks,YES
+"Time
+On
+Study
+(weeks)",study_time,YES
+FollowUpTime_,followup_time_n,YES
+OnStudyTime_,study_time_n,YES
+Safety,Safety_Test,NO
+"Fecha
+HLA
+B5701",HLAB57_date,NO
+"Fecha 1ª
+determinación
+CD4",CD4_1_date,NO
+"Fecha 2ª
+determinación
+CD4",CD4_2_date,NO
+FechaFirmaCI,consent_sign_date,YES
+Motivo,reason_spanish,NO
+WeeksOnProtocolDbr_,weeks_protocol_n,NO
+PrematureFinalisation_,followup_dropout_n,NO
+NewAidsEventDt,aids_new_date_n,NO
+CmvEventEvolDt,cmv_new_date_n,Yes
+IRIS_,iris_n,NO
+"NewAidsEvent
+(weeks)",aids_new_weeks_n,NO
+CmvEventAny_,cmv_event_n,NO
+CmvEventEvol_,cmv_evol_n,NO
+CmvEventAnyTm_,cmv_event_weeks,NO
+CmvEventEvolTm_,cmv_evol_weeks,NO
+ResistenceTime,resistence_time,NO
+SidaTime,aids_time,NO
+m.u.l.t.i.p.l.e,??,NO

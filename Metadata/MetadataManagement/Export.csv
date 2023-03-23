@@ -1,0 +1,2147 @@
+"","PatNo","PatCode","Letter","CI_1","CI_2","CI_3","CI_4","Fecha
+HLA
+B5701","CI_5","Fecha 1ª
+determinación
+CD4","Fecha 2ª
+determinación
+CD4","CI_6","CI_7","CE_1","CE_2","CE_3","CE_4","CE_5","CE_6","CE_7","CE_8","CE_9","CE_10","CE_11","CE_12","FechaAleat","DiagSIDA","DiagSIDAFecha","CD4_0","id","Centro","modo_infeccion","OrigenEtnico","PaisOrigen","AntecEnfHepatica","EnfermHepatica_memo","EnfermHepatica_FechaDiagn","EnfermHepatica_activa","AntecEnfRenal","EnfermRenal_memo","EnfermRenal_FechaDiagnost","EnfermRenal_activa","OtrasEnfer","NumOtrasEnferm","EventoDefiSIDA","Candidiasis
+traqueal,
+bronquial o
+pulmonar","Candidiasis
+esofágica","Coccidioidomicosis
+generalizada","Criptococosis
+extrapulmonar","Criptosporidiasis
+con diarrea de
+más de mes","Infección por
+citomegalovirus de un
+órgano diferente al
+hígado, bazo o ganglios
+linfáticos","Retinitis por
+citomegalovirus","Encefalopatía
+por VIH","Infección por el virus del herpes
+simple que cause úlcera
+mucocutánea de más de 1 mes de
+evolución o bronquitis, neumonitis
+o esafogitis","Histoplasmosis
+diseminada","Isosporidiasis
+crónica","Sarcoma
+de
+Kaposi","Linfoma de
+Burkitt o
+equivalente","Linfoma
+inmunoblástico
+o equivalente","Linfoma
+cerebral
+primario","Infección por MAI
+o M kansasii
+diseminada o
+extrapulmonar","Tuberculosis
+extrapulmonar
+o diseminada","Infección por otras
+microbacterias,
+diseminada o
+extrapulmonar","Neumonía
+por P.
+carinni","Leucoencefalopatía
+multifocal
+progresiva","Sepsis recurrente
+por especies de
+Salmonella que no
+sean S. typhi","Toxoplasmosis
+cerebral","Wasting
+syndrome","Carcinoma
+de cérvix
+invasivo","Tuberculosis
+pulmonar","Neumonía
+bacteriana
+recurrente","SidaCalculada","Sexo","FechaFirmaCI","FechaInclusion","DoB","Edad","¿Tiene el
+resultado
+del
+estudi","Fecha test
+Resistencia
+inicial","SecuenciaFASTA","CI_OK","CE_OK","Sum_CI","Sum_CE","RndDt","OnProtocolLastDbrDt","WeeksOnProtocolDbr","ExcmITT","ExcPP","MaxWeek","MaxWeekOnProtocol","Reason","OnProtocolLastMonitorDt","Comment","PrematureFinalisation","Motivo","WeeksOnProtocolDbr_","Reason_","PrematureFinalisation_","IRIS","IrisDt","NewAidsEvent","NewAidsEventDt","CMV
+Event
+Any","CmvEventAnyDt","CMV
+Event
+Evol","CmvEventEvolDt","IRIS
+(weeks)","NewAidsEvent
+(weeks)","IRIS_","NewAidsEvent_","IRIS_
+(weeks)","NewAidsEvent_
+(weeks)","CmvEventAnyTm","CmvEventEvolTm","CmvEventAny_","CmvEventEvol_","CmvEventAnyTm_","CmvEventEvolTm_","RND","ITT","Safety","mITT","PP","Treat","treat","CMV
+Negative","AA_MaxDt","C1_MaxDt","DisA_MaxDt","DisB_MaxDt","Lab_MaxDt","PE_MaxDt","VS_MaxDt","Uni_MaxDt","MaxDt","ResistenceTime","SidaTime","max
+FollowUp
+(weeks)","Time
+On
+Study
+(weeks)","FollowUpTime_","OnStudyTime_","CMV
+organic
+disease
+after
+review","IRIS
+after
+review","CMV+
+Isolated
+after
+review","CMV
+basal","CMV
+basal
+Cat","CMV
+basal
+Cat
+(2)","CMV
+basal
+<=500","CMV
+basal
+<=1000","CMV
+basal
+positive"
+"1",676,"A-001","A","Si","Si","Si","Si",2015-02-26,"Si",2015-02-26,"42094","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-03-31,"Si","41948",20,"A-001","Hospital
+Clínic","HTSX-No UDVP","Hispano","UNKNOWN","No",NA,".",".","No",NA,".",".","Si","3","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Si","No","No","No","No","No","No","No","Yes","Hombre",2015-03-31,2015-03-31,1961-08-01,54,"Si","42061",">4823310|152249459|hiv201503271104||Siemens
+nucleotide|PR(10-297),RT(112-741)I+D0
+ACTCTTTGGCAGCGACCCATCATCTCAATAAAGA
+TAGGGGGGCAGATAAAGGAAGCTCTATTAGATA
+CAGGAGCAGATG
+ATACAGTATTAGAAGAAATGAATTTGCCAGGAAG
+GTGGAAACCAAAAATGATAGGAGGAATTGGAGG
+TTTTATCAAAGT
+AAGACAATATGATGAGGTAw
+CCTTAGAAATYTGTGGACATAAAGTTGTAGGTAC
+AGTACTAATAGGATCTACACCTGTC
+AACATAATTGGAAGAAATCTGTTGACTCAGCTTG
+GKTGCACTTTAAATTTTTGTACAGAAATGGAAAA
+GGAAGGTAAAA
+TCTCAAAAATTGGGCCTGAAAATCCATACAATAC
+TCCAGTATTTGCCATAAAGAAAAAAGACAGTACT
+AAATGGAGAAA
+ATTAGTAGATTTCAGAGAACTTAATAAGAGAACT
+CAAGACTTCTGGGAAGTTCARTTAGGAATACCAC
+ATCCCGCRgGG
+CTAAAAAAGAAAAAGTCAGTAACAGTACTAGATG
+TGGGTGATGCATATTTTTCAGTTCCCTTAGATAA
+AGAATTCAGAA
+AGTATACTGCATTCACc
+ATACCTAGTGTAAACAATGAGAc
+ACCAGGGATTAGATATCAGTACAa
+TGTGCTTCCACAAGG
+ATGGAAAGGATCACCAGCAATATTCCAATGTAGC
+ATGACAAAAATCTTGGAACCTTTTAGAAAACAAA
+ATCCAGACATA
+GTTATCTATCAATACATGGATGATTTGTATGTAG
+GATCTGACTTAGAAATAGARAAACATAGAGAAAA
+AATAGAGGAAC
+TGAGACAACAYCTGTTGAGATGGGGGTTTACCA
+CACCAGACAAAAAACATCAGAAAGAACCTCCATT
+CCTTTGGATGGG
+TTATGAACTCCATCCTGATAAATGGACAGTACAG
+CCTATAGTGCTGCCA","Yes","Yes",-7,0,2015-03-31,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","No","42541",".","42814",".","42814","42814","42814",2015-03-31,2017-03-20,"33","146",48,48,102.857142857143,48,"No","No","No","42","1. >35
+to
+<=100","2. >35
+to
+<=100","Yes","Yes","Yes"
+"2",683,"A-002","A","Si","Si","Si","Si",2015-04-14,"Si",2015-04-14,"42118","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-04-29,"Si","42107",7,"A-002","Hospital
+Clínic","HTSX-No UDVP","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","Si","4","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Si","No","No","No","No","Yes","Mujer",2014-04-29,2015-04-29,1961-01-01,54,"Si","42108","K101E E138K","Yes","Yes",-7,0,2015-04-29,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","No","43545",".",".","42324","42912","42912","42912",2015-04-29,2019-03-21,"15","16",48,48,203.142857142857,48,"No","No","No","140","2. >100
+to
+<=500","3. >100
+to
+<=500","Yes","Yes","Yes"
+"3",687,"A-003","A","Si","Si","Si","Si",2015-04-23,"Si",2015-04-23,"42123","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-05-04,"No",".",63,"A-003","Hospital
+Clínic","Not Qualified","Hispano","VENEZUELA","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2015-05-04,2015-05-04,1986-06-01,29,"Si","42117",">4915992|152635009|hiv201505050941||Siemens
+nucleotide|PR(10-297),RT(112-741)I+D0
+ACTCTTTGGCAACGACCCCTCGTCACAATAARG
+GTAGGGGGGCAACTAAAGGAAGCCCTACTAGAC
+ACAGGGGCAGATG
+ATACAGTATTAGAAGAAWTGARTTTGCCAGGAA
+GATGGAAACCAAAAATGATAGGGGGAATTGGAG
+GTTTTATCAAAGT
+AAGACAGTATGATCAGa
+TACTCGTAGAAATCTGTGGGCATAAAGCTATAGG
+TACAGTATTAGTAGGACCTACACCTGTC
+AACATAATTGGAAGAAATCTGTTGACTCAGATTG
+GTTGTACTTTAAATTTTTGTACAGa
+AATGGAAAAGGAAGGGAAAA
+TTTCAAAAATTGGGCCTGAAAATCCATACAATAC
+TCCAGTATTTGCCATAAAGAAAAAGGACAGTACT
+AAATGGAGAAA
+ATTAGTAGACTTCAGAGAACTTAATAAGAGAACT
+CAAGACTTCTGGGAGGTTCAACTAGGAATACCA
+CATCCCGCAGGG
+TTAAAAAAGAAAAAATCAGTAACAGTGCTRGATG
+TAGGTGATGCATATTTCTCARTTCCCCTAGATAA
+AGAATTCAGGA
+AATATACTGCATTTACt
+ATACCTAGTAGAAACAATGAGACACCAGGGATTA
+GATATCAGTACAATGtGCTTCCACAGGG
+ATGGAAAGGATCACCAGCAATATTCCAAAGCAG
+CATGACAAAAATCTTAGAGCCTTTCAGAAAACAC
+AATCCAGAAGTA
+GTYATCTATCAATACATGGATGATTTGTATGTAG
+GATCTGATTTAGAAATAGGACAGCATAGAACAAA
+AGTAGAGGAAC
+TGAGACAACATTTGTTAARGTGGGGACTTACCAC
+ACCAGACAAAAAACATCAGAAAGAACCYCCATTC
+CTTTGGATGGG
+TTATGAACTCc
+ATCCTGATAAGTGGACAGTCCAGCCTATAGTGCT
+GCCA","Yes","Yes",-7,0,2015-05-04,"42527",48,".",".",48,48,"No
+Premature
+Finalisation","42527","Finalización por fracaso virológico SM48 (06/06/16).
+Tampoco acude más a las visitas. 
+Durante el
+seguimiento dejo de tomar medicación en dos
+ocasiones por quedarse sin.","No","Fracaso virológico",48,"Virological
+Failure",1,"No",".","Yes","42432","No",".","No",".",".","43.428571428571402",0,1,".","43.428571428571402",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes","42527","42254",".","42254","42527","42527","42527",2016-06-06,2016-06-06,"11",".",48,48,57,57,"No","No","No","35","0. <=35","1. <35","Yes","Yes","No"
+"4",689,"A-004","A","Si","Si","Si","Si",2015-04-30,"Si",2015-04-30,"42132","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-05-11,"No",".",6,"A-004","Hospital
+Clínic","HMSX-No UDVP","Hispano","BRASIL","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2015-05-11,2015-05-11,1989-04-01,26,"Si","42124",">4916574|152641361|hiv201505251100||Siemens
+nucleotide|PR(10-297),RT(112-741)I+D0
+ACTCTTTGGCAACGACCCYTAGTCACAATAAAAG
+TAGGGGGGCAACTAAGGGAAGCTCTATTAGATA
+CAGGAGCAGATG
+ATACAGTATTAGAAGACATAAATTTGCCAGGAAA
+ATGGAAACCAAAAATGATAGGGGGAATTGGAGG
+TTTTATCAAAGT
+AAAACARTATGATAACATATGTATAGACATTTGTG
+GACACAAGGCTACAGGTACAGTGTTGGTAGGAC
+CTACGCCTGTC
+AACATAATTGGAAGAAATTTGTTAACTCAGATTG
+GTTGTACTTTAAATTTTTGTACAGAAATGGAAAAR
+GAAGGAAAAA
+TTTCAAAAATTGGGCCTGAAAATCCATACAATAC
+TCCAGTATTTGCTATAAAGAAAAAAGATAGTACT
+AAATGGAGGAA
+ATTAGTAGATTTCAGAGAACTTAATAAAAGAACT
+CAAGATTTTTGGGAGGTCCAATTAGGAATACCAC
+ATCCTGCAGGG
+TTAAAAAAGAAAAAGTCARTAACAGTGCTGGATG
+TGGGGGATGCATATTTTTCAGTTCCCTTAGATRA
+GGATTTCAGGA
+AGTACACTGCATTcACt
+ATACCYAGTGTYAACAATGAGACACCAGGAATTA
+GATACCAGTACAATGTGCTCCCACAaGG
+GTGGAaAGGgTCACCAGCAATATTTCAa
+TATAGCATGACAAAAATATTAGAACCCTt
+TAGAGCAAAAAATCCAGACCTA
+RTTATCTACCAATACATGGATGATTTATATGTAG
+GGTCTGACTTagAAATa
+GGGMAGCACAGAGCAAAAATTGAGGAGT
+TAAGAGAACATCTACTGAGATGGGGATTYACTAC
+ACCAGACAAAAAACATCAAAAGGAACCCCCATTC
+CTTTgGATGGG
+GTATGAACTCCATCCTGATAAATGGACAGTGCAG
+CCTAtACAATTGCCA","Yes","Yes",-7,0,2015-05-11,"42471",36,".","1",96,36,"Virological
+Failure","42471","Finalización por fracaso virológico el 11/04/16 (a
+determinación entre SM24 y SM36). Continúa por
+ITT. En la SM24 refiere que dejó la medicación 15
+días porque estaba trabajando fuera de España.","Yes","Fracaso virológico",36,"Virological
+Failure",1,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","No","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","No","42599","42380",".","42380","42937","42937","42937",2016-04-11,2017-07-21,"11",".",48,48,114.571428571429,48,"No","No","No","36.6","1. >35
+to
+<=100","2. >35
+to
+<=100","Yes","Yes","Yes"
+"5",691,"C-001","C","Si","Si","Si","Si",2015-05-11,"Si",2015-05-11,"42149","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-05-25,"Si","42131",88,"C
+-001","Hospital de
+Sant Pau,
+Barcelona","HMSX-HTSX-No
+UDVP","Blanco","ESPAÑA","No",NA,".",".","Si","Insuficiencia renal","42135","Si","Si","6","Si","No","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Hombre",2015-05-25,2015-05-25,1960-05-01,55,"Si","42135","A71T","Yes","Yes",-7,0,2015-05-25,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes","42362",".","42829",".","42829","42829","42829",2015-05-25,2017-04-04,"14","18",48,48,97.1428571428572,48,"No","No","No","35","0. <=35","1. <35","Yes","Yes","No"
+"6",710,"C-002","C","Si","Si","Si","Si",2015-05-04,"Si",2015-05-04,"42150","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-05-26,"Si","42083",35,"C
+-002","Hospital de
+Sant Pau,
+Barcelona","HTSX-No UDVP","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","Si","2","Si","No","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Hombre",2015-05-20,2015-05-26,1978-10-01,37,"Si","42128","A71T","Yes","Yes",-7,0,2015-05-26,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes",".",".",".","42746","42829","42829","42829",2015-05-26,2017-04-04,"22","67",48,48,97,48,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"7",712,"C-003","C","Si","Si","Si","Si",2015-05-12,"Si",2015-05-12,"42150","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-05-26,"No",".",81,"C
+-003","Hospital de
+Sant Pau,
+Barcelona","UDVP","Blanco","ESPAÑA","Si","Infección crónica por VHC","36526","Si","No",NA,".",".","Si","3","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Mujer",2015-05-26,2015-05-26,1965-06-01,50,"Si","42138","sin mutaciones","Yes","Yes",-7,0,2015-05-26,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","No","42807",".","42807",".","42807","42807","42807",2015-05-26,2017-03-13,"12",".",48,48,93.8571428571429,48,"No","No","Yes","134","2. >100
+to
+<=500","3. >100
+to
+<=500","Yes","Yes","Yes"
+"8",741,"F-001","F","Si","Si","Si","Si",2015-06-11,"Si",2015-06-11,"42171","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-06-11,"Si","42171",40,"F
+-001","Hospital de
+Mataro,
+Barcelona","HTSX-No UDVP","Negro","GANA","No",NA,".",".","No",NA,".",".","No",".","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Si","No","No","No","Yes","Mujer",2015-06-16,2015-06-29,1977-01-01,38,"Si","42180",">2015060372
+CCTCAAATCACTCTTTGGCAACGACCCATYGTCA
+CAGTAARRATAGGAGGACAGRTAAAGGAAGCTC
+TGTTAGACACAGGAGCAGATGATACAGTRTTAGA
+AGAAATAAATTTGCCAGGAAARTGGAARCCAAAA
+ATGATAGGGGGAATTGGAGGTTTTATCAAAGTAA
+GACAGTATGATCAGATATCTATAGAAATTTGTGG
+ACAMAAAGCTATAGGTACAGTATTAGTAGGACCT
+ACACCTGTCAACATAATTGGACGRAACATRTTGA
+CTCAAATTGGTTGTACTTTAAATTTTCCAATWAGT
+CCTATTGAAACTGTACCAGTAAAATTAAAGCCAG
+GAATGGATGGCCCAAAGATTAAACAATGGCCATT
+GACAGAAGAAAAAATAAAAGCATTAACAGAAATT
+TGTRCAGAGATGGAAAAGGAAGGRAAAATTTCA
+AAAATTGGGCCTGAAAAYCCATATAATACTCCAA
+TATTTGCTATAAAGAAAAAGGACAGCACTAAATG
+GAGAAAATTAGTAGATTTCAGAGAACTCAATAAA
+AGAACTCAGGATTTCTGGGAAGTTCAATTAGGAA
+TACCRCATCCAGCGGGTTTAAARAAGAAAAAATC
+AATAACAGTCTTGGATGTGGGGGACGCATATTTT
+TCAGTCCCTTTAGATAAAGATTTCAGGAAGTATA
+CTGCATTCACTATACCTAGTATTAATAATGAGAC
+ACCAGGGATTAGATATCAGTACAATGTGCTACCA
+CAGGGATGGAAAGGATCACCAGCAATATTCCAG
+AGTAGCATGACAAAAATCTTAGAGCCCTTTAGAA
+CAAAAAATCCAGATATAGTKATATACCAATACAT
+GGATGATTTGTATGTAGGGTCAGACTTAGAAATA
+GGGCARCATAGAGCAAAAATAGARGAACTAAGA
+GAACATYTRTTRAAATGGGGACTTACTACACCTG
+ACAAAAAGCATCAGAAGGAACCCCCATTTCTTTG
+GATGGGGTATGAACTCCATCCTGACAA","Yes","Yes",-7,0,2015-06-11,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes","42969",".",".","42857","42857","42857","42857",2015-06-29,2017-08-22,"-14","-5",48,48,114.714285714286,48,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"9",744,"A-005","A","Si","Si","Si","Si",2015-06-18,"Si",2015-06-16,"42177","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-06-29,"No",".",37,"A-005","Hospital
+Clínic","HMSX-No UDVP","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","Si","1","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2015-06-29,2015-06-29,1968-06-01,47,"Si","42171","El paciente no presenta mutaciones","Yes","Yes",-7,0,2015-06-29,"42266",11.7142857142857,"0","1",96,12,"Clinical
+Progression","42266","Finalización el 19/09/15 por SAE (Linfoma célula
+ß_SAE), entre la SM 12 y 24. Continúa por ITT.","Yes","Decisión del médico--> Linfoma B (SAE)",11.7142857142857,"Clinical
+Progression",1,"No",".","Yes","42200","No",".","No",".",".","2.28571428571429",0,1,".","2.28571428571429",".",".",0,0,".",".","Yes","Yes","Yes","Yes","No","ABC+3TC+DGT","ABC+3TC+DGT","Yes","42857","42266","42184",".","42933","42857","42857",2015-09-19,2017-07-17,"13",".",48,11.7142857142857,107,11.7142857142857,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"10",765,"A-006","A","Si","Si","Si","Si",2015-06-18,"Si",2015-06-18,"42184","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-07-06,"No",".",60,"A-006","Hospital
+Clínic","HMSX-No UDVP","Hispano","ECUADOR","Si","HEPATITIS VIRAL B SIN COMA
+HEPATICO, CRONICA SIN H.
+DELTA","41075","Si","No",NA,".",".","Si","1","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2015-07-06,2015-07-06,1989-07-01,26,"No",".",NA,"Yes","Yes",-7,0,2015-07-06,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes","43416",".","42555",".","42898","42944","42944",2015-07-06,2018-11-12,".",".",48,48,175,48,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"11",767,"C-004","C","Si","Si","Si","Si",2015-07-07,"Si",2015-07-01,"42192","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-07-14,"Si","42186",82,"C
+-004","Hospital de
+Sant Pau,
+Barcelona","HMSX-HTSX-No
+UDVP","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","No",".","Si","No","No","No","No","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Hombre",2015-07-14,2015-07-14,1973-05-01,42,"Si","42192",NA,"Yes","Yes",-7,0,2015-07-14,"42207",1.14285714285714,"1","1",0,0,"Selection
+Criteria","42207","FINALIZACIÓN EL 22/07/2015 POR DECISIÓN DEL
+MEDICO POR NO CUMPLIR CRITERIOS
+(CD4>100)","Yes","Decisión del médico: finalmente no cumple criterios
+por CD4 >100",1.14285714285714,"Selection
+Criteria",1,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","No","No","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","No",".",".",".","42199","42200","42199","42199",2015-07-22,2015-07-22,"7","13",1.14285714285714,1.14285714285714,1.14285714285714,1.14285714285714,"No","No","No","280","2. >100
+to
+<=500","3. >100
+to
+<=500","Yes","Yes","Yes"
+"12",786,"C-005","C","Si","Si","Si","Si",2015-07-14,"Si",2015-07-14,"42213","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-07-28,"No",".",16,"C
+-005","Hospital de
+Sant Pau,
+Barcelona","HMSX-HTSX-No
+UDVP","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","Si","3","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2015-07-28,2015-07-28,1973-05-01,42,"Si","42205",NA,"Yes","Yes",-7,0,2015-07-28,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes","42571",".",".","42912","42912","42912","42912",2015-07-28,2017-06-26,"8",".",48,48,99.8571428571429,48,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"13",797,"A-007","A","Si","Si","Si","Si",2015-07-16,"Si",2015-07-16,"42215","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-08-04,"Si","36923",97,"A-007","Hospital
+Clínic","Not Qualified","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","No",".","Si","No","No","No","No","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","Si","No","No","No","No","No","No","No","Yes","Hombre",2015-07-27,2015-07-29,1979-07-01,36,"No",".",NA,"Yes","Yes",-7,0,2015-08-04,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes","43549",".","42401",".","42937","42937","42937",2015-08-04,2019-03-25,".","5297",48,48,189.857142857143,48,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"14",802,"B-001","B","Si","Si","Si","Si",2015-08-07,"Si",2015-08-07,"42227","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-08-11,"No",".",54,"B
+-001","Hospital
+Germnas
+Trias i Pujol,
+Barcelona","HMSX-HTSX-No
+UDVP","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","Si","1","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2015-08-07,2015-08-07,1971-10-01,44,"Si","42261","CCTCAGATCACTCTTTGGCAACGACCCATCGTCA
+CAGTAAAGATAGAGGGGCAGCTAAAGGAAGCTC
+TAT
+TAGATACAGGAGCAGATGATACAGTATTAGAAGA
+TATAAATTTGCCAGGAAGATGGAAACCAAAAATG
+AT
+AGGGGGAATTGGAGGTTTTATCAAAGTAAGACA
+GTATGATCAGATAWSCATAGAAATCTGTGGACAT
+AAA
+GCTATAGGTACAGTATTAGTAGGACCTACACCTG
+TCAACATAATTGGAAGAAATCTGTTGACTCAGAT
+TG
+GTTGCACTTTAAATTTTCCCATCAGTCCTATTGAA
+ACTGTACCAGTAAAATTAAAGCCAGGAATGGATG
+G
+TCCAAAAGTTAAACAATGGCCATTGACAGAAGAG
+AAAATAAAAGCCTTAGTAGAAATCTGTACAGAAA
+TG
+GAAAARGAAGGMAAAATTTCAAAAATTGGGCCT
+GAAAATCCATACAATACTCCAATATTTGCTATAAA
+GA
+AAAAAGACAGTACTAAATGGAGAAAATTAGTAGA
+TTTCAGAGAACTTAATAAGAGAACTCAAGACTTC
+TG
+GGAAGTTCAATTAGGAATACCACATCCTGCAGG
+GTTAAAACAGAAAAAATCAGTGACAGTATTGGAT
+GTG
+GGTGATGCATATTTTTCAGTTCCCCTAGATCAAG
+ACTTCAGGAAGTATACTGCATTTACCATACCTAG
+TA
+TAAATAATGAGACACCAGGGGTTAGATATCAGTA
+CAATGTGCTTCCACAGGGGTGGAAAGGATCACC
+AGC
+AATATTCCAAGCTAGCATGACAAAAATCTTAGAG
+CCTTTTAGAAAACAAAATCCAGATATAGTCATCTA
+T
+CAATACATGGATGATTTGTATGTAGGATCTGACT
+TAGAGATAGGACAGCATAGAACAAAAATAGAGG
+AAT
+TGAGAGAACATCTATTAAGGTGGGGAYTTACCAC
+ACCAGACAAAAAACATCAGAAAGAGCCTCCATTC
+CT  TTGGATGGGTTATGAA","Yes","Yes",-7,0,2015-08-11,"42247",2.85714285714286,".","1",0,0,"Clinical
+Progression","42247","FINALITZACIÓN POR TOXICIDAD el 31/08/2015
+(IRIS por CMV desenmascarado a los 18 días de
+iniciar TAR_SAE)","Yes","Decisión del médico:IRIS por CMV desenmascarado",2.85714285714286,"Clinical
+Progression",1,"Yes","42235","Yes","42235","Yes","42235","Yes","42235","1.1428571428571399","1.1428571428571399",1,1,"1.1428571428571399","1.1428571428571399","1.1428571428571399","1.1428571428571399",1,1,"1.1428571428571399","1.1428571428571399","Yes","Yes","Yes","Yes","No","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","No","43348","42247",".","42227","42228","42227","42227",2015-09-14,2018-09-05,"-34",".",48,2.85714285714286,160.142857142857,2.85714285714286,"Yes","Yes","No","119","2. >100
+to
+<=500","3. >100
+to
+<=500","Yes","Yes","Yes"
+"15",881,"A-008","A","Si","Si","Si","Si",2015-08-13,"Si",2015-08-13,"42247","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-08-31,"No",".",14,"A-008","Hospital
+Clínic","HMSX-No UDVP","Hispano","PERÚ","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2015-08-31,2015-08-31,1981-12-01,34,"No",".",NA,"Yes","Yes",-7,0,2015-08-31,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","No","43013",".","42275",".","42998","42998","42998",2015-08-31,2017-10-05,".",".",48,48,109.428571428571,48,"No","No","No","6640","4.
+>1000","5.
+>1000","No","No","Yes"
+"16",883,"D-001","D","Si","Si","Si","Si",2015-08-11,"Si",2015-08-11,".","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-08-31,"No",".",57,"D
+-001","Hospital de
+Bellvitge,
+L'Hospitalet","HTSX-No UDVP","Hispano","COLOMBIA","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2015-08-31,2015-08-31,1968-09-01,47,"Si","42227",NA,"Yes","Yes",-7,0,2015-08-31,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes","43431",".",".","42836","42920","42920","42920",2015-08-31,2018-11-27,"20",".",48,48,169.142857142857,48,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"17",911,"E-001","E","Si","Si","Si","Si",2015-09-03,"Si",2015-09-03,"42268","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-09-21,"Si","42247",70,"E
+-001","Hospital Val
+d'Hebron,
+Barcelona","HTSX","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","Si","3","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2015-09-21,2015-09-21,1969-07-01,46,"No",".",NA,"Yes","Yes",-7,0,2015-09-21,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes","42492",".",".","42618","42933","42933","42933",2015-09-21,2017-07-17,".","21",48,48,95,48,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"18",919,"C-006","C","Si","Si","Si","Si",2015-09-14,"Si",2015-09-14,"42275","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-09-28,"Si","42263",13,"C
+-006","Hospital de
+Sant Pau,
+Barcelona","HMSX-HTSX-No
+UDVP","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","No",".","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Si","No","No","No","No","No","No","No","Yes","Hombre",2015-09-28,2015-09-28,1980-07-01,35,"Si","42265",NA,"Yes","Yes",-7,0,2015-09-28,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes",".",".",".","42887","42977","42977","42977",2015-09-28,2017-08-30,"10","12",48,48,100.285714285714,48,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"19",927,"D-002","D","Si","Si","Si","Si",2015-08-31,"Si",2015-08-31,"42276","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-09-29,"No",".",5,"D
+-002","Hospital de
+Bellvitge,
+L'Hospitalet","HTSX-No UDVP","Blanco","RUSIA","No",NA,".",".","No",NA,".",".","Si","3","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2015-09-28,2015-09-28,1980-07-01,35,"Si","42247",NA,"Yes","Yes",-7,0,2015-09-29,"42334",8.28571428571429,".","1",4,4,"Safety","42334","FINALIZACIÓN POR TOXICIDAD (evento de rash
+eritematoso cara, cuello, abdomen, tórax el
+26/11/15, AE)","Yes","Toxicidad",8.28571428571429,"Safety",1,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","No","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","No","43069","42333",".","42305","42305","42310","42310",2015-11-26,2017-11-30,"29",".",48,8.28571428571429,113.285714285714,8.28571428571429,"No","No","No","55.3","1. >35
+to
+<=100","2. >35
+to
+<=100","Yes","Yes","Yes"
+"20",938,"E-002","E","Si","Si","Si","Si",2015-09-23,"Si",2015-09-23,"42282","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-10-05,"Si","42205",30,"E
+-002","Hospital Val
+d'Hebron,
+Barcelona","HMSX-HTSX","Hispano","HONDURAS","No",NA,".",".","No",NA,".",".","Si","2","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2015-10-05,2015-10-05,1983-12-01,32,"No",".",NA,"Yes","Yes",-7,0,2015-10-05,".",48,".",".",96,96,"No
+Premature
+Finalisation",".","Completa el estudio. 
+En SM96 (07/08/2017) hay
+fracaso virológico confirmado por una segunda
+determinación (09/10/17).","No","COMPLETA ESTUDIO (no finalización prematura).
+El paciente completa el estudio, aunque en la SM96
+presenta fracaso virológico. En finalización,
+¿ponemos que ha finalizado correctamente el
+estudio o indicamos fracaso virológico?",48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes","42779",".",".","43622","42954","42954","42954",2015-10-05,2019-06-06,".","77",48,48,191.428571428571,48,"No","No","Yes","0","0. <=35","0. 0","Yes","Yes","No"
+"21",952,"E-003","E","Si","Si","Si","Si",2015-10-14,"Si",2015-09-30,"42296","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-10-19,"Si","42277",0,"E
+-003","Hospital Val
+d'Hebron,
+Barcelona","HMSX-HTSX","Hispano","VENEZUELA","No",NA,".",".","No",NA,".",".","Si","2","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2015-10-19,2015-10-19,1985-11-01,30,"No",".",NA,"Yes","Yes",-7,0,2015-10-19,"42562",38,".","1",36,36,"Virological
+Failure","42562","Finalización por fracaso virológico el 11/07/16
+(SM36). 
+El 04/AGO/16 reflejan en la HHCC la
+necesidad de modificar TAR por VHB+. (no se
+refleja en el CRD, posterior a fracaso virológico)","Yes","Fracaso virológico",38,"Virological
+Failure",1,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","No","ABC+3TC+DGT","ABC+3TC+DGT","No","43664",".","42562",".","42562","42562","42562",2016-07-11,2019-07-18,".","19",48,38,195.428571428571,38,"No","No","Yes","125","2. >100
+to
+<=500","3. >100
+to
+<=500","Yes","Yes","Yes"
+"22",977,"E-004","E","Si","Si","Si","Si",2015-10-09,"Si",2015-10-09,"42297","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-10-20,"Si","42284",20,"E
+-004","Hospital Val
+d'Hebron,
+Barcelona","HMSX","Hispano","PARAGUAY","No",NA,".",".","No",NA,".",".","Si","4","Si","No","No","No","No","No","No","No","No","No","No","No","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Hombre",2015-10-20,2015-10-20,1988-05-01,27,"No",".",NA,"Yes","Yes",-7,0,2015-10-20,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes","43357",".","42968",".","42968","42968","42968",2015-10-20,2018-09-14,".","13",48,48,151.428571428571,48,"No","No","Yes","35","0. <=35","1. <35","Yes","Yes","No"
+"23",1001,"A-009","A","Si","Si","Si","Si",2015-10-15,"Si",2015-10-15,"42310","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-11-02,"No",".",12,"A-009","Hospital
+Clínic","HMSX-No UDVP","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","Si","2","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Si","No","No","No","Yes","Hombre",2015-11-02,2015-11-02,1961-05-01,54,"Si","42292",NA,"Yes","Yes",-7,0,2015-11-02,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","No","42338",".","42338",".","43042","43042","43042",2015-11-02,2017-11-03,"18",".",48,48,104.571428571429,48,"No","No","No","43.2","1. >35
+to
+<=100","2. >35
+to
+<=100","Yes","Yes","Yes"
+"24",1040,"A-010","A","Si","Si","Si","Si",2015-11-05,"Si",2015-11-05,"42324","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-11-16,"Si","42306",35,"A-010","Hospital
+Clínic","HMSX-No UDVP","Blanco","VENEZUELA","No",NA,".",".","No",NA,".",".","No",".","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Si","No","No","No","Yes","Hombre",2015-11-09,2015-11-09,1994-12-01,21,"Si","42313","101E-RT(98%); 106I-RT(2%); 115F-RT(22%);
+179I-RT(2%); 184V-RT(99%); 190C-RT(100%);
+74V-RT(100%); 98G-RT(22%);","Yes","Yes",-7,0,2015-11-16,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes","42352",".","42324",".","43070","43084","43084",2015-11-16,2017-12-15,"11","18",48,48,108.571428571429,48,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"25",1071,"A-011","A","Si","Si","Si","Si",2015-12-01,"Si",2015-11-25,"42349","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-12-11,"Si","42331",40,"A-011","Hospital
+Clínic","HMSX-No UDVP","Hispano","ESPAÑA","No",NA,".",".","No",NA,".",".","Si","1","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Si","No","No","No","No","No","No","No","Yes","Hombre",2015-12-02,2015-12-09,1971-11-01,44,"No",".",NA,"Yes","Yes",-7,0,2015-12-11,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","No","43084",".",".","42349","43084","43084","43084",2015-12-11,2017-12-15,".","18",48,48,105,48,"No","No","No","1200","4.
+>1000","5.
+>1000","No","No","Yes"
+"26",1073,"E-005","E","Si","Si","Si","Si",2015-11-27,"Si",2015-11-27,"42352","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-12-14,"No",".",60,"E
+-005","Hospital Val
+d'Hebron,
+Barcelona","HTSX","Negro","ÁFRICA","No",NA,".",".","No",NA,".",".","Si","1","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2015-12-14,2015-12-14,1986-11-01,29,"No",".",NA,"Yes","Yes",-7,0,2015-12-14,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","No","43664",".","43045",".","43045","43045","43045",2015-12-14,2019-07-18,".",".",48,48,187.428571428571,48,"No","No","Yes","77.2","1. >35
+to
+<=100","2. >35
+to
+<=100","Yes","Yes","Yes"
+"27",1075,"E-006","E","Si","Si","Si","Si",2015-12-10,"Si",2015-12-04,"42352","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2015-12-14,"Si","42340",0,"E
+-006","Hospital Val
+d'Hebron,
+Barcelona","HMSX","Hispano","MÉJICO","No",NA,".",".","No",NA,".",".","No",".","Si","No","Si","No","No","No","Si","No","No","Si","No","No","No","No","No","No","No","No","Si","No","No","Si","Si","No","No","No","No","Yes","Hombre",2015-12-14,2015-12-14,1990-07-01,25,"No",".",NA,"Yes","Yes",-7,0,2015-12-14,".",48,".",".",96,96,"No
+Premature
+Finalisation",".","SM24 (30/05/16) CV=402copias/ml (no segunda
+determinación)
+SM36 (22/08/16) CV=216
+copias/ml, segunda determinación (19/09/2016)
+CV=50copias/ml --> se considera un blip","No",NA,48,"No
+Premature
+Finalisation",0,"Yes","42389","No",".","No",".","No",".","5.28571428571429",".",1,0,"5.28571428571429",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","No","43664",".",".","42858","43033","43033","43033",2016-01-20,2019-07-18,".","12",48,48,187.428571428571,48,"No","No","Yes","733","3. >500
+to
+<=1000","4. >500
+to
+<=1000","No","Yes","Yes"
+"28",1120,"A-012","A","Si","Si","Si","Si",2015-12-15,"Si",2015-12-15,"42380","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-01-11,"No",".",61,"A-012","Hospital
+Clínic","HTSX-No UDVP","Negro","SENEGAL","No",NA,".",".","No",NA,".",".","Si","3","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2016-01-11,2016-01-11,1964-12-01,52,"No",".",NA,"Yes","Yes",-7,0,2016-01-11,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes","42408",".",".","42380","43091","43091","43091",2016-01-11,2017-12-22,".",".",48,48,101.571428571429,48,"No","No","No","35","0. <=35","1. <35","Yes","Yes","No"
+"29",1130,"E-007","E","Si","Si","Si","Si",2015-12-31,"Si",2015-12-31,"42387","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-01-18,"No",".",40,"E
+-007","Hospital Val
+d'Hebron,
+Barcelona","HTSX","Hispano","COLOMBIA","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Mujer",2016-01-18,2016-01-18,1959-09-01,57,"No",".",NA,"Yes","Yes",-7,0,2016-01-18,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes","42502",".","43059",".","43059","43059","43059",2016-01-18,2017-11-20,".",".",48,48,96,48,"No","No","No","35","0. <=35","1. <35","Yes","Yes","No"
+"30",1132,"A-013","A","Si","Si","Si","Si",2016-01-07,"Si",2016-01-07,"42387","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-01-18,"No",".",38,"A-013","Hospital
+Clínic","HMSX-No UDVP","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2016-01-18,2016-01-18,1951-11-01,65,"Si","42376",NA,"Yes","Yes",-7,0,2016-01-18,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes","42548",".","42387",".","43088","43112","43112",2016-01-18,2018-01-12,"11",".",48,48,103.571428571429,48,"No","No","No","35","0. <=35","1. <35","Yes","Yes","No"
+"31",1134,"A-014","A","Si","Si","Si","Si",2016-01-07,"Si",2016-01-07,"42387","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-01-18,"No",".",19,"A-014","Hospital
+Clínic","BISX-No UDVP","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","Si","1","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2016-01-18,2016-01-18,1973-01-01,43,"Si","42376",NA,"Yes","Yes",-7,0,2016-01-18,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes","43182",".",".","42387","43182","43182","43182",2016-01-18,2018-03-23,"11",".",48,48,113.571428571429,48,"No","No","No","34.700000000000003","0. <=35","1. <35","Yes","Yes","No"
+"32",1136,"C-007","C","Si","Si","Si","Si",2015-12-30,"Si",2015-12-28,"42381","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-01-19,"Si","42366",65,"C
+-007","Hospital de
+Sant Pau,
+Barcelona","HTSX-No UDVP","Blanco","MARRUECOS","No",NA,".",".","No",NA,".",".","Si","2","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Si","No","No","Si","No","No","No","No","Yes","Hombre",2016-01-19,2016-01-19,1975-02-01,41,"Si","42366",NA,"Yes","Yes",-7,0,2016-01-19,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"Yes","42394","Yes","42394","Yes","42394","No",".","0.85714285714285998","0.85714285714285998",1,1,"0.85714285714285998","0.85714285714285998","0.85714285714285998",".",1,0,"0.85714285714285998",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","No","42725",".","43046",".","43046","43046","43046",2016-01-25,2017-11-07,"22","22",48,48,94,48,"Yes","Yes","No","1580000","4.
+>1000","5.
+>1000","No","No","Yes"
+"33",1138,"D-003","D","Si","Si","Si","Si",2016-01-04,"Si",2015-12-23,"42388","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-01-19,"Si","42360",11,"D
+-003","Hospital de
+Bellvitge,
+L'Hospitalet","HTSX-No UDVP","Negro","CAMERÚN","No",NA,".",".","No",NA,".",".","No",".","Si","No","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Si","No","Si","No","Yes","Hombre",2016-01-14,2016-01-19,1963-12-01,53,"Si","42361",NA,"Yes","Yes",-7,0,2016-01-19,"42569",25.8571428571429,".","1",24,24,"Virological
+Failure","42569","FINALIZACIÓN POR FRACASO VIROLÓGICO (CV
+SM24 (05/07/16)= 15.273 , 2a det (12/07/16)=
+25.485). 18/07/16--> fin, es cuando se le comunica
+al paciente 12/07/2016-->se detecta fracaso","Yes","Fracaso virológico",25.8571428571429,"Virological
+Failure",1,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","No","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes","42569",".",".","42556","42556","42556","42556",2016-07-18,2016-07-18,"27","28",25.8571428571429,25.8571428571429,25.8571428571429,25.8571428571429,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"34",1161,"A-015","A","Si","Si","Si","Si",2016-01-14,"Si",2016-01-14,"42394","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-01-25,"No",".",38,"A-015","Hospital
+Clínic","HMSX-No UDVP","Hispano","COLOMBIA","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2016-01-25,2016-01-25,1985-10-01,31,"Si","42383",NA,"Yes","Yes",-7,0,2016-01-25,"42618",32,".","1",36,36,"Lost to
+Follow-up","42618","Finalización por no acudir a las visitas el 05/09/2016","Yes","No acude a las visitas",32,"Lost to
+Follow-up",1,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","No","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes","42618",".",".","42394","42618","42618","42618",2016-09-05,2016-09-05,"11",".",32,32,32,32,"No","No","No","35","0. <=35","1. <35","Yes","Yes","No"
+"35",1198,"A-016","A","Si","Si","Si","Si",2016-02-02,"Si",2016-02-02,"42415","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-02-15,"Si","42392",28,"A-016","Hospital
+Clínic","HMSX-No UDVP","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","Si","1","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2016-02-15,2016-02-15,1986-02-01,30,"Si","42402",NA,"Yes","Yes",-7,0,2016-02-15,"42926",48,".",".",72,72,"No
+Premature
+Finalisation","42926","Finalización por no acudir a las visitas el 10/07/2017","No","No acude a las visitas",48,"Lost to
+Follow-up",1,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes","42751",".","42415",".","42926","42926","42926",2017-07-10,2017-07-10,"13","23",48,48,73,73,"No","No","No","35","0. <=35","1. <35","Yes","Yes","No"
+"36",1245,"C-008","C","Si","Si","Si","Si",2016-02-15,"Si",2016-02-15,"42423","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-02-23,"Si","42404",33,"C
+-008","Hospital de
+Sant Pau,
+Barcelona","HMSX-HTSX-No
+UDVP","Blanco","ESPAÑA","Si","Esteatosis hepática","42403","Si","No",NA,".",".","Si","1","Si","No","Si","No","No","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Hombre",2016-02-23,2016-02-23,1974-02-01,42,"Si","42415",NA,"Yes","Yes",-7,0,2016-02-23,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","No","43298",".",".","43031","43115","43115","43115",2016-02-23,2018-07-17,"8","19",48,48,125,48,"No","No","No","50.3","1. >35
+to
+<=100","2. >35
+to
+<=100","Yes","Yes","Yes"
+"37",1266,"B-002","B","Si","Si","Si","Si",2016-02-29,"Si",2016-02-23,"42437","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-03-08,"No",".",55,"B
+-002","Hospital
+Germnas
+Trias i Pujol,
+Barcelona","HMSX-HTSX-No
+UDVP","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2016-03-08,2016-03-08,1992-08-01,24,"Si","42423","CCTCAAATCACTCTTTGGCAACGACCCCTCGTCT
+CAGTAAGGATAGGGGGGCAAMTAAAGGAGGCT
+CTATTAGATACAGGAGCAGATGATACAGTTTTAG
+AAGAAATAAATTTGCCAGGAAGATGGAAACCAAA
+AATGATAGGGGGAATTGGRGGTTTTATCAAAGTA
+AGACAGTATGATCAGGTACCAATAGAAATTTGTG
+GACATAAAGCTATAGGTACAGTATTAGTAGGACC
+TACACCTGTCAACATAATTGGAAGAAATTTGTTG
+ACTCAGATTGGYTGTACTTTAAATTTTCCCATTAG
+TCCTATTGAAACTGTACCAGTAAAATTAAAGCCA
+GGAATGGATGGCCCAAAAGTTAAACAATGGCCA
+TTGACAGAGGAAAAAATAAAAGCATTAGTAGAAA
+TTTGTACAGAAATGGAAAAGGAAGGGAAAATTTC
+AAGAATTGGGCCTGAAAACCCATACAACACTCCA
+GTATTTGCTATAAAGAAAAAAGACAGTACTAAAT
+GGAGAAAACTAGTAGATTTCAGAGAACTTAATAA
+GAGAACTCAAGACTTCTGGGAAGTTCAATTGGG
+AATACCACATCCCGCAGGGTTAAAAAAGAAAAAA
+TCAGTAACAGTACTGGATGTGGGTGATGCATATT
+TCTCAGTGCCCTTAGATAAAGACTTCAGGAAATA
+TACTGCATTCACCATACCCAGTATAAACAATGCG
+ACACCAGGAATTAGATATCAGTACAATGTGCTCC
+CACAGGGATGGAAAGGATCACCAGCAATATTTC
+AATGTAGCATGACAAAAATCTTAGAGCCTTATAG
+AAAACAAAATCCAGGCATAGTTATCTATCAATAC
+ATGGATGATTTGTATGTAGGATCTGACTTAGAAA
+TAGAGCAGCATAGAGCAAAAGTAGAGGAACTGA
+GACAACATCTGTTGGGGTGGGGATTTACCACCC
+CAGACAAAAAGCATCAGAAAGAACCGCCATTCC
+TTTGGATGGGTTATGAACTCCATCCTGATAAGTG
+GACAGTACAGC","Yes","Yes",-7,0,2016-03-08,"42689",36,".","1",36,36,"Lost to
+Follow-up","42689","FINALIZACIÓN EL 15/11/2016 POR NO ACUDIR A
+LAS VISITAS","Yes","No acude a las visitas",36,"Lost to
+Follow-up",1,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","No","ABC+3TC+DGT","ABC+3TC+DGT","Yes","42605",".","42689",".","42689","42689","42689",2016-11-15,2016-11-15,"14",".",36,36,36,36,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"38",1281,"A-017","A","Si","Si","Si","Si",2016-02-09,"Si",2016-02-09,"42437","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-03-14,"No",".",82,"A-017","Hospital
+Clínic","HTSX-No UDVP","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","Si","4","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2016-03-14,2016-03-14,1969-03-01,47,"Si","42409",NA,"Yes","Yes",-7,0,2016-03-14,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes","43153",".","42443",".","43201","43153","43153",2016-03-14,2018-04-11,"34",".",48,48,108.285714285714,48,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"39",1287,"C-009","C","Si","Si","Si","Si",2016-03-08,"Si",2016-03-08,"42444","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-03-15,"Si","42405",37,"C
+-009","Hospital de
+Sant Pau,
+Barcelona","HTSX-No UDVP","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","Si","5","Si","No","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Mujer",2016-03-15,2016-03-15,1968-03-01,48,"Si","42444","Archivado en historia clínica.  Ver analítica
+08/03/2016  Sin mutaciones.","Yes","Yes",-7,0,2016-03-15,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes","43180",".","43180",".","43180","43180","43180",2016-03-15,2018-03-21,"0","39",48,48,105.142857142857,48,"No","No","Yes","35","0. <=35","1. <35","Yes","Yes","No"
+"40",1308,"F-002","F","Si","Si","Si","Si",2016-03-07,"Si",2016-03-07,"42447","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-03-21,"Si","42433",45,"F
+-002","Hospital de
+Mataro,
+Barcelona","HMSX-HTSX-No
+UDVP","Blanco","UNKNOWN","No",NA,".",".","No",NA,".",".","No",".","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Si","No","No","No","No","No","No","No","Yes","Hombre",2016-03-18,2016-03-21,1977-02-01,39,"Si","42436",">1458553567|2016030092|2016030092||Abbott|PR
+,RT
+********
+*CCTCAGATCACTCTTTGGCAACGACCCCTCGTC
+ACAGTAAAGATAGGGGGGCAGCTAAAGGAAGCT
+CTATTAGATACAGGAGCAGATGATACAGTATTAG
+AAGAAATGACTTTRCCAGGAAGATGGAAACCAAA
+AATGATAGGGGGAATTGGAGGTTTTATCAAAGTA
+AGACAGTATGATCAGATACCCATAGAAATCTGTG
+GACATAAAGCTATAGGTACAGTATTAGTAGGACC
+TACACCTGTCAACATAATTGGAAGAAATCTGTTG
+ACTCAGATTGGTTGCACT****************************
+************************************************************
+**********************
+*TTAAATTTTCCCATCAGTCCTATTGAAACTGTAC
+CAGTAAAATTAAAGCCAGGAATGGATGGCCCAA
+AAGTTAAACAATGGCCATTGACAGAAGAGAAAAT
+AAAAGCATTARTAGAAATTTGTACAGAAATGGAA
+AAAGAAGGCAAAATTTCAAAAATTGGGCCTGAAA
+ATCCATACAATACTCCAATATTTGCTATAAAGAAA
+AAAGATAGTACTAAATGGAGAAAATTAGTAGATT
+TCAGAGAACTTAATAAAAGAACTCAAGACTTCTG
+GGAAGTTCAATTAGGAATACCACATCCCGCAGG
+GTTAAAAAAGAAAAAATCAGTGACAGTACTGGAT
+GTGGGTGATGCATATTTTTCAGTTCCCTTAGATA
+AAGAATTCAGGAAGTATACTGCATTTACCATACC
+TAGTACAAACAATGAGACACCAGGGGTTAGATAT
+CAGTACAATGTGCTTCCACAGGGATGGAAAGGA
+TCACCAGCAATATTCCAAGCTAGCATGACAAAAA
+TCTTAGAGCCTTTTAGAAAACAAAATCCAGAAAT
+AGTCATCTATCAATACATGGATGAT","Yes","Yes",-7,0,2016-03-21,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes","43130",".",".","43046","43130","43130","43130",2016-03-21,2018-01-30,"14","17",48,48,97.1428571428572,48,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"41",1345,"A-018","A","Si","Si","Si","Si",2016-03-22,"Si",2016-03-11,"42464","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-04-04,"Si","42440",13,"A-018","Hospital
+Clínic","HTSX-No UDVP","Hispano","PERÚ","No",NA,".",".","No",NA,".",".","Si","2","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Si","No","No","No","No","No","No","No","Yes","Hombre",2016-04-04,2016-04-04,1987-06-01,29,"Si","42443",NA,"Yes","Yes",-7,0,2016-04-04,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","No","43182",".","42464",".","43168","43182","43182",2016-04-04,2018-03-23,"21","24",48,48,102.571428571429,48,"No","No","No","224","2. >100
+to
+<=500","3. >100
+to
+<=500","Yes","Yes","Yes"
+"42",1491,"D-004","D","Si","Si","Si","Si",2016-04-15,"Si",2016-04-08,"42486","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-04-26,"Si","42471",7,"D
+-004","Hospital de
+Bellvitge,
+L'Hospitalet","HTSX-No UDVP","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","No",".","Si","No","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Si","No","No","No","Si","No","No","No","Yes","Hombre",2016-04-20,2016-04-26,1990-12-01,26,"Si","42472",NA,"Yes","Yes",-7,0,2016-04-26,"43000",48,".",".",72,72,"No
+Premature
+Finalisation","43000","FINALIZACIÓN, NO ACUDE A LAS VISITAS","No","No acude a las visitas",48,"Lost to
+Follow-up",1,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","No","43060",".","43000",".","43000","43000","43000",2017-09-22,2017-11-21,"14","15",48,48,82,73.4285714285715,"No","No","Yes","6640","4.
+>1000","5.
+>1000","No","No","Yes"
+"43",1542,"F-003","F","Si","Si","Si","Si",2016-05-02,"Si",2016-04-21,"42492","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-05-09,"Si","42475",58,"F
+-003","Hospital de
+Mataro,
+Barcelona","UDVP","Blanco","ESPAÑA","Si","Hepatitis crónica VHC genotipo
+1b","40969","Si","No",NA,".",".","Si","1","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Si","No","No","No","No","No","No","No","Yes","Hombre",2016-05-06,2016-05-06,1977-12-01,39,"Si","42486",">1462787455|2016040298|2016040298||Abbott|PR
+,RT
+CCTCAGATCACTCTTTGGCAGCGACCCCTCGTC
+ACAATAAAAGTAGGGGGGCAACTAAAGGAAGCT
+CTATTGGATACAGGAGCAGATGATACAGTATTAG
+AAGAAATAAATTTGCCAGGAAAATGGAAACCAAA
+AATGATAGGGGGAATTGGAGGTTTTATCAAAGTA
+AGACAATATGAGCAGGTACTTATAGAAATCTGTG
+GACACAAAGCTATAGGTACAGTRTTAGTAGGAC
+CTACACCTGTCAACATAATTGGAAGAAATTTGTT
+GACTCAGATTGGTTGCACTTTAAATTTTCCCATC
+AGTCCTATTGAAACTGTACCAGTAAAATTAAAGC
+CAGGAATGGATGGCCCAAAAGTTAAACAATGGC
+CATTGACAGAAGAAAAAATAAAAGCATTAATAGA
+AATTTGTACAGAGATGGAAAAGGAAGGAAAAATT
+TCAAAAATTGGGCCTGAAAATCCATACAATACTC
+CAGTATTTGCCATAAAGAAAAAAGACAGTACTAA
+ATGGAGAAAATTAGTAGATTTCAGAGAACTTAAT
+AAGAAAACTCAAGACTTCTGGGAAGTTCAATTAG
+GAATACCACATCCCGCAGGGTTAAAAAAGAAAAA
+ATCAGTAACAGTACTGGATGTGGGTGATGCATAT
+TTTTCAGTTCCTTTATATGAAGACTTCAGGAAGTA
+TACAGCATTTACCATACCTAGTATAAACAATGAA
+GCACCAGGGATTAGATATCAGTACAATGTGCTTC
+CACAAGGATGGAAAGGATCACCAGCAATATTCC
+AAAGTAGCATGACAAAAATCTTAGAGCCTTTTAG
+AAAACAAAATCCAGACATAGTTGTCTATCAATAC
+ATGGATGACTTGTATGTAGGATCTGACTTAGAAA
+TAGGGCAGCATAGAGWAAAAATAGAGGAACTGA
+GAGAACATCTGTTGAGGTGGGGATTTACCACAC
+CAGACAAAAAACATCAGAAAGAACCCCCA","Yes","Yes",-7,0,2016-05-09,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","No","42966",".",".","43074","43151","43153","43153",2016-05-09,2018-02-22,"13","24",48,48,93.4285714285715,48,"No","No","No","888","3. >500
+to
+<=1000","4. >500
+to
+<=1000","No","Yes","Yes"
+"44",1615,"E-008","E","Si","Si","Si","Si",2016-05-10,"Si",2016-05-10,"42513","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-05-23,"No",".",10,"E
+-008","Hospital Val
+d'Hebron,
+Barcelona","HTSX","Blanco","ESPAÑA","No",NA,".",".","Si","LITIASIS",".","No","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Mujer",2016-05-19,2016-05-19,1963-12-01,53,"No",".",NA,"Yes","Yes",-7,0,2016-05-23,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"Yes","42859","Yes","42859","No",".","No",".","49.428571428571402","49.428571428571402",1,1,"49.428571428571402","49.428571428571402",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","No","43664",".",".","43089","43185","43185","43185",2017-05-04,2019-07-18,".",".",48,48,164.428571428571,48,"No","No","Yes","65.8","1. >35
+to
+<=100","2. >35
+to
+<=100","Yes","Yes","Yes"
+"45",1624,"E-009","E","Si","Si","Si","Si",2016-05-13,"Si",2016-05-09,"42520","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-05-30,"Si","42497",60,"E
+-009","Hospital Val
+d'Hebron,
+Barcelona","HTSX","Blanco","ESPAÑA",".",NA,".",".",".",NA,".",".","Si","1","Si","No","Si","No","No","No","No","No","No","No","No","No","Si","No","No","No","No","No","No","Si","No","No","No","No","No","No","Si","Yes","Hombre",2016-05-30,2016-05-30,1951-05-01,65,"No",".",NA,"Yes","Yes",-7,0,2016-05-30,"42522",0.28571428571429,"1","1",0,0,"Selection
+Criteria","42522","Finalización  por CD4>100 (01/06/2016)","Yes","Decisiñon del médico: CD4>100",0.28571428571429,"Selection
+Criteria",1,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","No","No","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","No",".",".",".","42520","43185","43185","43185",2016-06-01,2018-03-26,".","23",48,0.28571428571429,95,0.28571428571429,"No","No","Yes","11900","4.
+>1000","5.
+>1000","No","No","Yes"
+"46",1625,"A-019","A","Si","Si","Si","Si",2016-05-10,"Si",2016-05-10,"42520","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-05-30,"No",".",95,"A-019","Hospital
+Clínic","HTSX-No UDVP","Hispano","PERÚ","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2016-05-30,2016-05-30,1991-03-01,25,"Si","42500",NA,"Yes","Yes",-7,0,2016-05-30,"43119",48,".",".",84,84,"No
+Premature
+Finalisation","43119","Finalización por no acudir a las visitas el 19/01/2018
+(SM84). En la última visita el paciente tiene CV alta
+debido a que el paciente decidió dejar la medicación
+por efectos secundarios durante 2 meses y medio,
+en la visita de la SM84 se retomó.","No","No acude a las visitas",48,"Lost to
+Follow-up",1,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes",".","43119",".","42520","43074","43119","43119",2018-01-19,2018-01-19,"20",".",48,48,85.5714285714286,85.5714285714286,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"47",1644,"E-010","E","Si","Si","Si","Si",2016-05-25,"Si",2016-05-25,"42527","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-06-06,"No",".",90,"E
+-010","Hospital Val
+d'Hebron,
+Barcelona","HTSX","Hispano","COLOMBIA","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Mujer",2016-06-06,2016-06-06,1976-01-01,40,"No",".",NA,"Yes","Yes",-7,0,2016-06-06,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes","43664",".","43157",".","43157","43157","43157",2016-06-06,2019-07-18,".",".",48,48,162.428571428571,48,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"48",1650,"D-005","D","Si","Si","Si","Si",2016-05-30,"Si",2016-05-30,"42535","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-06-14,"Si","42518",6,"D
+-005","Hospital de
+Bellvitge,
+L'Hospitalet","HMSX-No UDVP","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2016-06-08,2016-06-14,1974-09-01,42,"Si","42520",NA,"Yes","Yes",-7,0,2016-06-14,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes","43203",".","43196",".","43196","43196","43196",2016-06-14,2018-04-13,"15","17",48,48,95.4285714285715,48,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"49",1652,"D-006","D","Si","Si","Si","Si",2016-06-02,"Si",2016-06-02,"42535","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-06-14,"Si","42535",97,"D
+-006","Hospital de
+Bellvitge,
+L'Hospitalet","HTSX-No UDVP","Otro","MARRUECOS","No",NA,".",".","No",NA,".",".","Si","5","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2016-06-09,2016-06-14,1944-01-01,72,"Si","42523",NA,"Yes","Yes",-7,0,2016-06-14,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes","43304",".","43122",".","43207","43207","43207",2016-06-14,2018-07-23,"12","0",48,48,109.857142857143,48,"No","No","No","35","0. <=35","1. <35","Yes","Yes","No"
+"50",1664,"E-011","E","Si","Si","Si","Si",2016-05-30,"Si",2016-05-30,"42541","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-06-20,"No",".",30,"E
+-011","Hospital Val
+d'Hebron,
+Barcelona","HTSX","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Mujer",2016-06-17,2016-06-17,1973-01-01,43,"No",".",NA,"Yes","Yes",-7,0,2016-06-20,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes","43045",".","43213",".","43213","43213","43213",2016-06-20,2018-04-23,".",".",48,48,96,48,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"51",1769,"D-007","D","Si","Si","Si","Si",2016-06-28,"Si",2016-06-28,"42570","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-07-19,"No",".",69,"D
+-007","Hospital de
+Bellvitge,
+L'Hospitalet","HTSX-No UDVP","Hispano","ESPAÑA","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2016-07-12,2016-07-19,1969-09-01,47,"Si","42549",NA,"Yes","Yes",-7,0,2016-07-19,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes","43242",".",".","43161","43242","43242","43242",2016-07-19,2018-05-22,"21",".",48,48,96,48,"No","No","No","35","0. <=35","1. <35","Yes","Yes","No"
+"52",1876,"D-008","D","Si","Si","Si","Si",2016-08-10,"Si",2016-08-10,"42605","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-08-23,"Si","42565",14,"D
+-008","Hospital de
+Bellvitge,
+L'Hospitalet","HTSX-No UDVP","Hispano","UNKNOWN","Si","VHC","42596","Si","No",NA,".",".","Si","8","Si","No","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Hombre",2016-08-19,2016-08-23,1962-08-01,54,"Si","42592",NA,"Yes","Yes",-7,0,2016-08-23,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes","43276",".",".","43185","43276","43276","43276",2016-08-23,2018-06-25,"13","40",48,48,95.8571428571429,48,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"53",2103,"A-020","A","Si","Si","Si","Si",2016-10-03,"Si",2016-10-03,".","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-10-03,"No",".",70,"A-020","Hospital
+Clínic","HMSX-No UDVP","Hispano","ESPAÑA","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2016-10-03,2016-10-03,1986-04-01,30,"Si","42646","PR:
+CCTAGTYMMAATAARGATAGGGGGRCAACTAAA
+AGAAGCTCTATTAGATACAGGAGCAGATGATACA
+GTATTAGAAGAYATGGAGTTGCCAGGAAAATGG
+AAACCAAAAATGATAGGGGGAATTGGAGGTTTTA
+TCAAAGTAAGACAGTATGATCAGATACCCATAGA
+AATTTGTGGRCATAGGACTGTAGGTACAGTATTA
+ATAGGACCTACACCTGTCAACATAATTGGAAGAA
+ATTTGTTGACTCAACTTGGTTGCACTTTAAATTTT
+RT:
+CCCATTAGTCCTATTGATACTGTACCAGTAAAAT
+TGAAGCCAGGAATGGATGGTCCAAAAGTTAAAC
+AATGGCCATTAACAGAAGAAAAAATAAAAGCGTT
+AATAGAAATTTGTACAGAAATGGAAAAGGAAGGG
+AAGATTTCAAAAATTGGGCCTGAAAATCCATACA
+ATACTCCAGTATTTGCCATAAAGAAAAAAGACAG
+TACTAAATGGAGAAAATTAGTAGATTTCAGAGAA
+CTTAATAAGAGAACTCAAGACTTCTGGGAAGTTC
+AATTAGGAATACCACATCCYGCGGGGTTAAAAAA
+GAAAAAATCAGTRACAGTACTAGATGTRGGTGAT
+GCATATTTTTCAGTTCCCTTAGATAAAGATTTCAG
+GAAGTACACTGCATTCACCATACCTAGTACAAAC
+AATGAGACACCAGGAATTAGATATCAGTACAATG
+TGCTTCCCCAGGGATGGAAAGGATCACCAGCAA
+TATTCCAGAGTAGCATGATAAAAATCTTAGAGCC
+TTTTAGAAAACAGAATCCAGATATAGTCATYTATC
+AATACATGGATGATTTATATGTGGGATCTGACTT
+AGAAATAGAACAGCATAGAAYRAAAGTAGAGGA
+ACTGAGAAAACATCTGTTGGCATGGGGGTTTAC
+CACACCAGACAAAAAACATCAGAAAGAACCTCCA
+TTCCTTTGGATGGGGTATGAACTCCATCCTGATA
+AATGGACAGTACAGCCTATAGTGCTGCCAGA","Yes","Yes",-7,0,2016-10-03,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes",".",".","42653",".","43404","43413","43413",2016-10-03,2018-11-09,"0",".",48,48,109.571428571429,48,"No","No","No","35","0. <=35","1. <35","Yes","Yes","No"
+"54",2127,"C-010","C","Si","Si","Si","Si",2016-09-28,"Si",2016-09-28,"42641","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-10-11,"Si","42639",15,"C
+-010","Hospital de
+Sant Pau,
+Barcelona","HMSX-HTSX-No
+UDVP","Americano","CHILE","No",NA,".",".","No",NA,".",".","No",".","Si","No","Si","No","No","No","No","No","Si","No","No","No","No","No","No","No","No","No","No","Si","No","No","No","Si","No","No","No","Yes","Hombre",2016-10-11,2016-10-11,1975-10-01,41,"Si","42641",NA,"Yes","Yes",-7,0,2016-10-11,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","No","43318",".","43318",".","43318","43318","43318",2016-10-11,2018-08-06,"13","15",48,48,94.8571428571429,48,"No","No","Yes","60.8","1. >35
+to
+<=100","2. >35
+to
+<=100","Yes","Yes","Yes"
+"55",2141,"A-021","A","Si","Si","Si","Si",2016-10-06,"Si",2016-10-06,"42660","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-10-17,"No",".",54,"A-021","Hospital
+Clínic","BISX-No UDVP","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","Si","2","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Si","No","No","No","Yes","Hombre",2016-10-17,2016-10-17,1956-12-01,60,"Si","42649","PR:
+CCTTGTCACAATAAAGGTAGGAGGGRTACTAAA
+GGAAGCTCTGTTAGATACAGGAGCAGATGATAC
+AGTATTAGAAGAAATAGATTTGCCAGGAAGATGG
+AAACCAAAAATGATAGGGGGAATTGGAGGTTTTA
+TCAAAGTAAGACAGTATGATCAGGTACCCATAGA
+AATCTGTGGACATAAAACTATAGGTACAGTTTTA
+ACAGGACCAACACCTGTCAACATAATTGGAAGAA
+ATCTGTTGACTCAACTTGGTTGCACTTTAAATTTT
+RT
+:CCTATTAGTCCTATTGAAACTGTACCAGTAAAAT
+TAAAGCCAGGAATGGATGGCCCAAAAGTTAAAC
+AATGGCCATTGACAGAAGAAAAAATAAAAGCATT
+AATGGAAATTTGTACAGAAATGGAAAAGGAAGGA
+AAAATTTCAAAAATTGGGCCTGAAAATCCATACA
+ATACTCCAGTATTTGCCATAAAGAAAAAAGACAG
+TACTAAATGGAGAAAATTAGTAGATTTCAGAGAA
+CTTAATAAGAAAACTCAAGATTTCTGGGAAGTTC
+AATTAGGAATACCACATCCTGCAGGGTTAAAAAA
+GAAAAAATCAGTAACAGTACTRGATGTGGGTGAT
+GCATATTTCTCAGTTCCCTTAGATGAAGATTTCA
+GGAAGTATACTGCATTCACCATACCTAGTGTAAA
+CAATGAAACACCAGGGATTAGATATCAATACAAT
+GTGCTTCCACARGGATGGAAGGGATCACCAGCA
+ATATTCCAAAGTAGCATGACAAAAATCTTAGAGC
+CTTTTAGAAARCAAAATCCAGAAATAGTTATCTAT
+CAATACATGGATGATTTGTATGTAGGATCTGATT
+TAGAAATAGGGCAGCATAGGACAAAAGTAGAGG
+AACTGAGACAACACCTGGAGAAGTGGGGATTTA
+CCACACCAGACAAAAAACATCAGAAAGAACCTC
+CATTTCTTTGGATGGGTTATGARCTCCATCCTGA
+TAAATGGACAGTACAGCCTATAGTGCTGCCAG","Yes","Yes",-7,0,2016-10-17,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","No",".",".","42660",".","43347","43343","43343",2016-10-17,2018-09-04,"11",".",48,48,98.1428571428572,48,"No","No","No","43.5","1. >35
+to
+<=100","2. >35
+to
+<=100","Yes","Yes","Yes"
+"56",2143,"E-012","E","Si","Si","Si","Si",2016-10-05,"Si",2016-10-05,"42661","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-10-18,"Si","42644",60,"E
+-012","Hospital Val
+d'Hebron,
+Barcelona","HMSX-HTSX","Hispano","CUBA","No",NA,".",".","No",NA,".",".","No",".","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Si","No","No","No","Si","No","No","No","Yes","Hombre",2016-10-18,2016-10-18,1960-03-01,56,"No",".",NA,"Yes","Yes",-7,0,2016-10-18,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","No","42831",".",".","43332","43332","43332","43332",2016-10-18,2018-08-20,".","17",48,48,95.8571428571429,48,"No","No","Yes","3420","4.
+>1000","5.
+>1000","No","No","Yes"
+"57",2184,"A-022","A","Si","Si","Si","Si",2016-10-25,"Si",2016-10-25,"42681","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-11-07,"No",".",5,"A-022","Hospital
+Clínic","HMSX-No UDVP","Hispano","ARGENTINO","No",NA,".",".","No",NA,".",".","Si","1","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2016-11-07,2016-11-07,1962-09-01,54,"Si","42668","PR
+:CATTGTCACAATAAAGATAGGGGGGCAAATAAA
+GGAAGCTTTATTAGATACAGGAGCAGATGATACA
+GTATTAGAGTACATAGATTTGCCAGGAAAATGGA
+AACCAAAAATGATAGGGGGAATTGGAGGTTTTAT
+CAAAGTAAGACAGTATGATCAGGTACCTATAGAA
+ATCTGTGGACATAAAGCTATAGGTACAGTATTAG
+TAGGACCTACACCTGTCAACATAATTGGAAGAAA
+CTTGTTGACTCAGCTCGGTTGTACTTTAAATTTT
+RT
+:CCCATTAGTCCTATTGAAACTGTACCAGTAAAAT
+TAAAGCCAGGAATGGATGGTCCAAAAGTTAAACA
+ATGGCCATTGACAGAAGAAAAAATAAAAGCATTA
+GTAGAAATTTGTACAGAAATGGAAAAGGAAGGG
+AAAATTTCAAAAATTGGGCCTGAAAATCCATACA
+ATACTCCAGTATTTGCCATAAAGAAAAAGGATGG
+TACTAAATGGAGAAAAYTAGTAGATTTCAGAGAA
+CTTAATAAAAGAACTCAAGACTTCTGGGAAGTTC
+AGTTAGGAATACCACATCCCGCAGGGTTAAAAAA
+GAAAAAATCAGTAACAGTACTGGATGTGGGTGAT
+GCATATTTTTCAGTTCCCTTAGATRAAGAATTTAG
+GAAGTATACTGCATTTACCATACCTAGTATAAAC
+AATGAGACACCAGGGATTAGATATCAGTACAATG
+TGCTCCCACAGGGGTGGAAAGGATCACCAGCAA
+TATTTCAAAGTAGCATGACAAAAATCTTAGAGCC
+TTTTAGAAAGAAAAACCCAGACATAGTTATTTATC
+AATACATGGATGACTTGTATGTAGGATCTGACTT
+AGAAATAGGACAGCATAGAACAAAAATAGAGGA
+ACTGAGACAACATCTGTTGCAKTGGGGATTTACC
+ACACCAGATAAAAAMCATCAGAAAGAACCTCCAT
+TTCTTTGGATGGGTTATGAGCTCCATCCTGATAA
+ATGGACAGTACAACCTATAACATTGCCAGAAA","Yes","Yes",-7,0,2016-11-07,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","No",".",".",".","42681","43356","43371","43371",2016-11-07,2018-09-28,"13",".",48,48,98.5714285714286,48,"No","No","No","2150","4.
+>1000","5.
+>1000","No","No","Yes"
+"58",2207,"H-001","H","Si","Si","Si","Si",2016-10-05,"Si",2016-10-05,"42689","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-11-15,"No",".",23,"H
+-001","Hospital del
+Mar,
+Barcelona","HTSX-No UDVP","Blanco","FRANCIA","No",NA,".",".","No",NA,".",".","Si","1","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2016-11-15,2016-11-15,1969-02-01,47,".",".",NA,"Yes","Yes",-7,0,2016-11-15,"42689",0,"1","1",0,0,"Selection
+Criteria","42689","FINALIZACIÓN POR DECISIÓN DEL MÉDICO,
+INTERACCIÓN FARMACOLÓGICA
+POTENCIAL","Yes","Decisión del médico: Interacción farmacológica
+potencial",0,"Selection
+Criteria",1,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","No","No","No","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV",".",".",".",".",".",".",".",".",2016-11-15,2016-11-15,".",".",0,0,0,0,"No","No","No",".",NA,NA,".",".","."
+"59",2262,"A-023","A","Si","Si","Si","Si",2016-11-15,"Si",2016-11-15,"42702","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-11-28,"No",".",3,"A-023","Hospital
+Clínic","HTSX-No UDVP","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","Si","6","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2016-11-28,2016-11-28,1982-07-01,34,"Si","42689","PR:
+CTTAGTCACAATAAAAGTAGGGGGACAAYTGAA
+GGAAGCTCTATTAGACACAGGAGCAGATGATAC
+AGTATTAGAAGAYATAAATTTGCCAGGAAAATGG
+AAACCAAAAATGATAGGGGGAATTGGAGGTTTTA
+TCAAAGTAAGACAATATGATCAAATACTCATAGA
+AATTTGTGGAAAGAAAGCTATAGGTACAGTATTA
+GTAGGACCTACACCTGTCAACATAATTGGAAGAA
+ATCTGTTGACTCAAATTGGTTGCACTTTAAATTTT
+RT:
+CCCATTAGTCCTATTGAAACTGTACCAGTAAAAT
+TGAAGCCAGGAATGGATGGCCCAAAGGTCAAAC
+AATGGCCATTAACRGAAGAAAAAATAAAAGCATT
+AATAGAAATCTGTACAGAAATGGAAAAGGAAGG
+GAAAATYTCAAAAATTGGGCCTGAAAATCCATAT
+AATACTCCAGTATTTGCCATAAAGAAAAAAGACA
+GTACTAAATGGAGAAAATTAGTAGATTTTAGAGA
+ACTTAATAAAAGAACTCAGGATTTTTGGGAGGTT
+CAATTAGGAATACCGCATCCTGCAGGGTTAAAAA
+AGAAAAAATCAATAACAGTACTAGATGTGGGAGA
+TGCATATTTTTCAGTTCCCTTAGATGAAGAATTCA
+GGAAGTATACTGCATTTACCATACCTAGTACAAA
+CAATGAGACACCAGGGATTAGATATCAGTACAAT
+GTACTTCCACAAGGATGGAAAGGATCACCAGCA
+ATATTTCAAAGCAGCATGATAAAAATCTTAGAGC
+CTTTTAGAAAACAGAATCCAGACATAGTGATCTA
+TCAATACATGGATGATTTGTATGTAGGATCTGAC
+TTAGAAATAGGGCAGCATAGAACAAAAATAGAG
+GAACTGAGACARCATCTACTGAAATGGGGACTT
+ACTACCCCAGACAAAAAACATCAGAAAGAACCTC
+CCTTCCTTTGGATGGGTTATGAACTACATCCTGA
+TAAATGGACAGTACAGCCTATAGTGCTGCCAGA","Yes","Yes",-7,0,2016-11-28,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No","43513","No",".","No",".",".",".",0,1,".","115.857142857143",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes",".",".",".","42702","43413","43448","43448",2019-02-17,2019-02-17,"13",".",48,48,115.857142857143,48,"No","No","Yes","0","0. <=35","0. 0","Yes","Yes","No"
+"60",2315,"C-011","C","Si","Si","Si","Si",2016-11-30,"Si",2016-11-30,"42711","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-12-07,"No",".",38,"C
+-011","Hospital de
+Sant Pau,
+Barcelona","HMSX-HTSX-No
+UDVP","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","Si","1","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2016-12-07,2016-12-07,1984-06-01,32,"Si","42724","Archivado en historia clínica.  Ver analítica del
+30/11/2016  Mutaciones: V106I","Yes","Yes",-7,0,2016-12-07,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","No","43116",".","43368",".","43368","43368","43368",2016-12-20,2018-09-25,"-13",".",48,48,93.8571428571429,48,"No","No","No","2130","4.
+>1000","5.
+>1000","No","No","Yes"
+"61",2328,"A-024","A","Si","Si","Si","Si",2016-11-29,"Si",2016-11-29,"42716","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2016-12-12,"No",".",42,"A-024","Hospital
+Clínic","HMSX-No UDVP","Desconocido","COLOMBIA","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2016-12-12,2016-12-12,1993-05-01,23,"Si","42703","PR:
+CCTTGTCACAATAAAGGTAGGGGGGCAACTAAA
+AGAAGCTCTATTAGATACAGGAGCAGATGATACA
+GTATTAGAAGAAATGAATTTGCCAGGAAGATGGA
+GACCAAAAATGATAGGGGGAATTGGAGGTTTTAT
+CAAAGTAAGACAGTATGATCAAATACCCCTAGAA
+ATCTGTGGACATAAAGCTATAGGTACAGTATTAG
+TAGGACCTACACCTGTCAACATAATTGGAAGAAA
+TCTGTTGACTCAGATTGGTTGCACTTTAAATTTT
+RT
+:CCCATTAGTCCTATTGAAACTGTACCAGTAAAAT
+TAAAGCCAGGAATGGATGGCCCAAAAGTTAAAC
+AATGGCCATTGACAGAAGAAAAAATAAAAGCATT
+AACAGAAATTTGTACAGATATGGAAAAGGAAGGA
+AAAATTTCAAAAATTGGGCCTGAAAACCCATACA
+ATACTCCAATATTTGCCATAAAGAAAAAGGACAG
+TACTAAATGGAGAAAATTAGTAGATTTCAGAGAA
+CTTAATAAGAGAACTCAAGATTTCTGGGAAGTTC
+AATTAGGAATACCACATCCCGCAGGGTTACAAAA
+GAAAAAATCAGTAACAGTACTAGATGTGGGTGAT
+GCATATTTTTCAGTTCCCTTACATGAAGATTTCAG
+GAAGTATACTGCATTTACCATACCTAGTAGAAAC
+AATGAGACACCAGGGATTAGATATCAGTACAATG
+TGCTTCCACAAGGCTGGAAAGGATCACCAGCAA
+TATTCCAAAGTAGCATGACAARAATCTTAGAGCC
+TTTCAGAAAACAGAATCCAGACATMATTATCTAT
+CAATACATGGATGATTTGTATGTAGGATCTGACT
+TAGAAATAGGGCAACATAGAACAAAAATAGARGA
+ACTAAGACAACATCTGTTGAAGTGGGGATTCACC
+ACACCAGATAAAAAMCATCAGAAAGAACCTCCAT
+TCCTTTGGATGGGTTATGAACTCCATCCTGATAA
+ATGGACAGTACAGCCTATAGTGCTGCCAGAA","Yes","Yes",-7,0,2016-12-12,"43187",48,".",".",96,60,"No
+Premature
+Finalisation","43187","El paciente finaliza el 28/03/18 (SM60) por fracaso
+virológico, continua en el estudio por población ITT.
+En la SM60 indica en la HC buena adherencia, sin
+embargo en la SM72 dice que tras insistir con la
+adherencia la CV se vuelve indetectable.","No","Fracaso virológico",48,"Virological
+Failure",1,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","No",".",".",".","42716","43474","43490","43490",2018-03-28,2019-01-25,"13",".",48,48,110.571428571429,67.2857142857143,"No","No","No","122","2. >100
+to
+<=500","3. >100
+to
+<=500","Yes","Yes","Yes"
+"62",2485,"A-025","A","Si","Si","Si","Si",2017-01-03,"Si",2017-01-03,"42745","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-01-10,"Si","42726",22,"A-025","Hospital
+Clínic","BISX-No UDVP","Hispano","ESPAÑA","No",NA,".",".","No",NA,".",".","No",".","Si","No","No","No","No","No","No","No","No","No","No","No","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Hombre",2017-01-10,2017-01-10,1974-11-01,43,"Si","42738","PR:
+CTTAGTCAAAGTAAGGGTAGGGGGSCAACTAAA
+GGAAGCCTTATTAGATACAGGAGCAGATGATAC
+AGTATTAGAAGAAATGAGTTTGCCAGGAAAATGG
+AAACCAAAAATGATAGGGGGAATTGGAGGTTTTA
+TCAAAGTAAGACAGTATGATCAGGTAGCTGTAGA
+TATYTGTGGACATAAAGCTATAGGTACAGTATTA
+GTAGGACCTACACCTGTCAACATAATTGGAAGAA
+ATCTGTTGACCCAGATTGGCTGCACTTTAAATTT
+T  RT:
+CCCATTAGTCCTATTGAAACTGTACCAGTAAAAY
+TAAAGCCAGGTATGGATGGCCCAAAAGTTAAAC
+AATGGCCATTGACAGAAGAAAAAATAAAAGCATT
+AGTAGAAATTTGTACAGAAATGGAAAAGGAAGGA
+AAAATTTCAAGAATTGGGCCTGAAAATCCATACA
+ATACTCCAGTATTTGCTATAAAGAAAAAAGACAG
+TACTAAATGGAGAAAATTAGTAGATTTCAGAGAA
+CTTAATAAGAGGACTCAAGACTTCTGGGAAGTCC
+AATTAGGAATACCACATCCCGCAGGATTAAAAAA
+GAAAAAATCAGTAACAGTACTGGATGTGGGTGAT
+GCATATTTTTCAGTTCCCTTAGATGAAGACTTCA
+GAAAGTATACTGCATTCACCATACCTAGTAAAAA
+CAATGAGACACCAGGGATTAGRTATCAGTACAAT
+GTGCTTCCACAGGGATGGAAGGGATCACCAGCA
+ATATTCCAAAGTAGCATGACAAAAATCTTAGATC
+CTTTTAGAAAACAAAATCCAGACATAGTTATCTAT
+CAATACATGGATGATTTGTATGTAGGATCTGACT
+TAGAGATAGGGCAACATAGAACAAAAATAGAGG
+AACTGAGACAACATCTGTTRARGTGGGGATTCA
+CCACACCAGAYAAAAAACATCAGAARGAACCTC
+CATTCCTTTGGATGGGCTATGAACTCCATCCTGA
+TAAATGGACAGTACAGCCTATAATGCTGCCAGA","Yes","Yes",-7,0,2017-01-10,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","No","43567",".",".","42745","43448","43483","43483",2017-01-10,2019-04-12,"7","19",48,48,117.428571428571,48,"No","No","No","465","2. >100
+to
+<=500","3. >100
+to
+<=500","Yes","Yes","Yes"
+"63",2491,"E-013","E","Si","Si","Si","Si",2017-01-02,"Si",2017-01-02,"42746","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-01-16,"No",".",50,"E
+-013","Hospital Val
+d'Hebron,
+Barcelona","HTSX","Hispano","ECUADOR","No",NA,".",".","No",NA,".",".","Si","4","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2017-01-11,2017-01-11,1961-12-01,56,"No",".",NA,"Yes","Yes",-7,0,2017-01-16,"43109",48,".",".",96,48,"No
+Premature
+Finalisation","43109","Fracaso virológico la SM48(20/12/17)
+CV=226copias/ml, segunda determinación
+(09/01/18) CV=346copias/ml","No","Fracaso virológico",48,"Virological
+Failure",1,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","No","43664",".","43335",".","43423","43423","43423",2018-01-09,2019-07-18,".",".",48,48,130.428571428571,51.1428571428572,"No","No","Yes","12600","4.
+>1000","5.
+>1000","No","No","Yes"
+"64",2520,"D-009","D","Si","Si","Si","Si",2017-01-11,"Si",2016-12-28,"42759","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-01-24,"Si","42728",32,"D
+-009","Hospital de
+Bellvitge,
+L'Hospitalet","HTSX-No UDVP","Otro","BRASIL","No",NA,".",".","No",NA,".",".","No",".","Si","No","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Si","No","No","No","No","Yes","Mujer",2017-01-19,2017-01-24,1980-08-01,37,"Si","42746",NA,"Yes","Yes",-7,0,2017-01-24,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","No","43431","42796","43431",".","43431","43431","43431",2017-01-24,2018-11-27,"13","31",48,48,96,48,"No","No","Yes","2730","4.
+>1000","5.
+>1000","No","No","Yes"
+"65",2522,"D-010","D","Si","Si","Si","Si",2016-12-23,"Si",2016-12-22,"42759","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-01-24,"Si","42725",5,"D
+-010","Hospital de
+Bellvitge,
+L'Hospitalet","HMSX-No UDVP","Hispano","BRASIL","No",NA,".",".","No",NA,".",".","No",".","Si","No","No","No","No","No","No","No","No","No","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Hombre",2017-01-20,2017-01-24,1980-03-01,37,"Si","42727",NA,"Yes","Yes",-7,0,2017-01-24,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"Yes","42806","No",".","No",".","No",".","6.7142857142857197",".",1,0,"6.7142857142857197",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","No","42898",".","43357",".","43431","43431","43431",2017-03-12,2018-11-27,"32","34",48,48,96,48,"No","No","No","191","2. >100
+to
+<=500","3. >100
+to
+<=500","Yes","Yes","Yes"
+"66",2524,"E-014","E","Si","Si","Si","Si",2017-01-09,"Si",2017-01-05,"42760","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-01-24,"Si","42739",0,"E
+-014","Hospital Val
+d'Hebron,
+Barcelona","HMSX","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","No",".","Si","No","Si","No","No","No","Si","No","No","No","No","No","Si","No","No","No","No","No","No","Si","No","No","No","Si","No","No","No","Yes","Hombre",2017-01-24,2017-01-24,1960-05-01,57,"No",".",NA,"Yes","Yes",-7,0,2017-01-24,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"Yes","42774","No",".","No",".","No",".","2.1428571428571401",".",1,0,"2.1428571428571401",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","No","43661",".","43439",".","43439","43439","43439",2017-02-08,2019-07-15,".","20",48,48,128.857142857143,48,"Yes","No","No","1750","4.
+>1000","5.
+>1000","No","No","Yes"
+"67",2534,"A-026","A","Si","Si","Si","Si",2017-01-18,"Si",2017-01-18,"42755","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-01-25,"Si","42753",60,"A-026","Hospital
+Clínic","HTSX-No UDVP","Hispano","ESPAÑA","No",NA,".",".","No",NA,".",".","No",".","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Si","No","No","No","No","No","No","No","Yes","Hombre",2017-01-25,2017-01-25,1983-09-01,34,"Si","42755",NA,"Yes","Yes",-7,0,2017-01-25,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes","43567",".",".","42761","43549","43563","43563",2017-01-25,2019-04-12,"5","7",48,48,115.285714285714,48,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"68",2536,"A-027","A","Si","Si","Si","Si",2017-02-16,"Si",2017-01-11,"42761","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-01-26,"Si","42746",5,"A-027","Hospital
+Clínic","HMSX-No UDVP","Otro","BRASIL","No",NA,".",".","No",NA,".",".","No",".","Si","No","No","No","No","No","No","No","No","No","No","No","Si","No","No","No","No","No","No","No","No","No","No","Si","No","No","No","Yes","Hombre",2017-01-26,2017-01-26,1980-05-01,37,"Si","42748","PR:
+CCTCGTCWCAATAARGRTAGGGGGGCAAATAAA
+GGAAGCTCTATTAGATACAGGAGCAGATGATAC
+AGTATTAGAAGAAATGAATTTGCCAGGAARATGG
+AAGCCAAAAATGATAGGGGGAATTGGAGGTTTT
+ATCAAAGTAAGACAATATGATCAGATACTCATAG
+AAATATGTGGACATAAAGCTATAGGTACAGTATT
+AGTAGGACCTACGCCTGTCAACATAATTGGAAG
+RAATTTGTTGACTCAGATTGGTTGCACTTTAAATT
+TT
+RT
+:CCCATTAGTCCTATTAAAACTGTACCAGTAAAAT
+TAAAACCAGGAATGGATGGCCCAAAAGTCAAAC
+AATGGCCATTGACAGAAGAAAAAATAAAAGCATT
+ARTAGAAATTTGTACAGAAATGGAAAAGGAAGGA
+AAAATTTCAAAAATTGGGCCTGAAAATCCATACA
+ATACTCCAGTTTTTGCAATAAAGAAAAAAGACAG
+TACTAAATGGAGAAAGTTAGTAGATTTTAGAGAA
+CTTAATAAGAGAACTCAAGACTTCTGGGAAGTTC
+AATTAGGRATACCACATCCCGCGGGGTTRAAAA
+AGAAAAAATCAGTAACAGTTCTGGATGTGGGTGA
+YGCATACTTTTCAGTTCCTTTAGATGAAGAGTTC
+AGAAAATATACTGCATTTACCATACCTAGTATAAA
+CAATGAGACACCAGGGATTAGATATCAGTACAAT
+GTGCTACCACAGGGATGGAAAGGATCACCAGCA
+ATATTCCAAAGTAGCATGACAAAAATCTTAGAGC
+CTTTTAGAAAACAAAACCCAGACATAGTCATCTA
+TCAATACATGGATGATTTGTATGTAGGATCTGAC
+TTAGAAATAGGGCAGCATAGAATAAAAATAGAGG
+AACTGAGACAACATCTGTTGAGGTGGGGATTTA
+CCACACCAGACAAAAAACATCAGAAAGAACCTC
+CATTCCTTTGGATGGGKTATGAACTTCATCCTGA
+TAAATGGACAGTACAGCCTATAGTACTGCCAGAA","Yes","Yes",-7,0,2017-01-26,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes",".",".",".","42761","43490","43490","43490",2017-02-16,2019-01-25,"13","15",48,48,104.142857142857,48,"No","No","No","35","0. <=35","1. <35","Yes","Yes","No"
+"69",2685,"A-028","A","Si","Si","Si","Si",2017-02-16,"Si",2017-02-16,"42787","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-02-23,"No",".",83,"A-028","Hospital
+Clínic","HMSX-No UDVP","Hispano","ESPAÑA","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2017-02-23,2017-02-23,1986-03-01,31,"Si","42782","PR:
+AGTTGTCACAGTAAAAATAGCAGGGCARCTAAG
+AGAAGCTCTATTAGATACAGGAGCAGATGATACA
+GTATTAGAAGAAATAAATTTGCCAGGAAAATGGA
+AACCAAAAATGATAGGGGGAATTGGAGGTTTTAT
+CAAAGTAAGACAGTATGATCAGATACTTATAGAA
+ATTTGTGAGAAAAAGGCTATAGGTACAGTGTTGG
+TAGGACCTACACCCGTCAACATAATTGGAAGAAA
+CATGTTGACTCAGATTGGTTGTACTTTAAATTTT
+RT
+:CCAATTAGTCCTATTAACACTGTACCAGTAAAAT
+TAAAGCCAGGAATGGATGGACCAAAAGTTAAAC
+AATGGCCATTGACAGAAGAAAAAATAAAAGCATT
+GACAGCAATTTGTAAAGAAATGGAAGAGGAGGG
+AAAAATTTCAAAAATTGGGCCTGAAAATCCATAC
+AATACTCCAGTATTTGCTATAAAGAAAAAAGACA
+GTACTAAATGGAGAAAATTAGTAGATTTCAGAGA
+GCTCAATAAAAGAACTCAGGACTTTTGGGAAGTC
+CAATTAGGAATACCGCATCCATCGGGTTTGAAAA
+AGAAAAAATCAGTAACAGTACTAGATGTAGGGGA
+TGCATACTTTTCAGTTCCTTTAGATGAAAACTTTA
+GAAAGTATACTGCATTCACTATCCCTAGTATAAA
+CAATGAGACACCAGGAATCAGATATCAGTACAAT
+GTGCTACCACAGGGATGGAAAGGATCACCAGCA
+ATATTCCAGCATAGCATGACAAAAATTTTAGAGC
+CCTTTAGATCACAAAATCCAGACATAATTATCTAT
+CAATACATGGATGACTTGTATGTAGGATCTGATT
+TAGAGATAGGGCAGCACAGAACAAAAATAGAGG
+AGCTAAGAGCTCATCTATTAAAATGGGGKTTYAC
+TACACCAGACAAAAAGCATCAGAAGGAACCTCC
+ATTTCTTTGGATGGGATATGAACTCCATCCTGAC
+AAATGGACAGTCCAGCCTATAGAATTACCAGAA","Yes","Yes",-7,0,2017-02-23,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes",".",".","42789",".","43476","43489","43489",2017-02-23,2019-01-24,"7",".",48,48,100,48,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"70",2716,"B-003","B","Si","Si","Si","Si",2017-03-13,"Si",2017-03-13,"42808","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-03-15,"Si","42808",13,"B
+-003","Hospital
+Germnas
+Trias i Pujol,
+Barcelona","HTSX-No UDVP","Hispano","COLOMBIA","No",NA,".",".","No",NA,".",".","No",".","Si","No","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Si","No","No","No","No","No","No","No","Yes","Mujer",2017-03-14,2017-03-14,1976-02-01,41,"Si","42807","CCTCAAATCACTCTTTGGCAACGACCCTTAGTCA
+AAATACAAGTAGGGGGACAGCTAATGGAAGCTC
+TATTAGATACAGG
+AGCAGATGATACAGTATTAGAAGACATAAATTTG
+CCAGGGAAATGGAAACCAAAAATGATAGGGGGA
+ATTGGAGGTTTTA
+TCAAAGTAAAACAGTATGATAACATAGCCATACA
+AATTTGTGGACACAAGGCTATAGGTACAGTRTTG
+GTAGGACCTACA
+CCTATCAACATAATTGGCAGAAATATGTTGACTC
+AGATTGGTTGYACTTTAAATTTTCCAATTAGTCCT
+ATTGAAACTGT
+ACCAGTAAAATTGAAGCCAGGAATGGATGGCCC
+AAAGGTTAAACAATGGCCATTGACAGAAGAAAAA
+ATAAAAGCATTAG
+TAGAAATATGTACAGAAATGGAAAAGGAAGGAAA
+AATTTCAAAAATTGGGCCTGAAAATCCATACAAT
+ACTCCAGTATTT
+GCCATAAAGAAAAAAGACAGTACTAAATGGAGAA
+AATTAGTAGATTTCAGAGAACTTAATAAAAGGAC
+TCAAGATTTTTG
+GGAAGTTCAACTAGGAATACCACATCCTGCAGG
+GTTAAAAAAGAAAAAGTCAGTAACAGTACTGGAT
+GTGGGGGATGCAT
+ATTTTTCAGTTCCCTTAGATRARRATTTCAGGAA
+GTACACTGCATTCACYATACCTAGTATCAACAAT
+GAGACACCAGGA
+ATTAGGTATCAGTACAATGTGCTTCCCCAAGGAT
+GGAAAGGATCACCAGCAATATTCCAAAGTAGCAT
+GACAAAAATCTT
+AGATCCCTTCAGAGCAAAAAATCCAGACATAATT
+ATCTACCAATACATGGATGATTTGTATGTAGGGT
+CTGACTTAGAAA
+TAGAAAARCATAGAATGAAAGTAGAAGAGTTAAG
+AAAACATCTATTAGCATGGGGATTTACTACACCA
+GACAAAAAACAT
+CARAAGGAACCCCCATTCCTTTGGATGGGGTAT
+GAACTCC","Yes","Yes",-7,0,2017-03-15,"42824",2.14285714285714,".","1",0,0,"Clinical
+Progression","42824","""FINALITZACIÓN POR DECISIÓN DEL MEDICO el
+30/03/2017 
+(Tubulopatia por cotrimoxazol,
+MAC-IRIS desenmascarado, CMV-IRIS
+desenmascarado_SAE)""","Yes","""Decisión del médico: MAC IRIS
+desenmascarado
+Toxicidad (tubulopatia por
+cotrimoxazol)""",2.14285714285714,"Clinical
+Progression",1,"Yes","42823","Yes","42823","Yes","42823","Yes","42823","2","2",1,1,"2","2","2","2",1,1,"2","2","Yes","Yes","Yes","Yes","No","ABC+3TC+DGT","ABC+3TC+DGT","No","42846","42824","42809",".","42808","42809","42809",2017-03-30,2017-04-21,"2","1",5.28571428571429,2.14285714285714,5.28571428571429,2.14285714285714,"Yes","Yes","No","6190","4.
+>1000","5.
+>1000","No","No","Yes"
+"71",2812,"B-004","B","Si","Si","Si","Si",2017-03-24,"Si",2017-03-24,"42832","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-04-10,"Si","42818",6,"B
+-004","Hospital
+Germnas
+Trias i Pujol,
+Barcelona","HTSX-No UDVP","Negro","GUINEA
+ECUATORIAL
+(BATA)","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Mujer",2017-04-07,2017-04-10,1990-02-01,27,"Si","42830","CCTCAAATCACTCTTTGGCAACGACCCTTAGTCA
+CAGTAAAAGTAGGGGGACAATTAATAGAAGCCC
+TATTAGACACAGG
+AGCAGATGATACAGTATTAGAGGACATAAATTTA
+CCAGGAAAATGGAAACCAAAAATGATAGGGGGA
+ATTGGAGGTTTTA
+TCAAAGTAAGACAATATGATCAGATACTTATGGA
+AATTTGTGGAAAAAGGGCCATAGGTACAGTATTA
+GTAGGACCTACA
+CCCGTCAACATAATTGGACGAAATATGTTGACTC
+AGATTGGTTGTACTTTAAATTTTCCAATTAGTCCT
+ATTGAAACCGT
+GCCAGTAAAATTAAAGCCAGGAATGGATGGCCC
+AAAGGTTAAACAATGGCCATTGACAGAAGAAAAA
+ATAAAAGCATTAA
+CAGACATTTGTAAAGAGATGGAGGAGGAAGGAA
+AAATTTCAAAAATTGGACCTGACAATCCATACAA
+TACTCCAGTATTT
+GCCATAAAGAAAAAAGATAGTACTAAATGGAGAA
+AATTAGTAGATTTCAGAGAACTCAATAAGAGAAC
+TCAAGATTTTTG
+GGAGGTTCAATTGGGAATACCTCATCCTGCGGG
+ATTAAAAAAGAAGAAGTCAGTAACAGTACTAGAT
+GTGGGGGATGCAT
+ATTTTTCAGTTCCCTTAGATAAGGACTTTAGAAAA
+TATACTGCATTCACTATACCTAGTATAAATAATGA
+AACACCAGGG
+ATTAGATATCAGTATAATGTGCTTCCACAGGGAT
+GGAAAGGATCACCAGCAATATTTCARGCAAGCA
+TGACAAAAATCTT
+AGAGCCCTTTAGAACAAAGAATCCAGAGATRRTA
+ATCTACCAATATATGGATGATTTGTATGTAGGAT
+CTGACTTAGAGA
+TAGGGCAACATAGAGCAAAAATAGAGGAGTTAA
+GAGAGCATCTACTGAGATGGGGATTTACCACAC
+CAGACAAAAAACAT
+CAGAAAGAACCTCCATTTCTTTGGATGGGATATG
+AACTCC","Yes","Yes",-7,0,2017-04-10,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes","43259",".",".","43427","43508","43508","43508",2017-04-10,2019-02-12,"5","17",48,48,96.1428571428572,48,"No","No","No","35","0. <=35","1. <35","Yes","Yes","No"
+"72",2814,"A-029","A","Si","Si","Si","Si",2017-04-04,"Si",2017-04-04,"42837","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-04-12,"No",".",61,"A-029","Hospital
+Clínic","HMSX-No UDVP","Otro","RUMANIA","No",NA,".",".","No",NA,".",".","No",".","Si","No","No","No","No","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Hombre",2017-04-10,2017-04-10,1981-07-01,36,"Si","42829","PR:
+CGTCGTCACAGTAARGATAGAGGGACAGCTAAA
+GGAAGCTCTATTAGATACAGGAGCAGATGATAC
+AGTATTAGAAGAAATAAATTTGCCAGGAAGATGG
+AAGCCAAAAATGATAGGGGGAATTGGAGGTTTT
+ATCAAAGTAAGACAGTATGATCAGATAACCGTAG
+ATATCTGTGGACATAAAGCTATAGGTACAGTATT
+AGTAGGACCTACACCTGTYAACATAATTGGAAGA
+AATCTGTTGACTCAGATTGGTTGCACTTTAAATTT
+TCCCATYAGTCCT  RT:
+CGTCGTCACAGTAARGATAGAGGGACAGCTAAA
+GGAAGCTCTATTAGATACAGGAGCAGATGATAC
+AGTATTAGAAGAAATAAATTTGCCAGGAAGATGG
+AAGCCAAAAATGATAGGGGGAATTGGAGGTTTT
+ATCAAAGTAAGACAGTATGATCAGATAACCGTAG
+ATATCTGTGGACATAAAGCTATAGGTACAGTATT
+AGTAGGACCTACACCTGTYAACATAATTGGAAGA
+AATCTGTTGACTCAGATTGGTTGCACTTTAAATTT
+TCCCATYAGTCCTATACTCCAATATTTGCTATAAA
+GAAAAAAGACAGTACTAAATGGAGAAAATTAGTA
+GATTTCAGGGAACTTAATAAGAGAACTCAAGACT
+TCTGGGAAGTTCAATTAGGAATACCACATCCTGC
+AGGGTTAAAAAAGARAAAATCAGTGACAGTACTG
+GATGTGGGTGATGCATATTTTTCAGTTCCCTTAG
+ATCAAGACTTCAGGAAGTATACTGCATTTACCAT
+ACCTAGTATAAACAATGAGACACCAGGGGTTAG
+ATATCAGTACAATGTACTTCCACAGGGATGGAAA
+GGATCACCAGCAATATTCCAARSTAACATCTATT
+GAGGTGGGGAYTTACCACACCAGACAAAAAACA
+TCAGAAAGAGCCTCCATTCCTTTGGATGGGTTAT
+GAACTCCATCCTGATAAATGGACAGTACAGCCTA
+TAGTGCTGCCAGAAAAAGAG","Yes","Yes",-7,0,2017-04-12,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","No","43567",".","42837",".","43557","43584","43584",2017-04-12,2019-04-29,"8",".",48,48,106.714285714286,48,"No","No","No","165","2. >100
+to
+<=500","3. >100
+to
+<=500","Yes","Yes","Yes"
+"73",2816,"A-030","A","Si","Si","Si","Si",2017-04-06,"Si",2017-04-01,"42831","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-04-12,"No",".",31,"A-030","Hospital
+Clínic","HMSX-No UDVP","Otro","VENEZOLANO","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2017-04-12,2017-04-12,1991-02-01,26,"Si","42831","PR
+:CGTCGTCCCAATAAGGATAGGGGGGCAACTAAA
+GGAAGCCCTGTTAGATACAGGAGCAGATGATAC
+AGTATTAGAAGACATAAATTTACCAGGAAAATGG
+AAACCAAAAATGATAGGGGGAATTGGAGGTTTTA
+TCAAAGTAAGACAGTATGATCAGRTAYCYATAGA
+AATCTGTGGACATAAARCTGWAGGTACAGTATTA
+GTAGGACCTACTCCTGTCAACATAATTGGRAGAA
+ATCTGTTGACTCAGCTTGGTTGCACCTTAAATTT
+TCCCATTAGTCCT  INT:
+TAAGTGTCAGCTAAAAGGACAAGCCATACATGG
+ACAAGTAGACTGTAGTCCAGGAATATGGCAACTA
+GATTGTACACATTTAGAAGGRAAAATTATCCTGG
+TAGCAGTTCATGTAGCCAGTGGCTATATAGAAGC
+AGAAGTTATCCCAGCAGAAACAGGGCAGGAAAC
+AGCATACTTTATCTTAAAATTAGCAGGAAGATGG
+CCAGTAAAAACAATACATACAGACAATGGCGGC
+AATTTCATCAGTACTGCAGTTAAGGCCGCCTGTT
+GGTGGGCRGGGATCAAGCARGAATTTGGTATTC
+CCTACAATCCTCAAAGTCAAGGAGTGGTAGAATC
+TATGAATAATGAATTAAAGAAAATTATAGGACAA
+GTAAGAGAACAGGCTGAA","Yes","Yes",-7,0,2017-04-12,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","No","43651",".",".","42837","43438","43598","43598",2017-04-12,2019-07-05,"6",".",48,48,116.285714285714,48,"No","No","No","1590","4.
+>1000","5.
+>1000","No","No","Yes"
+"74",2823,"D-011","D","Si","Si","Si","Si",2017-04-12,"Si",2017-04-05,"42843","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-04-18,"Si","42796",96,"D
+-011","Hospital de
+Bellvitge,
+L'Hospitalet","HMSX-No UDVP","Hispano","VENEZUELA","Si","hepatitis aguda VHA",".","No","No",NA,".",".","No",".","Si","No","Si","No","No","No","No","No","No","No","No","No","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Hombre",2017-04-10,2017-04-18,1979-12-01,38,"Si","42830",NA,"Yes","Yes",-7,0,2017-04-18,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes","43515",".","43515",".","43515","43515","43515",2017-04-18,2019-02-19,"13","47",48,48,96,48,"No","No","No","35","0. <=35","1. <35","Yes","Yes","No"
+"75",2886,"D-012","D","Si","Si","Si","Si",2017-04-12,"Si",2017-04-12,"42850","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-05-02,"Si","42837",68,"D
+-012","Hospital de
+Bellvitge,
+L'Hospitalet","HMSX-No UDVP","Blanco","ESPAÑA","Si","Hepatitis aguda VHB","31778","No","No",NA,".",".","No",".","Si","No","No","No","No","No","No","No","No","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Hombre",2017-04-25,2017-05-02,1961-06-01,56,"Si","42837",NA,"Yes","Yes",-7,0,2017-05-02,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes","43281",".",".","43445","43529","43529","43529",2017-05-02,2019-03-05,"20","20",48,48,96,48,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"76",2964,"B-005","B","Si","Si","Si","Si",2017-05-10,"Si",2017-05-10,"42870","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-05-15,"No",".",4,"B
+-005","Hospital
+Germnas
+Trias i Pujol,
+Barcelona","HMSX-HTSX-No
+UDVP","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2017-05-10,2017-05-15,1988-08-01,29,"Si","42865","CCTCAAATCACTCTTTGGCAACGACCARTAGTCA
+CAGTAAAAATAGAGGGACAGCTAAAGGAAGCTC
+TATTAGACACAGG
+AGCAGATGATACAGTATTAGAAGACATAAATTTG
+ACAGGAAAATGGAAACCAAAAATGATAGGGGGA
+ATTGGAGGTTTTA
+TCAAAGTAAAACAGTATGAGAACGTACTCATAGA
+AATTTGTGGACATAAGGCTACAGGTACAGTGTTG
+GTAGGACCTACG
+CCTGTCAACATAATTGGAAGAAATATATTGACTA
+AGATTGGKTGCACTTTAAATTTTCCAATTAGTCCT
+ATTGAAACTGT
+GCCAGTAAAATTGAAGCCAGGTATGGATGGCCC
+AAAGGTCAARCAATGGCCATTGACAGAAGAGAA
+AATAAAAGCATTAA
+CAGAAATATGTRCAGATATGGAAAAGGAAGGAA
+AAATTTCAAGAATTGGGCCTGAAAATCCATACAA
+TACTCCARTATTT
+GCCATAAAGAAAAAAGACAGTACTAAATGGAGG
+AAATTAGTAGATTTTAGAGAACTTAATAAGAGAA
+CTCAAGATTTTTG
+GGAGGTTCAATTAGGAATACCACACCCTGCAGG
+TTTAAAAAAGAAAAAGTCARTAACAGTACTGGAT
+GTGGGGGATGCAT
+ATTTCTCAGTTCCCTTAGATGAGGAGTTCAGGAA
+GTACACTGCATTCACCATACCTAGTCTTAATAAT
+GAGACACCAGGA
+ATTAGGTACCAGTACAATGTGCTTCCACAAGGAT
+GGAAAGGATCCCCAGCAATATTCCAATGTAGCAT
+GACAAAAATTTT
+AGATCCCTTTAGAGCAAAAAACCCAGAATTAGYT
+ATCTACCAATACATGGATGATTTGTATGTAGGGT
+CTGATTTAGAGA
+TAGGACAGCATAGAGCAAAAATAGAAGAGTTAA
+GAGAACATCTACTGAAATGGGGATTTACTACACC
+AGACAAGAAGCAT
+CAAAAAGAACCCCCATTCCTTTGGATGGGGTAT
+GAACTCC","Yes","Yes",-7,0,2017-05-15,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes","43551",".",".","43452","43551","43551","43551",2017-05-15,2019-03-27,"5",".",48,48,97.2857142857143,48,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"77",3034,"E-015","E","Si","Si","Si","Si",2017-05-24,"Si",2017-05-08,"42879","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-05-29,"No",".",90,"E
+-015","Hospital Val
+d'Hebron,
+Barcelona","HMSX","Blanco","PARAGUAY","No",NA,".",".","No",NA,".",".","Si","1","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2017-05-24,2017-05-29,1986-04-01,31,"No",".",NA,"Yes","Yes",-7,0,2017-05-29,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","No","43661",".","43489",".","43556","43556","43556",2017-05-29,2019-07-15,".",".",48,48,111,48,"No","No","Yes","1930","4.
+>1000","5.
+>1000","No","No","Yes"
+"78",3074,"A-031","A","Si","Si","Si","Si",2017-05-25,"Si",2017-05-25,"42888","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-06-02,"No",".",8,"A-031","Hospital
+Clínic","HTSX-No UDVP","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","No",".","Si","No","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Hombre",2017-06-02,2017-06-02,1965-11-01,52,"Si","42880","PR:
+CCTCGTCACAATAAAGATAGGGGGGCAACTAAA
+AGAAGCTCTATTAGATACAGGAGCAGATGATACA
+GTCTTAGAAGARATGGAGTTGCCAGGAAGATGG
+AAACCAAAAATGATAGGAGGAATTGGAGGTTTTA
+TCAAAGTAAGACAGTATGARGAAATACCCATAGA
+AATTAGTGGACATAAAGCTACAGGTACAGTGYTA
+RTAGGACCTACACCTGTCAACATAATTGGAAGAA
+ATCTRTTGACTCAAATTGGTTGCACTTTAAATTTT
+RT:
+CCYATTAGTCCTATTGAAACTGTACCAGTGAAAT
+TAAAGCCAGGAATGGATGGCCCAAAAGTTAAAC
+AATGGCCATTAACAGAAGAAAAAATAAAAGCCTT
+GATGGAAATTTGTGCAGATATGGAAAAGGAAGG
+AMAAATTTCACAAATTGGGCCTGAAAATCCTTAC
+AATACTCCAGTATTTGCCATAAAGAAAAAAGACA
+GTACTAAGTGGAGAAAATTAGTAGATTTCAGAGA
+ACTTAATAAGAGAACTCAAGACTTTTGGGAAGTT
+CAATTAGGAATACCACACCCTGCAGGGTTAAAAA
+AGAAAAGATCAGTAACAGTACTAGATGTRGGTGA
+TGCATATTTTTCGGTTCCCTTAGATAAAGACTTCA
+GGAAGTATACTGCATTCACCATACCTAGTTTAAA
+TAATGAAACACCAGGGATTAGATATCAGTACAAT
+GTGCTTCCACAGGGATGGAAAGGATCACCAGCC
+ATATTCCAAAGTAGTATGACAAAAATCTTAGAGC
+CTTTTAGAAGAAAAAATCCAGACATRATCATCTAT
+CAATACATGGATGATTTGTATGTAGGATCTGACT
+TAGAAATAGARCARCATAGARCAAAAATAGAGGA
+ACTGAGGCAACATCTGTTGAAGTGGGGATTTAC
+CACACCAGATAAAAAACATCAGAAAGAACCGCC
+ATTTCTTTGGATGGGTTATGAACTTCATCCTGAT
+AAATGGACAGTACAGCCTATAATGCTGCCAGA","Yes","Yes",-7,0,2017-06-02,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","No",".",".","42888",".","43630","43647","43647",2017-06-02,2019-07-01,"8",".",48,48,108.428571428571,48,"No","No","No","601","3. >500
+to
+<=1000","4. >500
+to
+<=1000","No","Yes","Yes"
+"79",3079,"C-012","C","Si","Si","Si","Si",2017-05-22,"Si",2017-05-22,"42892","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-06-06,"No",".",60,"C
+-012","Hospital de
+Sant Pau,
+Barcelona","HMSX-HTSX-No
+UDVP","Hispano","PANAMÁ","No",NA,".",".","No",NA,".",".","Si","1","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2017-06-06,2017-06-06,1978-03-01,39,"Si","42881",NA,"Yes","Yes",-7,0,2017-06-06,"42910",2.57142857142857,".","1",0,0,"Safety","42910","FINALIZACIÓN EL 24/06/2017 POR DECISIÓN DEL
+MÉDICO, TOXICIDAD (Miliary
+tuberculosis_SAE)","Yes","""Toxicidad (renal)
+Decisión del médico: IRIS TB +
+Interacciones""",2.57142857142857,"Safety",1,"Yes","42904","Yes","42904","No",".","No",".","1.71428571428571","1.71428571428571",1,1,"1.71428571428571","1.71428571428571",".",".",0,0,".",".","Yes","Yes","Yes","Yes","No","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","No","43277",".",".",".","42909","42892","42892",2017-06-24,2018-06-26,"11",".",48,2.57142857142857,55,2.57142857142857,"No","No","Yes","39","1. >35
+to
+<=100","2. >35
+to
+<=100","Yes","Yes","Yes"
+"80",3108,"C-013","C","Si","Si","Si","Si",2017-06-02,"Si",2017-06-02,"42900","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-06-14,"No",".",11,"C
+-013","Hospital de
+Sant Pau,
+Barcelona","HTSX-No UDVP","Hispano","ESPAÑA","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2017-06-14,2017-06-14,1972-10-01,45,"Si","42901","Archivado en historia clínica  Ver analítica del día
+Mutaciones: V118I, L10V","Yes","Yes",-7,0,2017-06-14,"43075",25,".","1",24,24,"Exitus","43075","FINLIZACIÓN EL 06/12/2017 POR EXITUS (muerte
+inesperada_SAE)","Yes","Decisión del médico: exitus",25,"Exitus",1,"Yes","42968","Yes","42968","Yes","42968","Yes","42968","9.7142857142857206","9.7142857142857206",1,1,"9.7142857142857206","9.7142857142857206","9.7142857142857206","9.7142857142857206",1,1,"9.7142857142857206","9.7142857142857206","Yes","Yes","Yes","Yes","No","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","No","43304",".",".","43059","43059","43059","43059",2017-12-06,2018-07-23,"-1",".",48,25,57.7142857142857,25,"Yes","Yes","No","9210","4.
+>1000","5.
+>1000","No","No","Yes"
+"81",3178,"E-016","E","Si","Si","Si","Si",2017-06-27,"Si",2017-06-27,"42919","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-07-03,"No",".",30,"E
+-016","Hospital Val
+d'Hebron,
+Barcelona","HMSX","Hispano","BRASIL","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2017-06-30,2017-07-03,1981-09-01,36,"No",".",NA,"Yes","Yes",-7,0,2017-07-03,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes","43591",".",".","43507","43591","43591","43591",2017-07-03,2019-05-06,".",".",48,48,96,48,"No","No","No","35","0. <=35","1. <35","Yes","Yes","No"
+"82",3241,"C-014","C","Si","Si","Si","Si",2017-06-29,"Si",2017-06-29,"42933","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-07-17,"No",".",50,"C
+-014","Hospital de
+Sant Pau,
+Barcelona","HTSX-No UDVP","Hispano","ESPAÑA","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2017-07-17,2017-07-17,1976-06-01,41,"Si","42921","Archivado en historia clínica  Ver analítica del día
+29/06/2017  Mutaciones: F77L, E138G, V82I, K20I","Yes","Yes",-7,0,2017-07-17,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes","43614",".",".","43529","43614","43614","43614",2017-07-17,2019-05-29,"12",".",48,48,97.2857142857143,48,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"83",3243,"C-015","C","Si","Si","Si","Si",2017-07-06,"Si",2017-07-06,"42933","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-07-17,"No",".",61,"C
+-015","Hospital de
+Sant Pau,
+Barcelona","HMSX-HTSX-No
+UDVP","Hispano","ARGENTINA","No",NA,".",".","No",NA,".",".","No",".","Si","No","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Hombre",2017-07-17,2017-07-17,1989-11-01,28,"Si","42934","Archivado en historia clínica  Ver analítica del día
+6/07/2017  Mutaciones: V82I, L74I, L74M","Yes","Yes",-7,0,2017-07-17,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes","43641",".","43558",".","43641","43641","43641",2017-07-18,2019-06-25,"-1",".",48,48,101.142857142857,48,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"84",3279,"A-032","A","Si","Si","Si","Si",2017-07-18,"Si",2017-07-15,"42934","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-07-25,"Si","42901",15,"A-032","Hospital
+Clínic","HMSX-No UDVP","Otro","PERÚ","No",NA,".",".","No",NA,".",".","No",".","Si","No","No","No","No","No","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Hombre",2017-07-24,2017-07-25,1964-12-01,103,"Si","42934","PR:
+CCTCGTCACAATAAAGATAGGAGGGCAGCTAAA
+GGAAGCTCTATTAGATACAGGAGCAGATGATAC
+AGTATTAGAAGAAATGAGTTTGCCAGGAAGATG
+GAAACCAAAAATGATAGGGGGAATTGGAGGYTT
+TATCAAAGTAAGACAGTATGATCAGATACTCATA
+GAAATYTGYGGACATAAAGCARTAGGTACAGTAT
+TAGTAGGGCCTACACCAGTCAACATAATTGGAA
+GAAATCTGTTGACTCAGATTGGCTGCACTTTAAA
+YTTT  RT:
+CCCATTAGTCCWATTGAAACTGTACCAGTAAAAT
+TAAAGCCAGGAATGGATGGCCCAAAAGTTAAAC
+AATGGCCATTGACAGAAGAAAAAATAAAAGCATT
+AATGGAAATTTGTACAGARATGGAAAAGGAAGG
+GAAAATTTCAAAAATTGGGCCTGAAAATCCMTAC
+AATACTCCAGTATTTGCCATAAAGAAAAAAGACA
+GTACTAAATGGAGAAAATTAGTAGATTTCAGGGA
+ACTTAATAAGAGRACTCAAGACTTTTGGGAAGTM
+CAATTAGGAATACCACACCCTGCAGGGTTAAAAA
+AGAGAAAATCAGTGACAGTTCTGGATGTGGGTG
+ATGCATATTTTTCAGTTCCMTTAGATAAAGACTTC
+AGGAAGTATACTGCATTTACCATACCCAGTATAA
+ACAATGAGACACCAGGGATTAGATATCAGTACAA
+YGTGCTTCCACAGGGGTGGAAAGGATCACCAGC
+AATATTTCAAAGTAGCATGACAAAAATCTTAGAG
+CCTTTTAGAAAACAAAATCCAGACATGGTAATTT
+ATCAATACATGGATGATTTGTATGTAGGATCTGA
+CTTAGAAATAGAGAAGCACAGAAAYAAAATAGAG
+GAACTGAGACAACATCTGTTGAAGTGGGGGTTG
+ACCACACCAGACAAGAAACATCAGAAAGAACCT
+CCATTTCTTTGGATGGGTTATGAACTCCATCCTG
+ATAAATGGACAGTRCAGCCTATARTACTGCCAGA","Yes","Yes",-7,0,2017-07-25,"43028",12.4285714285714,".","1",84,4,"Safety","43028","Finaliza por toxicidad el 20/10/17, entre la SM4 y
+SM12. Por picores el medico decide cambiar el
+tratamiento ARV (AE). 
+Continúa por ITT.","Yes","Toxicidad",12.4285714285714,"Safety",1,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","No","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","No","43643","43028",".","42941","43643","43654","43654",2017-10-20,2019-07-08,"7","40",48,12.4285714285714,101.857142857143,12.4285714285714,"Yes","No","No","301","2. >100
+to
+<=500","3. >100
+to
+<=500","Yes","Yes","Yes"
+"85",3440,"D-013","D","Si","Si","Si","Si",2017-08-02,"Si",2017-08-02,"42964","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-08-21,"Si","42949",23,"D
+-013","Hospital de
+Bellvitge,
+L'Hospitalet","HMSX-No UDVP","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","Si","2","Si","No","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Hombre",2017-08-17,2017-08-21,1983-12-01,34,"Si","42949",NA,"Yes","Yes",-7,0,2017-08-21,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes","43607",".","43654",".","43654","43654","43654",2017-08-21,2019-07-08,"19","19",48,48,98,48,"No","No","No","35","0. <=35","1. <35","Yes","Yes","No"
+"86",3448,"E-017","E","Si","Si","Si","Si",2017-08-14,"Si",2017-08-14,"42968","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-08-21,"No",".",80,"E
+-017","Hospital Val
+d'Hebron,
+Barcelona","HTSX","Negro","CAMERUN","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2017-08-21,2017-08-21,1988-10-01,29,"No",".",NA,"Yes","Yes",-7,0,2017-08-21,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes","43336",".","43580",".","43683","43683","43683",2017-08-21,2019-08-06,".",".",48,48,102.142857142857,48,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"87",3494,"A-033","A","Si","Si","Si","Si",2017-08-30,"Si",2017-08-28,"42983","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-09-05,"No",".",16,"A-033","Hospital
+Clínic","HTSX-No UDVP","Otro","ARGENTINA","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2017-09-05,2017-09-05,1981-12-01,103,"Si","42977","PR:
+CCTTGTCACAGTAAAGGTAGGGGGGCAACTAAT
+GGAAGCTCTACTAGATACAGGAGCAGATGATAC
+AGTATTAGAAGAGATAAATTTRCCAGGAAGATGG
+AAGCCAAAAATGATAGGGGGAATTGGAGGTTTT
+ATAAAAGTAAGACAGTATGATCAGATABCCMTAG
+AAATCTGTGGACATAAAGCTATAGGTACAGTATT
+AGTAGGACCTACACCTGTCAACATAATTGGAAG
+GAATCTGTTGACTCAGATTGGTTGTACTTTAAATT
+TT  RT:
+CCCATTAGTCCTATTGAAACTGTACCAGTAAAAT
+TAAAGCCAGGAATGGATGGCCCAAAAGTTAAAC
+AATGGCCACTGACAGAAGAAAAAATAAAAGCATT
+AGTAGAAATTTGTACAGAAATGGAAAAGGAAGGA
+AAAATTACAAGAATTGGGCCTGAAAATCCATACA
+ATACTCCAGTATTTGCCATAAAGAAAAAGGACAG
+TACTAAATGGAGAAAATTAGTAGATTTYAGAGAA
+CTTAATAAAAGAACTCAAGACTTCTGGGAAGTTC
+AATTAGGAATACCACATCCYGCAGGGTTAAAAAA
+GAAAAAATCAGTAACAGTTCTGGATGTGGGTGAT
+GCRTATTTTTCAGTYCCCTTAGATAAAGAATTCA
+GGAAGTACACTGCATTTACCATACCTAGCACAAA
+CAATGAGACACCAGGGATAAGATAYCAGTACAAT
+GTGCTTCCACAGGGATGGAAAGGATCACCAGCA
+ATATTCCAAAGTAGCATGACAAAAATCTTAGAGC
+CTTTTAGAAAACAAAATCCAGATCTAGTTATATAT
+CAATACATGGATGATTTGTATGTAGGATCTGACT
+TAGAAWTAGGGCAGCATAGRRCAAAAATAGAGG
+ARCTAAGACAACATTTGTTGAGGTGGGGATTTAC
+CACACCAGACAAAAAGCATCAGAAAGAACCTCC
+ATTCCTTTGGATGGGTTATGAGCTCCATCCTGAT
+AAATGGACAGTRCARCCTGTAGTGCTGCCAGA","Yes","Yes",-7,0,2017-09-05,".",48,".",".",84,84,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes",".",".",".","42983","43595","43612","43612",2017-09-05,2019-05-27,"6",".",48,48,89.8571428571429,48,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"88",3525,"A-034","A","Si","Si","Si","Si",2017-09-21,"Si",2017-09-21,"43006","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-09-28,"No",".",63,"A-034","Hospital
+Clínic","HMSX-No UDVP","Otro","MARRUECOS","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2017-09-28,2017-09-28,1976-01-01,41,"Si","42999","PR
+:CATYGTCACAATAAAGATAGGGGGACAACTAAA
+GGAAGCTCTATTAGATACAGGAGCAGATGATAC
+AGTATTAGAAGAAATGGAGTTGCCAGGAAGATG
+GAAACCAAAAATGATAGGGGGAATTGGAGGTTT
+TATCAAAGTAAGACAGTATGATCAGATATCCWTA
+GAAATTTGTGGACATAAAGCTATRGGTACAGTAT
+TAATAGGACCTACACCTGTCAACATAATTGGAAG
+AAATCTGTTGACTCAGCTTGGRTGCACTTTAAAT
+TTT  RT:
+CCTATTAGTCCTATTGAAACTGTACCAGTAAAATT
+AAAGCCAGGAATGGATGGCCCAAGAGTTAAACA
+ATGGCCATTGAC
+AGAAGAAAAAATAAAGGCATTARTAGAAATCTGT
+ACAGAAATGGAAAAGGAAGGAAAAATTTCAAAAA
+TTGGGCCTGAAA
+ATCCATATAATACTCCAATATTTGCAATAAAGAAA
+AAGGACAGTACTAAATGGAGAAAATTAGTAGATT
+TCAGAGAACTT
+AACAAGAAAACTCAAGACTTCTGGGAAGTTCAAT
+TAGGAATACCACATCCCGCAGGGTTRAAAAAGA
+AAAAATCAGTAAC
+AGTACTGGATGTGGGTGATGCATATTTTTCAGTT
+CCCTTAGACAAGGACTTCAGGAAGTATACTGCAT
+TCACCATACCTA
+GTATAAACAATGAAACACCAGGRATTAGATATCA
+GTACAATGTGCTGCCACAGGGATGGAAAGGATC
+ACCAGCAATATTC
+CAAAGTAGCATGACAAAAATCTTAGAGCCTTTTA
+GAAAACAGAATCCAGACATAGTTATCTATCAATA
+CATGGATGATTT
+GTATGTAGGATCTGACTTAGAAATAGAGCAGCAT
+AGAACAAAAATAGAGGAACTGAGACAACATCTGT
+TGGGGTGGGGAT
+TTACCACACCAGACAAAAAACATCAGAAAGAACC
+CCCATTCCTTTGGATGGGTTATGAACTCCATCCT
+GATAAATGGACA  GTACAG","Yes","Yes",-7,0,2017-09-28,".",48,".",".",72,72,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","No",".",".",".","43006","43553","43584","43584",2017-09-28,2019-04-29,"7",".",48,48,82.5714285714286,48,"No","No","No","1950","4.
+>1000","5.
+>1000","No","No","Yes"
+"89",4555,"D-014","D","Si","Si","Si","Si",2017-09-20,"Si",2017-09-20,"43025","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-10-17,"No",".",64,"D
+-014","Hospital de
+Bellvitge,
+L'Hospitalet","Not Qualified","Asiático","CHINA","No",NA,".",".","No",NA,".",".","Si","2","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2017-10-09,2017-10-17,1960-02-01,57,"Si","42998",NA,"Yes","Yes",-7,0,2017-10-17,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes","43361",".","43697",".","43697","43697","43697",2017-10-17,2019-08-20,"27",".",48,48,96,48,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"90",4679,"D-015","D","Si","Si","Si","Si",2017-10-26,"Si",2017-10-26,"43053","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-11-21,"No",".",44,"D
+-015","Hospital de
+Bellvitge,
+L'Hospitalet","HTSX-No UDVP","Hispano","ESPAÑA","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Mujer",2017-11-21,2017-11-21,1973-02-01,44,"Si","43034",NA,"Yes","Yes",-7,0,2017-11-21,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes","43552",".","43735",".","43735","43735","43735",2017-11-21,2019-09-27,"26",".",48,48,96.4285714285715,48,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"91",4695,"B-006","B","Si","Si","Si","Si",2017-11-20,"Si",2017-11-20,"43066","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-11-27,"Si","43059",17,"B
+-006","Hospital
+Germnas
+Trias i Pujol,
+Barcelona","HMSX-HTSX-No
+UDVP","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","No",".","Si","No","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Si","No","No","No","No","No","No","No","Yes","Hombre",2017-11-27,2017-11-27,1977-02-01,40,"Si","43059","nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn","Yes","Yes",-7,0,2017-11-27,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes","43494",".","43738",".","43655","43738","43738",2017-11-27,2019-09-30,"7","7",48,48,96,48,"No","No","Yes","35","0. <=35","1. <35","Yes","Yes","No"
+"92",4741,"A-035","A","Si","Si","Si","Si",2017-12-18,"Si",2017-11-24,"43087","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2017-12-27,"No",".",23,"A-035","Hospital
+Clínic","HMSX-No UDVP","Otro","COLOMBIA","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2017-12-27,2017-12-27,1975-06-01,42,"Si","43063","PR:
+CCTAGTCTCAATAAGGATAGGGGGAGAGATAAG
+GGAAGCTCTATTAGATACAGGAGCAGATGATAC
+AGTATTAGAAGACA
+TAAATTTGCCAGGAAAATGGAAACCAAAAATGAT
+AGGGGGAATTGGAGGTTTTATCAAAGTAAGACA
+GTATGATCAAATA
+CCCATAGAAATYTGTGGAAAGAAAGCTGTAGGTA
+CAGTATTAGTAGGGCCTACACCTGTCAACATAAT
+TGGAAGAAATTT
+GTTGACTCARCTTGGCTGCACTTTAAATTTT  RT:
+CCAATAAGCCCTATTGAAACTGTACCAGTAAAAT
+TAAAGCCAGGGATGGATGGCCCAAAAGTGAAAC
+AATGGCCATTGAC
+AGAAGAAAAAATAAAAGCATTAACAGAAATTTGT
+ACAGATATGGAAAAGGAAGGAAAAATTTCAAAAA
+TTGGGCCTGAGA
+ATCCATATAATACTCCAATATTTGCCATAAAGAAA
+AARGACAGTACTAAATGGAGAAAATTAGTAGATT
+TTAGAGAACTT
+AATAAAAGAACCCAGGACTTCTGGGAGGTTCAAT
+TAGGAATACCACATCCTGCAGGGCTAAAAAAGA
+AAAAATCAGTAAC
+AGTGTTGGATGTAGGTGACGCATATTTTTCAGTT
+CCCTTAGATAAAGAATTTAGAAAGTATACTGCAT
+TTACCATACCCA
+GTATAAACAATGAGACACCAGGGATTAGATATCA
+GTATAATGTGCTTCCTCAGGGATGGAAAGGATC
+ACCAGCAATATTT
+CAATGTAGCATGACAAAAATCCTAGATCCCTTTA
+GAAAACAAAAYCCAGAAATAGTTATCTATCAATA
+CATGGATGATTT
+GTATGTAGGATCTGACTTAGAAATAGGACAGCAT
+AGAGCAAAAATAGAAGAATTAAGGCAGCATCTGT
+TRCAGTGGGGRT
+TTACCACACCAGAYAAAAARCATCAAAARGAACC
+TCCGTTCCTCTGGATGGGTTATGAACTCCATCCY
+GATAAGTGGACA","Yes","Yes",-7,0,2017-12-27,".",48,".",".",60,60,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","No",".",".",".","43096","43599","43612","43612",2017-12-27,2019-05-27,"33",".",48,48,73.7142857142857,48,"No","No","No","43.9","1. >35
+to
+<=100","2. >35
+to
+<=100","Yes","Yes","Yes"
+"93",4785,"B-007","B","Si","Si","Si","Si",2018-01-08,"Si",2018-01-04,"43108","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2018-01-15,"No",".",42,"B
+-007","Hospital
+Germnas
+Trias i Pujol,
+Barcelona","HMSX-HTSX-No
+UDVP","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2018-01-15,2018-01-15,1969-11-01,49,"Si","43108","nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn","Yes","Yes",-7,0,2018-01-15,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes","43348",".","43619",".","43696","43696","43696",2018-01-15,2019-08-19,"7",".",48,48,83,48,"No","No","No","35","0. <=35","1. <35","Yes","Yes","No"
+"94",4791,"D-016","D","Si","Si","Si","Si",2017-12-04,"Si",2017-12-04,"43104","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2018-01-15,"No",".",85,"D
+-016","Hospital de
+Bellvitge,
+L'Hospitalet","HMSX-No UDVP","Hispano","COLOMBIA","No",NA,".",".","No",NA,".",".","Si","4","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2018-01-15,2018-01-15,1988-08-01,30,"Si","43073",NA,"Yes","Yes",-7,0,2018-01-15,"43535",48,".",".",60,60,"No
+Premature
+Finalisation","43535","FINALIZACIÓN POR NO ACUDIR A LAS
+VISITAS","No","No acude a las visitas",48,"Lost to
+Follow-up",1,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes","43452","43446","43535",".","43535","43535","43535",2019-03-11,2019-03-11,"42",".",48,48,60,60,"No","No","No","35","0. <=35","1. <35","Yes","Yes","No"
+"95",5144,"E-018","E","Si","Si","Si","Si",2018-01-31,"Si",2018-01-31,"43138","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2018-02-07,"No",".",40,"E
+-018","Hospital Val
+d'Hebron,
+Barcelona","HTSX","Hispano","REPÚBLICA
+DOMINICANA","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Mujer",2018-02-07,2018-02-07,1986-10-01,32,"No",".",NA,"Yes","Yes",-7,0,2018-02-07,"43402",37.7142857142857,".","1",36,36,"Lost to
+Follow-up","43402","El paciente se va a su país por probemas familiares
+y deja de tomar el TAR --> Finalización por no acudir
+a las visitas","Yes","No acude a las visitas",37.7142857142857,"Lost to
+Follow-up",1,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","No","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","No","43339",".",".","43402","43402","43402","43402",2018-10-29,2018-10-29,".",".",37.7142857142857,37.7142857142857,37.7142857142857,37.7142857142857,"No","No","Yes","155","2. >100
+to
+<=500","3. >100
+to
+<=500","Yes","Yes","Yes"
+"96",5557,"A-036","A","Si","Si","Si","Si",2018-02-15,"Si",2018-02-15,"43157","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2018-02-26,"No",".",2,"A-036","Hospital
+Clínic","Not Qualified","Otro","VENEZUELA","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2018-02-26,2018-02-26,1983-10-01,35,"Si","43146","PR:
+CCTTGTCACAATAAGAGTAGGGGGACAGCTAAA
+GGAAGCTCTATTAGATACAGGAGCAGATGATAC
+AGTATTAGAAGATA
+TAAATTTGCCAGGAAAATGGAAGCCAAAAATGAT
+AGGGGGAATTGGAGGCTTTATCAAAGTAAGGCA
+GTATGAAGAGGTA
+CCCATAGAAATCTGTGGACATAAAGCTATAGGTA
+CAGTATTAGTAGGACCTACACCTGTCAACATAAT
+TGGAAGGAATCT
+GTTGACTCAGMTTGGTTGCACTTTAAATTTT
+RT
+:CCCATTAGTCCTATTGAGACTGTACCAGTAAAAT
+TGAAGCCAGGGATGGATGGCCCAAAAGTTAAAC
+AATGGCCATTGAC
+AGAAGAAAAAATAAAAGCATTARTAGAAATCTGT
+ACAGAAATGGAAAAGGAAGGGAAAATTTCAAAAA
+TAGGGCCAGAAA
+ATCCATACAATACTCCAGTATTTGTCATAAAGAA
+GAAAGACAGTACTAAATGGAGAAAATTAGTAGAT
+TTTAGAGAACTT
+AATAAGAGAACTCAAGACTTTTGGGAAGTTCAAT
+TAGGAATACCACATCCTGCAGGGTTAAAAAAGAA
+AAAATCAGTAAC
+AGTACTGGATGTGGGTGATGCATATTTTTCAGTT
+CCCTTAGATAAAGATTTCAGGAAGTACACTGCAT
+TTACCATACCTA
+GCACAAATAATGAGACACCAGGGATTAGATATCA
+GTACAATGTGCTTCCACAAGGATGGAAAGGATC
+ACCAGCAATATTC
+CAAAGTAGCATGACAAAAATCTTAGAGCCTTTTA
+GAAAGCAAAATCCAGACATAGTTATCTATCAATA
+CATGGATGATTT
+GTATGTAGGGTCTGACTTAGAAATAGGACAACAT
+AGAATAAAAGTAGAGGAACTGAGACAACATCTGA
+TGAGGTGGGGAT
+TTGACACACCAGACAAAAAACATCAGAAAGAACC
+TCCATTCCTTTGGATGGGTTATGAACTCCACCCT
+GATAAATGGACA","Yes","Yes",-7,0,2018-02-26,".",48,".",".",48,48,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes",".",".",".","43157","43630","43647","43647",2018-02-26,2019-07-01,"11",".",48,48,70,48,"No","No","No","35","0. <=35","1. <35","Yes","Yes","No"
+"97",5609,"A-037","A","Si","Si","Si","Si",2018-03-01,"Si",2018-02-26,"43160","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2018-03-16,"Si","43157",8,"A-037","Hospital
+Clínic","HTSX-No UDVP","Hispano","ESPAÑA","No",NA,".",".","No",NA,".",".","Si","1","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Si","No","No","No","No","No","No","No","Yes","Hombre",2018-03-16,2018-03-16,1973-03-01,45,"Si","43161","PR:
+CCTAGTCTCAATAAAGGTAGGGGGACARACAAA
+GGAAGCTCTATTAGATACAGGAGCAGATGATAC
+AGTATTAGAAGACA
+TAGATTTACCAGGAAAATGGAGACCAAAAATGAT
+AGGGGGAATTGGAGGTTTTATCAAAGTAAAACA
+GTATGATAACATA
+ACCATAGACATTTGTGGTCACAAGGCTATAGGTA
+CAGTATTAGTAGGACCTACACCTGTCAACATAAT
+TGGAAGAAATCT
+GTTGACTCAGATTGGTTGCACTTTAAATTTT  RT:
+CCCATTAGTCCTATTGAAACTGTACCAGTAAAAT
+TAAAGCCAGGAATGGATGGCCCAAAAGTTAAAC
+AATGGCCATTGAC
+AGAAGAAAAAATAAAAGCATTAACAGAAATATGC
+TTAGAAATGGAAAAAGAAGGAAARATTTCAAAAA
+TTGGGCCTGAAA
+ATCCATACAATACTCCAGTATTTGCCATAAAGAA
+AAAAGACAGTACTAAATGGAGRAAATTAGTAGAT
+TTCAGAGAACTT
+AATAAAAGAACTCAAGATTTTTGGGAGGTTCAAT
+TAGGAATACCACATCCTGCAGGGTTAAAAMAGA
+AAAAGTCAGTAAC
+AGTACTGGATGTGGGGGATGCATATTTTTCAGTT
+CCATTAGATGARGAATTCAGGAAGTACACTGCAT
+TCACCATACCTA
+GTATCAACAATGAGACACCAGGAATTAGGTACCA
+GTACAATGTGCTTCCACAGGGATGGAAAGGATC
+ACCAGCAATATTY
+CAAAGCAGCATGACAAAAATTTTAGAGCCTTTTA
+GRAAACAAAATCCAGAAATAGTTATCTATCAATA
+YATGGATGATTT
+GTATGTAGGMTCTGACTTAGAACTAGGGCAGCA
+TAGAACAAAAGTAGAAGAACTGAGACAACATCTG
+TTAARGTGGGGGT
+TTACCACACCAGACAAAAAACATCAGAAAGAACC
+TCCATTCCTTTGGATGGGTTATGAACTCCATCCT
+GACAAATGGACA","Yes","Yes",-7,0,2018-03-16,"43427",36,".","1",48,36,"Virological
+Failure","43535","Finaliza el 11/03/19 por fracaso virológico (SM36).
+Refleja a HC problemas de tomas los días
+anteriores. Continúa por ITT.","Yes","Fracaso virológico",36,"Virological
+Failure",1,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","No","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes",".",".",".","43175","43633","43535","43535",2019-03-11,2019-06-17,"14","18",48,48,65.4285714285715,51.4285714285714,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"98",5815,"A-038","A","Si","Si","Si","Si",2018-05-09,"Si",2018-05-09,"43242","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2018-05-18,"Si","43229",13,"A-038","Hospital
+Clínic","HTSX-No UDVP","Hispano","PERÚ","Si","esteatosis hepática",".","Si","No",NA,".",".","No",".","Si","No","No","No","No","No","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Si","No","No","No","Yes","Hombre",2018-05-18,2018-05-18,1972-12-01,46,"Si","43229","PR:
+CCTCGTATCAATAAAGATAGGGGGACAGCTAAG
+GGAAGCTCTGTTAGACACAGGAGCAGATGATAC
+TGTATTAGAAGACA
+TAAATTTGCCAGGAAAATGGAAACCAAAAATGAT
+AGGGGGAATTGGAGGTTTTATCAAAGTAAGACA
+ATATGATCAGATG
+CCCATAGAGATCTGTGGACATAAAGCTGTAGGT
+ACAGTATTAGTAGGACCTACACCTATCAACATAA
+TTGGAAGAAATCT
+GTTGACTCAGCTGGGTTGCACTTTAAATTTC  RT:
+CCCATTAGTCCTATTGAAACTGTACCAGTAAAGC
+TAAAGCCAGGAATGGATGGGCCAAAAGTTAAAC
+AATGGCCATTACC
+AGAAGAAAAAATAAAAGCATTAATAGAAATTTGT
+RCAGAAATGGAAAAGGAAGGAAAAATTTCAAAAA
+TTGGGCCTGAAA
+ATCCATACAATACACCAGTATTTGCCATAAAGAA
+AAAAGATGGTACTAAATGGAGAAAATTAGTAGAT
+TTCAGAGAACTT
+AATAAGAGAACTCAAGACTTCTGGGAAATTCAAT
+TAGGAATACCACATCCCGCAGGGTTAAAAAAGA
+AAAAATCAGTAAC
+AGTACTGGATGTGGGTGATGCATATTTCTCAGTT
+CCCCTAGATGAAGATTTCAGGAAGTATACTGCAT
+TTACCATACCTA
+GTAYAAACAATGAGACACCAGGGATCAGATATCA
+ATACAATGTGCTTCCACAGGGATGGAAAGGGTC
+ACCAGCAATATTC
+CAAAGTAGCATGACAAAAATCTTGGAGCCTTTTA
+GAAAACAAAATCCAGACATAGATATCTATCAATA
+CATGGATGATTT
+GTATGTAGGATCTGACTTAGAAATAGGAMAGCAT
+AGAGCAAAAATAGAGGAACTGAGACAACATCTG
+TTAAGGTGGGGAT
+TTACCACACCAGACAAAAAACATCAGAAAGAACC
+TCCATTTCTTTGGATGGGTTATGAGCTCCATCCT
+GATAAATGGACA","Yes","Yes",-7,0,2018-05-18,"43255",2.42857142857143,".","1",48,0,"Safety","43255","Retirada el 04/06/18 por SAE (Fiebre y Rash), entre
+la visita Basal y la SM4. Continua por ITT.","Yes","Toxicidad",2.42857142857143,"Safety",1,"Yes","43247","No",".","No",".","No",".","1.28571428571429",".",1,0,"1.28571428571429",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","No","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","No","43266","43255",".","43245","43591","43605","43605",2018-06-04,2019-05-20,"9","9",48,2.42857142857143,52.4285714285714,2.42857142857143,"Yes","No","No","614","3. >500
+to
+<=1000","4. >500
+to
+<=1000","No","Yes","Yes"
+"99",5842,"B-008","B","Si","Si","Si","Si",2018-06-05,"Si",2018-06-05,"43270","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2018-06-19,"No",".",55,"B
+-008","Hospital
+Germnas
+Trias i Pujol,
+Barcelona","HMSX-HTSX-No
+UDVP","Blanco","ESPAÑA","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2018-06-19,2018-06-19,1971-07-01,47,"Si","43270","nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnn
+nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn","Yes","Yes",-7,0,2018-06-19,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes","43628",".","43690",".","43690","43690","43690",2018-06-19,2019-08-13,"0",".",48,48,60,48,"No","No","No","35","0. <=35","1. <35","Yes","Yes","No"
+"100",5844,"C-016","C","Si","Si","Si","Si",2018-06-06,"Si",2018-06-06,"43270","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2018-06-19,"No",".",30,"C
+-016","Hospital de
+Sant Pau,
+Barcelona","HMSX-HTSX-No
+UDVP","Hispano","UNKNOWN","Si","hepatitis C","35796","Si","No",NA,".",".","Si","2","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2018-06-19,2018-06-19,1973-05-01,45,"Si","43257","negativo","Yes","Yes",-7,0,2018-06-19,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","No","43642",".","43726",".","43726","43726","43726",2018-06-19,2019-09-18,"13",".",48,48,65.1428571428572,48,"No","No","Yes","386","2. >100
+to
+<=500","3. >100
+to
+<=500","Yes","Yes","Yes"
+"101",5897,"D-017","D","Si","Si","Si","Si",2018-06-20,"Si",2018-06-20,"43283","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2018-07-10,"No",".",22,"D
+-017","Hospital de
+Bellvitge,
+L'Hospitalet","HTSX-No UDVP","Hispano","COLOMBIA","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Mujer",2018-07-10,2018-07-10,1975-04-01,43,"Si","43271",NA,"Yes","Yes",-7,0,2018-07-10,"43313",3.14285714285714,".","1",0,0,"Safety","43313","FINALIZACIÓN POR DECISIÓN DEL MÉDICO
+(ALTERACIÓN CONDUCTUAL SIN CAUSA
+JUSTIFICADA, SAE)","Yes","Toxicidad. Decisión del médico: alteracion
+conductual sin causa justificada",3.14285714285714,"Safety",1,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","No","ABC+3TC+DRV+RTV","ABC+3TC+DRV+RTV","Yes","43347","43313",".","43291","43291","43291","43291",2018-08-01,2018-09-04,"20",".",8,3.14285714285714,8,3.14285714285714,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"102",5920,"C-017","C","Si","Si","Si","Si",2018-06-29,"Si",2018-06-29,"43298","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2018-07-17,"No",".",96,"C
+-017","Hospital de
+Sant Pau,
+Barcelona","HMSX-HTSX-No
+UDVP","Hispano","VENEZUELA","No",NA,".",".","No",NA,".",".","No",".","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2018-07-17,2018-07-17,1990-05-01,28,"Si","43286","Archivado en historia clínica  Ver analítica del día
+29/06/2018  Mutaciones: M230L, V11I, K20I, T74S,
+V82I.","Yes","Yes",-7,0,2018-07-17,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes","43567",".","43710",".","43710","43710","43710",2018-07-17,2019-09-02,"12",".",48,48,58.8571428571429,48,"No","No","No","0","0. <=35","0. 0","Yes","Yes","No"
+"103",6004,"A-039","A","Si","Si","Si","Si",2018-07-18,"Si",2018-07-18,"43311","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2018-07-27,"Si","43286",1,"A-039","Hospital
+Clínic","HMSX-No UDVP","Hispano","VENEZUELA","No",NA,".",".","No",NA,".",".","No",".","Si","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Si","No","No","No","No","No","No","Yes","Hombre",2018-07-27,2018-07-27,1987-06-01,31,"Si","43299","PR:
+CCTAGTCACAATAAAGATAGGGGAGCAACTAAAA
+GAAGCTCTATTAGATACAGGAGCAGATGATACA
+GTATTAGAAGAAA
+TGAATTTGCCAGGAAAATGGAAACCAAAAATGAT
+AGGGGGAATTGGAGGTTTTATCAAAGTAAGACA
+RTATGATCAGATA
+CCTATAGAAATTTGTGGACAYAAAGCTATAGGTA
+CAGTATTAATAGGACCTACACCTGTCAACATAAT
+TGGAAGAAATCT
+GTTGACTCARCTTGGKTGCACTTTAAATTTT  RT:
+CCCATTAGTCCTATTGAAACTGTACCAGTAAAAT
+TAAAGCCAGGAATGGATGGCCCAAAAGTTAAAC
+AATGGCCATTGAC
+AGAAGAAAAAATAAAAGCATTAACAGAAATTTGT
+GCAGAAATGGAAAAGGAAGGAAAAATTTCAAAAA
+TTGGGCCTGAAA
+ATCCRTACAATACTCCAGTATTTGCTATAAAGAA
+AAAGGACAGTACTAAATGGAGAAAATTAGTAGAT
+TTCAGAGAACTT
+AATAAGAGAACTCAGGACTTCTGGGAAGTTCAAT
+TAGGAATACCACATCCYGCAGGGTTAAAAAAGAA
+AAAATCAGTAAC
+AGTACTGGATGTGGGTGATGCATATTTYTCAGTT
+CCCTTAGAYRAAGACTTCAGGAAGTATACTGCAT
+TCACCATACCCA
+GTATAAACAATGAGACACCAGGRATTAGATATCA
+GTATAATGTGCTTCCACAGGGATGGAAAGGATC
+ACCAGCAATATTC
+CAAGCTAGCATGACAAAAATCTTAGAGCCTTTTA
+GAAGTAAAAATCCAGACATAGTTATCTATCAATA
+CATGGATGAYTT
+GTATGTAGGATCTGACTTAGAAATAGGGCAGCA
+YAGAACAAAARTAGAGGAACTGAGRCAACATCT
+GTTGAAGTGGGGAC
+TTACCACACCAGACAAAAAACATCAGAAAGAACC
+TCCATTYCWTTGGATGGGTTATGAACTCCATCCT
+GATAAATGGACA","Yes","Yes",-7,0,2018-07-27,".",48,".",".",48,48,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"No",".","No",".","No",".","No",".",".",".",0,0,".",".",".",".",0,0,".",".","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","Yes",".",".","43356",".","43661","43661","43661",2018-07-30,2019-07-15,"9","22",48,48,50.4285714285714,48,"No","No","No","35","0. <=35","1. <35","Yes","Yes","No"
+"104",6006,"C-018","C","Si","Si","Si","Si",2018-07-23,"Si",2018-07-23,"43312","Si","Si","No","No","No","No","No","No","No","No","No","No","No","No",2018-07-31,"No",".",44,"C
+-018","Hospital de
+Sant Pau,
+Barcelona","HTSX-No UDVP","Hispano","ESPAÑA","No",NA,".",".","No",NA,".",".","Si","5","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Hombre",2018-07-31,2018-07-31,1977-10-01,41,"Si","43306","Archivado en la historia clínica  Ver analítica del día
+23/07/2018  Sin mutaciones","Yes","Yes",-7,0,2018-07-31,".",48,".",".",96,96,"No
+Premature
+Finalisation",".",NA,"No",NA,48,"No
+Premature
+Finalisation",0,"Yes","43330","Yes","43330","Yes","43330","Yes","43330","2.5714285714285698","2.5714285714285698",1,1,"2.5714285714285698","2.5714285714285698","2.5714285714285698","2.5714285714285698",1,1,"2.5714285714285698","2.5714285714285698","Yes","Yes","Yes","Yes","Yes","ABC+3TC+DGT","ABC+3TC+DGT","No","43733","43400","43733",".","43733","43733","43733",2018-08-18,2019-09-25,"6",".",48,48,60.1428571428572,48,"Yes","Yes","No","2290","4.
+>1000","5.
+>1000","No","No","Yes"
