@@ -1,6 +1,7 @@
 NumericalVariable	PaletteName
 CD4	Set1
 CD8	Set1
+CD4_CD38_DR	Set1
 CD8_CD38_DR	Set1
 CRP	Set1
 IL6	Set1

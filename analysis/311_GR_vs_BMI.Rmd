@@ -2,7 +2,9 @@
 title: "BL_stratification"
 author: "Carlos Blázquez Bondia"
 date: "2023-03-06"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 editor_options:
   chunk_output_type: console
 ---
@@ -111,8 +113,8 @@ igc_df <- igc@dataTable %>%
                  long_var = time_point,
                  NumberMappedReads, 
                  num_vector, 
-                 height = Height,
-                 weight = Weight) %>% 
+                 height = height,
+                 weight = weight) %>% 
   mutate(sCD14 = as.numeric(sCD14),
          weight = case_when(link_var == "C007" & long_var == 48 ~ 69.7,
                             link_var == "D009" & long_var == 96 ~ 61.9,

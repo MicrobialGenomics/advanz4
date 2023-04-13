@@ -368,6 +368,7 @@ There is a pretty clear evolution in every one of the treatment groups. However 
 However, creating a single LMM with treatment group as a random effect we can measure the actual difference in the effect of timepoint over gene richness between two groups. 
 
 
+
 ```{r compare_group_effect, warning = F, message= F, echo = F}
 
 cat_vector
@@ -528,7 +529,7 @@ write.csv(long_test, file = "output/general_boxplot_stats")
 
 ```
 
-
+## Longitudinal Boxplots
 
 There is a general increase even without stratifying for any confounding variable.
 
@@ -683,8 +684,11 @@ return(list(data = dat, plot = boxplot))
 
   })
 
+group_plots <- 
 boxplots$group$plot +
   scale_fill_brewer(labels = c("bDRV", "DTG"), palette = "Accent")
+group_plots
+ggplot2::ggsave(plot = group_plots, path =here::here("output","figures"), filename = "GR_group_boxplots.svg", device = "svg", width = 20,height = 15, units = "cm", dpi = 300)
 boxplots$CD4diff_96$plot
 ```
 

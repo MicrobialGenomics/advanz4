@@ -90,7 +90,7 @@ igc_df <- igc@dataTable %>%
   compareGroups::export2md()
 
 
-
+# igc_df
 
 ```
 

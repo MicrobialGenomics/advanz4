@@ -151,7 +151,7 @@ No significant changes could be observed in any inflammation marker, except for 
 
 Now to the main point of this document. The first thing to do is to assess any correlation between initial GR and inflammation markers.
 
-```{r read_GR, echo = F, warning=F, message=F, results='hide'}
+```{r read_GR, echo = F, warning = F, message = F, results='hide'}
 igc<-metar::get_diversity(mymre)@igc
 Threshold <-  igc@dataTable %>%
   dplyr::select(SampleID, NumberMappedReads) %>%
@@ -316,6 +316,64 @@ num_var[!num_var %in% c("CD8_CD38_DR", "ADV")] %>%
     get_comp_boxplots(dat = .,cat_var = "cat_var",num_var = "num_var", long_var = "long_var",link_var = "link_var",y_trans = "sqrt", pal = "Accent") %>% 
       purrr::pluck("plot") +
       labs(y = nv, fill = "group")
+    
+  })
+
+
+test_list <- 
+ get_group_comparisons(dat = igc_df,cat_vector = "cat_var",num_vector = num_var,long_var = "long_var",link_var = "link_var", comps = c("bDRV","DTG")) %>% 
+   pluck("cat_var") %>% 
+   purrr::map(~{pluck(.x, "test")})
+
+
+
+num_vector %>%
+  purrr::set_names() %>%
+  purrr::map(function(nv) {
+    igc_df %>%
+      dplyr::filter(!is.na(!!sym(nv))) %>%
+      dplyr::mutate(num_var = as.numeric(!!sym(nv)),
+                    sd_var = sd(num_var, na.rm = T),
+                    med_var = median(num_var)) %>%
+      ggplot(., aes(x = factor(long_var), y = med_var)) +
+      # geom_boxplot(aes(fill = cat_var)) +
+      # geom_jitter(aes(colour = rec_group )) +
+      geom_point(
+        aes(
+          group = cat_var,
+          shape = cat_var,
+          color = cat_var),
+        size = 3,
+        position = position_dodge(.8)
+      ) +
+      geom_line(
+        aes(group = cat_var,
+            color = cat_var),
+        position = position_dodge(0.8),
+        lwd = 1
+      ) +
+      # geom_line(data = df, aes(x = factor(long_var), y = richness, group = link_var, color = recovery, lty = cat_var), inherit.aes = F, alpha = .4) +
+      geom_errorbar(
+        aes(
+          ymin = med_var - sd_var,
+          ymax = med_var + sd_var,
+          group = cat_var,
+          color = cat_var
+        ),
+        width = .2,
+        position = position_dodge(0.8)
+      ) +
+      labs(x = "weeks", y = nv) +
+      # scale_color_brewer(palette = "Dark2") +
+      scale_color_viridis_d(
+        option = "magma",
+        begin = .1,
+        end = .8,
+        direction = 1
+      ) +
+      theme_bw() +
+      stat_pvalue_manual(test_list[[nv]], inhertit.aes = F , hide.ns = T) +
+      theme(axis.title = element_text(face = "bold"))
     
   })
 
@@ -485,25 +543,110 @@ long_df %>%
   dplyr::filter(p.adj < 0.05 )
 
 
-
-num_var[!num_var %in% c("CD8_CD38_DR", "ADV")] %>% 
+spaghetti_plot_list <- 
+num_var[!num_var %in% c("ADV")] %>% 
   purrr::set_names() %>% 
   purrr::map(function(nv){
-    igc_df %>% 
+    
+    name <- case_when(nv == "CD4_CD38_DR" ~ "CD4+ CD38+ DR+",
+      nv == "CD8_CD38_DR" ~ "CD8+ CD38+ DR+",
+      TRUE ~ nv)
+    un <- ifelse(nv %in% c("CD4_CD38_DR","CD8_CD38_DR"), "units",
+                 metadata %>% 
+      dplyr::pull(paste("units", nv, sep = "_")) %>% 
+      discard(is.na) %>% unique())
+
+    
+    summ_df <- 
+      igc_df %>% 
       dplyr::filter(!is.na(!!sym(nv)), !is.na(gr_group)) %>% 
-      mutate(cat_var2 = paste(gr_group, cat_var, sep = "_")) %>% 
-      ggplot(aes(x = long_var, y = !!sym(nv), color = cat_var, lty = gr_group)) +
-      stat_smooth(method = "loess", alpha = .01) +
-      theme_bw() +
-      labs(x = "weeks") +
-      scale_color_brewer(palette = "Set2") +
-      scale_x_continuous(breaks = c(0,24,48,96))
+      group_by(cat_var, gr_group, long_var) %>% 
+      dplyr::summarise(mean_gr = mean(!!sym(nv)),
+                       sd_gr = sd(!!sym(nv))) %>% 
+      dplyr::mutate(cat_var2 = paste(gr_group, cat_var, sep = "_"),
+                    long_var = as.factor(long_var))
+
+    tests <-
+      igc_df %>% 
+      dplyr::filter(!is.na(nv)) %>% 
+      dplyr::rename(num_var = !!sym(nv)) %>% 
+      dplyr::mutate(cat_var2 = paste(gr_group, cat_var, sep = "_")) %>% 
+      dplyr::filter(!is.na(num_var)) %>% 
+      dplyr::group_by(long_var) %>% 
+      rstatix::wilcox_test( num_var ~ cat_var2) %>% 
+      rstatix::add_xy_position(x = "long_var", group = "cat_var2")
+
+    igc_df %>%
+      dplyr::filter(!is.na(!!sym(nv)), !is.na(gr_group)) %>%
+      mutate(cat_var2 = paste(gr_group, cat_var, sep = "_"),
+             long_var = as.factor(long_var)) %>%
+      ggplot(aes(
+        x = long_var,
+        y = !!sym(nv),
+        color = cat_var
+      )) +
+      geom_point(
+        data = summ_df,
+        aes(
+          x = long_var,
+          y = mean_gr,
+          color = cat_var,
+          shape = gr_group,
+          group = cat_var2
+        ),
+        size = 3,
+        position = position_dodge(.8)
+      ) +
       
-      }) %>% 
-  ggarrange(plotlist = ., common.legend = T)
+      geom_errorbar(
+        data = summ_df,
+        aes(
+          x = long_var,
+          ymin = mean_gr - sd_gr,
+          ymax = mean_gr + sd_gr,
+          color = cat_var,
+          lty = gr_group,
+          group = cat_var2
+        ),
+        inherit.aes = F,
+        width = 1,
+        position = position_dodge(.8)
+      ) +
+      geom_line(
+        data = summ_df,
+        aes(
+          x = long_var,
+          y = mean_gr,
+          color = cat_var,
+          lty = gr_group,
+          group = cat_var2
+        ),
+        inherit.aes = F,
+        position = position_dodge(.8)
+      ) +
+      # stat_smooth(method = "loess", alpha = .2, aes(fill = cat_var), position = position_dodge(.8)) +
+      theme_bw() +
+      labs(
+        x = "weeks",
+        y = un,
+        color = "group",
+        shape = "gene count",
+        lty = "gene count",
+        title = name
+      ) +
+      stat_pvalue_manual(tests, label = "p.adj.signif", hide.ns = T) +
+      scale_color_brewer(palette = "Dark2") +
+      scale_fill_brewer(palette = "Dark2") +
+      theme(axis.title.x = element_blank())
+    # scale_x_continuous(breaks = c(0,48,96))
+  }) 
+spaghetti_plot_list %>%
+  ggarrange(plotlist = ., common.legend = T, ncol = 2,nrow = 4) %>%
+  ggpubr::annotate_figure(bottom = text_grob("Weeks", size = 12, face = "bold"))
+spaghetti_plot_list
 
-
-
+ggsave(spaghetti_plot_list, )
+num_var <- num_var[!num_var == "ADV"]
 
 ```
 

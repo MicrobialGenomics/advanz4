@@ -37,7 +37,7 @@ mymre <- aws.s3::s3readRDS(bucket = "mistral-wp6-advanz4",object = "metagenome/W
 
 ```
 
-```{r update_mre, warning= F, message= F, echo = F, results=F}
+```{r update_mre, warning= F, message= F, echo = F, results=F, eval = F}
 
 #### This chunk is for updating the mre internally as new variables come out. Once the final mre is done this chunk will be removed.
 
@@ -85,7 +85,7 @@ In this analysis we are interested in the relationship between CD4/CD4 recovery 
 
 We already know that CD4 mean(sd) is similar for DTG/DRVr groups, but we have not checked the distribution. Is it unimodal or bimodal? a density plot should help.
 
-```{r basal_CD4}
+```{r basal_CD4, warning = F, message = F}
 basal_df <- 
 metadata %>% 
   # dplyr::mutate(delta_cd4 = CD4[time_point == 48] - CD4[time_point == 0])
@@ -181,8 +181,8 @@ Threshold <-  igc@dataTable %>%
   summarise(Q = quantile(NumberMappedReads,0.02)) %>% 
   as.numeric()
 
-TableList <- c(cat_vector) %>%
-    set_names() %>%
+TableList <- cat_vector %>%
+    purrr::set_names() %>%
     map( ~{
 
         
@@ -559,37 +559,66 @@ deltas %>%
     CD4diff_48 == "150_L" & CD4diff_96 == "150_L" ~ "No",
     is.na(CD4diff_48) & CD4diff_96 == "150_H" ~ "96",
     is.na(CD4diff_48) & CD4diff_96 == "150_L" ~ "No")) %>% 
-  filter(!is.na(recovery), !long_var == 0)
+  filter(!is.na(recovery), !long_var == 0)%>% 
+  dplyr::mutate(rec_group = paste(recovery, cat_var, sep = "_"),
+                recovery = factor(recovery, levels = c("No", "96","48")))
+
+
+color_df <- 
+  data.frame(group = unique(df$cat_var)) %>% 
+  dplyr::mutate( color = case_when(group == "DTG" ~ viridis::magma(2)[1],
+                               group == "bDRV" ~ viridis::magma(2)[2]))
+
 
 test_cat <- 
 df %>% 
+  dplyr::mutate(rec_group = paste(recovery, cat_var, sep = "_")) %>% 
   group_by(long_var) %>% 
-  rstatix::wilcox_test(richness ~ recovery) %>% 
-  rstatix::add_xy_position(x = "long_var", group = "recovery")
-
-
-plt <- 
-df %>% 
-  ggplot(., aes(x = as.factor(long_var), y = richness)) +
-  geom_boxplot(aes(fill = recovery)) +
-  labs(x = "weeks", y = "gene richness (absolute)", fill = "recovery\n(>150 increase)") +
-  scale_fill_brewer(palette = "Dark2") +
+  rstatix::wilcox_test(richness ~ rec_group) %>% 
+  rstatix::add_xy_position(x = "long_var", group = "rec_group")
+plt_abs <-
+  df %>% 
+  dplyr::select(long_var, richness, cat_var, recovery) %>% 
+  dplyr::filter(!is.na(richness)) %>% 
+  group_by(recovery, cat_var, long_var) %>% 
+  dplyr::summarise(med_richness = median(richness, na.rm = T),
+                   rich_sd = sd(richness, na.rm = T)) %>% 
+  mutate(rec_group = paste(recovery, cat_var, sep = "_")) %>% 
+  ggplot(., aes(x = factor(long_var), y = med_richness)) +
+  # geom_boxplot(aes(fill = cat_var)) +
+  # geom_jitter(aes(colour = rec_group )) +
+  geom_point(aes(group = rec_group, shape = cat_var, color = recovery, alpha = recovery),size = 3, position = position_dodge(.8)) +
+  geom_line(aes(lty = cat_var, group = rec_group, color = recovery, alpha = recovery), position = position_dodge(0.8), lwd = 1) +
+  # geom_line(data = df, aes(x = factor(long_var), y = richness, group = link_var, color = recovery, lty = cat_var), inherit.aes = F, alpha = .4) +
+  geom_errorbar(aes(ymin = med_richness - rich_sd, ymax = med_richness + rich_sd, group = rec_group, color = recovery, alpha = recovery ), width=.2, position = position_dodge(0.8)) +
+  scale_alpha_manual(values = c("No",96,48),breaks = c(.6,.8,1)) +
+  labs(x = "weeks", y = "gene richness") +
+  # scale_color_brewer(palette = "Dark2") +
+  scale_color_viridis_d(option = "magma", begin = .1, end = .8, direction = 1) +
   theme_bw() +
   stat_pvalue_manual(test_cat,inhertit.aes = F ,hide.ns = T) +
   theme(
     axis.title = element_text(face = "bold")
   )
 
+ggsave(filename = "richness_reconstitution.svg",path = here::here("output","figures"), plot = plt_abs,device = "svg", width =16, height = 10, units = "cm")
 
 
 
-lmm <- 
+
+
+lmm_abs <- 
 df %>% 
- get_lmm_effects(., cat_vector = c("recovery"),num_vector = "richness", link_var = "link_var", long_var = "long_var")
+ get_lmm_effects(., cat_vector = c("recovery"),num_vector = "richness", link_var = "link_var", long_var = "long_var")  
 
 
-plt
-lmm$recovery$richness$plot
+
+plt_abs
+lmm_plt_abs <- 
+lmm_abs$recovery$richness$plot +
+  scale_color_viridis_d(option = "magma", begin = .1, end = .8, direction = 1) 
+
+ggsave(plot = lmm_plt_abs, device = "svg",path = here::here("output", "figures"), width = 16, height = 10, units = "cm", dpi = 300, filename = "LMMs_GR.svg")
 lmm$recovery$richness$summary
 ```
 
@@ -616,13 +645,26 @@ df %>%
   rstatix::wilcox_test(GR_rel ~ recovery) %>% 
   rstatix::add_xy_position(x = "long_var", group = "recovery")
 
-
-plt <- 
+plt_delta <- 
 df %>% 
-  ggplot(., aes(x = as.factor(long_var), y = GR_rel)) +
-  geom_boxplot(aes(fill = recovery)) +
-  labs(x = "weeks", y = "deltaGR (relative)", fill = "recovery\n(>150 increase)") +
-  scale_fill_brewer(palette = "Dark2") +
+  dplyr::select(long_var, GR_rel, cat_var, recovery) %>% 
+  dplyr::filter(!is.na(GR_rel)) %>% 
+  group_by(recovery, cat_var, long_var) %>% 
+  dplyr::summarise(med_richness = median(GR_rel, na.rm = T),
+                   rich_sd = sd(GR_rel, na.rm = T)) %>% 
+  mutate(rec_group = paste(recovery, cat_var, sep = "_")) %>% 
+
+  ggplot(., aes(x = factor(long_var), y = med_richness)) +
+  # geom_boxplot(aes(fill = cat_var)) +
+  # geom_jitter(aes(colour = rec_group )) +
+  geom_point(aes(group = rec_group, shape = cat_var, color = recovery, alpha = recovery),size = 3, position = position_dodge(.8)) +
+  geom_line(aes(lty = cat_var, group = rec_group, color = recovery, alpha = recovery), position = position_dodge(0.8), lwd = 1) +
+  # geom_line(data = df, aes(x = factor(long_var), y = richness, group = link_var, color = recovery, lty = cat_var), inherit.aes = F, alpha = .4) +
+  geom_errorbar(aes(ymin = med_richness - rich_sd, ymax = med_richness + rich_sd, group = rec_group, color = recovery, alpha = recovery ), width=.2, position = position_dodge(0.8)) +
+  scale_alpha_manual(values = c("No",96,48),breaks = c(.6,.8,1)) +
+  labs(x = "weeks", y = "gene richness increase (relative)") +
+  # scale_color_brewer(palette = "Dark2") +
+  scale_color_viridis_d(option = "magma", begin = .1, end = .8, direction = 1) +
   theme_bw() +
   stat_pvalue_manual(test_cat,inhertit.aes = F ,hide.ns = T) +
   theme(
@@ -630,16 +672,75 @@ df %>%
   )
 
 
+ggsave(filename = "richness_reconstitution_relative.svg",path = here::here("output","figures"), plot = plt_delta, device = "svg", width =16, height = 10, units = "cm")
 
 
-lmm <- 
+
+
+
+lmm_delta <- 
 df %>% 
  get_lmm_effects(., cat_vector = c("recovery"),num_vector = "GR_rel", link_var = "link_var", long_var = "long_var")
 
 
-plt
-lmm$recovery$GR_rel$plot
-lmm$recovery$GR_rel$summary
+plt_delta
+lmm_plt_delta <- 
+lmm_delta$recovery$GR_rel$plot +
+  labs(y = "gene richness increase (relative)") +
+  scale_color_viridis_d(option = "magma", begin = .1, end = .8, direction = 1) 
+
+lmm_plt_delta
+ggsave(plot = lmm_plt_delta, device = "svg",path = here::here("output", "figures"), width = 16, height = 10, units = "cm", dpi = 300, filename = "LMMs_GRrel.svg")
+
+
+lmm_delta$recovery$GR_rel$summary
+```
+
+
+```{r save_plots, warning = F, message = F}
+plt_abs <- plt_abs +
+  theme(axis.title.x = element_blank(),
+        axis.text.x = element_text(size = 10),
+        plot.title = element_text(size = 12, face = "bold")) +
+  labs(title = "A")
+plt_delta <- plt_delta +
+  theme(axis.title.x = element_blank(),
+        axis.text.x = element_text(size = 10),
+        plot.title = element_text(size = 12, face = "bold")) +
+  labs(title = "B")
+
+linePlots <- 
+ggpubr::ggarrange(plt_abs, plt_delta, common.legend = T, legend = "right")
+
+
+lmm_plt_abs <- 
+lmm_plt_abs +
+  labs(title = "C", y = "gene richness") +
+  theme(axis.title.x = element_blank(),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(face = "bold"),
+        plot.title = element_text(size = 12, face = "bold"))
+
+lmm_plt_delta <- 
+  lmm_plt_delta +
+  labs(title = "D") +
+  theme(axis.title.x = element_blank(),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(face = "bold"),
+        plot.title = element_text(size = 12, face = "bold")) 
+
+Lmms <- 
+  ggpubr::ggarrange(lmm_plt_abs, lmm_plt_delta, common.legend = T, legend = "right")
+
+plot_grid <- 
+ggpubr::ggarrange(linePlots, Lmms, nrow = 2, ncol = 1) %>% 
+  annotate_figure(bottom = text_grob(label = "Weeks", face = "bold", size = 12)) 
+
+ggsave(filename = "recovery_grid.svg", device = "svg", 
+       path = here::here("output", "figures"), 
+       width = 24, height = 16, units = "cm", dpi = 300)
+
+
 ```
 
 
