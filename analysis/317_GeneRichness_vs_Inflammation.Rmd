@@ -460,6 +460,7 @@ deltas %>%
   dplyr::filter(long_var == 96) %>% 
   dplyr::select(delta_richness, new_numvars) %>% 
   cor_test(use = "complete.obs") %>% 
+  corrplot::corrplot(corr = .)
   dplyr::filter()
 
 ```
@@ -642,10 +643,11 @@ num_var[!num_var %in% c("ADV")] %>%
   }) 
 spaghetti_plot_list %>%
   ggarrange(plotlist = ., common.legend = T, ncol = 2,nrow = 4) %>%
-  ggpubr::annotate_figure(bottom = text_grob("Weeks", size = 12, face = "bold"))
+  ggpubr::annotate_figure(bottom = text_grob("Weeks", size = 12, face = "bold")) %>% 
+ggsave(plot= ., device = "svg",path = here::here("output","figures"), filename = "inflammation.svg", dpi= 300, width = 15, height = 25, units = "cm")
+
 spaghetti_plot_list
 
-ggsave(spaghetti_plot_list, )
 num_var <- num_var[!num_var == "ADV"]
 
 ```
