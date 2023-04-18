@@ -15,7 +15,7 @@
 
 <title>317_GeneRichness_Inflammation</title>
 
-<script src="site_libs/header-attrs-2.19/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
@@ -157,15 +157,11 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark the anchor link active (and if it's in a dropdown, also mark that active)
-  var dropdown = menuAnchor.closest('li.dropdown');
-  if (window.bootstrap) { // Bootstrap 4+
-    menuAnchor.addClass('active');
-    dropdown.find('> .dropdown-toggle').addClass('active');
-  } else { // Bootstrap 3
-    menuAnchor.parent().addClass('active');
-    dropdown.addClass('active');
-  }
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -194,8 +190,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "\e259";
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -203,9 +199,16 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "\e258";
-  font-family: 'Glyphicons Halflings';
+  content: "&#xe258;";
   border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -370,15 +373,6 @@ div.tocify {
 <li>
   <a href="430_Species_v_Inflammation.html">DA species vs inflammation markers</a>
 </li>
-<li>
-  <a href="500_Gene_function_exploratory.html">Functional annotation, exploratory</a>
-</li>
-<li>
-  <a href="510_Function_DA.html">Gene function DA</a>
-</li>
-<li>
-  <a href="505_Adenovirus_Analysis.html">Adenovirus and Enterovirus analysis</a>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -400,9 +394,7 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -411,9 +403,7 @@ aria-hidden="true"></span>
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -422,27 +412,17 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-03-21
+<strong>Last updated:</strong> 2023-04-13
 </p>
 <p>
-<strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
-<strong>Knit directory:</strong> <code>advanz4/</code> <span
-class="glyphicon glyphicon-question-sign" aria-hidden="true"
-title="This is the local directory in which the code in this file was executed.">
-</span>
+<strong>Knit directory:</strong> <code>advanz4/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
 </p>
 <p>
-This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
-analysis was created with <a
-  href="https://github.com/workflowr/workflowr">workflowr</a> (version
-1.7.0). The <em>Checks</em> tab describes the reproducibility checks
-that were applied when the results were created. The <em>Past
-versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -451,168 +431,122 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
-class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
 <div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! The global environment was empty. Objects defined in the
-global environment can affect the analysis in your R Markdown file in
-unknown ways. For reproduciblity it’s best to always run the code in an
-empty environment.</p>
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211203code">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Seed:</strong>
-<code>set.seed(20211203)</code> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211203code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20211203)</code> </a>
 </p>
 </div>
-<div id="strongSeedstrongcodesetseed20211203code"
-class="panel-collapse collapse">
+<div id="strongSeedstrongcodesetseed20211203code" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20211203)</code> was run prior to running
-the code in the R Markdown file. Setting a seed ensures that any results
-that rely on randomness, e.g. subsampling or permutations, are
-reproducible.</p>
+<p>The command <code>set.seed(20211203)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Session information:</strong>
-recorded </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
 </p>
 </div>
-<div id="strongSessioninformationstrongrecorded"
-class="panel-collapse collapse">
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Recording the operating system, R version, and package
-versions is critical for reproducibility.</p>
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
 <div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be
-confident that you successfully produced the results during this
-run.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
 </p>
 </div>
 <div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr
-project makes it easier to run your code on other machines.</p>
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree7cbd79ee787541d35b45bc739934a2f1628923c4targetblank7cbd79ea">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/MicrobialGenomics/advanz4/tree/7cbd79ee787541d35b45bc739934a2f1628923c4" target="_blank">7cbd79e</a>
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree0aef81987ff281deec8894018695691895f80a3btargetblank0aef819a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/0aef81987ff281deec8894018695691895f80a3b" target="_blank">0aef819</a> </a>
 </p>
 </div>
-<div
-id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree7cbd79ee787541d35b45bc739934a2f1628923c4targetblank7cbd79ea"
-class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree0aef81987ff281deec8894018695691895f80a3btargetblank0aef819a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development
-and connecting the code version to the results is critical for
-reproducibility.
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version
-<a href="https://github.com/MicrobialGenomics/advanz4/tree/7cbd79ee787541d35b45bc739934a2f1628923c4" target="_blank">7cbd79e</a>.
-See the <em>Past versions</em> tab to see a history of the changes made
-to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/0aef81987ff281deec8894018695691895f80a3b" target="_blank">0aef819</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for
-the analysis have been committed to Git prior to generating the results
-(you can use <code>wflow_publish</code> or
-<code>wflow_git_commit</code>). workflowr only checks the R Markdown
-file, but you know if there are other scripts or data files that it
-depends on. Below is the status of the Git repository when the results
-were generated:
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
     Ignored:    .RData
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    Metadata/MetadataManagement/Old_Metadata/
     Ignored:    analysis/.Rhistory
-    Ignored:    analysis/010_Basic_Report_cache/
     Ignored:    analysis/420_Taxonomy_DA_cache/
+    Ignored:    analysis/505_Adenovirus_Analysis_cache/
     Ignored:    analysis/510_Function_DA_cache/
-    Ignored:    analysis/mre/
     Ignored:    data/mre.rds
 
+Untracked files:
+    Untracked:  analysis/figure/
+
 Unstaged changes:
-    Modified:   analysis/310_IGC_analysis.Rmd
+    Modified:   analysis/250_BL_stratification.Rmd
+    Deleted:    analysis/250_BL_stratification.html
+    Modified:   analysis/315_GeneRichness_vs_CD4.Rmd
     Modified:   analysis/317_GeneRichness_vs_Inflammation.Rmd
     Modified:   code/group_comparisons.R
-    Modified:   output/general_boxplot_stats
-    Modified:   output/mre_data/CatalogMapping/IGC/lmm/lmm_time_point_by_group.pdf
-    Modified:   output/overall_pvals.csv
+    Modified:   output/figures/LMMs_GR.svg
+    Modified:   output/figures/LMMs_GRrel.svg
+    Modified:   output/figures/inflammation.svg
+    Modified:   output/figures/recovery_grid.svg
+    Modified:   output/figures/richness_reconstitution.svg
+    Modified:   output/figures/richness_reconstitution_relative.svg
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not
-included in this status report because it is ok for generated content to
-have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
 </p>
 </div>
 </div>
@@ -623,13 +557,7 @@ have uncommitted changes.
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were
-made to the R Markdown
-(<code>analysis/317_GeneRichness_vs_Inflammation.Rmd</code>) and HTML
-(<code>docs/317_GeneRichness_vs_Inflammation.html</code>) files. If
-you’ve configured a remote Git repository (see
-<code>?wflow_git_remote</code>), click on the hyperlinks in the table
-below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/317_GeneRichness_vs_Inflammation.Rmd</code>) and HTML (<code>docs/317_GeneRichness_vs_Inflammation.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -653,6 +581,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/0aef81987ff281deec8894018695691895f80a3b/analysis/317_GeneRichness_vs_Inflammation.Rmd" target="_blank">0aef819</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2023-04-13
+</td>
+<td>
+fixed bug on GR_inflammation
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/efdac31cf4332143b561f3f956761d9b8895d748/analysis/317_GeneRichness_vs_Inflammation.Rmd" target="_blank">efdac31</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2023-04-13
+</td>
+<td>
+Reestructured website
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/b9e2fd42198f450579592f1e076394255d450567/analysis/317_GeneRichness_vs_Inflammation.Rmd" target="_blank">b9e2fd4</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2023-03-22
+</td>
+<td>
+Fixed rendering bugs on 310.Rmd
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/b9e2fd42198f450579592f1e076394255d450567/docs/317_GeneRichness_vs_Inflammation.html" target="_blank">b9e2fd4</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2023-03-22
+</td>
+<td>
+Fixed rendering bugs on 310.Rmd
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -840,11 +836,9 @@ mymre@metadata@longitudinal_vals &lt;- here::here(&quot;Metadata&quot;, &quot;Lo
   tibble()
 
 phy &lt;- get_phyloseq(mymre, type = &quot;metaphlan&quot;)</code></pre>
-<div id="basal-exploration-of-inflammation-markers"
-class="section level1">
+<div id="basal-exploration-of-inflammation-markers" class="section level1">
 <h1>Basal exploration of inflammation markers</h1>
-<p>Perform basic distributin analysis of each marker at baseline, test
-for imbalances between groups which may be creating a bias.</p>
+<p>Perform basic distributin analysis of each marker at baseline, test for imbalances between groups which may be creating a bias.</p>
 <pre class="r"><code>library(compareGroups)
 
 metadata %&gt;% 
@@ -857,11 +851,12 @@ metadata %&gt;%
 --------Summary descriptives table by &#39;group&#39;---------
 
 _____________________________________________________ 
-               DRV/r          DTG        p.overall N  
+               bDRV           DTG        p.overall N  
                N=39           N=40                    
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ 
 CD4         30.9 (26.5)   51.5 (43.0)      0.012   79 
 CD8          606 (486)     670 (403)       0.529   79 
+CD4_CD38_DR 30.4 (19.4)   29.1 (17.7)      0.750   79 
 CD8_CD38_DR 42.3 (14.9)   46.0 (17.4)      0.311   79 
 CRP         0.66 (0.97)   1.86 (4.17)      0.082   79 
 IL6         25.2 (31.2)   37.6 (48.6)      0.261   55 
@@ -869,16 +864,12 @@ TNFa        17.4 (10.7)   20.7 (12.4)      0.203   79
 sCD14       3096 (1251)   3012 (1294)      0.770   79 
 ADV         3249 (7784) 703266 (2325877)   0.342   23 
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ </code></pre>
-<p>No significant changes could be observed in any inflammation marker,
-except for CD4 counts, which is still a farily small change.</p>
+<p>No significant changes could be observed in any inflammation marker, except for CD4 counts, which is still a farily small change.</p>
 </div>
 <div id="gene-richness-correlations" class="section level1">
 <h1>Gene richness correlations</h1>
-<p>Now to the main point of this document. The first thing to do is to
-assess any correlation between initial GR and inflammation markers.</p>
-<p>First let’s look how richness distributes across time, this will
-allow us to choose the best correlation and possibly stratify the
-population between low and high gene richness.</p>
+<p>Now to the main point of this document. The first thing to do is to assess any correlation between initial GR and inflammation markers.</p>
+<p>First let’s look how richness distributes across time, this will allow us to choose the best correlation and possibly stratify the population between low and high gene richness.</p>
 <pre class="r"><code>peaks_df &lt;- 
 c(0,24,48,96) %&gt;% 
   purrr::set_names() %&gt;% 
@@ -902,12 +893,44 @@ igc_df %&gt;%
   theme_bw() + 
   labs(color = &quot;week&quot;)</code></pre>
 <p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/plot_distributions-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>It seems richness is bimodal, with both peaks becoming increasingly
-separate as the study goes on. There seems to be no shift on the overall
-distribution. Instead, patients with really low microbiome counts tend
-to move towards one of the the two peaks (LGC and HGC) to check wether
-patients are inherently prone to move towards either peak, we could
-check differences in BL GR between LGC and HGC.</p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_distributions-1">
+Past versions of plot_distributions-1.png
+</button>
+</p>
+<div id="fig-plot_distributions-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/5ba2c0eba12ddd3d27cf39d53a4f4c0902f10524/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/plot_distributions-1.png" target="_blank">5ba2c0e</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2023-03-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>It seems richness is bimodal, with both peaks becoming increasingly separate as the study goes on. There seems to be no shift on the overall distribution. Instead, patients with really low microbiome counts tend to move towards one of the the two peaks (LGC and HGC) to check wether patients are inherently prone to move towards either peak, we could check differences in BL GR between LGC and HGC.</p>
 <pre class="r"><code>peak &lt;-
   igc_df %&gt;%
   dplyr::filter(!is.na(richness), long_var == 96) %&gt;%
@@ -929,7 +952,7 @@ igc_df %&gt;%
   ungroup() %&gt;% 
   dplyr::filter(!is.na(gr0), !is.na(gr96)) %&gt;% 
   cor_test(., gr96, gr0, method = &quot;spearman&quot;)</code></pre>
-<pre><code># A tibble: 1 x 6
+<pre><code># A tibble: 1 × 6
   var1  var2    cor statistic            p method  
   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt;   
 1 gr96  gr0    0.53    73319. 0.0000000166 Spearman</code></pre>
@@ -954,13 +977,44 @@ igc_df %&gt;%
   theme_bw() +
   labs( y = &quot;Gene richness at BL&quot;, x = &quot;group&quot;, fill = &quot;GR cluster 96&quot;)</code></pre>
 <p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/test_basal_peaks-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Create a corr table and heatmap. This will be a good exploratory
-analysis to see which inflammation markers change with the microbiome.
-This is a longitudinal study, which means time may be an important
-variable we need to account with the models. A good exploratory first
-test will be to correlate markers with gene richness at basal. Then a
-correlation of deltas may give information on those who grow more
-depending on gene richness.</p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-test_basal_peaks-1">
+Past versions of test_basal_peaks-1.png
+</button>
+</p>
+<div id="fig-test_basal_peaks-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/5ba2c0eba12ddd3d27cf39d53a4f4c0902f10524/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/test_basal_peaks-1.png" target="_blank">5ba2c0e</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2023-03-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Create a corr table and heatmap. This will be a good exploratory analysis to see which inflammation markers change with the microbiome. This is a longitudinal study, which means time may be an important variable we need to account with the models. A good exploratory first test will be to correlate markers with gene richness at basal. Then a correlation of deltas may give information on those who grow more depending on gene richness.</p>
 <pre class="r"><code>num_var %&gt;%
   purrr::set_names() %&gt;%
   purrr::map_dfr(function(nv) {
@@ -974,25 +1028,26 @@ depending on gene richness.</p>
   })</code></pre>
 <pre><code>[1] &quot;CD4&quot;
 [1] &quot;CD8&quot;
+[1] &quot;CD4_CD38_DR&quot;
 [1] &quot;CD8_CD38_DR&quot;
 [1] &quot;CRP&quot;
 [1] &quot;IL6&quot;
 [1] &quot;TNFa&quot;
 [1] &quot;sCD14&quot;
 [1] &quot;ADV&quot;</code></pre>
-<pre><code># A tibble: 8 x 6
+<pre><code># A tibble: 9 × 6
   var1     var2           cor statistic     p method  
   &lt;chr&gt;    &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   
 1 richness CD4          0.17     47338. 0.155 Spearman
 2 richness CD8          0.07     53166. 0.566 Spearman
-3 richness CD8_CD38_DR -0.047    59815. 0.702 Spearman
-4 richness CRP         -0.13     64681. 0.277 Spearman
-5 richness IL6          0.1      16535. 0.488 Spearman
-6 richness TNFa        -0.029    58827. 0.81  Spearman
-7 richness sCD14       -0.11     63384  0.368 Spearman
-8 richness ADV         -0.17      2072  0.448 Spearman</code></pre>
-<p>Apparently, no correlation could be found between GR and inflammation
-markers at basal. Let’s look for the longitudinal approach.</p>
+3 richness CD4_CD38_DR -0.079    61661. 0.516 Spearman
+4 richness CD8_CD38_DR -0.047    59815. 0.702 Spearman
+5 richness CRP         -0.13     64681. 0.277 Spearman
+6 richness IL6          0.1      16535. 0.488 Spearman
+7 richness TNFa        -0.029    58827. 0.81  Spearman
+8 richness sCD14       -0.11     63384  0.368 Spearman
+9 richness ADV         -0.17      2072  0.448 Spearman</code></pre>
+<p>Apparently, no correlation could be found between GR and inflammation markers at basal. Let’s look for the longitudinal approach.</p>
 <pre class="r"><code>num_var %&gt;% 
   purrr::set_names() %&gt;% 
   purrr::map(function(nv){
@@ -1012,6 +1067,7 @@ markers at basal. Let’s look for the longitudinal approach.</p>
   })</code></pre>
 <pre><code>[1] &quot;CD4&quot;
 [1] &quot;CD8&quot;
+[1] &quot;CD4_CD38_DR&quot;
 [1] &quot;CD8_CD38_DR&quot;
 [1] &quot;CRP&quot;
 [1] &quot;IL6&quot;
@@ -1019,59 +1075,66 @@ markers at basal. Let’s look for the longitudinal approach.</p>
 [1] &quot;sCD14&quot;
 [1] &quot;ADV&quot;</code></pre>
 <pre><code>$CD4
-# A tibble: 2 x 8
+# A tibble: 2 × 8
   cat_var .y.     group1 group2    n1    n2 statistic        p
 * &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 DRV/r   num_var 0      48        30    30        21 2.35e-10
+1 bDRV    num_var 0      48        30    30        21 2.35e-10
 2 DTG     num_var 0      48        30    29        15 2.01e-10
 
 $CD8
-# A tibble: 2 x 8
+# A tibble: 2 × 8
   cat_var .y.     group1 group2    n1    n2 statistic       p
 * &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt;
-1 DRV/r   num_var 0      48        30    30       272 0.00801
+1 bDRV    num_var 0      48        30    30       272 0.00801
 2 DTG     num_var 0      48        30    29       312 0.0629 
 
-$CD8_CD38_DR
-# A tibble: 2 x 8
+$CD4_CD38_DR
+# A tibble: 2 × 8
   cat_var .y.     group1 group2    n1    n2 statistic           p
 * &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;       &lt;dbl&gt;
-1 DRV/r   num_var 0      48        30    30      756. 0.0000065  
+1 bDRV    num_var 0      48        30    30       766 0.00000309 
+2 DTG     num_var 0      48        30    29       754 0.000000243
+
+$CD8_CD38_DR
+# A tibble: 2 × 8
+  cat_var .y.     group1 group2    n1    n2 statistic           p
+* &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;       &lt;dbl&gt;
+1 bDRV    num_var 0      48        30    30      756. 0.0000065  
 2 DTG     num_var 0      48        30    29      768  0.000000462
 
 $CRP
-# A tibble: 2 x 8
+# A tibble: 2 × 8
   cat_var .y.     group1 group2    n1    n2 statistic      p
 * &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;  &lt;dbl&gt;
-1 DRV/r   num_var 0      48        30    22      380. 0.354 
+1 bDRV    num_var 0      48        30    22      380. 0.354 
 2 DTG     num_var 0      48        30    22      463  0.0141
 
 $IL6
-# A tibble: 2 x 8
+# A tibble: 2 × 8
   cat_var .y.     group1 group2    n1    n2 statistic          p
 * &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;      &lt;dbl&gt;
-1 DRV/r   num_var 0      48        18    30       475 0.0000061 
+1 bDRV    num_var 0      48        18    30       475 0.0000061 
 2 DTG     num_var 0      48        22    30       569 0.00000485
 
 $TNFa
-# A tibble: 2 x 8
+# A tibble: 2 × 8
   cat_var .y.     group1 group2    n1    n2 statistic           p
 * &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;       &lt;dbl&gt;
-1 DRV/r   num_var 0      48        30    30       715 0.0000866  
+1 bDRV    num_var 0      48        30    30       715 0.0000866  
 2 DTG     num_var 0      48        30    30       790 0.000000487
 
 $sCD14
-# A tibble: 2 x 8
+# A tibble: 2 × 8
   cat_var .y.     group1 group2    n1    n2 statistic          p
 * &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;      &lt;dbl&gt;
-1 DRV/r   num_var 0      48        30    30       706 0.000158  
+1 bDRV    num_var 0      48        30    30       706 0.000158  
 2 DTG     num_var 0      48        30    30       768 0.00000062
 
 $ADV
-# A tibble: 2 x 8
+# A tibble: 2 × 8
   cat_var .y.     group1 group2    n1    n2 statistic     p
 * &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt;
-1 DRV/r   num_var 0      48         9    12        64 0.508
+1 bDRV    num_var 0      48         9    12        64 0.508
 2 DTG     num_var 0      48         8    10        46 0.633</code></pre>
 <pre class="r"><code>res_list &lt;- 
 num_var[!num_var %in% c(&quot;CD8_CD38_DR&quot;, &quot;ADV&quot;)] %&gt;% 
@@ -1088,36 +1151,218 @@ num_var[!num_var %in% c(&quot;CD8_CD38_DR&quot;, &quot;ADV&quot;)] %&gt;%
   })</code></pre>
 <pre><code>[1] &quot;CD4&quot;
 [1] &quot;CD8&quot;
+[1] &quot;CD4_CD38_DR&quot;
 [1] &quot;CRP&quot;
 [1] &quot;IL6&quot;
 [1] &quot;TNFa&quot;
 [1] &quot;sCD14&quot;</code></pre>
-<pre class="r"><code>ggarrange(plotlist = res_list, nrow = 3, ncol = 2, common.legend = T)</code></pre>
+<pre class="r"><code>test_list &lt;- 
+ get_group_comparisons(dat = igc_df,cat_vector = &quot;cat_var&quot;,num_vector = num_var,long_var = &quot;long_var&quot;,link_var = &quot;link_var&quot;, comps = c(&quot;bDRV&quot;,&quot;DTG&quot;), graph_coords = T) %&gt;% 
+   pluck(&quot;cat_var&quot;) %&gt;% 
+   purrr::map(~{pluck(.x, &quot;test&quot;)})
+
+
+
+num_var %&gt;%
+  purrr::set_names() %&gt;%
+  purrr::map(function(nv) {
+    igc_df %&gt;%
+      dplyr::filter(!is.na(!!sym(nv))) %&gt;%
+      dplyr::mutate(num_var = as.numeric(!!sym(nv)),
+                    sd_var = sd(num_var, na.rm = T),
+                    med_var = median(num_var)) %&gt;%
+      ggplot(., aes(x = factor(long_var), y = med_var)) +
+      # geom_boxplot(aes(fill = cat_var)) +
+      # geom_jitter(aes(colour = rec_group )) +
+      geom_point(
+        aes(
+          group = cat_var,
+          shape = cat_var,
+          color = cat_var),
+        size = 3,
+        position = position_dodge(.8)
+      ) +
+      geom_line(
+        aes(group = cat_var,
+            color = cat_var),
+        position = position_dodge(0.8),
+        lwd = 1
+      ) +
+      # geom_line(data = df, aes(x = factor(long_var), y = richness, group = link_var, color = recovery, lty = cat_var), inherit.aes = F, alpha = .4) +
+      geom_errorbar(
+        aes(
+          ymin = med_var - sd_var,
+          ymax = med_var + sd_var,
+          group = cat_var,
+          color = cat_var
+        ),
+        width = .2,
+        position = position_dodge(0.8)
+      ) +
+      labs(x = &quot;weeks&quot;, y = nv) +
+      # scale_color_brewer(palette = &quot;Dark2&quot;) +
+      scale_color_viridis_d(
+        option = &quot;magma&quot;,
+        begin = .1,
+        end = .8,
+        direction = 1
+      ) +
+      theme_bw() +
+      stat_pvalue_manual(test_list[[nv]], inhertit.aes = F , hide.ns = T) +
+      theme(axis.title = element_text(face = &quot;bold&quot;))
+    
+  })</code></pre>
+<pre><code>$CD4</code></pre>
 <p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>There are significant differences in both CRP and sCD14, which were
-lower in the DTG group. CRP became significant at week 96 only, while
-sCD14 became significant after 48 weeks, and kept doing so at week
-96</p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-corrr_deltas-1">
+Past versions of corrr_deltas-1.png
+</button>
+</p>
+<div id="fig-corrr_deltas-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/b9e2fd42198f450579592f1e076394255d450567/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-1.png" target="_blank">b9e2fd4</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2023-03-22
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/5ba2c0eba12ddd3d27cf39d53a4f4c0902f10524/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-1.png" target="_blank">5ba2c0e</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2023-03-16
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/e1710d26f13b98dd1b41d35034e5f1c325cf0830/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-1.png" target="_blank">e1710d2</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2023-03-07
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+$CD8</code></pre>
+<p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-corrr_deltas-2">
+Past versions of corrr_deltas-2.png
+</button>
+</p>
+<div id="fig-corrr_deltas-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/b9e2fd42198f450579592f1e076394255d450567/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-2.png" target="_blank">b9e2fd4</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2023-03-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+$CD4_CD38_DR</code></pre>
+<p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>
+$CD8_CD38_DR</code></pre>
+<p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>
+$CRP</code></pre>
+<p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-5.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>
+$IL6</code></pre>
+<p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-6.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>
+$TNFa</code></pre>
+<p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-7.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>
+$sCD14</code></pre>
+<p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-8.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>
+$ADV</code></pre>
+<p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-9.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggarrange(plotlist = res_list, nrow = 3, ncol = 2, common.legend = T)</code></pre>
+<pre><code>$`1`</code></pre>
+<p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-10.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>
+$`2`</code></pre>
+<p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-11.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>
+attr(,&quot;class&quot;)
+[1] &quot;list&quot;      &quot;ggarrange&quot;</code></pre>
+<p>There are significant differences in both CRP and sCD14, which were lower in the DTG group. CRP became significant at week 96 only, while sCD14 became significant after 48 weeks, and kept doing so at week 96</p>
 </div>
 <div id="inflammation-markers-by-gene-richness" class="section level1">
 <h1>Inflammation markers by gene richness</h1>
 <div id="baseline" class="section level2">
 <h2>Baseline</h2>
-<p>First let’s check if Gene Richness had any effect on the baseline
-levels of inflammation markers.</p>
+<p>First let’s check if Gene Richness had any effect on the baseline levels of inflammation markers.</p>
 <pre class="r"><code>filt_vars &lt;- num_var[!num_var %in% c(&quot;CD4&quot;, &quot;CD8&quot;,&quot;CD8_CD38_DR&quot;, &quot;ADV&quot;)]
 
 deltas &lt;- 
 igc_df %&gt;% 
   dplyr::select(SampleID, link_var, long_var, cat_var, richness,filt_vars) %&gt;% 
-  group_by(link_var) %&gt;% 
-  dplyr::filter(long_var %in% c(0,96)) %&gt;% 
-  dplyr::filter(n() == 2) %&gt;% 
+  dplyr::group_by(link_var) %&gt;% 
+  dplyr::filter(long_var %in% c(0,24,48,96)) %&gt;% 
+  dplyr::filter(min(long_var) == 0) %&gt;% 
+  # dplyr::filter(n() == 2) %&gt;% 
   dplyr::mutate(delta_richness = (richness-richness[long_var == 0]) / (richness + richness[long_var == 0]),
     across(.cols = filt_vars, 
                        .fns =  ~ .x  / .x[long_var == 0], 
-                       .names = &quot;delta_{.col}&quot; )
-                )  %&gt;% 
+                       .names = &quot;delta_{.col}&quot; ))  %&gt;% 
   dplyr::ungroup() %&gt;% 
   dplyr::select(SampleID, link_var, cat_var, long_var, contains(&quot;delta&quot;))
 
@@ -1132,9 +1377,46 @@ new_numvars %&gt;%
   }) %&gt;% 
   ggpubr::ggarrange(plotlist = ., common.legend = T)</code></pre>
 <p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/GR_inflammation_BL-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-GR_inflammation_BL-1">
+Past versions of GR_inflammation_BL-1.png
+</button>
+</p>
+<div id="fig-GR_inflammation_BL-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/5ba2c0eba12ddd3d27cf39d53a4f4c0902f10524/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/GR_inflammation_BL-1.png" target="_blank">5ba2c0e</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2023-03-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>lmms &lt;- 
   deltas %&gt;%  
-  dplyr::mutate(cat_var = &quot;mock&quot;) %&gt;% 
+  # dplyr::mutate(cat_var = &quot;mock&quot;) %&gt;% 
 get_lmm_effects(
   .,
   cat_vector = &quot;cat_var&quot;,
@@ -1143,6 +1425,7 @@ get_lmm_effects(
   link_var = &quot;link_var&quot;
 ) </code></pre>
 <pre><code>[1] &quot;cat_var&quot;
+[1] &quot;delta_CD4_CD38_DR&quot;
 [1] &quot;delta_CRP&quot;
 [1] &quot;delta_IL6&quot;
 [1] &quot;delta_TNFa&quot;
@@ -1150,11 +1433,16 @@ get_lmm_effects(
 <pre class="r"><code>new_numvars %&gt;%
   purrr::set_names() %&gt;%
   purrr::map(~ {
+    max_tp &lt;- deltas %&gt;% 
+      dplyr::filter(!is.na(!!sym(.x))) %&gt;% 
+      dplyr::pull(long_var) %&gt;% 
+      max()
     deltas %&gt;%
       dplyr::mutate(cat_var = &quot;mock&quot;) %&gt;%
-      dplyr::filter(!is.na({.x}), 
-                    !is.na(delta_richness),
-                    long_var == 96) %&gt;%
+      dplyr::filter(!is.na(!!sym(.x)), 
+                    !is.na(delta_richness)) %&gt;% 
+      
+      dplyr::filter(long_var == max_tp) %&gt;%
       create_LMM(
         .,
         num_var = .x,
@@ -1165,32 +1453,56 @@ get_lmm_effects(
       ) %&gt;% 
       purrr::pluck(&quot;plot&quot;) +
       scale_x_continuous(breaks = c(0,2,4,6,8)) +
+      labs(subtitle = paste(&quot;week&quot;, max_tp)) +
       # scale_y_continuous(trans = &quot;log2&quot;) +
       theme(axis.title.x = element_text(size = 12),
             axis.title.y = element_text(size = 12, angle = 90))
   }) %&gt;%
   ggpubr::ggarrange(plotlist = .)</code></pre>
 <p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/GR_inflammation_BL-2.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>deltas %&gt;% 
-  dplyr::filter(long_var == 96) %&gt;% 
-  dplyr::select(delta_richness, new_numvars) %&gt;% 
-  cor_test(use = &quot;complete.obs&quot;) %&gt;% 
-  dplyr::filter()</code></pre>
-<pre><code># A tibble: 25 x 8
-   var1           var2              cor statistic       p conf.~1 conf.~2 method
-   &lt;chr&gt;          &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt; 
- 1 delta_richness delta_richne~  1        3.25e+8 0        1        1     Pears~
- 2 delta_richness delta_CRP     -0.01    -6.90e-2 0.945   -0.290    0.272 Pears~
- 3 delta_richness delta_IL6     -0.03    -1.32e-1 0.896   -0.446    0.397 Pears~
- 4 delta_richness delta_TNFa    -0.14    -9.78e-1 0.333   -0.406    0.146 Pears~
- 5 delta_richness delta_sCD14    0.023    1.58e-1 0.875   -0.260    0.302 Pears~
- 6 delta_CRP      delta_richne~ -0.01    -6.90e-2 0.945   -0.290    0.272 Pears~
- 7 delta_CRP      delta_CRP      1      Inf       0        1        1     Pears~
- 8 delta_CRP      delta_IL6     -0.0057  -2.75e-2 0.978   -0.400    0.390 Pears~
- 9 delta_CRP      delta_TNFa     0.39     3.19e+0 0.00238  0.149    0.594 Pears~
-10 delta_CRP      delta_sCD14    0.23     1.74e+0 0.0878  -0.0344   0.461 Pears~
-# ... with 15 more rows, and abbreviated variable names 1: conf.low,
-#   2: conf.high</code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-GR_inflammation_BL-2">
+Past versions of GR_inflammation_BL-2.png
+</button>
+</p>
+<div id="fig-GR_inflammation_BL-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/5ba2c0eba12ddd3d27cf39d53a4f4c0902f10524/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/GR_inflammation_BL-2.png" target="_blank">5ba2c0e</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2023-03-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code># deltas %&gt;% 
+#   dplyr::filter(long_var == max(long_var)) %&gt;% 
+#   dplyr::select(delta_richness, new_numvars) %&gt;% 
+#   cor_test(use = &quot;complete.obs&quot;) %&gt;% 
+#   corrplot::corrplot(corr = .) 
+#   dplyr::filter()</code></pre>
 </div>
 </div>
 <div id="differences-by-groups" class="section level1">
@@ -1215,6 +1527,43 @@ num_var %&gt;%
 myPlotList &lt;- map(my_list, pluck, &quot;plot&quot;)
 ggarrange(plotlist = myPlotList, common.legend = T)</code></pre>
 <p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-GR_group_boxplots-1">
+Past versions of GR_group_boxplots-1.png
+</button>
+</p>
+<div id="fig-GR_group_boxplots-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/5ba2c0eba12ddd3d27cf39d53a4f4c0902f10524/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-1.png" target="_blank">5ba2c0e</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2023-03-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>cat_df &lt;- 
 num_var %&gt;% 
   purrr::set_names() %&gt;% 
@@ -1241,8 +1590,8 @@ num_var %&gt;%
 
 cat_df %&gt;% 
   dplyr::filter(p.adj &lt; 0.05)</code></pre>
-<pre><code># A tibble: 0 x 7
-# ... with 7 variables: long_var &lt;int&gt;, group1 &lt;chr&gt;, group2 &lt;chr&gt;,
+<pre><code># A tibble: 0 × 7
+# … with 7 variables: long_var &lt;int&gt;, group1 &lt;chr&gt;, group2 &lt;chr&gt;,
 #   statistic &lt;dbl&gt;, stat_group1 &lt;chr&gt;, stat_group2 &lt;chr&gt;, p.adj &lt;dbl&gt;</code></pre>
 <pre class="r"><code>long_df &lt;- 
 num_var %&gt;% 
@@ -1266,121 +1615,287 @@ num_var %&gt;%
 
 long_df %&gt;%
   dplyr::filter(p.adj &lt; 0.05 )</code></pre>
-<pre><code># A tibble: 15 x 11
-   cat_var  group1 group2 num_var media~1 median1 median2   iqr1    iqr2 iqr_c~2
-   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
- 1 HGC_DRV~ 0      48     CD4       163.     63.5   206.  6.65e1 1.59e+2  149.  
- 2 HGC_DTG  0      48     CD4       161      40     196   3.80e1 1.09e+2   78   
- 3 LGC_DRV~ 0      48     CD4       190      18     192   4.20e1 2.09e+2  202.  
- 4 LGC_DTG  0      48     CD4       228      70     370   8.55e1 1.99e+2  222.  
- 5 HGC_DRV~ 0      48     CD8_CD~   -29.6    43.0    15.0 1.76e1 4.07e+0   14.1 
- 6 HGC_DTG  0      48     CD8_CD~   -22.3    42.4    17.3 2.45e1 1.86e+1   24   
- 7 LGC_DRV~ 0      48     CD8_CD~   -15.9    39.3    20.3 3.10e1 2.17e+1   18.5 
- 8 LGC_DTG  0      48     CD8_CD~   -36      65.7    21.9 3.62e1 1.18e+1   18.5 
- 9 HGC_DTG  0      48     IL6       -14      16       2   1.87e1 6.67e-1   17.4 
-10 HGC_DTG  0      48     TNFa       -9.5    18.5     9   5.17e0 1.58e+0    7.67
-11 LGC_DRV~ 0      48     TNFa       -5      15      10   5.67e0 4.33e+0    7.25
-12 LGC_DTG  0      48     TNFa      -11      20       7   1.9 e1 4.00e+0   12.7 
-13 HGC_DTG  0      48     sCD14   -1168    2800    1690   9.85e2 6.13e+2  428   
-14 LGC_DRV~ 0      48     sCD14    -836    2788    1956   1.70e3 7.63e+2  964.  
-15 LGC_DTG  0      48     sCD14   -1320    2876    1700   2.31e3 1.53e+3  654.  
-# ... with 1 more variable: p.adj &lt;dbl&gt;, and abbreviated variable names
-#   1: medianChange, 2: iqr_change</code></pre>
-<pre class="r"><code>num_var[!num_var %in% c(&quot;CD8_CD38_DR&quot;, &quot;ADV&quot;)] %&gt;% 
+<pre><code># A tibble: 18 × 11
+   cat_var  group1 group2 num_var    medianChange median1 median2   iqr1    iqr2
+   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;             &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+ 1 HGC_bDRV 0      48     CD4               163.     63.5  206.   6.65e1 1.59e+2
+ 2 HGC_DTG  0      48     CD4               161      40    196    3.80e1 1.09e+2
+ 3 LGC_bDRV 0      48     CD4               190      18    192    4.20e1 2.09e+2
+ 4 LGC_DTG  0      48     CD4               228      70    370    8.55e1 1.99e+2
+ 5 HGC_DTG  0      48     CD4_CD38_…        -12.5    19.1    6.01 2.72e1 4.89e+0
+ 6 LGC_bDRV 0      48     CD4_CD38_…        -18      24      7.3  2.06e1 7.22e+0
+ 7 LGC_DTG  0      48     CD4_CD38_…        -22.6    31.1    5.94 3.47e1 6.48e+0
+ 8 HGC_bDRV 0      48     CD8_CD38_…        -29.6    43.0   15.0  1.76e1 4.07e+0
+ 9 HGC_DTG  0      48     CD8_CD38_…        -22.3    42.4   17.3  2.45e1 1.86e+1
+10 LGC_bDRV 0      48     CD8_CD38_…        -15.9    39.3   20.3  3.10e1 2.17e+1
+11 LGC_DTG  0      48     CD8_CD38_…        -36      65.7   21.9  3.62e1 1.18e+1
+12 HGC_DTG  0      48     IL6               -14      16      2    1.87e1 6.67e-1
+13 HGC_DTG  0      48     TNFa               -9.5    18.5    9    5.17e0 1.58e+0
+14 LGC_bDRV 0      48     TNFa               -5      15     10    5.67e0 4.33e+0
+15 LGC_DTG  0      48     TNFa              -11      20      7    1.9 e1 4.00e+0
+16 HGC_DTG  0      48     sCD14           -1168    2800   1690    9.85e2 6.13e+2
+17 LGC_bDRV 0      48     sCD14            -836    2788   1956    1.70e3 7.63e+2
+18 LGC_DTG  0      48     sCD14           -1320    2876   1700    2.31e3 1.53e+3
+# … with 2 more variables: iqr_change &lt;dbl&gt;, p.adj &lt;dbl&gt;</code></pre>
+<pre class="r"><code>spaghetti_plot_list &lt;- 
+num_var[!num_var %in% c(&quot;ADV&quot;)] %&gt;% 
   purrr::set_names() %&gt;% 
   purrr::map(function(nv){
-    igc_df %&gt;% 
+    
+    name &lt;- case_when(nv == &quot;CD4_CD38_DR&quot; ~ &quot;CD4+ CD38+ DR+&quot;,
+      nv == &quot;CD8_CD38_DR&quot; ~ &quot;CD8+ CD38+ DR+&quot;,
+      TRUE ~ nv)
+    un &lt;- ifelse(nv %in% c(&quot;CD4_CD38_DR&quot;,&quot;CD8_CD38_DR&quot;), &quot;units&quot;,
+                 metadata %&gt;% 
+      dplyr::pull(paste(&quot;units&quot;, nv, sep = &quot;_&quot;)) %&gt;% 
+      discard(is.na) %&gt;% unique())
+
+    
+    summ_df &lt;- 
+      igc_df %&gt;% 
       dplyr::filter(!is.na(!!sym(nv)), !is.na(gr_group)) %&gt;% 
-      mutate(cat_var2 = paste(gr_group, cat_var, sep = &quot;_&quot;)) %&gt;% 
-      ggplot(aes(x = long_var, y = !!sym(nv), color = cat_var, lty = gr_group)) +
-      stat_smooth(method = &quot;loess&quot;, alpha = .01) +
-      theme_bw() +
-      labs(x = &quot;weeks&quot;) +
-      scale_color_brewer(palette = &quot;Set2&quot;) +
-      scale_x_continuous(breaks = c(0,24,48,96))
+      group_by(cat_var, gr_group, long_var) %&gt;% 
+      dplyr::summarise(mean_gr = mean(!!sym(nv)),
+                       sd_gr = sd(!!sym(nv))) %&gt;% 
+      dplyr::mutate(cat_var2 = paste(gr_group, cat_var, sep = &quot;_&quot;),
+                    long_var = as.factor(long_var))
+
+    tests &lt;-
+      igc_df %&gt;% 
+      dplyr::filter(!is.na(nv)) %&gt;% 
+      dplyr::rename(num_var = !!sym(nv)) %&gt;% 
+      dplyr::mutate(cat_var2 = paste(gr_group, cat_var, sep = &quot;_&quot;)) %&gt;% 
+      dplyr::filter(!is.na(num_var)) %&gt;% 
+      dplyr::group_by(long_var) %&gt;% 
+      rstatix::wilcox_test( num_var ~ cat_var2) %&gt;% 
+      rstatix::add_xy_position(x = &quot;long_var&quot;, group = &quot;cat_var2&quot;)
+
+    igc_df %&gt;%
+      dplyr::filter(!is.na(!!sym(nv)), !is.na(gr_group)) %&gt;%
+      mutate(cat_var2 = paste(gr_group, cat_var, sep = &quot;_&quot;),
+             long_var = as.factor(long_var)) %&gt;%
+      ggplot(aes(
+        x = long_var,
+        y = !!sym(nv),
+        color = cat_var
+      )) +
+      geom_point(
+        data = summ_df,
+        aes(
+          x = long_var,
+          y = mean_gr,
+          color = cat_var,
+          shape = gr_group,
+          group = cat_var2
+        ),
+        size = 3,
+        position = position_dodge(.8)
+      ) +
       
-      }) %&gt;% 
-  ggarrange(plotlist = ., common.legend = T)</code></pre>
+      geom_errorbar(
+        data = summ_df,
+        aes(
+          x = long_var,
+          ymin = mean_gr - sd_gr,
+          ymax = mean_gr + sd_gr,
+          color = cat_var,
+          lty = gr_group,
+          group = cat_var2
+        ),
+        inherit.aes = F,
+        width = 1,
+        position = position_dodge(.8)
+      ) +
+      geom_line(
+        data = summ_df,
+        aes(
+          x = long_var,
+          y = mean_gr,
+          color = cat_var,
+          lty = gr_group,
+          group = cat_var2
+        ),
+        inherit.aes = F,
+        position = position_dodge(.8)
+      ) +
+      # stat_smooth(method = &quot;loess&quot;, alpha = .2, aes(fill = cat_var), position = position_dodge(.8)) +
+      theme_bw() +
+      labs(
+        x = &quot;weeks&quot;,
+        y = un,
+        color = &quot;group&quot;,
+        shape = &quot;gene count&quot;,
+        lty = &quot;gene count&quot;,
+        title = name
+      ) +
+      stat_pvalue_manual(tests, label = &quot;p.adj.signif&quot;, hide.ns = T) +
+      scale_color_brewer(palette = &quot;Dark2&quot;) +
+      scale_fill_brewer(palette = &quot;Dark2&quot;) +
+      theme(axis.title.x = element_blank())
+    # scale_x_continuous(breaks = c(0,48,96))
+  }) 
+spaghetti_plot_list %&gt;%
+  ggarrange(plotlist = ., common.legend = T, ncol = 2,nrow = 4) %&gt;%
+  ggpubr::annotate_figure(bottom = text_grob(&quot;Weeks&quot;, size = 12, face = &quot;bold&quot;)) %&gt;% 
+ggsave(plot= ., device = &quot;svg&quot;,path = here::here(&quot;output&quot;,&quot;figures&quot;), filename = &quot;inflammation.svg&quot;, dpi= 300, width = 15, height = 25, units = &quot;cm&quot;)
+
+spaghetti_plot_list</code></pre>
+<pre><code>$CD4</code></pre>
 <p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-GR_group_boxplots-2">
+Past versions of GR_group_boxplots-2.png
+</button>
+</p>
+<div id="fig-GR_group_boxplots-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/b9e2fd42198f450579592f1e076394255d450567/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-2.png" target="_blank">b9e2fd4</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2023-03-22
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/5ba2c0eba12ddd3d27cf39d53a4f4c0902f10524/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-2.png" target="_blank">5ba2c0e</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2023-03-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+$CD8</code></pre>
+<p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>
+$CD4_CD38_DR</code></pre>
+<p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>
+$CD8_CD38_DR</code></pre>
+<p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-5.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>
+$CRP</code></pre>
+<p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-6.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>
+$IL6</code></pre>
+<p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-7.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>
+$TNFa</code></pre>
+<p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-8.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>
+$sCD14</code></pre>
+<p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-9.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>num_var &lt;- num_var[!num_var == &quot;ADV&quot;]</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
-<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-Session information
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.0.2 (2020-06-22)
-Platform: x86_64-w64-mingw32/x64 (64-bit)
-Running under: Windows 10 x64 (build 22621)
+<pre><code>R version 4.0.5 (2021-03-31)
+Platform: x86_64-redhat-linux-gnu (64-bit)
+Running under: Fedora 34 (Workstation Edition)
 
 Matrix products: default
+BLAS/LAPACK: /usr/lib64/libflexiblas.so.3.1
 
 locale:
-[1] LC_COLLATE=Spanish_Spain.1252  LC_CTYPE=Spanish_Spain.1252   
-[3] LC_MONETARY=Spanish_Spain.1252 LC_NUMERIC=C                  
-[5] LC_TIME=Spanish_Spain.1252    
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] nlme_3.1-148        compareGroups_4.5.1 ggpubr_0.4.0       
- [4] rstatix_0.7.1       metar_0.1.5         RColorBrewer_1.1-3 
- [7] forcats_0.5.2       stringr_1.4.0       dplyr_1.0.8        
-[10] purrr_0.3.4         readr_2.0.1         tidyr_1.2.0        
-[13] tibble_3.1.6        ggplot2_3.3.5       tidyverse_1.3.1    
+ [1] nlme_3.1-158        compareGroups_4.5.1 ggpubr_0.4.0       
+ [4] rstatix_0.7.0       metar_0.1.5         RColorBrewer_1.1-3 
+ [7] forcats_0.5.1       stringr_1.4.0       dplyr_1.0.9        
+[10] purrr_0.3.4         readr_2.1.2         tidyr_1.2.0        
+[13] tibble_3.1.7        ggplot2_3.3.6       tidyverse_1.3.1    
 
 loaded via a namespace (and not attached):
-  [1] uuid_1.1-0          readxl_1.3.1        backports_1.4.1    
+  [1] uuid_1.1-0          readxl_1.4.0        backports_1.4.1    
   [4] blme_1.0-5          workflowr_1.7.0     systemfonts_1.0.4  
-  [7] plyr_1.8.8          igraph_1.2.9        splines_4.0.2      
- [10] listenv_0.9.0       digest_0.6.29       foreach_1.5.2      
- [13] htmltools_0.5.2     fansi_1.0.3         Rsolnp_1.16        
- [16] magrittr_2.0.3      cluster_2.1.0       tzdb_0.3.0         
- [19] globals_0.16.2      Biostrings_2.58.0   modelr_0.1.8       
- [22] officer_0.4.4       svglite_2.1.0       colorspace_2.0-3   
- [25] rvest_1.0.1         haven_2.3.1         xfun_0.30          
- [28] crayon_1.5.2        jsonlite_1.8.0      lme4_1.1-29        
- [31] survival_3.1-12     iterators_1.0.14    ape_5.6-2          
- [34] glue_1.6.2          kableExtra_1.3.4    gtable_0.3.1       
- [37] zlibbioc_1.36.0     XVector_0.30.0      webshot_0.5.2      
- [40] phyloseq_1.34.0     car_3.1-1           Rhdf5lib_1.12.1    
- [43] BiocGenerics_0.36.1 abind_1.4-5         scales_1.2.1       
- [46] mvtnorm_1.1-3       DBI_1.1.3           Rcpp_1.0.8.3       
- [49] viridisLite_0.4.1   xtable_1.8-4        merTools_0.5.2     
- [52] stats4_4.0.2        truncnorm_1.0-8     htmlwidgets_1.5.4  
- [55] httr_1.4.4          ellipsis_0.3.2      mice_3.13.0        
- [58] farver_2.1.1        DataExplorer_0.8.2  pkgconfig_2.0.3    
- [61] dbplyr_2.1.1        utf8_1.2.2          here_1.0.1         
- [64] labeling_0.4.2      tidyselect_1.1.2    rlang_1.0.2        
- [67] reshape2_1.4.4      later_1.3.0         munsell_0.5.0      
- [70] cellranger_1.1.0    tools_4.0.2         cli_3.2.0          
- [73] generics_0.1.3      selbal_0.1.0        ade4_1.7-20        
- [76] broom_1.0.2         evaluate_0.19       biomformat_1.18.0  
- [79] fastmap_1.1.0       arm_1.12-2          yaml_2.3.6         
- [82] knitr_1.38          fs_1.5.2            zip_2.2.2          
- [85] future_1.30.0       whisker_0.4.1       mime_0.12          
- [88] xml2_1.3.2          compiler_4.0.2      rstudioapi_0.13    
- [91] ggsignif_0.6.4      reprex_2.0.1        HardyWeinberg_1.7.2
- [94] stringi_1.7.6       highr_0.10          gdtools_0.2.4      
- [97] logger_0.2.2        lattice_0.20-41     Matrix_1.5-3       
-[100] nloptr_2.0.0        vegan_2.6-4         permute_0.9-7      
-[103] multtest_2.46.0     vctrs_0.4.1         pillar_1.8.1       
-[106] lifecycle_1.0.1     networkD3_0.4       rhdf5filters_1.2.1 
-[109] furrr_0.3.1         jquerylib_0.1.4     cowplot_1.1.1      
-[112] flextable_0.6.8     data.table_1.14.6   httpuv_1.6.7       
-[115] R6_2.5.1            promises_1.2.0.1    gridExtra_2.3      
-[118] writexl_1.4.1       IRanges_2.24.1      parallelly_1.33.0  
-[121] codetools_0.2-16    boot_1.3-25         MASS_7.3-51.6      
-[124] assertthat_0.2.1    chron_2.3-58        rhdf5_2.34.0       
-[127] rprojroot_2.0.3     withr_2.5.0         S4Vectors_0.28.1   
-[130] broom.mixed_0.2.9.4 mgcv_1.8-31         parallel_4.0.2     
-[133] hms_1.1.2           grid_4.0.2          coda_0.19-4        
-[136] minqa_1.2.5         rmarkdown_2.19      carData_3.0-5      
-[139] git2r_0.30.1        base64enc_0.1-3     Biobase_2.50.0     
-[142] shiny_1.7.1         lubridate_1.8.0    </code></pre>
+  [7] plyr_1.8.7          igraph_1.3.2        splines_4.0.5      
+ [10] listenv_0.8.0       digest_0.6.29       foreach_1.5.2      
+ [13] htmltools_0.5.2     lmerTest_3.1-3      fansi_1.0.3        
+ [16] Rsolnp_1.16         magrittr_2.0.3      cluster_2.1.3      
+ [19] tzdb_0.3.0          globals_0.15.0      Biostrings_2.58.0  
+ [22] modelr_0.1.8        officer_0.4.3       svglite_2.1.0      
+ [25] colorspace_2.0-3    rvest_1.0.2         haven_2.5.0        
+ [28] xfun_0.31           crayon_1.5.1        jsonlite_1.8.0     
+ [31] lme4_1.1-29         survival_3.3-1      iterators_1.0.14   
+ [34] ape_5.6-2           glue_1.6.2          kableExtra_1.3.4   
+ [37] gtable_0.3.0        zlibbioc_1.36.0     XVector_0.30.0     
+ [40] webshot_0.5.3       phyloseq_1.34.0     car_3.1-0          
+ [43] Rhdf5lib_1.12.1     BiocGenerics_0.36.1 abind_1.4-5        
+ [46] scales_1.2.0        mvtnorm_1.1-3       DBI_1.1.3          
+ [49] Rcpp_1.0.8.3        viridisLite_0.4.0   xtable_1.8-4       
+ [52] merTools_0.5.2      stats4_4.0.5        truncnorm_1.0-8    
+ [55] htmlwidgets_1.5.4   httr_1.4.2          ellipsis_0.3.2     
+ [58] mice_3.14.0         farver_2.1.0        DataExplorer_0.8.2 
+ [61] pkgconfig_2.0.3     nnet_7.3-17         sass_0.4.1         
+ [64] dbplyr_2.2.0        utf8_1.2.2          here_1.0.1         
+ [67] labeling_0.4.2      tidyselect_1.1.2    rlang_1.0.2        
+ [70] reshape2_1.4.4      later_1.3.0         munsell_0.5.0      
+ [73] cellranger_1.1.0    tools_4.0.5         cli_3.3.0          
+ [76] generics_0.1.2      selbal_0.1.0        ade4_1.7-19        
+ [79] broom_0.8.0         evaluate_0.15       biomformat_1.18.0  
+ [82] fastmap_1.1.0       arm_1.12-2          yaml_2.3.5         
+ [85] knitr_1.39          fs_1.5.2            zip_2.2.0          
+ [88] future_1.26.1       whisker_0.4         mime_0.12          
+ [91] xml2_1.3.2          compiler_4.0.5      rstudioapi_0.13    
+ [94] ggsignif_0.6.3.9000 reprex_2.0.1        HardyWeinberg_1.7.5
+ [97] bslib_0.3.1         stringi_1.7.6       highr_0.9          
+[100] gdtools_0.2.4       logger_0.2.2        lattice_0.20-45    
+[103] Matrix_1.4-1        nloptr_2.0.3        vegan_2.6-2        
+[106] permute_0.9-7       multtest_2.46.0     vctrs_0.4.1        
+[109] pillar_1.7.0        lifecycle_1.0.1     networkD3_0.4      
+[112] rhdf5filters_1.2.1  furrr_0.3.0         jquerylib_0.1.4    
+[115] cowplot_1.1.1       flextable_0.7.2     data.table_1.14.2  
+[118] httpuv_1.6.5        R6_2.5.1            promises_1.2.0.1   
+[121] gridExtra_2.3       writexl_1.4.0       IRanges_2.24.1     
+[124] parallelly_1.32.0   codetools_0.2-18    boot_1.3-28        
+[127] MASS_7.3-57         assertthat_0.2.1    chron_2.3-57       
+[130] rhdf5_2.34.0        rprojroot_2.0.3     withr_2.5.0        
+[133] S4Vectors_0.28.1    broom.mixed_0.2.9.4 mgcv_1.8-40        
+[136] parallel_4.0.5      hms_1.1.1           grid_4.0.5         
+[139] coda_0.19-4         minqa_1.2.4         rmarkdown_2.14     
+[142] carData_3.0-5       git2r_0.30.1        numDeriv_2016.8-1.1
+[145] base64enc_0.1-3     Biobase_2.50.0      shiny_1.7.1        
+[148] lubridate_1.8.0    </code></pre>
 </div>
 </div>
 

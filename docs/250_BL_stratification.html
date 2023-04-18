@@ -15,7 +15,7 @@
 
 <title>250_BL_comparisons</title>
 
-<script src="site_libs/header-attrs-2.19/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
@@ -157,15 +157,11 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark the anchor link active (and if it's in a dropdown, also mark that active)
-  var dropdown = menuAnchor.closest('li.dropdown');
-  if (window.bootstrap) { // Bootstrap 4+
-    menuAnchor.addClass('active');
-    dropdown.find('> .dropdown-toggle').addClass('active');
-  } else { // Bootstrap 3
-    menuAnchor.parent().addClass('active');
-    dropdown.addClass('active');
-  }
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -194,8 +190,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "\e259";
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -203,9 +199,16 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "\e258";
-  font-family: 'Glyphicons Halflings';
+  content: "&#xe258;";
   border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -370,15 +373,6 @@ div.tocify {
 <li>
   <a href="430_Species_v_Inflammation.html">DA species vs inflammation markers</a>
 </li>
-<li>
-  <a href="500_Gene_function_exploratory.html">Functional annotation, exploratory</a>
-</li>
-<li>
-  <a href="510_Function_DA.html">Gene function DA</a>
-</li>
-<li>
-  <a href="505_Adenovirus_Analysis.html">Adenovirus and Enterovirus analysis</a>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -400,9 +394,7 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -411,9 +403,7 @@ aria-hidden="true"></span>
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -422,27 +412,17 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-03-24
+<strong>Last updated:</strong> 2023-04-13
 </p>
 <p>
-<strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
-<strong>Knit directory:</strong> <code>advanz4/</code> <span
-class="glyphicon glyphicon-question-sign" aria-hidden="true"
-title="This is the local directory in which the code in this file was executed.">
-</span>
+<strong>Knit directory:</strong> <code>advanz4/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
 </p>
 <p>
-This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
-analysis was created with <a
-  href="https://github.com/workflowr/workflowr">workflowr</a> (version
-1.7.0). The <em>Checks</em> tab describes the reproducibility checks
-that were applied when the results were created. The <em>Past
-versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -451,141 +431,91 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
-class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
 <div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! The global environment was empty. Objects defined in the
-global environment can affect the analysis in your R Markdown file in
-unknown ways. For reproduciblity it’s best to always run the code in an
-empty environment.</p>
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211203code">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Seed:</strong>
-<code>set.seed(20211203)</code> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211203code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20211203)</code> </a>
 </p>
 </div>
-<div id="strongSeedstrongcodesetseed20211203code"
-class="panel-collapse collapse">
+<div id="strongSeedstrongcodesetseed20211203code" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20211203)</code> was run prior to running
-the code in the R Markdown file. Setting a seed ensures that any results
-that rely on randomness, e.g. subsampling or permutations, are
-reproducible.</p>
+<p>The command <code>set.seed(20211203)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Session information:</strong>
-recorded </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
 </p>
 </div>
-<div id="strongSessioninformationstrongrecorded"
-class="panel-collapse collapse">
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Recording the operating system, R version, and package
-versions is critical for reproducibility.</p>
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
 <div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be
-confident that you successfully produced the results during this
-run.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
 </p>
 </div>
 <div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr
-project makes it easier to run your code on other machines.</p>
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree50067574928e35bb52808278f7a4544a5a129d9atargetblank5006757a">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/MicrobialGenomics/advanz4/tree/50067574928e35bb52808278f7a4544a5a129d9a" target="_blank">5006757</a>
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treeefdac31cf4332143b561f3f956761d9b8895d748targetblankefdac31a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/efdac31cf4332143b561f3f956761d9b8895d748" target="_blank">efdac31</a> </a>
 </p>
 </div>
-<div
-id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree50067574928e35bb52808278f7a4544a5a129d9atargetblank5006757a"
-class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treeefdac31cf4332143b561f3f956761d9b8895d748targetblankefdac31a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development
-and connecting the code version to the results is critical for
-reproducibility.
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version
-<a href="https://github.com/MicrobialGenomics/advanz4/tree/50067574928e35bb52808278f7a4544a5a129d9a" target="_blank">5006757</a>.
-See the <em>Past versions</em> tab to see a history of the changes made
-to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/efdac31cf4332143b561f3f956761d9b8895d748" target="_blank">efdac31</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for
-the analysis have been committed to Git prior to generating the results
-(you can use <code>wflow_publish</code> or
-<code>wflow_git_commit</code>). workflowr only checks the R Markdown
-file, but you know if there are other scripts or data files that it
-depends on. Below is the status of the Git repository when the results
-were generated:
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
@@ -593,27 +523,18 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/.Rhistory
-    Ignored:    analysis/010_Basic_Report_cache/
     Ignored:    analysis/420_Taxonomy_DA_cache/
+    Ignored:    analysis/505_Adenovirus_Analysis_cache/
     Ignored:    analysis/510_Function_DA_cache/
-    Ignored:    analysis/mre/
+    Ignored:    analysis/output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/
     Ignored:    data/mre.rds
-
-Untracked files:
-    Untracked:  output/figures/
 
 Unstaged changes:
     Modified:   analysis/250_BL_stratification.Rmd
-    Modified:   analysis/310_IGC_analysis.Rmd
-    Modified:   output/general_boxplot_stats
-    Modified:   output/mre_data/CatalogMapping/IGC/lmm/lmm_time_point_by_group.pdf
-    Modified:   output/overall_pvals.csv
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not
-included in this status report because it is ok for generated content to
-have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
 </p>
 </div>
 </div>
@@ -624,12 +545,7 @@ have uncommitted changes.
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were
-made to the R Markdown (<code>analysis/250_BL_stratification.Rmd</code>)
-and HTML (<code>docs/250_BL_stratification.html</code>) files. If you’ve
-configured a remote Git repository (see <code>?wflow_git_remote</code>),
-click on the hyperlinks in the table below to view the files as they
-were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/250_BL_stratification.Rmd</code>) and HTML (<code>docs/250_BL_stratification.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -653,6 +569,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/efdac31cf4332143b561f3f956761d9b8895d748/analysis/250_BL_stratification.Rmd" target="_blank">efdac31</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2023-04-13
+</td>
+<td>
+Reestructured website
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/efdac31cf4332143b561f3f956761d9b8895d748/docs/250_BL_stratification.html" target="_blank">efdac31</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2023-04-13
+</td>
+<td>
+Reestructured website
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -764,12 +714,10 @@ Added BL demographics
 </div>
 <div id="group-composition-at-baseline" class="section level1">
 <h1>Group composition at Baseline</h1>
-<p>This is the very first comparison that should have been done. It wil
-contain all comparisons, be demographic or clinical at baseline.</p>
+<p>This is the very first comparison that should have been done. It wil contain all comparisons, be demographic or clinical at baseline.</p>
 <div id="demographic-variables" class="section level2">
 <h2>Demographic variables</h2>
-<p>As this study is an RCT, every referee will ask for the demographic
-distribution of both groups.</p>
+<p>As this study is an RCT, every referee will ask for the demographic distribution of both groups.</p>
 <pre class="r"><code>mymre &lt;- here::here(&quot;data&quot;, &quot;filt_mre.rds&quot;) %&gt;% 
   readRDS()
 
@@ -791,19 +739,21 @@ Threshold &lt;-  igc@dataTable %&gt;%
 
 
 igc@dataTable %&gt;%
-  filter(NumberMappedReads &gt;= Threshold) %&gt;%
-  filter(ReadCountReal &gt;= Threshold) %&gt;% ### Get the Mapped Read count (per-sample) just above the threshold
-  group_by(SampleID) %&gt;%
-  summarise(across(everything(), min)) %&gt;%
-  ungroup() %&gt;%
-  right_join(., metadata, by = &quot;SampleID&quot;) %&gt;% 
-  dplyr::filter(time_point == 0) %&gt;% 
-  summarise(age = paste(median(age), &quot; [&quot;,IQR(age), &quot;]&quot;, sep = &quot;&quot;),
-            BMI = paste(round(median(BMI, na.rm = T),3), &quot; [&quot;,round(IQR(BMI, na.rm = T), 3), &quot;]&quot;, sep = &quot;&quot;),
-            CD4_nadir = paste(round(median(CD4_nadir, na.rm = T),3), &quot; [&quot;,round(IQR(CD4_nadir, na.rm = T), 3), &quot;]&quot;, sep = &quot;&quot;),
-            VL = paste(round(median(HIV_VL, na.rm = T),3), &quot; [&quot;,round(IQR(HIV_VL, na.rm = T), 3), &quot;]&quot;, sep = &quot;&quot;),
-            richness = paste(round(median(GeneNumber, na.rm = T),3), &quot; [&quot;,round(IQR(GeneNumber, na.rm = T), 3), &quot;]&quot;, sep = &quot;&quot;)) </code></pre>
-<pre><code># A tibble: 1 x 5
+  dplyr::filter(NumberMappedReads &gt;= Threshold) %&gt;%
+  dplyr::filter(ReadCountReal &gt;= Threshold) %&gt;% ### Get the Mapped Read count (per-sample) just above the threshold
+  dplyr::group_by(SampleID) %&gt;%
+  dplyr::summarise(across(everything(), min)) %&gt;%
+  dplyr::ungroup() %&gt;%
+  dplyr::right_join(., metadata, by = &quot;SampleID&quot;) %&gt;%
+  dplyr::filter(time_point == 0) %&gt;%
+  dplyr::summarise(
+    age = paste(median(age), &quot; [&quot;, IQR(age), &quot;]&quot;, sep = &quot;&quot;),
+    BMI = paste(round(median(BMI, na.rm = T), 3), &quot; [&quot;, round(IQR(BMI, na.rm = T), 3), &quot;]&quot;, sep = &quot;&quot;),
+    CD4_nadir = paste(round(median(CD4_nadir, na.rm = T), 3), &quot; [&quot;, round(IQR(CD4_nadir, na.rm = T), 3), &quot;]&quot;, sep = &quot;&quot;),
+    VL = paste(round(median(HIV_VL, na.rm = T), 3), &quot; [&quot;, round(IQR(HIV_VL, na.rm = T), 3), &quot;]&quot;, sep = &quot;&quot;),
+    richness = paste(round(median(GeneNumber, na.rm = T), 3), &quot; [&quot;, round(IQR(GeneNumber, na.rm = T), 3), &quot;]&quot;, sep = &quot;&quot;)
+  )</code></pre>
+<pre><code># A tibble: 1 × 5
   age       BMI            CD4_nadir VL               richness         
   &lt;chr&gt;     &lt;chr&gt;          &lt;chr&gt;     &lt;chr&gt;            &lt;chr&gt;            
 1 40 [16.5] 22.084 [4.281] 35 [47]   366000 [1277645] 756556.5 [306940]</code></pre>
@@ -821,81 +771,84 @@ igc@dataTable %&gt;%
   compareGroups::export2md()</code></pre>
 <pre><code>Warning in chisq.test(xx, correct = FALSE): Chi-squared approximation may be
 incorrect</code></pre>
-<pre class="r"><code># igc_df</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
-<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-Session information
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.0.2 (2020-06-22)
-Platform: x86_64-w64-mingw32/x64 (64-bit)
-Running under: Windows 10 x64 (build 22621)
+<pre><code>R version 4.0.5 (2021-03-31)
+Platform: x86_64-redhat-linux-gnu (64-bit)
+Running under: Fedora 34 (Workstation Edition)
 
 Matrix products: default
+BLAS/LAPACK: /usr/lib64/libflexiblas.so.3.1
 
 locale:
-[1] LC_COLLATE=Spanish_Spain.1252  LC_CTYPE=Spanish_Spain.1252   
-[3] LC_MONETARY=Spanish_Spain.1252 LC_NUMERIC=C                  
-[5] LC_TIME=Spanish_Spain.1252    
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] compareGroups_4.5.1 forcats_0.5.2       stringr_1.4.0      
- [4] dplyr_1.0.8         purrr_0.3.4         readr_2.0.1        
- [7] tidyr_1.2.0         tibble_3.1.6        ggplot2_3.3.5      
-[10] tidyverse_1.3.1     devtools_2.3.2      usethis_2.0.0      
+ [1] compareGroups_4.5.1 forcats_0.5.1       stringr_1.4.0      
+ [4] dplyr_1.0.9         purrr_0.3.4         readr_2.1.2        
+ [7] tidyr_1.2.0         tibble_3.1.7        ggplot2_3.3.6      
+[10] tidyverse_1.3.1     devtools_2.4.3      usethis_2.1.6      
 [13] workflowr_1.7.0    
 
 loaded via a namespace (and not attached):
-  [1] readxl_1.3.1        uuid_1.1-0          backports_1.4.1    
-  [4] systemfonts_1.0.4   igraph_1.2.9        plyr_1.8.8         
-  [7] splines_4.0.2       digest_0.6.29       foreach_1.5.2      
+  [1] readxl_1.4.0        uuid_1.1-0          backports_1.4.1    
+  [4] systemfonts_1.0.4   igraph_1.3.2        plyr_1.8.7         
+  [7] splines_4.0.5       digest_0.6.29       foreach_1.5.2      
  [10] htmltools_0.5.2     fansi_1.0.3         magrittr_2.0.3     
- [13] Rsolnp_1.16         memoise_2.0.1       cluster_2.1.0      
+ [13] Rsolnp_1.16         memoise_2.0.1       cluster_2.1.3      
  [16] tzdb_0.3.0          remotes_2.4.2       Biostrings_2.58.0  
- [19] modelr_0.1.8        officer_0.4.4       svglite_2.1.0      
- [22] prettyunits_1.1.1   colorspace_2.0-3    rvest_1.0.1        
- [25] haven_2.3.1         xfun_0.30           callr_3.7.3        
- [28] crayon_1.5.2        jsonlite_1.8.0      survival_3.1-12    
+ [19] modelr_0.1.8        officer_0.4.3       svglite_2.1.0      
+ [22] prettyunits_1.1.1   colorspace_2.0-3    rvest_1.0.2        
+ [25] haven_2.5.0         xfun_0.31           callr_3.7.0        
+ [28] crayon_1.5.1        jsonlite_1.8.0      survival_3.3-1     
  [31] iterators_1.0.14    ape_5.6-2           glue_1.6.2         
- [34] kableExtra_1.3.4    gtable_0.3.1        zlibbioc_1.36.0    
- [37] XVector_0.30.0      webshot_0.5.2       phyloseq_1.34.0    
- [40] pkgbuild_1.2.0      Rhdf5lib_1.12.1     BiocGenerics_0.36.1
- [43] scales_1.2.1        DBI_1.1.3           Rcpp_1.0.8.3       
- [46] viridisLite_0.4.1   metar_0.1.5         stats4_4.0.2       
- [49] truncnorm_1.0-8     httr_1.4.4          ellipsis_0.3.2     
- [52] mice_3.13.0         pkgconfig_2.0.3     dbplyr_2.1.1       
- [55] utf8_1.2.2          here_1.0.1          tidyselect_1.1.2   
- [58] rlang_1.0.2         reshape2_1.4.4      later_1.3.0        
- [61] munsell_0.5.0       cellranger_1.1.0    tools_4.0.2        
- [64] cachem_1.0.6        cli_3.2.0           generics_0.1.3     
- [67] ade4_1.7-20         broom_1.0.2         evaluate_0.19      
- [70] biomformat_1.18.0   fastmap_1.1.0       yaml_2.3.6         
- [73] processx_3.8.0      knitr_1.38          fs_1.5.2           
- [76] zip_2.2.2           nlme_3.1-148        whisker_0.4.1      
- [79] xml2_1.3.2          brio_1.1.3          compiler_4.0.2     
- [82] rstudioapi_0.13     testthat_3.1.6      reprex_2.0.1       
- [85] stringi_1.7.6       HardyWeinberg_1.7.2 highr_0.10         
- [88] ps_1.7.2            desc_1.4.2          gdtools_0.2.4      
- [91] lattice_0.20-41     Matrix_1.5-3        permute_0.9-7      
- [94] vegan_2.6-4         multtest_2.46.0     vctrs_0.4.1        
- [97] pillar_1.8.1        lifecycle_1.0.1     rhdf5filters_1.2.1 
-[100] jquerylib_0.1.4     data.table_1.14.6   flextable_0.6.8    
-[103] httpuv_1.6.7        R6_2.5.1            promises_1.2.0.1   
-[106] IRanges_2.24.1      writexl_1.4.1       sessioninfo_1.2.2  
-[109] codetools_0.2-16    MASS_7.3-51.6       assertthat_0.2.1   
-[112] pkgload_1.2.4       chron_2.3-58        rhdf5_2.34.0       
-[115] rprojroot_2.0.3     withr_2.5.0         S4Vectors_0.28.1   
-[118] mgcv_1.8-31         parallel_4.0.2      hms_1.1.2          
-[121] grid_4.0.2          rmarkdown_2.19      git2r_0.30.1       
-[124] getPass_0.2-2       Biobase_2.50.0      lubridate_1.8.0    
-[127] base64enc_0.1-3    </code></pre>
+ [34] kableExtra_1.3.4    gtable_0.3.0        zlibbioc_1.36.0    
+ [37] XVector_0.30.0      webshot_0.5.3       phyloseq_1.34.0    
+ [40] pkgbuild_1.3.1      Rhdf5lib_1.12.1     BiocGenerics_0.36.1
+ [43] scales_1.2.0        DBI_1.1.3           Rcpp_1.0.8.3       
+ [46] viridisLite_0.4.0   metar_0.1.5         stats4_4.0.5       
+ [49] truncnorm_1.0-8     httr_1.4.2          ellipsis_0.3.2     
+ [52] mice_3.14.0         pkgconfig_2.0.3     nnet_7.3-17        
+ [55] sass_0.4.1          dbplyr_2.2.0        utf8_1.2.2         
+ [58] here_1.0.1          tidyselect_1.1.2    rlang_1.0.2        
+ [61] reshape2_1.4.4      later_1.3.0         munsell_0.5.0      
+ [64] cellranger_1.1.0    tools_4.0.5         cachem_1.0.6       
+ [67] cli_3.3.0           generics_0.1.2      ade4_1.7-19        
+ [70] broom_0.8.0         evaluate_0.15       biomformat_1.18.0  
+ [73] fastmap_1.1.0       yaml_2.3.5          processx_3.6.1     
+ [76] knitr_1.39          fs_1.5.2            zip_2.2.0          
+ [79] nlme_3.1-158        whisker_0.4         xml2_1.3.2         
+ [82] brio_1.1.3          compiler_4.0.5      rstudioapi_0.13    
+ [85] testthat_3.1.4      reprex_2.0.1        bslib_0.3.1        
+ [88] stringi_1.7.6       HardyWeinberg_1.7.5 highr_0.9          
+ [91] ps_1.7.1            desc_1.4.1          gdtools_0.2.4      
+ [94] lattice_0.20-45     Matrix_1.4-1        permute_0.9-7      
+ [97] vegan_2.6-2         multtest_2.46.0     vctrs_0.4.1        
+[100] rhdf5filters_1.2.1  pillar_1.7.0        lifecycle_1.0.1    
+[103] jquerylib_0.1.4     data.table_1.14.2   flextable_0.7.2    
+[106] httpuv_1.6.5        R6_2.5.1            promises_1.2.0.1   
+[109] IRanges_2.24.1      writexl_1.4.0       sessioninfo_1.2.2  
+[112] codetools_0.2-18    MASS_7.3-57         assertthat_0.2.1   
+[115] pkgload_1.2.4       chron_2.3-57        rhdf5_2.34.0       
+[118] rprojroot_2.0.3     withr_2.5.0         S4Vectors_0.28.1   
+[121] mgcv_1.8-40         parallel_4.0.5      hms_1.1.1          
+[124] grid_4.0.5          rmarkdown_2.14      git2r_0.30.1       
+[127] getPass_0.2-2       Biobase_2.50.0      lubridate_1.8.0    
+[130] base64enc_0.1-3    </code></pre>
 </div>
 </div>
 </div>

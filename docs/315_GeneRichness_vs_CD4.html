@@ -18,7 +18,7 @@
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -31,6 +31,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -235,6 +238,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -242,6 +308,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -297,15 +373,6 @@ $(document).ready(function () {
 <li>
   <a href="430_Species_v_Inflammation.html">DA species vs inflammation markers</a>
 </li>
-<li>
-  <a href="500_Gene_function_exploratory.html">Functional annotation, exploratory</a>
-</li>
-<li>
-  <a href="510_Function_DA.html">Gene function DA</a>
-</li>
-<li>
-  <a href="505_Adenovirus_Analysis.html">Adenovirus and Enterovirus analysis</a>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -327,7 +394,7 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -336,7 +403,7 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -345,10 +412,10 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-03-09
+<strong>Last updated:</strong> 2023-04-13
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>advanz4/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -364,12 +431,12 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -436,16 +503,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treecbd814a4074642b4d8adb494acd1565ec8a60635targetblankcbd814aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/cbd814a4074642b4d8adb494acd1565ec8a60635" target="_blank">cbd814a</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treeefdac31cf4332143b561f3f956761d9b8895d748targetblankefdac31a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/efdac31cf4332143b561f3f956761d9b8895d748" target="_blank">efdac31</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treecbd814a4074642b4d8adb494acd1565ec8a60635targetblankcbd814aa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treeefdac31cf4332143b561f3f956761d9b8895d748targetblankefdac31a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/cbd814a4074642b4d8adb494acd1565ec8a60635" target="_blank">cbd814a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/efdac31cf4332143b561f3f956761d9b8895d748" target="_blank">efdac31</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -462,11 +529,15 @@ Ignored files:
     Ignored:    analysis/output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/
     Ignored:    data/mre.rds
 
+Untracked files:
+    Untracked:  analysis/figure/
+
 Unstaged changes:
-    Modified:   analysis/311_GR_vs_BMI.Rmd
-    Modified:   analysis/_site.yml
-    Modified:   output/mre_data/CatalogMapping/IGC/lmm/lmm_time_point_by_group.pdf
-    Modified:   output/overall_pvals.csv
+    Modified:   analysis/250_BL_stratification.Rmd
+    Deleted:    analysis/250_BL_stratification.html
+    Modified:   analysis/315_GeneRichness_vs_CD4.Rmd
+    Modified:   output/figures/LMMs_GR.svg
+    Modified:   output/figures/richness_reconstitution.svg
 
 </code></pre>
 <p>
@@ -505,6 +576,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/efdac31cf4332143b561f3f956761d9b8895d748/analysis/315_GeneRichness_vs_CD4.Rmd" target="_blank">efdac31</a>
+</td>
+<td>
+cblazquez-irsi
+</td>
+<td>
+2023-04-13
+</td>
+<td>
+Reestructured website
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/40fda18774f1450d6a209987f551e8653f7ca40a/docs/315_GeneRichness_vs_CD4.html" target="_blank">40fda18</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-10
+</td>
+<td>
+Readded delta BMI vs GR
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -914,7 +1019,14 @@ Create 315_GeneRichness_vs_CD4.Rmd
   column_to_rownames(&quot;SampleID&quot;) %&gt;% 
   mutate(SampleID = rownames(.))
 
-mymre &lt;- aws.s3::s3readRDS(bucket = &quot;mistral-wp6-advanz4&quot;,object = &quot;metagenome/WMGS/MREObject.rds&quot;, region = &quot;eu-west-1&quot;)</code></pre>
+mymre &lt;- aws.s3::s3readRDS(bucket = &quot;mistral-wp6-advanz4&quot;,object = &quot;metagenome/WMGS/MREObject.rds&quot;, region = &quot;eu-west-1&quot;)
+
+cat_vector &lt;- get_cat(mymre) %&gt;% 
+  pull(CategoricalVariable)
+
+num_vector &lt;- 
+  get_num(mymre) %&gt;% 
+  pull(NumericalVariable)</code></pre>
 <div id="gene-richness-vs-cd4" class="section level2">
 <h2>Gene Richness vs CD4</h2>
 <p>In this analysis we are interested in the relationship between CD4/CD4 recovery and gene richness. For that, several questions are of importance.</p>
@@ -1020,6 +1132,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/40fda18774f1450d6a209987f551e8653f7ca40a/docs/figure/315_GeneRichness_vs_CD4.Rmd/basal_CD4-1.png" target="_blank">40fda18</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/27df3cbd6182d522f0342d5985ff57c229c46ff4/docs/figure/315_GeneRichness_vs_CD4.Rmd/basal_CD4-1.png" target="_blank">27df3cb</a>
 </td>
 <td>
@@ -1070,8 +1193,8 @@ cblazquez-irsi
 <pre><code>          x            y group
 1  26.10519 0.0103359201   DTG
 2 229.10519 0.0005447832   DTG
-3  11.04344 0.0169875257 DRV/r
-4  68.04344 0.0063346692 DRV/r</code></pre>
+3  11.04344 0.0169875257  bDRV
+4  68.04344 0.0063346692  bDRV</code></pre>
 <p>It appears the distribution of CD4 at BL shows two peaks in kernel density, one at 26 counts/ml and one at 229 count/ml. There is a second peak in the DRV as well, but it seems the density function smoothed it out.</p>
 </div>
 <div id="generichness-at-baseline-distribution" class="section level3">
@@ -1084,8 +1207,8 @@ Threshold &lt;-  igc@dataTable %&gt;%
   summarise(Q = quantile(NumberMappedReads,0.02)) %&gt;% 
   as.numeric()
 
-TableList &lt;- c(cat_vector) %&gt;%
-    set_names() %&gt;%
+TableList &lt;- cat_vector %&gt;%
+    purrr::set_names() %&gt;%
     map( ~{
 
         
@@ -1174,6 +1297,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/40fda18774f1450d6a209987f551e8653f7ca40a/docs/figure/315_GeneRichness_vs_CD4.Rmd/GR_basal-1.png" target="_blank">40fda18</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/27df3cbd6182d522f0342d5985ff57c229c46ff4/docs/figure/315_GeneRichness_vs_CD4.Rmd/GR_basal-1.png" target="_blank">27df3cb</a>
 </td>
 <td>
@@ -1212,7 +1346,7 @@ cblazquez-irsi
 <pre class="r"><code>peak_df</code></pre>
 <pre><code>         x            y group
 1 774765.3 1.863682e-06   DTG
-2 731633.3 1.494479e-06 DRV/r</code></pre>
+2 731633.3 1.494479e-06  bDRV</code></pre>
 <p>It seems both groups have a similar median richness, but with somewhat different distributions, with DTG following a slightly bimodal distribution with a higher median peak than Drv/r. Although the left “step” in may look like a local maxima, it actually does not decrease on the right side.</p>
 </div>
 <div id="gene-richness-vs-cd4-at-baseline" class="section level3">
@@ -1258,7 +1392,7 @@ $estimate
   statistic   p.value  estimate
 S   6356.89 0.5305265 0.1096792
 
-$`DRV/r`
+$bDRV
   statistic   p.value  estimate
 S  5778.569 0.2725564 0.1906766</code></pre>
 <p>Doesn’t seem to be any signifcant association between gene richness and CD4 counts at basal.</p>
@@ -1305,6 +1439,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/40fda18774f1450d6a209987f551e8653f7ca40a/docs/figure/315_GeneRichness_vs_CD4.Rmd/plot_dists-1.png" target="_blank">40fda18</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/27df3cbd6182d522f0342d5985ff57c229c46ff4/docs/figure/315_GeneRichness_vs_CD4.Rmd/plot_dists-1.png" target="_blank">27df3cb</a>
@@ -1365,6 +1510,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/40fda18774f1450d6a209987f551e8653f7ca40a/docs/figure/315_GeneRichness_vs_CD4.Rmd/plot_dists-2.png" target="_blank">40fda18</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/27df3cbd6182d522f0342d5985ff57c229c46ff4/docs/figure/315_GeneRichness_vs_CD4.Rmd/plot_dists-2.png" target="_blank">27df3cb</a>
@@ -1443,7 +1599,7 @@ long_deltas</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">DRV/r</td>
+<td align="left">bDRV</td>
 <td align="left">48</td>
 <td align="left">96</td>
 <td align="right">20</td>
@@ -1478,7 +1634,7 @@ long_deltas</code></pre>
 <tbody>
 <tr class="odd">
 <td align="right">48</td>
-<td align="left">DRV/r</td>
+<td align="left">bDRV</td>
 <td align="left">DTG</td>
 <td align="right">26</td>
 <td align="right">25</td>
@@ -1487,7 +1643,7 @@ long_deltas</code></pre>
 </tr>
 <tr class="even">
 <td align="right">96</td>
-<td align="left">DRV/r</td>
+<td align="left">bDRV</td>
 <td align="left">DTG</td>
 <td align="right">25</td>
 <td align="right">24</td>
@@ -1577,6 +1733,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/40fda18774f1450d6a209987f551e8653f7ca40a/docs/figure/315_GeneRichness_vs_CD4.Rmd/overall_corrs-1.png" target="_blank">40fda18</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/024b1077514245ecd47e073de16b3f022d37ef4a/docs/figure/315_GeneRichness_vs_CD4.Rmd/overall_corrs-1.png" target="_blank">024b107</a>
@@ -1686,6 +1853,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/40fda18774f1450d6a209987f551e8653f7ca40a/docs/figure/315_GeneRichness_vs_CD4.Rmd/LMMs_overall-1.png" target="_blank">40fda18</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/27df3cbd6182d522f0342d5985ff57c229c46ff4/docs/figure/315_GeneRichness_vs_CD4.Rmd/LMMs_overall-1.png" target="_blank">27df3cb</a>
 </td>
 <td>
@@ -1775,6 +1953,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/40fda18774f1450d6a209987f551e8653f7ca40a/docs/figure/315_GeneRichness_vs_CD4.Rmd/LMMs_group-1.png" target="_blank">40fda18</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/27df3cbd6182d522f0342d5985ff57c229c46ff4/docs/figure/315_GeneRichness_vs_CD4.Rmd/LMMs_group-1.png" target="_blank">27df3cb</a>
 </td>
 <td>
@@ -1826,38 +2015,67 @@ deltas %&gt;%
     CD4diff_48 == &quot;150_L&quot; &amp; CD4diff_96 == &quot;150_L&quot; ~ &quot;No&quot;,
     is.na(CD4diff_48) &amp; CD4diff_96 == &quot;150_H&quot; ~ &quot;96&quot;,
     is.na(CD4diff_48) &amp; CD4diff_96 == &quot;150_L&quot; ~ &quot;No&quot;)) %&gt;% 
-  filter(!is.na(recovery), !long_var == 0)
+  filter(!is.na(recovery), !long_var == 0)%&gt;% 
+  dplyr::mutate(rec_group = paste(recovery, cat_var, sep = &quot;_&quot;),
+                recovery = factor(recovery, levels = c(&quot;No&quot;, &quot;96&quot;,&quot;48&quot;)))
+
+
+color_df &lt;- 
+  data.frame(group = unique(df$cat_var)) %&gt;% 
+  dplyr::mutate( color = case_when(group == &quot;DTG&quot; ~ viridis::magma(2)[1],
+                               group == &quot;bDRV&quot; ~ viridis::magma(2)[2]))
+
 
 test_cat &lt;- 
 df %&gt;% 
+  dplyr::mutate(rec_group = paste(recovery, cat_var, sep = &quot;_&quot;)) %&gt;% 
   group_by(long_var) %&gt;% 
-  rstatix::wilcox_test(richness ~ recovery) %&gt;% 
-  rstatix::add_xy_position(x = &quot;long_var&quot;, group = &quot;recovery&quot;)
-
-
-plt &lt;- 
-df %&gt;% 
-  ggplot(., aes(x = as.factor(long_var), y = richness)) +
-  geom_boxplot(aes(fill = recovery)) +
-  labs(x = &quot;weeks&quot;, y = &quot;gene richness (absolute)&quot;, fill = &quot;recovery\n(&gt;150 increase)&quot;) +
-  scale_fill_brewer(palette = &quot;Dark2&quot;) +
+  rstatix::wilcox_test(richness ~ rec_group) %&gt;% 
+  rstatix::add_xy_position(x = &quot;long_var&quot;, group = &quot;rec_group&quot;)
+plt_abs &lt;-
+  df %&gt;% 
+  dplyr::select(long_var, richness, cat_var, recovery) %&gt;% 
+  dplyr::filter(!is.na(richness)) %&gt;% 
+  group_by(recovery, cat_var, long_var) %&gt;% 
+  dplyr::summarise(med_richness = median(richness, na.rm = T),
+                   rich_sd = sd(richness, na.rm = T)) %&gt;% 
+  mutate(rec_group = paste(recovery, cat_var, sep = &quot;_&quot;)) %&gt;% 
+  ggplot(., aes(x = factor(long_var), y = med_richness)) +
+  # geom_boxplot(aes(fill = cat_var)) +
+  # geom_jitter(aes(colour = rec_group )) +
+  geom_point(aes(group = rec_group, shape = cat_var, color = recovery, alpha = recovery),size = 3, position = position_dodge(.8)) +
+  geom_line(aes(lty = cat_var, group = rec_group, color = recovery, alpha = recovery), position = position_dodge(0.8), lwd = 1) +
+  # geom_line(data = df, aes(x = factor(long_var), y = richness, group = link_var, color = recovery, lty = cat_var), inherit.aes = F, alpha = .4) +
+  geom_errorbar(aes(ymin = med_richness - rich_sd, ymax = med_richness + rich_sd, group = rec_group, color = recovery, alpha = recovery ), width=.2, position = position_dodge(0.8)) +
+  scale_alpha_manual(values = c(&quot;No&quot;,96,48),breaks = c(.6,.8,1)) +
+  labs(x = &quot;weeks&quot;, y = &quot;gene richness&quot;) +
+  # scale_color_brewer(palette = &quot;Dark2&quot;) +
+  scale_color_viridis_d(option = &quot;magma&quot;, begin = .1, end = .8, direction = 1) +
   theme_bw() +
   stat_pvalue_manual(test_cat,inhertit.aes = F ,hide.ns = T) +
   theme(
     axis.title = element_text(face = &quot;bold&quot;)
   )</code></pre>
+<pre><code>Adding missing grouping variables: `link_var`
+`summarise()` has grouped output by &#39;recovery&#39;, &#39;cat_var&#39;. You can override
+using the `.groups` argument.</code></pre>
 <pre><code>Warning: Ignoring unknown parameters: inhertit.aes</code></pre>
-<pre class="r"><code>lmm &lt;- 
+<pre class="r"><code>ggsave(filename = &quot;richness_reconstitution.svg&quot;,path = here::here(&quot;output&quot;,&quot;figures&quot;), plot = plt_abs,device = &quot;svg&quot;, width =16, height = 10, units = &quot;cm&quot;)
+
+
+
+
+
+lmm_abs &lt;- 
 df %&gt;% 
- get_lmm_effects(., cat_vector = c(&quot;recovery&quot;),num_vector = &quot;richness&quot;, link_var = &quot;link_var&quot;, long_var = &quot;long_var&quot;)</code></pre>
+ get_lmm_effects(., cat_vector = c(&quot;recovery&quot;),num_vector = &quot;richness&quot;, link_var = &quot;link_var&quot;, long_var = &quot;long_var&quot;)  </code></pre>
 <pre><code>[1] &quot;recovery&quot;
 [1] &quot;richness&quot;</code></pre>
 <pre><code>Warning in as_lmerModLT(model, devfun): Model may not have converged with 1
 eigenvalue close to zero: 2.9e-09</code></pre>
 <pre><code>Warning in as_lmerModLT(model, devfun): Model may not have converged with 1
 eigenvalue close to zero: 2.6e-09</code></pre>
-<pre class="r"><code>plt</code></pre>
-<pre><code>Warning: Removed 9 rows containing non-finite values (stat_boxplot).</code></pre>
+<pre class="r"><code>plt_abs</code></pre>
 <p><img src="figure/315_GeneRichness_vs_CD4.Rmd/richness_CD4_categorical-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-richness_CD4_categorical-1">
@@ -1883,6 +2101,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/40fda18774f1450d6a209987f551e8653f7ca40a/docs/figure/315_GeneRichness_vs_CD4.Rmd/richness_CD4_categorical-1.png" target="_blank">40fda18</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/6778971304fc9248a78e92037ad654e226a251d0/docs/figure/315_GeneRichness_vs_CD4.Rmd/richness_CD4_categorical-1.png" target="_blank">6778971</a>
 </td>
 <td>
@@ -1896,55 +2125,14 @@ cblazquez-irsi
 </table>
 </div>
 </div>
-<pre class="r"><code>lmm$recovery$richness$plot</code></pre>
+<pre class="r"><code>lmm_plt_abs &lt;- 
+lmm_abs$recovery$richness$plot +
+  scale_color_viridis_d(option = &quot;magma&quot;, begin = .1, end = .8, direction = 1) </code></pre>
+<pre><code>Scale for &#39;colour&#39; is already present. Adding another scale for &#39;colour&#39;,
+which will replace the existing scale.</code></pre>
+<pre class="r"><code>ggsave(plot = lmm_plt_abs, device = &quot;svg&quot;,path = here::here(&quot;output&quot;, &quot;figures&quot;), width = 16, height = 10, units = &quot;cm&quot;, dpi = 300, filename = &quot;LMMs_GR.svg&quot;)</code></pre>
 <pre><code>Warning: Removed 9 rows containing missing values (geom_point).</code></pre>
 <pre><code>Warning: Removed 6 row(s) containing missing values (geom_path).</code></pre>
-<p><img src="figure/315_GeneRichness_vs_CD4.Rmd/richness_CD4_categorical-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-richness_CD4_categorical-2">
-Past versions of richness_CD4_categorical-2.png
-</button>
-</p>
-<div id="fig-richness_CD4_categorical-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/6778971304fc9248a78e92037ad654e226a251d0/docs/figure/315_GeneRichness_vs_CD4.Rmd/richness_CD4_categorical-2.png" target="_blank">6778971</a>
-</td>
-<td>
-cblazquez-irsi
-</td>
-<td>
-2022-11-28
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>lmm$recovery$richness$summary</code></pre>
-<pre><code>                      estimate      st.err        df        tval            p
-(Intercept)        795788.5599  43417.3975 127.73715 18.32879458 1.433652e-37
-long_var              770.1625    505.7558  80.74575  1.52279522 1.317169e-01
-cat_var96            8010.1415 116519.5970 134.79827  0.06874502 9.452945e-01
-cat_varNo          -29525.4107 107031.8415 126.49272 -0.27585633 7.831086e-01
-long_var:cat_var96    253.5737   1334.0261  98.66064  0.19008152 8.496358e-01
-long_var:cat_varNo   -252.2829   1181.9625  78.58672 -0.21344409 8.315334e-01</code></pre>
 <p>No differences in gene richness could be found between those who recovered more than &lt;150 CD4+/ml at week 48 and those who did at week 96. We’ll test for deltaGR now:</p>
 <pre class="r"><code>df &lt;- 
 deltas %&gt;% 
@@ -1965,13 +2153,26 @@ df %&gt;%
   rstatix::wilcox_test(GR_rel ~ recovery) %&gt;% 
   rstatix::add_xy_position(x = &quot;long_var&quot;, group = &quot;recovery&quot;)
 
-
-plt &lt;- 
+plt_delta &lt;- 
 df %&gt;% 
-  ggplot(., aes(x = as.factor(long_var), y = GR_rel)) +
-  geom_boxplot(aes(fill = recovery)) +
-  labs(x = &quot;weeks&quot;, y = &quot;deltaGR (relative)&quot;, fill = &quot;recovery\n(&gt;150 increase)&quot;) +
-  scale_fill_brewer(palette = &quot;Dark2&quot;) +
+  dplyr::select(long_var, GR_rel, cat_var, recovery) %&gt;% 
+  dplyr::filter(!is.na(GR_rel)) %&gt;% 
+  group_by(recovery, cat_var, long_var) %&gt;% 
+  dplyr::summarise(med_richness = median(GR_rel, na.rm = T),
+                   rich_sd = sd(GR_rel, na.rm = T)) %&gt;% 
+  mutate(rec_group = paste(recovery, cat_var, sep = &quot;_&quot;)) %&gt;% 
+
+  ggplot(., aes(x = factor(long_var), y = med_richness)) +
+  # geom_boxplot(aes(fill = cat_var)) +
+  # geom_jitter(aes(colour = rec_group )) +
+  geom_point(aes(group = rec_group, shape = cat_var, color = recovery, alpha = recovery),size = 3, position = position_dodge(.8)) +
+  geom_line(aes(lty = cat_var, group = rec_group, color = recovery, alpha = recovery), position = position_dodge(0.8), lwd = 1) +
+  # geom_line(data = df, aes(x = factor(long_var), y = richness, group = link_var, color = recovery, lty = cat_var), inherit.aes = F, alpha = .4) +
+  geom_errorbar(aes(ymin = med_richness - rich_sd, ymax = med_richness + rich_sd, group = rec_group, color = recovery, alpha = recovery ), width=.2, position = position_dodge(0.8)) +
+  scale_alpha_manual(values = c(&quot;No&quot;,96,48),breaks = c(.6,.8,1)) +
+  labs(x = &quot;weeks&quot;, y = &quot;gene richness increase (relative)&quot;) +
+  # scale_color_brewer(palette = &quot;Dark2&quot;) +
+  scale_color_viridis_d(option = &quot;magma&quot;, begin = .1, end = .8, direction = 1) +
   theme_bw() +
   stat_pvalue_manual(test_cat,inhertit.aes = F ,hide.ns = T) +
   theme(
@@ -1979,14 +2180,18 @@ df %&gt;%
   )
 
 
+ggsave(filename = &quot;richness_reconstitution_relative.svg&quot;,path = here::here(&quot;output&quot;,&quot;figures&quot;), plot = plt_delta, device = &quot;svg&quot;, width =16, height = 10, units = &quot;cm&quot;)
 
 
-lmm &lt;- 
+
+
+
+lmm_delta &lt;- 
 df %&gt;% 
  get_lmm_effects(., cat_vector = c(&quot;recovery&quot;),num_vector = &quot;GR_rel&quot;, link_var = &quot;link_var&quot;, long_var = &quot;long_var&quot;)</code></pre>
 <pre><code>[1] &quot;recovery&quot;
 [1] &quot;GR_rel&quot;</code></pre>
-<pre class="r"><code>plt</code></pre>
+<pre class="r"><code>plt_delta</code></pre>
 <p><img src="figure/315_GeneRichness_vs_CD4.Rmd/delta_GR_CD4_cat-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-delta_GR_CD4_cat-1">
@@ -2012,6 +2217,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/40fda18774f1450d6a209987f551e8653f7ca40a/docs/figure/315_GeneRichness_vs_CD4.Rmd/delta_GR_CD4_cat-1.png" target="_blank">40fda18</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/6778971304fc9248a78e92037ad654e226a251d0/docs/figure/315_GeneRichness_vs_CD4.Rmd/delta_GR_CD4_cat-1.png" target="_blank">6778971</a>
 </td>
 <td>
@@ -2025,7 +2241,12 @@ cblazquez-irsi
 </table>
 </div>
 </div>
-<pre class="r"><code>lmm$recovery$GR_rel$plot</code></pre>
+<pre class="r"><code>lmm_plt_delta &lt;- 
+lmm_delta$recovery$GR_rel$plot +
+  labs(y = &quot;gene richness increase (relative)&quot;) +
+  scale_color_viridis_d(option = &quot;magma&quot;, begin = .1, end = .8, direction = 1) 
+
+lmm_plt_delta</code></pre>
 <p><img src="figure/315_GeneRichness_vs_CD4.Rmd/delta_GR_CD4_cat-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-delta_GR_CD4_cat-2">
@@ -2051,6 +2272,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/40fda18774f1450d6a209987f551e8653f7ca40a/docs/figure/315_GeneRichness_vs_CD4.Rmd/delta_GR_CD4_cat-2.png" target="_blank">40fda18</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/6778971304fc9248a78e92037ad654e226a251d0/docs/figure/315_GeneRichness_vs_CD4.Rmd/delta_GR_CD4_cat-2.png" target="_blank">6778971</a>
 </td>
 <td>
@@ -2064,7 +2296,10 @@ cblazquez-irsi
 </table>
 </div>
 </div>
-<pre class="r"><code>lmm$recovery$GR_rel$summary</code></pre>
+<pre class="r"><code>ggsave(plot = lmm_plt_delta, device = &quot;svg&quot;,path = here::here(&quot;output&quot;, &quot;figures&quot;), width = 16, height = 10, units = &quot;cm&quot;, dpi = 300, filename = &quot;LMMs_GRrel.svg&quot;)
+
+
+lmm_delta$recovery$GR_rel$summary</code></pre>
 <pre><code>                        estimate       st.err        df       tval         p
 (Intercept)         0.0479822750 0.0348358559 101.35262  1.3773818 0.1714284
 long_var            0.0005301657 0.0003544080  70.11652  1.4959189 0.1391625
@@ -2072,6 +2307,47 @@ cat_var96          -0.0347647331 0.0854416581 116.43001 -0.4068827 0.6848412
 cat_varNo          -0.1263813874 0.0811144307  98.18136 -1.5580629 0.1224360
 long_var:cat_var96  0.0002888975 0.0008931111  79.37839  0.3234732 0.7471875
 long_var:cat_varNo -0.0001419035 0.0007703357  68.69652 -0.1842100 0.8543914</code></pre>
+<pre class="r"><code>plt_abs &lt;- plt_abs +
+  theme(axis.title.x = element_blank(),
+        axis.text.x = element_text(size = 10),
+        plot.title = element_text(size = 12, face = &quot;bold&quot;)) +
+  labs(title = &quot;A&quot;)
+plt_delta &lt;- plt_delta +
+  theme(axis.title.x = element_blank(),
+        axis.text.x = element_text(size = 10),
+        plot.title = element_text(size = 12, face = &quot;bold&quot;)) +
+  labs(title = &quot;B&quot;)
+
+linePlots &lt;- 
+ggpubr::ggarrange(plt_abs, plt_delta, common.legend = T, legend = &quot;right&quot;)
+
+
+lmm_plt_abs &lt;- 
+lmm_plt_abs +
+  labs(title = &quot;C&quot;, y = &quot;gene richness&quot;) +
+  theme(axis.title.x = element_blank(),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(face = &quot;bold&quot;),
+        plot.title = element_text(size = 12, face = &quot;bold&quot;))
+
+lmm_plt_delta &lt;- 
+  lmm_plt_delta +
+  labs(title = &quot;D&quot;) +
+  theme(axis.title.x = element_blank(),
+        axis.text.x = element_text(size = 10),
+        axis.title.y = element_text(face = &quot;bold&quot;),
+        plot.title = element_text(size = 12, face = &quot;bold&quot;)) 
+
+Lmms &lt;- 
+  ggpubr::ggarrange(lmm_plt_abs, lmm_plt_delta, common.legend = T, legend = &quot;right&quot;)
+
+plot_grid &lt;- 
+ggpubr::ggarrange(linePlots, Lmms, nrow = 2, ncol = 1) %&gt;% 
+  annotate_figure(bottom = text_grob(label = &quot;Weeks&quot;, face = &quot;bold&quot;, size = 12)) 
+
+ggsave(filename = &quot;recovery_grid.svg&quot;, device = &quot;svg&quot;, 
+       path = here::here(&quot;output&quot;, &quot;figures&quot;), 
+       width = 24, height = 16, units = &quot;cm&quot;, dpi = 300)</code></pre>
 <p>Finally, we are going to tests if overall having an increase higher than 150 counts is tied to different deltaGR.</p>
 <pre class="r"><code>dif48_abs &lt;- 
 df %&gt;%
@@ -2178,6 +2454,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/40fda18774f1450d6a209987f551e8653f7ca40a/docs/figure/315_GeneRichness_vs_CD4.Rmd/diff_CD4_test-1.png" target="_blank">40fda18</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/f65ff406ad7f0c33e2880f05da07a22c0a32aefe/docs/figure/315_GeneRichness_vs_CD4.Rmd/diff_CD4_test-1.png" target="_blank">f65ff40</a>
 </td>
 <td>
@@ -2223,6 +2510,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/40fda18774f1450d6a209987f551e8653f7ca40a/docs/figure/315_GeneRichness_vs_CD4.Rmd/diff_CD4_test-2.png" target="_blank">40fda18</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-03-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/f65ff406ad7f0c33e2880f05da07a22c0a32aefe/docs/figure/315_GeneRichness_vs_CD4.Rmd/diff_CD4_test-2.png" target="_blank">f65ff40</a>
 </td>
 <td>
@@ -2251,7 +2549,7 @@ contingency_table</code></pre>
 # Groups:   cat_var [2]
   cat_var  `48`  `96`    No
   &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt;
-1 DRV/r      46     9    13
+1 bDRV       46     9    13
 2 DTG        59    15     8</code></pre>
 <pre class="r"><code>contingency_table %&gt;% 
   column_to_rownames(&quot;cat_var&quot;) %&gt;% 
@@ -2298,11 +2596,10 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] nlme_3.1-158       metar_0.1.5        testthat_3.1.4     ggpubr_0.4.0      
- [5] RColorBrewer_1.1-3 forcats_0.5.1      stringr_1.4.0      dplyr_1.0.9       
- [9] purrr_0.3.4        readr_2.1.2        tidyr_1.2.0        tibble_3.1.7      
-[13] ggplot2_3.3.6      tidyverse_1.3.1    devtools_2.4.3     usethis_2.1.6     
-[17] workflowr_1.7.0   
+ [1] nlme_3.1-158       ggpubr_0.4.0       metar_0.1.5        RColorBrewer_1.1-3
+ [5] forcats_0.5.1      stringr_1.4.0      dplyr_1.0.9        purrr_0.3.4       
+ [9] readr_2.1.2        tidyr_1.2.0        tibble_3.1.7       ggplot2_3.3.6     
+[13] tidyverse_1.3.1    devtools_2.4.3     usethis_2.1.6      workflowr_1.7.0   
 
 loaded via a namespace (and not attached):
   [1] utf8_1.2.2          tidyselect_1.1.2    lme4_1.1-29        
@@ -2312,54 +2609,52 @@ loaded via a namespace (and not attached):
  [13] phyloseq_1.34.0     logger_0.2.2        highr_0.9          
  [16] knitr_1.39          rstudioapi_0.13     stats4_4.0.5       
  [19] ggsignif_0.6.3.9000 listenv_0.8.0       labeling_0.4.2     
- [22] git2r_0.30.1        polyclip_1.10-0     datawizard_0.4.1   
- [25] bit64_4.0.5         farver_2.1.0        rhdf5_2.34.0       
- [28] rprojroot_2.0.3     coda_0.19-4         parallelly_1.32.0  
- [31] vctrs_0.4.1         generics_0.1.2      xfun_0.31          
- [34] R6_2.5.1            arm_1.12-2          rhdf5filters_1.2.1 
- [37] cachem_1.0.6        assertthat_0.2.1    promises_1.2.0.1   
- [40] networkD3_0.4       scales_1.2.0        vroom_1.5.7        
- [43] merTools_0.5.2      gtable_0.3.0        globals_0.15.0     
- [46] processx_3.6.1      rlang_1.0.2         systemfonts_1.0.4  
- [49] splines_4.0.5       rstatix_0.7.0       broom_0.8.0        
- [52] yaml_2.3.5          reshape2_1.4.4      abind_1.4-5        
- [55] modelr_0.1.8        backports_1.4.1     httpuv_1.6.5       
- [58] tools_4.0.5         logging_0.10-108    kableExtra_1.3.4   
- [61] ellipsis_0.3.2      jquerylib_0.1.4     biomformat_1.18.0  
- [64] selbal_0.1.0        BiocGenerics_0.36.1 sessioninfo_1.2.2  
- [67] Rcpp_1.0.8.3        plyr_1.8.7          base64enc_0.1-3    
- [70] zlibbioc_1.36.0     ps_1.7.1            prettyunits_1.1.1  
- [73] cowplot_1.1.1       correlation_0.8.1   S4Vectors_0.28.1   
- [76] haven_2.5.0         cluster_2.1.3       fs_1.5.2           
- [79] here_1.0.1          furrr_0.3.0         DataExplorer_0.8.2 
- [82] magrittr_2.0.3      data.table_1.14.2   lmerTest_3.1-3     
- [85] reprex_2.0.1        mvtnorm_1.1-3       whisker_0.4        
- [88] pkgload_1.2.4       hms_1.1.1           patchwork_1.1.1    
- [91] mime_0.12           evaluate_0.15       xtable_1.8-4       
- [94] broom.mixed_0.2.9.4 readxl_1.4.0        IRanges_2.24.1     
- [97] gridExtra_2.3       compiler_4.0.5      crayon_1.5.1       
-[100] minqa_1.2.4         htmltools_0.5.2     mgcv_1.8-40        
-[103] later_1.3.0         tzdb_0.3.0          lubridate_1.8.0    
-[106] aws.s3_0.3.21       DBI_1.1.3           tweenr_1.0.2       
-[109] dbplyr_2.2.0        MASS_7.3-57         boot_1.3-28        
-[112] Matrix_1.4-1        ade4_1.7-19         car_3.1-0          
-[115] wesanderson_0.3.6   permute_0.9-7       brio_1.1.3         
-[118] cli_3.3.0           insight_0.17.1      parallel_4.0.5     
-[121] igraph_1.3.2        pkgconfig_2.0.3     getPass_0.2-2      
-[124] numDeriv_2016.8-1.1 xml2_1.3.2          foreach_1.5.2      
-[127] svglite_2.1.0       bslib_0.3.1         blme_1.0-5         
-[130] webshot_0.5.3       multtest_2.46.0     XVector_0.30.0     
-[133] rvest_1.0.2         callr_3.7.0         digest_0.6.29      
-[136] vegan_2.6-2         Biostrings_2.58.0   rmarkdown_2.14     
-[139] cellranger_1.1.0    curl_4.3.2          shiny_1.7.1        
-[142] nloptr_2.0.3        lifecycle_1.0.1     jsonlite_1.8.0     
-[145] Rhdf5lib_1.12.1     carData_3.0-5       viridisLite_0.4.0  
-[148] desc_1.4.1          fansi_1.0.3         pillar_1.7.0       
-[151] lattice_0.20-45     fastmap_1.1.0       httr_1.4.2         
-[154] pkgbuild_1.3.1      survival_3.3-1      glue_1.6.2         
-[157] remotes_2.4.2       bayestestR_0.12.1   iterators_1.0.14   
-[160] bit_4.0.4           ggforce_0.3.3       stringi_1.7.6      
-[163] sass_0.4.1          memoise_2.0.1       ape_5.6-2          </code></pre>
+ [22] git2r_0.30.1        farver_2.1.0        datawizard_0.4.1   
+ [25] rhdf5_2.34.0        rprojroot_2.0.3     coda_0.19-4        
+ [28] parallelly_1.32.0   vctrs_0.4.1         generics_0.1.2     
+ [31] xfun_0.31           R6_2.5.1            arm_1.12-2         
+ [34] rhdf5filters_1.2.1  cachem_1.0.6        assertthat_0.2.1   
+ [37] promises_1.2.0.1    networkD3_0.4       scales_1.2.0       
+ [40] merTools_0.5.2      gtable_0.3.0        globals_0.15.0     
+ [43] processx_3.6.1      rlang_1.0.2         systemfonts_1.0.4  
+ [46] splines_4.0.5       rstatix_0.7.0       broom_0.8.0        
+ [49] yaml_2.3.5          reshape2_1.4.4      abind_1.4-5        
+ [52] modelr_0.1.8        backports_1.4.1     httpuv_1.6.5       
+ [55] tools_4.0.5         ellipsis_0.3.2      kableExtra_1.3.4   
+ [58] jquerylib_0.1.4     biomformat_1.18.0   selbal_0.1.0       
+ [61] BiocGenerics_0.36.1 sessioninfo_1.2.2   Rcpp_1.0.8.3       
+ [64] plyr_1.8.7          base64enc_0.1-3     zlibbioc_1.36.0    
+ [67] ps_1.7.1            prettyunits_1.1.1   viridis_0.6.2      
+ [70] cowplot_1.1.1       correlation_0.8.1   S4Vectors_0.28.1   
+ [73] haven_2.5.0         cluster_2.1.3       fs_1.5.2           
+ [76] here_1.0.1          furrr_0.3.0         DataExplorer_0.8.2 
+ [79] magrittr_2.0.3      data.table_1.14.2   lmerTest_3.1-3     
+ [82] reprex_2.0.1        mvtnorm_1.1-3       whisker_0.4        
+ [85] pkgload_1.2.4       hms_1.1.1           mime_0.12          
+ [88] evaluate_0.15       xtable_1.8-4        broom.mixed_0.2.9.4
+ [91] readxl_1.4.0        IRanges_2.24.1      gridExtra_2.3      
+ [94] testthat_3.1.4      compiler_4.0.5      crayon_1.5.1       
+ [97] minqa_1.2.4         htmltools_0.5.2     mgcv_1.8-40        
+[100] later_1.3.0         tzdb_0.3.0          lubridate_1.8.0    
+[103] aws.s3_0.3.21       DBI_1.1.3           dbplyr_2.2.0       
+[106] MASS_7.3-57         boot_1.3-28         Matrix_1.4-1       
+[109] ade4_1.7-19         car_3.1-0           permute_0.9-7      
+[112] brio_1.1.3          cli_3.3.0           parallel_4.0.5     
+[115] insight_0.17.1      igraph_1.3.2        pkgconfig_2.0.3    
+[118] getPass_0.2-2       numDeriv_2016.8-1.1 xml2_1.3.2         
+[121] foreach_1.5.2       svglite_2.1.0       bslib_0.3.1        
+[124] blme_1.0-5          multtest_2.46.0     webshot_0.5.3      
+[127] XVector_0.30.0      rvest_1.0.2         callr_3.7.0        
+[130] digest_0.6.29       vegan_2.6-2         Biostrings_2.58.0  
+[133] rmarkdown_2.14      cellranger_1.1.0    curl_4.3.2         
+[136] shiny_1.7.1         nloptr_2.0.3        lifecycle_1.0.1    
+[139] jsonlite_1.8.0      Rhdf5lib_1.12.1     carData_3.0-5      
+[142] desc_1.4.1          viridisLite_0.4.0   fansi_1.0.3        
+[145] pillar_1.7.0        lattice_0.20-45     fastmap_1.1.0      
+[148] httr_1.4.2          pkgbuild_1.3.1      survival_3.3-1     
+[151] glue_1.6.2          remotes_2.4.2       bayestestR_0.12.1  
+[154] iterators_1.0.14    stringi_1.7.6       sass_0.4.1         
+[157] memoise_2.0.1       ape_5.6-2          </code></pre>
 </div>
 </div>
 </div>
@@ -2380,6 +2675,8 @@ footer is added to webpages before the MathJax javascript. -->
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -2412,6 +2709,35 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

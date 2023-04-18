@@ -17,6 +17,7 @@ source("code/myFunctions.R")
 source("code/group_comparisons.R")
 library(rstatix)
 library(ggpubr)
+devtools::load_all(here::here("../WMGSPipeline"))
 
 ```
 
@@ -191,73 +192,73 @@ stat_list$group %>%
   tally() %>% 
   filter(n>=2) ## Species being significant (Wilcoxon unadjusted <0.05)
 
-otu_df %>%
-  select(SampleID,Bifidobacterium_adolescentis) %>%
-  # select(SampleID, !!sym(DAsp)) %>%
-  left_join(., metadata[,c("SampleID","group","time_point")], by="SampleID") %>%
-  group_by(group) %>%
-  ggstatsplot::grouped_ggbetweenstats(.,
-                              x="group",
-                              y = Bifidobacterium_adolescentis,
-                              pairwise.comparisons = T,
-                              type="np",bf.message=NULL,
-                              ylab = "Bifidobacterium_adolescentis(%)",
-                              ggtheme = ggplot2::theme_bw(),
-                              grouping.var = "time_point",plotgrid.args = NULL)
-otu_df %>%
-  select(SampleID,Bifidobacterium_longum) %>%
-  # select(SampleID, !!sym(DAsp)) %>%
-  left_join(., metadata[,c("SampleID","group","time_point")], by="SampleID") %>%
-  # group_by(group) %>%
-  dplyr::ungroup() %>% 
-  ggstatsplot::grouped_ggbetweenstats(.,
-                              x="group",
-                              y = Bifidobacterium_longum,
-                              pairwise.comparisons = F,
-                              type="np",bf.message=NULL,
-                              ylab = "Bifidobacterium_longum(%)",
-                              ggtheme = ggplot2::theme_bw(),
-                              # grouping.var = "time_point",
-                              plotgrid.args = list("ncol" = 4, "nrow" = 1)) +
-  facet_wrap()
+# otu_df %>%
+#   select(SampleID,Bifidobacterium_adolescentis) %>%
+#   # select(SampleID, !!sym(DAsp)) %>%
+#   left_join(., metadata[,c("SampleID","group","time_point")], by="SampleID") %>%
+#   group_by(group) %>%
+#   ggstatsplot::grouped_ggbetweenstats(.,
+#                               x="group",
+#                               y = Bifidobacterium_adolescentis,
+#                               pairwise.comparisons = T,
+#                               type="np",bf.message=NULL,
+#                               ylab = "Bifidobacterium_adolescentis(%)",
+#                               ggtheme = ggplot2::theme_bw(),
+#                               grouping.var = "time_point",plotgrid.args = NULL)
+# otu_df %>%
+#   select(SampleID,Bifidobacterium_longum) %>%
+#   # select(SampleID, !!sym(DAsp)) %>%
+#   left_join(., metadata[,c("SampleID","group","time_point")], by="SampleID") %>%
+#   # group_by(group) %>%
+#   dplyr::ungroup() %>% 
+#   ggstatsplot::grouped_ggbetweenstats(.,
+#                               x="group",
+#                               y = Bifidobacterium_longum,
+#                               pairwise.comparisons = F,
+#                               type="np",bf.message=NULL,
+#                               ylab = "Bifidobacterium_longum(%)",
+#                               ggtheme = ggplot2::theme_bw(),
+#                               # grouping.var = "time_point",
+#                               plotgrid.args = list("ncol" = 4, "nrow" = 1)) +
+#   facet_wrap()
 # 
 
  ### There is a nice signal, consistent longitudinally, in Bifidobacterium Genus
-phyloseq::otu_table(phy %>% phyloseq::tax_glom(.,taxrank="Genus")) %>% 
-  t() %>% 
-  as.data.frame() %>% 
-  stats::setNames(phyloseq::tax_table(phy %>% phyloseq::tax_glom(.,taxrank="Genus"))[,"Genus"]) %>% 
-  tibble::rownames_to_column("SampleID") %>% 
-  stats::setNames(.,stringr::str_remove_all(colnames(.), "\\[")) %>% 
-  stats::setNames(.,stringr::str_remove_all(colnames(.), "\\]")) %>% 
-  select(SampleID,Bifidobacterium) %>% 
-  # select(SampleID, !!sym(DAsp)) %>% 
-  left_join(., metadata[,c("SampleID","group","time_point")], by="SampleID") %>% 
-  group_by(group) %>% 
-  ggstatsplot::grouped_ggbetweenstats(.,
-                              x="group",
-                              y = Bifidobacterium,
-                              pairwise.comparisons = F,
-                              type="np", bf.message=NULL,
-                              ylab = "Bifidobacterium(%)", 
-                              ggtheme = ggplot2::theme_bw(),
-                              grouping.var = "time_point",plotgrid.args = NULL) 
-# %>% 
-  # ggsave(.,filename = "~/Downloads/plot4Carlos_Bifidobacterium.pdf")
-
-otu_df %>% 
-  select(SampleID,Olsenella_scatoligenes) %>% 
-  # select(SampleID, !!sym(DAsp)) %>% 
-  left_join(., metadata[,c("SampleID","group","time_point")], by="SampleID") %>% 
-  group_by(group) %>% 
-  ggstatsplot::grouped_ggbetweenstats(.,
-                              x="group",
-                              y = Olsenella_scatoligenes,
-                              pairwise.comparisons = T,
-                              type="np",bf.message=NULL,
-                              ylab = "Olsenella_scatoligenes(%)", 
-                              ggtheme = ggplot2::theme_bw(),
-                              grouping.var = "time_point",plotgrid.args = NULL)
+# phyloseq::otu_table(phy %>% phyloseq::tax_glom(.,taxrank="Genus")) %>% 
+#   t() %>% 
+#   as.data.frame() %>% 
+#   stats::setNames(phyloseq::tax_table(phy %>% phyloseq::tax_glom(.,taxrank="Genus"))[,"Genus"]) %>% 
+#   tibble::rownames_to_column("SampleID") %>% 
+#   stats::setNames(.,stringr::str_remove_all(colnames(.), "\\[")) %>% 
+#   stats::setNames(.,stringr::str_remove_all(colnames(.), "\\]")) %>% 
+#   select(SampleID,Bifidobacterium) %>% 
+#   # select(SampleID, !!sym(DAsp)) %>% 
+#   left_join(., metadata[,c("SampleID","group","time_point")], by="SampleID") %>% 
+#   group_by(group) %>% 
+#   ggstatsplot::grouped_ggbetweenstats(.,
+#                               x="group",
+#                               y = Bifidobacterium,
+#                               pairwise.comparisons = F,
+#                               type="np", bf.message=NULL,
+#                               ylab = "Bifidobacterium(%)", 
+#                               ggtheme = ggplot2::theme_bw(),
+#                               grouping.var = "time_point",plotgrid.args = NULL) 
+# # %>% 
+#   # ggsave(.,filename = "~/Downloads/plot4Carlos_Bifidobacterium.pdf")
+# 
+# otu_df %>% 
+#   select(SampleID,Olsenella_scatoligenes) %>% 
+#   # select(SampleID, !!sym(DAsp)) %>% 
+#   left_join(., metadata[,c("SampleID","group","time_point")], by="SampleID") %>% 
+#   group_by(group) %>% 
+#   ggstatsplot::grouped_ggbetweenstats(.,
+#                               x="group",
+#                               y = Olsenella_scatoligenes,
+#                               pairwise.comparisons = T,
+#                               type="np",bf.message=NULL,
+#                               ylab = "Olsenella_scatoligenes(%)", 
+#                               ggtheme = ggplot2::theme_bw(),
+#                               grouping.var = "time_point",plotgrid.args = NULL)
 ### Show how many species are differential in at least two of the timepoints in each cat var. Risk_group should result in many species showing that kins of signal. See Venn section below.
 ### --- end MNJ
 
@@ -270,7 +271,7 @@ otu_df %>%
 
 metadata <- 
   metadata %>% 
-  dplyr::mutate(group = str_replace(group, "DRV/r", "bDRV"))
+  dplyr::mutate(group = str_replace(group, "bDRV", "bDRV"))
 
 B.a <- 
 otu_df %>% 
@@ -348,18 +349,18 @@ ggarrange(B.a, B.l, O.s, common.legend = T, nrow = 3, ncol = 1) %>%
   annotate_figure(., left = text_grob(label = expression(sqrt("Abundance")),rot = 90,face = "bold", size = 14),
                   bottom = text_grob(label = "Week", face = "bold", size = 14))
 
-grplot <- boxplots$group$plot +
-  labs(y = "Gene count", title = "\u03b1-diversity") +
-  scale_fill_brewer(labels = c("bDRV", "DTG"), palette = "Accent") +
-  theme(axis.title.x = element_blank(),
-        plot.title = element_text(face = "bold", size = 14),
-        text = element_text(family = "serif"),
-        legend.position = "none",
-        axis.text.x = element_blank()) +
-  scale_y_continuous(labels = scales::scientific_format()) 
+# grplot <- boxplots$group$plot +
+#   labs(y = "Gene count", title = "\u03b1-diversity") +
+#   scale_fill_brewer(labels = c("bDRV", "DTG"), palette = "Accent") +
+#   theme(axis.title.x = element_blank(),
+#         plot.title = element_text(face = "bold", size = 14),
+#         text = element_text(family = "serif"),
+#         legend.position = "none",
+#         axis.text.x = element_blank()) +
+#   scale_y_continuous(labels = scales::scientific_format()) 
 
 plt <- 
-ggarrange(grplot,B.a, B.l, O.s, common.legend = T, ncol = 1, align = "hv", widths = c(1.2,1))%>% 
+ggarrange(B.a, B.l, O.s, common.legend = T, ncol = 1, align = "hv", widths = c(1.2,1))%>% 
   annotate_figure(., bottom = text_grob(label = "Week", face = "bold", size = 14))
 
 
@@ -384,6 +385,7 @@ metadata %>%
             lower_ci = quantile(CD4_nadir, .25),
             upper_ci = quantile(CD4_nadir, .75))
 
+plt
 ggsave(plot = plt, filename = "output/poster_boxplots.svg", width = 14, height = 28, units = "cm")
 ```
 
@@ -403,7 +405,7 @@ otu_df %>%
                         long_var = "time_point",
                         cat_vector = "group",
                         num_vector = c("Bifidobacterium_adolescentis","Bifidobacterium_longum","Olsenella_scatoligenes"),
-                        comps = c("DRV/r", "DTG"),
+                        comps = c("bDRV", "DTG"),
                         type = "categorical")
 
 
@@ -487,7 +489,7 @@ shared_sp
 
 ## Longitudinal, within-group Differential Abundance
 These comparisons test differences between time points within the same group. This is a longitudinal approach so it requires a paired test, which account for dependece between data points.
-```{r wilcox_within_group, message=F, warning=F, cache = T}
+```{r wilcox_within_group, message=F, warning=F, cache = F}
 
 ## This code may still be clunky and not work
 
@@ -609,7 +611,7 @@ As we can see, under exploratory conditions there are many DA species across all
 ### MNJ: Provide a table of species theat appear in the Venn's diagram.
 
 comps_group <- list("DTG"=c("DTG_48","DTG_96"),
-              "DRV/r" = c("DRV/r_48", "DRV/r_96"))  # Those are the group intersections I considered most interesting
+              "bDRV" = c("bDRV_48", "bDRV_96"))  # Those are the group intersections I considered most interesting
 
 Venn_Group <- stat_list_long$group %>% # Construct list for Venn diagram
       dplyr::select(species, group2, level) %>%
@@ -681,7 +683,7 @@ Venn_Group %>% # Plot Venn
 ```
 
 
-The species we found are interesting as these are the ones that may be differential between both treatment grous. We'll plot the longitudinal analysis for these selected subsets (DA at both TP 48 and 96 only for DTG, and the same for DRV/r)
+The species we found are interesting as these are the ones that may be differential between both treatment grous. We'll plot the longitudinal analysis for these selected subsets (DA at both TP 48 and 96 only for DTG, and the same for bDRV)
 
 
 ```{r plot_DA_species, warning=F, message=F, eval=T}
@@ -710,7 +712,7 @@ venn_group_res <- group_diff %>%
 
 cv <- "group"
 pal <- RColorBrewer::brewer.pal(2,"Set1")[c(1,2)] %>% 
-  setNames(c("DRV/r","DTG"))
+  setNames(c("bDRV","DTG"))
 long_plots <-
   venn_group_res %>%
   names() %>%
@@ -784,7 +786,7 @@ ggpubr::ggarrange(plotlist = long_plots$DTG, ncol=2)
 ```{r DRV_longPlots, echo=F, warning=FALSE, message=FALSE}
 
 
-ggpubr::ggarrange(plotlist = long_plots$`DRV/r` , ncol=2)
+ggpubr::ggarrange(plotlist = long_plots$`bDRV` , ncol=2)
 
 
 ```
@@ -796,8 +798,9 @@ ggpubr::ggarrange(plotlist = long_plots$`DRV/r` , ncol=2)
 
 These comparisons will be between treatment groups at the same time point: one at week 0, week 24, week 48 and 96.
 ```{r ANCOM_across_group, warning=F, message=F}
+mymre@gene_function <- GeneFunctionSet()
 
-mymre <- metar::metaphlan_ancom(mymre, tax_level = "Species", save_files = F)
+mymre <- metar:::metaphlan_ancom(mymre, tax_level = "Species", save_files = F)
 
 ancom_group <- get_taxa(mymre, type = "metaphlan",result_slot = "ancom") %>% 
   purrr::pluck("Species", "group","plot")
@@ -892,8 +895,8 @@ DTG_plotlist <- list(ancom_longlist$group$DTG$`48`$plot,
 
 ggpubr::ggarrange(plotlist = DTG_plotlist)
 
-RTV_plotlist <- list(ancom_longlist$group$`DRV/r`$`48`$plot,
-                     ancom_longlist$group$`DRV/r`$`96`$plot)
+RTV_plotlist <- list(ancom_longlist$group$`bDRV`$`48`$plot,
+                     ancom_longlist$group$`bDRV`$`96`$plot)
 
 ggpubr::ggarrange(plotlist = RTV_plotlist)
 
@@ -901,14 +904,14 @@ ggpubr::ggarrange(plotlist = RTV_plotlist)
 
 statlist <- rbind(ancom_longlist$group$DTG$`48`$stats, 
                      ancom_longlist$group$DTG$`96`$stats,
-                      ancom_longlist$group$`DRV/r`$`48`$stats,
-                     ancom_longlist$group$`DRV/r`$`96`$stats)
+                      ancom_longlist$group$`bDRV`$`48`$stats,
+                     ancom_longlist$group$`bDRV`$`96`$stats)
 
 kableExtra::kable(statlist, format = "markdown")
 
 ```
 
-Interestingly though, only one species (Streptococcus parasanguinis) appeared as statistically significant DA, only after 96 weeks in the DTG group. This species was also identified in the non-compositional analysis, being in the intersection between DTG(0-48), DTG(0-96) and DRV/r(0-96).
+Interestingly though, only one species (Streptococcus parasanguinis) appeared as statistically significant DA, only after 96 weeks in the DTG group. This species was also identified in the non-compositional analysis, being in the intersection between DTG(0-48), DTG(0-96) and bDRV(0-96).
 
 ```{r plot_strep, message = FALSE, warning= FALSE}
 phy <- metar::get_phyloseq(mymre, type = "metaphlan")

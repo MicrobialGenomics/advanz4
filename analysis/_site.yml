@@ -7,28 +7,36 @@ navbar:
     href: index.html
   - text: License
     href: license.html
-  - text: Gene richness
-    href: 310_IGC_analysis.html
-  - text: BMI vs diversity
-    href: 331_GR_BMI.html
-  - text: CD4 recovery vs Gene richness
-    href: 315_GeneRichness_vs_CD4.html
-  - text: CMV_analysis
-    href: 316_GeneRichness_vs_CMV.html
-  - text: Gene richness vs inflammation
-    href: 317_GeneRichness_vs_Inflammation.html
-  - text: Beta Diversity
-    href: 320_Beta_Diversity.html
-  - text: LMM taxa ranking
-    href: 330_TaxaLevel_LMM.html
-  - text: Immune and clinical BL comparisons
-    href: 335_BLMicrobiome_vs_ImmuneResponse.html
-  - text: Taxonomy
-    href: 410_Taxonomy_Exploration.html
+  - text: Diversity overall
+    menu:
+    - text: Gene richness
+      href: 310_IGC_analysis.html
+    - text: BMI vs diversity
+      href: 311_GR_vs_BMI.html
+    - text: CD4 recovery vs Gene richness
+      href: 315_GeneRichness_vs_CD4.html
+    - text: CMV_analysis
+      href: 316_GeneRichness_vs_CMV.html
+    - text: Gene richness vs inflammation
+      href: 317_GeneRichness_vs_Inflammation.html
+    - text: '---------'
+    - text: beta diversity
+    - text: Beta Diversity
+      href: 320_Beta_Diversity.html
+  - text: Baseline Microbiome
+    menu: 
+    - text: LMM taxa ranking
+      href: 330_TaxaLevel_LMM.html
+    - text: Immune and clinical BL comparisons
+      href: 335_BLMicrobiome_vs_ImmuneResponse.html
   - text: Differential Abundance
-    href: 420_Taxonomy_DA.html
-  - text: DA species vs inflammation markers
-    href: 430_Species_v_Inflammation.html
+    menu:
+    - text: Taxonomy
+      href: 410_Taxonomy_Exploration.html
+    - text: Differential Abundance
+      href: 420_Taxonomy_DA.html
+    - text: DA species vs inflammation markers
+      href: 430_Species_v_Inflammation.html
 #  - text: Functional annotation, exploratory
 #    href: 500_Gene_function_exploratory.html
 #  - text: Gene function DA

@@ -33,6 +33,12 @@ metadata <-
 
 mymre <- aws.s3::s3readRDS(bucket = "mistral-wp6-advanz4",object = "metagenome/WMGS/MREObject.rds", region = "eu-west-1")
 
+cat_vector <- get_cat(mymre) %>% 
+  pull(CategoricalVariable)
+
+num_vector <- 
+  get_num(mymre) %>% 
+  pull(NumericalVariable)
 
 
 ```
@@ -67,12 +73,6 @@ mymre@metadata@longitudinal_vals <- here::here("Metadata", "LongitudinalVariable
   read.delim(., header = T) %>% 
   tibble()
 
-cat_vector <- get_cat(mymre) %>% 
-  pull(CategoricalVariable)
-
-num_vector <- 
-  get_num(mymre) %>% 
-  pull(NumericalVariable)
 
 ```
 
@@ -619,7 +619,7 @@ lmm_abs$recovery$richness$plot +
   scale_color_viridis_d(option = "magma", begin = .1, end = .8, direction = 1) 
 
 ggsave(plot = lmm_plt_abs, device = "svg",path = here::here("output", "figures"), width = 16, height = 10, units = "cm", dpi = 300, filename = "LMMs_GR.svg")
-lmm$recovery$richness$summary
+
 ```
 
 No differences in gene richness could be found between those who recovered more than <150 CD4+/ml at week 48 and those who did at week 96. We'll test for deltaGR now:

@@ -91,6 +91,7 @@ get_group_comparisons <- function(dat,
                                   comps,
                                   cat_vector,
                                   num_vector,
+                                  graph_coords = F,
                                   type = "categorical"){
 
   # This is a function to obtain the stats of a certain conmparison, be it categorical or longitudinal. It returns pvals and statistical info (mean+IQR).
@@ -116,9 +117,14 @@ get_group_comparisons <- function(dat,
               dplyr::filter(cat_var %in% comps) %>%
               dplyr::filter(!is.na(num_var)) %>%
               dplyr::group_by(long_var)
-
-            wilc <- df %>%
-              wilcox_test(formula = num_var ~ cat_var, conf.level = .95, exact = T,detailed = T)
+            if(graph_coords){
+              wilc <- df %>%
+                rstatix::wilcox_test(formula = num_var ~ cat_var, conf.level = .95, exact = T,detailed = T) %>%
+                rstatix::add_xy_position(x = "long_var")
+            } else {
+              wilc <- df %>%
+                wilcox_test(formula = num_var ~ cat_var, conf.level = .95, exact = T,detailed = T)
+            }
 
             stats <- df %>%
               dplyr::group_by(cat_var,long_var, .drop = T) %>%
@@ -164,11 +170,23 @@ get_group_comparisons <- function(dat,
                         iqr2 = IQR(num_var[long_var == comps[2]], type = 8,na.rm = T),
                         iqr_change = IQR(change, na.rm = T, type = 8))
 
-            wilc <- df %>%
-              dplyr::filter(n()==2) %>%
-              dplyr::arrange(link_var, long_var) %>%
-              dplyr::group_by(cat_var, .drop=T) %>%
-              rstatix::wilcox_test(formula = num_var~long_var, paired = T, detailed = T)
+            if(graph_coords){
+              wilc <- df %>%
+                dplyr::filter(n()==2) %>%
+                dplyr::arrange(link_var, long_var) %>%
+                dplyr::group_by(cat_var, .drop=T) %>%
+                rstatix::wilcox_test(formula = num_var~long_var, paired = T, detailed = T) %>%
+                rstatix::add_xy_position(x = "long_var", group = "cat_var")
+
+            } else {
+              wilc <- df %>%
+                dplyr::filter(n()==2) %>%
+                dplyr::arrange(link_var, long_var) %>%
+                dplyr::group_by(cat_var, .drop=T) %>%
+                rstatix::wilcox_test(formula = num_var~long_var, paired = T, detailed = T) %>%
+                rstatix::add_xy_position(x = "long_var", group = "cat_var")
+
+            }
             return(list(stats = stats, test = wilc))
           })
 

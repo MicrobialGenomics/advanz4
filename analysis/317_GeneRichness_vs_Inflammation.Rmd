@@ -321,13 +321,13 @@ num_var[!num_var %in% c("CD8_CD38_DR", "ADV")] %>%
 
 
 test_list <- 
- get_group_comparisons(dat = igc_df,cat_vector = "cat_var",num_vector = num_var,long_var = "long_var",link_var = "link_var", comps = c("bDRV","DTG")) %>% 
+ get_group_comparisons(dat = igc_df,cat_vector = "cat_var",num_vector = num_var,long_var = "long_var",link_var = "link_var", comps = c("bDRV","DTG"), graph_coords = T) %>% 
    pluck("cat_var") %>% 
    purrr::map(~{pluck(.x, "test")})
 
 
 
-num_vector %>%
+num_var %>%
   purrr::set_names() %>%
   purrr::map(function(nv) {
     igc_df %>%
@@ -395,14 +395,14 @@ filt_vars <- num_var[!num_var %in% c("CD4", "CD8","CD8_CD38_DR", "ADV")]
 deltas <- 
 igc_df %>% 
   dplyr::select(SampleID, link_var, long_var, cat_var, richness,filt_vars) %>% 
-  group_by(link_var) %>% 
-  dplyr::filter(long_var %in% c(0,96)) %>% 
-  dplyr::filter(n() == 2) %>% 
+  dplyr::group_by(link_var) %>% 
+  dplyr::filter(long_var %in% c(0,24,48,96)) %>% 
+  dplyr::filter(min(long_var) == 0) %>% 
+  # dplyr::filter(n() == 2) %>% 
   dplyr::mutate(delta_richness = (richness-richness[long_var == 0]) / (richness + richness[long_var == 0]),
     across(.cols = filt_vars, 
                        .fns =  ~ .x  / .x[long_var == 0], 
-                       .names = "delta_{.col}" )
-                )  %>% 
+                       .names = "delta_{.col}" ))  %>% 
   dplyr::ungroup() %>% 
   dplyr::select(SampleID, link_var, cat_var, long_var, contains("delta"))
 
@@ -421,7 +421,7 @@ new_numvars %>%
 
 lmms <- 
   deltas %>%  
-  dplyr::mutate(cat_var = "mock") %>% 
+  # dplyr::mutate(cat_var = "mock") %>% 
 get_lmm_effects(
   .,
   cat_vector = "cat_var",
@@ -434,11 +434,16 @@ get_lmm_effects(
 new_numvars %>%
   purrr::set_names() %>%
   purrr::map(~ {
+    max_tp <- deltas %>% 
+      dplyr::filter(!is.na(!!sym(.x))) %>% 
+      dplyr::pull(long_var) %>% 
+      max()
     deltas %>%
       dplyr::mutate(cat_var = "mock") %>%
-      dplyr::filter(!is.na({.x}), 
-                    !is.na(delta_richness),
-                    long_var == 96) %>%
+      dplyr::filter(!is.na(!!sym(.x)), 
+                    !is.na(delta_richness)) %>% 
+      
+      dplyr::filter(long_var == max_tp) %>%
       create_LMM(
         .,
         num_var = .x,
@@ -449,6 +454,7 @@ new_numvars %>%
       ) %>% 
       purrr::pluck("plot") +
       scale_x_continuous(breaks = c(0,2,4,6,8)) +
+      labs(subtitle = paste("week", max_tp)) +
       # scale_y_continuous(trans = "log2") +
       theme(axis.title.x = element_text(size = 12),
             axis.title.y = element_text(size = 12, angle = 90))
@@ -456,12 +462,12 @@ new_numvars %>%
   ggpubr::ggarrange(plotlist = .)
 
 
-deltas %>% 
-  dplyr::filter(long_var == 96) %>% 
-  dplyr::select(delta_richness, new_numvars) %>% 
-  cor_test(use = "complete.obs") %>% 
-  corrplot::corrplot(corr = .)
-  dplyr::filter()
+# deltas %>% 
+#   dplyr::filter(long_var == max(long_var)) %>% 
+#   dplyr::select(delta_richness, new_numvars) %>% 
+#   cor_test(use = "complete.obs") %>% 
+#   corrplot::corrplot(corr = .) 
+#   dplyr::filter()
 
 ```
 

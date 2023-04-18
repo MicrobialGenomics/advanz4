@@ -53,18 +53,20 @@ Threshold <-  igc@dataTable %>%
 
 
 igc@dataTable %>%
-  filter(NumberMappedReads >= Threshold) %>%
-  filter(ReadCountReal >= Threshold) %>% ### Get the Mapped Read count (per-sample) just above the threshold
-  group_by(SampleID) %>%
-  summarise(across(everything(), min)) %>%
-  ungroup() %>%
-  right_join(., metadata, by = "SampleID") %>% 
-  dplyr::filter(time_point == 0) %>% 
-  summarise(age = paste(median(age), " [",IQR(age), "]", sep = ""),
-            BMI = paste(round(median(BMI, na.rm = T),3), " [",round(IQR(BMI, na.rm = T), 3), "]", sep = ""),
-            CD4_nadir = paste(round(median(CD4_nadir, na.rm = T),3), " [",round(IQR(CD4_nadir, na.rm = T), 3), "]", sep = ""),
-            VL = paste(round(median(HIV_VL, na.rm = T),3), " [",round(IQR(HIV_VL, na.rm = T), 3), "]", sep = ""),
-            richness = paste(round(median(GeneNumber, na.rm = T),3), " [",round(IQR(GeneNumber, na.rm = T), 3), "]", sep = "")) 
+  dplyr::filter(NumberMappedReads >= Threshold) %>%
+  dplyr::filter(ReadCountReal >= Threshold) %>% ### Get the Mapped Read count (per-sample) just above the threshold
+  dplyr::group_by(SampleID) %>%
+  dplyr::summarise(across(everything(), min)) %>%
+  dplyr::ungroup() %>%
+  dplyr::right_join(., metadata, by = "SampleID") %>%
+  dplyr::filter(time_point == 0) %>%
+  dplyr::summarise(
+    age = paste(median(age), " [", IQR(age), "]", sep = ""),
+    BMI = paste(round(median(BMI, na.rm = T), 3), " [", round(IQR(BMI, na.rm = T), 3), "]", sep = ""),
+    CD4_nadir = paste(round(median(CD4_nadir, na.rm = T), 3), " [", round(IQR(CD4_nadir, na.rm = T), 3), "]", sep = ""),
+    VL = paste(round(median(HIV_VL, na.rm = T), 3), " [", round(IQR(HIV_VL, na.rm = T), 3), "]", sep = ""),
+    richness = paste(round(median(GeneNumber, na.rm = T), 3), " [", round(IQR(GeneNumber, na.rm = T), 3), "]", sep = "")
+  )
 
 
 ```
@@ -90,7 +92,7 @@ igc_df <- igc@dataTable %>%
   compareGroups::export2md()
 
 
-# igc_df
+
 
 ```
 
