@@ -97,7 +97,7 @@ get_group_comparisons <- function(dat,
   # This is a function to obtain the stats of a certain conmparison, be it categorical or longitudinal. It returns pvals and statistical info (mean+IQR).
 
   stopifnot("argument 'type' must have one of the following values:
-            'categorical' or 'longitudinal"=type %in% c("categorical", "longitudinal"))
+            'categorical' or 'longitudinal'"=type %in% c("categorical", "longitudinal"))
 
 
   if(type == "categorical"){ # Doesn't need matching pairs, groups can have different Ns.
