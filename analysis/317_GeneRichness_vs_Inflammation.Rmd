@@ -22,7 +22,6 @@ library(ggpubr)
 
 ```
 
-
 ```{r utils, echo = F, warning=F, message=FALSE}
 peak_finder <-
   function(density, goal = "max",keep = F) {
@@ -95,7 +94,6 @@ num_var <- here::here("Metadata", "NumericalVariables.txt") %>%
 
 ```
 
-
 ```{r update_mre, warning= F, message= F, eval=F, results='hide'}
 
 #### This chunk is for updating the mre internally as new variables come out. Once the final mre is done this chunk will be removed.
@@ -127,10 +125,8 @@ phy <- get_phyloseq(mymre, type = "metaphlan")
 
 ```
 
-
-
-
-# Basal exploration of inflammation markers
+Basal exploration of inflammation markers
+=========================================
 
 Perform basic distributin analysis of each marker at baseline, test for imbalances between groups which may be creating a bias.
 
@@ -145,9 +141,11 @@ metadata %>%
   compareGroups::createTable(.,show.n = T)
       
 ```
+
 No significant changes could be observed in any inflammation marker, except for CD4 counts, which is still a farily small change.
 
-# Gene richness correlations
+Gene richness correlations
+==========================
 
 Now to the main point of this document. The first thing to do is to assess any correlation between initial GR and inflammation markers.
 
@@ -208,7 +206,6 @@ igc_df %>%
 
 
 ```
- 
 
 It seems richness is bimodal, with both peaks becoming increasingly separate as the study goes on. There seems to be no shift on the overall distribution. Instead, patients with really low microbiome counts tend to move towards one of the the two peaks (LGC and HGC) to check wether patients are inherently prone to move towards either peak, we could check differences in BL GR between LGC and HGC.
 
@@ -260,10 +257,7 @@ igc_df %>%
 
 ```
 
-
-
 Create a corr table and heatmap. This will be a good exploratory analysis to see which inflammation markers change with the microbiome. This is a longitudinal study, which means time may be an important variable we need to account with the models. A good exploratory first test will be to correlate markers with gene richness at basal. Then a correlation of deltas may give information on those who grow more depending on gene richness.
-
 
 ```{r basal_corrs, warning= F, message= F}
 
@@ -383,9 +377,11 @@ ggarrange(plotlist = res_list, nrow = 3, ncol = 2, common.legend = T)
 
 There are significant differences in both CRP and sCD14, which were lower in the DTG group. CRP became significant at week 96 only, while sCD14 became significant after 48 weeks, and kept doing so at week 96
 
-# Inflammation markers by gene richness
+Inflammation markers by gene richness
+=====================================
 
-## Baseline
+Baseline
+--------
 
 First let's check if Gene Richness had any effect on the baseline levels of inflammation markers.
 
@@ -471,8 +467,8 @@ new_numvars %>%
 
 ```
 
-
-# Differences by groups
+Differences by groups
+=====================
 
 ```{r GR_group_boxplots, warning = F, message = F}
 igc_df <-
@@ -657,6 +653,3 @@ spaghetti_plot_list
 num_var <- num_var[!num_var == "ADV"]
 
 ```
-
-
-
