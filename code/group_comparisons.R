@@ -203,12 +203,15 @@ get_comp_boxplots <-
            long_var,
            link_var,
            pal = "Accent",
-           y_trans = c("identity")) {
+           y_trans = c("identity"),
+           include.pvals = "none") {
 
     # set NULL transformation
 
       trans_fun <- function(x){do.call(y_trans, list(x))}
 
+      stopifnot("argument 'include.pvals' must have one of the following values:
+            'categorical', 'longitudinal' , 'both' or 'none'" = include.pvals %in% c("categorical", "longitudinal", "both", "none"))
 
 
 
@@ -255,29 +258,7 @@ get_comp_boxplots <-
     boxplot <-
       df %>%
       ggplot(., aes(x = as.factor(long_var), y = trans_fun(num_var))) +
-      geom_boxplot(aes(fill = cat_var), position = "dodge", outlier.size = .6) +
-
-      # coord_trans(y="sqrt")+
-      # scale_y_continuous(labels = scales::trans_) +
-      ggpubr::stat_pvalue_manual(
-        data = test_cat,
-        label = "p.adj.signif",
-        hide.ns = T,
-        size = 6,
-        step.increase = 0.1,
-        bracket.size = .75,
-        y.position = "y.trans"
-      ) +
-      ggpubr::stat_pvalue_manual(
-        data = test_long,
-        label = "p.adj.signif",
-        hide.ns = T,
-        step.increase = 0.1,
-        size = 6,
-        bracket.size = .75,
-        y.position = "y.trans"
-
-      ) +
+      geom_boxplot(aes(fill = cat_var), position = "dodge", outlier.size = .6)  +
       theme_bw() +
       scale_fill_brewer(palette = pal) +
       labs(y = num_var, x = "weeks", fill = cat_var) +
@@ -290,10 +271,60 @@ get_comp_boxplots <-
         legend.text = element_text(size = 12)
       )
 
+    if(include.pvals == "both"){
+      boxplot <-
+        boxplot +
+          ggpubr::stat_pvalue_manual(
+          data = test_cat,
+          label = "p.adj.signif",
+          hide.ns = T,
+          size = 6,
+          step.increase = 0.1,
+          bracket.size = .75,
+          y.position = "y.trans"
+        ) +
+        ggpubr::stat_pvalue_manual(
+          data = test_long,
+          label = "p.adj.signif",
+          hide.ns = T,
+          step.increase = 0.1,
+          size = 6,
+          bracket.size = .75,
+          y.position = "y.trans"
+        )
+
+    } else if(include.pvals == "categorical"){
+      boxplot <-
+        boxplot +
+      ggpubr::stat_pvalue_manual(
+        data = test_cat,
+        label = "p.adj.signif",
+        hide.ns = T,
+        size = 6,
+        step.increase = 0.1,
+        bracket.size = .75,
+        y.position = "y.trans"
+      )
+    } else if(include.pvals == "longitudinal"){
+      boxplot <-
+        boxplot +
+        ggpubr::stat_pvalue_manual(
+          data = test_long,
+          label = "p.adj.signif",
+          hide.ns = T,
+          step.increase = 0.1,
+          size = 6,
+          bracket.size = .75,
+          y.position = "y.trans"
+          )
+    }
+
+
     return(list(test = list(cat = test_cat, long = test_long), plot = boxplot))
 
 
   }
+
     # Performs both categorical and longitudinal tests and places the in a boxplot.
 
 
