@@ -420,6 +420,38 @@ corr_BL
 
 Also, we can see there is a patient with a REALLY low gene count, although it passed the 2nd percentile filtering. Patient E006 at month 0 received trteatment for a latent syphlis infection, just a week before collecting the sample. This means he received a penicilin injection hammered its microbiota to oblivion, and may be wise to discard it.
 
+But, does baseline richness influence the the distribution of BMI groups at a specific timepoint? This could shed some light as why we didn't find any correlation, as the effect of baseline richness may only manifest very late or very early and dilute afterwards. the best way to look at this is via boxlots:
+
+```{r gr0_BMI_cat_boxplots, warning = F, message = F, echo = show}
+gr0_bmi_cattest <- 
+  delta_bmi_df %>% 
+  dplyr::group_by(time_point, group) %>% 
+  rstatix::wilcox_test(gr0 ~ group_bmi) %>% 
+  rstatix::add_xy_position(x = "group_bmi", group = "group")
+# gr0_bmi_cattest_arm <-   
+#   delta_bmi_df %>% 
+#   dplyr::group_by(time_point, group_bmi) %>% 
+#   rstatix::wilcox_test(gr0 ~ group) 
+
+
+delta_bmi_df %>%
+  dplyr::filter(!SampleID == "ADZ4_27") %>%
+  # unique() %>%
+  ggplot(aes(x = group_bmi, y = gr0, fill = group)) +
+  facet_wrap(~ time_point ) +
+  geom_boxplot() +
+  stat_compare_means(method = "wilcox.test", label = "..p.signif..", hide.ns = F)+
+  labs(title = "BMI vs GR",subtitle = "per time", x = "BMI at baseline", y = "Gene richness at baseline") +
+  stat_pvalue_manual(data = gr0_bmi_cattest, hide.ns = T) +
+  theme_light() +
+  scale_color_manual(values = c("#AAAAAA", "#000000"), limits = c("bDRV", "DTG")) +
+  scale_fill_manual(values = c("#AAAAAA","#000000"), limits = c("bDRV", "DTG")) 
+
+
+```
+
+No differences between treatment group or bmi group could be observed in what regards to their respective GR at baseline in any timepoint. This suggests gene richness may not have an overall big impact on the BMI, regardless of group.
+
 Stratification by BMI changes
 =============================
 
@@ -758,14 +790,14 @@ combn(unique(delta_bmi_df$time_point), 2, simplify = F) %>%
       dplyr::filter(!is.na(richness),
                     time_point %in% comb) %>% 
       ungroup() %>% 
-      get_group_comparisons(.,link_var = "record_id", long_var = "time_point",cat_vector = "group_bmi",num_vector = "richness",type = "longitudinal", comps = comb,graph_coords = T)
+      get_group_comparisons(.,link_var = "record_id", long_var = "group_bmi",cat_vector = "time_point",num_vector = "richness",type = "categorical", comps = comb,graph_coords = T)
     
     obj %>% 
-      pluck("group_bmi","richness","test") %>% 
+      pluck("time_point","richness","test") %>% 
       rstatix::adjust_pvalue( method = "BH", p.col = "p") %>% 
-      full_join(obj$group_bmi[["richness"]]$stats, by = "group")%>% 
+      full_join(obj$time_point[["richness"]]$stats, by = "cat_var")%>% 
       dplyr::mutate(.y. = "richness") %>% 
-      dplyr::select(group, group1, group2,num_var = .y.,y.position, xmin, xmax, contains("median"), contains("iqr"), "p.adj") 
+      dplyr::select(long_var, group1, group2,num_var = .y.,y.position, xmin, xmax, contains("median"), contains("iqr"), "p.adj") 
   })%>% 
       rstatix::add_significance()
 
