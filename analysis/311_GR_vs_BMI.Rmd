@@ -7,6 +7,7 @@ output:
   html_document: default
 editor_options:
   chunk_output_type: console
+always_allow_html: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -25,8 +26,6 @@ library(ggpubr)
 ```{r show_chunks, echo=F}
 show = F
 ```
-
-
 
 ```{r load_data, message=F, warning=F, echo=FALSE}
 
@@ -137,6 +136,21 @@ igc_df <- igc@dataTable %>%
     )) 
 
 
+delta_bmi_df <-
+    igc_df %>%
+      dplyr::filter(!is.na(richness), !is.na(BMI),
+                    !SampleID == "ADZ4_27") %>%
+      group_by(record_id) %>%
+  dplyr::filter(any(time_point == 0),
+                any(time_point == 96)) %>%
+      mutate(bmi0 = BMI[time_point == 0],
+             gr0 = richness[time_point == 0], 
+    delta_BMI_abs = BMI - BMI[time_point == 0],
+         delta_BMI_rel = (BMI - BMI[time_point == 0])*100 / BMI[time_point == 0],
+         delta_gr_abs = richness - richness[time_point == 0],
+         delta_gr_rel = (richness - richness[time_point == 0]) / (richness + richness[time_point == 0]))
+
+
 ```
 
 Stratification by BMI
@@ -182,14 +196,13 @@ all_bmis<- here::here("Metadata","MetadataManagement","Vital.xlsx") %>%
                       levels = c("underweight", "healthy weight", "overweight")
                       )) 
 
-all_bmis %>% 
- ggplot(aes(x = record_id, y = BMI)) +
-  geom_point() +
-  geom_text(aes(label = record_id))
+# all_bmis %>%
+#  ggplot(aes(x = record_id, y = BMI)) +
+#   geom_point() +
+#   geom_text(aes(label = record_id))
 
 
 ```
-
 
 ```{r BMI_vs_group, warning=FALSE, message=FALSE, echo = show}
 
@@ -263,7 +276,6 @@ It seems there is a certain bimodality in the distribution of BMI at BL in the D
 -   18.5 to 25 (healthy weight).
 -   25 (overweight)
 
-
 The total number of patients in each group at basal is as follows
 
 ```{r print_bmi_table, echo = F, message=FALSE, warning=FALSE}
@@ -273,17 +285,18 @@ all_bmis %>%
   # nest_by(cat_var) %>%
   compareGroups::compareGroups(formula = group ~ group_bmi) %>%
   compareGroups::createTable(.) %>%
-  compareGroups::export2md()
+as.data.frame()
 
 ```
 
 As we can see, the majority of the cohort is within the range of healthy weight and both groups are pretty well balanced at baseline. This sets a good statistical base from which to find signals after treatment.
 
-# Longitudinal evolution of BMI
+Longitudinal evolution of BMI
+=============================
 
 Before entering in the complexities of gut microbiota, we'll assess wether DTG/bDRV have a differential effect on the chances of patients changing BMI categories. A good way to visualize this will be an alluvial plot.
 
-```{r alluvial_plot, warning = F, message = F, echo = show}
+```{r alluvial_plot, warning = F, message = F, echo = show, fig.width= 12, fig.height = 9}
 all_bmis %>%
   dplyr::mutate(group_bmi = ifelse(is.na(group_bmi), "no data", as.character(group_bmi))) %>%
   dplyr::mutate(group_bmi = factor(group_bmi, levels = c("underweight", "healthy weight", "overweight","no data"))) %>%
@@ -305,11 +318,9 @@ all_bmis %>%
   guides(color = "none")
 ```
 
-
 There is an increase in overweight incidence in both groups, but it is more noticeable in the DTG group. In the bDRV it appears the BMI increase is more temporary, as many patients who become overweight after treatment initiation, return to a healthy weight after 96 weeks. This is not the case in the DTG group, however, where all the participants who become overweight remain so during the whole study.
 
 The population of underweight seems to improve more in the DTG, as none of the participants fall into this category as soon as week 48, while sme patients remain so along the whole study in the bDRV arm.
-
 
 GR Stratification by BMI at baseline
 ====================================
@@ -317,6 +328,7 @@ GR Stratification by BMI at baseline
 Now it is time to assess whether the BMI category may be affecting/be influenced by gene richness. The First thing we should look is whether baseline richness is influencing the bmi of our cohort
 
 ### GR vs BMI correlation at baseline
+
 Now we found a threshold appropiate to split by BMI, we can stratify the population by treatment and bmi, vs gene richness.
 
 ```{r BMI_vs_GR_BL, warning = F, message = F, echo = show}
@@ -342,14 +354,10 @@ corr_BL <-
   delta_bmi_df %>%
   dplyr::filter(time_point == 0,
                     !SampleID == "ADZ4_27") %>%
-  # unique() %>%
   ggplot(aes(x = richness, y = BMI)) +
-  # facet_wrap(~ time_point, ) +
   geom_point() +
   geom_smooth(method = "glm", color = "black") +
   geom_smooth(method = "glm", aes(lty = group))+
-  # geom_label(data = test_cors_OA, aes(label = paste("spearman rho =",cor, "p =", p), x = min(delta_bmi_df$gr0), y = Inf), vjust=1, hjust = 0.1)+
-  # geom_label(data = test_cors_group, aes(label = paste("spearman rho =",cor, "p =", p), x = min(delta_bmi_df$gr0), y = Inf, color = group), vjust=2, hjust = 0.1)+
   labs(title = "BMI vs GR",subtitle = "baseline", x = "Gene richness at baseline", y = "BMI at baseline") +
   theme_light() +
   scale_color_manual(values = c("#AAAAAA", "#AAAAAA", "#000000"), limits = c("bDRV", "DTG", "overall")) +
@@ -406,7 +414,7 @@ corr_BL <-
   geom_smooth(method = "glm", aes(lty = group, color = group), fill = NA)+
   geom_text(data = test_cors, aes(label = paste(group,"cor = ",cor, "p =", p), x = x, y = y, color = group), vjust=1, hjust = 0.1)+
   # geom_label(data = test_cors_group, aes(label = paste("spearman rho =",cor, "p =", p), x = min(delta_bmi_df$gr0), y = Inf, color = group), vjust=2, hjust = 0.1)+
-  labs(title = "BMI vs GR",subtitle = "per time", x = "Gene richness at baseline", y = "BMI at baseline") +
+  labs(title = "BMI vs GR",subtitle = "per time", x = "Gene richness at baseline", y = "BMI") +
   theme_light() +
   scale_color_manual(values = c("#AAAAAA", "#AAAAAA", "#000000"), limits = c("bDRV", "DTG", "overall")) +
   scale_fill_manual(values = c("#AAAAAA","#AAAAAA","#000000"), limits = c("bDRV", "DTG", "overall")) +
@@ -417,27 +425,23 @@ corr_BL
 
 ```
 
-
 Also, we can see there is a patient with a REALLY low gene count, although it passed the 2nd percentile filtering. Patient E006 at month 0 received trteatment for a latent syphlis infection, just a week before collecting the sample. This means he received a penicilin injection hammered its microbiota to oblivion, and may be wise to discard it.
 
 But, does baseline richness influence the the distribution of BMI groups at a specific timepoint? This could shed some light as why we didn't find any correlation, as the effect of baseline richness may only manifest very late or very early and dilute afterwards. the best way to look at this is via boxlots:
 
 ```{r gr0_BMI_cat_boxplots, warning = F, message = F, echo = show}
+
 gr0_bmi_cattest <- 
   delta_bmi_df %>% 
   dplyr::group_by(time_point, group) %>% 
   rstatix::wilcox_test(gr0 ~ group_bmi) %>% 
   rstatix::add_xy_position(x = "group_bmi", group = "group")
-# gr0_bmi_cattest_arm <-   
-#   delta_bmi_df %>% 
-#   dplyr::group_by(time_point, group_bmi) %>% 
-#   rstatix::wilcox_test(gr0 ~ group) 
 
 
 delta_bmi_df %>%
   dplyr::filter(!SampleID == "ADZ4_27") %>%
   # unique() %>%
-  ggplot(aes(x = group_bmi, y = gr0, fill = group)) +
+  ggplot(aes(x = group_bmi, y = gr0)) +
   facet_wrap(~ time_point ) +
   geom_boxplot() +
   stat_compare_means(method = "wilcox.test", label = "..p.signif..", hide.ns = F)+
@@ -458,24 +462,12 @@ Stratification by BMI changes
 Maybe the increase in gene richness may be associated not so much to absolute BMI but of changes in BMI. In this part we'll correlate richness to changes in BMI over time.
 
 Baseline richness vs BMI changes
---------
+--------------------------------
 
 The first hypotesis to test is whether differences in richness may be affecting BMI changes after treatment.
 
-```{r delta_cors_BL, warning=FALSE, message=F, fig.height=600,echo = show, fig.width=800}
-delta_bmi_df <-
-    igc_df %>%
-      dplyr::filter(!is.na(richness), !is.na(BMI),
-                    !SampleID == "ADZ4_27") %>%
-      group_by(record_id) %>%
-  dplyr::filter(any(time_point == 0),
-                any(time_point == 96)) %>%
-      mutate(bmi0 = BMI[time_point == 0],
-         gr0 = richness[time_point == 0],
-    delta_BMI_abs = BMI - BMI[time_point == 0],
-         delta_BMI_rel = (BMI - BMI[time_point == 0])*100 / BMI[time_point == 0],
-         delta_gr_abs = richness - richness[time_point == 0],
-         delta_gr_rel = (richness - richness[time_point == 0]) / (richness + richness[time_point == 0]))
+```{r delta_cors_BL, warning=FALSE, message=F, echo = show, fig.height= 8, fig.width=9}
+
 
 
 
@@ -512,7 +504,7 @@ deltas_gr0_abs <-
   geom_smooth(method = "glm", colour = "black", fill = NA) +
   geom_text(data = test_gr0_abs, 
              aes(label = paste(group, "cor = ",cor, "p =", p), x = x, y = y, colour = group), 
-             inherit.aes = F, vjust=1, hjust = 0.1)+
+             inherit.aes = F, vjust=1, hjust = 0.1, size = 3)+
   labs(title = "Absolute", x = "Gene richness at baseline", y = "BMI increase from baseline") +
   theme_light() +
   scale_color_manual(values = c("#AAAAAA", "#AAAAAA", "#000000"), limits = c("bDRV", "DTG", "overall")) +
@@ -551,7 +543,7 @@ deltas_gr0_rel <-
   geom_smooth(method = "glm", colour = "black", fill = NA) +
   geom_text(data = test_gr0_rel, 
              aes(label = paste(group, "cor = ",cor, "p =", p), x = x, y = y, colour = group), 
-             inherit.aes = F, vjust=1, hjust = 0.1)+
+             inherit.aes = F, vjust=1, hjust = 0.1, size = 3)+
   labs(title = "Relative", x = "Gene richness at baseline", y = "BMI increase from baseline") +
   theme_light() +
   scale_color_manual(values = c("#AAAAAA", "#AAAAAA", "#000000"), limits = c("bDRV", "DTG", "overall")) +
@@ -567,13 +559,11 @@ ggpubr::ggarrange(deltas_gr0_abs, deltas_gr0_rel, common.legend = T, ncol = 1, n
 Again, nothing. No correlation between richness at basal and change of BMI at any timepoint could be found.
 
 BMI vs GR change
-------------
+----------------
 
 We already look on the effect of gene richness at baseline, but now the next question would be whether the chages in richness we reported before are linked to BMI changes as well.
 
 ```{r plot_distributions_96, eval = T, warning = F, message = F, echo = show}
-
-tp <- 96
 
 
 
@@ -644,8 +634,7 @@ ggpubr::ggarrange(plot_delta_abs, plot_delta_rel, common.legend = T) %>%
 
 Both treatment groups appear to have a unimodal distribution regarding their BMI increase at week 96, both in absolute and relative terms. However there seems to be a shift between both, as the "valley" between both peaks in the DTG group seems to be shifted toward the left, relative to the DRV group.
 
-
-```{r lmms_deltas, message = F, warning = F}
+```{r lmms_deltas, message = F, warning = F,echo = show ,fig.height=8, fig.width=6}
 test_abs_group <-
   delta_bmi_df %>%
   dplyr::filter(!time_point == 0) %>%
@@ -679,7 +668,7 @@ deltas_abs <-
   geom_smooth(method = "glm", colour = "black", fill = NA) +
   geom_text(data = test_abs, 
              aes(label = paste(group, "cor = ",cor, "p =", p), x = x, y = y, colour = group), 
-             inherit.aes = F, vjust=1, hjust = 0.1)+
+             inherit.aes = F, vjust=1, hjust = 0.1, size = 3)+
   labs(title = "Absolute", x = "Gene richness at baseline", y = "BMI increase from baseline") +
   theme_light() +
   scale_color_manual(values = c("#AAAAAA", "#AAAAAA", "#000000"), limits = c("bDRV", "DTG", "overall")) +
@@ -718,7 +707,7 @@ deltas_rel <-
   geom_smooth(method = "glm", colour = "black", fill = NA) +
   geom_text(data = test_rel, 
              aes(label = paste(group, "cor = ",cor, "p =", p), x = x, y = y, colour = group), 
-             inherit.aes = F, vjust=1, hjust = 0.1)+
+             inherit.aes = F, vjust=1, hjust = 0.1, size = 3)+
   labs(title = "Relative", x = "Gene richness at baseline", y = "BMI increase from baseline") +
   theme_light() +
   scale_color_manual(values = c("#AAAAAA", "#AAAAAA", "#000000"), limits = c("bDRV", "DTG", "overall")) +
@@ -731,455 +720,45 @@ ggpubr::ggarrange(deltas_abs, deltas_rel, common.legend = T, ncol = 1, nrow = 2)
 
 ```
 
-
 No significant differences in trends could be observed either. Interesting to note, in the absolute plot there are 2 apparent outliers. Those took antibiotics at some point of the study and it reflected in a significant loss of gene richness, but in absolute numbers they aren't really low on richness, it's just the change.
 
+Now let's categorize these results:
 
-Finally, we can move on to stratify the cohort on BMI classes
+```{r BMI_class_boxplots, warning = F, message = F,echo = show, fig.width=5, fig.height=6}
 
-Stratifying population by BMI
-=============================
-
-We know from previous analysis that the biggest differences in GR beween grups happened at week 24: \#\# Week 24
-
-```{r GR_group_boxplots, warning = F, message = F}
-
-cat_test <-
-  delta_bmi_df %>%
-  dplyr::filter(!is.na(richness)) %>%
-  # group_by(long_var) %>%
-  get_group_comparisons(
-    .,
-    link_var = "record_id",
-    long_var = "time_point",
-    cat_vector = "group_bmi",
-    num_vector = "richness",
-    type = "categorical",
-    comps = unique(delta_bmi_df$group_bmi),
-    graph_coords = T
-  )
-
-objtest <- cat_test %>% pluck("group_bmi", "richness", "test")
-objstats <- cat_test %>% pluck("group_bmi", "richness", "stats") %>%
-  mutate(stat = paste(round(median, 2), " [", round(iqr, 2), "]", sep = ""))
-
-cat_test_df <- 
-objtest %>%
-  pivot_longer(cols = c("group1", "group2")) %>%
-  dplyr::rename(cat_var = value) %>%
-  dplyr::left_join(objstats[, c("cat_var", "long_var", "stat")], by = c("cat_var", "long_var")) %>%
-  pivot_wider(names_from = "name",
-              values_from = c("cat_var", "stat")) %>%
-  dplyr::select(long_var,
-                group1 = cat_var_group1,
-                group2 = cat_var_group2,
-                contains("stat"),
-                y.position,
-                xmin,xmax,
-                p.adj,
-                p.adj.signif)
-
-
-long_test <- 
-combn(unique(delta_bmi_df$time_point), 2, simplify = F) %>% 
-  purrr::set_names() %>% 
-  purrr::map_dfr(function(comb){
-    
-    obj <- 
-    delta_bmi_df %>% 
-      dplyr::filter(!is.na(richness),
-                    time_point %in% comb) %>% 
-      ungroup() %>% 
-      get_group_comparisons(.,link_var = "record_id", long_var = "group_bmi",cat_vector = "time_point",num_vector = "richness",type = "categorical", comps = comb,graph_coords = T)
-    
-    obj %>% 
-      pluck("time_point","richness","test") %>% 
-      rstatix::adjust_pvalue( method = "BH", p.col = "p") %>% 
-      full_join(obj$time_point[["richness"]]$stats, by = "cat_var")%>% 
-      dplyr::mutate(.y. = "richness") %>% 
-      dplyr::select(long_var, group1, group2,num_var = .y.,y.position, xmin, xmax, contains("median"), contains("iqr"), "p.adj") 
-  })%>% 
-      rstatix::add_significance()
-
-
-
-summ_df <- 
-delta_bmi_df %>% 
-  dplyr::group_by(long_var,bmi_c, cat_var, bmi_c_g) %>% 
-  summarise(median_gr = median(richness),
-            sd_gr = sd(richness))
-
-
-
-
-spaghetti_plot_list <- 
-    igc_df %>%
-      # dplyr::filter(!is.na(!!sym(nv)), !is.na(bmi_c_g)) %>%
-      mutate(long_var = as.factor(long_var)) %>%
-      ggplot(aes(
-        x = long_var,
-        y = richness,
-        color = bmi_c_g
-      )) +
-      geom_point(
-        data = summ_df,
-        aes(
-          x = as.factor(long_var),
-          y = median_gr,
-          color = cat_var,
-          shape = bmi_c,
-          group = bmi_c_g
-        ),
-        size = 3,
-        position = position_dodge(.8)
-      ) +
-      
-      geom_errorbar(
-        data = summ_df,
-        aes(
-          x = as.factor(long_var),
-          ymin = median_gr - sd_gr,
-          ymax = median_gr + sd_gr,
-          color = cat_var,
-          lty = bmi_c,
-          group = bmi_c_g
-        ),
-        inherit.aes = F,
-        width = 1,
-        position = position_dodge(.8)
-      ) +
-      geom_line(
-        data = summ_df,
-        aes(
-          x = as.factor(long_var),
-          y = median_gr,
-          color = cat_var,
-          lty = bmi_c,
-          group = bmi_c_g
-        ),
-        inherit.aes = F,
-        position = position_dodge(.8)
-      ) +
-      # stat_smooth(method = "loess", alpha = .2, aes(fill = cat_var), position = position_dodge(.8)) +
-      theme_bw() +
-      labs(
-        x = "weeks",
-        y = "richness",
-        color = "group",
-        shape = "BMI increase",
-        lty = "BMI increase",
-        title = "richness vs BMI increase"
-      ) +
-      ggpubr::stat_pvalue_manual(cat_test_df, label = "p.adj.signif", hide.ns = T) +
-      ggpubr::stat_pvalue_manual(long_test, label = "p.adj.signif", hide.ns = T) +
-      scale_color_brewer(palette = "Dark2") +
-      scale_fill_brewer(palette = "Dark2") +
-      theme(axis.title.x = element_blank())
-    # scale_x_continuous(breaks = c(0,48,96))
-
-spaghetti_plot_list %>%
-ggsave(plot= ., device = "svg",path = here::here("output","figures"), filename = "bmi_richness.svg", dpi= 300, width = 15, height = 25, units = "cm")
-
-spaghetti_plot_list
-
-
-  
-```
-
-Apparently, the only significant differences are between both subgroups belonging to the DTG arm, this suggests the GR change relates more to group rather than BMI.
-
-```{r stat_Tables, warning F, message=FALSE, echo = F}
-long_test %>% 
-  dplyr::filter(p.adj <0.05) %>% 
-  dplyr::select(arm = cat_var, contains("group"), median1, iqr1, median2, iqr2, medianChange, iqr_change, p.adj) %>% 
-  kableExtra::kable(format = "markdown") 
-
-cat_test_df %>% 
-  dplyr::filter(p.adj < 0.05)
-```
-
-```{r plot_distributions, eval = T, warning = F, message = F, echo = F}
-
-tp <- 24
-
-delta_bmi_df <- 
-igc_df %>% 
-  # dplyr::filter(long_var == 0) %>% 
-  dplyr::select(link_var, long_var, cat_var, richness, BMI) %>% 
-  group_by(link_var) %>% 
-  dplyr::filter(long_var %in% c(0,tp), 
-                !is.na(BMI)) %>% 
-  filter(n() ==2) %>% 
-  mutate(bmi0 = BMI[long_var == 0],
-         gr0 = richness[long_var == 0],
-    delta_BMI_abs = BMI - BMI[long_var == 0],
-         delta_BMI_rel = (BMI - BMI[long_var == 0])*100 / BMI[long_var == 0],
-         delta_gr_abs = richness - richness[long_var == 0],
-         delta_gr_rel = (richness - richness[long_var == 0]) / (richness + richness[long_var == 0])) %>%
-  dplyr::filter(long_var == tp) %>% 
-  dplyr::select(record_id = link_var, contains("delta"), bmi0, gr0, cat_var) 
-
-
-peaks_abs <-
-  unique(metadata$group) %>%
-  purrr::set_names() %>%
-  purrr::map_dfr(function(treat) {
-    
-    delta_bmi_df %>%
-      dplyr::filter(cat_var == treat) %>% 
-      dplyr::pull(delta_BMI_abs) %>%
-      density() %>%
-      peak_finder(goal = "min") %>%
-      round(., 3) %>% 
-      mutate(cat_var = treat)
-  })
-
-
-plot_delta_abs <- 
-delta_bmi_df %>% 
-  ggplot(aes(x = delta_BMI_abs)) +
-  geom_density(aes(color = cat_var)) +
-  geom_vline(aes(color = cat_var), xintercept = peaks_abs$x, lty = 3) +
-  geom_text(data = peaks_abs, aes(x = peaks_abs$x, y = peaks_abs$y*.9,label = peaks_abs$x, color = cat_var)) +
+deltas_abs <- 
+  delta_bmi_df %>% 
+  dplyr::filter(!time_point == 0) %>% 
+  ggplot(aes(x = group_bmi, y = delta_gr_abs, color = group)) +
+  facet_wrap(~ time_point ) +
+  geom_boxplot() +
+  labs(title = "Absolute", x = "Gene richness at baseline", y = "GR increase from baseline") +
   theme_light() +
-  scale_color_brewer(palette = "Accent") +
-  labs(title = "Absolute", x = "BMI increase", subtitle = paste("Week",tp), color = "group") 
+  scale_color_manual(values = c("#AAAAAA", "#555555", "#000000")) +
+  scale_fill_manual(values = c("#AAAAAA", "#555555", "#000000")) +
+  stat_compare_means(method = "kruskal.test", label = "p.signif", hide.ns = T) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.5))
 
 
 
-
-peaks_rel <- 
-  unique(metadata$group) %>%
-  purrr::set_names() %>%
-  purrr::map_dfr(function(treat) {
-    
-    delta_bmi_df %>%
-      dplyr::filter(cat_var == treat) %>% 
-      dplyr::pull(delta_BMI_rel) %>%
-      density() %>%
-      peak_finder(goal = "min") %>%
-      round(., 3) %>% 
-      mutate(cat_var = treat)
-  })
-
-plot_delta_rel <- 
-delta_bmi_df %>% 
-  ggplot(aes(x = delta_BMI_rel,color = cat_var)) +
-  geom_density(aes(color = cat_var)) +
-  geom_vline(data = peaks_rel, aes(color = cat_var), xintercept = peaks_rel$x, lty = 3) +
-  geom_text(data = peaks_rel, aes(x = x, y = y*.9,label = x, color = cat_var)) +
-  labs(title = "Relative (%)", x = "BMI increase", subtitle = paste("Week",tp), color = "group") +
-  theme_light()+
-  scale_color_brewer(palette = "Accent") +
-  theme(axis.title.y = element_blank())
-
-
-# delta_bmi_df %>% 
-
-
-
-ggpubr::ggarrange(plot_delta_abs, plot_delta_rel, common.legend = T)  
-
-
-```
-
-Here it appears the threshold should be un BMI increase of 1.3, let's do that:
-
-```{r delta_cors, warning=FALSE, message=F, echo = F}
-test_gr0_abs <-
-  delta_bmi_df %>%
-  glm(delta_BMI_abs ~ gr0 * cat_var, data = .) %>%
-  rstatix::anova_test() %>% 
-  as.tibble() %>% 
-  dplyr::slice(3L) %>% 
-  pull(p)
-
-deltas_gr0_abs <- 
+deltas_rel <- 
   delta_bmi_df %>% 
-  ggplot(aes(x = gr0, y = delta_BMI_abs, color = cat_var)) +
-  geom_point() +
-  geom_smooth(method = "glm", aes(fill = cat_var)) +
-  labs(title = "Absolute", subtitle = paste("ANOVA p =", test_gr0_abs),x = "Gene richness at baseline") +
-  theme_light()
-
-
-test_gr0_rel <-
-  delta_bmi_df %>%
-  glm(delta_BMI_rel ~ gr0 * cat_var, data = .) %>%
-  rstatix::anova_test() %>% 
-  as.tibble() %>% 
-  dplyr::slice(3) %>% 
-  pull(p)
-
-deltas_gr0_rel <- 
-  delta_bmi_df %>% 
-  ggplot(aes(x = gr0, y = delta_BMI_rel, color = cat_var)) +
-  geom_point() +
-  geom_smooth(method = "glm", aes(fill = cat_var)) +
+  dplyr::filter(!time_point == 0) %>% 
+  ggplot(aes(x = group_bmi, y = delta_gr_rel, color = group)) +
+  facet_wrap(~ time_point ) +
+  geom_boxplot() +
+  labs(title = "Relative", x = "Gene richness at baseline", y = "GR increase from baseline") +
   theme_light() +
-  labs(title = "Relative", subtitle = paste("ANOVA p =", test_gr0_rel),x = "Gene richness at baseline") +
-  theme(axis.title.y = element_blank())
+  scale_color_manual(values = c("#AAAAAA", "#555555", "#000000")) +
+  scale_fill_manual(values = c("#AAAAAA", "#555555", "#000000")) +
+  stat_compare_means(method = "kruskal.test", label = "p.signif", hide.ns = T) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.5))
 
 
 
-ggpubr::ggarrange(deltas_gr0_abs, deltas_gr0_rel, common.legend = T)
 
-
-
-test_gr_abs <-
-  delta_bmi_df %>%
-  glm(delta_BMI_abs ~ delta_gr_abs * cat_var, data = .) %>%
-  rstatix::anova_test() %>% 
-  as.tibble() %>% 
-  dplyr::slice(3L) %>% 
-  pull(p)
-
-deltas_gr_abs <- 
-  delta_bmi_df %>% 
-  ggplot(aes(x = delta_gr_abs, y = delta_BMI_abs, color = cat_var)) +
-  geom_point() +
-  geom_smooth(method = "glm", aes(fill = cat_var)) +
-  labs(title = "Absolute", subtitle = paste("ANOVA p =", test_gr_abs), x = "Gene richness increase") +
-  theme_light()
-
-
-test_gr_rel <-
-  delta_bmi_df %>%
-  glm(delta_BMI_rel ~ delta_gr_rel * cat_var, data = .) %>%
-  rstatix::anova_test() %>% 
-  as.tibble() %>% 
-  dplyr::slice(3) %>% 
-  pull(p)
-
-deltas_gr_rel <- 
-  delta_bmi_df %>% 
-  ggplot(aes(x = delta_gr_rel, y = delta_BMI_rel, color = cat_var)) +
-  geom_point() +
-  geom_smooth(method = "glm", aes(fill = cat_var)) +
-  theme_light() +
-  labs(title = "Relative", subtitle = paste("ANOVA p =", test_gr_rel),x = "Gene richness increase") +
-  theme(axis.title.y = element_blank())
-
-
-
-ggpubr::ggarrange(deltas_gr_abs, deltas_gr_rel, common.legend = T)
+ggpubr::ggarrange(deltas_abs, deltas_rel, common.legend = T, ncol = 1, nrow = 2)
 
 ```
 
-```{r bmi_stratification, warning=F, message=FALSE, echo = F}
-delta_bmi_df %>% 
-  dplyr::mutate(bmi_c = case_when(
-    delta_BMI_abs >= 1.3 ~ "H_BMI",
-    delta_BMI_abs < 1.3 ~ "L_BMI"
-  )) %>% 
-  # dplyr::select(link_var = record_id, bmi_c) %>% 
-  # left_join(igc_df, by = "link_var") %>% 
-  # mutate(cat_var2 = paste(cat_var, bmi_c)) %>% 
-  dplyr::filter(!is.na(bmi_c)) %>% 
-  ggplot(aes(y = gr0, x = cat_var, fill = bmi_c)) +
-  ggpubr::stat_compare_means(method = "wilcox.test") +
-  geom_boxplot() +
-  theme_bw() +
-  labs(x = "treatment", y = "gene richness (baseline)", fill = "BMI")
-
-
-delta_bmi_df %>% 
-  dplyr::mutate(bmi_c = case_when(
-    delta_BMI_abs >= 1.3 ~ "H_BMI",
-    delta_BMI_abs < 1.3 ~ "L_BMI"
-  )) %>% 
-  dplyr::filter(!is.na(bmi_c)) %>% 
-  ggplot(aes(y = delta_gr_rel, x = cat_var, fill = bmi_c)) +
-  ggpubr::stat_compare_means(method = "wilcox.test") +
-  geom_boxplot() +
-  theme_bw() +
-  labs(x = "treatment", y = "GR increase at week 24 (%)", fill = "BMI")
-
-
-delta_bmi_df %>% 
-  dplyr::mutate(bmi_c = case_when(
-    delta_BMI_abs >= 1.3 ~ "H_BMI",
-    delta_BMI_abs < 1.3 ~ "L_BMI"
-  )) %>% 
-  dplyr::select(record_id, bmi_c) %>% 
-  dplyr::rename(link_var = record_id) %>% 
-  dplyr::right_join(igc_df, by = "link_var") %>% 
-  dplyr::filter(!is.na(bmi_c)) %>% 
-  dplyr::mutate(group_bmi = paste(cat_var, bmi_c, sep = "_")) %>% 
-  group_by(group_bmi) %>% 
-  rstatix::wilcox_test(richness ~ long_var) %>% 
-  dplyr::filter(p < 0.05) %>% 
-  kableExtra::kable(format = "markdown")
-
-
-```
-
-Week 96
--------
-
-Now that we saw the increase in gene richness follows a bimodal distribution in each group, it is possible that we didn't find an effect of gene richness per treatment group due to the confusor effect of BMI. We will split the population between high (BMI\_H) and low BMI increase (BMI\_L). The cutting point will be an absolute increase of 2.5 in BMI, as seen earlier in the delta distribution.
-
-```{r bmi_stratification_96, warning=F, message=FALSE}
-delta_bmi_df %>% 
-  dplyr::mutate(bmi_c = case_when(
-    delta_BMI_abs >= 2.5 ~ "H_BMI",
-    delta_BMI_abs < 2.5 ~ "L_BMI"
-  )) %>% 
-  # dplyr::select(link_var = record_id, bmi_c) %>% 
-  # left_join(igc_df, by = "link_var") %>% 
-  # mutate(cat_var2 = paste(cat_var, bmi_c)) %>% 
-  dplyr::filter(!is.na(bmi_c)) %>% 
-  ggplot(aes(y = gr0, x = cat_var, fill = bmi_c)) +
-  ggpubr::stat_compare_means(method = "wilcox.test") +
-  geom_boxplot() +
-  theme_bw() +
-  labs(x = "treatment", y = "gene richness (baseline)", fill = "BMI")
-
-
-delta_bmi_df %>% 
-  dplyr::mutate(bmi_c = case_when(
-    delta_BMI_abs >= 2.5 ~ "H_BMI",
-    delta_BMI_abs < 2.5 ~ "L_BMI"
-  )) %>% 
-  dplyr::filter(!is.na(bmi_c)) %>% 
-  ggplot(aes(y = delta_gr_rel, x = cat_var, fill = bmi_c)) +
-  ggpubr::stat_compare_means(method = "wilcox.test") +
-  geom_boxplot() +
-  theme_bw() +
-  labs(x = "treatment", y = "GR increase at week 96 (%)", fill = "BMI")
-
-
-delta_bmi_df %>% 
-  dplyr::mutate(bmi_c = case_when(
-    delta_BMI_abs >= 2.5 ~ "H_BMI",
-    delta_BMI_abs < 2.5 ~ "L_BMI"
-  )) %>% 
-  dplyr::select(record_id, bmi_c) %>% 
-  dplyr::rename(link_var = record_id) %>% 
-  dplyr::right_join(igc_df, by = "link_var") %>% 
-  dplyr::filter(!is.na(bmi_c)) %>% 
-  dplyr::mutate(group_bmi = paste(cat_var, bmi_c, sep = "_")) %>% 
-  group_by(group_bmi) %>% 
-  rstatix::wilcox_test(richness ~ long_var)
-
-
-delta_bmi_df %>% 
-  dplyr::mutate(bmi_c = case_when(
-    delta_BMI_abs >= 2.5 ~ "H_BMI",
-    delta_BMI_abs < 2.5 ~ "L_BMI"
-  )) %>% 
-  dplyr::select(record_id, bmi_c) %>% 
-  dplyr::rename(link_var = record_id) %>% 
-  dplyr::right_join(igc_df, by = "link_var") %>% 
-  dplyr::filter(!is.na(bmi_c)) %>% 
-  dplyr::mutate(group_bmi = paste(cat_var, bmi_c, sep = "_")) %>% 
-  ggplot(aes(y = richness, x = as.factor(long_var), color = group_bmi)) +
-  geom_boxplot(aes(x = as.factor(long_var))) +
-  ggpubr::stat_compare_means(method = "kruskal.test", hide.ns = F, label = "p.signif") +
-  # geom_point() +
-  geom_smooth(method = "glm", alpha = 0) +
-  theme_bw() +
-  labs(x = "week") 
-
-
-```
+A we can see, no differences between groups in GR increase could be fond for any of the BMI groups. While it seems there is some in the Overweight group at week 24, it is not significant due to the low n present in the group (n = 1 in the case of bDRV Overweight). Remember the actual Ns won't necessarily match the alluvial plot's as the GR analysis are constricted only to those with present faecal samples.
