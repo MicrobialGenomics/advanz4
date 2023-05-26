@@ -72,7 +72,7 @@ PairedWilcox_withNAs<-function(myDF, Variable, Response, Subsets=NULL, IDs){
             dplyr::filter(n()==2) %>%
             dplyr::ungroup(IDs) %>%
             rstatix::wilcox_test(.,Variable ~ Response, paired = T, p.adjust.method = "none")  %>%
-            rstatix::add_y_position() %>%
+            rstatix::add_xy_position(x = "Response", group = Subsets) %>%
             dplyr::select(-groups)
         )
 

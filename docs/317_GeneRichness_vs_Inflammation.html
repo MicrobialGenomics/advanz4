@@ -340,38 +340,67 @@ div.tocify {
 <li>
   <a href="license.html">License</a>
 </li>
-<li>
-  <a href="310_IGC_analysis.html">Gene richness</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Diversity overall
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="310_IGC_analysis.html">Gene richness</a>
+    </li>
+    <li>
+      <a href="311_GR_vs_BMI.html">BMI vs diversity</a>
+    </li>
+    <li>
+      <a href="315_GeneRichness_vs_CD4.html">CD4 recovery vs Gene richness</a>
+    </li>
+    <li>
+      <a href="316_GeneRichness_vs_CMV.html">CMV_analysis</a>
+    </li>
+    <li>
+      <a href="317_GeneRichness_vs_Inflammation.html">Gene richness vs inflammation</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">beta diversity</li>
+    <li>
+      <a href="320_Beta_Diversity.html">Beta Diversity</a>
+    </li>
+  </ul>
 </li>
-<li>
-  <a href="331_GR_BMI.html">BMI vs diversity</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Baseline Microbiome
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="330_TaxaLevel_LMM.html">LMM taxa ranking</a>
+    </li>
+    <li>
+      <a href="335_BLMicrobiome_vs_ImmuneResponse.html">Immune and clinical BL comparisons</a>
+    </li>
+  </ul>
 </li>
-<li>
-  <a href="315_GeneRichness_vs_CD4.html">CD4 recovery vs Gene richness</a>
-</li>
-<li>
-  <a href="316_GeneRichness_vs_CMV.html">CMV_analysis</a>
-</li>
-<li>
-  <a href="317_GeneRichness_vs_Inflammation.html">Gene richness vs inflammation</a>
-</li>
-<li>
-  <a href="320_Beta_Diversity.html">Beta Diversity</a>
-</li>
-<li>
-  <a href="330_TaxaLevel_LMM.html">LMM taxa ranking</a>
-</li>
-<li>
-  <a href="335_BLMicrobiome_vs_ImmuneResponse.html">Immune and clinical BL comparisons</a>
-</li>
-<li>
-  <a href="410_Taxonomy_Exploration.html">Taxonomy</a>
-</li>
-<li>
-  <a href="420_Taxonomy_DA.html">Differential Abundance</a>
-</li>
-<li>
-  <a href="430_Species_v_Inflammation.html">DA species vs inflammation markers</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Differential Abundance
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="410_Taxonomy_Exploration.html">Taxonomy</a>
+    </li>
+    <li>
+      <a href="420_Taxonomy_DA.html">Differential Abundance</a>
+    </li>
+    <li>
+      <a href="430_Species_v_Inflammation.html">DA species vs inflammation markers</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -394,7 +423,7 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -403,7 +432,7 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -412,10 +441,10 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-04-13
+<strong>Last updated:</strong> 2023-05-26
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>advanz4/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -431,12 +460,12 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
 </div>
 </div>
 </div>
@@ -503,16 +532,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree0aef81987ff281deec8894018695691895f80a3btargetblank0aef819a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/0aef81987ff281deec8894018695691895f80a3b" target="_blank">0aef819</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree85710c1a5b2a8c22a62030b66ea702779ecda1b7targetblank85710c1a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/85710c1a5b2a8c22a62030b66ea702779ecda1b7" target="_blank">85710c1</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree0aef81987ff281deec8894018695691895f80a3btargetblank0aef819a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree85710c1a5b2a8c22a62030b66ea702779ecda1b7targetblank85710c1a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/0aef81987ff281deec8894018695691895f80a3b" target="_blank">0aef819</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/85710c1a5b2a8c22a62030b66ea702779ecda1b7" target="_blank">85710c1</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -529,20 +558,13 @@ Ignored files:
     Ignored:    data/mre.rds
 
 Untracked files:
-    Untracked:  analysis/figure/
+    Untracked:  output/BMI_vs_GR.pdf
 
 Unstaged changes:
-    Modified:   analysis/250_BL_stratification.Rmd
-    Deleted:    analysis/250_BL_stratification.html
-    Modified:   analysis/315_GeneRichness_vs_CD4.Rmd
-    Modified:   analysis/317_GeneRichness_vs_Inflammation.Rmd
+    Modified:   analysis/311_GR_vs_BMI.Rmd
+    Modified:   analysis/320_Beta_Diversity.Rmd
     Modified:   code/group_comparisons.R
-    Modified:   output/figures/LMMs_GR.svg
-    Modified:   output/figures/LMMs_GRrel.svg
-    Modified:   output/figures/inflammation.svg
-    Modified:   output/figures/recovery_grid.svg
-    Modified:   output/figures/richness_reconstitution.svg
-    Modified:   output/figures/richness_reconstitution_relative.svg
+    Modified:   output/mre_data/CatalogMapping/IGC/lmm/lmm_time_point_by_group.pdf
 
 </code></pre>
 <p>
@@ -581,6 +603,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/209eb6d9b734ce1208bdbfa7fe349b16c46ad71d/analysis/317_GeneRichness_vs_Inflammation.Rmd" target="_blank">209eb6d</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-28
+</td>
+<td>
+Added all info for BMI and updated alluvial plot
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/analysis/317_GeneRichness_vs_Inflammation.Rmd" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+<td>
+Updated website
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/72f15339f90d852482e264aa42757ad925bf6e1d/docs/317_GeneRichness_vs_Inflammation.html" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+<td>
+Updated website
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -917,6 +990,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/plot_distributions-1.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/5ba2c0eba12ddd3d27cf39d53a4f4c0902f10524/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/plot_distributions-1.png" target="_blank">5ba2c0e</a>
 </td>
 <td>
@@ -999,6 +1083,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/test_basal_peaks-1.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/5ba2c0eba12ddd3d27cf39d53a4f4c0902f10524/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/test_basal_peaks-1.png" target="_blank">5ba2c0e</a>
@@ -1238,6 +1333,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-1.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/b9e2fd42198f450579592f1e076394255d450567/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-1.png" target="_blank">b9e2fd4</a>
 </td>
 <td>
@@ -1300,6 +1406,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-2.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/b9e2fd42198f450579592f1e076394255d450567/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-2.png" target="_blank">b9e2fd4</a>
 </td>
 <td>
@@ -1316,30 +1433,363 @@ cblazquez-irsi
 <pre><code>
 $CD4_CD38_DR</code></pre>
 <p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-corrr_deltas-3">
+Past versions of corrr_deltas-3.png
+</button>
+</p>
+<div id="fig-corrr_deltas-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-3.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $CD8_CD38_DR</code></pre>
 <p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-corrr_deltas-4">
+Past versions of corrr_deltas-4.png
+</button>
+</p>
+<div id="fig-corrr_deltas-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-4.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $CRP</code></pre>
 <p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-corrr_deltas-5">
+Past versions of corrr_deltas-5.png
+</button>
+</p>
+<div id="fig-corrr_deltas-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-5.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $IL6</code></pre>
 <p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-6.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-corrr_deltas-6">
+Past versions of corrr_deltas-6.png
+</button>
+</p>
+<div id="fig-corrr_deltas-6" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-6.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $TNFa</code></pre>
 <p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-7.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-corrr_deltas-7">
+Past versions of corrr_deltas-7.png
+</button>
+</p>
+<div id="fig-corrr_deltas-7" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-7.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $sCD14</code></pre>
 <p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-8.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-corrr_deltas-8">
+Past versions of corrr_deltas-8.png
+</button>
+</p>
+<div id="fig-corrr_deltas-8" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-8.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $ADV</code></pre>
 <p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-9.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-corrr_deltas-9">
+Past versions of corrr_deltas-9.png
+</button>
+</p>
+<div id="fig-corrr_deltas-9" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-9.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggarrange(plotlist = res_list, nrow = 3, ncol = 2, common.legend = T)</code></pre>
 <pre><code>$`1`</code></pre>
 <p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-10.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-corrr_deltas-10">
+Past versions of corrr_deltas-10.png
+</button>
+</p>
+<div id="fig-corrr_deltas-10" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-10.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $`2`</code></pre>
 <p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-11.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-corrr_deltas-11">
+Past versions of corrr_deltas-11.png
+</button>
+</p>
+<div id="fig-corrr_deltas-11" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/corrr_deltas-11.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 attr(,&quot;class&quot;)
 [1] &quot;list&quot;      &quot;ggarrange&quot;</code></pre>
@@ -1399,6 +1849,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/GR_inflammation_BL-1.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/5ba2c0eba12ddd3d27cf39d53a4f4c0902f10524/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/GR_inflammation_BL-1.png" target="_blank">5ba2c0e</a>
@@ -1484,6 +1945,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/GR_inflammation_BL-2.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/5ba2c0eba12ddd3d27cf39d53a4f4c0902f10524/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/GR_inflammation_BL-2.png" target="_blank">5ba2c0e</a>
 </td>
 <td>
@@ -1549,6 +2021,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-1.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/5ba2c0eba12ddd3d27cf39d53a4f4c0902f10524/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-1.png" target="_blank">5ba2c0e</a>
@@ -1766,6 +2249,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-2.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/b9e2fd42198f450579592f1e076394255d450567/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-2.png" target="_blank">b9e2fd4</a>
 </td>
 <td>
@@ -1793,24 +2287,283 @@ cblazquez-irsi
 <pre><code>
 $CD8</code></pre>
 <p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-GR_group_boxplots-3">
+Past versions of GR_group_boxplots-3.png
+</button>
+</p>
+<div id="fig-GR_group_boxplots-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-3.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $CD4_CD38_DR</code></pre>
 <p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-GR_group_boxplots-4">
+Past versions of GR_group_boxplots-4.png
+</button>
+</p>
+<div id="fig-GR_group_boxplots-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-4.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $CD8_CD38_DR</code></pre>
 <p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-GR_group_boxplots-5">
+Past versions of GR_group_boxplots-5.png
+</button>
+</p>
+<div id="fig-GR_group_boxplots-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-5.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $CRP</code></pre>
 <p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-6.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-GR_group_boxplots-6">
+Past versions of GR_group_boxplots-6.png
+</button>
+</p>
+<div id="fig-GR_group_boxplots-6" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-6.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $IL6</code></pre>
 <p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-7.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-GR_group_boxplots-7">
+Past versions of GR_group_boxplots-7.png
+</button>
+</p>
+<div id="fig-GR_group_boxplots-7" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-7.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $TNFa</code></pre>
 <p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-8.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-GR_group_boxplots-8">
+Past versions of GR_group_boxplots-8.png
+</button>
+</p>
+<div id="fig-GR_group_boxplots-8" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-8.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 $sCD14</code></pre>
 <p><img src="figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-9.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-GR_group_boxplots-9">
+Past versions of GR_group_boxplots-9.png
+</button>
+</p>
+<div id="fig-GR_group_boxplots-9" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/317_GeneRichness_vs_Inflammation.Rmd/GR_group_boxplots-9.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>num_var &lt;- num_var[!num_var == &quot;ADV&quot;]</code></pre>
 <br>
 <p>
@@ -1844,58 +2597,63 @@ other attached packages:
  [7] forcats_0.5.1       stringr_1.4.0       dplyr_1.0.9        
 [10] purrr_0.3.4         readr_2.1.2         tidyr_1.2.0        
 [13] tibble_3.1.7        ggplot2_3.3.6       tidyverse_1.3.1    
+[16] devtools_2.4.3      usethis_2.1.6       workflowr_1.7.0    
 
 loaded via a namespace (and not attached):
-  [1] uuid_1.1-0          readxl_1.4.0        backports_1.4.1    
-  [4] blme_1.0-5          workflowr_1.7.0     systemfonts_1.0.4  
-  [7] plyr_1.8.7          igraph_1.3.2        splines_4.0.5      
- [10] listenv_0.8.0       digest_0.6.29       foreach_1.5.2      
- [13] htmltools_0.5.2     lmerTest_3.1-3      fansi_1.0.3        
- [16] Rsolnp_1.16         magrittr_2.0.3      cluster_2.1.3      
- [19] tzdb_0.3.0          globals_0.15.0      Biostrings_2.58.0  
- [22] modelr_0.1.8        officer_0.4.3       svglite_2.1.0      
- [25] colorspace_2.0-3    rvest_1.0.2         haven_2.5.0        
- [28] xfun_0.31           crayon_1.5.1        jsonlite_1.8.0     
- [31] lme4_1.1-29         survival_3.3-1      iterators_1.0.14   
- [34] ape_5.6-2           glue_1.6.2          kableExtra_1.3.4   
- [37] gtable_0.3.0        zlibbioc_1.36.0     XVector_0.30.0     
- [40] webshot_0.5.3       phyloseq_1.34.0     car_3.1-0          
- [43] Rhdf5lib_1.12.1     BiocGenerics_0.36.1 abind_1.4-5        
- [46] scales_1.2.0        mvtnorm_1.1-3       DBI_1.1.3          
- [49] Rcpp_1.0.8.3        viridisLite_0.4.0   xtable_1.8-4       
- [52] merTools_0.5.2      stats4_4.0.5        truncnorm_1.0-8    
- [55] htmlwidgets_1.5.4   httr_1.4.2          ellipsis_0.3.2     
- [58] mice_3.14.0         farver_2.1.0        DataExplorer_0.8.2 
- [61] pkgconfig_2.0.3     nnet_7.3-17         sass_0.4.1         
- [64] dbplyr_2.2.0        utf8_1.2.2          here_1.0.1         
- [67] labeling_0.4.2      tidyselect_1.1.2    rlang_1.0.2        
- [70] reshape2_1.4.4      later_1.3.0         munsell_0.5.0      
- [73] cellranger_1.1.0    tools_4.0.5         cli_3.3.0          
- [76] generics_0.1.2      selbal_0.1.0        ade4_1.7-19        
- [79] broom_0.8.0         evaluate_0.15       biomformat_1.18.0  
- [82] fastmap_1.1.0       arm_1.12-2          yaml_2.3.5         
- [85] knitr_1.39          fs_1.5.2            zip_2.2.0          
- [88] future_1.26.1       whisker_0.4         mime_0.12          
- [91] xml2_1.3.2          compiler_4.0.5      rstudioapi_0.13    
- [94] ggsignif_0.6.3.9000 reprex_2.0.1        HardyWeinberg_1.7.5
- [97] bslib_0.3.1         stringi_1.7.6       highr_0.9          
-[100] gdtools_0.2.4       logger_0.2.2        lattice_0.20-45    
-[103] Matrix_1.4-1        nloptr_2.0.3        vegan_2.6-2        
-[106] permute_0.9-7       multtest_2.46.0     vctrs_0.4.1        
-[109] pillar_1.7.0        lifecycle_1.0.1     networkD3_0.4      
-[112] rhdf5filters_1.2.1  furrr_0.3.0         jquerylib_0.1.4    
-[115] cowplot_1.1.1       flextable_0.7.2     data.table_1.14.2  
-[118] httpuv_1.6.5        R6_2.5.1            promises_1.2.0.1   
-[121] gridExtra_2.3       writexl_1.4.0       IRanges_2.24.1     
-[124] parallelly_1.32.0   codetools_0.2-18    boot_1.3-28        
-[127] MASS_7.3-57         assertthat_0.2.1    chron_2.3-57       
-[130] rhdf5_2.34.0        rprojroot_2.0.3     withr_2.5.0        
-[133] S4Vectors_0.28.1    broom.mixed_0.2.9.4 mgcv_1.8-40        
-[136] parallel_4.0.5      hms_1.1.1           grid_4.0.5         
-[139] coda_0.19-4         minqa_1.2.4         rmarkdown_2.14     
-[142] carData_3.0-5       git2r_0.30.1        numDeriv_2016.8-1.1
-[145] base64enc_0.1-3     Biobase_2.50.0      shiny_1.7.1        
-[148] lubridate_1.8.0    </code></pre>
+  [1] utf8_1.2.2          tidyselect_1.1.2    lme4_1.1-29        
+  [4] htmlwidgets_1.5.4   grid_4.0.5          munsell_0.5.0      
+  [7] codetools_0.2-18    chron_2.3-57        future_1.26.1      
+ [10] withr_2.5.0         colorspace_2.0-3    Biobase_2.50.0     
+ [13] phyloseq_1.34.0     highr_0.9           logger_0.2.2       
+ [16] knitr_1.39          uuid_1.1-0          rstudioapi_0.13    
+ [19] stats4_4.0.5        ggsignif_0.6.3.9000 officer_0.4.3      
+ [22] listenv_0.8.0       labeling_0.4.2      git2r_0.30.1       
+ [25] farver_2.1.0        rhdf5_2.34.0        rprojroot_2.0.3    
+ [28] coda_0.19-4         parallelly_1.32.0   vctrs_0.4.1        
+ [31] generics_0.1.2      xfun_0.31           R6_2.5.1           
+ [34] arm_1.12-2          rhdf5filters_1.2.1  cachem_1.0.6       
+ [37] assertthat_0.2.1    promises_1.2.0.1    networkD3_0.4      
+ [40] scales_1.2.0        nnet_7.3-17         merTools_0.5.2     
+ [43] gtable_0.3.0        globals_0.15.0      processx_3.6.1     
+ [46] rlang_1.0.2         systemfonts_1.0.4   splines_4.0.5      
+ [49] broom_0.8.0         yaml_2.3.5          reshape2_1.4.4     
+ [52] abind_1.4-5         modelr_0.1.8        backports_1.4.1    
+ [55] httpuv_1.6.5        HardyWeinberg_1.7.5 tools_4.0.5        
+ [58] ellipsis_0.3.2      kableExtra_1.3.4    jquerylib_0.1.4    
+ [61] biomformat_1.18.0   selbal_0.1.0        Rsolnp_1.16        
+ [64] BiocGenerics_0.36.1 sessioninfo_1.2.2   Rcpp_1.0.8.3       
+ [67] plyr_1.8.7          base64enc_0.1-3     zlibbioc_1.36.0    
+ [70] ps_1.7.1            prettyunits_1.1.1   cowplot_1.1.1      
+ [73] S4Vectors_0.28.1    haven_2.5.0         cluster_2.1.3      
+ [76] fs_1.5.2            here_1.0.1          furrr_0.3.0        
+ [79] DataExplorer_0.8.2  magrittr_2.0.3      data.table_1.14.2  
+ [82] lmerTest_3.1-3      flextable_0.7.2     reprex_2.0.1       
+ [85] truncnorm_1.0-8     mvtnorm_1.1-3       whisker_0.4        
+ [88] pkgload_1.2.4       hms_1.1.1           mime_0.12          
+ [91] evaluate_0.15       xtable_1.8-4        broom.mixed_0.2.9.4
+ [94] readxl_1.4.0        IRanges_2.24.1      gridExtra_2.3      
+ [97] testthat_3.1.4      compiler_4.0.5      mice_3.14.0        
+[100] writexl_1.4.0       crayon_1.5.1        minqa_1.2.4        
+[103] htmltools_0.5.2     mgcv_1.8-40         later_1.3.0        
+[106] tzdb_0.3.0          lubridate_1.8.0     DBI_1.1.3          
+[109] dbplyr_2.2.0        MASS_7.3-57         boot_1.3-28        
+[112] Matrix_1.4-1        ade4_1.7-19         car_3.1-0          
+[115] permute_0.9-7       brio_1.1.3          cli_3.3.0          
+[118] parallel_4.0.5      igraph_1.3.2        pkgconfig_2.0.3    
+[121] getPass_0.2-2       numDeriv_2016.8-1.1 xml2_1.3.2         
+[124] foreach_1.5.2       svglite_2.1.0       bslib_0.3.1        
+[127] blme_1.0-5          webshot_0.5.3       multtest_2.46.0    
+[130] XVector_0.30.0      rvest_1.0.2         callr_3.7.0        
+[133] digest_0.6.29       vegan_2.6-2         Biostrings_2.58.0  
+[136] rmarkdown_2.14      cellranger_1.1.0    gdtools_0.2.4      
+[139] shiny_1.7.1         nloptr_2.0.3        lifecycle_1.0.1    
+[142] jsonlite_1.8.0      Rhdf5lib_1.12.1     carData_3.0-5      
+[145] viridisLite_0.4.0   desc_1.4.1          fansi_1.0.3        
+[148] pillar_1.7.0        lattice_0.20-45     fastmap_1.1.0      
+[151] httr_1.4.2          pkgbuild_1.3.1      survival_3.3-1     
+[154] glue_1.6.2          remotes_2.4.2       zip_2.2.0          
+[157] iterators_1.0.14    stringi_1.7.6       sass_0.4.1         
+[160] memoise_2.0.1       ape_5.6-2          </code></pre>
 </div>
 </div>
 

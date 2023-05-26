@@ -419,7 +419,7 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -428,7 +428,7 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -437,10 +437,10 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-04-18
+<strong>Last updated:</strong> 2023-05-26
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>advanz4/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -456,12 +456,12 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -528,16 +528,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree0aef81987ff281deec8894018695691895f80a3btargetblank0aef819a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/0aef81987ff281deec8894018695691895f80a3b" target="_blank">0aef819</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree85710c1a5b2a8c22a62030b66ea702779ecda1b7targetblank85710c1a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/85710c1a5b2a8c22a62030b66ea702779ecda1b7" target="_blank">85710c1</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree0aef81987ff281deec8894018695691895f80a3btargetblank0aef819a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree85710c1a5b2a8c22a62030b66ea702779ecda1b7targetblank85710c1a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/0aef81987ff281deec8894018695691895f80a3b" target="_blank">0aef819</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/85710c1a5b2a8c22a62030b66ea702779ecda1b7" target="_blank">85710c1</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -553,65 +553,16 @@ Ignored files:
     Ignored:    analysis/510_Function_DA_cache/
     Ignored:    data/mre.rds
 
+Untracked files:
+    Untracked:  analysis/figure/
+    Untracked:  output/BMI_vs_GR.pdf
+    Untracked:  output/figures/distance_to_centroids.svg
+
 Unstaged changes:
-    Modified:   analysis/250_BL_stratification.Rmd
-    Deleted:    analysis/250_BL_stratification.html
-    Modified:   analysis/315_GeneRichness_vs_CD4.Rmd
-    Modified:   analysis/317_GeneRichness_vs_Inflammation.Rmd
-    Modified:   analysis/335_BLMicrobiome_vs_ImmuneResponse.Rmd
-    Modified:   analysis/420_Taxonomy_DA.Rmd
-    Modified:   analysis/_site.yml
+    Modified:   analysis/311_GR_vs_BMI.Rmd
+    Modified:   analysis/320_Beta_Diversity.Rmd
     Modified:   code/group_comparisons.R
-    Modified:   output/figures/GR_group_boxplots.svg
-    Modified:   output/figures/LMMs_GR.svg
-    Modified:   output/figures/LMMs_GRrel.svg
-    Modified:   output/figures/inflammation.svg
-    Modified:   output/figures/recovery_grid.svg
-    Modified:   output/figures/richness_reconstitution.svg
-    Modified:   output/figures/richness_reconstitution_relative.svg
-    Modified:   output/general_boxplot_stats
     Modified:   output/mre_data/CatalogMapping/IGC/lmm/lmm_time_point_by_group.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/bray_stressplot.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD4after_48.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD4after_96.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD4diff_48.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD4diff_96.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD8after_48.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD8after_96.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD8diff_48.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_CD8diff_96.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_center.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_cluster.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_ethnic_group.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_gender.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_group.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/categorical_nmds_risk_group.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD4after_48.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD4after_96.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD4diff_48.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD4diff_96.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD8after_48.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD8after_96.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD8diff_48.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_CD8diff_96.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_center.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_ethnic_group.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_gender.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_group.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_categorical_nmds_risk_group.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_ADV.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CD4.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CD8.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CD8_CD38_DR.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/cluster_numeric_nmds_CRP.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_ADV.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CD4.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CD8.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CD8_CD38_DR.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/numeric_nmds_CRP.pdf
-    Modified:   output/mre_data/SpeciesQuantification/Metaphlan3/NMDS/Species/silhouette_plt.pdf
-    Modified:   output/overall_pvals.csv
-    Modified:   output/poster_boxplots.svg
 
 </code></pre>
 <p>
@@ -650,6 +601,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/72f15339f90d852482e264aa42757ad925bf6e1d/docs/320_Beta_Diversity.html" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+<td>
+Updated website
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1330,7 +1298,13 @@ myNMDS &lt;- myAbundanceDF %&gt;%
     # vegan::vegdist(., method = &quot;bray&quot;) %&gt;%
  
     metaMDS(.,trymax=800,  distance = &quot;bray&quot;,
-            k = 2) %&gt;%
+            k = 2)
+
+
+
+
+NMDS_coords &lt;- 
+  myNMDS %&gt;%
     pluck(&quot;points&quot;) %&gt;%
     as.data.frame() 
 
@@ -1338,12 +1312,13 @@ myNMDS &lt;- myAbundanceDF %&gt;%
 
 BiPlotCoords&lt;- envfit(myNMDS, t(myAbundanceDF), perm=999) 
 
-BiPlotCoordsDF &lt;- c(&quot;MDS1&quot;,&quot;MDS2&quot;,&quot;r&quot;,&quot;pvals&quot;) %&gt;%
+
+BiPlotCoordsDF &lt;- c(&quot;NMDS1&quot;,&quot;NMDS2&quot;,&quot;r&quot;,&quot;pvals&quot;) %&gt;%
   set_names() %&gt;%
   
   map_dfr(., ~ {
     
-    if(.x %in% c(&quot;MDS1&quot;,&quot;MDS2&quot;)){
+    if(.x %in% c(&quot;NMDS1&quot;,&quot;NMDS2&quot;)){
       BiPlotCoords$vectors$arrows[,.x] %&gt;%
         as.numeric()
     } else{
@@ -1460,25 +1435,19 @@ BiPlotCoordsDF&lt;-BiPlotCoordsDF %&gt;%
          Dim2s = Dim2*3)
 
 
-myNMDS_DF &lt;- myNMDS %&gt;%
+myNMDS_DF &lt;- NMDS_coords %&gt;%
   rownames_to_column(var = id_var) %&gt;%
   dplyr::full_join(., metadata, by =id_var) %&gt;%
   dplyr::select(SampleID = id_var,
                 NMDS1 = MDS1,
                 NMDS2 = MDS2,
-                linkVar = !!sym(link_var),
-                catVar = !!sym(cat_var),
-                LongVar = long_var)
-
-
-  myXmin&lt;-min(myNMDS$MDS1)
-  # +(max(dim_NMDS$points[,1])-min(dim_NMDS$points[,1]))/20
-  myYmin&lt;-max(myNMDS$MDS2)-(max(myNMDS$MDS1)-min(myNMDS$MDS1))
+                link_var = !!sym(link_var),
+                cat_var = !!sym(cat_var),
+                long_var = long_var) 
 
 
 
-
-myAdonis&lt;- adonis(myBrayDistMat~ catVar, data = myNMDS_DF) %&gt;%
+myAdonis&lt;- adonis(myBrayDistMat~ cat_var, data = myNMDS_DF) %&gt;%
   pluck(&quot;aov.tab&quot;) %&gt;%
   as.data.frame() %&gt;%
   slice(1L) %&gt;%
@@ -1486,8 +1455,9 @@ myAdonis&lt;- adonis(myBrayDistMat~ catVar, data = myNMDS_DF) %&gt;%
 
 
 myNMDSplot&lt;-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
-    geom_point(aes(color=catVar)) +
+    geom_point(aes(color=cat_var)) +
     theme_bw()+
+
     theme(panel.border=element_blank(),
           panel.grid.major=element_blank(),
           panel.grid.minor=element_blank(),
@@ -1500,7 +1470,7 @@ myNMDSplot&lt;-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
 
           legend.text=element_text(size=11,face=&quot;italic&quot;),
           legend.title=element_text(size=11))+
-        stat_ellipse(geom=&quot;polygon&quot;,alpha=0.15,color=&quot;black&quot;,aes(fill=catVar),level=0.95)+
+        stat_ellipse(geom=&quot;polygon&quot;,alpha=0.15,color=&quot;black&quot;,aes(fill=cat_var),level=0.95)+
     # ggtitle(expression(atop(&quot;Species composition&quot;,atop(italic(&quot;all samples&quot;))))) +
     theme(plot.title=element_text(lineheight=1,face=&quot;bold&quot;,size=13))+
     coord_fixed()+
@@ -1514,7 +1484,7 @@ myNMDSplot&lt;-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
 
 
 myNMDSBiplot&lt;-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
-    geom_point(aes(colour=catVar, shape = as.character(LongVar))) +
+    geom_point(aes(colour=cat_var, shape = as.character(long_var))) +
     scale_colour_manual(values = myPal, labels = c(&quot;DGT&quot;, &quot;DRV/r&quot;)) +
     scale_fill_manual(values=myPal, labels = c(&quot;DGT&quot;, &quot;DRV/r&quot;))+
     theme_bw()+
@@ -1535,8 +1505,8 @@ myNMDSBiplot&lt;-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
     theme(plot.title=element_text(lineheight=1,face=&quot;bold&quot;,size=13))+
     stat_ellipse(geom=&quot;polygon&quot;,
                  alpha=0.15,color=&quot;black&quot;,
-                 aes(fill=catVar),level=0.95)+
-    # scale_size_manual(values = c(1:length(unique(myNMDS_DF[,&quot;LongVar&quot;])))/1.5) +
+                 aes(fill=cat_var),level=0.95)+
+    # scale_size_manual(values = c(1:length(unique(myNMDS_DF[,&quot;long_var&quot;])))/1.5) +
     geom_segment(data=BiPlotCoordsDF,aes(x=0,xend=Dim1s,y=0,yend=Dim2s),
                  arrow = arrow(length = unit(0.2,&quot;cm&quot;)),colour=&quot;darkgrey&quot;)+
     geom_text_repel(data=BiPlotCoordsDF,aes(Dim1s,Dim2s,label=species),
@@ -1548,6 +1518,9 @@ myNMDSBiplot&lt;-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
     labs(fill = cat_var, color=cat_var, shape = long_var) +
   annotation_custom(gridExtra::tableGrob(round(myAdonis,3),
                                          theme = ttheme_default(base_size = 8)),ymin = 3.5, xmin=2.4)
+
+
+
 myNMDSplot </code></pre>
 <p><img src="figure/320_Beta_Diversity.Rmd/NMDS_Group-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
@@ -1572,6 +1545,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/320_Beta_Diversity.Rmd/NMDS_Group-1.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/ec0749dc797b4eb1e7cb4cf5e8f4b05bf699c921/docs/figure/320_Beta_Diversity.Rmd/NMDS_Group-1.png" target="_blank">ec0749d</a>
@@ -1611,6 +1595,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/320_Beta_Diversity.Rmd/Print_NMDS-1.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/57d7a9ee85c95b15ea1f34a2af473ed6845cde74/docs/figure/320_Beta_Diversity.Rmd/Print_NMDS-1.png" target="_blank">57d7a9e</a>
@@ -1741,6 +1736,101 @@ cblazquez
 <p>However, the Adonis test found the variable group to have a significant effect over sample distances (p&lt;0.001), although it only accounted for a small portion of the variance</p>
 <pre class="r"><code>myNMDSBiplot</code></pre>
 </div>
+<div id="longitudinal-dispersion" class="section level1">
+<h1>Longitudinal dispersion</h1>
+<p>We’ve seen that time point is the most significant variable in what comes to distance variance. It has been hypothesized that healthy human microbiomes tend to be somewhat similar, and when they become dysbiotic, they don’t really change in a specific way, but each one does differently, kind of like “escaping from the healthy state”. We’ll call this the Anna Karenina principle, and we are going to check if this is happening in our cohort. As the immune system gets reconstituted, the gut microbiome should come from being scattered all over the ordination to get closer per group. We’ll test this by calculating the distance of each sample to its NMDS group centroid. We’ll do this by calculating the euclidean distance between each sample and the group centroid using the NMDS coordinates. This should not be really problematic as the NDS coordinates are already projected in a 2D space and hence the space should be euclidean.</p>
+<p>The formula for the euclidean distance is the following: <span class="math display">\[\sqrt{(x_c - x_s)² + (y_c -y_s)²}\]</span></p>
+<pre class="r"><code>centroids &lt;- 
+  myNMDS_DF %&gt;% 
+  dplyr::mutate(long_cat = paste(cat_var, long_var, sep = &quot;_&quot;)) %&gt;% 
+  envfit(myNMDS ~ cat_var * long_cat, ., perm = 999) %&gt;% 
+  purrr::pluck(&quot;factors&quot;,&quot;centroids&quot;) %&gt;% 
+  as.data.frame() %&gt;% 
+  tibble::rownames_to_column(var = &quot;long_cat&quot;) %&gt;% 
+  dplyr::mutate(long_var = str_extract(long_cat, &quot;[0-9]+&quot;),
+                cat_var = str_extract(long_cat, &quot;(bDRV|DTG)(?=_)&quot;)) %&gt;% 
+  dplyr::filter(!is.na(long_var), !is.na(cat_var))
+                
+NMDS_DF_c &lt;- 
+myNMDS_DF %&gt;% 
+  dplyr::mutate(long_var = as.character(long_var)) %&gt;% 
+  dplyr::right_join(centroids, by = c(&quot;cat_var&quot;, &quot;long_var&quot;), suffix = c(&quot;&quot;,&quot;_c&quot;)) %&gt;% 
+  dplyr::mutate(centroid_dist = sqrt((NMDS1_c-NMDS1)^2 + (NMDS2_c-NMDS2)^2)) %&gt;% 
+  select(-long_cat) %&gt;% arrange(cat_var, long_var)
+
+
+  
+  
+  
+  
+centroid_test_group &lt;-
+  NMDS_DF_c %&gt;% 
+  dplyr::mutate(cat_var = &quot;overall&quot;) %&gt;% 
+  rbind(NMDS_DF_c) %&gt;% 
+
+  group_by(long_var) %&gt;% 
+  rstatix::wilcox_test(centroid_dist ~ cat_var) %&gt;% 
+  rstatix::add_significance(&quot;p&quot;) %&gt;% 
+  rstatix::add_xy_position(x = &quot;long_var&quot;, group= &quot;cat_var&quot;) %&gt;% 
+  dplyr::filter(!group1 == &quot;overall&quot;, 
+                !group2 == &quot;overall&quot;)
+
+centroid_test_long_oa &lt;- 
+  
+  NMDS_DF_c %&gt;% 
+  PairedWilcox_withNAs(., Variable = &quot;centroid_dist&quot;, Response = &quot;long_var&quot;,Subsets = NULL,IDs = &quot;link_var&quot; ) %&gt;% 
+  dplyr::mutate(cat_var = &quot;overall&quot;, .before = 1) %&gt;% 
+  # rstatix::wilcox_test(centroid_dist ~ cat_var, paired = T) %&gt;% 
+  rstatix::add_significance(&quot;p&quot;) 
+
+centroid_test_long_group &lt;- 
+  NMDS_DF_c %&gt;% 
+  dplyr::mutate(cat_var = &quot;overall&quot;) %&gt;% 
+  rbind(NMDS_DF_c) %&gt;% 
+  arrange(link_var, long_var) %&gt;% 
+  # get_group_comparisons(., link_var = &quot;link_var&quot;, long_var = &quot;long_var&quot;, cat_vector = &quot;cat_var&quot;,num_vector = &quot;centroid_dist&quot;,comps = c(0,24,48,96), graph_coords = T,type = &quot;longitudinal&quot;)
+  PairedWilcox_withNAs(., Variable = &quot;centroid_dist&quot;, Response = &quot;long_var&quot;,Subsets = &quot;cat_var&quot;,IDs = &quot;link_var&quot; ) %&gt;%
+  dplyr::group_by(cat_var) %&gt;% 
+  rstatix::add_x_position(x = &quot;long_var&quot;, group = &quot;cat_var&quot;) %&gt;% 
+  rstatix::add_significance(&quot;p&quot;) %&gt;% 
+  ungroup() %&gt;% 
+  arrange(cat_var, long_var)
+  # dplyr::filter(!p.signif == &quot;ns&quot;)
+  # rbind(centroid_test_long_oa) %&gt;% 
+  # rstatix::add_x_position(x = &quot;long_var&quot;, group= c(&quot;cat_var&quot;))
+# 
+
+cent_dist_plt &lt;- 
+NMDS_DF_c %&gt;% 
+  dplyr::mutate(long_var = as.factor(long_var),
+         cat_var = &quot;overall&quot;) %&gt;% 
+  rbind(NMDS_DF_c,.) %&gt;% 
+  ggplot(aes(x = long_var, y = centroid_dist)) +
+  geom_boxplot(aes(color = cat_var), outlier.alpha = 0) +
+  geom_jitter(aes(color = cat_var, group = cat_var, shape = cat_var), size = 1,
+              position = position_jitterdodge(jitter.width = .1)) +
+  stat_pvalue_manual(data = centroid_test_group, label = &quot;p.signif&quot;, hide.ns = T, 
+                     y = 1.8, bracket.size = .6, size = 6) +
+  stat_pvalue_manual(data = centroid_test_long_group, label = &quot;p.signif&quot;, 
+                     hide.ns = T, 
+                     y = c(2.5,2.7,2.9,3.2,3.4,3.6), bracket.size = .6, size = 6) +
+
+  theme_minimal() +
+  labs(x = &quot;weeks&quot;, y = &quot;centroid distance&quot;, color = &quot;group&quot;, shape = &quot;group&quot;) +
+  scale_shape_manual(values = c(4,6,19), limits = c(&quot;bDRV&quot;, &quot;DTG&quot;, &quot;overall&quot;)) +
+  scale_color_manual(values = c(&quot;#AAAAAA&quot;, &quot;#555555&quot;, &quot;#000000&quot;), limits = c(&quot;bDRV&quot;, &quot;DTG&quot;, &quot;overall&quot;)) +
+  theme(axis.line = element_line(colour = &quot;black&quot;, size = .5),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(size = 14),
+        legend.title = element_text(size = 14),
+        legend.text = element_text(size = 12),
+        legend.key.size = unit(1, &quot;cm&quot;))
+
+cent_dist_plt</code></pre>
+<p><img src="figure/320_Beta_Diversity.Rmd/centroid_distances-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggsave(cent_dist_plt, filename = here::here(&quot;output&quot;, &quot;figures&quot;, &quot;distance_to_centroids.svg&quot;), device = &quot;svg&quot;, width = 20, height = 18, units = &quot;cm&quot;)</code></pre>
+<p>Those are interesting results. At week 0, all groups seem to be all over the place and none appear to be better clustered than others. However at week 24, the DTG group becomes more closer together, which is not observed in the DRV group. This may be suggesting the DTG group is entering a “healthy stable” state.</p>
+</div>
 <div id="distances-to-basal" class="section level1">
 <h1>Distances to basal</h1>
 <pre class="r"><code>phy &lt;- get_phyloseq(mymre, type = &quot;metaphlan&quot;) 
@@ -1813,6 +1903,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/320_Beta_Diversity.Rmd/First_differences-1.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/a0f19e26ed38110e625ec87f05921c88274a473c/docs/figure/320_Beta_Diversity.Rmd/First_differences-1.png" target="_blank">a0f19e2</a>
 </td>
 <td>
@@ -1846,7 +1947,16 @@ time_point...2 0.001 0.057   DTG</code></pre>
 <div id="pairwise-distances-evolution" class="section level1">
 <h1>Pairwise distances evolution</h1>
 <p>It has been suggested the human microbiome follows the “Anna Karenina” principle which states: <em>“All happy families are alike; each unhappy family is unhappy in its own way.”</em>. In microbiome it translates to healthy patients having somewhat similar microbiomes and when the immune system breaks down, the microbiome escapes a stable configuration and changes without any specific directin. Hence, in this setting, pairwise distances at basal should be higher and decrease as the immune system recomposes and the microbimes move towards a “healthy” composition which is more constant among patients.</p>
-<pre class="r"><code>upper_distmat &lt;- as.matrix(myBrayDistMat)
+<pre class="r"><code>samplenames &lt;- myBrayDistMat %&gt;% as.matrix ()%&gt;% rownames()
+centroids &lt;-
+vegan::betadisper(d = myBrayDistMat,
+                           group = metadata %&gt;% 
+                             arrange(factor(SampleID, levels = rownames(as.matrix(myBrayDistMat)))) %&gt;% 
+                             pull(group),
+                  type = &quot;centroid&quot;) %&gt;% plot() 
+  dplyr::rename(SampleID = Item)
+
+upper_distmat &lt;- as.matrix(myBrayDistMat)
 upper_distmat[lower.tri(upper_distmat)] &lt;- NA
 sample_vc &lt;- metadata$time_point
 names(sample_vc) &lt;- metadata$SampleID
@@ -1875,55 +1985,6 @@ distance_df %&gt;%
                               type = &quot;np&quot;) +
   labs(y = &quot;pairwise within-group distances&quot;,
        x = &quot;week&quot;)</code></pre>
-<p><img src="figure/320_Beta_Diversity.Rmd/pairwise_distances_tp-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pairwise_distances_tp-1">
-Past versions of pairwise_distances_tp-1.png
-</button>
-</p>
-<div id="fig-pairwise_distances_tp-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/57d7a9ee85c95b15ea1f34a2af473ed6845cde74/docs/figure/320_Beta_Diversity.Rmd/pairwise_distances_tp-1.png" target="_blank">57d7a9e</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2023-01-12
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/MicrobialGenomics/advanz4/blob/0ab01c5c901e4ee2188fb92d2484d482f6cefb4e/docs/figure/320_Beta_Diversity.Rmd/pairwise_distances_tp-1.png" target="_blank">0ab01c5</a>
-</td>
-<td>
-cblazquez
-</td>
-<td>
-2023-01-09
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 <p>Looks like the hypotesis holds. Beta diversity drastically decreases from baseline to week 24 (medians 074 vs 0.66) and becomes somewhat consistent afterwards, decreasing very slowly as it only becomes relevant after 96 weeks. This suggests the microbiome makes ost of the recovery quickly after which it stabilizes, changling very slowly, if at all.</p>
 <pre class="r"><code>first_dif &lt;- 
   otu_df %&gt;% 
@@ -2024,6 +2085,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/72f15339f90d852482e264aa42757ad925bf6e1d/docs/figure/320_Beta_Diversity.Rmd/first_dist_boxplots-1.png" target="_blank">72f1533</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-04-18
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/MicrobialGenomics/advanz4/blob/a0f19e26ed38110e625ec87f05921c88274a473c/docs/figure/320_Beta_Diversity.Rmd/first_dist_boxplots-1.png" target="_blank">a0f19e2</a>
@@ -2174,60 +2246,52 @@ other attached packages:
 [21] metar_0.1.5        devtools_2.4.3     usethis_2.1.6      workflowr_1.7.0   
 
 loaded via a namespace (and not attached):
-  [1] utf8_1.2.2             tidyselect_1.1.2       lme4_1.1-29           
-  [4] htmlwidgets_1.5.4      gmp_0.6-5              grid_4.0.5            
-  [7] munsell_0.5.0          effectsize_0.7.0       codetools_0.2-18      
- [10] future_1.26.1          withr_2.5.0            colorspace_2.0-3      
- [13] Biobase_2.50.0         logger_0.2.2           highr_0.9             
- [16] knitr_1.39             rstudioapi_0.13        stats4_4.0.5          
- [19] ggsignif_0.6.3.9000    listenv_0.8.0          labeling_0.4.2        
- [22] emmeans_1.7.4-1        git2r_0.30.1           farver_2.1.0          
- [25] datawizard_0.4.1       rhdf5_2.34.0           rprojroot_2.0.3       
- [28] coda_0.19-4            parallelly_1.32.0      vctrs_0.4.1           
- [31] generics_0.1.2         TH.data_1.1-1          xfun_0.31             
- [34] BWStest_0.2.2          R6_2.5.1               arm_1.12-2            
- [37] rhdf5filters_1.2.1     cachem_1.0.6           assertthat_0.2.1      
- [40] promises_1.2.0.1       networkD3_0.4          scales_1.2.0          
- [43] multcomp_1.4-19        merTools_0.5.2         gtable_0.3.0          
- [46] multcompView_0.1-8     globals_0.15.0         processx_3.6.1        
- [49] sandwich_3.0-2         rlang_1.0.2            zeallot_0.1.0         
- [52] PMCMRplus_1.9.4        splines_4.0.5          prismatic_1.1.0       
- [55] broom_0.8.0            yaml_2.3.5             reshape2_1.4.4        
- [58] abind_1.4-5            modelr_0.1.8           backports_1.4.1       
- [61] httpuv_1.6.5           tools_4.0.5            ellipsis_0.3.2        
- [64] jquerylib_0.1.4        biomformat_1.18.0      selbal_0.1.0          
- [67] BiocGenerics_0.36.1    sessioninfo_1.2.2      Rcpp_1.0.8.3          
- [70] plyr_1.8.7             zlibbioc_1.36.0        ps_1.7.1              
- [73] prettyunits_1.1.1      correlation_0.8.1      S4Vectors_0.28.1      
- [76] zoo_1.8-10             haven_2.5.0            fs_1.5.2              
- [79] here_1.0.1             furrr_0.3.0            DataExplorer_0.8.2    
- [82] magrittr_2.0.3         data.table_1.14.2      reprex_2.0.1          
- [85] mvtnorm_1.1-3          whisker_0.4            pkgload_1.2.4         
- [88] patchwork_1.1.1        hms_1.1.1              mime_0.12             
- [91] evaluate_0.15          xtable_1.8-4           broom.mixed_0.2.9.4   
- [94] readxl_1.4.0           IRanges_2.24.1         testthat_3.1.4        
- [97] compiler_4.0.5         ggstatsplot_0.9.3      crayon_1.5.1          
-[100] minqa_1.2.4            htmltools_0.5.2        mgcv_1.8-40           
-[103] later_1.3.0            tzdb_0.3.0             kSamples_1.2-9        
-[106] SuppDists_1.1-9.7      lubridate_1.8.0        DBI_1.1.3             
-[109] dbplyr_2.2.0           MASS_7.3-57            boot_1.3-28           
-[112] Matrix_1.4-1           ade4_1.7-19            car_3.1-0             
-[115] brio_1.1.3             cli_3.3.0              parallel_4.0.5        
-[118] insight_0.17.1         igraph_1.3.2           pkgconfig_2.0.3       
-[121] getPass_0.2-2          statsExpressions_1.3.2 xml2_1.3.2            
-[124] paletteer_1.4.0        foreach_1.5.2          bslib_0.3.1           
-[127] blme_1.0-5             multtest_2.46.0        XVector_0.30.0        
-[130] estimability_1.3       rvest_1.0.2            callr_3.7.0           
-[133] digest_0.6.29          parameters_0.18.1      Biostrings_2.58.0     
-[136] rmarkdown_2.14         cellranger_1.1.0       shiny_1.7.1           
-[139] nloptr_2.0.3           lifecycle_1.0.1        jsonlite_1.8.0        
-[142] Rhdf5lib_1.12.1        carData_3.0-5          desc_1.4.1            
-[145] fansi_1.0.3            pillar_1.7.0           fastmap_1.1.0         
-[148] httr_1.4.2             pkgbuild_1.3.1         survival_3.3-1        
-[151] glue_1.6.2             remotes_2.4.2          bayestestR_0.12.1     
-[154] iterators_1.0.14       performance_0.9.1      stringi_1.7.6         
-[157] sass_0.4.1             rematch2_2.1.2         memoise_2.0.1         
-[160] Rmpfr_0.8-9            ape_5.6-2             </code></pre>
+  [1] readxl_1.4.0        backports_1.4.1     blme_1.0-5         
+  [4] systemfonts_1.0.4   plyr_1.8.7          igraph_1.3.2       
+  [7] splines_4.0.5       listenv_0.8.0       digest_0.6.29      
+ [10] foreach_1.5.2       htmltools_0.5.2     fansi_1.0.3        
+ [13] magrittr_2.0.3      memoise_2.0.1       tzdb_0.3.0         
+ [16] remotes_2.4.2       globals_0.15.0      Biostrings_2.58.0  
+ [19] modelr_0.1.8        svglite_2.1.0       prettyunits_1.1.1  
+ [22] colorspace_2.0-3    rvest_1.0.2         haven_2.5.0        
+ [25] xfun_0.31           callr_3.7.0         crayon_1.5.1       
+ [28] jsonlite_1.8.0      lme4_1.1-29         survival_3.3-1     
+ [31] iterators_1.0.14    ape_5.6-2           glue_1.6.2         
+ [34] gtable_0.3.0        zlibbioc_1.36.0     XVector_0.30.0     
+ [37] car_3.1-0           pkgbuild_1.3.1      Rhdf5lib_1.12.1    
+ [40] BiocGenerics_0.36.1 abind_1.4-5         scales_1.2.0       
+ [43] mvtnorm_1.1-3       DBI_1.1.3           Rcpp_1.0.8.3       
+ [46] xtable_1.8-4        merTools_0.5.2      stats4_4.0.5       
+ [49] htmlwidgets_1.5.4   httr_1.4.2          ellipsis_0.3.2     
+ [52] farver_2.1.0        DataExplorer_0.8.2  pkgconfig_2.0.3    
+ [55] sass_0.4.1          dbplyr_2.2.0        here_1.0.1         
+ [58] utf8_1.2.2          labeling_0.4.2      tidyselect_1.1.2   
+ [61] rlang_1.0.2         reshape2_1.4.4      later_1.3.0        
+ [64] cellranger_1.1.0    munsell_0.5.0       tools_4.0.5        
+ [67] cachem_1.0.6        cli_3.3.0           generics_0.1.2     
+ [70] selbal_0.1.0        ade4_1.7-19         broom_0.8.0        
+ [73] evaluate_0.15       biomformat_1.18.0   fastmap_1.1.0      
+ [76] arm_1.12-2          yaml_2.3.5          processx_3.6.1     
+ [79] knitr_1.39          fs_1.5.2            future_1.26.1      
+ [82] whisker_0.4         mime_0.12           xml2_1.3.2         
+ [85] brio_1.1.3          compiler_4.0.5      rstudioapi_0.13    
+ [88] ggsignif_0.6.3.9000 testthat_3.1.4      reprex_2.0.1       
+ [91] bslib_0.3.1         stringi_1.7.6       highr_0.9          
+ [94] ps_1.7.1            desc_1.4.1          logger_0.2.2       
+ [97] Matrix_1.4-1        nloptr_2.0.3        multtest_2.46.0    
+[100] vctrs_0.4.1         pillar_1.7.0        lifecycle_1.0.1    
+[103] networkD3_0.4       rhdf5filters_1.2.1  furrr_0.3.0        
+[106] jquerylib_0.1.4     data.table_1.14.2   httpuv_1.6.5       
+[109] R6_2.5.1            promises_1.2.0.1    IRanges_2.24.1     
+[112] parallelly_1.32.0   sessioninfo_1.2.2   codetools_0.2-18   
+[115] boot_1.3-28         MASS_7.3-57         assertthat_0.2.1   
+[118] pkgload_1.2.4       rhdf5_2.34.0        rprojroot_2.0.3    
+[121] withr_2.5.0         S4Vectors_0.28.1    broom.mixed_0.2.9.4
+[124] mgcv_1.8-40         parallel_4.0.5      hms_1.1.1          
+[127] grid_4.0.5          coda_0.19-4         minqa_1.2.4        
+[130] rmarkdown_2.14      carData_3.0-5       git2r_0.30.1       
+[133] getPass_0.2-2       Biobase_2.50.0      shiny_1.7.1        
+[136] lubridate_1.8.0    </code></pre>
 </div>
 </div>
 

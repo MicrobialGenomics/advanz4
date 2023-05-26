@@ -11,7 +11,8 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+R Markdown
+----------
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
@@ -29,11 +30,12 @@ library(ggpubr)
 library(rstatix)
 library(RColorBrewer)
 source("code/basal_distances.R")
-source("code/Paired_wilcox_NA_Handler.R")
+source("code/group_comparisons.R")
 source("code/myFunctions.R")
 ```
 
-## Including Plots
+Including Plots
+---------------
 
 You can also embed plots, for example:
 
@@ -74,7 +76,6 @@ num_var <- here::here("Metadata", "NumericalVariables.txt") %>%
 
 ```
 
-
 ```{r update_mre, warning= F, message= F, eval = F}
 
 #### This chunk is for updating the mre internally as new variables come out. Once the final mre is done this chunk will be removed.
@@ -110,9 +111,6 @@ mymre@metadata@longitudinal_vals <- here::here("Metadata", "LongitudinalVariable
 
 ```
 
-
-
-
 ```{r Get_DistMats, eval=T, include=T, results = 'hide', eval = T}
 
 
@@ -142,7 +140,13 @@ myNMDS <- myAbundanceDF %>%
     # vegan::vegdist(., method = "bray") %>%
  
     metaMDS(.,trymax=800,  distance = "bray",
-            k = 2) %>%
+            k = 2)
+
+
+
+
+NMDS_coords <- 
+  myNMDS %>%
     pluck("points") %>%
     as.data.frame() 
 
@@ -150,12 +154,13 @@ myNMDS <- myAbundanceDF %>%
 
 BiPlotCoords<- envfit(myNMDS, t(myAbundanceDF), perm=999) 
 
-BiPlotCoordsDF <- c("MDS1","MDS2","r","pvals") %>%
+
+BiPlotCoordsDF <- c("NMDS1","NMDS2","r","pvals") %>%
   set_names() %>%
   
   map_dfr(., ~ {
     
-    if(.x %in% c("MDS1","MDS2")){
+    if(.x %in% c("NMDS1","NMDS2")){
       BiPlotCoords$vectors$arrows[,.x] %>%
         as.numeric()
     } else{
@@ -177,9 +182,10 @@ myBrayDistMat <-vegdist(wisconsin(sqrt(t(myAbundanceDF))))
 
 ```
 
-## NMDS by Treatment group
+NMDS by Treatment group
+-----------------------
 
-One of the variables: **CD4diff_96** has only one level. That means all patients in the study had an increase of CD4 counts higher than 50 cells/ml between weeks 96 and 0. As this variable only has one level it will cause the following code to break (as it performs conrast analysis). Hence, it will be removed from the following analysis. However, we'll look at the distribution of the CD4 increases as a distribution:
+One of the variables: **CD4diff\_96** has only one level. That means all patients in the study had an increase of CD4 counts higher than 50 cells/ml between weeks 96 and 0. As this variable only has one level it will cause the following code to break (as it performs conrast analysis). Hence, it will be removed from the following analysis. However, we'll look at the distribution of the CD4 increases as a distribution:
 
 ```{r CD4diff_dist, warning=F, message=F}
 metadata %>% 
@@ -193,7 +199,6 @@ metadata %>%
 
 
 ```
-
 
 ```{r NMDS_Group, warning= F, message= F, results='hide', eval = T}
 
@@ -213,25 +218,19 @@ BiPlotCoordsDF<-BiPlotCoordsDF %>%
          Dim2s = Dim2*3)
 
 
-myNMDS_DF <- myNMDS %>%
+myNMDS_DF <- NMDS_coords %>%
   rownames_to_column(var = id_var) %>%
   dplyr::full_join(., metadata, by =id_var) %>%
   dplyr::select(SampleID = id_var,
                 NMDS1 = MDS1,
                 NMDS2 = MDS2,
-                linkVar = !!sym(link_var),
-                catVar = !!sym(cat_var),
-                LongVar = long_var)
-
-
-  myXmin<-min(myNMDS$MDS1)
-  # +(max(dim_NMDS$points[,1])-min(dim_NMDS$points[,1]))/20
-  myYmin<-max(myNMDS$MDS2)-(max(myNMDS$MDS1)-min(myNMDS$MDS1))
+                link_var = !!sym(link_var),
+                cat_var = !!sym(cat_var),
+                long_var = long_var) 
 
 
 
-
-myAdonis<- adonis(myBrayDistMat~ catVar, data = myNMDS_DF) %>%
+myAdonis<- adonis(myBrayDistMat~ cat_var, data = myNMDS_DF) %>%
   pluck("aov.tab") %>%
   as.data.frame() %>%
   slice(1L) %>%
@@ -239,8 +238,9 @@ myAdonis<- adonis(myBrayDistMat~ catVar, data = myNMDS_DF) %>%
 
 
 myNMDSplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
-    geom_point(aes(color=catVar)) +
+    geom_point(aes(color=cat_var)) +
     theme_bw()+
+
     theme(panel.border=element_blank(),
           panel.grid.major=element_blank(),
           panel.grid.minor=element_blank(),
@@ -253,7 +253,7 @@ myNMDSplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
 
           legend.text=element_text(size=11,face="italic"),
           legend.title=element_text(size=11))+
-        stat_ellipse(geom="polygon",alpha=0.15,color="black",aes(fill=catVar),level=0.95)+
+        stat_ellipse(geom="polygon",alpha=0.15,color="black",aes(fill=cat_var),level=0.95)+
     # ggtitle(expression(atop("Species composition",atop(italic("all samples"))))) +
     theme(plot.title=element_text(lineheight=1,face="bold",size=13))+
     coord_fixed()+
@@ -267,7 +267,7 @@ myNMDSplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
 
 
 myNMDSBiplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
-    geom_point(aes(colour=catVar, shape = as.character(LongVar))) +
+    geom_point(aes(colour=cat_var, shape = as.character(long_var))) +
     scale_colour_manual(values = myPal, labels = c("DGT", "DRV/r")) +
     scale_fill_manual(values=myPal, labels = c("DGT", "DRV/r"))+
     theme_bw()+
@@ -288,8 +288,8 @@ myNMDSBiplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
     theme(plot.title=element_text(lineheight=1,face="bold",size=13))+
     stat_ellipse(geom="polygon",
                  alpha=0.15,color="black",
-                 aes(fill=catVar),level=0.95)+
-    # scale_size_manual(values = c(1:length(unique(myNMDS_DF[,"LongVar"])))/1.5) +
+                 aes(fill=cat_var),level=0.95)+
+    # scale_size_manual(values = c(1:length(unique(myNMDS_DF[,"long_var"])))/1.5) +
     geom_segment(data=BiPlotCoordsDF,aes(x=0,xend=Dim1s,y=0,yend=Dim2s),
                  arrow = arrow(length = unit(0.2,"cm")),colour="darkgrey")+
     geom_text_repel(data=BiPlotCoordsDF,aes(Dim1s,Dim2s,label=species),
@@ -301,6 +301,9 @@ myNMDSBiplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
     labs(fill = cat_var, color=cat_var, shape = long_var) +
   annotation_custom(gridExtra::tableGrob(round(myAdonis,3),
                                          theme = ttheme_default(base_size = 8)),ymin = 3.5, xmin=2.4)
+
+
+
 myNMDSplot 
 
 ```
@@ -308,7 +311,6 @@ myNMDSplot
 ```{r Print_NMDS, message=F, warning=F}
 myNMDSplot
 ```
-
 
 When we look at the most simple ordination before colouring by categorical variables, we see no clear separated clusters between samples. They all appear to be mostly concentrated in one big cluster that randomly spreads in the positive direction for both NMDS components.
 
@@ -322,7 +324,6 @@ mymre@taxa@metaphlan@nmds
 metar::get_diversity(mymre, type = "metaphlan", res_slot = "nmds")
 
 ```
-
 
 In a more formal analysis, the silhouette coefficient was tested for different number of clusters. This analysis found the biggest coefficient was found for n=1 clustrs, with massive drops between 2-3 and 5-6.
 
@@ -362,10 +363,9 @@ c(1:11) %>%
 
 ```
 
-
 In the same fashion, when we start identifying samples by group and Timepoint, we see no clear separation, although samples from group 1 (+DGT) group appear to be more clustered together than group 2 (DRV+RLT), which show a more diffuse "central" cluster and are more dispersed. When looking at weight of the variables, the concentric spread of the arrows can be split in two sides, one more enriched in Prevotella and another in bacteroides, which spread mostly around the 2nd component of the NMDS.
 
-However, the Adonis test found the variable group to have a significant effect over sample distances (p<0.001), although it only accounted for a small portion of the variance
+However, the Adonis test found the variable group to have a significant effect over sample distances (p\<0.001), although it only accounted for a small portion of the variance
 
 ```{r plot_biplot, eval=F,include=T, message=F, warning=F}
 
@@ -373,8 +373,114 @@ However, the Adonis test found the variable group to have a significant effect o
 myNMDSBiplot
 ```
 
+Longitudinal dispersion
+=======================
 
-# Distances to basal
+We've seen that time point is the most significant variable in what comes to distance variance. It has been hypothesized that healthy human microbiomes tend to be somewhat similar, and when they become dysbiotic, they don't really change in a specific way, but each one does differently, kind of like "escaping from the healthy state". We'll call this the Anna Karenina principle, and we are going to check if this is happening in our cohort. As the immune system gets reconstituted, the gut microbiome should come from being scattered all over the ordination to get closer per group. We'll test this by calculating the distance of each sample to its NMDS group centroid. We'll do this by calculating the euclidean distance between each sample and the group centroid using the NMDS coordinates. This should not be really problematic as the NDS coordinates are already projected in a 2D space and hence the space should be euclidean.
+
+The formula for the euclidean distance is the following:
+$$\sqrt{(x_c - x_s)² + (y_c -y_s)²}$$
+
+```{r centroid_distances, warning=F, message=F}
+
+
+
+centroids <- 
+  myNMDS_DF %>% 
+  dplyr::mutate(long_cat = paste(cat_var, long_var, sep = "_")) %>% 
+  envfit(myNMDS ~ cat_var * long_cat, ., perm = 999) %>% 
+  purrr::pluck("factors","centroids") %>% 
+  as.data.frame() %>% 
+  tibble::rownames_to_column(var = "long_cat") %>% 
+  dplyr::mutate(long_var = str_extract(long_cat, "[0-9]+"),
+                cat_var = str_extract(long_cat, "(bDRV|DTG)(?=_)")) %>% 
+  dplyr::filter(!is.na(long_var), !is.na(cat_var))
+                
+NMDS_DF_c <- 
+myNMDS_DF %>% 
+  dplyr::mutate(long_var = as.character(long_var)) %>% 
+  dplyr::right_join(centroids, by = c("cat_var", "long_var"), suffix = c("","_c")) %>% 
+  dplyr::mutate(centroid_dist = sqrt((NMDS1_c-NMDS1)^2 + (NMDS2_c-NMDS2)^2)) %>% 
+  select(-long_cat) %>% arrange(cat_var, long_var)
+
+
+  
+  
+  
+  
+centroid_test_group <-
+  NMDS_DF_c %>% 
+  dplyr::mutate(cat_var = "overall") %>% 
+  rbind(NMDS_DF_c) %>% 
+
+  group_by(long_var) %>% 
+  rstatix::wilcox_test(centroid_dist ~ cat_var) %>% 
+  rstatix::add_significance("p") %>% 
+  rstatix::add_xy_position(x = "long_var", group= "cat_var") %>% 
+  dplyr::filter(!group1 == "overall", 
+                !group2 == "overall")
+
+centroid_test_long_oa <- 
+  
+  NMDS_DF_c %>% 
+  PairedWilcox_withNAs(., Variable = "centroid_dist", Response = "long_var",Subsets = NULL,IDs = "link_var" ) %>% 
+  dplyr::mutate(cat_var = "overall", .before = 1) %>% 
+  # rstatix::wilcox_test(centroid_dist ~ cat_var, paired = T) %>% 
+  rstatix::add_significance("p") 
+
+centroid_test_long_group <- 
+  NMDS_DF_c %>% 
+  dplyr::mutate(cat_var = "overall") %>% 
+  rbind(NMDS_DF_c) %>% 
+  arrange(link_var, long_var) %>% 
+  # get_group_comparisons(., link_var = "link_var", long_var = "long_var", cat_vector = "cat_var",num_vector = "centroid_dist",comps = c(0,24,48,96), graph_coords = T,type = "longitudinal")
+  PairedWilcox_withNAs(., Variable = "centroid_dist", Response = "long_var",Subsets = "cat_var",IDs = "link_var" ) %>%
+  dplyr::group_by(cat_var) %>% 
+  rstatix::add_x_position(x = "long_var", group = "cat_var") %>% 
+  rstatix::add_significance("p") %>% 
+  ungroup() %>% 
+  arrange(cat_var, long_var)
+  # dplyr::filter(!p.signif == "ns")
+  # rbind(centroid_test_long_oa) %>% 
+  # rstatix::add_x_position(x = "long_var", group= c("cat_var"))
+# 
+
+cent_dist_plt <- 
+NMDS_DF_c %>% 
+  dplyr::mutate(long_var = as.factor(long_var),
+         cat_var = "overall") %>% 
+  rbind(NMDS_DF_c,.) %>% 
+  ggplot(aes(x = long_var, y = centroid_dist)) +
+  geom_boxplot(aes(color = cat_var), outlier.alpha = 0) +
+  geom_jitter(aes(color = cat_var, group = cat_var, shape = cat_var), size = 1,
+              position = position_jitterdodge(jitter.width = .1)) +
+  stat_pvalue_manual(data = centroid_test_group, label = "p.signif", hide.ns = T, 
+                     y = 1.8, bracket.size = .6, size = 6) +
+  stat_pvalue_manual(data = centroid_test_long_group, label = "p.signif", 
+                     hide.ns = T, 
+                     y = c(2.5,2.7,2.9,3.2,3.4,3.6), bracket.size = .6, size = 6) +
+
+  theme_minimal() +
+  labs(x = "weeks", y = "centroid distance", color = "group", shape = "group") +
+  scale_shape_manual(values = c(4,6,19), limits = c("bDRV", "DTG", "overall")) +
+  scale_color_manual(values = c("#AAAAAA", "#555555", "#000000"), limits = c("bDRV", "DTG", "overall")) +
+  theme(axis.line = element_line(colour = "black", size = .5),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(size = 14),
+        legend.title = element_text(size = 14),
+        legend.text = element_text(size = 12),
+        legend.key.size = unit(1, "cm"))
+
+cent_dist_plt
+ggsave(cent_dist_plt, filename = here::here("output", "figures", "distance_to_centroids.svg"), device = "svg", width = 20, height = 18, units = "cm")
+
+```
+
+Those are interesting results. At week 0, all groups seem to be all over the place and none appear to be better clustered than others. However at week 24, the DTG group becomes more closer together, which is not observed in the DRV group. This may be suggesting the DTG group is entering a "healthy stable" state.
+
+
+Distances to basal
+==================
 
 ```{r First_differences, message = F, warning = F}
 
@@ -429,12 +535,21 @@ lab
 
 Sample A0023 apparently jups to distance = 1 from the very start
 
-# Pairwise distances evolution
+Pairwise distances evolution
+============================
 
 It has been suggested the human microbiome follows the "Anna Karenina" principle which states: *"All happy families are alike; each unhappy family is unhappy in its own way."*. In microbiome it translates to healthy patients having somewhat similar microbiomes and when the immune system breaks down, the microbiome escapes a stable configuration and changes without any specific directin. Hence, in this setting, pairwise distances at basal should be higher and decrease as the immune system recomposes and the microbimes move towards a "healthy" composition which is more constant among patients.
 
+```{r pairwise_distances_tp, warning=F, message=FALSE, eval = F}
 
-```{r pairwise_distances_tp, warning=F, message=FALSE}
+samplenames <- myBrayDistMat %>% as.matrix ()%>% rownames()
+centroids <-
+vegan::betadisper(d = myBrayDistMat,
+                           group = metadata %>% 
+                             arrange(factor(SampleID, levels = rownames(as.matrix(myBrayDistMat)))) %>% 
+                             pull(group),
+                  type = "centroid") %>% plot() 
+  dplyr::rename(SampleID = Item)
 
 upper_distmat <- as.matrix(myBrayDistMat)
 upper_distmat[lower.tri(upper_distmat)] <- NA
@@ -552,4 +667,3 @@ boxplots
 
 
 ```
-
