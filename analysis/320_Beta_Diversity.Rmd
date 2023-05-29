@@ -187,59 +187,74 @@ NMDS by Treatment group
 
 One of the variables: **CD4diff\_96** has only one level. That means all patients in the study had an increase of CD4 counts higher than 50 cells/ml between weeks 96 and 0. As this variable only has one level it will cause the following code to break (as it performs conrast analysis). Hence, it will be removed from the following analysis. However, we'll look at the distribution of the CD4 increases as a distribution:
 
-```{r CD4diff_dist, warning=F, message=F}
-metadata %>% 
-  dplyr::filter(time_point %in% c(0,48),
-                !is.na(CD4diff_96)) %>%
-  dplyr::select(record_id, time_point, CD4) %>%
-  dplyr::group_by(record_id) %>%
-  dplyr::summarise(dif = diff(CD4)) %>%
-  ggplot(., aes(x= dif)) +
-  geom_density()
-
-
-```
-
 ```{r NMDS_Group, warning= F, message= F, results='hide', eval = T}
 
-cat_df <- cat_df %>%
-  filter(!CategoricalVariable == "CD4diff_96")
-cat_var <- "group"
+cat_vector <- c("group", "group_bmi")
+metadata <- metadata %>% 
+    dplyr::mutate(group_bmi = factor(
+    case_when(BMI < 18.5 ~ "underweight",
+                                BMI >= 18.5 & BMI <=25 ~ "healthy_weight",
+                                BMI > 25 ~ "overweight"),
+    levels = c("underweight", "healthy_weight", "overweight")
+    )) 
 
 
 
 link_var <- "record_id"
 id_var <- "SampleID"
 
-myPal<-RColorBrewer::brewer.pal(name =  cat_df$PaletteName[1],
-                                n=length(unique(metadata[,cat_var])))
 BiPlotCoordsDF<-BiPlotCoordsDF %>%
   mutate(Dim1s = Dim1*3,
          Dim2s = Dim2*3)
 
 
-myNMDS_DF <- NMDS_coords %>%
+  myNMDS_DF <- NMDS_coords %>%
   rownames_to_column(var = id_var) %>%
   dplyr::full_join(., metadata, by =id_var) %>%
   dplyr::select(SampleID = id_var,
                 NMDS1 = MDS1,
                 NMDS2 = MDS2,
                 link_var = !!sym(link_var),
-                cat_var = !!sym(cat_var),
-                long_var = long_var) 
+                cat_vector,
+                long_var = long_var) %>% 
+  dplyr::mutate(long_var = as.factor(long_var))
 
 
+nmds_list <- 
+cat_vector %>% 
+  purrr::set_names() %>% 
+  purrr::map(function(cv){
+    
+    
+    cat_var <- cv
+    
+myNMDS_DF <- 
+  myNMDS_DF %>% 
+  dplyr::rename(cat_var := !!cv)
 
-myAdonis<- adonis(myBrayDistMat~ cat_var, data = myNMDS_DF) %>%
-  pluck("aov.tab") %>%
+
+myAdonis<- adonis2(myBrayDistMat~ cat_var + long_var, data = myNMDS_DF, na.action = "na.exclude") %>%
+  # pluck("aov.tab") %>%
   as.data.frame() %>%
-  slice(1L) %>%
-  magrittr::set_rownames(cat_var)
+  slice(c(1,2)) %>%
+  magrittr::set_rownames(c(cat_var, "week"))
 
 
-myNMDSplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
+
+
+myNMDSplot<-
+  myNMDS_DF %>% 
+  dplyr::filter(!is.na(cat_var))%>%
+  ggplot(., aes(x=NMDS1, y=NMDS2)) +
     geom_point(aes(color=cat_var)) +
     theme_bw()+
+    stat_ellipse(alpha=1,aes(x=NMDS1, y=NMDS2, color = cat_var,linetype = long_var),lwd = .6,level=0.95)+
+    # ggtitle(expression(atop("Species composition",atop(italic("all samples"))))) +
+    coord_fixed()+
+    labs(fill = cat_var, color=cat_var, lty = "time point")  +
+    # scale_color_manual(values = c("#888888", "#000000")) +
+    scale_linetype_manual(values = c(3,5,6,1),breaks = c("0","24","48","96")) +
+    # scale_fill_manual(values = c("#888888", "#000000")) + 
 
     theme(panel.border=element_blank(),
           panel.grid.major=element_blank(),
@@ -252,24 +267,23 @@ myNMDSplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
           axis.title.y=element_text(size=11),
 
           legend.text=element_text(size=11,face="italic"),
-          legend.title=element_text(size=11))+
-        stat_ellipse(geom="polygon",alpha=0.15,color="black",aes(fill=cat_var),level=0.95)+
-    # ggtitle(expression(atop("Species composition",atop(italic("all samples"))))) +
-    theme(plot.title=element_text(lineheight=1,face="bold",size=13))+
-    coord_fixed()+
-    labs(fill = cat_var, color=cat_var, shape = long_var) +
-  scale_color_brewer(palette = "Accent") +
-  scale_fill_brewer(palette = "Accent") + annotation_custom(gridExtra::tableGrob(round(myAdonis,3),
-                                         theme = ttheme_default(base_size = 10)),ymin = 1.9)
+          legend.title=element_text(size=11),
+          legend.key.size = unit(1, "cm"),
+          plot.title=element_text(lineheight=1,face="bold",size=13))+
+    annotation_custom(gridExtra::tableGrob(round(myAdonis,3),
+                                         theme = ttheme_default(base_size = 10)),ymin = 1.5)
 
 
 
 
+myNMDSBiplot<-
+  myNMDS_DF %>% 
+    dplyr::filter(!is.na(cat_var))%>%
 
-myNMDSBiplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
+  ggplot(., aes(x=NMDS1, y=NMDS2)) +
     geom_point(aes(colour=cat_var, shape = as.character(long_var))) +
-    scale_colour_manual(values = myPal, labels = c("DGT", "DRV/r")) +
-    scale_fill_manual(values=myPal, labels = c("DGT", "DRV/r"))+
+    # scale_colour_manual(values = myPal, labels = c("DGT", "DRV/r")) +
+    # scale_fill_manual(values=myPal, labels = c("DGT", "DRV/r"))+
     theme_bw()+
     theme(panel.border=element_blank(),
           panel.grid.major=element_blank(),
@@ -286,9 +300,8 @@ myNMDSBiplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
 
     ggtitle(expression(atop("Species composition",atop(italic("all samples"))))) +
     theme(plot.title=element_text(lineheight=1,face="bold",size=13))+
-    stat_ellipse(geom="polygon",
-                 alpha=0.15,color="black",
-                 aes(fill=cat_var),level=0.95)+
+    stat_ellipse(alpha=1,
+                 aes(fill=cat_var, colour = cat_var),level=0.95)+
     # scale_size_manual(values = c(1:length(unique(myNMDS_DF[,"long_var"])))/1.5) +
     geom_segment(data=BiPlotCoordsDF,aes(x=0,xend=Dim1s,y=0,yend=Dim2s),
                  arrow = arrow(length = unit(0.2,"cm")),colour="darkgrey")+
@@ -303,25 +316,41 @@ myNMDSBiplot<-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
                                          theme = ttheme_default(base_size = 8)),ymin = 3.5, xmin=2.4)
 
 
+    return(list(plot = myNMDSplot, biplot = myNMDSBiplot))
+  })
 
-myNMDSplot 
+
+
+
 
 ```
 
 ```{r Print_NMDS, message=F, warning=F}
-myNMDSplot
+myNMDSplot <- 
+nmds_list$group$plot +
+  scale_color_manual(values = c("#777777", "#000000"))
+
+ggsave(myNMDSplot, filename = here::here("output", "figures","NMDS.svg"), device = "svg", width = 20, height = 18, units = "cm")
 ```
 
 When we look at the most simple ordination before colouring by categorical variables, we see no clear separated clusters between samples. They all appear to be mostly concentrated in one big cluster that randomly spreads in the positive direction for both NMDS components.
 
-```{r plot_basic_NMDS, warning = F, include = F, eval = F, message=F, warning=F}
-mymre <- metar::metaphlan_nmds(mre = mymre, tax_level = "Species", save_files = F)
+### NMDS by group/bmi {.tabset}
 
-# mymre@taxa@metaphlan@nmds$Species$top_50$categorical %>%
-  # discard(., names(.) == "record_id")
+#### ARM
 
-mymre@taxa@metaphlan@nmds
-metar::get_diversity(mymre, type = "metaphlan", res_slot = "nmds")
+```{r}
+nmds_list$group$plot +
+  scale_color_manual(values = c("#777777", "#000000"))
+
+```
+
+#### bmi category
+
+```{r}
+nmds_list$group_bmi$plot +
+  scale_color_manual(values = c("#DDDDDD","#777777","#000000", "#FFFFFF"))
+
 
 ```
 
@@ -378,8 +407,7 @@ Longitudinal dispersion
 
 We've seen that time point is the most significant variable in what comes to distance variance. It has been hypothesized that healthy human microbiomes tend to be somewhat similar, and when they become dysbiotic, they don't really change in a specific way, but each one does differently, kind of like "escaping from the healthy state". We'll call this the Anna Karenina principle, and we are going to check if this is happening in our cohort. As the immune system gets reconstituted, the gut microbiome should come from being scattered all over the ordination to get closer per group. We'll test this by calculating the distance of each sample to its NMDS group centroid. We'll do this by calculating the euclidean distance between each sample and the group centroid using the NMDS coordinates. This should not be really problematic as the NDS coordinates are already projected in a 2D space and hence the space should be euclidean.
 
-The formula for the euclidean distance is the following:
-$$\sqrt{(x_c - x_s)² + (y_c -y_s)²}$$
+The formula for the euclidean distance is the following: $$\sqrt{(x_c - x_s)² + (y_c -y_s)²}$$
 
 ```{r centroid_distances, warning=F, message=F}
 
@@ -387,6 +415,7 @@ $$\sqrt{(x_c - x_s)² + (y_c -y_s)²}$$
 
 centroids <- 
   myNMDS_DF %>% 
+  dplyr::rename(cat_var = group) %>% 
   dplyr::mutate(long_cat = paste(cat_var, long_var, sep = "_")) %>% 
   envfit(myNMDS ~ cat_var * long_cat, ., perm = 999) %>% 
   purrr::pluck("factors","centroids") %>% 
@@ -477,7 +506,6 @@ ggsave(cent_dist_plt, filename = here::here("output", "figures", "distance_to_ce
 ```
 
 Those are interesting results. At week 0, all groups seem to be all over the place and none appear to be better clustered than others. However at week 24, the DTG group becomes more closer together, which is not observed in the DRV group. This may be suggesting the DTG group is entering a "healthy stable" state.
-
 
 Distances to basal
 ==================

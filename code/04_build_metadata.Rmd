@@ -576,6 +576,7 @@ metadata_final <-
                             record_id == "D009" & time_point == 96 ~ 61.9,
                             record_id == "E008" & time_point == 0 ~ 39.1,
                             record_id == "D013" & time_point == 96 ~ 67,
+                            record_id == "E004" & time_point == 24 ~ 68.1,
                             TRUE ~ as.numeric(weight)),
          BMI = weight/((height/100)^2))
 

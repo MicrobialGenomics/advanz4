@@ -437,7 +437,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-05-26
+<strong>Last updated:</strong> 2023-05-29
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -528,16 +528,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree85710c1a5b2a8c22a62030b66ea702779ecda1b7targetblank85710c1a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/85710c1a5b2a8c22a62030b66ea702779ecda1b7" target="_blank">85710c1</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treeca750c97981c2e103c4e32c21ca3b145463de6d3targetblankca750c9a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/MicrobialGenomics/advanz4/tree/ca750c97981c2e103c4e32c21ca3b145463de6d3" target="_blank">ca750c9</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4tree85710c1a5b2a8c22a62030b66ea702779ecda1b7targetblank85710c1a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomMicrobialGenomicsadvanz4treeca750c97981c2e103c4e32c21ca3b145463de6d3targetblankca750c9a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/85710c1a5b2a8c22a62030b66ea702779ecda1b7" target="_blank">85710c1</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/MicrobialGenomics/advanz4/tree/ca750c97981c2e103c4e32c21ca3b145463de6d3" target="_blank">ca750c9</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -554,15 +554,10 @@ Ignored files:
     Ignored:    data/mre.rds
 
 Untracked files:
-    Untracked:  analysis/figure/
-    Untracked:  output/BMI_vs_GR.pdf
-    Untracked:  output/figures/distance_to_centroids.svg
+    Untracked:  output/figures/NMDS.svg
 
 Unstaged changes:
-    Modified:   analysis/311_GR_vs_BMI.Rmd
     Modified:   analysis/320_Beta_Diversity.Rmd
-    Modified:   code/group_comparisons.R
-    Modified:   output/mre_data/CatalogMapping/IGC/lmm/lmm_time_point_by_group.pdf
 
 </code></pre>
 <p>
@@ -601,6 +596,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/ca750c97981c2e103c4e32c21ca3b145463de6d3/analysis/320_Beta_Diversity.Rmd" target="_blank">ca750c9</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-05-26
+</td>
+<td>
+Added NMDS centroid distance analysis
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/MicrobialGenomics/advanz4/ca750c97981c2e103c4e32c21ca3b145463de6d3/docs/320_Beta_Diversity.html" target="_blank">ca750c9</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-05-26
+</td>
+<td>
+Added NMDS centroid distance analysis
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1443,20 +1472,33 @@ myNMDS_DF &lt;- NMDS_coords %&gt;%
                 NMDS2 = MDS2,
                 link_var = !!sym(link_var),
                 cat_var = !!sym(cat_var),
-                long_var = long_var) 
+                long_var = long_var) %&gt;% 
+  dplyr::mutate(long_var = as.factor(long_var))
 
 
-
-myAdonis&lt;- adonis(myBrayDistMat~ cat_var, data = myNMDS_DF) %&gt;%
+myNMDS_DF %&gt;% pull(long_var) %&gt;% class()
+myAdonis&lt;- adonis(myBrayDistMat~ cat_var * long_var, data = myNMDS_DF) %&gt;%
   pluck(&quot;aov.tab&quot;) %&gt;%
   as.data.frame() %&gt;%
-  slice(1L) %&gt;%
-  magrittr::set_rownames(cat_var)
+  slice(c(1,2)) %&gt;%
+  magrittr::set_rownames(c(&quot;group&quot;, &quot;week&quot;))
 
 
-myNMDSplot&lt;-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
+
+
+myNMDSplot&lt;-
+  myNMDS_DF %&gt;% 
+  # dplyr::mutate(long_cat = paste(cat_var, long_var, sep = &quot;_&quot;)) %&gt;% 
+  ggplot(., aes(x=NMDS1, y=NMDS2)) +
     geom_point(aes(color=cat_var)) +
     theme_bw()+
+    stat_ellipse(alpha=1,aes(x=NMDS1, y=NMDS2, color = cat_var,linetype = long_var),lwd = .6,level=0.95)+
+    # ggtitle(expression(atop(&quot;Species composition&quot;,atop(italic(&quot;all samples&quot;))))) +
+    coord_fixed()+
+    labs(fill = cat_var, color=cat_var, lty = &quot;time point&quot;)  +
+    scale_color_manual(values = c(&quot;#888888&quot;, &quot;#000000&quot;)) +
+    scale_linetype_manual(values = c(3,5,6,1),breaks = c(&quot;0&quot;,&quot;24&quot;,&quot;48&quot;,&quot;96&quot;)) +
+    scale_fill_manual(values = c(&quot;#888888&quot;, &quot;#000000&quot;)) + 
 
     theme(panel.border=element_blank(),
           panel.grid.major=element_blank(),
@@ -1469,16 +1511,11 @@ myNMDSplot&lt;-ggplot(myNMDS_DF, aes(x=NMDS1, y=NMDS2)) +
           axis.title.y=element_text(size=11),
 
           legend.text=element_text(size=11,face=&quot;italic&quot;),
-          legend.title=element_text(size=11))+
-        stat_ellipse(geom=&quot;polygon&quot;,alpha=0.15,color=&quot;black&quot;,aes(fill=cat_var),level=0.95)+
-    # ggtitle(expression(atop(&quot;Species composition&quot;,atop(italic(&quot;all samples&quot;))))) +
-    theme(plot.title=element_text(lineheight=1,face=&quot;bold&quot;,size=13))+
-    coord_fixed()+
-    labs(fill = cat_var, color=cat_var, shape = long_var) +
-  scale_color_brewer(palette = &quot;Accent&quot;) +
-  scale_fill_brewer(palette = &quot;Accent&quot;) + annotation_custom(gridExtra::tableGrob(round(myAdonis,3),
-                                         theme = ttheme_default(base_size = 10)),ymin = 1.9)
-
+          legend.title=element_text(size=11),
+          legend.key.size = unit(1, &quot;cm&quot;),
+          plot.title=element_text(lineheight=1,face=&quot;bold&quot;,size=13))+
+    annotation_custom(gridExtra::tableGrob(round(myAdonis,3),
+                                         theme = ttheme_default(base_size = 10)),ymin = 1.5)
 
 
 
@@ -1621,6 +1658,7 @@ cblazquez
 </table>
 </div>
 </div>
+<pre class="r"><code>ggsave(myNMDSplot, filename = here::here(&quot;output&quot;, &quot;figures&quot;,&quot;NMDS.svg&quot;), device = &quot;svg&quot;, width = 20, height = 18, units = &quot;cm&quot;)</code></pre>
 <p>When we look at the most simple ordination before colouring by categorical variables, we see no clear separated clusters between samples. They all appear to be mostly concentrated in one big cluster that randomly spreads in the positive direction for both NMDS components.</p>
 <p>In a more formal analysis, the silhouette coefficient was tested for different number of clusters. This analysis found the biggest coefficient was found for n=1 clustrs, with massive drops between 2-3 and 5-6.</p>
 <pre class="r"><code>myBrayDistMat &lt;- phyloseq::otu_table(phy) %&gt;%
@@ -1828,6 +1866,43 @@ NMDS_DF_c %&gt;%
 
 cent_dist_plt</code></pre>
 <p><img src="figure/320_Beta_Diversity.Rmd/centroid_distances-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-centroid_distances-1">
+Past versions of centroid_distances-1.png
+</button>
+</p>
+<div id="fig-centroid_distances-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/MicrobialGenomics/advanz4/blob/ca750c97981c2e103c4e32c21ca3b145463de6d3/docs/figure/320_Beta_Diversity.Rmd/centroid_distances-1.png" target="_blank">ca750c9</a>
+</td>
+<td>
+cblazquez
+</td>
+<td>
+2023-05-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggsave(cent_dist_plt, filename = here::here(&quot;output&quot;, &quot;figures&quot;, &quot;distance_to_centroids.svg&quot;), device = &quot;svg&quot;, width = 20, height = 18, units = &quot;cm&quot;)</code></pre>
 <p>Those are interesting results. At week 0, all groups seem to be all over the place and none appear to be better clustered than others. However at week 24, the DTG group becomes more closer together, which is not observed in the DRV group. This may be suggesting the DTG group is entering a “healthy stable” state.</p>
 </div>
