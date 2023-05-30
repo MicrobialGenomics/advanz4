@@ -284,7 +284,8 @@ all_bmis %>%
   dplyr::filter(time_point == 0, !is.na(BMI))%>%
   # nest_by(cat_var) %>%
   compareGroups::compareGroups(formula = group ~ group_bmi) %>%
-  compareGroups::createTable(.) 
+  compareGroups::createTable(.) %>%
+  compareGroups::export2md()
 
 ```
 
@@ -296,6 +297,7 @@ Longitudinal evolution of BMI
 Before entering in the complexities of gut microbiota, we'll assess wether DTG/bDRV have a differential effect on the chances of patients changing BMI categories. A good way to visualize this will be an alluvial plot.
 
 ```{r alluvial_plot, warning = F, message = F, echo = show, fig.width= 12, fig.height = 9}
+alluvialplot <- 
 all_bmis %>%
   dplyr::mutate(group_bmi = ifelse(is.na(group_bmi), "no data", as.character(group_bmi))) %>%
   dplyr::mutate(group_bmi = factor(group_bmi, levels = c("underweight", "healthy weight", "overweight","no data"))) %>%
@@ -303,18 +305,33 @@ all_bmis %>%
   # arrange(cat_var) %>%
   ggplot(aes(x = as.factor(time_point), stratum = group_bmi, label = group_bmi, fill = group_bmi,alluvium = record_id, )) +
   facet_wrap(facets = ~ group) +
-  geom_flow(stat = "alluvium",  na.rm = F, width = 0.4, color = "black", alpha = .8) +
-  geom_stratum() +
-  geom_text(stat = "alluvium", aes(label = record_id, color = group_bmi), size = 2.7) +
-  scale_color_manual(values= c("black","white","white", "darkgrey")) +
-  theme_minimal() +
+  geom_flow(stat = "alluvium",  na.rm = F, width = 0, color = "black", alpha = .8,) +
+    geom_stratum(color="black", alpha = 1) +
+
+  geom_text(stat = "alluvium", aes(label = record_id, color = group_bmi), size = 2.4) +
+  scale_color_manual(values= c("black","white","white", "#222222")) +
+  theme_bw() +
   scale_fill_manual(values = c("#DDDDDD","#777777","#000000", "#FFFFFF")) +
   labs(x = "weeks", fill = "BMI category") +
   theme(strip.background = element_rect(color = "black"),
-        axis.line = element_line(colour = "black"),
-        panel.border = element_rect(color = "black", fill = NA)
+        axis.line.y = element_blank(),
+        axis.ticks.y = element_blank(), 
+        axis.text.y = element_blank(),
+        axis.text.x = element_text(size = 12, face = "bold"),
+        axis.line.x = element_line(colour = "black"),
+        axis.title.x = element_text(size = 14, face = "bold"),
+        panel.grid = element_blank(),
+        panel.border = element_blank(),
+        legend.text = element_text(size = 12),
+        legend.title = element_text(size = 14, face = "bold"),
+        strip.text = element_text(size = 14, face = "bold"),
+        strip.background.x = element_rect(fill = "white")
           ) +
   guides(color = "none")
+
+ggsave(alluvialplot, filename = here::here("output","figures" ,"bmi_alluvial.svg"), device = "svg", height = 18, width = 24, units = "cm")
+
+
 ```
 
 There is an increase in overweight incidence in both groups, but it is more noticeable in the DTG group. In the bDRV it appears the BMI increase is more temporary, as many patients who become overweight after treatment initiation, return to a healthy weight after 96 weeks. This is not the case in the DTG group, however, where all the participants who become overweight remain so during the whole study.
@@ -432,23 +449,40 @@ But, does baseline richness influence the the distribution of BMI groups at a sp
 
 gr0_bmi_cattest <- 
   delta_bmi_df %>% 
-  dplyr::group_by(time_point, group) %>% 
-  rstatix::wilcox_test(gr0 ~ group_bmi) %>% 
+  dplyr::group_by(time_point, group_bmi) %>% 
+  dplyr::filter(group_bmi != "underweight") %>% 
+  rstatix::wilcox_test(gr0 ~ group) %>% 
   rstatix::add_xy_position(x = "group_bmi", group = "group")
 
 
+gr0_bmi_OAtest <- 
+  delta_bmi_df %>% 
+  dplyr::group_by(time_point) %>% 
+  rstatix::wilcox_test(gr0 ~ group_bmi) %>% 
+  rstatix::add_xy_position(x = "group_bmi", group = "group")
+
+gr0_bmi_bp <- 
 delta_bmi_df %>%
-  dplyr::filter(!SampleID == "ADZ4_27") %>%
+  dplyr::select(record_id, group_bmi, group, time_point, gr0) %>% 
+  dplyr::mutate(group = "overall") %>% 
+  rbind(.,delta_bmi_df[,c("record_id", "group_bmi", "group", "time_point", "gr0")]) %>% arrange(record_id, time_point) %>% 
+  # mutate(OA = "overall") %>% 
   # unique() %>%
   ggplot(aes(x = group_bmi, y = gr0)) +
   facet_wrap(~ time_point ) +
-  geom_boxplot() +
-  stat_compare_means(method = "wilcox.test", label = "..p.signif..", hide.ns = F)+
-  labs(title = "BMI vs GR",subtitle = "per time", x = "BMI at baseline", y = "Gene richness at baseline") +
+  geom_boxplot(aes(fill = group)) +
+  # geom_boxplot(inherit.aes = F, aes(x = OA, y = gr0))
+  # stat_compare_means(method = "wilcox.test", label = "..p.signif..", hide.ns = F)+
+  labs(title = "BMI vs GR",subtitle = "per time", x = "BMI category", y = "Gene richness at baseline") +
   stat_pvalue_manual(data = gr0_bmi_cattest, hide.ns = T) +
+  stat_pvalue_manual(data = gr0_bmi_OAtest, hide.ns = T) +
+
   theme_light() +
-  scale_color_manual(values = c("#AAAAAA", "#000000"), limits = c("bDRV", "DTG")) +
-  scale_fill_manual(values = c("#AAAAAA","#000000"), limits = c("bDRV", "DTG")) 
+  scale_color_manual(values = c("#FFFFFF", "#999999", "#000000"), limits = c("bDRV", "DTG", "overall")) +
+  scale_fill_manual(values = c("#FFFFFF", "#999999", "#000000"), limits = c("bDRV", "DTG", "overall")) 
+
+ggsave(gr0_bmi_bp, filename = here::here("output", "figures", "GR0_BMI_Boxplots.svg"), device = "svg", 
+       width = 20, height = 15, units = "cm")
 
 
 ```
