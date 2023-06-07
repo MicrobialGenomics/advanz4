@@ -11,8 +11,7 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-R Markdown
-----------
+## R Markdown
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
@@ -34,8 +33,7 @@ source("code/group_comparisons.R")
 source("code/myFunctions.R")
 ```
 
-Including Plots
----------------
+## Including Plots
 
 You can also embed plots, for example:
 
@@ -182,10 +180,9 @@ myBrayDistMat <-vegdist(wisconsin(sqrt(t(myAbundanceDF))))
 
 ```
 
-NMDS by Treatment group
------------------------
+## NMDS by Treatment group
 
-One of the variables: **CD4diff\_96** has only one level. That means all patients in the study had an increase of CD4 counts higher than 50 cells/ml between weeks 96 and 0. As this variable only has one level it will cause the following code to break (as it performs conrast analysis). Hence, it will be removed from the following analysis. However, we'll look at the distribution of the CD4 increases as a distribution:
+One of the variables: **CD4diff_96** has only one level. That means all patients in the study had an increase of CD4 counts higher than 50 cells/ml between weeks 96 and 0. As this variable only has one level it will cause the following code to break (as it performs conrast analysis). Hence, it will be removed from the following analysis. However, we'll look at the distribution of the CD4 increases as a distribution:
 
 ```{r NMDS_Group, warning= F, message= F, results='hide', eval = T}
 
@@ -402,8 +399,7 @@ However, the Adonis test found the variable group to have a significant effect o
 myNMDSBiplot
 ```
 
-Longitudinal dispersion
-=======================
+# Longitudinal dispersion
 
 We've seen that time point is the most significant variable in what comes to distance variance. It has been hypothesized that healthy human microbiomes tend to be somewhat similar, and when they become dysbiotic, they don't really change in a specific way, but each one does differently, kind of like "escaping from the healthy state". We'll call this the Anna Karenina principle, and we are going to check if this is happening in our cohort. As the immune system gets reconstituted, the gut microbiome should come from being scattered all over the ordination to get closer per group. We'll test this by calculating the distance of each sample to its NMDS group centroid. We'll do this by calculating the euclidean distance between each sample and the group centroid using the NMDS coordinates. This should not be really problematic as the NDS coordinates are already projected in a 2D space and hence the space should be euclidean.
 
@@ -507,8 +503,7 @@ ggsave(cent_dist_plt, filename = here::here("output", "figures", "distance_to_ce
 
 Those are interesting results. At week 0, all groups seem to be all over the place and none appear to be better clustered than others. However at week 24, the DTG group becomes more closer together, which is not observed in the DRV group. This may be suggesting the DTG group is entering a "healthy stable" state.
 
-Distances to basal
-==================
+# Distances to basal
 
 ```{r First_differences, message = F, warning = F}
 
@@ -563,8 +558,7 @@ lab
 
 Sample A0023 apparently jups to distance = 1 from the very start
 
-Pairwise distances evolution
-============================
+# Pairwise distances evolution
 
 It has been suggested the human microbiome follows the "Anna Karenina" principle which states: *"All happy families are alike; each unhappy family is unhappy in its own way."*. In microbiome it translates to healthy patients having somewhat similar microbiomes and when the immune system breaks down, the microbiome escapes a stable configuration and changes without any specific directin. Hence, in this setting, pairwise distances at basal should be higher and decrease as the immune system recomposes and the microbimes move towards a "healthy" composition which is more constant among patients.
 

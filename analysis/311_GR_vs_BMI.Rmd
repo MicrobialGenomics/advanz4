@@ -481,6 +481,9 @@ delta_bmi_df %>%
   scale_color_manual(values = c("#FFFFFF", "#999999", "#000000"), limits = c("bDRV", "DTG", "overall")) +
   scale_fill_manual(values = c("#FFFFFF", "#999999", "#000000"), limits = c("bDRV", "DTG", "overall")) 
 
+
+gr0_bmi_bp
+
 ggsave(gr0_bmi_bp, filename = here::here("output", "figures", "GR0_BMI_Boxplots.svg"), device = "svg", 
        width = 20, height = 15, units = "cm")
 

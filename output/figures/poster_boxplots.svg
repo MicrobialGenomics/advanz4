@@ -144,8 +144,8 @@
 <text x='185.49' y='221.88' text-anchor='middle' style='font-size: 12.00px;fill: #4D4D4D; font-family: "Times New Roman";' textLength='12.01px' lengthAdjust='spacingAndGlyphs'>24</text>
 <text x='264.68' y='221.88' text-anchor='middle' style='font-size: 12.00px;fill: #4D4D4D; font-family: "Times New Roman";' textLength='12.01px' lengthAdjust='spacingAndGlyphs'>48</text>
 <text x='343.86' y='221.88' text-anchor='middle' style='font-size: 12.00px;fill: #4D4D4D; font-family: "Times New Roman";' textLength='12.01px' lengthAdjust='spacingAndGlyphs'>96</text>
-<text transform='translate(23.95,140.04) rotate(-90)' text-anchor='middle' style='font-size: 14.00px; font-weight: bold; font-family: "Times New Roman";' textLength='64.14px' lengthAdjust='spacingAndGlyphs'>gene count</text>
-<text x='58.80' y='62.56' style='font-size: 14.00px; font-weight: bold; font-style: italic; font-family: "Times New Roman";' textLength='78.94px' lengthAdjust='spacingAndGlyphs'>gene richness</text>
+<text transform='translate(16.32,140.04) rotate(-90)' text-anchor='middle' style='font-size: 14.00px; font-family: "Times New Roman";' textLength='61.02px' lengthAdjust='spacingAndGlyphs'>gene count</text>
+<text x='58.80' y='62.56' style='font-size: 14.00px; font-weight: bold; font-family: "Times New Roman";' textLength='79.70px' lengthAdjust='spacingAndGlyphs'>gene richness</text>
 </g>
 <defs>
   <clipPath id='cpMC4wMHwzOTYuODV8MjI5Ljk4fDQxMi4xNA=='>

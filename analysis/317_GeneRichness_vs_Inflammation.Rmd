@@ -144,6 +144,67 @@ metadata %>%
 
 No significant changes could be observed in any inflammation marker, except for CD4 counts, which is still a farily small change.
 
+
+## Clinical evolution of inflammation markers
+
+We'll perform here the basic exploratory analysis of the evolution in inflammation, so we have an idea of what to expect when correlating it to GR.
+
+```{r plot_inflammation, warning=F, message=FALSE}
+
+
+num_var <- num_var[!num_var == "ADV"] 
+
+plot_list <- 
+num_var %>% 
+  purrr::set_names() %>% 
+  purrr::map(function(nv){
+    
+    unit <- 
+      ifelse(nv %in% c("CD4_CD38_DR", "CD8_CD38_DR"), "Abundance",
+                metadata %>% 
+                  dplyr::pull(!!sym(paste("units", nv, sep ="_"))) %>% 
+               na.omit() %>% 
+               unique())
+      name <- nv %>% 
+        str_replace_all(., "\\_", "\\+ ") %>% 
+        str_replace(., "DR", "DR+")
+      
+    metadata %>% 
+      dplyr::select(SampleID, record_id, time_point, group, !!sym(nv)) %>% 
+      dplyr::mutate(group = "overall") %>% 
+      rbind(metadata[,c("SampleID", "record_id", "time_point", "group",nv) ]) %>% 
+      dplyr::filter(!is.na(!!sym(nv))) %>% 
+      dplyr::mutate(time_point = factor(time_point, levels = unique(time_point)),
+                    !!sym(nv) := as.numeric(!!sym(nv))) %>% 
+      get_comp_boxplots(., num_var = nv,long_var = "time_point",link_var = "record_id", cat_var = "group", include.pvals = "categorical") %>% 
+      purrr::pluck("plot") +
+      scale_color_manual(values = c("#AAAAAA", "#777777", "#000000")) +
+      scale_fill_manual(values = c("#AAAAAA", "#777777", "#000000")) +
+      # geom_jitter(aes(x = long_var, color = cat_var, shape = cat_var),position = position_jitterdodge(jitter.width = .1)) +
+      labs(color = "group",
+           shape = "group",
+           y = unit,
+           title = name) +
+      theme(axis.title.x = element_blank(),
+            axis.title.y = element_text(size = 10), 
+            axis.text = element_text(size = 10),
+            plot.title = element_text(size = 12))
+  })
+
+plot_grid <- 
+ggarrange(plotlist = plot_list, ncol = 2, nrow = 4, common.legend = T) %>% 
+  ggpubr::annotate_figure(bottom = text_grob("Week", size = 12, face = "bold"))
+
+
+ggsave(plot_grid, device = "svg", filename = here::here("output", "figures", "inflammation.svg"), height = 20, width = 15, units = "cm")
+
+
+
+
+```
+
+
+
 Gene richness correlations
 ==========================
 
@@ -277,6 +338,94 @@ num_var %>%
 ```
 
 Apparently, no correlation could be found between GR and inflammation markers at basal. Let's look for the longitudinal approach.
+
+
+## Inflammation increases vs baseline GR
+
+
+
+
+```{r gr0_deltas, warning = F, message=F}
+
+num_var <- num_var[!num_var == "ADV"]
+
+igc_df <- 
+  GR %>%
+  filter(ReadCountReal >= Threshold) %>% ### Get the Mapped Read count (per-sample) just above the threshold
+  group_by(SampleID) %>%
+  summarise(across(everything(), min)) %>%
+  ungroup() %>%
+  select(SampleID, GeneNumber) %>% 
+  left_join(metadata %>% 
+    dplyr::select(SampleID,
+      link_var = record_id, 
+           long_var = time_point, 
+           cat_var = group, 
+           num_var,
+           BMI), 
+    by = c("SampleID")) %>% 
+  # dplyr::select(-ADV) %>% 
+  dplyr::rename(richness = GeneNumber) %>% 
+  dplyr::group_by(link_var) %>% 
+  dplyr::filter(any(long_var == 0)) %>%
+  dplyr::mutate(sCD14 = as.numeric(sCD14)) 
+
+
+delta_df <- 
+  igc_df %>% 
+  dplyr::mutate(gr0 = richness[long_var == 0],
+                across( num_var, ~ 100*(.x - .x[long_var == 0])/.x[long_var == 0])) 
+
+
+
+
+
+pltcorlist <- 
+num_var[!num_var == "ADV"] %>% 
+  purrr::set_names() %>% 
+  purrr::map(function(nv){
+    # print(nv)
+    test <- delta_df %>% 
+      ungroup() %>% 
+      dplyr::filter(!long_var == 0) %>% 
+      # dplyr::group_by(cat_var) %>% 
+      rstatix::cor_test(vars = c("gr0", nv), method = "spearman")
+    
+    name <- nv %>% 
+      str_replace_all(., "\\_", "\\+ ") %>% 
+      str_replace_all(string = ., pattern = "DR", replacement="DR+")
+    
+    delta_df %>% 
+      dplyr::filter(!long_var == 0) %>% 
+      ggplot(aes(x = !!sym(nv), y = gr0)) +
+      geom_point(aes(color = cat_var)) +
+      stat_smooth(method = "glm", color = "black") +
+      labs(x = "increase (%)", 
+           y = "Gene richness at baseline",
+           title = name,
+           subtitle = paste("rho =", test$cor, "p =", test$p, sep = " "),
+           color = "group") +
+      theme_minimal() + 
+      theme(axis.title.x = element_blank(),
+            axis.title.y = element_blank(),
+            plot.title = element_text(size = 12),
+            legend.key.size = unit(1,"cm"),
+            legend.text = element_text(size = 12),
+            legend.title = element_text(size = 14)
+            ) +
+      scale_color_manual(values = c("#999999", "#000000"))
+  })
+
+plt_cor_grid <- 
+ggarrange(plotlist = pltcorlist, common.legend = T, ncol = 2, nrow = 4) %>% 
+  ggpubr::annotate_figure(left = text_grob(label = "Gene richness at baseline", size = 14, face = "bold", rot = 90),
+                          bottom = text_grob(label = "Increase from baseline (%)", size = 14, face = "bold"))
+
+ggsave(plt_cor_grid, device = "svg", filename = here::here("output", "figures", "inf_gr_corr.svg"), width = 18, height = 25, units = "cm")
+
+```
+
+
 
 ```{r corrr_deltas, warning=F, message=FALSE}
 
@@ -653,3 +802,6 @@ spaghetti_plot_list
 num_var <- num_var[!num_var == "ADV"]
 
 ```
+
+
+

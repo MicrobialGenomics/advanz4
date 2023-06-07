@@ -13,6 +13,7 @@ library(tidyverse)
 library(RColorBrewer)
 library(metar)
 library(patchwork)
+source(here::here("code","group_comparisons.R"))
 
 ```
 
@@ -139,6 +140,7 @@ basal_mre <- metar:::filter_samples(mre = mymre, sample_ids =  basal_meta$Sample
 
 
 ## Alpha diversity
+We'll assess first the correlation between inflammation at baseline and the BL microbiome.
 
 ```{r baseline_richness, warning = F, message = F}
 
@@ -163,27 +165,9 @@ richness_df <-
   select(id_var = !!sym(id_var),
          long_var = !!sym(long_var),
          cat_vector,
-         GeneNumber) %>%
+         GeneNumber,) %>%
   filter(long_var == 0) 
 
-# cat_vector %>% 
-#   set_names() %>% 
-#   map(function(cat_var){
-#     richness_df %>%
-#       dplyr::select(id_var,
-#                     cat_var = !!sym(cat_var),
-#                     GeneNumber) %>%
-#             filter(!is.na(cat_var)) %>%
-#       ggplot(., aes(x=cat_var, y=GeneNumber, fill = cat_var))+
-#       geom_violin(draw_quantiles = T) +
-#       geom_boxplot(fill="lightgrey", width=0.5, na.rm=T) +
-#       geom_point() +
-#       scale_fill_brewer(palette="Set1") +
-#       ggpubr::stat_compare_means(method="wilcox",label = "p.signif", hide.ns = T) +
-#       theme_bw() + 
-#       labs(fill = cat_var)
-#     
-#   })
 
   
 plotlist <- cat_vector %>% 
@@ -214,6 +198,8 @@ ggpubr::ggarrange(plotlist = ., ncol = 1, nrow = 3)
 ```
 
 No differences in basal Gene richness were found between patients with an increase of CD4 higher than 50 counts/ul and whose with lower increase. The same could be observed in CD8 counts.
+
+We'll start looking at the deltas, as the BL microbiome might influence how much inflammation changes.
 
 
 ```{r Immune_delta_Distributions, warning=F, message=F}
@@ -334,63 +320,11 @@ Adding the different kind of missing data checks out with the summaries. The big
 
 delta CD4 threshold was too low. To keep the study clinically interpretable We'll do a cutoff as a round number around the mean. In this case <150/>150 according to the mITT design results of the parent study.
 
-Basal gene richness vs delta CD4_48 as continuous variables
+Basal gene richness vs delta CD4_48 as continuous variables.
+
+Anyhow, let's plot the inflammation changes by gene richness:
 
 # Microbiome structure at basal
-
-```{r basal_nmds, warning=F, message= F}
-# mymre@gene_function@phylolisft <- metar::GeneFunSet()
-# filter_samples(mre = mymre, sample_ids = basal_meta)
-
-basal_mre <- metar::metaphlan_nmds(basal_mre, tax_level="Species")
-
-
-
-```
-
-```{r numeric_nmds_cors, message=F, warning=F}
-nmdscor <- basal_mre@taxa@metaphlan@nmds$Species$top_50$numeric 
-
-nmdscor
-
-```
-
-
-```{r basal_NMDS,eval=t ,warning=FALSE, message=FALSE}
-
-
-group <- basal_mre@taxa@metaphlan@nmds$Species$top_50$categorical$group & 
-    scale_color_brewer(palette="Set1") &
-    scale_fill_brewer(palette = "Set1") 
-  
-
-
-
-cluster <- basal_mre@taxa@metaphlan@nmds$Species$top_50$categorical$cluster
-
-
-ggpubr::ggarrange(group,cluster, labels = c("group", "cluster"))
-
-```
-
-
-NMDS shows no basal significant differences per group for either com,ponent. An unsupervised clustering created 2 well differentiated groups. While ADONIS per cluster was significant, we'll look whether the numerical variables have something to do with them.
-
-```{r adonis_table, echo=F, warning=F, message = F}
-kableExtra::kable(basal_mre@taxa@metaphlan@nmds$Species$top_50$all_adonis, format = "markdown")
-```
-
-
-
-# NMDS correlation with numerical variables
-```{r NMDS_numeric_correlations, warning= F, message= F}
-basal_mre@taxa@metaphlan@nmds$Species$top_50$cluster_numeric %>% 
-  ggpubr::ggarrange(plotlist=.)
-
-
-
-
-```
 
 
 
