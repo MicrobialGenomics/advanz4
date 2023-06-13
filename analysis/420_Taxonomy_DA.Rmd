@@ -38,7 +38,13 @@ metadata <-
   magrittr::extract(1L) %>% 
   read.csv() %>% 
   column_to_rownames("SampleID") %>% 
-  mutate(SampleID = rownames(.))
+  mutate(SampleID = rownames(.)) %>% 
+  dplyr::mutate(group_bmi = factor(
+    case_when(BMI < 18.5 ~ "underweight",
+                                BMI >= 18.5 & BMI <=25 ~ "healthy_weight",
+                                BMI > 25 ~ "overweight"),
+    levels = c("underweight", "healthy_weight", "overweight")
+    )) 
 
 
 
@@ -134,6 +140,7 @@ otu_df <-
   stats::setNames(.,stringr::str_remove_all(colnames(.), "\\[")) %>% 
   stats::setNames(.,stringr::str_remove_all(colnames(.), "\\]"))
 
+cat_vector <- c("group", "group_bmi")
 
 stat_list <-
   cat_vector %>%
@@ -182,6 +189,9 @@ DAsp <- stat_list$group %>%
   filter(p<0.05) %>% 
   group_by(species)
 
+
+stat_list$group_bmi %>% 
+  dplyr::filter(p<0.05)
 
 ## --- init MNJ
 ## It is interesting that Bifidobacterium species (adolescentis, longum) are consistently found as DA in all (most) timepoints
