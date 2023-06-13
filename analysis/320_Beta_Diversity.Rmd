@@ -411,7 +411,7 @@ The formula for the euclidean distance is the following: $$\sqrt{(x_c - x_s)² +
 
 centroids <- 
   myNMDS_DF %>% 
-  dplyr::rename(cat_var = group) %>% 
+  # dplyr::rename(cat_var = group) %>% 
   dplyr::mutate(long_cat = paste(cat_var, long_var, sep = "_")) %>% 
   envfit(myNMDS ~ cat_var * long_cat, ., perm = 999) %>% 
   purrr::pluck("factors","centroids") %>% 
